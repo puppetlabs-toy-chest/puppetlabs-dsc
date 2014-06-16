@@ -1,0 +1,9 @@
+import
+spec/fixtures
+.librarian
+.tmp
+Gemfile.lock
+*.lock
+.rbenv-gemsets
+.ruby-version
+lib/puppet/type

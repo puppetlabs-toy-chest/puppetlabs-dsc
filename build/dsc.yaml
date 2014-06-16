@@ -1,0 +1,2 @@
+import_json_file: 'import/json/dsc_resources.json'
+import_modules_folder: 'import/modules'

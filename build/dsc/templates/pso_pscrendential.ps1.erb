@@ -1,0 +1,2 @@
+$secpasswd = ConvertTo-SecureString "<% property.password %>" -AsPlainText -Force
+$mycreds = New-Object System.Management.Automation.PSCredential ("<% property.username %>", $secpasswd)

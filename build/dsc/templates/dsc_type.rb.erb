@@ -1,0 +1,84 @@
+require 'pathname'
+helper_path = Pathname.new(__FILE__).dirname.parent.parent
+
+# provider specific
+$:.unshift(helper_path)
+require 'utils/dsc_provider_helpers'
+require 'puppet/provider'
+require 'erb'
+
+Puppet::Type.newtype(:dsc_<%= resource.name.downcase %>) do
+
+  provide :dsc_resource do
+    include ::Utils::DscProviderHelpers
+  end
+
+  newparam(:dsc_name) do
+    defaultto "<%= resource.name %>"
+  end
+
+  newparam(:dsc_name_property) do
+    defaultto :<%= resource.has_name? %>
+  end
+  <%  if resource.module %>  
+  newparam(:dsc_module_name) do
+    defaultto "<%= resource.module %>"
+  end
+  <%  end -%>
+  
+  ensurable do
+    defaultvalues
+    defaultto :present
+  end
+
+  <%  if !resource.has_name? -%>
+
+  newparam(:name, :namevar => true ) do
+  end
+  <%  end -%>
+  <%  resource.filtered_properties.each do |property| -%>
+
+  # Name:         <%= property.name %>
+  # PropertyType: <%= property.type %>
+  # IsMandatory:  <%= property.required? %>
+  # Values:       <%= property.values %>
+  newparam(:<%= property.name.downcase %>) do
+  <%      if property.is_name? -%>
+
+    isnamevar
+  <%      end -%>
+  <%      if property.required? -%>
+
+    isrequired
+  <%      end -%>
+  <%      if property.values && property.values.any? -%>
+
+    newvalues(<%= property.values.collect{|v| "\"#{v.downcase}\", \"#{v}\"" }.join(", ")%>)
+  <%      end -%>
+  <%      if property.bool? -%>
+
+    newvalues("True", "False", "true", "false" ,:true, :false)
+
+  <%      end -%>
+  <%      if property.string? && property.values && !property.values.any? -%>
+
+    munge do |value|
+      value.downcase
+    end
+  <%      end -%>
+  <%      if property.uint? -%>
+
+    newvalues(/^\d+$/)
+  
+  <%      end -%>
+  <%      if property.int? -%>
+
+    newvalues(/^(\+|\-)\d+$/)
+  
+  <%      end -%>
+  
+  end
+  <%  end -%>
+
+end
+
