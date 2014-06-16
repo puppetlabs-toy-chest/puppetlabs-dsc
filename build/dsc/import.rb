@@ -1,6 +1,3 @@
-require 'open-uri'
-require 'zip'
-
 module Dsc
   class Import
 

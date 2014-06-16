@@ -3,8 +3,8 @@ module Dsc
     
     attr_reader :property_hash
 
-    def initialize(property_hash)
-      @property_hash = property_hash
+    def initialize(cim_feature)
+      @cim_feature = cim_feature
       @name          = nil
       @type          = nil
       @required      = nil
@@ -12,23 +12,19 @@ module Dsc
     end
 
     def name
-      @name ||= @property_hash['Name']
+      @name ||= @cim_feature.name
     end
 
     def type
-      @type ||= @property_hash['PropertyType']
-    end
-
-    def clean_type
-      type.downcase.gsub(/[\[\]]/, "")
+      @type ||= @cim_feature.type.to_s
     end
 
     def required?
-      @required ||= @property_hash['IsMandatory']
+      @required ||= @cim_feature.qualifiers.detect{|q| q.name.downcase == "key" }
     end
     
     def values
-      @values ||= @property_hash['Values']
+      @values ||= @cim_feature.values
     end
 
     def is_ensure?
@@ -43,24 +39,20 @@ module Dsc
       name.downcase == 'name' ? true : false
     end
 
-    def array?
-      type =~/.*\[\]\]/
-    end
-
     def bool?
-      ["bool","boolean"].include?(clean_type)
+      ["bool","boolean"].include?(type)
     end
 
     def uint?
-      ["uint32","uint16","uint64"].include?(clean_type)
+      ["uint32","uint16","uint64"].include?(type)
     end
     
     def int?
-      ["int32","int16","int64"].include?(clean_type)
+      ["int32","int16","int64"].include?(type)
     end
 
     def string?
-      ["string"].include?(clean_type)
+      ["string"].include?(type)
     end
 
   end

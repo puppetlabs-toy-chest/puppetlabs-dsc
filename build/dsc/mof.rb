@@ -1,6 +1,3 @@
-require 'mof'
-require 'find'
-
 module Dsc
   class Mof
 
@@ -27,17 +24,23 @@ module Dsc
       @dsc_mof_file_pathes ||= find_mofs(@dsc_modules_folder)
     end
 
-    def dsc_classes
-      result.select{|k,v| dsc_mof_file_pathes.include?(k)}.collect{|k,v| v.classes.first}
+    def dsc_results
+      all_result.select{|k,v| dsc_mof_file_pathes.include?(k)}
     end
 
-    def result
+    def all_result
       create_index_mof(@dsc_modules_mof, dsc_mof_file_pathes)
+
+      # convert files to unix format
+      dsc_mof_file_pathes.each do |file|
+        %x{dos2unix #{file}}
+      end
 
       # find all mof files in base_qualifiers_folder
       base_mof_file_pathes = find_mofs(@base_qualifiers_folder)
       # generate base mof import file
       create_index_mof(@dsc_base_mof, base_mof_file_pathes)
+
 
       moffiles, options = MOF::Parser.argv_handler "moflint", ARGV
       options[:style] ||= :cim;

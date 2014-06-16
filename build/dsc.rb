@@ -3,7 +3,11 @@ require 'yaml'
 require 'fileutils'
 require 'pathname'
 require 'erb'
-
+require 'open-uri'
+require 'zip'
+require 'mof'
+require 'cim'
+require 'find'
 require 'logger'
 require 'pry'
 
@@ -21,7 +25,6 @@ module Dsc
   begin
     Config = YAML::load_file("#{LIB_PATH}/dsc.yaml")
   rescue
-    binding.pry
     puts "Configuration file not found."
     exit 1
   end  
