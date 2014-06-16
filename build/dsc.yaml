@@ -1,2 +1,11 @@
-import_json_file: 'import/json/dsc_resources.json'
-import_modules_folder: 'import/modules'
+---
+#base
+base_qualifiers_folder: 'build/qualifiers'
+
+# import
+dsc_modules_folder: 'import/dsc_modules'
+download_folder: 'import/download'
+dmtf_qualifiers_folder: 'import/qualifiers/dmtf'
+qualifiers_folder: 'import/qualifiers'
+dmtf_cim_schema_version: '2.26.0'
+
