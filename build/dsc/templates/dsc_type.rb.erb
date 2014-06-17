@@ -13,10 +13,11 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     include ::Utils::DscProviderHelpers
   end
 
-  newparam(:name) do
+  newparam(:dsc_fullname) do
+    defaultto "<%= resource.name %>"
   end
 
-  newparam(:dsc_friendlyname) do
+  newparam(:dsc_resource_name) do
     defaultto "<%= resource.friendlyname %>"
   end
 
@@ -28,17 +29,16 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     defaultto "<%= resource.dsc_module %>"
   end
   <%  end -%>
+
+  newparam(:name, :namevar => true ) do
+  end
   
   ensurable do
     defaultvalues
     defaultto :present
   end
 
-  <%  if !resource.has_name? -%>
 
-  newparam(:name, :namevar => true ) do
-  end
-  <%  end -%>
   <%  resource.properties.each do |property| -%>
 
   # Name:         <%= property.name %>

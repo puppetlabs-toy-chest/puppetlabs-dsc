@@ -3,10 +3,9 @@ module Dsc
 
     attr_accessor :resource_cim_class
 
-    def initialize(resource_mof)
-      @resource_mof        = resource_mof
-      @resource_mof_path   = resource_mof.first
-      @resource_cim_class  = resource_mof.last.classes.first
+    def initialize(mof_class, mof_path)
+      @resource_mof_path   = mof_path
+      @resource_cim_class  = mof_class
       @name                = nil
       @friendlyname                = nil
       @properties          = nil

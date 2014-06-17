@@ -10,10 +10,10 @@ configuration PuppetConfiguration
     <% end %>
     node "localhost"
     {
-        <%= resource[:dsc_name] %> "<%= resource.title %>"
+        <%= resource[:dsc_resource_name] %> "<%= resource.title %>"
         {
            <% dsc_set_parameters.each do |p| -%>
-           <%= p.first %> = "<%= p.last %>"
+           <%= p.first.to_s.gsub(/^dsc_/,'') %> = "<%= p.last %>"
            <% end -%>
 
         }  

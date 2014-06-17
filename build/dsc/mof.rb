@@ -33,7 +33,7 @@ module Dsc
 
       # convert files to unix format
       dsc_mof_file_pathes.each do |file|
-        %x{dos2unix #{file}}
+        %x{dos2unix #{file} > /dev/null 2>&1}
       end
 
       # find all mof files in base_qualifiers_folder
@@ -41,8 +41,7 @@ module Dsc
       # generate base mof import file
       create_index_mof(@dsc_base_mof, base_mof_file_pathes)
 
-
-      moffiles, options = MOF::Parser.argv_handler "moflint", ARGV
+      moffiles, options = MOF::Parser.argv_handler "moflint", []
       options[:style] ||= :cim;
       options[:includes] ||= []
 
@@ -51,11 +50,10 @@ module Dsc
       moffiles.unshift @dmtf_cim_mof unless moffiles.include? @dmtf_cim_mof
       moffiles.unshift @dmtf_qualifiers_optional_mof unless moffiles.include? @dmtf_qualifiers_optional_mof
       moffiles.unshift @dmtf_qualifiers_mof unless moffiles.include? @dmtf_qualifiers_mof
-
       parser = MOF::Parser.new options
 
       begin
-        result = parser.parse moffiles
+        result = parser.parse(moffiles)
       rescue Exception => e
         parser.error_handler e
         exit 1

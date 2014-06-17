@@ -49,8 +49,16 @@ module Dsc
 
     def resources
       #@resources ||= resources_hash.collect { |rsh| Dsc::Resource.new(rsh) }.sort_by { |r| r.name.downcase }
-      @resources ||= dsc_results.collect { |dsc_mof| Dsc::Resource.new(dsc_mof) }
-
+      unless @resources
+        res = []
+        dsc_results.each do |mof_path, mof_res|
+          mof_res.classes.each do |mof_class|
+            res << Dsc::Resource.new(mof_class, mof_path)
+          end
+        end
+        @resources = res  
+      end
+      @resources
     end
 
     # Type's

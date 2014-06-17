@@ -5,13 +5,15 @@ Remove-Item $LCMConfigFolder\*.mof | out-null
 
 configuration PuppetConfiguration
 {
+    <% if resource[:dsc_module_name] %>
     Import-DscResource -ModuleName <%= resource[:dsc_module_name] %>
+    <% end %>
     node "localhost"
     {
-        <%= resource[:dsc_name] %> "<%= resource.title %>"
+        <%= resource[:dsc_resource_name] %> "<%= resource.title %>"
         {
            <% dsc_test_parameters.each do |p| -%>
-           <%= p.first %> = "<%= p.last %>"
+           <%= p.first.to_s.gsub(/^dsc_/,'') %> = "<%= p.last %>"
            <% end -%>
 
         }  

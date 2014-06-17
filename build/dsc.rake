@@ -1,44 +1,65 @@
-import 'build/dsc.rb'
-
-mof_item_name = 'DMTF CIM MOF Schema files'
 
 namespace :dsc do
 
-  namespace :dtmf do
+  namespace :dmtf_schema do
+    
+    item_name = 'DMTF CIM MOF Schema files'
 
-    desc "Import #{mof_item_name}"
+    desc "Import #{item_name}"
     task :import do
-      puts "Downloading and Importing #{mof_item_name}"
+      puts "Downloading and Importing #{item_name}"
       m = Dsc::Manager.new
       m.import_dmtf_mofs
-      puts "Done"
     end
 
-    desc "Cleanup #{mof_item_name}"
+    desc "Cleanup #{item_name}"
     task :clean do
-      puts "Cleaning #{mof_item_name}"
+      puts "Cleaning #{item_name}"
       m = Dsc::Manager.new
       m.clean_dmtf_mofs
-      puts "Done"
     end
+
   end
 
-  namespace :type do
+  namespace :modules do
 
-    desc "Cleanup all DSC types (lib/puppet/type) form the imported PS DSC Modules"
-    task :clean do
-      puts "Cleaning all types"
-      m = Dsc::Manager.new
-      types = m.clean_dsc_types
-      types.each{|t| puts "#{t}"}
-      puts "Done"
+    item_name = 'DSC Powershell modules files'
+
+    desc "Import #{item_name}"
+    task :import do
+      puts "Downloading and Importing #{item_name}"
+      # m = Dsc::Manager.new
+      # m.import_dsc_modules
     end
 
-    desc "Build all DSC types"
-    task :build do
-      m = Dsc::Manager.new
-      types = m.build_dsc_types
+    desc "Cleanup #{item_name}"
+    task :clean do
+      puts "Cleaning #{item_name}"
+      # m = Dsc::Manager.new
+      # m.clean_dsc_modules
     end
   
   end
+  
+  namespace :types do
+
+    item_name = 'DSC types in (lib/puppet/type)'
+
+    desc "Cleanup #{item_name}"
+    task :clean do
+      puts "Cleaning #{item_name}"
+      m = Dsc::Manager.new
+      msgs = m.clean_dsc_types
+      msgs.each{|m| puts "#{m}"}
+    end
+
+    desc "Build #{item_name}"
+    task :build do
+      m = Dsc::Manager.new
+      msgs = m.build_dsc_types
+      msgs.each{|m| puts "#{m}"}
+    end
+  
+  end
+
 end

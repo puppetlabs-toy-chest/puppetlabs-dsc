@@ -36,11 +36,7 @@ module Utils
 
     def dsc_set_parameters
       dsp = resource.original_parameters.clone
-      if resource[:dsc_name_property].to_s.to_bool
-        dsp[:name] = resource[:name]
-      else
-        dsp.delete(:name)
-      end
+      dsp.delete(:name)
       dsp.delete(:before)
       dsp.delete(:require)
       dsp.delete(:subscribe)

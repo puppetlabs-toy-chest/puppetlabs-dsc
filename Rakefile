@@ -1,7 +1,9 @@
 require 'bundler'
+
 Bundler.require(:rake)
 
 Dir.glob('build/*.rake').each { |r| import r }
+Dir.glob('build/*.rb').each { |r| import r }
 
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet-lint/tasks/puppet-lint'
