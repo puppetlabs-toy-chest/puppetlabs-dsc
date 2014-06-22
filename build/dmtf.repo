@@ -1,0 +1,3 @@
+# DMTF CIM SCHEMA MOF files
+repo "dmtf_mof",
+	:archive => "http://dmtf.org/sites/default/files/cim/cim_schema_v2260/cim_schema_2.26.0Final-MOFs.zip"

@@ -1,0 +1,12 @@
+# Microsoft Resource Kit Wave 4
+repo "dsc_resource_base",
+	:git => "https://github.com/msutter/PSDesiredStateConfiguration.git"
+
+# Microsoft Resource Kit Wave 4
+repo "dsc_resource_base_missing",
+	:git => "https://github.com/msutter/PSDesiredStateConfigurationMissingMofs.git"
+
+
+# Microsoft Resource Kit Wave 4
+repo "dsc_resource_kit_4",
+	:archive => "http://gallery.technet.microsoft.com/scriptcenter/DSC-Resource-Kit-All-c449312d/file/116327/1/DSC%20Resource%20Kit%20Wave%204%2006052014.zip"

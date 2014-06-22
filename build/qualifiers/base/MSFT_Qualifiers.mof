@@ -1,11 +1,12 @@
-Qualifier Stream : boolean = false, 
-    Scope( method, parameter), 
+Qualifier Stream : boolean = false,
+    Scope( method, parameter),
     Flavor(DisableOverride, ToSubclass);
 
-Qualifier ClassVersion : string = null, 
-    Scope(class, association, indication), 
+Qualifier ClassVersion : string = null,
+    Scope(class, association, indication),
     Flavor(EnableOverride, Restricted);
 
-Qualifier FriendlyName : string = null, 
-    Scope(class, association, indication), 
+Qualifier FriendlyName : string = null,
+    Scope(class, association, indication),
     Flavor(EnableOverride, Restricted);
+

@@ -24,7 +24,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   newparam(:dsc_name_property) do
     defaultto :<%= resource.has_name? %>
   end
-  <%  if resource.dsc_module %>  
+  <%  if resource.dsc_module %>
   newparam(:dsc_module_name) do
     defaultto "<%= resource.dsc_module %>"
   end
@@ -32,7 +32,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 
   newparam(:name, :namevar => true ) do
   end
-  
+
   ensurable do
     defaultvalues
     defaultto :present
@@ -67,14 +67,14 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   <%      if property.uint? -%>
 
     newvalues(/^\d+$/)
-  
+
   <%      end -%>
   <%      if property.int? -%>
 
     newvalues(/^(\+|\-)\d+$/)
-  
+
   <%      end -%>
-  
+
   end
   <%  end -%>
 

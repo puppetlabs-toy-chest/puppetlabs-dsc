@@ -2,30 +2,23 @@ module Dsc
   class Manager
 
     def initialize
-      @dsc_lib_path               = Pathname.new(__FILE__).dirname
-      @tools_path                 = @dsc_lib_path.parent
-      @module_path                = @tools_path.parent
+      @dsc_lib_path           = Pathname.new(__FILE__).dirname
+      @tools_path             = @dsc_lib_path.parent
+      @module_path            = @tools_path.parent
 
-      @base_qualifiers_folder     = "#{@module_path}/dsc/qualifiers/base"
+      @base_qualifiers_folder = "#{@module_path}/build/qualifiers/base"
 
-      @qualifiers_folder          = "#{@module_path}/#{Dsc::Config['qualifiers_folder']}"
-      @dsc_modules_folder         = "#{@module_path}/#{Dsc::Config['dsc_modules_folder']}"
-      @download_folder            = "#{@module_path}/#{Dsc::Config['download_folder']}"
-      @dmtf_qualifiers_folder     = "#{@module_path}/#{Dsc::Config['dmtf_qualifiers_folder']}"
-      @base_qualifiers_folder     = "#{@module_path}/#{Dsc::Config['base_qualifiers_folder']}"
-      @dmtf_cim_schema_version    = Dsc::Config['dmtf_cim_schema_version']
+      @import_folder          = "#{@module_path}/#{Dsc::Config['import_folder']}"
+      @dsc_modules_folder     = "#{@import_folder}/#{Dsc::Config['dsc_modules_folder']}"
+      @dmtf_mof_folder        = "#{@import_folder}/#{Dsc::Config['dmtf_mof_folder']}"
 
-      @dmtf_cim_mof_zip_file_name = "cim_schema_#{@dmtf_cim_schema_version}Final-MOFs.zip"
-      @dmtf_cim_mof_zip_url       = "http://dmtf.org/sites/default/files/cim/cim_schema_v#{@dmtf_cim_schema_version.gsub('.','') }/#{@dmtf_cim_mof_zip_file_name}"
-      @dmtf_cim_mof_zip_path      = "#{@download_folder}/#{@dmtf_cim_mof_zip_file_name}"
-
-      @type_template_file         = "#{@dsc_lib_path}/templates/dsc_type.rb.erb"
-      @provider_template_file     = "#{@dsc_lib_path}/templates/dsc_provider.rb.erb"
-      @puppet_type_path           = "#{@module_path}/lib/puppet/type"
-      @puppet_provider_path       = "#{@module_path}/lib/puppet/provider"
-      @json_content               = nil
-      @resources_hash             = nil
-      @resources                  = nil
+      @type_template_file     = "#{@dsc_lib_path}/templates/dsc_type.rb.erb"
+      @provider_template_file = "#{@dsc_lib_path}/templates/dsc_provider.rb.erb"
+      @puppet_type_path       = "#{@module_path}/lib/puppet/type"
+      @puppet_provider_path   = "#{@module_path}/lib/puppet/provider"
+      @json_content           = nil
+      @resources_hash         = nil
+      @resources              = nil
     end
 
     # def json_content
@@ -38,11 +31,10 @@ module Dsc
 
     def dsc_results
       mof = Dsc::Mof.new(
-        :qualifiers_folder       => @qualifiers_folder,
-        :dmtf_qualifiers_folder  => @dmtf_qualifiers_folder,
-        :base_qualifiers_folder  => @base_qualifiers_folder,
-        :dsc_modules_folder      => @dsc_modules_folder,
-        :dmtf_cim_schema_version => @dmtf_cim_schema_version
+        :import_folder          => @import_folder,
+        :dmtf_mof_folder        => @dmtf_mof_folder,
+        :base_qualifiers_folder => @base_qualifiers_folder,
+        :dsc_modules_folder     => @dsc_modules_folder,
       )
       mof.dsc_results
     end
@@ -56,7 +48,7 @@ module Dsc
             res << Dsc::Resource.new(mof_class, mof_path)
           end
         end
-        @resources = res  
+        @resources = res
       end
       @resources
     end
@@ -88,11 +80,11 @@ module Dsc
     # Mof's
     def import_dmtf_mofs
       Dsc::Import.download(@dmtf_cim_mof_zip_url, @dmtf_cim_mof_zip_path)
-      Dsc::Import.unzip(@dmtf_cim_mof_zip_path, @dmtf_qualifiers_folder)
+      Dsc::Import.unzip(@dmtf_cim_mof_zip_path, @dmtf_mof_folder)
     end
 
     def clean_dmtf_mofs
-      clean_folder([@dmtf_qualifiers_folder])
+      clean_folder([@dmtf_mof_folder])
     end
 
     private

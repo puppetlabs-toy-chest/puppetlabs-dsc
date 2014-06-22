@@ -14,8 +14,8 @@ module Dsc
     end
 
     def friendlyname
-      @friendlyname ||= @resource_cim_class.qualifiers['Friendlyname'].value if @resource_cim_class.qualifiers['Friendlyname'] 
-      
+      @friendlyname ||= @resource_cim_class.qualifiers['Friendlyname'].value if @resource_cim_class.qualifiers['Friendlyname']
+
     end
 
     def name
