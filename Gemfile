@@ -6,7 +6,6 @@ else
   puppetversion = ['>= 3.3.1']
 end
 
-
 gem 'puppet', puppetversion
 gem 'puppet-lint', '>=0.3.2'
 gem 'puppetlabs_spec_helper', '>=0.2.0'
@@ -19,7 +18,6 @@ end
 
 group :build do
   gem 'librarian-repo', :github => 'msutter/librarian-repo'
-#	gem 'rubyzip'
 	gem 'cim'
 	gem 'mof'
 end
