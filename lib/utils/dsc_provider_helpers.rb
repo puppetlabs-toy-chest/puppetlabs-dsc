@@ -3,7 +3,7 @@ module Utils
 
     def self.included(parent)
       parent.extend(DscProviderHelpers)
-      
+
       parent.desc <<-EOT
       Applies DSC Resources.
         EOT

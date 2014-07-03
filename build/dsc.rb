@@ -8,8 +8,6 @@ require 'mof'
 require 'cim'
 require 'find'
 require 'logger'
-require 'pry'
-
 
 LIB_PATH = File.dirname(__FILE__)
 
