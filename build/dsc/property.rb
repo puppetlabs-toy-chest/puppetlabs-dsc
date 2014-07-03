@@ -44,15 +44,31 @@ module Dsc
     end
 
     def uint?
-      ["uint32","uint16","uint64"].include?(type)
+      ["uint16","uint32","uint64"].include?(type)
+    end
+
+    def uint_array?
+      ["uint16[]","uint32[]","uint64[]"].include?(type)
     end
 
     def int?
-      ["int32","int16","int64"].include?(type)
+      ["int16","int32","int64"].include?(type)
+    end
+
+    def int_array?
+      ["int16[]","int32[]","int64[]"].include?(type)
     end
 
     def string?
       ["string"].include?(type)
+    end
+
+    def string_array?
+      ["string[]"].include?(type)
+    end
+
+    def array?
+      string_array? or int_array? or uint_array?
     end
 
   end

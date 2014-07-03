@@ -40,17 +40,26 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   newparam(:name, :namevar => true ) do
   end
 
+<%  if resource.ensurable? -%>
   ensurable do
     defaultvalues
     defaultto :present
   end
 
-<%  resource.properties.each do |property| -%>
+  newparam(:dsc_ensure) do
+    validate do |value|
+      fail("Please use 'ensure => present' or 'ensure => absent' insteed of 'dsc_ensure'")
+    end
+  end
+
+<%  end -%>
+
+<%  resource.properties.select{|p| !p.is_ensure? }.each do |property| -%>
   # Name:         <%= property.name %>
   # Type:         <%= property.type %>
   # IsMandatory:  <%= property.required? ? 'True' : 'False' %>
   # Values:       <%= property.values ? property.values : 'None' %>
-  newparam(:dsc_<%= property.name.downcase %>) do
+  newparam(:dsc_<%= property.name.downcase %><% if property.array? %>, :array_matching => :all<% end %>) do
 <%    if property.required? -%>
     isrequired
 <%    end -%>

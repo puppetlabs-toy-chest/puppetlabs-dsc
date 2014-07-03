@@ -9,6 +9,7 @@ module Dsc
       @name                = nil
       @friendlyname        = nil
       @properties          = nil
+      @valuated_properties = nil
       @required_properties = nil
       @filtered_properties = nil
       @module              = nil
@@ -22,11 +23,22 @@ module Dsc
       @ame ||= @resource_cim_class.name
     end
 
+    def instance_name
+      "Dsc_#{self.friendlyname.downcase}"
+    end
+
     def properties
       unless @properties
         @properties ||= @resource_cim_class.features.collect{|cim_feature| Dsc::Property.new(cim_feature) }
       end
       @properties
+    end
+
+    def valuated_properties
+      unless @valuated_properties
+        @valuated_properties ||= properties.select{|rp| rp.values }
+      end
+      @valuated_properties
     end
 
     def required_properties

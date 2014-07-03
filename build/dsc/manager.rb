@@ -23,7 +23,20 @@ module Dsc
       @resources               = nil
 
       @spec_test_values        = {
-        'string' => 'foo'
+        'string'   => 'foo',
+        'string[]' => ['foo','bar','spec'],
+        'int16'    => '16',
+        'int16[]'  => ['16','32','64'],
+        'int32'    => '32',
+        'int32[]'  => ['32','64','128'],
+        'int64'    => '64',
+        'int64[]'  => ['64','128','256'],
+        'uint16'   => '16',
+        'uint16[]' => ['16','32','64'],
+        'uint32'   => '32',
+        'uint32[]' => ['32','64','128'],
+        'uint64'   => '64',
+        'uint64[]' => ['64','128','256'],
       }
 
     end
@@ -62,6 +75,7 @@ module Dsc
 
     # Type's
     def build_dsc_types
+      #binding.pry
       type_pathes = []
       resources.each do |resource|
         type_template = File.open(@type_template_file, 'r').read

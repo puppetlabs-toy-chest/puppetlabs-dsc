@@ -35,11 +35,30 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
     )}.to raise_error(Puppet::Error, /dsc_<%= required_property.name.downcase %> is a required attribute/)
   end
 <%  end -%>
+<%  resource.valuated_properties.select{|p| !p.is_ensure? }.each do |valuated_property| -%>
+<%    valuated_property.values.each do |value| -%>
 
-  # it 'should default to ensure => present' do
-  #   expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq :present
-  # end
+  it 'should accept predefined value <%= value %>' do
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= valuated_property.name.downcase %>] = '<%= value %>'
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= valuated_property.name.downcase %>]).to eq(:'<%= value %>')
+  end
+<%    end -%>
 
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= valuated_property.name.downcase %>] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+<%  end -%>
+<%  if resource.ensurable? -%>
+  it 'should default to ensure => present' do
+    expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq :present
+  end
+
+  it 'should not accept dsc_ensure and notify about using ensure insteed' do
+    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'present'}.to raise_error(Puppet::ResourceError, /Please use 'ensure => present' or 'ensure => absent' insteed of 'dsc_ensure'/)
+  end
+
+<%  end -%>
   # it 'should accept dsc_name' do
   #   dsc_<%= resource.friendlyname.downcase %>[:dsc_name] = 'my_string'
   #   expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_name]).to eq('my_string')

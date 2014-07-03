@@ -30,9 +30,42 @@ describe Puppet::Type.type(:dsc_archive) do
     )}.to raise_error(Puppet::Error, /dsc_destination is a required attribute/)
   end
 
-  # it 'should default to ensure => present' do
-  #   expect(dsc_archive[:ensure]).to eq :present
-  # end
+  it 'should accept predefined value SHA-1' do
+    dsc_archive[:dsc_checksum] = 'SHA-1'
+    expect(dsc_archive[:dsc_checksum]).to eq(:'SHA-1')
+  end
+
+  it 'should accept predefined value SHA-256' do
+    dsc_archive[:dsc_checksum] = 'SHA-256'
+    expect(dsc_archive[:dsc_checksum]).to eq(:'SHA-256')
+  end
+
+  it 'should accept predefined value SHA-512' do
+    dsc_archive[:dsc_checksum] = 'SHA-512'
+    expect(dsc_archive[:dsc_checksum]).to eq(:'SHA-512')
+  end
+
+  it 'should accept predefined value CreatedDate' do
+    dsc_archive[:dsc_checksum] = 'CreatedDate'
+    expect(dsc_archive[:dsc_checksum]).to eq(:'CreatedDate')
+  end
+
+  it 'should accept predefined value ModifiedDate' do
+    dsc_archive[:dsc_checksum] = 'ModifiedDate'
+    expect(dsc_archive[:dsc_checksum]).to eq(:'ModifiedDate')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_archive[:dsc_checksum] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should default to ensure => present' do
+    expect(dsc_archive[:ensure]).to eq :present
+  end
+
+  it 'should not accept dsc_ensure and notify about using ensure insteed' do
+    expect{dsc_archive[:dsc_ensure] = 'present'}.to raise_error(Puppet::ResourceError, /Please use 'ensure => present' or 'ensure => absent' insteed of 'dsc_ensure'/)
+  end
 
   # it 'should accept dsc_name' do
   #   dsc_archive[:dsc_name] = 'my_string'
