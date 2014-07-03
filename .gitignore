@@ -1,6 +1,6 @@
 import
 spec/fixtures
-spec/unit
+spec/unit/puppet/type
 .librarian
 .tmp
 Gemfile.lock
