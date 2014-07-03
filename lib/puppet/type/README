@@ -1,0 +1,3 @@
+If you see no types here, you have to generate them with:
+
+bundle exec rake dsc:build

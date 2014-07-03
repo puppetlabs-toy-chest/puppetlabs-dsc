@@ -6,4 +6,5 @@ Gemfile.lock
 *.lock
 .rbenv-gemsets
 .ruby-version
-lib/puppet/type
+lib/puppet/type/*.rb
+spec/unit/puppet/type/*.rb
