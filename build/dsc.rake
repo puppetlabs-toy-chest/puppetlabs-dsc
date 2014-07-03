@@ -59,6 +59,8 @@ namespace :dsc do
       m = Dsc::Manager.new
       msgs = m.clean_dsc_types
       msgs.each{|m| puts "#{m}"}
+      msgs = m.clean_dsc_type_specs
+      msgs.each{|m| puts "#{m}"}
     end
 
     desc "Build #{item_name}"

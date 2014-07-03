@@ -2,23 +2,30 @@ module Dsc
   class Manager
 
     def initialize
-      @dsc_lib_path           = Pathname.new(__FILE__).dirname
-      @tools_path             = @dsc_lib_path.parent
-      @module_path            = @tools_path.parent
+      @dsc_lib_path            = Pathname.new(__FILE__).dirname
+      @tools_path              = @dsc_lib_path.parent
+      @module_path             = @tools_path.parent
 
-      @base_qualifiers_folder = "#{@module_path}/build/qualifiers/base"
+      @base_qualifiers_folder  = "#{@module_path}/build/qualifiers/base"
 
-      @import_folder          = "#{@module_path}/#{Dsc::Config['import_folder']}"
-      @dsc_modules_folder     = "#{@import_folder}/#{Dsc::Config['dsc_modules_folder']}"
-      @dmtf_mof_folder        = "#{@import_folder}/#{Dsc::Config['dmtf_mof_folder']}"
+      @import_folder           = "#{@module_path}/#{Dsc::Config['import_folder']}"
+      @dsc_modules_folder      = "#{@import_folder}/#{Dsc::Config['dsc_modules_folder']}"
+      @dmtf_mof_folder         = "#{@import_folder}/#{Dsc::Config['dmtf_mof_folder']}"
 
-      @type_template_file     = "#{@dsc_lib_path}/templates/dsc_type.rb.erb"
-      @provider_template_file = "#{@dsc_lib_path}/templates/dsc_provider.rb.erb"
-      @puppet_type_path       = "#{@module_path}/lib/puppet/type"
-      @puppet_provider_path   = "#{@module_path}/lib/puppet/provider"
-      @json_content           = nil
-      @resources_hash         = nil
-      @resources              = nil
+      @type_template_file      = "#{@dsc_lib_path}/templates/dsc_type.rb.erb"
+      @type_spec_template_file = "#{@dsc_lib_path}/templates/dsc_type_spec.rb.erb"
+
+      @puppet_type_path        = "#{@module_path}/lib/puppet/type"
+      @puppet_type_spec_path   = "#{@module_path}/spec/unit/puppet/type"
+
+      @json_content            = nil
+      @resources_hash          = nil
+      @resources               = nil
+
+      @spec_test_values        = {
+        'string' => 'foo'
+      }
+
     end
 
     # def json_content
@@ -59,11 +66,18 @@ module Dsc
       resources.each do |resource|
         type_template = File.open(@type_template_file, 'r').read
         type_erb = ERB.new(type_template, nil, '-')
+        type_spec_template = File.open(@type_spec_template_file, 'r').read
+        type_spec_erb = ERB.new(type_spec_template, nil, '-')
         if resource.friendlyname
           File.open("#{@puppet_type_path}/dsc_#{resource.friendlyname.downcase}.rb", 'w+') do |file|
             file.write(type_erb.result(binding))
             pn = Pathname.new(file.path).relative_path_from(@module_path)
-            type_pathes << "Add - #{pn.to_s}"
+            type_pathes << "Add type - #{pn.to_s}"
+          end
+          File.open("#{@puppet_type_spec_path}/dsc_#{resource.friendlyname.downcase}_spec.rb", 'w+') do |file|
+            file.write(type_spec_erb.result(binding))
+            pn = Pathname.new(file.path).relative_path_from(@module_path)
+            type_pathes << "Add type spec - #{pn.to_s}"
           end
         else
           puts "#{resource.name} from #{resource.dsc_module} has invalid mof (no friendlyname defined)"
@@ -75,6 +89,10 @@ module Dsc
 
     def clean_dsc_types
       clean_folder(["#{@puppet_type_path}/dsc_*.rb"])
+    end
+
+    def clean_dsc_type_specs
+      clean_folder(["#{@puppet_type_spec_path}/dsc_*_spec.rb"])
     end
 
     # Mof's

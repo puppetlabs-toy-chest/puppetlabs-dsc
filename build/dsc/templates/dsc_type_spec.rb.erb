@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+require 'spec_helper'
+
+describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
+  let :dsc_<%= resource.friendlyname.downcase %> do
+    Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>).new(
+      :name     => '<%= @spec_test_values['string'] %>',
+<%  resource.properties.select{|rp| rp.required? }.each do |property| -%>
+<%    if property.values -%>
+      :dsc_<%= property.name.downcase %> => '<%= property.values.first %>',
+<%    else -%>
+      :dsc_<%= property.name.downcase %> => '<%= @spec_test_values[property.type] %>',
+<%    end -%>
+<%  end -%>
+    )
+  end
+
+  it "should stringify normally" do
+    expect(dsc_<%= resource.friendlyname.downcase %>.to_s).to eq("Dsc_<%= resource.friendlyname.downcase %>[<%= @spec_test_values['string'] %>]")
+  end
+
+  # required attributes
+<%  resource.required_properties.each do |required_property| -%>
+  it 'should require that dsc_<%= required_property.name.downcase %> is specified' do
+    #dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= required_property.name.downcase %>]
+    expect { Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>).new(
+      :name     => '<%= @spec_test_values['string'] %>',
+<%    resource.required_properties.select{|rp| rp.name != required_property.name}.each do |other_required_property| -%>
+<%      if other_required_property.values -%>
+      :dsc_<%= other_required_property.name.downcase %> => '<%= other_required_property.values.first %>',
+<%      else -%>
+      :dsc_<%= other_required_property.name.downcase %> => '<%= @spec_test_values[other_required_property.type] %>',
+<%      end -%>
+<%    end -%>
+    )}.to raise_error(Puppet::Error, /dsc_<%= required_property.name.downcase %> is a required attribute/)
+  end
+<%  end -%>
+
+  # it 'should default to ensure => present' do
+  #   expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq :present
+  # end
+
+  # it 'should accept dsc_name' do
+  #   dsc_<%= resource.friendlyname.downcase %>[:dsc_name] = 'my_string'
+  #   expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_name]).to eq('my_string')
+  # end
+
+end

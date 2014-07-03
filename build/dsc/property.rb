@@ -1,6 +1,6 @@
 module Dsc
   class Property
-    
+
     attr_reader :property_hash
 
     def initialize(cim_feature)
@@ -22,7 +22,7 @@ module Dsc
     def required?
       @required ||= @cim_feature.qualifiers.detect{|q| q.name.downcase == "key" }
     end
-    
+
     def values
       @values ||= @cim_feature.values
     end
@@ -46,7 +46,7 @@ module Dsc
     def uint?
       ["uint32","uint16","uint64"].include?(type)
     end
-    
+
     def int?
       ["int32","int16","int64"].include?(type)
     end

@@ -7,15 +7,15 @@ module Dsc
       @resource_mof_path   = mof_path
       @resource_cim_class  = mof_class
       @name                = nil
-      @friendlyname                = nil
+      @friendlyname        = nil
       @properties          = nil
+      @required_properties = nil
       @filtered_properties = nil
       @module              = nil
     end
 
     def friendlyname
       @friendlyname ||= @resource_cim_class.qualifiers['Friendlyname'].value if @resource_cim_class.qualifiers['Friendlyname']
-
     end
 
     def name
@@ -27,6 +27,13 @@ module Dsc
         @properties ||= @resource_cim_class.features.collect{|cim_feature| Dsc::Property.new(cim_feature) }
       end
       @properties
+    end
+
+    def required_properties
+      unless @required_properties
+        @required_properties ||= properties.select{|rp| rp.required? }
+      end
+      @required_properties
     end
 
     def filtered_properties

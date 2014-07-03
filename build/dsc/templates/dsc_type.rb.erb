@@ -13,22 +13,29 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     include ::Utils::DscProviderHelpers
   end
 
-  newparam(:dsc_fullname) do
+  validate do
+<% resource.properties.select{|rp| rp.required? }.each do |property| -%>
+    fail('dsc_<%= property.name.downcase %> is a required attribute') if self[:dsc_<%= property.name.downcase %>].nil?
+<% end -%>
+  end
+
+  newparam(:dscmeta_resource_name) do
     defaultto "<%= resource.name %>"
   end
 
-  newparam(:dsc_resource_name) do
+  newparam(:dscmeta_resource_friendly_name) do
     defaultto "<%= resource.friendlyname %>"
   end
 
-  newparam(:dsc_name_property) do
-    defaultto :<%= resource.has_name? %>
-  end
-  <%  if resource.dsc_module %>
-  newparam(:dsc_module_name) do
+  # newparam(:dsc_name_property) do
+  #   defaultto :<%= resource.has_name? %>
+  # end
+
+<%  if resource.dsc_module %>
+  newparam(:dscmeta_module_name) do
     defaultto "<%= resource.dsc_module %>"
   end
-  <%  end -%>
+<%  end -%>
 
   newparam(:name, :namevar => true ) do
   end
