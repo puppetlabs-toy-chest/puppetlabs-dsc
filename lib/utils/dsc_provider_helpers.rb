@@ -23,9 +23,13 @@ module Utils
 
     def exists?
       output = powershell([test_dsc_configuration])
-      check = (output.to_s.strip.downcase == 'true')
-      Puppet.debug "Dsc Resource Exists?: #{check}"
-      check
+      if ['true','false'].include?(output.to_s.strip.downcase)
+        check = (output.to_s.strip.downcase == 'true')
+        check
+        Puppet.debug "Dsc Resource Exists?: #{check}"
+      else
+        fail(output)
+      end
     end
 
     def dsc_test_parameters
@@ -71,7 +75,7 @@ module Utils
     end
 
     def args
-      '-NoProfile -NonInteractive -NoLogo -ExecutionPolicy Bypass'
+      '-NoProfile -NonInteractive -NoLogo -ExecutionPolicy Bypass -ErrorAction Stop'
     end
 
   end
