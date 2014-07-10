@@ -1,22 +1,27 @@
-require 'pathname'
-helper_path = Pathname.new(__FILE__).dirname.parent.parent
-
-# provider specific
-$:.unshift(helper_path)
-require 'utils/dsc_provider_helpers'
-require 'puppet/provider'
-require 'erb'
+begin
+  require 'puppet_x/msutter/dsc_provider_helpers'
+  require 'puppet_x/msutter/dsc_type_helpers'
+rescue LoadError => detail
+  require 'pathname'
+  lib_path = Pathname.new(__FILE__).dirname.parent.parent
+  $:.unshift(lib_path)
+  require 'puppetx/msutter/dsc_type_helpers'
+  require 'puppetx/msutter/dsc_provider_helpers'
+end
 
 Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
+  include Puppetx::Msutter::DscTypeHelpers
 
   provide :dsc_resource do
-    include ::Utils::DscProviderHelpers
+    include Puppetx::Msutter::DscProviderHelpers
   end
 
+  @doc = %q{Uses the DSC <%= resource.friendlyname%> resource. }
+
   validate do
-<%  resource.properties.select{|rp| rp.required? }.each do |property| -%>
+  <%  resource.properties.select{|rp| rp.required? }.each do |property| -%>
     fail('dsc_<%= property.name.downcase %> is a required attribute') if self[:dsc_<%= property.name.downcase %>].nil?
-<%  end -%>
+  <%  end -%>
   end
 
   newparam(:dscmeta_resource_name) do
@@ -26,10 +31,6 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   newparam(:dscmeta_resource_friendly_name) do
     defaultto "<%= resource.friendlyname %>"
   end
-
-  # newparam(:dsc_name_property) do
-  #   defaultto :<%= resource.has_name? %>
-  # end
 
 <%  if resource.dsc_module -%>
   newparam(:dscmeta_module_name) do
@@ -45,34 +46,22 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     defaultvalues
     defaultto :present
   end
-
-  newparam(:dsc_ensure) do
-    validate do |value|
-      fail("Please use 'ensure => present' or 'ensure => absent' insteed of 'dsc_ensure'")
-    end
-  end
-
 <%  end -%>
 
-<%  resource.properties.select{|p| !p.is_ensure? }.each do |property| -%>
+<%  resource.properties.each do |property| -%>
   # Name:         <%= property.name %>
   # Type:         <%= property.type %>
   # IsMandatory:  <%= property.required? ? 'True' : 'False' %>
   # Values:       <%= property.values ? property.values : 'None' %>
   newparam(:dsc_<%= property.name.downcase %><% if property.array? %>, :array_matching => :all<% end %>) do
+<%    if property.description -%>
+    desc "<%= property.description %>"
+<%    end -%>
 <%    if property.required? -%>
     isrequired
 <%    end -%>
-<%    if property.values && property.values.any? -%>
-    newvalues(<%= property.values.collect{|v| "\"#{v.downcase}\", \"#{v}\"" }.join(", ")%>)
-<%    end -%>
 <%    if property.bool? -%>
     newvalues("True", "False", "true", "false" ,:true, :false)
-<%    end -%>
-<%    if property.string? && property.values && !property.values.any? -%>
-    munge do |value|
-      value.downcase
-    end
 <%    end -%>
 <%    if property.uint? -%>
     newvalues(/^\d+$/)
@@ -80,8 +69,40 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 <%    if property.int? -%>
     newvalues(/^(\+|\-)\d+$/)
 <%    end -%>
+    validate do |value|
+<%    if property.name.downcase == 'ensure' -%>
+      resource[:ensure] = value.downcase
+<%    end -%>
+<%    if property.array? -%>
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+<%    else -%>
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+<%    end -%>
+<%    if property.values && property.values.any? -%>
+      valid_values = [<%= property.values.collect{|v| "\"#{v.downcase}\", \"#{v}\"" }.join(", ")%>]
+<%      if property.array? -%>
+      if value.kind_of?(Array)
+        unless (valid_values & value).count == value.count
+          fail("Invalid value #{value}. Valid values are #{valid_values.to_s}.")
+        end
+      end
+      if value.kind_of?(String)
+        unless valid_values.include?(value)
+          fail("Invalid value #{value}. Valid values are #{valid_values.to_s}.")
+        end
+      end
+<%      else -%>
+      unless valid_values.include?(value)
+        fail("Invalid value #{value}. Valid values are #{valid_values.to_s}.")
+      end
+<%      end -%>
+<%    end -%>
+    end
   end
 
 <%  end %>
 end
-

@@ -6,6 +6,7 @@ module Dsc
     def initialize(cim_feature)
       @cim_feature = cim_feature
       @name          = nil
+      @description   = nil
       @type          = nil
       @required      = nil
       @values        = nil
@@ -13,6 +14,16 @@ module Dsc
 
     def name
       @name ||= @cim_feature.name
+    end
+
+    def description
+      if @description.nil? && @cim_feature.description
+        content = @cim_feature.description
+        content.gsub!(/(\xe2\x80\x9c|\xe2\x80\x9d)/u, "'")
+        content.gsub!(/(\xe2\x80\x98|\xe2\x80\x99)/u, "'")
+        @description ||= content
+      end
+      @description
     end
 
     def type

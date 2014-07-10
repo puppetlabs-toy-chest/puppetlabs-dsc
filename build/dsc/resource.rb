@@ -9,6 +9,7 @@ module Dsc
       @name                = nil
       @friendlyname        = nil
       @properties          = nil
+      @array_properties    = nil
       @valuated_properties = nil
       @required_properties = nil
       @filtered_properties = nil
@@ -32,6 +33,13 @@ module Dsc
         @properties ||= @resource_cim_class.features.collect{|cim_feature| Dsc::Property.new(cim_feature) }
       end
       @properties
+    end
+
+    def array_properties
+      unless @array_properties
+        @array_properties ||= properties.select{|rp| rp.array? }
+      end
+      @array_properties
     end
 
     def valuated_properties
