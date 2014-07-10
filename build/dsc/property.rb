@@ -19,8 +19,13 @@ module Dsc
     def description
       if @description.nil? && @cim_feature.description
         content = @cim_feature.description
-        content.gsub!(/(\xe2\x80\x9c|\xe2\x80\x9d)/u, "'")
-        content.gsub!(/(\xe2\x80\x98|\xe2\x80\x99)/u, "'")
+        content.gsub!(/\xe2\x80\x9c/u, "'") # usage of single quotes as this string will be injected in a double bracket "#{content}"
+        content.gsub!(/\xe2\x80\x9d/u, "'") # usage of single quotes as this string will be injected in a double bracket "#{content}"
+        content.gsub!(/\xe2\x80\x98/u, "'")
+        content.gsub!(/\xe2\x80\x99/u, "'")
+        content.gsub!(/\xe2\x80\x93/u, "-")
+        content.gsub!(/\xe2\x80\x94/u, "--")
+        content.gsub!(/\xe2\x80\xa6/u, "...")
         @description ||= content
       end
       @description
