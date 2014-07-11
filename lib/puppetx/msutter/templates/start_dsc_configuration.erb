@@ -5,20 +5,19 @@ Remove-Item $LCMConfigFolder\*.mof | out-null
 
 configuration PuppetConfiguration
 {
-    <% if resource[:dscmeta_module_name] %>
+<% if resource[:dscmeta_module_name] %>
     Import-DscResource -Name <%= resource[:dscmeta_resource_name] %> -ModuleName <%= resource[:dscmeta_module_name] %>
-    <% end %>
+<% end %>
     node "localhost"
     {
         <%= resource[:dscmeta_resource_friendly_name] %> "<%= resource.title %>"
         {
-           <% dsc_set_parameters.each do |p| -%>
-           <%= p.first.to_s.gsub(/^dsc_/,'') %> = "<%= p.last %>"
-           <% end -%>
+<% dsc_parameters.each do |p| -%>
+           <%= p.name.to_s.gsub(/^dsc_/,'') %> = <%= format_dsc_value(p.value) %>
+<% end -%>
 
         }
     }
-
 }
 $LCMConfigFolder = "$env:windir\System32\Configuration"
 PuppetConfiguration -OutputPath $LCMConfigFolder | out-null

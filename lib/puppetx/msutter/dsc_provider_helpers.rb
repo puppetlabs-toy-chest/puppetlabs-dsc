@@ -28,6 +28,8 @@ module Puppetx
         if ['true','false'].include?(output.to_s.strip.downcase)
           check = (output.to_s.strip.downcase == 'true')
           Puppet.debug "Dsc Resource Exists?: #{check}"
+          Puppet.debug "dsc_ensure: #{resource[:dsc_ensure]}"
+          Puppet.debug "ensure: #{resource[:ensure]}"
           check
         else
           fail(output)
@@ -42,21 +44,18 @@ module Puppetx
         powershell(start_dsc_configuration)
       end
 
-      private
-
-      def dsc_test_parameters
-        # set ensure to present to test if this resource exists
-        dtp = dsc_set_parameters.clone
-        dtp[:ensure] = :present if dtp.has_key?(:ensure)
-        dtp[:dsc_ensure] = 'present' if dtp.has_key?(:dsc_ensure)
-        dtp
-      end
-
-      def dsc_set_parameters
-        dsp = resource.original_parameters.clone
-        # filter on dsc params and ensure
-        dsp.select do |k,v|
-          k =~ /dsc_/ || k == :ensure
+      def format_dsc_value(dsc_value)
+        case
+        when dsc_value.class.name == 'String'
+          "'#{dsc_value}'"
+        when dsc_value.class.name == 'Numeric'
+          "#{dsc_value}"
+        when [:true, :false].include?(dsc_value)
+          "$#{dsc_value.to_s}"
+        when dsc_value.class.name == 'Array'
+          dsc_value.collect{|m| format_dsc_value(m)}.join(', ')
+        else
+          fail "unsupported type #{dsc_value.class} of value '#{dsc_value}'"
         end
       end
 
@@ -72,6 +71,11 @@ module Puppetx
         template.result(binding)
       end
 
+      def dsc_parameters
+        resource.parameters_with_value.select do |p|
+          p.name.to_s =~ /dsc_/
+        end
+      end
 
       def template_path
         File.expand_path('../templates', __FILE__)
@@ -84,13 +88,13 @@ module Puppetx
     end
   end
 
-  class String
-    def to_bool
-      return true if self =~ (/^(true|t|yes|y|1)$/i)
-      return false if self.empty? || self =~ (/^(false|f|no|n|0)$/i)
+  # class String
+  #   def to_bool
+  #     return true if self =~ (/^(true|t|yes|y|1)$/i)
+  #     return false if self.empty? || self =~ (/^(false|f|no|n|0)$/i)
 
-      raise ArgumentError.new "invalid value: #{self}"
-    end
-  end
+  #     raise ArgumentError.new "invalid value: #{self}"
+  #   end
+  # end
 
 end

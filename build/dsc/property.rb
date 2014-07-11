@@ -32,7 +32,7 @@ module Dsc
     end
 
     def type
-      @type ||= @cim_feature.type.to_s
+      @type ||= @cim_feature.type.to_s.downcase
     end
 
     def required?
@@ -68,7 +68,7 @@ module Dsc
     end
 
     def int?
-      ["int16","int32","int64"].include?(type)
+      ["int16","int32","int64","sint16","sint32","sint64"].include?(type)
     end
 
     def int_array?

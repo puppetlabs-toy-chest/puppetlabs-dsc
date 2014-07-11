@@ -61,21 +61,25 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     isrequired
 <%    end -%>
 <%    if property.bool? -%>
-    newvalues("True", "False", "true", "false" ,:true, :false)
-<%    end -%>
-<%    if property.uint? -%>
-    newvalues(/^\d+$/)
-<%    end -%>
-<%    if property.int? -%>
-    newvalues(/^(\+|\-)\d+$/)
+    newvalues("True", "False", "true", "false" ,:true, :false, true, false)
 <%    end -%>
     validate do |value|
 <%    if property.name.downcase == 'ensure' -%>
       resource[:ensure] = value.downcase
 <%    end -%>
-<%    if property.array? -%>
+<%    case -%>
+<%    when property.array? -%>
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+<%    when property.bool? -%>
+<%    when property.int? -%>
+      unless value.kind_of?(Numeric)
+          fail("Invalid value #{value}. Should be a signed Integer")
+      end
+<%    when property.uint? -%>
+      unless value.kind_of?(Numeric) && value >= 0
+          fail("Invalid value #{value}. Should be a unsigned Integer")
       end
 <%    else -%>
       unless value.kind_of?(String)
@@ -100,6 +104,14 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
         fail("Invalid value #{value}. Valid values are #{valid_values.to_s}.")
       end
 <%      end -%>
+<%    end -%>
+    end
+    munge do |value|
+<%    case -%>
+<%    when property.bool? -%>
+      value.to_s.downcase.to_bool
+<%    else -%>
+      value
 <%    end -%>
     end
   end

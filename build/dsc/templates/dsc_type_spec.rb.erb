@@ -2,81 +2,217 @@
 require 'spec_helper'
 
 describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
+
   let :dsc_<%= resource.friendlyname.downcase %> do
     Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>).new(
-      :name     => '<%= @spec_test_values['string'] %>',
+      :name     => <%= @spec_test_values['string'] %>,
 <%  resource.properties.select{|rp| rp.required? }.each do |property| -%>
+<%  ####################### -%>
 <%    if property.values -%>
+<%    ####################### -%>
       :dsc_<%= property.name.downcase %> => '<%= property.values.first %>',
 <%    else -%>
-      :dsc_<%= property.name.downcase %> => '<%= @spec_test_values[property.type] %>',
+<%    ####################### -%>
+      :dsc_<%= property.name.downcase %> => <%= @spec_test_values[property.type] %>,
 <%    end -%>
+<%    ####################### -%>
 <%  end -%>
+<%  ####################### -%>
     )
   end
 
   it "should stringify normally" do
-    expect(dsc_<%= resource.friendlyname.downcase %>.to_s).to eq("Dsc_<%= resource.friendlyname.downcase %>[<%= @spec_test_values['string'] %>]")
+    string_value = <%= @spec_test_values['string'] %>
+    expect(dsc_<%= resource.friendlyname.downcase %>.to_s).to eq("Dsc_<%= resource.friendlyname.downcase %>[#{string_value}]")
   end
+<%  if resource.ensurable? -%>
+<%  ####################### -%>
 
-  # required attributes
-<%  resource.required_properties.each do |required_property| -%>
-  it 'should require that dsc_<%= required_property.name.downcase %> is specified' do
-    #dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= required_property.name.downcase %>]
+  it 'should default to ensure => present' do
+    expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq :present
+  end
+<%  end # resource.ensurable? -%>
+<%  ####################### -%>
+<%  resource.properties.each do |property| -%>
+<%  ####################### -%>
+<%    if property.required? -%>
+<%    ####################### -%>
+
+  it 'should require that dsc_<%= property.name.downcase %> is specified' do
+    #dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]
     expect { Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>).new(
-      :name     => '<%= @spec_test_values['string'] %>',
-<%    resource.required_properties.select{|rp| rp.name != required_property.name}.each do |other_required_property| -%>
-<%      if other_required_property.values -%>
-      :dsc_<%= other_required_property.name.downcase %> => '<%= other_required_property.values.first %>',
-<%      else -%>
-      :dsc_<%= other_required_property.name.downcase %> => '<%= @spec_test_values[other_required_property.type] %>',
-<%      end -%>
-<%    end -%>
-    )}.to raise_error(Puppet::Error, /dsc_<%= required_property.name.downcase %> is a required attribute/)
+      :name     => <%= @spec_test_values['string'] %>,
+<%      resource.properties.select{|rp| rp.name != property.name}.each do |other_property| -%>
+<%      ####################### -%>
+<%        if other_property.values -%>
+<%        ####################### -%>
+      :dsc_<%= other_property.name.downcase %> => '<%= other_property.values.first %>',
+<%        else -%>
+<%        ####################### -%>
+      :dsc_<%= other_property.name.downcase %> => <%= @spec_test_values[other_property.type] || 'nil' %>,
+<%        end # if other_property.values -%>
+<%        ####################### -%>
+<%      end # each -%>
+<%      ####################### -%>
+    )}.to raise_error(Puppet::Error, /dsc_<%= property.name.downcase %> is a required attribute/)
   end
-<%  end -%>
-<%  resource.valuated_properties.each do |valuated_property| -%>
-<%    valuated_property.values.each do |value| -%>
+<%    end # if property.required? -%>
+<%    ####################### -%>
+<%    if property.values -%>
+<%    ####################### -%>
+<%      property.values.each do |value| -%>
+<%      ####################### -%>
 
-  it 'should accept dsc_<%= valuated_property.name.downcase %> predefined value <%= value %>' do
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= valuated_property.name.downcase %>] = '<%= value %>'
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= valuated_property.name.downcase %>]).to eq('<%= value %>')
+  it 'should accept dsc_<%= property.name.downcase %> predefined value <%= value %>' do
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = '<%= value %>'
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq('<%= value %>')
   end
 
-  it 'should accept dsc_<%= valuated_property.name.downcase %> predefined value <%= value.downcase %>' do
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= valuated_property.name.downcase %>] = '<%= value.downcase %>'
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= valuated_property.name.downcase %>]).to eq('<%= value.downcase %>')
+  it 'should accept dsc_<%= property.name.downcase %> predefined value <%= value.downcase %>' do
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = '<%= value.downcase %>'
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq('<%= value.downcase %>')
   end
-<%      if valuated_property.name.downcase == 'ensure' -%>
+<%        if property.name.downcase == 'ensure' -%>
+<%        ####################### -%>
 
   it 'should accept dsc_ensure predefined value <%= value.downcase %> and update ensure with this value (ensure end value should be a symbol)' do
     dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = '<%= value.downcase %>'
     expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq(dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure].downcase.to_sym)
   end
-<%      end -%>
-<%    end -%>
+<%        end # if property.name.downcase.... -%>
+<%        ####################### -%>
+<%      end # property.values.each....-%>
+<%      ####################### -%>
 
   it 'should not accept values not equal to predefined values' do
-    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= valuated_property.name.downcase %>] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = 'invalid value'}.to raise_error(Puppet::ResourceError)
   end
-<%    if resource.ensurable? -%>
+<%    end # if property.values -%>
+<%    ####################### -%>
+<%    if property.array? -%>
+<%    ####################### -%>
+<%      if property.values -%>
+<%      ####################### -%>
 
-  it 'should default to ensure => present' do
-    expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq :present
+  it 'should accept array of predefined values for dsc_<%= property.name.downcase %>' do
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= property.values %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= property.values %>)
   end
-<%    end -%>
-<%  end -%>
-<%  resource.array_properties.each do |array_property| -%>
-<%    if array_property.values -%>
-  it 'should accept array of predefined values for dsc_<%= array_property.name.downcase %>' do
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= array_property.name.downcase %>] = <%= array_property.values %>
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= array_property.name.downcase %>]).to eq(<%= array_property.values %>)
+<%      else # if property.values -%>
+<%      ####################### -%>
+
+  it 'should accept array for dsc_<%= property.name.downcase %>' do
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= @spec_test_values[property.type] %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= @spec_test_values[property.type] %>)
   end
-<%    else -%>
-  it 'should accept array for dsc_<%= array_property.name.downcase %>' do
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= array_property.name.downcase %>] = <%= @spec_test_values[array_property.type] %>
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= array_property.name.downcase %>]).to eq(<%= @spec_test_values[array_property.type] %>)
+<%      end # if property.values -%>
+<%      ####################### -%>
+<%    else # if property.array? -%>
+
+  it 'should not accept array for dsc_<%= property.name.downcase %>' do
+    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= @spec_test_values['string[]'] %>}.to raise_error(Puppet::ResourceError)
   end
-<%    end -%>
-<%  end -%>
+<%    end # if property.array? -%>
+<%    ####################### -%>
+<%    if property.bool? -%>
+<%    ####################### -%>
+
+  it 'should accept boolean for dsc_<%= property.name.downcase %>' do
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= @spec_test_values[property.type] %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= @spec_test_values[property.type] %>)
+  end
+<%    else # if property.bool? -%>
+<%    ####################### -%>
+
+  it 'should not accept boolean for dsc_<%= property.name.downcase %>' do
+    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= @spec_test_values['boolean'] %>}.to raise_error(Puppet::ResourceError)
+  end
+<%    end # if property.bool? -%>
+<%    ####################### -%>
+<%    if property.int? -%>
+<%    ####################### -%>
+
+  it 'should accept int for dsc_<%= property.name.downcase %>' do
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= @spec_test_values[property.type] %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= @spec_test_values[property.type] %>)
+  end
+<%    else # if property.int? -%>
+<%    ####################### -%>
+
+  it 'should not accept int for dsc_<%= property.name.downcase %>' do
+    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= @spec_test_values['int'] %>}.to raise_error(Puppet::ResourceError)
+  end
+<%    end # if property.uint? -%>
+<%    ####################### -%>
+<%    if property.uint? or property.int? -%>
+<%    ####################### -%>
+
+  it 'should accept uint for dsc_<%= property.name.downcase %>' do
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= @spec_test_values[property.type] %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= @spec_test_values[property.type] %>)
+  end
+<%    else # if property.uint? or property.int? -%> -%>
+<%    ####################### -%>
+
+  it 'should not accept uint for dsc_<%= property.name.downcase %>' do
+    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= @spec_test_values['uint'] %>}.to raise_error(Puppet::ResourceError)
+  end
+<%    end # if property.uint? -%>
+<%    ####################### -%>
+<%  end # resource.properties.each... -%>
+<%  ####################### -%>
+
+  describe "provider tests" do
+
+    it "should successfully instanciate the provider" do
+      described_class.provider(:dsc_resource).new(dsc_<%= resource.friendlyname.downcase %>)
+    end
+<%  if resource.ensurable? -%>
+<%  ####################### -%>
+
+    describe "when dsc_ensure is 'present'" do
+
+      before(:each) do
+        dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'present'
+        @provider = described_class.provider(:dsc_resource).new(dsc_<%= resource.friendlyname.downcase %>)
+      end
+
+      it "should update :ensure to :present" do
+        expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq(:present)
+      end
+
+      it "should compute powershell dsc test script in which ensure value is 'present'" do
+        expect(@provider.test_dsc_configuration).to match(/ensure = 'present'/)
+      end
+
+      it "should compute powershell dsc start script in which ensure value is 'present'" do
+        expect(@provider.start_dsc_configuration).to match(/ensure = 'present'/)
+      end
+
+    end
+
+    describe "when dsc_ensure is 'absent'" do
+
+      before(:each) do
+        dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'absent'
+        @provider = described_class.provider(:dsc_resource).new(dsc_<%= resource.friendlyname.downcase %>)
+      end
+
+      it "should update :ensure to :absent" do
+        expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq(:absent)
+      end
+
+      it "should compute powershell dsc test script in which ensure value is 'present'" do
+        expect(@provider.test_dsc_configuration).to match(/ensure = 'present'/)
+      end
+
+      it "should compute powershell dsc start script in which ensure value is 'absent'" do
+        expect(@provider.start_dsc_configuration).to match(/ensure = 'absent'/)
+      end
+
+    end
+<%  end # if resource.ensurable? -%>
+<%  ####################### -%>
+
+  end
 end
