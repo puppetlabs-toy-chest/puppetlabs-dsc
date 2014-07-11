@@ -52,14 +52,6 @@ module Dsc
 
     end
 
-    # def json_content
-    #   @json_content ||= File.read(@resources_json_path)
-    # end
-
-    # def resources_hash
-    #   @resources_hash ||= JSON.parse(json_content)
-    # end
-
     def dsc_results
       mof = Dsc::Mof.new(
         :import_folder          => @import_folder,
@@ -71,7 +63,6 @@ module Dsc
     end
 
     def resources
-      #@resources ||= resources_hash.collect { |rsh| Dsc::Resource.new(rsh) }.sort_by { |r| r.name.downcase }
       unless @resources
         res = []
         dsc_results.each do |mof_path, mof_res|
