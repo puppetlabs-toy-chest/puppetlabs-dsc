@@ -71,11 +71,11 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
       end
 <%    when property.bool? -%>
 <%    when property.int? -%>
-      unless value.kind_of?(Numeric)
+      unless value.kind_of?(Numeric) || value.to_i.to_s == value || value.to_i >= 0
           fail("Invalid value #{value}. Should be a signed Integer")
       end
 <%    when property.uint? -%>
-      unless value.kind_of?(Numeric) && value >= 0
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
       end
 <%    else -%>
@@ -106,14 +106,17 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 <%  when property.bool? -%>
     newvalues(true, false)
 <%  end -%>
-    munge do |value|
 <%    case -%>
 <%    when property.bool? -%>
+    munge do |value|
       value.to_s.downcase.to_bool
-<%    else -%>
-      value
-<%    end -%>
     end
+<%    when (property.int? || property.uint?) -%>
+    munge do |value|
+      value.to_i
+    end
+<%    else -%>
+<%    end -%>
   end
 
 <%  end %>
