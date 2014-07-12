@@ -27,6 +27,7 @@ module Dsc
         'string[]' => ['foo','bar','spec'],
         'bool'     => true,
         'boolean'  => true,
+        'munged_bools' => ['true','false','True', 'False', :true, :false],
         'datetime' => "'20140711'",
         'int'      => -16,
         'int16'    => -16,
@@ -118,6 +119,32 @@ module Dsc
 
     def clean_dmtf_mofs
       clean_folder([@dmtf_mof_folder])
+    end
+
+    def format_type_value(type_value)
+      case
+      when type_value.class.name == 'Symbol'
+        ":#{type_value}"
+      when type_value.class.name == 'String'
+        "'#{type_value}'"
+      when type_value.class.name == 'Numeric'
+        "#{type_value}"
+      else
+        type_value
+      end
+    end
+
+    def format_newvalues(values)
+      output = []
+      values.each do |v|
+        if v.respond_to?('downcase')
+          output << format_type_value(v)
+          output << format_type_value(v.downcase)
+        else
+          output << format_type_value(v)
+        end
+      end
+      output.join(', ')
     end
 
     private

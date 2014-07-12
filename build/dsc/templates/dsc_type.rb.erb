@@ -60,9 +60,6 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 <%    if property.required? -%>
     isrequired
 <%    end -%>
-<%    if property.bool? -%>
-    newvalues("True", "False", "true", "false" ,:true, :false, true, false)
-<%    end -%>
     validate do |value|
 <%    if property.name.downcase == 'ensure' -%>
       resource[:ensure] = value.downcase
@@ -87,25 +84,28 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
       end
 <%    end -%>
 <%    if property.values && property.values.any? -%>
-      valid_values = [<%= property.values.collect{|v| "\"#{v.downcase}\", \"#{v}\"" }.join(", ")%>]
 <%      if property.array? -%>
       if value.kind_of?(Array)
-        unless (valid_values & value).count == value.count
-          fail("Invalid value #{value}. Valid values are #{valid_values.to_s}.")
+        unless ([<%= format_newvalues(property.values) %>] & value).count == value.count
+          fail("Invalid value #{value}. Valid values are <%= property.values.join(', ') %>")
         end
       end
       if value.kind_of?(String)
-        unless valid_values.include?(value)
-          fail("Invalid value #{value}. Valid values are #{valid_values.to_s}.")
+        unless [<%= format_newvalues(property.values) %>].include?(value)
+          fail("Invalid value #{value}. Valid values are <%= property.values.join(', ') %>")
         end
       end
 <%      else -%>
-      unless valid_values.include?(value)
-        fail("Invalid value #{value}. Valid values are #{valid_values.to_s}.")
+      unless [<%= format_newvalues(property.values) %>].include?(value)
+        fail("Invalid value '#{value}'. Valid values are <%= property.values.join(', ') %>")
       end
 <%      end -%>
 <%    end -%>
     end
+<%  case -%>
+<%  when property.bool? -%>
+    newvalues(true, false)
+<%  end -%>
     munge do |value|
 <%    case -%>
 <%    when property.bool? -%>
