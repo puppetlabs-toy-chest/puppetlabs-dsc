@@ -23,14 +23,14 @@ module Dsc
       @resources               = nil
 
       @spec_test_values        = {
-        'string'   => "'foo'",
+        'string'   => 'foo',
         'string[]' => ['foo','bar','spec'],
         'bool'     => true,
         'boolean'  => true,
         'munged_bools' => ['true','false','True', 'False', :true, :false],
         'munged_ints' => ['16','-16','32', '-32'],
         'munged_uints' => ['16','32','64'],
-        'datetime' => "'20140711'",
+        'datetime' => '20140711',
         'int'      => -16,
         'int16'    => -16,
         'int16[]'  => [-16, 32, -64],
