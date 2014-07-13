@@ -19,7 +19,7 @@ module Dsc
     end
 
     def dsc_mof_file_pathes
-      @dsc_mof_file_pathes ||= find_mofs(@dsc_modules_folder)
+      @dsc_mof_file_pathes ||= find_mofs(/.*\.schema.mof$/, @dsc_modules_folder)
     end
 
     def dsc_results
@@ -35,7 +35,7 @@ module Dsc
       end
 
       # find all mof files in base_qualifiers_folder
-      base_mof_file_pathes = find_mofs(@base_qualifiers_folder)
+      base_mof_file_pathes = find_mofs(/.*\.mof$/, @base_qualifiers_folder)
       # generate base mof import file
       create_index_mof(@dsc_base_mof, base_mof_file_pathes)
 
@@ -68,11 +68,11 @@ module Dsc
       end
     end
 
-    def find_mofs(folder)
+    def find_mofs(regex, folder)
       mof_file_pathes = []
       if File.exist?(folder)
         Find.find(folder) do |path|
-          mof_file_pathes << path if path =~ /.*\.mof$/
+          mof_file_pathes << path if path =~ regex
         end
       end
       mof_file_pathes
