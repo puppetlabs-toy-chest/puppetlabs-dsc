@@ -192,8 +192,10 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
     before(:each) do
       @provider = described_class.provider(:dsc_resource).new(dsc_<%= resource.friendlyname.downcase %>)
     end
+<%  if resource.dsc_module -%>
+<%  ####################### -%>
 
-    describe "when dscmeta_import_resource is true (default)" do
+    describe "when dscmeta_import_resource is true (default) and dscmeta_module_name existing/is defined " do
 
       it "should compute powershell dsc test script with Import-DscResource" do
         expect(@provider.test_dsc_configuration).to match(/Import-DscResource/)
@@ -218,6 +220,8 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
       end
 
     end
+<%  end # if resource.dsc_module -%>
+<%  ####################### -%>
 <%  if resource.ensurable? -%>
 <%  ####################### -%>
 
@@ -260,11 +264,6 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
       it "should compute powershell dsc start script in which ensure value is 'absent'" do
         expect(@provider.start_dsc_configuration).to match(/ensure = 'absent'/)
       end
-
-      it "should compute powershell dsc start script with Import-DscResource" do
-        expect(@provider.start_dsc_configuration).to match(/Import-DscResource/)
-      end
-
 
     end
 <%  end # if resource.ensurable? -%>
