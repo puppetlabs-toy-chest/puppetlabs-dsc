@@ -6,7 +6,7 @@ Remove-Item $LCMConfigFolder\*.mof | out-null
 
 configuration PuppetConfiguration
 {
-<% if (resource.parameters[:dscmeta_module_name] or resource.parameters[:dscmeta_resource_name]) && resource[:dscmeta_import_resource] -%>
+<% if resource.parameters[:dscmeta_module_name] && resource[:dscmeta_import_resource] -%>
     Import-DscResource <%= "-Name #{resource[:dscmeta_resource_name]}" if resource.parameters[:dscmeta_resource_name] %> <%= "-ModuleName #{resource[:dscmeta_module_name]}" if resource.parameters[:dscmeta_module_name] %>
 <% end -%>
 
