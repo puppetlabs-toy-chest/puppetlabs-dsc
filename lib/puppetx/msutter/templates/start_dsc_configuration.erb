@@ -1,3 +1,4 @@
+
 $ErrorActionPreference = "Stop"
 $LCMConfigFolder = "$env:windir\System32\Configuration"
 
@@ -5,9 +6,10 @@ Remove-Item $LCMConfigFolder\*.mof | out-null
 
 configuration PuppetConfiguration
 {
-<% if resource[:dscmeta_module_name] %>
-    Import-DscResource -Name <%= resource[:dscmeta_resource_name] %> -ModuleName <%= resource[:dscmeta_module_name] %>
-<% end %>
+<% if (resource.parameters[:dscmeta_module_name] or resource.parameters[:dscmeta_resource_name]) && resource[:dscmeta_import_resource] -%>
+    Import-DscResource <%= "-Name #{resource[:dscmeta_resource_name]}" if resource.parameters[:dscmeta_resource_name] %> <%= "-ModuleName #{resource[:dscmeta_module_name]}" if resource.parameters[:dscmeta_module_name] %>
+<% end -%>
+
     node "localhost"
     {
         <%= resource[:dscmeta_resource_friendly_name] %> "<%= resource.title %>"

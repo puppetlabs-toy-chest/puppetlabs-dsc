@@ -21,6 +21,7 @@ module Dsc
       @json_content            = nil
       @resources_hash          = nil
       @resources               = nil
+      @cim_classes_with_path   = nil
 
       @spec_test_values        = {
         'string'   => 'foo',
@@ -65,20 +66,48 @@ module Dsc
       mof.dsc_results
     end
 
-    def resources
-      unless @resources
-        res = []
+    def cim_classes_with_path
+      unless @cim_classes
+        cim_classes_array = []
         dsc_results.each do |mof_path, mof_res|
-          mof_res.classes.each do |mof_class|
-            res << Dsc::Resource.new(mof_class, mof_path)
+          mof_res.classes.each do |cim_class|
+            cim_classes_array << { :klass => cim_class, :path => mof_path }
           end
         end
-        @resources = res
+        @cim_classes_with_path = cim_classes_array
+      end
+      @cim_classes_with_path
+    end
+
+    def resources
+      unless @resources
+        dsc_resources = []
+        cim_classes_with_path.select{|cc| cc[:klass].superclass == "OMI_BaseResource" }.each do |cim_class_with_path|
+          dsc_resources << Dsc::Resource.new(cim_class_with_path[:klass], cim_class_with_path[:path])
+        end
+        @resources = dsc_resources
       end
       @resources
     end
 
-    # Type's
+    def embedded_resources
+      resources.select{|r|r.has_embeddedinstances?}
+    end
+
+    def embedded_class_names
+      class_names_array = []
+      embedded_resources.each do |er|
+        er.embedded_properties.each do |ep|
+          class_names_array << ep.embeddedinstance_class_name
+        end
+      end
+      class_names_array.uniq
+    end
+
+    def embedded_cim_classes
+      cim_classes_with_path.select{|cc| embedded_class_names.include?(cc[:klass].name) }.collect{|cc| cc[:klass] }
+    end
+
     def build_dsc_types
       type_pathes = []
       resources.each do |resource|

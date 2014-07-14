@@ -52,6 +52,8 @@ module Puppetx
           "#{dsc_value}"
         when [:true, :false].include?(dsc_value)
           "$#{dsc_value.to_s}"
+        when ['trueclass','falseclass'].include?(dsc_value.class.name.downcase)
+          "$#{dsc_value.to_s}"
         when dsc_value.class.name == 'Array'
           dsc_value.collect{|m| format_dsc_value(m)}.join(', ')
         else

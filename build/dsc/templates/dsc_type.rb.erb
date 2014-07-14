@@ -10,13 +10,18 @@ rescue LoadError => detail
 end
 
 Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
+
   include Puppetx::Msutter::DscTypeHelpers
 
   provide :dsc_resource do
     include Puppetx::Msutter::DscProviderHelpers
   end
 
-  @doc = %q{Uses the DSC <%= resource.friendlyname%> resource. }
+  @doc = %q{
+    The DSC <%= resource.friendlyname%> resource type.
+    Originally generated from the following schema.mof file:
+      <%= resource.relative_mof_path %>
+  }
 
   validate do
   <%  resource.properties.select{|rp| rp.required? }.each do |property| -%>
@@ -24,12 +29,22 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   <%  end -%>
   end
 
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "<%= resource.friendlyname %>"
+  end
+
   newparam(:dscmeta_resource_name) do
     defaultto "<%= resource.name %>"
   end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "<%= resource.friendlyname %>"
+  newparam(:dscmeta_import_resource) do
+    newvalues(true, false)
+
+    munge do |value|
+      value.to_s.downcase.to_bool
+    end
+
+    defaultto true
   end
 
 <%  if resource.dsc_module -%>

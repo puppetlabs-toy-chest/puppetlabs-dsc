@@ -44,6 +44,18 @@ module Dsc
       @required ||= @cim_feature.qualifiers.detect{|q| q.name.downcase == "key" }
     end
 
+    def embeddedinstance
+      @cim_feature.qualifiers.detect{|q| q.name.downcase == "embeddedinstance" }
+    end
+
+    def embeddedinstance?
+      embeddedinstance ? true: false
+    end
+
+    def embeddedinstance_class_name
+      embeddedinstance.value
+    end
+
     def values
       @values ||= @cim_feature.values
     end

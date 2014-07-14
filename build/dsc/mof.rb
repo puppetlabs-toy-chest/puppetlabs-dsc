@@ -19,7 +19,7 @@ module Dsc
     end
 
     def dsc_mof_file_pathes
-      @dsc_mof_file_pathes ||= find_mofs(/.*\.schema.mof$/, @dsc_modules_folder)
+      @dsc_mof_file_pathes ||= find_mofs(/.*\.[sS]chema.mof$/, @dsc_modules_folder)
     end
 
     def dsc_results

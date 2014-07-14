@@ -13,7 +13,12 @@ module Dsc
       @valuated_properties = nil
       @required_properties = nil
       @filtered_properties = nil
+      @embedded_properties = nil
       @module              = nil
+    end
+
+    def relative_mof_path
+      Pathname.new(@resource_mof_path).relative_path_from(Pathname.new(File.expand_path("#{LIB_PATH}/.."))).to_s
     end
 
     def friendlyname
@@ -63,6 +68,13 @@ module Dsc
       @filtered_properties
     end
 
+    def embedded_properties
+      unless @embedded_properties
+        @embedded_properties ||= properties.select{|rp| rp.embeddedinstance? }
+      end
+      @embedded_properties
+    end
+
     def ensurable?
       properties.detect{|p|p.is_ensure?} ? true : false
     end
@@ -71,13 +83,17 @@ module Dsc
       properties.detect{|p|p.is_name?} ? true : false
     end
 
+    def has_embeddedinstances?
+      properties.detect{|p|p.embeddedinstance?} ? true : false
+    end
+
     def dsc_module
       unless @dsc_module
         path_array = @resource_mof_path.split('/')
         revert_array = path_array.reverse
         downcased_array = revert_array.collect{|p| p.downcase}
         index = downcased_array.index('dscresources')
-        @dsc_module = revert_array[index + 1 ] rescue binding.pry
+        @dsc_module = revert_array[index + 1 ] rescue nil
       end
       @dsc_module
     end
