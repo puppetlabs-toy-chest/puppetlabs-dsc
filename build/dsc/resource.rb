@@ -14,7 +14,8 @@ module Dsc
       @required_properties = nil
       @filtered_properties = nil
       @embedded_properties = nil
-      @module              = nil
+      @dsc_module          = nil
+      @ps_module           = nil
     end
 
     def relative_mof_path
@@ -87,15 +88,22 @@ module Dsc
       properties.detect{|p|p.embeddedinstance?} ? true : false
     end
 
-    def dsc_module
-      unless @dsc_module
+    def ps_module
+      unless @ps_module
         path_array = @resource_mof_path.split('/')
         revert_array = path_array.reverse
         downcased_array = revert_array.collect{|p| p.downcase}
         index = downcased_array.index('dscresources')
-        @dsc_module = revert_array[index + 1 ] rescue nil
+        raise "module for #{self.name} not found" if index == nil
+        module_name = revert_array[index + 1 ] rescue nil
+        module_dir = path_array[0..(path_array.count - (index + 2))].join('/')
+        module_manifest_path = "#{module_dir}/#{module_name}.psd1"
+        raise "module manifest #{module_manifest_path} not found" unless File.exists?(module_manifest_path)
+        # convert files to unix format
+        %x{dos2unix #{module_manifest_path} > /dev/null 2>&1}
+        @ps_module = Dsc::Psmodule.new(module_name, module_manifest_path)
       end
-      @dsc_module
+      @ps_module
     end
 
   end

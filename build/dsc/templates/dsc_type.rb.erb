@@ -47,16 +47,18 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     defaultto true
   end
 
-<%  if resource.dsc_module -%>
   newparam(:dscmeta_module_name) do
-    defaultto "<%= resource.dsc_module %>"
+    defaultto "<%= resource.ps_module.name %>"
   end
-<%  end -%>
+
+  newparam(:dscmeta_module_version) do
+    defaultto "<%= resource.ps_module.version %>"
+  end
 
   newparam(:name, :namevar => true ) do
   end
-
 <%  if resource.ensurable? -%>
+
   ensurable do
     defaultvalues
     defaultto :present

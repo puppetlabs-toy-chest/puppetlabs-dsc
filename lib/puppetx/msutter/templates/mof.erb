@@ -1,0 +1,24 @@
+/*
+@TargetNode='localhost'
+@GeneratedBy='Puppet DSC Module'
+@GenerationDate=<%= Time.now.strftime("%m/%d/%Y %H:%M:%S") %>
+@GenerationHost=<%= Facter.fact(:hostname).value %>
+*/
+
+instance of <%= resource[:dscmeta_resource_name] %> as $<%= resource[:dscmeta_resource_name] %>1ref
+{
+	resourceid = "[<%= resource[:dscmeta_resource_friendly_name] %>]<%= resource.title %>";
+	modulename = <%= format_mof_value(resource[:dscmeta_module_name]) %>;
+	moduleversion = <%= format_mof_value(resource[:dscmeta_module_version]) %>;
+<% dsc_parameters.each do |p| -%>
+ 	<%= p.name.to_s.gsub(/^dsc_/,'') %> = <%= format_mof_value(p.value) %>;
+<% end -%>
+};
+
+instance of OMI_ConfigurationDocument
+{
+	Version="1.0.0";
+	Author="Administrator";
+	GenerationDate="<%= Time.now.strftime("%m/%d/%Y %H:%M:%S") %>";
+	GenerationHost="<%= Facter.fact(:hostname).value %>";
+};

@@ -155,7 +155,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
     before(:each) do
       @provider = described_class.provider(:dsc_resource).new(dsc_<%= resource.friendlyname.downcase %>)
     end
-<%  if resource.dsc_module -%>
+<%  if resource.ps_module.name -%>
 
     describe "when dscmeta_import_resource is true (default) and dscmeta_module_name existing/is defined " do
 
@@ -182,7 +182,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
       end
 
     end
-<%  end # if resource.dsc_module -%>
+<%  end # if resource.ps_module.name -%>
 <%  if resource.ensurable? -%>
 
     describe "when dsc_ensure is 'present'" do

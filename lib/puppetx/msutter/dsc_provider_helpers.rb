@@ -33,7 +33,8 @@ module Puppetx
       end
 
       def exists?
-        set_test_dsc_parameters
+        Puppet.debug "\n" + mof_test_content
+        write_test_mof
         output = powershell(dsc_configuration('test'))
         if ['true','false'].include?(output.to_s.strip.downcase)
           check = (output.to_s.strip.downcase == 'true')
@@ -47,13 +48,15 @@ module Puppetx
       end
 
       def create
-        set_original_dsc_parameters
-        powershell(dsc_configuration('set'))
+        write_set_mof
+        output = powershell(dsc_configuration('set'))
+        Puppet.debug output
       end
 
       def destroy
-        set_original_dsc_parameters
-        powershell(dsc_configuration('set'))
+        write_set_mof
+        output = powershell(dsc_configuration('set'))
+        Puppet.debug output
       end
 
       def format_dsc_value(dsc_value)
@@ -73,13 +76,42 @@ module Puppetx
         end
       end
 
+      def format_mof_value(mof_value)
+        case
+        when mof_value.class.name == 'String'
+          "\"#{mof_value}\""
+        when mof_value.class.name == 'Numeric'
+          "#{mof_value}"
+        when [:true, :false].include?(mof_value)
+          "#{mof_value.to_s}"
+        when ['trueclass','falseclass'].include?(mof_value.class.name.downcase)
+          "#{mof_value.to_s}"
+        when mof_value.class.name == 'Array'
+          res = String.new
+          res << "{\n\t\t"
+          res << mof_value.collect{|m| format_mof_value(m)}.join(",\n\t\t")
+          res << "\n\t}"
+          res
+        else
+          fail "unsupported type #{mof_value.class} of value '#{dsc_value}'"
+        end
+      end
+
       def dsc_configuration(mode)
         @param_hash = resource
         template = ERB.new(File.new(template_path + "/#{mode}_dsc_configuration.erb").read, nil, '-')
         template.result(binding)
       end
 
-      def mof_content
+      def mof_test_content
+        set_test_dsc_parameters
+        @param_hash = resource
+        template = ERB.new(File.new(template_path + '/mof.erb').read, nil, '-')
+        template.result(binding)
+      end
+
+      def mof_set_content
+        set_original_dsc_parameters
         @param_hash = resource
         template = ERB.new(File.new(template_path + '/mof.erb').read, nil, '-')
         template.result(binding)
@@ -110,11 +142,23 @@ module Puppetx
         '-NoProfile -NonInteractive -NoLogo -ExecutionPolicy Bypass -ErrorAction Stop'
       end
 
-      def write_mof
+      def write_test_mof
         begin
           mof_file_path = "#{lcm_config_folder}\\current.mof"
           File.open(native_path(mof_file_path), 'w') do |mof_file|
-            mof_file.write(test_mof_content)
+            mof_file.write(mof_test_content)
+            mof_file.flush
+          end
+        rescue => e
+          Puppet.warning e
+        end
+      end
+
+      def write_set_mof
+        begin
+          mof_file_path = "#{lcm_config_folder}\\localhost.mof"
+          File.open(native_path(mof_file_path), 'w') do |mof_file|
+            mof_file.write(mof_set_content)
             mof_file.flush
           end
         rescue => e
