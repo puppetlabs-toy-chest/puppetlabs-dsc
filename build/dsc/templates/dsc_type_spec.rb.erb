@@ -160,11 +160,11 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
     describe "when dscmeta_import_resource is true (default) and dscmeta_module_name existing/is defined " do
 
       it "should compute powershell dsc test script with Import-DscResource" do
-        expect(@provider.test_dsc_configuration).to match(/Import-DscResource/)
+        expect(@provider.dsc_configuration('test')).to match(/Import-DscResource/)
       end
 
-      it "should compute powershell dsc start script with Import-DscResource" do
-        expect(@provider.start_dsc_configuration).to match(/Import-DscResource/)
+      it "should compute powershell dsc set script with Import-DscResource" do
+        expect(@provider.dsc_configuration('set')).to match(/Import-DscResource/)
       end
 
     end
@@ -173,12 +173,12 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
       it "should compute powershell dsc test script without Import-DscResource" do
         dsc_<%= resource.friendlyname.downcase %>[:dscmeta_import_resource] = false
-        expect(@provider.test_dsc_configuration).not_to match(/Import-DscResource/)
+        expect(@provider.dsc_configuration('test')).not_to match(/Import-DscResource/)
       end
 
-      it "should compute powershell dsc start script without Import-DscResource" do
+      it "should compute powershell dsc set script without Import-DscResource" do
         dsc_<%= resource.friendlyname.downcase %>[:dscmeta_import_resource] = false
-        expect(@provider.start_dsc_configuration).not_to match(/Import-DscResource/)
+        expect(@provider.dsc_configuration('set')).not_to match(/Import-DscResource/)
       end
 
     end
@@ -197,11 +197,13 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
       end
 
       it "should compute powershell dsc test script in which ensure value is 'present'" do
-        expect(@provider.test_dsc_configuration).to match(/ensure = 'present'/)
+        @provider.set_test_dsc_parameters
+        expect(@provider.dsc_configuration('test')).to match(/ensure = 'present'/)
       end
 
-      it "should compute powershell dsc start script in which ensure value is 'present'" do
-        expect(@provider.start_dsc_configuration).to match(/ensure = 'present'/)
+      it "should compute powershell dsc set script in which ensure value is 'present'" do
+        @provider.set_original_dsc_parameters
+        expect(@provider.dsc_configuration('set')).to match(/ensure = 'present'/)
       end
 
     end
@@ -218,11 +220,13 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
       end
 
       it "should compute powershell dsc test script in which ensure value is 'present'" do
-        expect(@provider.test_dsc_configuration).to match(/ensure = 'present'/)
+        @provider.set_test_dsc_parameters
+        expect(@provider.dsc_configuration('test')).to match(/ensure = 'present'/)
       end
 
-      it "should compute powershell dsc start script in which ensure value is 'absent'" do
-        expect(@provider.start_dsc_configuration).to match(/ensure = 'absent'/)
+      it "should compute powershell dsc set script in which ensure value is 'absent'" do
+        @provider.set_original_dsc_parameters
+        expect(@provider.dsc_configuration('set')).to match(/ensure = 'absent'/)
       end
 
     end

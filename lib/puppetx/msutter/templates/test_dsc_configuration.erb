@@ -15,11 +15,7 @@ configuration PuppetConfiguration
       <%= resource[:dscmeta_resource_friendly_name] %> "<%= resource.title %>"
         {
 <% dsc_parameters.each do |p| -%>
-<%   if p.name == :dsc_ensure -%>
-           ensure = 'present'
-<%   else -%>
            <%= p.name.to_s.gsub(/^dsc_/,'') %> = <%= format_dsc_value(p.value) %>
-<%   end -%>
 <% end -%>
         }
     }

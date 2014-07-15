@@ -22,9 +22,19 @@ module Puppetx
         end
       end
 
+      def lcm_config_folder
+        if File.exists?("#{ENV['SYSTEMROOT']}\\sysnative\\Configuration")
+          "#{ENV['SYSTEMROOT']}\\sysnative\\Configuration"
+        elsif File.exists?("#{ENV['SYSTEMROOT']}\\System32\\Configuration")
+          "#{ENV['SYSTEMROOT']}\\System32\\Configuration"
+        else
+          fail "Could not find the LCM Config Directory"
+        end
+      end
+
       def exists?
-        output = powershell(test_dsc_configuration)
-        Puppet.debug "Command output: #{output}"
+        set_test_dsc_parameters
+        output = powershell(dsc_configuration('test'))
         if ['true','false'].include?(output.to_s.strip.downcase)
           check = (output.to_s.strip.downcase == 'true')
           Puppet.debug "Dsc Resource Exists?: #{check}"
@@ -37,11 +47,13 @@ module Puppetx
       end
 
       def create
-        powershell(start_dsc_configuration)
+        set_original_dsc_parameters
+        powershell(dsc_configuration('set'))
       end
 
       def destroy
-        powershell(start_dsc_configuration)
+        set_original_dsc_parameters
+        powershell(dsc_configuration('set'))
       end
 
       def format_dsc_value(dsc_value)
@@ -61,16 +73,27 @@ module Puppetx
         end
       end
 
-      def test_dsc_configuration
+      def dsc_configuration(mode)
         @param_hash = resource
-        template = ERB.new(File.new(template_path + '/test_dsc_configuration.erb').read, nil, '-')
+        template = ERB.new(File.new(template_path + "/#{mode}_dsc_configuration.erb").read, nil, '-')
         template.result(binding)
       end
 
-      def start_dsc_configuration
+      def mof_content
         @param_hash = resource
-        template = ERB.new(File.new(template_path + '/start_dsc_configuration.erb').read, nil, '-')
+        template = ERB.new(File.new(template_path + '/mof.erb').read, nil, '-')
         template.result(binding)
+      end
+
+      def set_test_dsc_parameters
+        if resource[:dsc_ensure] == 'absent'
+          resource[:dsc_ensure] = 'present'
+          resource[:ensure] = 'absent'
+        end
+      end
+
+      def set_original_dsc_parameters
+        resource[:dsc_ensure] = resource.original_parameters[:dsc_ensure] if resource.original_parameters[:dsc_ensure]
       end
 
       def dsc_parameters
@@ -87,16 +110,23 @@ module Puppetx
         '-NoProfile -NonInteractive -NoLogo -ExecutionPolicy Bypass -ErrorAction Stop'
       end
 
+      def write_mof
+        begin
+          mof_file_path = "#{lcm_config_folder}\\current.mof"
+          File.open(native_path(mof_file_path), 'w') do |mof_file|
+            mof_file.write(test_mof_content)
+            mof_file.flush
+          end
+        rescue => e
+          Puppet.warning e
+        end
+      end
+
+      def native_path(path)
+        path.gsub(File::SEPARATOR, File::ALT_SEPARATOR)
+      end
+
     end
   end
-
-  # class String
-  #   def to_bool
-  #     return true if self =~ (/^(true|t|yes|y|1)$/i)
-  #     return false if self.empty? || self =~ (/^(false|f|no|n|0)$/i)
-
-  #     raise ArgumentError.new "invalid value: #{self}"
-  #   end
-  # end
 
 end
