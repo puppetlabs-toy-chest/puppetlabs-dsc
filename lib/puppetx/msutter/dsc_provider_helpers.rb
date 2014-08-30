@@ -79,7 +79,8 @@ module Puppetx
       def format_mof_value(mof_value)
         case
         when mof_value.class.name == 'String'
-          "\"#{mof_value}\""
+          escaped_string = mof_value.gsub('\\', '\\\\\\')
+          '"' + escaped_string + '"'
         when mof_value.class.name == 'Numeric'
           "#{mof_value}"
         when [:true, :false].include?(mof_value)

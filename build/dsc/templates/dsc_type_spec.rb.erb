@@ -155,6 +155,11 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
     before(:each) do
       @provider = described_class.provider(:dsc_resource).new(dsc_<%= resource.friendlyname.downcase %>)
     end
+
+    it "should successfully build mof file" do
+      expect(@provider.mof_test_content).to match(/instance of <%= resource.name %> as $<%= resource.name %>1ref/)
+    end
+
 <%  if resource.ps_module.name -%>
 
     describe "when dscmeta_import_resource is true (default) and dscmeta_module_name existing/is defined " do
