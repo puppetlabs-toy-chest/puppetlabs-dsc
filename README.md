@@ -11,10 +11,9 @@ License
 -------
 Apache License 2.0
 
-
 Limitations
 -----------
-
-- DSC Composite resource not yet supported
+- DSC Composite resources not yet supported and tested.
 - Ensure parameters must have a 'present' and 'absent' valuemap.
+- PScredentials and valuemaps not yet supported
 
