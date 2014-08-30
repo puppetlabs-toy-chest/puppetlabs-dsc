@@ -1,7 +1,12 @@
 # Microsoft DSC Base Resources and Base Class definitions
+# This are the base resources definitions (only mof files) found in a 2012R2 windows server
 repo "PSDesiredStateConfiguration",
 	:git => "https://github.com/msutter/PSDesiredStateConfiguration.git"
 
-## Microsoft Resource Kit Wave 4
-repo "dsc_resource_kit_6",
-	:archive => "http://gallery.technet.microsoft.com/scriptcenter/DSC-Resource-Kit-All-c449312d/file/124481/1/DSC%20Resource%20Kit%20Wave%206%2008282014.zip"
+# Microsoft Resource Kit Wave 4
+# Last resource kit for dsc resources.
+# the build will fail for 3 resources in this kit. You can delete the resources after first import
+# and build the puppet types with 'bundle exec rake dsc:types:clean' and  'bundle exec rake dsc:types:clean'
+#
+#   repo "dsc_resource_kit_6",
+#	  :archive => "http://gallery.technet.microsoft.com/scriptcenter/DSC-Resource-Kit-All-c449312d/file/124481/1/DSC%20Resource%20Kit%20Wave%206%2008282014.zip"
