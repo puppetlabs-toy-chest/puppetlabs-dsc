@@ -1,6 +1,8 @@
 module Dsc
   class Mof
 
+    attr_accessor :dsc_invalid_resources
+
     def initialize(options)
 
       @import_folder                = options[:import_folder]
@@ -15,7 +17,9 @@ module Dsc
       @dsc_modules_mof              = "#{@import_folder}/dsc_modules.mof"
       @dsc_base_mof                 = "#{@import_folder}/base.mof"
 
-      @dsc_mof_file_pathes = nil
+      @dsc_mof_file_pathes          = nil
+
+      @dsc_invalid_resources        = {}
     end
 
     def dsc_mof_file_pathes
@@ -53,7 +57,9 @@ module Dsc
       begin
         result = parser.parse(moffiles)
       rescue Exception => e
-        parser.error_handler e
+        @dsc_invalid_resources[moffiles] = e
+        #parser.error_handler e
+        puts "Last processed 'schema.mof' file could not be parsed: #{e}"
         exit 1
       end
       # return mof result

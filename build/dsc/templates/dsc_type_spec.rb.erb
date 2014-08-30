@@ -146,18 +146,16 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 <%    end # if property.uint? -%>
 <%  end # resource.properties.each... -%>
 
-  describe "provider tests" do
+  # Configuration PROVIDER TESTS
+
+  describe "dsc_configuration provider tests" do
 
     it "should successfully instanciate the provider" do
-      described_class.provider(:dsc_resource).new(dsc_<%= resource.friendlyname.downcase %>)
+      described_class.provider(:dsc_configuration).new(dsc_<%= resource.friendlyname.downcase %>)
     end
 
     before(:each) do
-      @provider = described_class.provider(:dsc_resource).new(dsc_<%= resource.friendlyname.downcase %>)
-    end
-
-    it "should successfully build mof file" do
-      expect(@provider.mof_test_content).to match(/instance of <%= resource.name %> as $<%= resource.name %>1ref/)
+      @provider = described_class.provider(:dsc_configuration).new(dsc_<%= resource.friendlyname.downcase %>)
     end
 
 <%  if resource.ps_module.name -%>
@@ -165,11 +163,11 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
     describe "when dscmeta_import_resource is true (default) and dscmeta_module_name existing/is defined " do
 
       it "should compute powershell dsc test script with Import-DscResource" do
-        expect(@provider.dsc_configuration('test')).to match(/Import-DscResource/)
+        expect(@provider.ps_script_content('test')).to match(/Import-DscResource/)
       end
 
       it "should compute powershell dsc set script with Import-DscResource" do
-        expect(@provider.dsc_configuration('set')).to match(/Import-DscResource/)
+        expect(@provider.ps_script_content('set')).to match(/Import-DscResource/)
       end
 
     end
@@ -178,12 +176,12 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
       it "should compute powershell dsc test script without Import-DscResource" do
         dsc_<%= resource.friendlyname.downcase %>[:dscmeta_import_resource] = false
-        expect(@provider.dsc_configuration('test')).not_to match(/Import-DscResource/)
+        expect(@provider.ps_script_content('test')).not_to match(/Import-DscResource/)
       end
 
       it "should compute powershell dsc set script without Import-DscResource" do
         dsc_<%= resource.friendlyname.downcase %>[:dscmeta_import_resource] = false
-        expect(@provider.dsc_configuration('set')).not_to match(/Import-DscResource/)
+        expect(@provider.ps_script_content('set')).not_to match(/Import-DscResource/)
       end
 
     end
@@ -193,8 +191,9 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
     describe "when dsc_ensure is 'present'" do
 
       before(:each) do
+        dsc_<%= resource.friendlyname.downcase %>.original_parameters[:dsc_ensure] = 'present'
         dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'present'
-        @provider = described_class.provider(:dsc_resource).new(dsc_<%= resource.friendlyname.downcase %>)
+        @provider = described_class.provider(:dsc_configuration).new(dsc_<%= resource.friendlyname.downcase %>)
       end
 
       it "should update :ensure to :present" do
@@ -203,12 +202,12 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
       it "should compute powershell dsc test script in which ensure value is 'present'" do
         @provider.set_test_dsc_parameters
-        expect(@provider.dsc_configuration('test')).to match(/ensure = 'present'/)
+        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
       end
 
       it "should compute powershell dsc set script in which ensure value is 'present'" do
         @provider.set_original_dsc_parameters
-        expect(@provider.dsc_configuration('set')).to match(/ensure = 'present'/)
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'present'/)
       end
 
     end
@@ -216,8 +215,9 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
     describe "when dsc_ensure is 'absent'" do
 
       before(:each) do
+        dsc_<%= resource.friendlyname.downcase %>.original_parameters[:dsc_ensure] = 'absent'
         dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'absent'
-        @provider = described_class.provider(:dsc_resource).new(dsc_<%= resource.friendlyname.downcase %>)
+        @provider = described_class.provider(:dsc_configuration).new(dsc_<%= resource.friendlyname.downcase %>)
       end
 
       it "should update :ensure to :absent" do
@@ -226,12 +226,60 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
       it "should compute powershell dsc test script in which ensure value is 'present'" do
         @provider.set_test_dsc_parameters
-        expect(@provider.dsc_configuration('test')).to match(/ensure = 'present'/)
+        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
       end
 
       it "should compute powershell dsc set script in which ensure value is 'absent'" do
         @provider.set_original_dsc_parameters
-        expect(@provider.dsc_configuration('set')).to match(/ensure = 'absent'/)
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
+      end
+
+    end
+<%  end # if resource.ensurable? -%>
+
+  end
+
+  # mof PROVIDERS TESTS
+
+  describe "mof provider tests" do
+
+    it "should successfully instanciate the provider" do
+      described_class.provider(:dsc_mof).new(dsc_<%= resource.friendlyname.downcase %>)
+    end
+
+    before(:each) do
+      @provider = described_class.provider(:dsc_mof).new(dsc_<%= resource.friendlyname.downcase %>)
+    end
+
+    it "should successfully build mof file" do
+#     expect(@provider.mof_test_content).to match(/instance of <%= resource.name %> as $<%= resource.name %>1ref$/)
+      expect(@provider.mof_test_content).to match(/instance of <%= resource.name %>/)
+    end
+
+<%  if resource.ensurable? -%>
+
+    describe "when dsc_ensure is 'present'" do
+
+      before(:each) do
+        dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'present'
+        @provider = described_class.provider(:dsc_mof).new(dsc_<%= resource.friendlyname.downcase %>)
+      end
+
+      it "should update :ensure to :present" do
+        expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq(:present)
+      end
+
+    end
+
+    describe "when dsc_ensure is 'absent'" do
+
+      before(:each) do
+        dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'absent'
+        @provider = described_class.provider(:dsc_mof).new(dsc_<%= resource.friendlyname.downcase %>)
+      end
+
+      it "should update :ensure to :absent" do
+        expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq(:absent)
       end
 
     end

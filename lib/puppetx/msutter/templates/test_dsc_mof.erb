@@ -1,0 +1,6 @@
+
+$ErrorActionPreference = "Stop"
+$LCMConfigFolder = "$env:windir\System32\Configuration"
+$test_return = Test-DscConfiguration
+Remove-Item $LCMConfigFolder\*.mof | out-null
+return $test_return
