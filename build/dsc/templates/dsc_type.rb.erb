@@ -1,7 +1,6 @@
 begin
   require 'puppetx/msutter/dsc_configuration_provider'
   require 'puppetx/msutter/dsc_mof_provider'
-  require 'puppetx/msutter/dsc_provider_helpers'
   require 'puppetx/msutter/dsc_type_helpers'
 rescue LoadError => detail
   require 'pathname'
@@ -9,7 +8,6 @@ rescue LoadError => detail
   $:.unshift(lib_path)
   require 'puppetx/msutter/dsc_configuration_provider'
   require 'puppetx/msutter/dsc_mof_provider'
-  require 'puppetx/msutter/dsc_provider_helpers'
   require 'puppetx/msutter/dsc_type_helpers'
 end
 
@@ -19,12 +17,10 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 
   provide :dsc_configuration do
     include Puppetx::Msutter::DscConfigurationProvider
-    include Puppetx::Msutter::DscProviderHelpers
   end
 
   provide :dsc_mof do
     include Puppetx::Msutter::DscMofProvider
-    include Puppetx::Msutter::DscProviderHelpers
   end
 
   @doc = %q{

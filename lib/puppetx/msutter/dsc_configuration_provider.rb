@@ -6,9 +6,17 @@ module Puppetx
       def self.included(configuration_provider)
         configuration_provider.extend(DscConfigurationProvider)
 
+        configuration_provider.defaultfor :operatingsystem => :windows
+
         configuration_provider.desc <<-EOT
         Applies DSC Resources by generating a configuration file and applying it.
         EOT
+
+        require 'puppetx/msutter/dsc_provider_helpers'
+        configuration_provider.class_eval do
+          include DscProviderHelpers
+        end
+
       end
 
       def exists?

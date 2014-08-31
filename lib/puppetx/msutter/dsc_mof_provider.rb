@@ -3,14 +3,17 @@ module Puppetx
 
     module DscMofProvider
 
-      # include Puppetx::Msutter::DscProviderHelpers
-
       def self.included(mof_provider)
         mof_provider.extend(DscMofProvider)
 
         mof_provider.desc <<-EOT
         Applies DSC Resources by generating a mof file and applying it.
         EOT
+
+        require 'puppetx/msutter/dsc_provider_helpers'
+        mof_provider.class_eval do
+          include DscProviderHelpers
+        end
 
       end
 
