@@ -1,14 +1,14 @@
 begin
-  require 'puppetx/msutter/dsc_configuration_provider'
-  require 'puppetx/msutter/dsc_mof_provider'
-  require 'puppetx/msutter/dsc_type_helpers'
+  require 'puppetx/msutter/providers/dsc_configuration_provider'
+  require 'puppetx/msutter/providers/dsc_mof_provider'
+  require 'puppetx/msutter/helpers/dsc_type_helpers'
 rescue LoadError => detail
   require 'pathname'
   lib_path = Pathname.new(__FILE__).dirname.parent.parent
   $:.unshift(lib_path)
-  require 'puppetx/msutter/dsc_configuration_provider'
-  require 'puppetx/msutter/dsc_mof_provider'
-  require 'puppetx/msutter/dsc_type_helpers'
+  require 'puppetx/msutter/providers/dsc_configuration_provider'
+  require 'puppetx/msutter/providers/dsc_mof_provider'
+  require 'puppetx/msutter/helpers/dsc_type_helpers'
 end
 
 Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do

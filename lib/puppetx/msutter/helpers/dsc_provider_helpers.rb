@@ -46,7 +46,7 @@ module Puppetx
       end
 
       def template_path
-        File.expand_path('../templates', __FILE__)
+        File.expand_path('../../templates', __FILE__)
       end
 
       def args
