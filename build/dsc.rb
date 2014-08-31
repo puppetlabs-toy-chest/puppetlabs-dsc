@@ -8,7 +8,9 @@ require 'mof'
 require 'cim'
 require 'find'
 require 'logger'
-require 'pry'
+
+# For debugging
+#require 'pry'
 
 LIB_PATH = File.dirname(__FILE__)
 

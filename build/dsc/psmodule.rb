@@ -39,7 +39,6 @@ module Dsc
         end
         @attributes
       rescue => e
-        binding.pry
         raise "could not read psd1 manifest file for #{@name} / #{@module_manifest_path}: #{e}"
       end
     end
