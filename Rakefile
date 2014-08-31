@@ -24,5 +24,4 @@ task :librarian_spec_prep do
 end
 task :spec_prep => :librarian_spec_prep
 
-
-task :default => [:spec, :lint]
+task :default => ['dsc:clean', 'dsc:build', :spec, :lint]
