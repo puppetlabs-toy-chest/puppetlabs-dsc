@@ -1,4 +1,4 @@
-module Puppetx
+module Puppet_x
   module Msutter
 
     module DscMofProvider
@@ -10,7 +10,7 @@ module Puppetx
         Applies DSC Resources by generating a mof file and applying it.
         EOT
 
-        require 'puppetx/msutter/helpers/dsc_provider_helpers'
+        require 'puppet_x/msutter/helpers/dsc_provider_helpers'
         mof_provider.class_eval do
           include DscProviderHelpers
         end

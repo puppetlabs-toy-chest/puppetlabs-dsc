@@ -1,26 +1,26 @@
 begin
-  require 'puppetx/msutter/providers/dsc_configuration_provider'
-  require 'puppetx/msutter/providers/dsc_mof_provider'
-  require 'puppetx/msutter/helpers/dsc_type_helpers'
+  require 'puppet_x/msutter/providers/dsc_configuration_provider'
+  require 'puppet_x/msutter/providers/dsc_mof_provider'
+  require 'puppet_x/msutter/helpers/dsc_type_helpers'
 rescue LoadError => detail
   require 'pathname'
   lib_path = Pathname.new(__FILE__).dirname.parent.parent
   $:.unshift(lib_path)
-  require 'puppetx/msutter/providers/dsc_configuration_provider'
-  require 'puppetx/msutter/providers/dsc_mof_provider'
-  require 'puppetx/msutter/helpers/dsc_type_helpers'
+  require 'puppet_x/msutter/providers/dsc_configuration_provider'
+  require 'puppet_x/msutter/providers/dsc_mof_provider'
+  require 'puppet_x/msutter/helpers/dsc_type_helpers'
 end
 
 Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 
-  include Puppetx::Msutter::DscTypeHelpers
+  include Puppet_x::Msutter::DscTypeHelpers
 
   provide :dsc_configuration do
-    include Puppetx::Msutter::DscConfigurationProvider
+    include Puppet_x::Msutter::DscConfigurationProvider
   end
 
   provide :dsc_mof do
-    include Puppetx::Msutter::DscMofProvider
+    include Puppet_x::Msutter::DscMofProvider
   end
 
   @doc = %q{

@@ -1,4 +1,4 @@
-module Puppetx
+module Puppet_x
   module Msutter
 
     module DscProviderHelpers

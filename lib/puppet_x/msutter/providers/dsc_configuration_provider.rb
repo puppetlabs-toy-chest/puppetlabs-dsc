@@ -1,4 +1,4 @@
-module Puppetx
+module Puppet_x
   module Msutter
 
     module DscConfigurationProvider
@@ -12,7 +12,7 @@ module Puppetx
         Applies DSC Resources by generating a configuration file and applying it.
         EOT
 
-        require 'puppetx/msutter/helpers/dsc_provider_helpers'
+        require 'puppet_x/msutter/helpers/dsc_provider_helpers'
         configuration_provider.class_eval do
           include DscProviderHelpers
         end
