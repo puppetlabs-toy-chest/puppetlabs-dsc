@@ -92,7 +92,9 @@ As you can see, you can mix and match dsc resources with common puppet resources
 
 ## Notes
 The puppet types are build from the source code of the DSC Resources MOF schema files.
-For more infos or if you want the build Puppet types for your custom DSC Resources visit the [Puppet-Dsc Project](https://github.com/msutter/puppet-dsc)
+For more infos or if you want the build Puppet types for your custom DSC Resources visit
+
+[Puppet-Dsc Project](https://github.com/msutter/puppet-dsc)
 
 ## License
 Copyright (c) 2014 Marc Sutter.
