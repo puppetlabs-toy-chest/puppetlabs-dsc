@@ -1,0 +1,7 @@
+build
+spec
+Gemfile
+.gitignore
+Puppetfile
+Rakefile
+Repofile
