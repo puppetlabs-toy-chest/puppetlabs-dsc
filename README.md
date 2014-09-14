@@ -82,6 +82,10 @@ The following example class would install a website:
   }
 ```
 
+As you can see, you can mix and match dsc resources with common puppet resources.
+
+[Puppet Metaparameters](https://docs.puppetlabs.com/references/latest/metaparameter.html) should also be supported.
+
 ## Limitations
 - DSC Composite resources not yet supported.
 - PSCredential not yet supported.
