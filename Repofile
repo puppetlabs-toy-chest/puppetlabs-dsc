@@ -1,7 +1,6 @@
-# Microsoft DSC Base Resources and Base Class definitions
-# This are the base resources definitions found in a 2012R2 windows server
-repo "PSDesiredStateConfiguration",
-	:git => "https://github.com/msutter/PSDesiredStateConfiguration.git"
+# This are the base resources definitions found in the Windows Management Framework 4.0
+repo "dsc-resource-wmf-4",
+	:git => "https://github.com/msutter/dsc-resource-wmf-4.git"
 
 # Microsoft DSC Resource Kit Wave 6
 repo "dsc-resource-kit-wave-6",
