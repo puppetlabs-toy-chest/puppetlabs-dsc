@@ -19,6 +19,6 @@ end
 group :build do
   gem 'librarian-repo', :github => 'msutter/librarian-repo'
 	gem 'cim'
-	gem 'mof'
+	gem 'mof', :github => 'msutter/mof'
 end
 

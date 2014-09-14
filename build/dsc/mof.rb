@@ -46,6 +46,7 @@ module Dsc
       moffiles, options = MOF::Parser.argv_handler "moflint", []
       options[:style] ||= :cim;
       options[:includes] ||= []
+      options[:quiet] ||= false
 
       moffiles.unshift @dsc_modules_mof unless moffiles.include? @dsc_modules_mof
       moffiles.unshift @dsc_base_mof unless moffiles.include? @dsc_custom_mof
