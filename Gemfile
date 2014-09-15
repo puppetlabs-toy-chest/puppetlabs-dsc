@@ -17,9 +17,9 @@ group :development do
 end
 
 group :build do
-  gem 'librarian-repo', :github => 'msutter/librarian-repo'
-	gem 'cim'
-	gem 'mof', :github => 'msutter/mof'
+  gem 'librarian-repo', :git => 'https://github.com/msutter/librarian-repo.git'
+  gem 'cim'
+  gem 'mof', :git => 'https://github.com/msutter/mof.git'
   gem 'puppet-blacksmith'
 end
 
