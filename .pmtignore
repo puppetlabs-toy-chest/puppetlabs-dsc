@@ -1,7 +1,7 @@
-build
-spec
-Gemfile
-.gitignore
-Puppetfile
-Rakefile
-Repofile
+import/
+/spec/fixtures/
+.librarian
+.tmp
+*.lock
+.rbenv-gemsets
+.ruby-version
