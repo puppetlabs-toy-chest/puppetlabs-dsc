@@ -37,7 +37,7 @@ You can build puppet types based on your own powershell source code.
 
 ## partial support for Composite resources.
 If you need composite resources, you have to define a xxx.schema.mof file next to your xxx.Schema.psm1 file.
-More infos in README of my [customized DSC Resource kit vawe 6 repo](https://github.com/msutter/dsc-resource-kit-wave-6.git)
+More infos and examples about this in my [customized DSC Resource kit vawe 6 repo](https://github.com/msutter/dsc-resource-kit-wave-6.git)
 
 ## Issues
 Please report issues on the [project issues](https://github.com/msutter/puppet-dsc/issues)
