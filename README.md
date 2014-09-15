@@ -7,7 +7,7 @@ Puppet module for managing Windows poweshell DSC resources.
 This module generates Puppet Types based on DSC resources MOF schema files.
 
 In this version, the following DSC Resources are already build and ready for usage:
-- All base DSC resources found in wmf 4.0 (powershell 4)
+- All base DSC resources found in powershell 4. ([wmf 4.0](http://www.microsoft.com/en-us/download/details.aspx?id=40855))
 - All DSC resources found in the [DSC resource kit wave 6](http://gallery.technet.microsoft.com/DSC-Resource-Kit-All-c449312d).
 
 This module is available on the [Puppet Forge](https://forge.puppetlabs.com/msutter/dsc)
