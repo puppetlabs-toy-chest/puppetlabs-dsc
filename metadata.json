@@ -1,6 +1,6 @@
 {
   "name": "msutter-dsc",
-  "version": "4.6.0",
+  "version": "0.1.0",
   "author": "Marc Sutter",
   "summary": "PowerShell Desired State Configuration (DSC)",
   "license": "Licensed under (Apache 2.0)",
