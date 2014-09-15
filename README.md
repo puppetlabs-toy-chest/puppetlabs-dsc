@@ -12,7 +12,7 @@ In this version, the following DSC Resources are already build and ready for usa
 
 This module is available on the [Puppet Forge](https://forge.puppetlabs.com/msutter/dsc)
 
-## Windows Systems Prerequisites
+## Windows systems prerequisites
  - Powershell 4 which is included in the [Windows Management Framework 4.0](http://www.microsoft.com/en-us/download/details.aspx?id=40855)
  - [DSC resource kit wave 6](http://gallery.technet.microsoft.com/DSC-Resource-Kit-All-c449312d) must be installed to use it's own resources.
 
@@ -25,6 +25,7 @@ The resulting resource name has to be in lowercase. e.g: 'dsc_windowsfeature'.
 
 ## Example
 The following example class will install the 'Backery' website.
+
 It's a real example and should also work for you.
 
 ```ruby
