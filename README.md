@@ -2,15 +2,18 @@ Puppet Powershell DSC Module
 ============================
 
 ## Overview
-Puppet module for managing windows Poweshell DSC resources contained in:
-- wmf 4.0
-- DSC resource kit wave 6
+Puppet module for managing windows Poweshell DSC resources.
+
+This module generates Puppet Types based on DSC resources MOF schema files.
+In this version (0.1.0), the folowing DSC Resources are already build and ready for usage:
+- All base DSC resources found in wmf 4.0 (powershell 4)
+- All DSC resources found in the [DSC resource kit wave 6](http://gallery.technet.microsoft.com/DSC-Resource-Kit-All-c449312d) . (composite resources not yet fully supported. See the notes)
 
 This module is also available on the [Puppet Forge](https://forge.puppetlabs.com/msutter/dsc)
 
 ## Windows Systems Prerequisites
- - Powershell 4 (Windows Management Framework 4.0)
- - Windows management Framework 4.0 ([wmf 4.0](http://www.microsoft.com/en-us/download/details.aspx?id=40855))
+ - Powershell >= 4 (included in the [Windows Management Framework 4.0](http://www.microsoft.com/en-us/download/details.aspx?id=40855))
+ - [DSC resource kit wave 6](http://gallery.technet.microsoft.com/DSC-Resource-Kit-All-c449312d) must be installed.
 
 ## Installation
     puppet module install msutter-dsc
@@ -84,11 +87,11 @@ As you can see, you can mix and match dsc resources with common puppet resources
 
 ## Limitations
 - DSC Composite resources not yet supported.
-- PSCredential not yet supported.
+- PSCredential as parameters value not yet supported.
 
 ## Notes
 The puppet types are build from the source code of the DSC Resources MOF schema files.
-For more infos or if you want the build Puppet types for your custom DSC Resources visit
+If you want the build Puppet types for your own custom DSC Resources, read the Build Readme.
 
 [Puppet-Dsc Project](https://github.com/msutter/puppet-dsc)
 
