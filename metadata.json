@@ -17,11 +17,22 @@
     {
       "operatingsystem": "windows",
       "operatingsystemrelease": [
-        "6.0",
-        "6.1",
-        "6.2",
-        "6.3"
-      ]
+        "Server 2008",
+        "Server 2008 R2",
+        "Server 2012",
+        "Server 2012 R2",
+        "7",
+        "8"      ]
+    }
+  ],
+    "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
     }
   ],
   "dependencies": [
