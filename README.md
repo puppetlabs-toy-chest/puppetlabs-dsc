@@ -23,7 +23,7 @@ This module is available on the [Puppet Forge](https://forge.puppetlabs.com/msut
 You can use DSC resource by prefixing resource names and parameters with 'dsc_'.
 The resulting resource name has to be in lowercase. e.g: 'dsc_windowsfeature'.
 
-##Example
+## Example
 The following example class will install the 'Backery' website.
 It's a real example and should also work for you.
 
@@ -95,7 +95,7 @@ All [puppet metaparameters](https://docs.puppetlabs.com/references/latest/metapa
 
 ## Notes
 The puppet types are build from the source code of the DSC Resources MOF schema files.
-If you want the build Puppet types for your own custom DSC Resources, read the [README_BUILD](https://github.com/msutter/puppet-dsc/blob/master/README_BUILD).md.
+If you want the build Puppet types for your own custom DSC Resources, read the [README_BUILD](https://github.com/msutter/puppet-dsc/blob/master/README_BUILD)md.
 
 ## License
 Copyright (c) 2014 Marc Sutter.
