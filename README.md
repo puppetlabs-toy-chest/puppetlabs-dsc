@@ -39,10 +39,6 @@ The following example class would install a website:
       dsc_includeallsubfeature => 'True',
     } ->
 
-    reboot {'post_features task':
-      when => pending
-    } ->
-
     # Install the ASP .NET 4.5 role
     dsc_windowsfeature {'AspNet45':
       dsc_ensure => 'present',
