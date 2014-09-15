@@ -2,6 +2,6 @@
 repo "dsc-resource-wmf-4",
 	:git => "https://github.com/msutter/dsc-resource-wmf-4.git"
 
-# Microsoft DSC Resource Kit Wave 6
+# Microsoft DSC Resource Kit Wave 6 custom repo
 repo "dsc-resource-kit-wave-6",
   :git => "https://github.com/msutter/dsc-resource-kit-wave-6.git"
