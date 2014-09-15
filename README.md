@@ -2,27 +2,28 @@ Puppet Powershell DSC Module
 ============================
 
 ## Overview
-Puppet module for managing windows Poweshell DSC resources.
+Puppet module for managing Windows poweshell DSC resources.
 
 This module generates Puppet Types based on DSC resources MOF schema files.
 
-In this version, the folowing DSC Resources are already build and ready for usage:
+In this version, the following DSC Resources are already build and ready for usage:
 - All base DSC resources found in wmf 4.0 (powershell 4)
 - All DSC resources found in the [DSC resource kit wave 6](http://gallery.technet.microsoft.com/DSC-Resource-Kit-All-c449312d).
 
 This module is available on the [Puppet Forge](https://forge.puppetlabs.com/msutter/dsc)
 
 ## Windows Systems Prerequisites
- - Powershell 4 wich is included in the [Windows Management Framework 4.0](http://www.microsoft.com/en-us/download/details.aspx?id=40855)
+ - Powershell 4 which is included in the [Windows Management Framework 4.0](http://www.microsoft.com/en-us/download/details.aspx?id=40855)
  - [DSC resource kit wave 6](http://gallery.technet.microsoft.com/DSC-Resource-Kit-All-c449312d) must be installed to use it's own resources.
 
-## Installation
+## Installation on your puppet master
     puppet module install msutter-dsc
 
 ## Usage
 You can use DSC resource by prefixing resource names and parameters with 'dsc_'.
 The resulting resource name has to be in lowercase. e.g: 'dsc_windowsfeature'.
 
+##Example
 The following example class will install the 'Backery' website.
 It's a real example and should also work for you.
 

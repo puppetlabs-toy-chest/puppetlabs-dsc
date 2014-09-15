@@ -1,9 +1,6 @@
 Build custom DSC resource types
 ===============================
-
-##Usage
-
-#Quick-start
+## Quick-start
 ```
     # install the bundler gem
     gem install bundler
@@ -15,7 +12,7 @@ Build custom DSC resource types
     bundle exec rake
 ```
 
-#Rake tasks
+## Rake tasks
 You can use following rake tasks for your convenience
 ```
 rake dsc:build             # Import and build all
@@ -30,7 +27,7 @@ rake dsc:types:clean       # Cleanup DSC types in (lib/puppet/type)
 
 The default task 'bundle exec rake' will run all of this tasks.
 
-# Custom DSC resources
+## Custom DSC resources
 You can build puppet types based on your own powershell source code.
 
 1. Edit the Repofile and add your git URL or a zip file download URL.
@@ -38,5 +35,9 @@ You can build puppet types based on your own powershell source code.
 3. You should find your new types in lib/puppet/type and their spec tests in spec/unit/puppet/type
 4. Enjoy !
 
-# Issues
+## partial support for Composite resources.
+If you need composite resources, you have to define a xxx.schema.mof file next to your xxx.Schema.psm1 file.
+More infos in README of my [customized DSC Resource kit vawe 6 repo](https://github.com/msutter/dsc-resource-kit-wave-6.git)
+
+## Issues
 Please report issues on the [project issues](https://github.com/msutter/puppet-dsc/issues)
