@@ -1,4 +1,5 @@
 require 'bundler'
+require 'puppet_blacksmith/rake_tasks'
 
 Bundler.require(:rake)
 

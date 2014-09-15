@@ -20,5 +20,6 @@ group :build do
   gem 'librarian-repo', :github => 'msutter/librarian-repo'
 	gem 'cim'
 	gem 'mof', :github => 'msutter/mof'
+  gem 'puppet-blacksmith'
 end
 
