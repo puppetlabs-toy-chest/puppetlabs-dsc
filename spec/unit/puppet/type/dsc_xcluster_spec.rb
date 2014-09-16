@@ -83,7 +83,6 @@ describe Puppet::Type.type(:dsc_xcluster) do
       @provider = described_class.provider(:dsc_configuration).new(dsc_xcluster)
     end
 
-
     describe "when dscmeta_import_resource is true (default) and dscmeta_module_name existing/is defined " do
 
       it "should compute powershell dsc test script with Import-DscResource" do

@@ -6,8 +6,10 @@ Remove-Item $LCMConfigFolder\*.mof | out-null
 
 configuration PuppetConfiguration
 {
-<% if resource.parameters[:dscmeta_module_name] && resource[:dscmeta_import_resource] -%>
+<% unless ['msft_filedirectoryconfiguration'].include?(resource[:dscmeta_module_name].downcase) -%>
+<%   if resource.parameters[:dscmeta_module_name] && resource[:dscmeta_import_resource] -%>
     Import-DscResource <%= "-Name #{resource[:dscmeta_resource_name]}" if resource.parameters[:dscmeta_resource_name] %> <%= "-ModuleName #{resource[:dscmeta_module_name]}" if resource.parameters[:dscmeta_module_name] %>
+<%   end -%>
 <% end -%>
 
     node "localhost"
