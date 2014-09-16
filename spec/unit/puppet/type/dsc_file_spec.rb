@@ -561,32 +561,6 @@ describe Puppet::Type.type(:dsc_file) do
       @provider = described_class.provider(:dsc_configuration).new(dsc_file)
     end
 
-    describe "when dscmeta_import_resource is true (default) and dscmeta_module_name existing/is defined " do
-
-      it "should compute powershell dsc test script with Import-DscResource" do
-        expect(@provider.ps_script_content('test')).to match(/Import-DscResource/)
-      end
-
-      it "should compute powershell dsc set script with Import-DscResource" do
-        expect(@provider.ps_script_content('set')).to match(/Import-DscResource/)
-      end
-
-    end
-
-    describe "when dscmeta_import_resource is false" do
-
-      it "should compute powershell dsc test script without Import-DscResource" do
-        dsc_file[:dscmeta_import_resource] = false
-        expect(@provider.ps_script_content('test')).not_to match(/Import-DscResource/)
-      end
-
-      it "should compute powershell dsc set script without Import-DscResource" do
-        dsc_file[:dscmeta_import_resource] = false
-        expect(@provider.ps_script_content('set')).not_to match(/Import-DscResource/)
-      end
-
-    end
-
     describe "when dsc_ensure is 'present'" do
 
       before(:each) do
