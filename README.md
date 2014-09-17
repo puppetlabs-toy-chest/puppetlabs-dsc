@@ -45,7 +45,6 @@ class fourthcoffee(
   dsc_windowsfeature {'IIS':
     dsc_ensure               => 'present',
     dsc_name                 => 'Web-Server',
-    dsc_includeallsubfeature => 'True',
   } ->
 
   # Install the ASP .NET 4.5 role
