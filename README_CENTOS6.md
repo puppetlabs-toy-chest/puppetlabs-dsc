@@ -34,4 +34,4 @@ bundle install
 # fire the generation
 bundle exec rake
 
-```bash
+```
