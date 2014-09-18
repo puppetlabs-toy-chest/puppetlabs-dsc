@@ -1,7 +1,7 @@
 Generate the puppet types on a centos 6 box
 ===========================================
 
-```
+```bash
 # add software collection
 sudo yum install -y centos-release-SCL
 
@@ -16,7 +16,7 @@ source /etc/profile.d/ruby193.sh
 sudo yum install -y gcc ruby193-ruby-devel zlib-devel libxml2 libxml2-devel libxslt libxslt-devel
 
 # install git
-yum install -y git
+sudo yum install -y git
 
 # clone the dsc repo and cd into it
 git clone https://github.com/msutter/puppet-dsc.git
@@ -34,4 +34,4 @@ bundle install
 # fire the generation
 bundle exec rake
 
-```
+```bash
