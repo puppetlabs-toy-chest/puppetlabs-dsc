@@ -98,13 +98,29 @@ module Dsc
         module_name = revert_array[index + 1 ] rescue nil
         module_dir = path_array[0..(path_array.count - (index + 2))].join('/')
         module_manifest_path = "#{module_dir}/#{module_name}.psd1"
+
         raise "module manifest #{module_manifest_path} not found" unless File.exists?(module_manifest_path)
         # convert files to unix format
-        %x{dos2unix #{module_manifest_path} > /dev/null 2>&1}
+        utf8_encode(module_manifest_path)
+        #{}%x{dos2unix #{module_manifest_path} > /dev/null 2>&1}
         @ps_module = Dsc::Psmodule.new(module_name, module_manifest_path)
       end
       @ps_module
     end
+
+    def utf8_encode(filename)
+      content = File.read(filename)
+      detection = CharlockHolmes::EncodingDetector.detect(content)
+      unless detection[:encoding] == 'UTF-8'
+        utf8_encoded_content = CharlockHolmes::Converter.convert content, detection[:encoding], 'UTF-8'
+        utf8_file = File.open(filename, "w")
+        utf8_file.write(utf8_encoded_content)
+        utf8_file.close
+        puts filename if Dsc::Config['debug']
+        puts "converted from '#{detection[:encoding]}' to 'UTF-8'" if Dsc::Config['debug']
+      end
+    end
+
 
   end
 end

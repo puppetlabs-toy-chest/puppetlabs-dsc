@@ -13,7 +13,7 @@ echo "source /opt/rh/ruby193/enable" | sudo tee -a /etc/profile.d/ruby193.sh
 source /etc/profile.d/ruby193.sh
 
 # install build tools and libs
-sudo yum install -y gcc ruby193-ruby-devel zlib-devel libxml2 libxml2-devel libxslt libxslt-devel
+sudo yum install -y gcc gcc-c++ ruby193-ruby-devel libicu-devel zlib-devel libxml2 libxml2-devel libxslt libxslt-devel
 
 # install git
 sudo yum install -y git

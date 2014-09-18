@@ -37,13 +37,13 @@ module Dsc
     def all_result
 
       # convert files to unix format
-      base_mof_file_pathes.each do |file|
-        #utf8_encode(file)
-      end
+      # base_mof_file_pathes.each do |file|
+      #   utf8_encode(file)
+      # end
 
-      dsc_mof_file_pathes.each do |file|
-        #utf8_encode(file)
-      end
+      # dsc_mof_file_pathes.each do |file|
+      #   utf8_encode(file)
+      # end
 
       create_index_mof(@dsc_modules_mof, dsc_mof_file_pathes)
 
@@ -77,18 +77,18 @@ module Dsc
 
     private
 
-    def utf8_encode(filename)
-      content = File.read(filename)
-      detection = CharlockHolmes::EncodingDetector.detect(content)
-      unless detection[:encoding] == 'UTF-8'
-        utf8_encoded_content = CharlockHolmes::Converter.convert content, detection[:encoding], 'UTF-8'
-        utf8_file = File.open(filename, "w")
-        utf8_file.write(utf8_encoded_content)
-        utf8_file.close
-        puts filename if Dsc::Config['debug']
-        puts "converted from '#{detection[:encoding]}' to 'UTF-8'" if Dsc::Config['debug']
-      end
-    end
+    # def utf8_encode(filename)
+    #   content = File.read(filename)
+    #   detection = CharlockHolmes::EncodingDetector.detect(content)
+    #   unless detection[:encoding] == 'UTF-8'
+    #     utf8_encoded_content = CharlockHolmes::Converter.convert content, detection[:encoding], 'UTF-8'
+    #     utf8_file = File.open(filename, "w")
+    #     utf8_file.write(utf8_encoded_content)
+    #     utf8_file.close
+    #     puts filename if Dsc::Config['debug']
+    #     puts "converted from '#{detection[:encoding]}' to 'UTF-8'" if Dsc::Config['debug']
+    #   end
+    # end
 
     def create_index_mof(index_mof_file_name, mofs)
       File.open(index_mof_file_name, 'w') do |file|
