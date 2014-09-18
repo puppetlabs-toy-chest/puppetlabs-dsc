@@ -21,5 +21,6 @@ group :build do
   gem 'cim'
   gem 'mof', :git => 'https://github.com/msutter/mof.git'
   gem 'puppet-blacksmith'
+  gem 'charlock_holmes'
 end
 
