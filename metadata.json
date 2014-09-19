@@ -1,6 +1,6 @@
 {
   "name": "msutter-dsc",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Marc Sutter",
   "summary": "PowerShell Desired State Configuration (DSC)",
   "license": "Licensed under (Apache 2.0)",
@@ -22,10 +22,11 @@
         "Server 2012",
         "Server 2012 R2",
         "7",
-        "8"      ]
+        "8"
+      ]
     }
   ],
-    "requirements": [
+  "requirements": [
     {
       "name": "pe",
       "version_requirement": "3.x"
