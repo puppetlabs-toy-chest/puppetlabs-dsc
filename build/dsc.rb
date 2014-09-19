@@ -10,9 +10,6 @@ require 'find'
 require 'logger'
 require 'charlock_holmes/string'
 
-# For debugging
-#require 'pry'
-
 LIB_PATH = File.dirname(__FILE__)
 
 require "#{LIB_PATH}/dsc/version"

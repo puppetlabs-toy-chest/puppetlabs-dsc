@@ -1,5 +1,7 @@
 require 'bundler'
-require 'puppet_blacksmith/rake_tasks'
+
+require 'puppet_blacksmith/rake_tasks' if Bundler.rubygems.find_name('puppet-blacksmith').any?
+require 'pry' if Bundler.rubygems.find_name('puppet_blacksmith').any?
 
 Bundler.require(:rake)
 

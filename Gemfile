@@ -12,15 +12,14 @@ gem 'puppetlabs_spec_helper', '>=0.2.0'
 gem 'rake', '>=0.9.2.2'
 gem 'librarian-puppet', '>=1.0.2'
 
-group :development do
-  gem 'pry'
-end
-
 group :build do
   gem 'librarian-repo', :git => 'https://github.com/msutter/librarian-repo.git'
   gem 'cim'
   gem 'mof', :git => 'https://github.com/msutter/mof.git'
-  gem 'puppet-blacksmith'
   gem 'charlock_holmes'
 end
 
+group :development do
+  gem 'puppet-blacksmith'
+  gem 'pry'
+end
