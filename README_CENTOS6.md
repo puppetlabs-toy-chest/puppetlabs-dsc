@@ -32,7 +32,7 @@ bundle config build.nokogiri --use-system-libraries
 bundle config --local without development
 
 # install the needed gems
-bundle install --without
+bundle install
 
 # fire the generation
 bundle exec rake
