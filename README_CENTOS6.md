@@ -28,8 +28,11 @@ gem install bundler
 # Use system libs to avoid issues with the nokogiri build
 bundle config build.nokogiri --use-system-libraries
 
+# Exclude debugging/development gems
+bundle config --local without development
+
 # install the needed gems
-bundle install
+bundle install --without
 
 # fire the generation
 bundle exec rake

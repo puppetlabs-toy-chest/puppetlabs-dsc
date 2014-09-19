@@ -19,20 +19,13 @@ module Dsc
         unless @attributes
           attrs = {}
           regex = /^(.*) *= *'(.*)' *$/
-          begin
-            File.open(@module_manifest_path, 'r:UTF-8') do |psd1|
-              while line = psd1.gets
-                matches = regex.match(line)
-                attrs[matches[1].strip] = matches[2] if matches
-              end
-            end
-            @attributes = attrs
-          rescue ArgumentError
-            File.open(@module_manifest_path, 'r:ISO-8859-1') do |psd1|
-              while line = psd1.gets
-                matches = regex.match(line)
-                attrs[matches[1].strip] = matches[2] if matches
-              end
+          File.open(@module_manifest_path, 'r') do |psd1|
+            content = File.read(psd1)
+            utf8_encoded_content = utf8_encode_content(content)
+            utf8_encoded_content.lines.each do |line|
+              dos2unix(line)
+              matches = regex.match(line)
+              attrs[matches[1].strip] = matches[2] if matches
             end
             @attributes = attrs
           end
@@ -41,6 +34,17 @@ module Dsc
       rescue => e
         raise "could not read psd1 manifest file for #{@name} / #{@module_manifest_path}: #{e}"
       end
+    end
+
+    private
+
+    def utf8_encode_content(content)
+      detection = CharlockHolmes::EncodingDetector.detect(content)
+      CharlockHolmes::Converter.convert content, detection[:encoding], 'UTF-8'
+    end
+
+    def dos2unix(line)
+      line.gsub!(/\r\n$/, "\n")
     end
 
   end
