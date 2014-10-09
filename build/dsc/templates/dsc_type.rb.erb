@@ -4,8 +4,7 @@ begin
   require 'puppet_x/msutter/helpers/dsc_type_helpers'
 rescue LoadError => detail
   require 'pathname'
-  lib_path = Pathname.new(__FILE__).dirname.parent.parent
-  $:.unshift(lib_path)
+  $:.unshift("../<%= @module_path.basename %>/lib")
   require 'puppet_x/msutter/providers/dsc_configuration_provider'
   require 'puppet_x/msutter/providers/dsc_mof_provider'
   require 'puppet_x/msutter/helpers/dsc_type_helpers'

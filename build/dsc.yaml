@@ -2,5 +2,5 @@
 # import
 import_folder: 'import'
 dmtf_mof_folder: 'dmtf_mof'
-dsc_modules_folder: 'dsc_resource_modules'
+dsc_modules_folder: 'dsc_resources'
 debug: true

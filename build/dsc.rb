@@ -10,6 +10,9 @@ require 'find'
 require 'logger'
 require 'charlock_holmes/string'
 
+# Debug
+require 'pry' if Bundler.rubygems.find_name('pry').any?
+
 LIB_PATH = File.dirname(__FILE__)
 
 require "#{LIB_PATH}/dsc/version"

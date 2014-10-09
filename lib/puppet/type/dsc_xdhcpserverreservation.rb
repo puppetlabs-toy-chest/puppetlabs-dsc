@@ -4,8 +4,7 @@ begin
   require 'puppet_x/msutter/helpers/dsc_type_helpers'
 rescue LoadError => detail
   require 'pathname'
-  lib_path = Pathname.new(__FILE__).dirname.parent.parent
-  $:.unshift(lib_path)
+  $:.unshift("../puppet-dsc/lib")
   require 'puppet_x/msutter/providers/dsc_configuration_provider'
   require 'puppet_x/msutter/providers/dsc_mof_provider'
   require 'puppet_x/msutter/helpers/dsc_type_helpers'
@@ -26,7 +25,7 @@ Puppet::Type.newtype(:dsc_xdhcpserverreservation) do
   @doc = %q{
     The DSC xDhcpServerReservation resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resource_modules/dsc-resource-kit-wave-6/xDhcpServer/DSCResources/MSFT_xDhcpServerReservation/MSFT_xDhcpServerReservation.schema.mof
+      import/dsc_resources/dsc-resource-kit-wave-6/xDhcpServer/DSCResources/MSFT_xDhcpServerReservation/MSFT_xDhcpServerReservation.schema.mof
   }
 
   validate do

@@ -2,7 +2,7 @@ require 'puppetlabs_spec_helper/module_spec_helper'
 require 'rake'
 
 # for debugging
-#require 'pry'
+require 'pry' if Bundler.rubygems.find_name('pry').any?
 
 fixture_path = File.expand_path(File.join(__FILE__, '..', 'fixtures'))
 

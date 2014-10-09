@@ -1,12 +1,15 @@
 require 'bundler'
 
+# devel
 require 'puppet_blacksmith/rake_tasks' if Bundler.rubygems.find_name('puppet-blacksmith').any?
-require 'pry' if Bundler.rubygems.find_name('puppet_blacksmith').any?
+
+# debug
+require 'pry' if Bundler.rubygems.find_name('pry').any?
 
 Bundler.require(:rake)
 
-Dir.glob('build/*.rake').each { |r| import r }
 Dir.glob('build/*.rb').each { |r| import r }
+Dir.glob('build/*.rake').each { |r| import r }
 
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet-lint/tasks/puppet-lint'
@@ -27,4 +30,4 @@ task :librarian_spec_prep do
 end
 task :spec_prep => :librarian_spec_prep
 
-task :default => ['dsc:clean', 'dsc:build', :spec, :lint]
+task :default => [:spec, :lint]
