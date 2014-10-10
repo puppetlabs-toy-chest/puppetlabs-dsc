@@ -4,7 +4,7 @@ begin
   require 'puppetx/msutter/helpers/dsc_type_helpers'
 rescue LoadError => detail
   # workaround for rspec tests
-  $:.unshift("../<%= @module_path.basename %>/lib")
+  $:.unshift("spec/fixtures/modules/<%= @module_path.basename %>/lib")
   require 'puppetx/msutter/providers/dsc_configuration_provider'
   require 'puppetx/msutter/providers/dsc_mof_provider'
   require 'puppetx/msutter/helpers/dsc_type_helpers'
