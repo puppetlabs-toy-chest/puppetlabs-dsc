@@ -1,25 +1,25 @@
 begin
-  require 'puppet_x/msutter/providers/dsc_configuration_provider'
-  require 'puppet_x/msutter/providers/dsc_mof_provider'
-  require 'puppet_x/msutter/helpers/dsc_type_helpers'
+  require 'puppetx/msutter/providers/dsc_configuration_provider'
+  require 'puppetx/msutter/providers/dsc_mof_provider'
+  require 'puppetx/msutter/helpers/dsc_type_helpers'
 rescue LoadError => detail
-  require 'pathname'
+  # workaround for rspec tests
   $:.unshift("../<%= @module_path.basename %>/lib")
-  require 'puppet_x/msutter/providers/dsc_configuration_provider'
-  require 'puppet_x/msutter/providers/dsc_mof_provider'
-  require 'puppet_x/msutter/helpers/dsc_type_helpers'
+  require 'puppetx/msutter/providers/dsc_configuration_provider'
+  require 'puppetx/msutter/providers/dsc_mof_provider'
+  require 'puppetx/msutter/helpers/dsc_type_helpers'
 end
 
 Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 
-  include Puppet_x::Msutter::DscTypeHelpers
+  include Puppetx::Msutter::Helpers::DscTypeHelpers
 
   provide :dsc_configuration do
-    include Puppet_x::Msutter::DscConfigurationProvider
+    include Puppetx::Msutter::Providers::DscConfigurationProvider
   end
 
   provide :dsc_mof do
-    include Puppet_x::Msutter::DscMofProvider
+    include Puppetx::Msutter::Providers::DscMofProvider
   end
 
   @doc = %q{

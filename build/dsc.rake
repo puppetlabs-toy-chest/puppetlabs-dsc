@@ -17,39 +17,7 @@ namespace :dsc do
     dsc_module_path = args[:dsc_module_path] || default_dsc_module_path
 
     if args[:dsc_module_path]
-      ext_module_files = [
-        '.gitignore',
-        '.pmtignore',
-        'Gemfile',
-        'LICENSE',
-        'README.md',
-        'Rakefile',
-        'Repofile',
-        'spec/*.rb'
-      ]
-      ext_module_files.each do |module_pathes|
-        Dir[module_pathes].each do |path|
-          if File.directory?(path)
-            FileUtils.mkdir_p("#{dsc_module_path}/#{path}") unless File.exists?("#{dsc_module_path}/#{path}")
-          else
-            directory = Pathname.new(path).dirname
-            FileUtils.mkdir_p("#{dsc_module_path}/#{directory}") unless File.exists?("#{dsc_module_path}/#{directory}")
-            FileUtils.cp(path, "#{dsc_module_path}/#{path}")
-          end
-        end
-      end
-
-
-      # Generate Puppetfile with dependency on this dsc module
-      Puppetfile_content = <<-eos
-forge "https://forgeapi.puppetlabs.com"
-mod '#{dsc_build_path.parent.basename}', :git => '#{dsc_repo_url}'
-eos
-
-      File.open("#{dsc_module_path}/Puppetfile", 'w') do |file|
-        file.write Puppetfile_content
-      end
-
+      Rake::Task['dsc:module:skeleton'].invoke(dsc_module_path)
     end
 
     Rake::Task['dsc:dmtf:import'].invoke
@@ -145,6 +113,63 @@ eod
       msgs.each{|m| puts "#{m}"}
       msgs = m.clean_dsc_type_specs
       msgs.each{|m| puts "#{m}"}
+    end
+
+  end
+
+  namespace :module do
+
+    item_name = 'External DSC module'
+
+    desc "Generate skeleton for #{item_name}"
+    task :skeleton, [:dsc_module_path] do |t, args|
+      dsc_module_path = args[:dsc_module_path] || default_module_path
+      ext_module_files = [
+        '.gitignore',
+        '.pmtignore',
+        'Gemfile',
+        'LICENSE',
+        'README.md',
+        'Rakefile',
+        'Repofile',
+        'spec/*.rb'
+      ]
+      ext_module_files.each do |module_pathes|
+        Dir[module_pathes].each do |path|
+          if File.directory?(path)
+            unless File.exists?("#{dsc_module_path}/#{path}")
+              puts "Creating directory #{path}"
+              FileUtils.mkdir_p("#{dsc_module_path}/#{path}")
+            end
+          else
+            directory = Pathname.new(path).dirname
+            unless File.exists?("#{dsc_module_path}/#{directory}")
+              puts "Creating directory #{dsc_module_path}/#{directory}"
+              FileUtils.mkdir_p("#{dsc_module_path}/#{directory}")
+            end
+            unless File.exists?("#{dsc_module_path}/#{path}")
+              puts "Copying file #{path} to #{dsc_module_path}/#{path}"
+              FileUtils.cp(path, "#{dsc_module_path}/#{path}")
+            end
+          end
+        end
+      end
+
+      unless File.exists?("#{dsc_module_path}/Puppetfile")
+        puts "Creating #{dsc_module_path}/Puppetfile"
+
+        # Generate Puppetfile with dependency on this dsc module
+        Puppetfile_content = <<-eos
+forge "https://forgeapi.puppetlabs.com"
+mod '#{dsc_build_path.parent.basename}', :git => '#{dsc_repo_url}'
+eos
+
+        File.open("#{dsc_module_path}/Puppetfile", 'w') do |file|
+          file.write Puppetfile_content
+        end
+
+      end
+
     end
 
   end
