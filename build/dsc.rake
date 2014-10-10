@@ -132,7 +132,8 @@ eod
         'README.md',
         'Rakefile',
         'Repofile',
-        'spec/*.rb'
+        'spec/*.rb',
+        'lib/puppetx/msutter/**/*'
       ]
       ext_module_files.each do |module_pathes|
         Dir[module_pathes].each do |path|
