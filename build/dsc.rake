@@ -3,7 +3,7 @@ namespace :dsc do
   # local pathes
   dsc_build_path             = Pathname.new(__FILE__).dirname
   dsc_repo_url               = %x(git config --get remote.origin.url).strip
-
+  dsc_repo_branch            = %x(git rev-parse --abbrev-ref HEAD).strip
   # defaults
   default_dsc_module_path    = dsc_build_path.parent
   default_dsc_resources_path = "#{default_dsc_module_path}/#{Dsc::Config['import_folder']}/#{Dsc::Config['dsc_modules_folder']}"
@@ -162,7 +162,7 @@ eod
         # Generate Puppetfile with dependency on this dsc module
         Puppetfile_content = <<-eos
 forge "https://forgeapi.puppetlabs.com"
-mod '#{dsc_build_path.parent.basename}', :git => '#{dsc_repo_url}'
+mod '#{dsc_build_path.parent.basename}', :git => '#{dsc_repo_url}', :ref => '#{dsc_repo_branch}'
 eos
 
         File.open("#{dsc_module_path}/Puppetfile", 'w') do |file|

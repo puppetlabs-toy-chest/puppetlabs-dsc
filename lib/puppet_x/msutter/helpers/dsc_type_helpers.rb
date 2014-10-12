@@ -1,4 +1,4 @@
-module Puppetx
+module PuppetX
   module Msutter
     module Helpers
 
