@@ -1,6 +1,5 @@
-# # This are the base resources definitions found in the Windows Management Framework 4.0
-# repo "dsc-resource-wmf-4",
-# 	:git => "https://github.com/msutter/dsc-resource-wmf-4.git"
+# This are the base resources definitions found in the Windows Management Framework 4.0
+repo "dsc-resource-wmf-4", :git => "https://github.com/msutter/dsc-resource-wmf-4.git"
 
 # # Microsoft DSC Resource Kit Wave 6 custom repo
 # repo "dsc-resource-kit-wave-6",

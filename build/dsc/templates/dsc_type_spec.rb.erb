@@ -148,14 +148,14 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
   # Configuration PROVIDER TESTS
 
-  describe "dsc_configuration provider tests" do
+  describe "powershell provider tests" do
 
     it "should successfully instanciate the provider" do
-      described_class.provider(:dsc_configuration).new(dsc_<%= resource.friendlyname.downcase %>)
+      described_class.provider(:powershell).new(dsc_<%= resource.friendlyname.downcase %>)
     end
 
     before(:each) do
-      @provider = described_class.provider(:dsc_configuration).new(dsc_<%= resource.friendlyname.downcase %>)
+      @provider = described_class.provider(:powershell).new(dsc_<%= resource.friendlyname.downcase %>)
     end
 <%  unless ['msft_filedirectoryconfiguration'].include?(resource.name.downcase) -%>
 <%    if resource.ps_module.name -%>
@@ -194,7 +194,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
       before(:each) do
         dsc_<%= resource.friendlyname.downcase %>.original_parameters[:dsc_ensure] = 'present'
         dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'present'
-        @provider = described_class.provider(:dsc_configuration).new(dsc_<%= resource.friendlyname.downcase %>)
+        @provider = described_class.provider(:powershell).new(dsc_<%= resource.friendlyname.downcase %>)
       end
 
       it "should update :ensure to :present" do
@@ -218,7 +218,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
       before(:each) do
         dsc_<%= resource.friendlyname.downcase %>.original_parameters[:dsc_ensure] = 'absent'
         dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'absent'
-        @provider = described_class.provider(:dsc_configuration).new(dsc_<%= resource.friendlyname.downcase %>)
+        @provider = described_class.provider(:powershell).new(dsc_<%= resource.friendlyname.downcase %>)
       end
 
       it "should update :ensure to :absent" do
@@ -245,11 +245,11 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
   describe "mof provider tests" do
 
     it "should successfully instanciate the provider" do
-      described_class.provider(:dsc_mof).new(dsc_<%= resource.friendlyname.downcase %>)
+      described_class.provider(:mof).new(dsc_<%= resource.friendlyname.downcase %>)
     end
 
     before(:each) do
-      @provider = described_class.provider(:dsc_mof).new(dsc_<%= resource.friendlyname.downcase %>)
+      @provider = described_class.provider(:mof).new(dsc_<%= resource.friendlyname.downcase %>)
     end
 
     it "should successfully build mof file" do
@@ -263,7 +263,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
       before(:each) do
         dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'present'
-        @provider = described_class.provider(:dsc_mof).new(dsc_<%= resource.friendlyname.downcase %>)
+        @provider = described_class.provider(:mof).new(dsc_<%= resource.friendlyname.downcase %>)
       end
 
       it "should update :ensure to :present" do
@@ -276,7 +276,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
       before(:each) do
         dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'absent'
-        @provider = described_class.provider(:dsc_mof).new(dsc_<%= resource.friendlyname.downcase %>)
+        @provider = described_class.provider(:mof).new(dsc_<%= resource.friendlyname.downcase %>)
       end
 
       it "should update :ensure to :absent" do

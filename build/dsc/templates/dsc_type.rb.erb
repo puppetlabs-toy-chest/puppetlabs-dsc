@@ -1,26 +1,10 @@
-begin
-  require 'puppetx/msutter/providers/dsc_configuration_provider'
-  require 'puppetx/msutter/providers/dsc_mof_provider'
-  require 'puppetx/msutter/helpers/dsc_type_helpers'
-rescue LoadError => detail
-  # workaround for rspec tests
-  $:.unshift("../<%= @module_path.basename %>/lib")
-  require 'puppetx/msutter/providers/dsc_configuration_provider'
-  require 'puppetx/msutter/providers/dsc_mof_provider'
-  require 'puppetx/msutter/helpers/dsc_type_helpers'
-end
-
 Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 
-  include Puppetx::Msutter::Helpers::DscTypeHelpers
-
-  provide :dsc_configuration do
-    include Puppetx::Msutter::Providers::DscConfigurationProvider
+  provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
+    defaultfor :operatingsystem => :windows
   end
 
-  provide :dsc_mof do
-    include Puppetx::Msutter::Providers::DscMofProvider
-  end
+  provide :mof, :parent => Puppet::Type.type(:base_dsc).provider(:mof)
 
   @doc = %q{
     The DSC <%= resource.friendlyname%> resource type.
