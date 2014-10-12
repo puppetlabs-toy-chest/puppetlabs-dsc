@@ -2,7 +2,7 @@ begin
   require 'puppet/type/base_dsc'
 rescue LoadError => detail
   # workaround for rspec tests
-  $:.unshift("spec/fixtures/modules/<%= @module_path.basename %>/lib")
+  $:.unshift("spec/fixtures/modules/dsc/lib")
   require 'puppet/type/base_dsc'
 end
 
