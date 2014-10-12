@@ -1,3 +1,11 @@
+begin
+  require 'puppet/type/base_dsc'
+rescue LoadError => detail
+  # workaround for rspec tests
+  $:.unshift("spec/fixtures/modules/<%= @module_path.basename %>/lib")
+  require 'puppet/type/base_dsc'
+end
+
 Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
