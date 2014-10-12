@@ -123,14 +123,14 @@ module Dsc
           FileUtils.mkdir_p(puppet_type_path) unless File.exists?(puppet_type_path)
           File.open("#{puppet_type_path}/dsc_#{resource.friendlyname.downcase}.rb", 'w+') do |file|
             file.write(type_erb.result(binding))
-            pn = Pathname.new(file.path).relative_path_from(@module_path)
+            pn = Pathname.new(file.path).expand_path.relative_path_from(@module_path)
             type_pathes << "Add type - #{pn.to_s}"
           end
           puppet_type_spec_path = "#{@target_module_path}/#{@puppet_type_spec_subpath}"
           FileUtils.mkdir_p(puppet_type_spec_path) unless File.exists?(puppet_type_spec_path)
           File.open("#{puppet_type_spec_path}/dsc_#{resource.friendlyname.downcase}_spec.rb", 'w+') do |file|
             file.write(type_spec_erb.result(binding))
-            pn = Pathname.new(file.path).relative_path_from(@module_path)
+            pn = Pathname.new(file.path).expand_path.relative_path_from(@module_path)
             type_pathes << "Add type spec - #{pn.to_s}"
           end
         else
