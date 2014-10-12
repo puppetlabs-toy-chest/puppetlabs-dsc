@@ -193,7 +193,7 @@ module Dsc
       type_pathes = []
       folders.each do |folder|
         Dir.glob("#{folder}").each do |filepath|
-          pn = Pathname.new(file.path).expand_path.relative_path_from(@module_path)
+          pn = Pathname.new(filepath).expand_path.relative_path_from(@module_path)
           type_pathes << "Remove - #{pn.to_s}"
           FileUtils.rm_rf filepath
         end
