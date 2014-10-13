@@ -161,7 +161,7 @@ eod
         # Generate Puppetfile with dependency on this dsc module
         Puppetfile_content = <<-eos
 forge "https://forgeapi.puppetlabs.com"
-mod '#{dsc_build_path.parent.basename}', :git => '#{dsc_repo_url}', :ref => '#{dsc_repo_branch}'
+mod '#{dsc_build_path.parent.basename}', :git => '#{dsc_repo_url}'
 eos
 
         File.open("#{dsc_module_path}/Puppetfile", 'w') do |file|
