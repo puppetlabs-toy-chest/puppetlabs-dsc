@@ -2,7 +2,7 @@
 begin
   require 'puppet/type/base_dsc'
 rescue LoadError => detail
-  dsc_lib_path = File.expand_path(File.join(__FILE__, '..', '..', '<%= @module_path.basename %>','lib'))
+  dsc_lib_path = File.expand_path(File.join(__FILE__, '..', '..','..', '..', '..', '<%= @module_path.basename %>', 'lib'))
   $:.push(dsc_lib_path) unless $:.include?(dsc_lib_path)
   require 'puppet/type/base_dsc'
 end
