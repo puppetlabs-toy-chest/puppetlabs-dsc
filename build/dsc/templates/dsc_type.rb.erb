@@ -1,8 +1,9 @@
+# workaround for cross modules dependencies
 begin
   require 'puppet/type/base_dsc'
 rescue LoadError => detail
-  # workaround for rspec tests
-  $:.unshift("spec/fixtures/modules/dsc/lib")
+  dsc_lib_path = File.expand_path(File.join(__FILE__, '..', '..', '<%= @module_path.basename %>','lib'))
+  $:.push(dsc_lib_path) unless $:.include?(dsc_lib_path)
   require 'puppet/type/base_dsc'
 end
 

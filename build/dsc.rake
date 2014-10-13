@@ -127,7 +127,6 @@ eod
       ext_module_files = [
         '.gitignore',
         '.pmtignore',
-        'Gemfile',
         'LICENSE',
         'README.md',
         'Rakefile',
@@ -167,6 +166,18 @@ eos
 
         File.open("#{dsc_module_path}/Puppetfile", 'w') do |file|
           file.write Puppetfile_content
+        end
+
+      end
+
+      # Generate Gemfile without any groups.
+      unless File.exists?("#{dsc_module_path}/Gemfile")
+        puts "Creating #{dsc_module_path}/Gemfile"
+
+        Gemfile_content = File.read('Gemfile')
+
+        File.open("#{dsc_module_path}/Gemfile", 'w') do |file|
+          file.write Gemfile_content.gsub(/^group.*^end$/m,'')
         end
 
       end
