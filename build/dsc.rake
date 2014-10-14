@@ -124,31 +124,34 @@ eod
     desc "Generate skeleton for #{item_name}"
     task :skeleton, [:dsc_module_path] do |t, args|
       dsc_module_path = args[:dsc_module_path] || default_module_path
+      module_name = Pathname.new(dsc_module_path).basename.to_s
       ext_module_files = [
         '.gitignore',
         '.pmtignore',
         'LICENSE',
         'README.md',
-        'Rakefile',
         'Repofile',
         'spec/*.rb',
       ]
       ext_module_files.each do |module_pathes|
         Dir[module_pathes].each do |path|
           if File.directory?(path)
-            unless File.exists?("#{dsc_module_path}/#{path}")
-              puts "Creating directory #{path}"
-              FileUtils.mkdir_p("#{dsc_module_path}/#{path}")
+            full_path = "#{dsc_module_path}/#{path}"
+            unless File.exists?(full_path)
+              puts "Creating directory #{full_path}"
+              FileUtils.mkdir_p(full_path)
             end
           else
             directory = Pathname.new(path).dirname
-            unless File.exists?("#{dsc_module_path}/#{directory}")
-              puts "Creating directory #{dsc_module_path}/#{directory}"
-              FileUtils.mkdir_p("#{dsc_module_path}/#{directory}")
+            full_directory_path = "#{dsc_module_path}/#{directory}"
+            full_path = "#{dsc_module_path}/#{path}"
+            unless File.exists?(full_directory_path)
+              puts "Creating directory #{full_directory_path}"
+              FileUtils.mkdir_p(full_directory_path)
             end
-            unless File.exists?("#{dsc_module_path}/#{path}")
-              puts "Copying file #{path} to #{dsc_module_path}/#{path}"
-              FileUtils.cp(path, "#{dsc_module_path}/#{path}")
+            unless File.exists?(full_path)
+              puts "Copying file #{path} to #{full_path}"
+              FileUtils.cp(path, full_path)
             end
           end
         end
@@ -169,16 +172,22 @@ eos
 
       end
 
-      # Generate Gemfile without any groups.
+      # Generate Gemfile without any groups
       unless File.exists?("#{dsc_module_path}/Gemfile")
         puts "Creating #{dsc_module_path}/Gemfile"
-
         Gemfile_content = File.read('Gemfile')
-
         File.open("#{dsc_module_path}/Gemfile", 'w') do |file|
           file.write Gemfile_content.gsub(/^group.*^end$/m,'')
         end
+      end
 
+      # Generate Rakefile
+      unless File.exists?("#{dsc_module_path}/Rakefile")
+        puts "Creating #{dsc_module_path}/Rakefile"
+        Rakefile_content = File.read('Rakefile')
+        File.open("#{dsc_module_path}/Rakefile", 'w') do |file|
+          file.write Rakefile_content.gsub(/\/spec\/fixtures\/modules\/dsc/, "/spec/fixtures/modules/#{module_name.split('-').last}")
+        end
       end
 
     end
