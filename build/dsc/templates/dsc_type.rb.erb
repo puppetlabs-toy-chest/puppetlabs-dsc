@@ -1,11 +1,7 @@
-# workaround for cross modules dependencies
-begin
-  require 'puppet/type/base_dsc'
-rescue LoadError => detail
-  dsc_lib_path = File.expand_path(File.join(__FILE__, '..', '..','..', '..', '..', '<%= @module_path.basename %>', 'lib'))
-  $:.push(dsc_lib_path) unless $:.include?(dsc_lib_path)
-  require 'puppet/type/base_dsc'
-end
+# workaround for cross modules dependencies during test
+master_path = File.expand_path(File.join(__FILE__, '..', '..','..', '..', '<%= @module_path.basename.to_s.split('-').last %>','lib'))
+path = File.directory?(master_path) ? master_path : nil
+require File.join([path, 'puppet', 'type', 'base_dsc'].compact)
 
 Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 

@@ -7,7 +7,7 @@ require 'pry' if Bundler.rubygems.find_name('pry').any?
 fixture_path = File.expand_path(File.join(__FILE__, '..', 'fixtures'))
 
 # Workaround for cross-module type dependency
-dsc_lib_path = File.join(fixture_path, 'modules', 'dsc', 'lib')
+dsc_lib_path = File.join(fixture_path, 'modules', 'dsc','lib')
 $:.unshift(dsc_lib_path) unless $:.include?(dsc_lib_path)
 
 RSpec.configure do |c|
