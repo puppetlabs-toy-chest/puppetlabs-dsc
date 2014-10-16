@@ -24,8 +24,10 @@ namespace :dsc do
 
     repofile = "#{dsc_module_path}/Repofile"
     raise "#{repofile} does not exist. Exiting" unless File.exists?(repofile)
+    Rake::Task['dsc:resources:clean'].invoke(default_dsc_resources_path)
     Rake::Task['dsc:resources:import'].invoke(repofile)
 
+    Rake::Task['dsc:types:clean'].invoke(dsc_module_path)
     Rake::Task['dsc:types:build'].invoke(dsc_module_path)
   end
 
