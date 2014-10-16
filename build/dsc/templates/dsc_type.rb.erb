@@ -1,5 +1,5 @@
 # workaround for cross modules dependencies during test
-master_path = File.expand_path(File.join(__FILE__, '..', '..','..', '..', '<%= @module_path.basename.to_s.split('-').last %>','lib'))
+master_path = File.expand_path(File.join(__FILE__, '..', '..', '..', '..', '..', '<%= @module_path.basename.to_s.split('-').last %>','lib'))
 path = File.directory?(master_path) ? master_path : nil
 require File.join([path, 'puppet', 'type', 'base_dsc'].compact)
 
