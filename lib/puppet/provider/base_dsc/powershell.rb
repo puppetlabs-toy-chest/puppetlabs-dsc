@@ -41,7 +41,7 @@ EOT
     case
     when dsc_value.class.name == 'String'
       "'#{dsc_value}'"
-    when dsc_value.class.name == 'Numeric'
+    when dsc_value.class.ancestors.include?(Numeric)
       "#{dsc_value}"
     when [:true, :false].include?(dsc_value)
       "$#{dsc_value.to_s}"

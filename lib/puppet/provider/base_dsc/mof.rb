@@ -48,7 +48,7 @@ EOT
     when mof_value.class.name == 'String'
       escaped_string = mof_value.gsub('\\', '\\\\\\')
       '"' + escaped_string + '"'
-    when mof_value.class.name == 'Numeric'
+    when mof_value.class.ancestors.include?(Numeric)
       "#{mof_value}"
     when [:true, :false].include?(mof_value)
       "#{mof_value.to_s}"
