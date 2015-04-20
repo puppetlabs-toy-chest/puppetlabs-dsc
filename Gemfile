@@ -13,7 +13,7 @@ end
 if ENV.key?('PUPPET_VERSION')
   puppetversion = "~> #{ENV['PUPPET_VERSION']}"
 else
-  puppetversion = ['>= 3.3.1']
+  puppetversion = ['>= 3.3.1', '< 4']
 end
 
 gem 'puppet', *location_for(ENV['PUPPET_LOCATION'] || puppetversion)
