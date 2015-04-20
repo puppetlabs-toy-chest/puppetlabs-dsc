@@ -8,3 +8,13 @@ spec/fixtures
 .rbenv-gemsets
 .ruby-version
 pkg
+
+Gemfile.local
+coverage/
+.rspec
+.DS_Store
+
+.idea
+.metadata
+*.iml
+log/
