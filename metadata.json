@@ -5,7 +5,7 @@
   "summary": "PowerShell Desired State Configuration (DSC)",
   "license": "Licensed under (Apache 2.0)",
   "source": "https://github.com/msutter/puppet-dsc/tree/forge",
-  "project_page": "(https://forge.puppetlabs.com/msutter/dsc)",
+  "project_page": "https://github.com/msutter/puppet-dsc",
   "issues_url": "https://github.com/msutter/puppet-dsc/issues",
   "tags": [
     "windows",
