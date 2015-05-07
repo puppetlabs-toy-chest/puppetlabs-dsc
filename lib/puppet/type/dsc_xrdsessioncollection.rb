@@ -1,0 +1,109 @@
+# workaround for cross modules dependencies
+master_path = File.expand_path(File.join(__FILE__, '..', '..', '..', '..', '..', 'dsc','lib'))
+$:.push(master_path) if File.directory?(master_path)
+require 'puppet/type/base_dsc'
+
+Puppet::Type.newtype(:dsc_xrdsessioncollection) do
+
+  provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
+    defaultfor :operatingsystem => :windows
+  end
+
+  provide :mof, :parent => Puppet::Type.type(:base_dsc).provider(:mof)
+
+  @doc = %q{
+    The DSC xRDSessionCollection resource type.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/dsc-resource-kit/xRemoteDesktopSessionHost/DSCResources/MSFT_xRDSessionCollection/MSFT_xRDSessionCollection.schema.mof
+  }
+
+  validate do
+      fail('dsc_collectionname is a required attribute') if self[:dsc_collectionname].nil?
+      fail('dsc_sessionhost is a required attribute') if self[:dsc_sessionhost].nil?
+    end
+
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xRDSessionCollection"
+  end
+
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xRDSessionCollection"
+  end
+
+  newparam(:dscmeta_import_resource) do
+    newvalues(true, false)
+
+    munge do |value|
+      value.to_s.downcase.to_bool
+    end
+
+    defaultto true
+  end
+
+  newparam(:dscmeta_module_name) do
+    defaultto "xRemoteDesktopSessionHost"
+  end
+
+  newparam(:dscmeta_module_version) do
+    defaultto "1.0"
+  end
+
+  newparam(:name, :namevar => true ) do
+  end
+
+  # Name:         CollectionName
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_collectionname) do
+    desc "Specifies a name for the session collection. "
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SessionHost
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_sessionhost) do
+    desc "Specifies an RD Session Host server to include in the session collection. "
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CollectionDescription
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_collectiondescription) do
+    desc "Specifies a description for the collection."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ConnectionBroker
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_connectionbroker) do
+    desc "Specifies the Remote Desktop Connection Broker (RD Connection Broker) server for a Remote Desktop deployment."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+
+end

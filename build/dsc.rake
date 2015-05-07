@@ -98,7 +98,7 @@ eod
 
     desc "Build #{item_name}"
     task :build, [:module_path] do |t, args|
-      module_path = args[:module_path] || default_module_path
+      module_path = args[:module_path] || default_dsc_module_path
       m = Dsc::Manager.new
       m.target_module_path = module_path
       msgs = m.build_dsc_types
@@ -107,7 +107,7 @@ eod
 
     desc "Cleanup #{item_name}"
     task :clean, [:module_path] do |t, args|
-      module_path = args[:module_path] || default_module_path
+      module_path = args[:module_path] || default_dsc_module_path
       puts "Cleaning #{item_name}"
       m = Dsc::Manager.new
       m.target_module_path = module_path
@@ -125,7 +125,7 @@ eod
 
     desc "Generate skeleton for #{item_name}"
     task :skeleton, [:dsc_module_path] do |t, args|
-      dsc_module_path = args[:dsc_module_path] || default_module_path
+      dsc_module_path = args[:dsc_module_path] || default_dsc_module_path
       module_name = Pathname.new(dsc_module_path).basename.to_s
       ext_module_files = [
         '.gitignore',
