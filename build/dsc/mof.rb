@@ -42,7 +42,7 @@ module Dsc
       create_index_mof(@dsc_base_mof, base_mof_file_pathes)
 
       moffiles, options = MOF::Parser.argv_handler "moflint", []
-      options[:style] ||= :cim;
+      options[:style] ||= :wmi
       options[:includes] ||= []
       options[:quiet] ||= false
 

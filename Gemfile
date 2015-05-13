@@ -25,7 +25,7 @@ gem 'librarian-puppet', '>=1.0.2'
 group :build do
   gem 'librarian-repo', :git => 'https://github.com/msutter/librarian-repo.git'
   gem 'cim'
-  gem 'mof', :git => 'https://github.com/msutter/mof.git'
+  gem 'mof'
   gem 'charlock_holmes'
 end
 
