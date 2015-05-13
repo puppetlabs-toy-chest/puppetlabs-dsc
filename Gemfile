@@ -32,6 +32,8 @@ end
 group :development do
   gem 'puppet-blacksmith'
   gem 'pry'
+
+  gem 'iconv', '~> 1.0.4' if RUBY_VERSION >= '2.0'
 end
 
 if File.exists? "#{__FILE__}.local"
