@@ -16,12 +16,6 @@ else
   puppetversion = ['>= 3.3.1', '< 4']
 end
 
-gem 'puppet', *location_for(ENV['PUPPET_LOCATION'] || puppetversion)
-gem 'puppet-lint', '>=0.3.2'
-gem 'puppetlabs_spec_helper', '>=0.2.0'
-gem 'rake', '>=0.9.2.2'
-gem 'librarian-puppet', '>=1.0.2'
-
 group :build do
   gem 'librarian-repo', :git => 'https://github.com/msutter/librarian-repo.git'
   gem 'cim'
@@ -30,9 +24,16 @@ group :build do
 end
 
 group :development do
+  gem 'rake', '>=0.9.2.2'
   gem 'puppet-blacksmith'
   gem 'pry'
+  gem 'librarian-puppet', '>=1.0.2'
+end
 
+group :test do
+  gem 'puppet', *location_for(ENV['PUPPET_LOCATION'] || puppetversion)
+  gem 'puppet-lint', '>=0.3.2'
+  gem 'puppetlabs_spec_helper', '>=0.2.0'
   gem 'iconv', '~> 1.0.4' if RUBY_VERSION >= '2.0'
 end
 
