@@ -1,28 +1,28 @@
 {
-  "name": "msutter-dsc",
+  "name": "puppetlabs-dsc",
   "version": "0.1.1",
-  "author": "Marc Sutter",
+  "author": "puppetlabs",
   "summary": "PowerShell Desired State Configuration (DSC)",
   "license": "Licensed under (Apache 2.0)",
-  "source": "https://github.com/msutter/puppet-dsc/tree/forge",
-  "project_page": "(https://forge.puppetlabs.com/msutter/dsc)",
-  "issues_url": "https://github.com/msutter/puppet-dsc/issues",
+  "source": "https://github.com/puppetlabs/puppetlabs-dsc",
+  "project_page": "(https://forge.puppetlabs.com/puppetlabs/dsc)",
+  "issues_url": "https://github.com/puppetlabs/puppetlabs-dsc/issues",
   "tags": [
     "windows",
     "powershell",
-    "desired state configuration",
+    "desired-state-configuration",
     "dsc"
   ],
   "operatingsystem_support": [
     {
       "operatingsystem": "windows",
       "operatingsystemrelease": [
-        "Server 2008",
         "Server 2008 R2",
         "Server 2012",
         "Server 2012 R2",
         "7",
-        "8"
+        "8",
+        "8.1"
       ]
     }
   ],
