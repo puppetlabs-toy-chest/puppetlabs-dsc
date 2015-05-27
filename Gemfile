@@ -37,6 +37,16 @@ group :test do
   gem 'iconv', '~> 1.0.4' if RUBY_VERSION >= '2.0'
 end
 
+beaker_version = ENV['BEAKER_VERSION']
+group :system_tests do
+  if beaker_version
+    gem 'beaker', *location_for(beaker_version)
+  else
+    gem 'beaker', '~> 2.12.0'
+  end
+  gem 'master_manipulator', '~> 1.0.0'
+end
+
 if File.exists? "#{__FILE__}.local"
   eval(File.read("#{__FILE__}.local"), binding)
 end
