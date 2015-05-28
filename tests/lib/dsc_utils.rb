@@ -4,8 +4,8 @@
 #
 # * +host+ - The target Windows host for verification.
 # * +dsc_resource_type+ - The DSC resource type name to verify.
-# * +dsc_properties+ - A hash of DSC resource properties to verify.
 # * +expect_failure+ - A flag for indicating that the command is expected to fail.
+# * +dsc_properties+ - A hash of DSC resource properties to verify.
 #
 # ==== Returns
 #

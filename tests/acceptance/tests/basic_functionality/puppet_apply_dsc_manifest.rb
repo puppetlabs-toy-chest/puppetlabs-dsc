@@ -4,7 +4,8 @@ test_name 'FM-2625 - C68511 - Apply DSC Resource Manifest via "puppet apply"'
 confine(:to, :platform => 'windows')
 
 #Init
-test_dir_path = 'C:/test'
+test_dir_name = 'test'
+test_dir_path = "C:/#{test_dir_name}"
 test_file_path = "#{test_dir_path}/test.txt"
 test_file_contents = 'catcat'
 
@@ -27,7 +28,7 @@ MANIFEST
 #Teardown
 teardown do
   step 'Remove Test Artifacts'
-  on(agents, "rm -rf #{test_dir_path}")
+  on(agents, "rm -rf /cygdrive/c/#{test_dir_name}")
 end
 
 #Tests
