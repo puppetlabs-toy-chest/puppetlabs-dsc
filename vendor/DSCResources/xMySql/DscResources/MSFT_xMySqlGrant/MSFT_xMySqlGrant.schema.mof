@@ -1,0 +1,13 @@
+
+[ClassVersion("1.0.0"),FriendlyName("xMySqlGrant")] 
+class MSFT_xMySqlGrant : OMI_BaseResource
+{ 
+  [Key, Description("Name of MySQL user.")] String UserName;
+  [Key, Description("MySql database name to grant permissions.")] String DatabaseName;
+  [Write, Description("MySql connection credential used for the root."), EmbeddedInstance("MSFT_Credential")] String ConnectionCredential;
+  [Write, Description("MySql user permission type."), ValueMap{"ALL PRIVILEGES", "CREATE", "DROP", "DELETE", "INSERT", "SELECT", "UPDATE", "EXECUTE"}, Values{"ALL PRIVILEGES", "CREATE", "DROP", "DELETE", "INSERT", "SELECT", "UPDATE", "EXECUTE"}] String PermissionType;
+  [Write, Description("Ensure given grant to mySql database present or absent."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+
+};
+
+

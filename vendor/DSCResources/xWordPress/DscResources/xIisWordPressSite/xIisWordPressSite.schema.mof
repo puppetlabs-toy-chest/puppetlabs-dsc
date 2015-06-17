@@ -1,0 +1,8 @@
+[ClassVersion("1.0.0"), FriendlyName("xIisWordPressSite")]
+class xIisWordPressSite : OMI_BaseResource
+{
+  [Key] string DestinationPath;
+  [Write] string DownloadUri;
+  [Write] string PackageFolder;
+  [Write] string Configuration;
+};

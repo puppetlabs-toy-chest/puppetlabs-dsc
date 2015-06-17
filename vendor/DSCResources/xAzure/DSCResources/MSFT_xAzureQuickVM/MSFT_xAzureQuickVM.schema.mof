@@ -1,0 +1,17 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xAzureQuickVM")]
+class MSFT_xAzureQuickVM : OMI_BaseResource
+{
+    [key, Description("Specifies the name of the virtual machine.")] string Name;
+    [write, Description("Specifies whether the Azure VM should be present or absent."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] string Ensure;
+    [write, Description("Specifies the name of the operating system image to use to create the operating system disk.")] string ImageName;
+    [required, Description("Specifies the new or existing service name. ")] string ServiceName;
+    [write, Description("Creates a Linux virtual machine.")] boolean Linux;
+    [write, Description("Specifies the Linux administrative account name to create.")] string LinuxUser;
+    [write, Description("Creates a Windows virtual machine.")] boolean Windows;
+    [write, Description("Specifies the name for the administrative account to create.")] string AdminUsername;
+    [write, Description("Specifies the password for the administrative account.")] string Password;
+    [write, Description("Specifies the size of the instance.   For a list of virtual machine sizes, see http://msdn.microsoft.com/library/azure/dn197896.aspx")] string InstanceSize;
+};
+
+

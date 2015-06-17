@@ -1,0 +1,15 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xAzureSqlDatabaseServerFirewallRule")]
+class MSFT_xAzureSqlDatabaseServerFirewallRule : OMI_BaseResource
+{
+	[Key, Description("Name of the firewall rule")] String RuleName;
+	[Key, Description("Name of the database server for which firewall rule should be created")] String ServerName;
+	[Required, Description("Start IP address of the firewall rule")] String StartIPAddress;
+	[Required, Description("End IP address of the firewall rule")] String EndIPAddress;
+	[Write, Description("Specifies the name of the Azure subscription that should be set to Current")] String AzureSubscriptionName;
+	[Write, Description("Specifies the location of the Publish Settings file for the Azure Subscription")] String AzurePublishSettingsFile;
+	[Write, Description("Ensure that firewall rule is present or absent"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+};
+
+
+

@@ -1,0 +1,10 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xADDomain")]
+class MSFT_xADDomain : OMI_BaseResource
+{
+	[Key] String DomainName;
+	[write] String ParentDomainName;
+	[Required, EmbeddedInstance("MSFT_Credential")] String DomainAdministratorCredential;
+	[Required, EmbeddedInstance("MSFT_Credential")] String SafemodeAdministratorPassword;
+	[write,EmbeddedInstance("MSFT_Credential")] String DnsDelegationCredential;
+};
+

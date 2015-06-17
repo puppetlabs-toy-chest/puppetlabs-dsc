@@ -1,0 +1,19 @@
+instance of MSFT_KeyValuePair as $keyvaluepair1
+{
+      key = "ServerUrl";
+      value = "https://SHPullServer.safeharbor.contoso.com:8080/PSDSCPullServer/PSDSCPullServer.svc";
+};
+
+instance of MSFT_DSCMetaConfiguration
+{
+      CertificateID = "497258FCCFFFA0F38268BBD970B337D25C871D6D";
+      ConfigurationID ="8cac052d-d3d4-423e-b088-f93979094d11";
+      RefreshMode ="PULL";
+      RefreshFrequencyMins = 15;
+      ConfigurationModeFrequencyMins = 15; 
+      ConfigurationMode ="ApplyAndAutoCorrect";
+      DownloadManagerName ="WebDownloadManager";
+      DownloadManagerCustomData = {$keyvaluepair1};
+      RebootNodeIfNeeded = True;
+};
+

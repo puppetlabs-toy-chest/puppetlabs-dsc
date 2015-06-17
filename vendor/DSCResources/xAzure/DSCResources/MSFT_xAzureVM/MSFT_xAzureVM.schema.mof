@@ -1,0 +1,19 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xAzureVM")]
+class MSFT_xAzureVM : OMI_BaseResource
+{
+    [key, Description("Specifies the name of the virtual machine.")] string Name;
+    [write, Description("Specifies whether the Azure VM should be present or absent."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] string Ensure;
+    [required, Description("Specifies the name of the operating system image to use to create the operating system disk.")] string ImageName;
+    [required, Description("Specifies the new or existing service name.")] string ServiceName;
+    [required, Description("Specifies the name of the storage account for the VM.")] string StorageAccountName;
+    [write, Description("Specifies the size of the instance.   For a list of virtual machine sizes, see http://msdn.microsoft.com/library/azure/dn197896.aspx")] string InstanceSize;
+    [write, Description("Creates a Linux virtual machine.")] boolean Linux;
+    [write, Description("Creates a Windows virtual machine.")] boolean Windows;
+    [write, EmbeddedInstance("MSFT_Credential")] string Credential;
+    [write, Description("The name of the Container in Azure Blob storage where the script files will reside.  Case sensitive.")] string ExtensionContainerName;
+    [write, Description("List of files in Azure Blob container that should be copied in to the VM.  Case sensitive.")] string ExtensionFileList;
+    [write, Description("Name of one of the files in the container that will be exectued at startup.  Case sensitive.")] string ExtensionScriptName;
+};
+
+
