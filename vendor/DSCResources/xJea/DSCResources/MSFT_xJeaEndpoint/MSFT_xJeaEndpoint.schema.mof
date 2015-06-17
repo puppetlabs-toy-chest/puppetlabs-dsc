@@ -1,0 +1,12 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xJeaEndPoint")]
+class MSFT_xJeaEndpoint : OMI_BaseResource
+{
+	[Key, Description("Name of the JEA toolkit to be generated")] String Name;
+	[Write, Description("List of Jea Toolkits to make available via this endpoint")] String Toolkit[];
+	[Write, Description("Sddl to define who can access this JeaEndpoint")] String SecurityDescriptorSddl;
+	[Write, Description("List of local groups that this Endpoints JeaSessionAccount should be a member of")] String Group[];
+	[Write, ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+	[Write] Boolean CleanAll;
+};
+

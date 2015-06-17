@@ -1,0 +1,22 @@
+﻿#pragma namespace("\\\\.\\root\\default")
+instance of __namespace{ name="MS_409";};
+#pragma namespace("\\\\.\\root\\default\\MS_409")
+
+[Description("This resource is used to manage processes.") : Amended,AMENDMENT, LOCALE(0x0409)] 
+class MSFT_xProcessResource : OMI_BaseResource
+{
+  [key,Description("The full path or file name for the process") : Amended] string Path;
+  [key,Description("The optional process arguments") : Amended] string Arguments;
+  [Description("The optional process credentials") : Amended] string Credential;
+  [Description("An enumerated value that describes if the process is expected to be running on the machine.\nPresent {default}  \nAbsent   \n") : Amended] string Ensure;
+  [Description("The path to a file where output is to be redirected to") : Amended] string StandardOutputPath;
+  [Description("The path to a file where error is to be redirected to") : Amended] string StandardErrorPath;
+  [Description("The path to a file where input is to be redirected from") : Amended] string StandardInputPath;
+  [Description("The process working directory") : Amended] string WorkingDirectory;
+  [Description("The process paged memory size") : Amended] uint64 PagedMemorySize;
+  [Description("The process non paged memory size") : Amended] uint64 NonPagedMemorySize;
+  [Description("The process virtual memory size") : Amended] uint64 VirtualMemorySize;
+  [Description("The processhandle count") : Amended] sint32 HandleCount;
+  [Description("The process id") : Amended] sint32 ProcessId;
+};
+
