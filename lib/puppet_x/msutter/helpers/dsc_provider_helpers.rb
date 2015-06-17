@@ -49,8 +49,8 @@ module PuppetX
           File.expand_path('../../templates', __FILE__)
         end
 
-        def args
-          '-NoProfile -NonInteractive -NoLogo -ExecutionPolicy Bypass -ErrorAction Stop'
+        def powershell_args
+          ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command']
         end
 
         def native_path(path)

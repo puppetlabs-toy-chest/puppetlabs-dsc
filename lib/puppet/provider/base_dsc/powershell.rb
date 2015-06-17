@@ -13,7 +13,7 @@ EOT
   def exists?
     Puppet.debug "\n" + ps_script_content('test')
     set_test_dsc_parameters
-    output = powershell(ps_script_content('test'))
+    output = powershell(powershell_args, ps_script_content('test'))
     if ['true','false'].include?(output.to_s.strip.downcase)
       check = (output.to_s.strip.downcase == 'true')
       Puppet.debug "Dsc Resource Exists?: #{check}"
@@ -27,13 +27,13 @@ EOT
 
   def create
     Puppet.debug "\n" + ps_script_content('set')
-    output = powershell(ps_script_content('set'))
+    output = powershell(powershell_args, ps_script_content('set'))
     Puppet.debug output
   end
 
   def destroy
     Puppet.debug "\n" + ps_script_content('set')
-    output = powershell(ps_script_content('set'))
+    output = powershell(powershell_args, ps_script_content('set'))
     Puppet.debug output
   end
 
