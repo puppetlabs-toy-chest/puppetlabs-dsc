@@ -1,18 +1,25 @@
-
 $ErrorActionPreference = "Stop"
-$LCMConfigFolder = "$env:windir\System32\Configuration"
+$PuppetModulesFolder = Join-Path $env:ProgramFiles 'WindowsPowerShell\Modules\PuppetVendoredModules'
+if (!(Test-Path($PuppetModulesFolder))) {
+    & cmd.exe /c mklink /d "$PuppetModulesFolder" "<%= vendored_modules_path %>" | Out-Null
+}
 
-Remove-Item $LCMConfigFolder\*.mof | out-null
+$LCMConfigFolder = "<%= lcm_config_folder %>"
+$ConfigOutputPath = [IO.Path]::GetTempPath()
 
 configuration PuppetConfiguration
 {
-<%   if resource.parameters[:dscmeta_module_name] && resource[:dscmeta_import_resource] -%>
+<% if resource.parameters[:dscmeta_module_name] && resource[:dscmeta_import_resource] -%>
+<%  if resource[:dscmeta_module_name].downcase == 'psdesiredstateconfiguration' -%>
     Import-DscResource -ModuleName <%= resource[:dscmeta_module_name] %>
+<%  else -%>
+    Import-DscResource -ModuleName @{<%= "ModuleName=\"#{resource[:dscmeta_module_name]}\"" %><%= "; ModuleVersion=\"#{resource[:dscmeta_module_version]}\"" if resource.parameters[:dscmeta_module_version] %>}
+<%  end -%>
 <% end -%>
 
     node "localhost"
     {
-      <%= resource[:dscmeta_resource_friendly_name] %> "<%= resource.title %>"
+        <%= resource[:dscmeta_resource_friendly_name] %> "<%= resource.title %>"
         {
 <% dsc_parameters.each do |p| -%>
            <%= p.name.to_s.gsub(/^dsc_/,'') %> = <%= format_dsc_value(p.value) %>
@@ -20,9 +27,11 @@ configuration PuppetConfiguration
         }
     }
 }
-$LCMConfigFolder = "$env:windir\System32\Configuration"
-PuppetConfiguration -OutputPath $LCMConfigFolder | out-null
-Move-Item $LCMConfigFolder\localhost.mof $LCMConfigFolder\current.mof | out-null
+
+Remove-Item "$ConfigOutputPath\*.mof" -Force | out-null
+PuppetConfiguration -OutputPath "$ConfigOutputPath" | out-null
+Move-Item "$ConfigOutputPath\localhost.mof" "$LCMConfigFolder\current.mof" -Force | out-null
+
 $test_return = Test-DscConfiguration
-Remove-Item $LCMConfigFolder\*.mof | out-null
+
 return $test_return

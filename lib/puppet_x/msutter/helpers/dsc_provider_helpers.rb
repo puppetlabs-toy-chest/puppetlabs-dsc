@@ -49,6 +49,10 @@ module PuppetX
           File.expand_path('../../templates', __FILE__)
         end
 
+        def vendored_modules_path
+          File.expand_path(File.join(__FILE__, '..', '..', '..', '..', '..', 'vendor','DSCResources')).gsub(/\//,'\\')
+        end
+
         def powershell_args
           ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command']
         end
