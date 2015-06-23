@@ -19,7 +19,7 @@ end
 group :build do
   gem 'librarian-repo', :git => 'https://github.com/msutter/librarian-repo.git'
   gem 'cim'
-  gem 'mof'
+  gem 'mof', :git => 'https://github.com/puppetlabs/mof.git'
   gem 'charlock_holmes'
 end
 
