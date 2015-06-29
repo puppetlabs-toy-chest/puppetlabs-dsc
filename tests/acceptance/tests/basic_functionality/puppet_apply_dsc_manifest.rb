@@ -35,12 +35,10 @@ end
 agents.each do |agent|
   step 'Apply Manifest'
   on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => [0,2]) do |result|
-    expect_failure('Expected to fail due to FM-2783') do
-      assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
-    end
+    assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
   end
 
   step 'Verify Results'
-  #Expected failure due to FM-2783.
+  # Expected failure due to MODULES-1960 not being implemented yet.
   test_dsc_resource(agent, 'File', true, :DestinationPath => test_file_path, :Contents => test_file_contents)
 end
