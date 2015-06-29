@@ -1,8 +1,12 @@
 require 'erb'
+require 'master_manipulator'
 require 'dsc_utils'
-test_name 'FM-2625 - C68511 - Apply DSC Resource Manifest via "puppet apply"'
+test_name 'FM-2798 - C68512 - Apply DSC Resource Manifest via "puppet agent"'
 
 # Init
+environment_base_path = on(master, puppet('config', 'print', 'environmentpath')).stdout.rstrip
+prod_env_site_pp_path = File.join(environment_base_path, 'production', 'manifests', 'site.pp')
+
 test_dir_name = 'test'
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
@@ -20,11 +24,16 @@ teardown do
   on(agents, "rm -rf /cygdrive/c/#{test_dir_name}")
 end
 
+# Setup
+step 'Inject "site.pp" on Master'
+site_pp = create_site_pp(master, :manifest => dsc_manifest)
+inject_site_pp(master, prod_env_site_pp_path, site_pp)
+
 # Tests
 confine_block(:to, :platform => 'windows') do
   agents.each do |agent|
-    step 'Apply Manifest'
-    on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => [0,2]) do |result|
+    step 'Run Puppet Agent'
+    on(agent, puppet('agent -t --environment production'), :acceptable_exit_codes => [0,2]) do |result|
       assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
     end
 

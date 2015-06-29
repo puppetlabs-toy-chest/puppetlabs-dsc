@@ -1,0 +1,12 @@
+dsc_file {'tmp_folder':
+  dsc_ensure          => 'present',
+  dsc_type            => 'Directory',
+  dsc_destinationpath => '<%= test_dir_path %>',
+}
+->
+dsc_file {'tmp_file':
+  dsc_ensure          => 'present',
+  dsc_type            => 'File',
+  dsc_destinationpath => '<%= test_file_path %>',
+  dsc_contents        => '<%= test_file_contents %>'
+}

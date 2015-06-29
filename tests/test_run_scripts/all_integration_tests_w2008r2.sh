@@ -7,19 +7,18 @@ if [ $SCRIPT_BASE_PATH = "test_run_scripts" ]; then
   cd ../../
 fi
 
-export PUPPET_AGENT_VERSION=1.2.0
+export pe_dist_dir=http://neptune.puppetlabs.lan/3.8/ci-ready/
 export GEM_SOURCE=http://rubygems.delivery.puppetlabs.net
 
 bundle install --without build development test --path .bundle/gems
 
 bundle exec beaker \
   --preserve-hosts onfail \
-  --config tests/configs/windows-2012r2-64a \
+  --config tests/configs/windows-2008r2-64mda \
   --debug \
-  --tests tests/acceptance/tests \
+  --tests tests/integration/tests \
   --keyfile ~/.ssh/id_rsa-acceptance \
-  --pre-suite tests/pre-suite,tests/acceptance/pre-suite \
-  --load-path tests/lib \
-  --type aio
+  --pre-suite tests/pre-suite,tests/integration/pre-suite \
+  --load-path tests/lib
 
 rm -rf tmp
