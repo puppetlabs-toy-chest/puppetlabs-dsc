@@ -10,7 +10,7 @@ dsc_conf_path_name = 'LCMSettings'
 dsc_conf_mof = <<-CONF
 instance of MSFT_DSCMetaConfiguration as $MSFT_DSCMetaConfiguration1ref
 {
-  RefreshMode = "Disabled";
+  RefreshMode = "Push";
 };
 
 instance of OMI_ConfigurationDocument
