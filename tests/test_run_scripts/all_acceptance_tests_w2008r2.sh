@@ -7,7 +7,7 @@ if [ $SCRIPT_BASE_PATH = "test_run_scripts" ]; then
   cd ../../
 fi
 
-export PUPPET_AGENT_VERSION=1.1.0
+export PUPPET_AGENT_VERSION=1.2.0
 export GEM_SOURCE=http://rubygems.delivery.puppetlabs.net
 
 bundle install --without build development test --path .bundle/gems
@@ -22,5 +22,4 @@ bundle exec beaker \
   --load-path tests/lib \
   --type aio
 
-rm -rf .bundle
 rm -rf tmp

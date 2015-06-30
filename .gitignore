@@ -18,3 +18,4 @@ coverage/
 .metadata
 *.iml
 log/
+junit/
