@@ -1,6 +1,7 @@
 require 'erb'
+require 'master_manipulator'
 require 'dsc_utils'
-test_name 'FM-2625 - C68511 - Apply DSC Resource Manifest via "puppet apply"'
+test_name 'FM-2623 - C68535 - Apply DSC Resource Manifest via "puppet agent" with Debug Enabled'
 
 # Init
 test_dir_name = 'test'
@@ -14,6 +15,9 @@ test_file_contents = 'catcat'
 dsc_manifest_template_path = File.join(local_files_root_path, 'basic_functionality', 'test_file_path.pp.erb')
 dsc_manifest = ERB.new(File.read(dsc_manifest_template_path)).result(binding)
 
+# Verify
+debug_msg = /File "tmp_folder".*File "tmp_file"/m
+
 # Teardown
 teardown do
   confine_block(:to, :platform => 'windows') do
@@ -22,15 +26,21 @@ teardown do
   end
 end
 
+# Setup
+step 'Inject "site.pp" on Master'
+site_pp = create_site_pp(master, :manifest => dsc_manifest)
+inject_site_pp(master, get_site_pp_path(master), site_pp)
+
 # Tests
 confine_block(:to, :platform => 'windows') do
   agents.each do |agent|
-    step 'Apply Manifest'
-    on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => [0,2]) do |result|
+    step 'Run Puppet Agent'
+    on(agent, puppet('agent -t --debug --environment production'), :acceptable_exit_codes => [0,2]) do |result|
       assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
+      assert_match(debug_msg, result.stdout, 'Expected debug message was not detected!')
     end
 
-    step 'Verify Results'
+    step 'Verify that No Changes were Made'
     # Expected failure due to MODULES-1960 not being implemented yet.
     test_dsc_resource(agent, 'File', true, :DestinationPath => test_file_path, :Contents => test_file_contents)
   end

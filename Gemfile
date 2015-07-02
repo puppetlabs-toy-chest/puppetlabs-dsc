@@ -43,9 +43,9 @@ unless ENV['GEM_SOURCE'].nil?
     if beaker_version
       gem 'beaker', *location_for(beaker_version)
     else
-      gem 'beaker', '~> 2.14'
+      gem 'beaker', '~> 2.15'
     end
-    gem 'master_manipulator', '~> 1.0'
+    gem 'master_manipulator', '~> 1.1'
   end
 end
 
