@@ -42,6 +42,6 @@ confine_block(:to, :platform => 'windows') do
 
     step 'Verify that No Changes were Made'
     # Expected failure due to MODULES-1960 not being implemented yet.
-    test_dsc_resource(agent, 'File', true, :DestinationPath => test_file_path, :Contents => test_file_contents)
+    test_dsc_resource(agent, 'File', :expect_failure? => true, :DestinationPath => test_file_path, :Contents => test_file_contents)
   end
 end
