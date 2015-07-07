@@ -8,6 +8,7 @@ if [ $SCRIPT_BASE_PATH = "test_run_scripts" ]; then
 fi
 
 export pe_dist_dir=http://neptune.puppetlabs.lan/4.0/ci-ready/
+export BEAKER_PUPPET_AGENT_VERSION=1.2.1
 export GEM_SOURCE=http://rubygems.delivery.puppetlabs.net
 
 bundle install --without build development test --path .bundle/gems
