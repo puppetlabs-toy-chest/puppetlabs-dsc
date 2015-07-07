@@ -4,8 +4,8 @@
 #
 # * +host+ - The target Windows host for verification.
 # * +dsc_resource_type+ - The DSC resource type name to verify.
-# * +expect_failure+ - A flag for indicating that the command is expected to fail.
-# * +dsc_properties+ - A hash of DSC resource properties to verify.
+# * +opts:expect_failure?+ - Indicates that the DSC test configuration will fail.
+# * +opts:*+ - Any other key/values in the opts hash is considered to be DSC properties to verify.
 #
 # ==== Returns
 #
@@ -13,15 +13,17 @@
 #
 # ==== Examples
 #
-# test_dsc_resource(agents, 'File', false, :DestinationPath=>'C:\test.txt', :Contents=>'catcat')
-def test_dsc_resource(host, dsc_resource_type, expect_failure, dsc_properties)
+# test_dsc_resource(agents, 'File', expect_failure? => false, :DestinationPath=>'C:\test.txt', :Contents=>'catcat')
+def test_dsc_resource(host, dsc_resource_type, opts)
   #Init
   ps_launch = 'powershell.exe -ExecutionPolicy Bypass -InputFormat Text -OutputFormat Text -NoLogo -NoProfile -NonInteractive'
-  exit_code = expect_failure ? 1 : 0
+  opts[:expect_failure?] ||= false
+  exit_code = opts[:expect_failure?] ? 1 : 0
 
   #Flatten hash into formatted string.
+  opts.delete(:expect_failure?)
   dsc_prop_merge = '@{'
-  dsc_properties.each do |k, v|
+  opts.each do |k, v|
     dsc_prop_merge << "\\\"#{k}\\\"=\\\"#{v}\\\";"
   end
   dsc_prop_merge.chop!

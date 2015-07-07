@@ -1,14 +1,14 @@
 require 'erb'
 require 'dsc_utils'
-test_name 'FM-2625 - C68511 - Apply DSC Resource Manifest via "puppet apply"'
+test_name 'FM-2623 - C68680 - Apply DSC Resource Manifest Containing Alternate Path Separators'
 
 # Init
 test_dir_name = 'test'
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
 # ERB Manifest
-test_dir_path = "C:/#{test_dir_name}"
-test_file_path = "#{test_dir_path}/test.txt"
+test_dir_path = "C:\\#{test_dir_name}"
+test_file_path = "#{test_dir_path}\\test.txt"
 test_file_contents = 'catcat'
 
 dsc_manifest_template_path = File.join(local_files_root_path, 'basic_functionality', 'test_file_path.pp.erb')
@@ -32,6 +32,6 @@ confine_block(:to, :platform => 'windows') do
 
     step 'Verify Results'
     # Expected failure due to MODULES-1960 not being implemented yet.
-    test_dsc_resource(agent, 'File', :expect_failure? => true, :DestinationPath => test_file_path, :Contents => test_file_contents)
+    test_dsc_resource(agent, 'File', :expect_failure? => true, :DestinationPath => test_file_path.gsub("\\", '/'), :Contents => test_file_contents)
   end
 end

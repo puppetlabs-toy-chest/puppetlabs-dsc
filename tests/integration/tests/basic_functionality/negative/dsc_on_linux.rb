@@ -1,7 +1,7 @@
 require 'erb'
 require 'master_manipulator'
 require 'dsc_utils'
-test_name 'FM-2798 - C68512 - Apply DSC Resource Manifest via "puppet agent"'
+test_name 'FM-2623 - C68790 - Attempt to Run DSC Manifest on a Linux Agent'
 
 # Init
 test_dir_name = 'test'
@@ -15,13 +15,8 @@ test_file_contents = 'catcat'
 dsc_manifest_template_path = File.join(local_files_root_path, 'basic_functionality', 'test_file_path.pp.erb')
 dsc_manifest = ERB.new(File.read(dsc_manifest_template_path)).result(binding)
 
-# Teardown
-teardown do
-  confine_block(:to, :platform => 'windows') do
-    step 'Remove Test Artifacts'
-    on(agents, "rm -rf /cygdrive/c/#{test_dir_name}")
-  end
-end
+# Verify
+error_msg = /Could not evaluate: Command powershell is missing/
 
 # Setup
 step 'Inject "site.pp" on Master'
@@ -29,15 +24,11 @@ site_pp = create_site_pp(master, :manifest => dsc_manifest)
 inject_site_pp(master, get_site_pp_path(master), site_pp)
 
 # Tests
-confine_block(:to, :platform => 'windows') do
+confine_block(:except, :platform => 'windows') do
   agents.each do |agent|
     step 'Run Puppet Agent'
-    on(agent, puppet('agent -t --environment production'), :acceptable_exit_codes => [0,2]) do |result|
-      assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
+    on(agent, puppet('agent -t --environment production'), :acceptable_exit_codes => 4) do |result|
+      assert_match(error_msg, result.stderr, 'Expected error was not detected!')
     end
-
-    step 'Verify Results'
-    # Expected failure due to MODULES-1960 not being implemented yet.
-    test_dsc_resource(agent, 'File', :expect_failure? => true, :DestinationPath => test_file_path, :Contents => test_file_contents)
   end
 end
