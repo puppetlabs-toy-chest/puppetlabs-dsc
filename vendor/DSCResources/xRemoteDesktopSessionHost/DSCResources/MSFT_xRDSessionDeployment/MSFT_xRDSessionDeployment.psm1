@@ -9,14 +9,14 @@ function Get-TargetResource
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param
-	(	
+    (    
         [parameter(Mandatory)]
         [string] $SessionHost,
         [parameter(Mandatory)]
         [string] $ConnectionBroker,
         [parameter(Mandatory)]
         [string] $WebAccessServer
-	)
+    )
     Write-Verbose "Getting list of RD Server roles."
         $Deployed = Get-RDServer -ErrorAction SilentlyContinue
         @{
@@ -35,14 +35,14 @@ function Set-TargetResource
 {
     [CmdletBinding()]
     param
-	(	
+    (    
         [parameter(Mandatory)]
         [string] $SessionHost,
         [parameter(Mandatory)]
         [string] $ConnectionBroker,
         [parameter(Mandatory)]
         [string] $WebAccessServer
-	)
+    )
 
     Write-Verbose "Initiating new RDSH deployment."
     New-RDSessionDeployment @PSBoundParameters
@@ -58,14 +58,14 @@ function Test-TargetResource
       [CmdletBinding()]
       [OutputType([System.Boolean])]
       param
-	(	
+    (    
         [parameter(Mandatory)]
         [string] $SessionHost,
         [parameter(Mandatory)]
         [string] $ConnectionBroker,
         [parameter(Mandatory)]
         [string] $WebAccessServer
-	)
+    )
     Write-Verbose "Checking RDSH role is deployed on this node."
     (Get-TargetResource @PSBoundParameters).SessionHost -ieq $SessionHost
 }

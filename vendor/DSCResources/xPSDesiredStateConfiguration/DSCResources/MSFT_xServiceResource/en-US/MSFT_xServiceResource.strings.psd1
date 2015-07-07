@@ -1,4 +1,4 @@
-# Localized	09/04/2013 09:54 AM (GMT)	303:4.80.0411 	MSFT_ServiceResource.strings.psd1
+# Localized    09/04/2013 09:54 AM (GMT)    303:4.80.0411     MSFT_ServiceResource.strings.psd1
 # Localized resources for MSFT_UserResource
 
 ConvertFrom-StringData @'

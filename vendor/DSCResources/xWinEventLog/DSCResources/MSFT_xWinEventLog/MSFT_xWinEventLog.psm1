@@ -19,24 +19,24 @@ function New-TerminatingError
 
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$LogName
-	)
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $LogName
+    )
 
     try
     {
         $log = Get-WinEvent -ListLog $logName
         $returnValue = @{
-	        LogName = [System.String]$LogName
-	        MaximumSizeInBytes = [System.Int64]$log.MaximumSizeInBytes
-	        IsEnabled = [System.Boolean]$log.IsEnabled
-	        LogMode = [System.String]$log.LogMode
-	        SecurityDescriptor = [System.String]$log.SecurityDescriptor
+            LogName = [System.String]$LogName
+            MaximumSizeInBytes = [System.Int64]$log.MaximumSizeInBytes
+            IsEnabled = [System.Boolean]$log.IsEnabled
+            LogMode = [System.String]$log.LogMode
+            SecurityDescriptor = [System.String]$log.SecurityDescriptor
         }
 
         return $returnValue
@@ -50,26 +50,26 @@ function Get-TargetResource
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$LogName,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $LogName,
 
-		[System.Int64]
-		$MaximumSizeInBytes,
+        [System.Int64]
+        $MaximumSizeInBytes,
 
-		[System.Boolean]
-		$IsEnabled,
+        [System.Boolean]
+        $IsEnabled,
 
-		[ValidateSet("AutoBackup","Circular","Retain")]
-		[System.String]
-		$LogMode,
+        [ValidateSet("AutoBackup","Circular","Retain")]
+        [System.String]
+        $LogMode,
 
-		[System.String]
-		$SecurityDescriptor
-	)
+        [System.String]
+        $SecurityDescriptor
+    )
 
     try
     {
@@ -99,27 +99,27 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$LogName,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $LogName,
 
-		[System.Int64]
-		$MaximumSizeInBytes,
+        [System.Int64]
+        $MaximumSizeInBytes,
 
-		[System.Boolean]
-		$IsEnabled,
+        [System.Boolean]
+        $IsEnabled,
 
-		[ValidateSet("AutoBackup","Circular","Retain")]
-		[System.String]
-		$LogMode,
+        [ValidateSet("AutoBackup","Circular","Retain")]
+        [System.String]
+        $LogMode,
 
-		[System.String]
-		$SecurityDescriptor
-	)
+        [System.String]
+        $SecurityDescriptor
+    )
 
     try
     {

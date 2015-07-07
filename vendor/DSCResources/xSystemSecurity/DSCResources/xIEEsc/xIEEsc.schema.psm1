@@ -1,16 +1,16 @@
 Configuration xIEEsc
 {  
-	param
-	(
-		[parameter(Mandatory = $true)]
+    param
+    (
+        [parameter(Mandatory = $true)]
         [ValidateSet("Administrators","Users")]
-		[System.String]
-		$UserRole,
+        [System.String]
+        $UserRole,
 
         [parameter(Mandatory = $true)]
-		[System.Boolean]
-		$IsEnabled
-	)
+        [System.Boolean]
+        $IsEnabled
+    )
 
     $key = ""
     if ($UserRole -eq "Administrators") 

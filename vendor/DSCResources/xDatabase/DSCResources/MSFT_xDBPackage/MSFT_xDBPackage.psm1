@@ -72,7 +72,7 @@ function Set-TargetResource
             Import-BacPacForDb -connectionString $connectionString -sqlServerVersion $SqlServerVersion -databaseName $DatabaseName -bacpacPath $Path
         }
     }
-	
+    
 }
 
 function Test-TargetResource

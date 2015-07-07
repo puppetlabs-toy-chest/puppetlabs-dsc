@@ -27,20 +27,20 @@ function RestartSqlServer()
 
 function IsSQLLogin($SqlInstance, $SAPassword, $Login )
 {
-	$query = OSQL -S $SqlInstance -U sa -P $SAPassword -Q "select count(name) from master.sys.server_principals where name = '$Login'" -h-1
+    $query = OSQL -S $SqlInstance -U sa -P $SAPassword -Q "select count(name) from master.sys.server_principals where name = '$Login'" -h-1
         return ($query[0].Trim() -eq "1")
 }
 
 function IsSrvRoleMember($SqlInstance, $SAPassword, $Login )
 {
-	$query = OSQL -S $SqlInstance -U sa -P $SAPassword -Q "select IS_srvRoleMember('sysadmin', '$Login')" -h-1
+    $query = OSQL -S $SqlInstance -U sa -P $SAPassword -Q "select IS_srvRoleMember('sysadmin', '$Login')" -h-1
         return ($query[0].Trim() -eq "1")
 }
 
 function IsHAEnabled($SqlInstance, $SAPassword)
 {
-	$query = OSQL -S $SqlInstance -U sa -P $SAPassword -Q "select ServerProperty('IsHadrEnabled')" -h-1
-	return ($query[0].Trim() -eq "1")
+    $query = OSQL -S $SqlInstance -U sa -P $SAPassword -Q "select ServerProperty('IsHadrEnabled')" -h-1
+    return ($query[0].Trim() -eq "1")
 }
 
 #
@@ -49,15 +49,15 @@ function IsHAEnabled($SqlInstance, $SAPassword)
 function Get-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $InstanceName,
-	    
+        
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [PSCredential] $SqlAdministratorCredential, 
-	    
+        
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [PSCredential]$ServiceCredential
@@ -78,7 +78,7 @@ function Get-TargetResource
 
     $bHAEnabled = IsHAEnabled -SqlInstance $InstanceName -SAPassword $SAPassword
 
-	return @{
+    return @{
         ServiceAccount = $ServiceAccount
         ServiceAccountInSqlLogin = $bServiceAccountInSqlLogin
         ServiceAccountInSrvRole = $bServiceAccountInSrvRole
@@ -93,15 +93,15 @@ function Get-TargetResource
 function Set-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $InstanceName,
-	    
+        
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [PSCredential] $SqlAdministratorCredential, 
-	    
+        
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [PSCredential]$ServiceCredential
@@ -123,13 +123,13 @@ function Set-TargetResource
     $bCheck = IsSrvRoleMember -SqlInstance $InstanceName -SAPassword $SAPassword -Login $ServiceAccount
     if ($false -eq $bCheck)
     {
-    	osql -S $InstanceName -U sa -P $SAPassword -Q "Exec master.sys.sp_addsrvrolemember '$ServiceAccount', 'sysadmin'"
+        osql -S $InstanceName -U sa -P $SAPassword -Q "Exec master.sys.sp_addsrvrolemember '$ServiceAccount', 'sysadmin'"
     }
 
     $bCheck = IsSrvRoleMember -SqlInstance $InstanceName -SAPassword $SAPassword -Login "NT AUTHORITY\SYSTEM"
     if ($false -eq $bCheck)
     {
-	    osql -S $InstanceName -U sa -P $SAPassword -Q "Exec master.sys.sp_addsrvrolemember 'NT AUTHORITY\SYSTEM', 'sysadmin'"
+        osql -S $InstanceName -U sa -P $SAPassword -Q "Exec master.sys.sp_addsrvrolemember 'NT AUTHORITY\SYSTEM', 'sysadmin'"
     }
 
     $serviceName = Get-SqlServiceName -InstanceName $InstanceName
@@ -155,15 +155,15 @@ function Set-TargetResource
 function Test-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $InstanceName,
-	    
+        
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [PSCredential] $SqlAdministratorCredential, 
-	    
+        
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [PSCredential]$ServiceCredential

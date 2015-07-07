@@ -14,21 +14,21 @@ configuration CreateSqlDatabaseServerFirewallRule
         $azurePublishSettingsFile
     )
     
-    Import-DscResource -Name MSFT_xAzureSqlDatabaseServerFirewallRule	   
-	
+    Import-DscResource -Name MSFT_xAzureSqlDatabaseServerFirewallRule       
+    
 
     # Verify working directory    if ((test-path $workingDirectory) -eq $false)     {        Write-Warning 'The working directory does not exist.  Exiting script.'        Exit    }
 
     node localhost 
     {
-	    xAzureSqlDatabaseServerFirewallRule firewallRule
+        xAzureSqlDatabaseServerFirewallRule firewallRule
         {
-		    RuleName = $ruleName		
+            RuleName = $ruleName        
             ServerName = $serverName    
-		    StartIPAddress = $startIPAddress
-		    EndIPAddress = $endIPAddress
+            StartIPAddress = $startIPAddress
+            EndIPAddress = $endIPAddress
             AzureSubscriptionName = $azureSubscriptionName            AzurePublishSettingsFile = $azurePublishSettingsFile
-	    }
+        }
         
         #LocalConfigurationManager 
         #{ 

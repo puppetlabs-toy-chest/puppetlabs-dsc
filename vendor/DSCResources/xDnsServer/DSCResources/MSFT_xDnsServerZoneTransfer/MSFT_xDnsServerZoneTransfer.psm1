@@ -21,17 +21,17 @@ SetPropertyMessage        = DNS server zone transfer secondary servers are set
 
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[ValidateSet("None","Any","Named","Specific")]
-		[String]$Type
-	)
+        [parameter(Mandatory)]
+        [ValidateSet("None","Any","Named","Specific")]
+        [String]$Type
+    )
 
 #region Input Validation
 
@@ -43,26 +43,26 @@ function Get-TargetResource
     $currentZone = Get-CimInstance -ClassName MicrosoftDNS_Zone -Namespace root\MicrosoftDNS -Verbose:$false | ?{$_.Name -eq $Name}
 
     @{
-		Name            = $Name
-		Type            = $XferId2Name[$currentZone.SecureSecondaries]
-		SecondaryServer = $currentZone.SecondaryServers
-	}
+        Name            = $Name
+        Type            = $XferId2Name[$currentZone.SecureSecondaries]
+        SecondaryServer = $currentZone.SecondaryServers
+    }
 }
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[ValidateSet("None","Any","Named","Specific")]
-		[String]$Type,
+        [parameter(Mandatory)]
+        [ValidateSet("None","Any","Named","Specific")]
+        [String]$Type,
 
-		[String[]]$SecondaryServer
-	)
+        [String[]]$SecondaryServer
+    )
 
     if($PSBoundParameters.ContainsKey('Debug')){$null = $PSBoundParameters.Remove('Debug')}
     Validate-ResourceProperties @PSBoundParameters -Apply
@@ -74,19 +74,19 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[ValidateSet("None","Any","Named","Specific")]
-		[String]$Type,
+        [parameter(Mandatory)]
+        [ValidateSet("None","Any","Named","Specific")]
+        [String]$Type,
 
-		[String[]]$SecondaryServer
-	)
+        [String[]]$SecondaryServer
+    )
 
 #region Input Validation
 
@@ -96,26 +96,26 @@ function Test-TargetResource
 #endregion
 
     if($PSBoundParameters.ContainsKey('Debug')){$null = $PSBoundParameters.Remove('Debug')}
-    Validate-ResourceProperties @PSBoundParameters	
+    Validate-ResourceProperties @PSBoundParameters    
 }
 
 function Validate-ResourceProperties
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[ValidateSet("None","Any","Named","Specific")]
-		[String]$Type,
+        [parameter(Mandatory)]
+        [ValidateSet("None","Any","Named","Specific")]
+        [String]$Type,
 
-		[String[]]$SecondaryServer,
+        [String[]]$SecondaryServer,
 
         [Switch]$Apply
-	)
+    )
 
     $checkZoneMessage = $($LocalizedData.CheckingZoneMessage) -f $Name
     Write-Verbose -Message $checkZoneMessage

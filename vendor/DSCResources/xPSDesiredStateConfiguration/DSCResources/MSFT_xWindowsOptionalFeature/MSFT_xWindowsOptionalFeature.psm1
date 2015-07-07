@@ -4,7 +4,7 @@
 DATA localizedData
 {
     # culture = "en-US"
-    ConvertFrom-StringData @'                
+    ConvertFrom-StringData @'
         DismNotAvailable = PowerShell module Dism could not be imported.
         NotAClientSku = This Resource is only available for Windows Client.
         ElevationRequired = This Resource requires to be run as an Administrator.
@@ -26,14 +26,14 @@ Import-Module Dism -Force -ErrorAction SilentlyContinue
 
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name
-	)
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name
+    )
 
     Write-Debug ($LocalizedData.GetTargetResourceStartMessage -f $Name)
 
@@ -41,17 +41,17 @@ function Get-TargetResource
 
     $result = Dism\Get-WindowsOptionalFeature -FeatureName $Name -Online
 
-	$returnValue = @{
-		LogPath = $result.LogPath
-		Ensure = ConvertStateToEnsure $result.State
-		CustomProperties = SerializeCustomProperties $result.CustomProperties
-		Name = $result.FeatureName
-		LogLevel = $result.LogLevel
-		Description = $result.Description
-		DisplayName = $result.DisplayName
-	}
+    $returnValue = @{
+        LogPath = $result.LogPath
+        Ensure = ConvertStateToEnsure $result.State
+        CustomProperties = SerializeCustomProperties $result.CustomProperties
+        Name = $result.FeatureName
+        LogLevel = $result.LogLevel
+        Description = $result.Description
+        DisplayName = $result.DisplayName
+    }
 
-	$returnValue
+    $returnValue
 
     Write-Debug ($LocalizedData.GetTargetResourceEndMessage -f $Name)
 }
@@ -93,34 +93,34 @@ function ConvertStateToEnsure
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[System.String[]]
-		$Source,
+    [CmdletBinding()]
+    param
+    (
+        [System.String[]]
+        $Source,
 
-		[System.Boolean]
-		$RemoveFilesOnDisable,
+        [System.Boolean]
+        $RemoveFilesOnDisable,
 
-		[System.String]
-		$LogPath,
+        [System.String]
+        $LogPath,
 
         [parameter(Mandatory = $true)]
 		[ValidateSet("Present","Absent")]
 		[System.String]
 		$Ensure,
 
-		[System.Boolean]
-		$NoWindowsUpdateCheck,
+        [System.Boolean]
+        $NoWindowsUpdateCheck,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[ValidateSet("ErrorsOnly","ErrorsAndWarning","ErrorsAndWarningAndInformation")]
-		[System.String]
-		$LogLevel
-	)
+        [ValidateSet("ErrorsOnly","ErrorsAndWarning","ErrorsAndWarningAndInformation")]
+        [System.String]
+        $LogLevel
+    )
 
     Write-Debug ($LocalizedData.SetTargetResourceStartMessage -f $Name)
 
@@ -195,34 +195,34 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[System.String[]]
-		$Source,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [System.String[]]
+        $Source,
 
-		[System.Boolean]
-		$RemoveFilesOnDisable,
+        [System.Boolean]
+        $RemoveFilesOnDisable,
 
-		[System.String]
-		$LogPath,
+        [System.String]
+        $LogPath,
 
 		[ValidateSet("Enable","Disable")]
 		[System.String]
 		$Ensure,
 
-		[System.Boolean]
-		$NoWindowsUpdateCheck,
+        [System.Boolean]
+        $NoWindowsUpdateCheck,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[ValidateSet("ErrorsOnly","ErrorsAndWarning","ErrorsAndWarningAndInformation")]
-		[System.String]
-		$LogLevel
-	)
+        [ValidateSet("ErrorsOnly","ErrorsAndWarning","ErrorsAndWarningAndInformation")]
+        [System.String]
+        $LogLevel
+    )
 
     Write-Debug ($LocalizedData.TestTargetResourceStartMessage -f $Name)
 
@@ -248,14 +248,15 @@ function Test-TargetResource
     Write-Debug ($LocalizedData.TestTargetResourceEndMessage -f $Name)
 }
 
+
 # ValidatePrerequisites is a helper function used to validate if the MSFT_WindowsOptionalFeature is supported on the target machine.
-function ValidatePrerequisites   
+function ValidatePrerequisites
 {
     Write-Verbose $LocalizedData.ValidatingPrerequisites
 
     # check that we're running on a client SKU
     $os = Get-CimInstance -ClassName  Win32_OperatingSystem
-    
+
     if ($os.ProductType -ne 1)
     {
         throw $LocalizedData.NotAClientSku

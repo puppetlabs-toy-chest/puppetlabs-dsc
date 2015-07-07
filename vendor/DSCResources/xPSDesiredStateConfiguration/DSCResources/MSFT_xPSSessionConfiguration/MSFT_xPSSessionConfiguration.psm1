@@ -20,13 +20,13 @@ WrongStartupScriptExtensionMessage = The startup script should have a 'ps1' exte
 
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[Parameter(Mandatory)]
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-		[String]$Name
+        [String]$Name
     )
 
     # Try getting the specified endpoint 
@@ -53,37 +53,37 @@ function Get-TargetResource
     }
 
     @{
-		Name                   = $Name
-		RunAsCredential        = [CimInstance]$convertToCimCredential
+        Name                   = $Name
+        RunAsCredential        = [CimInstance]$convertToCimCredential
         SecurityDescriptorSDDL = $endpoint.Permission
         StartupScript          = $endpoint.StartupScript
         AccessMode             = $accessMode
         Ensure                 = $ensure
-	}
+    }
 }
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[Parameter(Mandatory)]
+    [CmdletBinding()]
+    param
+    (
+        [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-		[String]$Name,
+        [String]$Name,
 
         [AllowEmptyString()]
         [String]$StartupScript,
 
-		[PSCredential]$RunAsCredential,
+        [PSCredential]$RunAsCredential,
 
-		[String]$SecurityDescriptorSDDL,
+        [String]$SecurityDescriptorSDDL,
 
-		[ValidateSet('Local','Remote', 'Disabled')]
-		[String]$AccessMode = 'Remote',
+        [ValidateSet('Local','Remote', 'Disabled')]
+        [String]$AccessMode = 'Remote',
 
-		[ValidateSet('Present','Absent')]
-		[String]$Ensure = 'Present'
-	)
+        [ValidateSet('Present','Absent')]
+        [String]$Ensure = 'Present'
+    )
 
     #Check if the session configuration exists
     $queryNameMessage = $($LocalizedData.CheckEndpointMessage) -f $Name
@@ -210,27 +210,27 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-	    [Parameter(Mandatory)]
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-		[String]$Name,
+        [String]$Name,
 
         [AllowEmptyString()]
         [String]$StartupScript,
 
-		[PSCredential]$RunAsCredential,
+        [PSCredential]$RunAsCredential,
 
-		[String]$SecurityDescriptorSDDL,
+        [String]$SecurityDescriptorSDDL,
 
-		[ValidateSet('Local','Remote', 'Disabled')]
-		[String]$AccessMode = 'Remote',
+        [ValidateSet('Local','Remote', 'Disabled')]
+        [String]$AccessMode = 'Remote',
 
-		[ValidateSet('Present','Absent')]
-		[String]$Ensure = 'Present'
-	)
+        [ValidateSet('Present','Absent')]
+        [String]$Ensure = 'Present'
+    )
 
 #region Input Validation
     # Check if the endpoint name is blank/whitespaced string
@@ -313,10 +313,10 @@ function Test-TargetResource
 # Internal function to translate the endpoint's accessmode to the "Disabled","Local","Remote" values
 function Get-EndpointAccessMode
 {
-	param
-	(
-		[Parameter(Mandatory)]
-		$Endpoint
+    param
+    (
+        [Parameter(Mandatory)]
+        $Endpoint
     )
     if($($endpoint.Enabled) -eq $false) {return 'Disabled'}
     elseif($endpoint.Permission -and ($endpoint.Permission).contains('NT AUTHORITY\NETWORK AccessDenied')){return 'Local'}
@@ -348,22 +348,22 @@ function Write-EndpointMessage
 # Internal function to validate an endpoint's properties
 function Validate-ResourceProperties
 {
-	param
-	(
-		[Parameter(Mandatory)]
-		$Endpoint,
+    param
+    (
+        [Parameter(Mandatory)]
+        $Endpoint,
 
         [String]$StartupScript,
 
-		[PSCredential]$RunAsCredential,
+        [PSCredential]$RunAsCredential,
 
-		[String]$SecurityDescriptorSDDL,
+        [String]$SecurityDescriptorSDDL,
 
-		[ValidateSet('Local','Remote','Disabled')]
-		[String]$AccessMode,
+        [ValidateSet('Local','Remote','Disabled')]
+        [String]$AccessMode,
 
         [Switch]$Apply
-	)
+    )
 
     if($Apply)
     {

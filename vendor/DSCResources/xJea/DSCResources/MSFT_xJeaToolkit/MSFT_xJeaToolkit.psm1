@@ -11,14 +11,14 @@ Import-Module $PSScriptRoot\..\Library\JeaProxy.psm1
 
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name
-	)
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name
+    )
 
     try
     {
@@ -30,23 +30,23 @@ function Get-TargetResource
 
         $module = Microsoft.PowerShell.Core\Get-Module -Name "$name-Toolkit"
         Write-Verbose "Module= $module "
-	    $returnValue = @{
-		    Name = [System.String]"$name-Toolkit"
-		    CommandSpecs = [String]$(
+        $returnValue = @{
+            Name = [System.String]"$name-Toolkit"
+            CommandSpecs = [String]$(
                 $csvPath = (Join-Path (Join-Path (Get-JeaDir) 'Toolkit') "$($name)-CommandSpecs.csv")
                 if (test-path $csvPath)
                 {
                     Microsoft.PowerShell.Management\get-content -Path $csvPath -Raw
                 }
                 )
-		    Applications = [System.String[]] $(
+            Applications = [System.String[]] $(
                    &$Module{$ExportedApplications}
                 )
-		    Ensure = [System.String]'Present'
+            Ensure = [System.String]'Present'
 
-	    }
+        }
         Microsoft.PowerShell.Core\remove-module "$Name-Toolkit" -Verbose:0
-	    $returnValue
+        $returnValue
     }catch
     {
         write-Debug "ERROR: $($_|fl * -force|out-string)"
@@ -54,32 +54,32 @@ function Get-TargetResource
     }finally
     {
         write-Verbose "$((get-date).GetDateTimeFormats()[112]) Done  Get [JeaToolkit]$name" 
-    }	
+    }    
 }
 
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[String]
-		$CommandSpecs,
+        [String]
+        $CommandSpecs,
 
-		[System.String[]]
-		$Applications,
+        [System.String[]]
+        $Applications,
 
-		[System.String[]]
-		$ScriptDirectory,
+        [System.String[]]
+        $ScriptDirectory,
 
-		[ValidateSet('Present','Absent')]
-		[System.String]
-		$Ensure = 'Present'
-	)
+        [ValidateSet('Present','Absent')]
+        [System.String]
+        $Ensure = 'Present'
+    )
 
     try
     {       
@@ -101,27 +101,27 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[String]
-		$CommandSpecs,
+        [String]
+        $CommandSpecs,
 
-		[System.String[]]
-		$Applications,
+        [System.String[]]
+        $Applications,
 
-		[System.String[]]
-		$ScriptDirectory,
+        [System.String[]]
+        $ScriptDirectory,
 
-		[ValidateSet('Present','Absent')]
-		[System.String]
-		$Ensure = 'Present'
-	)
+        [ValidateSet('Present','Absent')]
+        [System.String]
+        $Ensure = 'Present'
+    )
 
     try
     {
@@ -151,7 +151,7 @@ function Test-TargetResource
     }finally
     {
         write-Verbose "$((get-date).GetDateTimeFormats()[112]) Done  Test [JeaToolkit]$name" 
-    }	
+    }    
 
 } #Test-TargetResource
 

@@ -20,11 +20,11 @@ Configuration xFileUpload
     param (
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[String]
+        [String]
         $destinationPath,
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[String]        
+        [String]        
         $sourcePath,
         [PSCredential]
         $credential,

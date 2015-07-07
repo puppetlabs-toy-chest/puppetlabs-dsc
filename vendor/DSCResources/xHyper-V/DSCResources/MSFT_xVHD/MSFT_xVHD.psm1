@@ -1,18 +1,18 @@
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
     param
     (
-	    [parameter(Mandatory)]
-	    [String]$Name,
+        [parameter(Mandatory)]
+        [String]$Name,
 
-	    [parameter(Mandatory)]
-	    [String]$Path,
+        [parameter(Mandatory)]
+        [String]$Path,
 
-	    # Virtual disk format - Vhd or Vhdx
+        # Virtual disk format - Vhd or Vhdx
         [ValidateSet("Vhd","Vhdx")]
-	    [String]$Generation = "Vhd"
+        [String]$Generation = "Vhd"
     )
     
     # Check if Hyper-V module is present for Hyper-V cmdlets
@@ -28,13 +28,13 @@ function Get-TargetResource
 
     $vhd = Get-VHD -Path $vhdFilePath -ErrorAction SilentlyContinue
     @{
-	    Name             = $Name
-	    Path             = $Path
-	    ParentPath       = $vhd.ParentPath
-	    Generation       = $vhd.VhdFormat
-	    Ensure           = if($vhd){"Present"}else{"Absent"}
-	    ID               = $vhd.DiskIdentifier
-	    Type             = $vhd.VhdType
+        Name             = $Name
+        Path             = $Path
+        ParentPath       = $vhd.ParentPath
+        Generation       = $vhd.VhdFormat
+        Ensure           = if($vhd){"Present"}else{"Absent"}
+        ID               = $vhd.DiskIdentifier
+        Type             = $vhd.VhdType
         FileSizeBytes    = $vhd.FileSize
         MaximumSizeBytes = $vhd.Size
         IsAttached       = $vhd.Attached
@@ -43,16 +43,16 @@ function Get-TargetResource
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		# Name of the VHD File
+    [CmdletBinding()]
+    param
+    (
+        # Name of the VHD File
         [parameter(Mandatory)]
-		[String]$Name,
+        [String]$Name,
 
-		# Folder where the VHD will be created
+        # Folder where the VHD will be created
         [parameter(Mandatory)]
-		[String]$Path,
+        [String]$Path,
 
         # Parent VHD file path, for differencing disk
         [String]$ParentPath,
@@ -60,14 +60,14 @@ function Set-TargetResource
         # Size of Vhd to be created
         [Uint64]$MaximumSizeBytes,
 
-		# Virtual disk format - Vhd or Vhdx
+        # Virtual disk format - Vhd or Vhdx
         [ValidateSet("Vhd","Vhdx")]
         [String]$Generation = "Vhd",
 
-		# Should the VHD be created or deleted
+        # Should the VHD be created or deleted
         [ValidateSet("Present","Absent")]
-		[String]$Ensure = "Present"
-	)
+        [String]$Ensure = "Present"
+    )
     
     # Check if Hyper-V module is present for Hyper-V cmdlets
     if(!(Get-Module -ListAvailable -Name Hyper-V))
@@ -90,7 +90,7 @@ function Set-TargetResource
             Write-Verbose -Message "$vhdFilePath is not $Ensure"
             Remove-Item -Path $vhdFilePath -Force -ErrorAction Stop             
         }
-	    Write-Verbose -Message "$vhdFilePath is $Ensure"
+        Write-Verbose -Message "$vhdFilePath is $Ensure"
     }  
 
     else
@@ -98,7 +98,7 @@ function Set-TargetResource
         # Check if the Vhd is present
         try
         {
-            	$vhd = Get-VHD -Path $vhdFilePath -ErrorAction Stop
+                $vhd = Get-VHD -Path $vhdFilePath -ErrorAction Stop
 
                 # If this is a differencing disk, check the parent path
                 if($ParentPath)
@@ -159,32 +159,32 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		# Name of the VHD File
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        # Name of the VHD File
         [parameter(Mandatory)]
-		[String]$Name,
+        [String]$Name,
 
-		# Folder where the VHD will be created
+        # Folder where the VHD will be created
         [parameter(Mandatory)]
-		[String]$Path,
+        [String]$Path,
 
-		# Parent VHD file path, for differencing disk
+        # Parent VHD file path, for differencing disk
         [String]$ParentPath,
 
         # Size of Vhd to be created
         [Uint64]$MaximumSizeBytes,
 
-		# Virtual disk format - Vhd or Vhdx
+        # Virtual disk format - Vhd or Vhdx
         [ValidateSet("Vhd","Vhdx")]
-		[String]$Generation = "Vhd",
+        [String]$Generation = "Vhd",
 
-		# Should the VHD be created or deleted
+        # Should the VHD be created or deleted
         [ValidateSet("Present","Absent")]
-		[String]$Ensure = "Present"
-	)
+        [String]$Ensure = "Present"
+    )
 
     #region input validation
     
@@ -228,7 +228,7 @@ function Test-TargetResource
     $vhdFilePath = Join-Path -Path $Path -ChildPath $vhdName
     Write-Debug -Message "Vhd full path is $vhdFilePath"
 
-	# Add the logic here and at the end return either $true or $false.
+    # Add the logic here and at the end return either $true or $false.
     $result = Test-VHD -Path $vhdFilePath -ErrorAction SilentlyContinue
     Write-Verbose -Message "Vhd $vhdFilePath is present:$result and Ensure is $Ensure"
     return ($result -and ($Ensure -eq "Present"))
@@ -240,9 +240,9 @@ function GetNameWithExtension
     param(
     # Name of the VHD File
         [parameter(Mandatory)]
-		[String]$Name,
+        [String]$Name,
         [parameter(Mandatory)]
-		[String]$Generation ='Vhd'
+        [String]$Generation ='Vhd'
       )
 
      # If the name ends with vhd or vhdx don't append the generation to the vhdname.

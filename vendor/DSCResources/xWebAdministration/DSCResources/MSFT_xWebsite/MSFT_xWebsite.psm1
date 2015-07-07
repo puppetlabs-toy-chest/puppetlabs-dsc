@@ -56,7 +56,7 @@ function Get-TargetResource
                 New-CimInstance -ClassName MSFT_xWebBindingInformation -Namespace root/microsoft/Windows/DesiredStateConfiguration -Property @{Port=[System.UInt16]$BindingObject.Port;Protocol=$BindingObject.Protocol;IPAddress=$BindingObject.IPaddress;HostName=$BindingObject.Hostname;CertificateThumbprint=$BindingObject.CertificateThumbprint;CertificateStoreName=$BindingObject.CertificateStoreName} -ClientOnly
             }
 
-	   $allDefaultPage = @(Get-WebConfiguration //defaultDocument/files/*  -PSPath (Join-Path "IIS:\sites\" $Name) |%{Write-Output $_.value})
+       $allDefaultPage = @(Get-WebConfiguration //defaultDocument/files/*  -PSPath (Join-Path "IIS:\sites\" $Name) |%{Write-Output $_.value})
 
         }
         else # Multiple websites with the same name exist. This is not supported and is an error
@@ -72,14 +72,14 @@ function Get-TargetResource
 
         # Add all Website properties to the hash table
         $getTargetResourceResult = @{
-    	                                Name = $Website.Name; 
+                                        Name = $Website.Name; 
                                         Ensure = $ensureResult;
                                         PhysicalPath = $Website.physicalPath;
                                         State = $Website.state;
                                         ID = $Website.id;
                                         ApplicationPool = $Website.applicationPool;
                                         BindingInfo = $CimBindings;
-					DefaultPage = $allDefaultPage
+                    DefaultPage = $allDefaultPage
                                     }
         
         return $getTargetResourceResult;
@@ -110,7 +110,7 @@ function Set-TargetResource
 
         [Microsoft.Management.Infrastructure.CimInstance[]]$BindingInfo,
 
-  	[string[]]$DefaultPage
+      [string[]]$DefaultPage
 
     )
  
@@ -175,11 +175,11 @@ function Set-TargetResource
                 Write-Verbose("Application Pool for website $Name has been updated to $ApplicationPool")
             }
 
-	    #Update Default pages if required 
-	    if($DefaultPage -ne $null)
+        #Update Default pages if required 
+        if($DefaultPage -ne $null)
             {
-	    	UpdateDefaultPages -Name $Name -DefaultPage $DefaultPage 
-	    }
+            UpdateDefaultPages -Name $Name -DefaultPage $DefaultPage 
+        }
 
             #Update State if required
             if($website.state -ne $State -and $State -ne "")
@@ -285,11 +285,11 @@ function Set-TargetResource
                     }
                 }
 
-		#Add Default pages for new created website  
-	        if($DefaultPage -ne $null)
-            	{
-	    		UpdateDefaultPages -Name $Name -DefaultPage $DefaultPage  
-		}
+        #Add Default pages for new created website  
+            if($DefaultPage -ne $null)
+                {
+                UpdateDefaultPages -Name $Name -DefaultPage $DefaultPage  
+        }
 
                 Write-Verbose("successfully created website $Name")
                 
@@ -303,7 +303,7 @@ function Set-TargetResource
                 }
 
                 Write-Verbose("successfully started website $Name")
- 	 
+      
             }
             catch
            {
@@ -312,7 +312,7 @@ function Set-TargetResource
                 $errorMessage = $($LocalizedData.FeatureCreationFailureError) -f ${Name} ;
                 $exception = New-Object System.InvalidOperationException $errorMessage ;
                 $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
-                $PSCmdlet.ThrowTerminatingError($errorRecord);		
+                $PSCmdlet.ThrowTerminatingError($errorRecord);        
             }
         }    
     }
@@ -370,7 +370,7 @@ function Test-TargetResource
 
         [Microsoft.Management.Infrastructure.CimInstance[]]$BindingInfo,
 
-	[string[]]$DefaultPage
+    [string[]]$DefaultPage
     )
  
     $DesiredConfigurationMatch = $true;
@@ -434,29 +434,29 @@ function Test-TargetResource
             }
         }
 
-   	    #Check Default Pages 
+           #Check Default Pages 
             if($DefaultPage -ne $null)
             {
-		$allDefaultPage = @(Get-WebConfiguration //defaultDocument/files/*  -PSPath (Join-Path "IIS:\sites\" $Name) |%{Write-Output $_.value})
+        $allDefaultPage = @(Get-WebConfiguration //defaultDocument/files/*  -PSPath (Join-Path "IIS:\sites\" $Name) |%{Write-Output $_.value})
 
-		$allDefaultPagesPresent = $true
+        $allDefaultPagesPresent = $true
 
                 foreach($page in $DefaultPage )
                 {
                     if(-not ($allDefaultPage  -icontains $page))
                     {   
                         $DesiredConfigurationMatch = $false
-			Write-Verbose("Default Page for website $Name do not mach the desired state.");
-			$allDefaultPagesPresent = $false  
-			break
+            Write-Verbose("Default Page for website $Name do not mach the desired state.");
+            $allDefaultPagesPresent = $false  
+            break
                     }
                 }
-		
- 		if($allDefaultPagesPresent -eq $false)
-            	{
-			# This is to break out from Test 
-			break 
-		}
+        
+         if($allDefaultPagesPresent -eq $false)
+                {
+            # This is to break out from Test 
+            break 
+        }
             }
 
 
@@ -831,13 +831,13 @@ function UpdateDefaultPages
         [string[]] $DefaultPage
     )
 
-	$allDefaultPage = @(Get-WebConfiguration //defaultDocument/files/*  -PSPath (Join-Path "IIS:\sites\" $Name) |%{Write-Output $_.value})
+    $allDefaultPage = @(Get-WebConfiguration //defaultDocument/files/*  -PSPath (Join-Path "IIS:\sites\" $Name) |%{Write-Output $_.value})
 
         foreach($page in $DefaultPage )
         {
             if(-not ($allDefaultPage  -icontains $page))
             {   
-		Write-Verbose("Deafult page for website $Name has been updated to $page");
+        Write-Verbose("Deafult page for website $Name has been updated to $page");
                 Add-WebConfiguration //defaultDocument/files -PSPath (Join-Path "IIS:\sites\" $Name) -Value @{value = $page }
             }
         }

@@ -51,7 +51,7 @@ Configuration Sample
     xPackage t1
     {
         Ensure="Present"
- 	Name = $Package
+     Name = $Package
         Path = $Source
         Arguments = $Arguments
         RunAsCredential = $RunAsCredential

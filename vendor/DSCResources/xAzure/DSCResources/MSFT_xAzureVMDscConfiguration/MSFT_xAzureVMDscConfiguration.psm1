@@ -52,10 +52,10 @@ param(
     Write-Verbose "Blob Uri is $blobUri"
 
     $returnValue = @{
-		BlobUri = $blobUri
-	    }
+        BlobUri = $blobUri
+        }
 
-	return $returnValue    
+    return $returnValue    
 
     }
 

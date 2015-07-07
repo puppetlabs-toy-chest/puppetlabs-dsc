@@ -9,28 +9,28 @@ DatabaseServerNotExistsError=Database server "{0}" does not exist. You have to s
 
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[parameter(Mandatory = $true)]
-		[System.Management.Automation.PSCredential]
-		$ServerCredential,
+        [parameter(Mandatory = $true)]
+        [System.Management.Automation.PSCredential]
+        $ServerCredential,
         
         [parameter(Mandatory = $true)]
-		[System.String]
-		$ServerName,
+        [System.String]
+        $ServerName,
 
         [System.String]
         $AzureSubscriptionName,
 
         [System.String]
         $AzurePublishSettingsFile
-	)
+    )
     
     # Select Azure subscription
     if ($AzureSubscriptionName -and $AzurePublishSettingsFile)
@@ -81,45 +81,45 @@ function Get-TargetResource
         $ensureState = "Absent"
     }
 
-	$returnValue = @{
-		Name = $nameState
-		MaximumSizeInGB = $maxSizeGBState
-		Collation = $collationState
-		Edition = $editionState
-		ServerCredential = $serverCredentialState
-		ServerName = $serverNameState
-		Ensure = $ensureState
-	}
+    $returnValue = @{
+        Name = $nameState
+        MaximumSizeInGB = $maxSizeGBState
+        Collation = $collationState
+        Edition = $editionState
+        ServerCredential = $serverCredentialState
+        ServerName = $serverNameState
+        Ensure = $ensureState
+    }
 
-	$returnValue
+    $returnValue
 }
 
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[System.UInt32]
-		$MaximumSizeInGB = 1,
+        [System.UInt32]
+        $MaximumSizeInGB = 1,
 
-		[System.String]
-		$Collation = "SQL_Latin1_General_CP1_CI_AS",
+        [System.String]
+        $Collation = "SQL_Latin1_General_CP1_CI_AS",
 
-		[System.String]
-		$Edition = "Web",
-
-		[parameter(Mandatory = $true)]
-		[System.Management.Automation.PSCredential]
-		$ServerCredential,
+        [System.String]
+        $Edition = "Web",
 
         [parameter(Mandatory = $true)]
-		[System.String]
-		$ServerName,
+        [System.Management.Automation.PSCredential]
+        $ServerCredential,
+
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $ServerName,
 
         [System.String]
         $AzureSubscriptionName,
@@ -127,10 +127,10 @@ function Set-TargetResource
         [System.String]
         $AzurePublishSettingsFile,
 
-		[ValidateSet("Present","Absent")]
-		[System.String]
-		$Ensure = "Present"
-	)
+        [ValidateSet("Present","Absent")]
+        [System.String]
+        $Ensure = "Present"
+    )
     # Verify that database server with given name exists
     Write-Verbose "Verifying that server '$ServerName' exists"
     
@@ -225,30 +225,30 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[System.UInt32]
-		$MaximumSizeInGB = 1,
+        [System.UInt32]
+        $MaximumSizeInGB = 1,
 
-		[System.String]
-		$Collation = "SQL_Latin1_General_CP1_CI_AS",
+        [System.String]
+        $Collation = "SQL_Latin1_General_CP1_CI_AS",
 
-		[System.String]
-		$Edition = "Web",
-
-		[parameter(Mandatory = $true)]
-		[System.Management.Automation.PSCredential]
-		$ServerCredential,
+        [System.String]
+        $Edition = "Web",
 
         [parameter(Mandatory = $true)]
-		[System.String]
-		$ServerName,
+        [System.Management.Automation.PSCredential]
+        $ServerCredential,
+
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $ServerName,
 
         [System.String]
         $AzureSubscriptionName,
@@ -256,10 +256,10 @@ function Test-TargetResource
         [System.String]
         $AzurePublishSettingsFile,
 
-		[ValidateSet("Present","Absent")]
-		[System.String]
-		$Ensure = "Present"
-	)
+        [ValidateSet("Present","Absent")]
+        [System.String]
+        $Ensure = "Present"
+    )
     
     $testResult = $true;
 
@@ -353,7 +353,7 @@ function Test-TargetResource
         }
     }
 
-	return $testResult
+    return $testResult
 }
 
 # Throws terminating error of category InvalidOperation with specified errorId and errorMessage

@@ -15,8 +15,8 @@ Class MSFT_xFileDirectory
 [ClassVersion("1.0.0.0"), FriendlyName("xVhdFile")]
 class MSFT_xVhdFileDirectory : OMI_BaseResource
 {
-	[Key, Description("Path to the VHD")] String VhdPath;
-	[Required, EmbeddedInstance("MSFT_xFileDirectory"), Description("The FileDirectory objects to copy to the VHD")] String FileDirectory[];
+    [Key, Description("Path to the VHD")] String VhdPath;
+    [Required, EmbeddedInstance("MSFT_xFileDirectory"), Description("The FileDirectory objects to copy to the VHD")] String FileDirectory[];
 };
 
 

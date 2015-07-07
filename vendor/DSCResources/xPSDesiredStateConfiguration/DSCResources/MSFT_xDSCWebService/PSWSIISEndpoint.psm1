@@ -44,7 +44,7 @@ function Initialize-Endpoint
     if (!(Test-Path $mof))
     {        
         throw "ERROR: $mof does not exist"  
-    }   	
+    }       
     
     if (!(Test-Path $asax))
     {        
@@ -251,17 +251,17 @@ function Copy-Files
     foreach ($dependentBinary in $dependentBinaries)
     {
         if (!(Test-Path $dependentBinary))
-        {					
+        {                    
             throw "ERROR: $dependentBinary does not exist"  
-        } 	
+        }     
     }
 
     foreach ($dependentMUIFile in $dependentMUIFiles)
     {
         if (!(Test-Path $dependentMUIFile))
-        {					
+        {                    
             throw "ERROR: $dependentMUIFile does not exist"  
-        } 	
+        }     
     }
     
     Write-Verbose "Create the bin folder for deploying custom dependent binaries required by the endpoint"
@@ -283,12 +283,12 @@ function Copy-Files
     foreach ($psFile in $psFiles)
     {
         if (!(Test-Path $psFile))
-        {					
+        {                    
             throw "ERROR: $psFile does not exist"  
-        } 	
+        }     
         
         Copy-Item $psFile $path -Force
-    }		
+    }        
     
     Copy-Item $cfgfile (Join-Path $path "web.config") -Force
     Copy-Item $svc $path -Force
@@ -363,13 +363,13 @@ function New-IISWebSite
         # Create a new binding using the supplied certificate
         $null = Get-Item CERT:\LocalMachine\MY\$certificateThumbPrint | New-Item IIS:\SSLBindings\0.0.0.0!$port
     }
-        
     Write-Verbose "Delete application"
     Remove-WebApplication -Name $app -Site $site -ErrorAction SilentlyContinue
     
     Write-Verbose "Add and Set Application Properties"
     $null = New-WebApplication -Name $app -Site $site -PhysicalPath $path -ApplicationPool $appPool
     
+
     Update-Site -siteName $site -siteAction Start    
 }
 
@@ -435,8 +435,8 @@ function New-PSWSEndpoint
         # IIS Application Name for the Site        
         [String] $app = "PSWS",
         
-        # IIS App Pool Identity Type - must be one of LocalService, LocalSystem, NetworkService, ApplicationPoolIdentity		
-        [ValidateSet('LocalService', 'LocalSystem', 'NetworkService', 'ApplicationPoolIdentity')]		
+        # IIS App Pool Identity Type - must be one of LocalService, LocalSystem, NetworkService, ApplicationPoolIdentity        
+        [ValidateSet('LocalService', 'LocalSystem', 'NetworkService', 'ApplicationPoolIdentity')]        
         [String] $applicationPoolIdentityType,
         
         # WCF Service SVC file        
@@ -448,7 +448,7 @@ function New-PSWSEndpoint
         [String] $mof,
         
         # PSWS Specific Dispatch Mapping File [Optional]
-        [ValidateNotNullOrEmpty()]		
+        [ValidateNotNullOrEmpty()]        
         [String] $dispatch,    
         
         # Global.asax file [Optional]

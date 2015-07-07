@@ -23,19 +23,19 @@ SetPropertyMessage        = {0} option is set to {1}.
 
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[String]$ScopeID,
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [String]$ScopeID,
 
-		[parameter(Mandatory = $true)]
-		[String[]]$DnsServerIPAddress,
+        [parameter(Mandatory = $true)]
+        [String[]]$DnsServerIPAddress,
 
         [ValidateSet('IPv4')]
-		[String]$AddressFamily = 'IPv4'
-	)
+        [String]$AddressFamily = 'IPv4'
+    )
 
 #region Input Validation
 
@@ -70,34 +70,34 @@ function Get-TargetResource
     {
     }
 
-	@{
-		ScopeID = $ScopeID
-		DnsDomain = $dnsDomain
-		AddressFamily = 'IPv4'
-		Ensure = $ensure
-		DnsServerIPAddress = $dnsServerIP
-	}
+    @{
+        ScopeID = $ScopeID
+        DnsDomain = $dnsDomain
+        AddressFamily = 'IPv4'
+        Ensure = $ensure
+        DnsServerIPAddress = $dnsServerIP
+    }
 }
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[String]$ScopeID,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [String]$ScopeID,
 
-		[parameter(Mandatory = $true)]
-		[String[]]$DnsServerIPAddress,
+        [parameter(Mandatory = $true)]
+        [String[]]$DnsServerIPAddress,
 
-		[String]$DnsDomain,
+        [String]$DnsDomain,
 
-		[ValidateSet('IPv4')]
-		[String]$AddressFamily = 'IPv4',
+        [ValidateSet('IPv4')]
+        [String]$AddressFamily = 'IPv4',
 
-		[ValidateSet('Present','Absent')]
-		[String]$Ensure = 'Present'
-	)
+        [ValidateSet('Present','Absent')]
+        [String]$Ensure = 'Present'
+    )
 
 #region Input Validation
     
@@ -125,24 +125,24 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[String]$ScopeID,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [String]$ScopeID,
 
-		[parameter(Mandatory = $true)]
-		[String[]]$DnsServerIPAddress,
+        [parameter(Mandatory = $true)]
+        [String[]]$DnsServerIPAddress,
 
-		[String]$DnsDomain,
+        [String]$DnsDomain,
 
-		[ValidateSet('IPv4')]
-		[String]$AddressFamily = 'IPv4',
+        [ValidateSet('IPv4')]
+        [String]$AddressFamily = 'IPv4',
 
-		[ValidateSet('Present','Absent')]
-		[String]$Ensure = 'Present'
-	)
+        [ValidateSet('Present','Absent')]
+        [String]$Ensure = 'Present'
+    )
 
 #region Input Validation
 
@@ -190,12 +190,12 @@ function Validate-ResourceProperties
         [Parameter(Mandatory)]
         [string]$ScopeID,
 
-		[parameter(Mandatory)]
-		[String[]]$DnsServerIPAddress,
+        [parameter(Mandatory)]
+        [String[]]$DnsServerIPAddress,
 
-		[String]$DnsDomain,
+        [String]$DnsDomain,
 
-		[ValidateSet('Present','Absent')]
+        [ValidateSet('Present','Absent')]
         [String]$Ensure = 'Present',
 
         [switch]$Apply

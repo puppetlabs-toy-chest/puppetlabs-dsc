@@ -5,18 +5,18 @@
 #>
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$VhdPath,
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $VhdPath,
 
-		[parameter(Mandatory = $true)]
-		[Microsoft.Management.Infrastructure.CimInstance[]]
-		$FileDirectory
-	)
+        [parameter(Mandatory = $true)]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $FileDirectory
+    )
 
     if ( -not (Test-path $VhdPath))
     {
@@ -68,17 +68,17 @@ function Get-TargetResource
 # This is a resource method that gets called if the Test-TargetResource returns false.
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$VhdPath,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $VhdPath,
 
-		[parameter(Mandatory = $true)]
-		[Microsoft.Management.Infrastructure.CimInstance[]]
-		$FileDirectory
-	)
+        [parameter(Mandatory = $true)]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $FileDirectory
+    )
 
     if (-not (Test-Path $VhdPath)) { throw "Specified destination path $VhdPath does not exist!"}   
     
@@ -140,24 +140,24 @@ function Set-TargetResource
     finally
     {
         EnsureVHDState -Dismounted -vhdPath $VhdPath
-    }	
+    }    
 }
 
 # This function returns if the current configuration of the machine is the same as the desired configration for this resource.
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$VhdPath,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $VhdPath,
 
-		[parameter(Mandatory = $true)]
-		[Microsoft.Management.Infrastructure.CimInstance[]]
-		$FileDirectory
-	)
+        [parameter(Mandatory = $true)]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $FileDirectory
+    )
 
     # If the VHD path does not exist throw an error and stop.
     if ( -not (Test-Path $VhdPath))
@@ -223,7 +223,7 @@ function Test-TargetResource
 
                             if (-not ($result))
                             {
-                                break;
+                               break;
                             }
                          }
                   }

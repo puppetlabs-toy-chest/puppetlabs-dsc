@@ -1,15 +1,15 @@
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
         [parameter(Mandatory = $true)]
         [String]$Name,
 
-		[parameter(Mandatory = $true)]
-		[String]$VhdPath
-	)
+        [parameter(Mandatory = $true)]
+        [String]$VhdPath
+    )
 
     # Check if Hyper-V module is present for Hyper-V cmdlets
     if(!(Get-Module -ListAvailable -Name Hyper-V))
@@ -24,87 +24,87 @@ function Get-TargetResource
     {
        Throw "More than one VM with the name $Name exist." 
     }
-	 
-	
-	@{
-		Name             = $Name
-		VhdPath          = $vmObj.HardDrives[0].Path
-		SwitchName       = $vmObj.NetworkAdapters[0].SwitchName
-		State            = $vmobj.State
-		Path             = $vmobj.Path
-		Generation       = if($vmobj.Generation -eq 1){"Vhd"}else{"Vhdx"}
-		StartupMemory    = $vmobj.MemoryStartup
-		MinimumMemory    = $vmobj.MemoryMinimum
-		MaximumMemory    = $vmobj.MemoryMaximum
-		MACAddress       = $vmObj.NetWorkAdapters[0].MacAddress
-		ProcessorCount   = $vmobj.ProcessorCount
-		Ensure           = if($vmobj){"Present"}else{"Absent"}
-		ID               = $vmobj.Id
-		Status           = $vmobj.Status
-		CPUUsage         = $vmobj.CPUUsage
-		MemoryAssigned   = $vmobj.MemoryAssigned
-		Uptime           = $vmobj.Uptime
-		CreationTime     = $vmobj.CreationTime
-		HasDynamicMemory = $vmobj.DynamicMemoryEnabled
-		NetworkAdapters  = $vmobj.NetworkAdapters.IPAddresses
-	}
+     
+    
+    @{
+        Name             = $Name
+        VhdPath          = $vmObj.HardDrives[0].Path
+        SwitchName       = $vmObj.NetworkAdapters[0].SwitchName
+        State            = $vmobj.State
+        Path             = $vmobj.Path
+        Generation       = if($vmobj.Generation -eq 1){"Vhd"}else{"Vhdx"}
+        StartupMemory    = $vmobj.MemoryStartup
+        MinimumMemory    = $vmobj.MemoryMinimum
+        MaximumMemory    = $vmobj.MemoryMaximum
+        MACAddress       = $vmObj.NetWorkAdapters[0].MacAddress
+        ProcessorCount   = $vmobj.ProcessorCount
+        Ensure           = if($vmobj){"Present"}else{"Absent"}
+        ID               = $vmobj.Id
+        Status           = $vmobj.Status
+        CPUUsage         = $vmobj.CPUUsage
+        MemoryAssigned   = $vmobj.MemoryAssigned
+        Uptime           = $vmobj.Uptime
+        CreationTime     = $vmobj.CreationTime
+        HasDynamicMemory = $vmobj.DynamicMemoryEnabled
+        NetworkAdapters  = $vmobj.NetworkAdapters.IPAddresses
+    }
 }
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
+    [CmdletBinding()]
+    param
+    (
         # Name of the VM
         [parameter(Mandatory)]
         [String]$Name,
         
         # VHD associated with the VM
-		[parameter(Mandatory)]
-		[String]$VhdPath,
+        [parameter(Mandatory)]
+        [String]$VhdPath,
         
         # Virtual switch associated with the VM
-		[String]$SwitchName,
+        [String]$SwitchName,
 
         # State of the VM
-		[ValidateSet("Running","Paused","Off")]
-		[String]$State = "Off",
+        [ValidateSet("Running","Paused","Off")]
+        [String]$State = "Off",
 
         # Folder where the VM data will be stored
-		[String]$Path,
+        [String]$Path,
 
         # Associated Virtual disk format - Vhd or Vhdx
-		[ValidateSet("Vhd","Vhdx")]
-		[String]$Generation = "Vhd",
+        [ValidateSet("Vhd","Vhdx")]
+        [String]$Generation = "Vhd",
 
         # Startup RAM for the VM
-		[ValidateRange(32MB,17342MB)]
+        [ValidateRange(32MB,17342MB)]
         [UInt64]$StartupMemory,
 
         # Minimum RAM for the VM. This enables dynamic memory
-		[ValidateRange(32MB,17342MB)]
+        [ValidateRange(32MB,17342MB)]
         [UInt64]$MinimumMemory,
 
         # Maximum RAM for the VM. This enables dynamic memory
-		[ValidateRange(32MB,1048576MB)]
+        [ValidateRange(32MB,1048576MB)]
         [UInt64]$MaximumMemory,
 
         # MAC address of the VM
-		[String]$MACAddress,
+        [String]$MACAddress,
 
         # Processor count for the VM
-		[UInt32]$ProcessorCount,
+        [UInt32]$ProcessorCount,
 
         # Waits for VM to get valid IP address
-		[Boolean]$WaitForIP,
+        [Boolean]$WaitForIP,
 
         # If specified, shutdowns and restarts the VM as needed for property changes
-		[Boolean]$RestartIfNeeded,
+        [Boolean]$RestartIfNeeded,
 
         # Should the VM be created or deleted
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = "Present"
-	)
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = "Present"
+    )
 
     # Check if Hyper-V module is present for Hyper-V cmdlets
     if(!(Get-Module -ListAvailable -Name Hyper-V))
@@ -241,60 +241,60 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		# Name of the VM
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        # Name of the VM
         [parameter(Mandatory)]
-		[String]$Name,
+        [String]$Name,
         
         # VHD associated with the VM
-		[parameter(Mandatory)]
-		[String]$VhdPath,
+        [parameter(Mandatory)]
+        [String]$VhdPath,
         
         # Virtual switch associated with the VM
-		[String]$SwitchName,
+        [String]$SwitchName,
 
         # State of the VM
-		[ValidateSet("Running","Paused","Off")]
-		[String]$State = "Off",
+        [ValidateSet("Running","Paused","Off")]
+        [String]$State = "Off",
 
         # Folder where the VM data will be stored
-		[String]$Path,
+        [String]$Path,
 
         # Associated Virtual disk format - Vhd or Vhdx
-		[ValidateSet("Vhd","Vhdx")]
-		[String]$Generation = "Vhd",
+        [ValidateSet("Vhd","Vhdx")]
+        [String]$Generation = "Vhd",
 
         # Startup RAM for the VM
         [ValidateRange(32MB,17342MB)]
-		[UInt64]$StartupMemory,
+        [UInt64]$StartupMemory,
 
         # Minimum RAM for the VM. This enables dynamic memory
-		[ValidateRange(32MB,17342MB)]
+        [ValidateRange(32MB,17342MB)]
         [UInt64]$MinimumMemory,
 
         # Maximum RAM for the VM. This enables dynamic memory
-		[ValidateRange(32MB,1048576MB)]
+        [ValidateRange(32MB,1048576MB)]
         [UInt64]$MaximumMemory,
 
         # MAC address of the VM
-		[String]$MACAddress,
+        [String]$MACAddress,
 
         # Processor count for the VM
-		[UInt32]$ProcessorCount,
+        [UInt32]$ProcessorCount,
 
         # Waits for VM to get valid IP address
-		[Boolean]$WaitForIP,
+        [Boolean]$WaitForIP,
 
         # If specified, shutdowns and restarts the VM as needed for property changes
-		[Boolean]$RestartIfNeeded,
+        [Boolean]$RestartIfNeeded,
 
         # Should the VM be created or deleted
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = "Present"
-	)
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = "Present"
+    )
 
     #region input validation
     

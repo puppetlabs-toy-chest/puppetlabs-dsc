@@ -2,11 +2,11 @@
 [ClassVersion("1.0.0"), FriendlyName("xWordPressSite")]
 class MSFT_xWordPressSite : OMI_BaseResource
 {
-	[Key, Description("The WordPress Site URI.")] String Uri;
-	[Required, Description("The WordPress Site Default page title.")] String Title;
-	[Required, EmbeddedInstance("MSFT_Credential"), Description("The username and password of the WordPress administrator to create when creating the site.")] String AdministratorCredential;
-	[Required, Description("The email address of the WordPress administrator to create.")] String AdministratorEmail;
-	[Write, Description("Should the module be present or absent."), ValueMap{"Present"}, Values{"Present"}] String Ensure;
+    [Key, Description("The WordPress Site URI.")] String Uri;
+    [Required, Description("The WordPress Site Default page title.")] String Title;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("The username and password of the WordPress administrator to create when creating the site.")] String AdministratorCredential;
+    [Required, Description("The email address of the WordPress administrator to create.")] String AdministratorEmail;
+    [Write, Description("Should the module be present or absent."), ValueMap{"Present"}, Values{"Present"}] String Ensure;
 };
 
 

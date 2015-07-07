@@ -21,26 +21,26 @@ SetPropertyMessage        = DHCP server scope {0} is set to {1}.
 
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[String]$IPStartRange,
+        [parameter(Mandatory)]
+        [String]$IPStartRange,
 
-		[parameter(Mandatory)]
-		[String]$IPEndRange,
+        [parameter(Mandatory)]
+        [String]$IPEndRange,
 
-		[parameter(Mandatory)]
+        [parameter(Mandatory)]
         [String]$SubnetMask,
 
         [ValidateSet('IPv4')]
-		[String]$AddressFamily = 'IPv4'
+        [String]$AddressFamily = 'IPv4'
 
-	)
+    )
 #region Input Validation
 
     # Check for DhcpServer module/role
@@ -75,48 +75,48 @@ function Get-TargetResource
     }
 
     @{
-		ScopeID       = $dhcpScope.ScopeId
-		Name          = $dhcpScope.Name
-		IPStartRange  = $IPStartRange
-		IPEndRange    = $IPEndRange
-		SubnetMask    = $dhcpScope.SubnetMask
-		LeaseDuration = $dhcpScope.LeaseDuration
-		State         = $dhcpScope.State
-		AddressFamily = 'IPv4'
-		Ensure        = $Ensure
-	}
+        ScopeID       = $dhcpScope.ScopeId
+        Name          = $dhcpScope.Name
+        IPStartRange  = $IPStartRange
+        IPEndRange    = $IPEndRange
+        SubnetMask    = $dhcpScope.SubnetMask
+        LeaseDuration = $dhcpScope.LeaseDuration
+        State         = $dhcpScope.State
+        AddressFamily = 'IPv4'
+        Ensure        = $Ensure
+    }
 }
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[String]$IPStartRange,
+        [parameter(Mandatory)]
+        [String]$IPStartRange,
 
-		[parameter(Mandatory)]
-		[String]$IPEndRange,
+        [parameter(Mandatory)]
+        [String]$IPEndRange,
 
-		[parameter(Mandatory)]
+        [parameter(Mandatory)]
         [String]$SubnetMask,
 
-		[String]$LeaseDuration,
+        [String]$LeaseDuration,
 
-		[ValidateSet('IPv4')]
-		[String]$AddressFamily = 'IPv4',
+        [ValidateSet('IPv4')]
+        [String]$AddressFamily = 'IPv4',
 
-		[ValidateSet('Active','Inactive')]
-		[String]$State = 'Active',
+        [ValidateSet('Active','Inactive')]
+        [String]$State = 'Active',
 
-		[ValidateSet('Present','Absent')]
-		[String]$Ensure = 'Present'
-	)
+        [ValidateSet('Present','Absent')]
+        [String]$Ensure = 'Present'
+    )
 
-	
+    
     if($PSBoundParameters.ContainsKey('Debug')){ $null = $PSBoundParameters.Remove('Debug')}
     if($PSBoundParameters.ContainsKey('AddressFamily')) {$null = $PSBoundParameters.Remove('AddressFamily')}
 
@@ -126,33 +126,33 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[String]$IPStartRange,
+        [parameter(Mandatory)]
+        [String]$IPStartRange,
 
-		[parameter(Mandatory)]
-		[String]$IPEndRange,
+        [parameter(Mandatory)]
+        [String]$IPEndRange,
 
-		[parameter(Mandatory)]
+        [parameter(Mandatory)]
         [String]$SubnetMask,
 
-		[String]$LeaseDuration,
+        [String]$LeaseDuration,
 
-		[ValidateSet('IPv4')]
-		[String]$AddressFamily = 'IPv4',
+        [ValidateSet('IPv4')]
+        [String]$AddressFamily = 'IPv4',
 
-		[ValidateSet('Active','Inactive')]
-		[String]$State = 'Active',
+        [ValidateSet('Active','Inactive')]
+        [String]$State = 'Active',
 
-		[ValidateSet('Present','Absent')]
-		[String]$Ensure = 'Present'
-	)
+        [ValidateSet('Present','Absent')]
+        [String]$Ensure = 'Present'
+    )
 
 #region Input Validation
 
@@ -192,25 +192,25 @@ function Validate-ResourceProperties
     [CmdletBinding()]
     param
     (
-		[parameter(Mandatory)]
-		[String]$Name,
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[String]$IPStartRange,
+        [parameter(Mandatory)]
+        [String]$IPStartRange,
 
-		[parameter(Mandatory)]
-		[String]$IPEndRange,
+        [parameter(Mandatory)]
+        [String]$IPEndRange,
 
-		[parameter(Mandatory)]
+        [parameter(Mandatory)]
         [String]$SubnetMask,
 
-		[String]$LeaseDuration,
+        [String]$LeaseDuration,
 
-		[ValidateSet('Active','Inactive')]
-		[String]$State = 'Active',
+        [ValidateSet('Active','Inactive')]
+        [String]$State = 'Active',
 
-		[ValidateSet('Present','Absent')]
-		[String]$Ensure = 'Present',
+        [ValidateSet('Present','Absent')]
+        [String]$Ensure = 'Present',
 
         [Switch]$Apply
     )

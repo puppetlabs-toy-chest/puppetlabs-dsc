@@ -16,20 +16,20 @@ $script:cacheLocation = "$env:ProgramData\Microsoft\Windows\PowerShell\Configura
 # The Get-TargetResource function is used to fetch the status of file specified in DestinationPath on the target machine.
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory = $true)]
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$DestinationPath,
+        [System.String]
+        $DestinationPath,
 
-		[parameter(Mandatory = $true)]
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri
-	)   
+        [System.String]
+        $Uri
+    )    
     
     # Check whether DestinationPath is existing file
     $fileExists = $false
@@ -73,28 +73,28 @@ function Get-TargetResource
 # Additional parameters can be specified to configure web request
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
+    [CmdletBinding()]
+    param
+    (
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$DestinationPath,
+        [System.String]
+        $DestinationPath,
 
-		[parameter(Mandatory = $true)]
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri,		
+        [System.String]
+        $Uri,        
 
-		[System.String]
-		$UserAgent,
+        [System.String]
+        $UserAgent,
 
-		[Microsoft.Management.Infrastructure.CimInstance[]]
-		$Headers,
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $Headers,
 
-		[System.Management.Automation.PSCredential]
-		$Credential
-	)
+        [System.Management.Automation.PSCredential]
+        $Credential
+    )
 
     # Validate Uri
     if (!(Check-UriScheme -uri $Uri -scheme "http") -and !(Check-UriScheme -uri $Uri -scheme "https"))
@@ -174,29 +174,29 @@ function Set-TargetResource
 # The Test-TargetResource function is used to validate if the DestinationPath exists on the machine.
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$DestinationPath,
+        [System.String]
+        $DestinationPath,
 
-		[parameter(Mandatory = $true)]
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri,		
+        [System.String]
+        $Uri,        
 
-		[System.String]
-		$UserAgent,
+        [System.String]
+        $UserAgent,
 
-		[Microsoft.Management.Infrastructure.CimInstance[]]
-		$Headers,
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $Headers,
 
-		[System.Management.Automation.PSCredential]
-		$Credential
-	)
+        [System.Management.Automation.PSCredential]
+        $Credential
+    )
 
     # Check whether DestinationPath points to existing file
     $fileExists = $false
@@ -338,13 +338,13 @@ function Get-Cache
     param (
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$DestinationPath,
+        [System.String]
+        $DestinationPath,
 
-		[parameter(Mandatory = $true)]
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri
+        [System.String]
+        $Uri
     )
 
     $cacheContent = $null
@@ -372,13 +372,13 @@ function Update-Cache
     param (
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$DestinationPath,
+        [System.String]
+        $DestinationPath,
 
-		[parameter(Mandatory = $true)]
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri,
+        [System.String]
+        $Uri,
         
         [parameter(Mandatory = $true)]
         [Object]
@@ -403,13 +403,13 @@ function Get-CacheKey
     param (
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$DestinationPath,
+        [System.String]
+        $DestinationPath,
 
-		[parameter(Mandatory = $true)]
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri
+        [System.String]
+        $Uri
     )
     $key = [string]::Join("", @($DestinationPath, $Uri)).GetHashCode().ToString()
     return $key

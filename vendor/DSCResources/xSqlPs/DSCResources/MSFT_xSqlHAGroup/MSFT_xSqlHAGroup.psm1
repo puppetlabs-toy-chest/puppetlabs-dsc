@@ -9,15 +9,15 @@
 #
 function Get-TargetResource
 {
-	param
-	(	
+    param
+    (    
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $Name,
 
         [parameter(Mandatory)]
         [ValidateNotNull()]
-	    [string[]] $Database,
+        [string[]] $Database,
 
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -25,15 +25,15 @@ function Get-TargetResource
 
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-	    [string] $DatabaseBackupPath,
+        [string] $DatabaseBackupPath,
 
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-	    [string] $InstanceName,
+        [string] $InstanceName,
 
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-	    [string] $EndpointName,
+        [string] $EndpointName,
 
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -41,8 +41,8 @@ function Get-TargetResource
         
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [PSCredential] $SqlAdministratorCredential	
-  	)
+        [PSCredential] $SqlAdministratorCredential    
+      )
 
     if ($Database.Count -lt 1)
     {
@@ -64,9 +64,9 @@ function Get-TargetResource
         SqlAdministratorCredential = $SqlAdministratorCredential.UserName
 
         Configured = $bConfigured
-	}
+    }
 
-	$returnValue
+    $returnValue
 }
 
 #
@@ -74,15 +74,15 @@ function Get-TargetResource
 #
 function Set-TargetResource
 {
-	param
-	(	
+    param
+    (    
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $Name,
 
         [parameter(Mandatory)]
         [ValidateNotNull()]
-	    [string[]] $Database,
+        [string[]] $Database,
 
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -90,15 +90,15 @@ function Set-TargetResource
 
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-	    [string] $DatabaseBackupPath,
+        [string] $DatabaseBackupPath,
 
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-	    [string] $InstanceName,
+        [string] $InstanceName,
 
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-	    [string] $EndpointName,
+        [string] $EndpointName,
 
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -106,8 +106,8 @@ function Set-TargetResource
         
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [PSCredential] $SqlAdministratorCredential	
-  	)
+        [PSCredential] $SqlAdministratorCredential    
+      )
 
     if ($Database.Count -lt 1)
     {
@@ -184,11 +184,11 @@ function Set-TargetResource
                                             Secondary_Role(Allow_connections = ALL) `
                                          ) "
 
-	    Write-Verbose -Message "Query: $query"
+        Write-Verbose -Message "Query: $query"
         osql -S $primaryReplica -U $sa -P $saPassword -Q $query
 
         # Add this node to HAG 
-	    osql -S $InstanceName -U $sa -P $saPassword -Q "ALTER AVAILABILITY GROUP $Name JOIN"
+        osql -S $InstanceName -U $sa -P $saPassword -Q "ALTER AVAILABILITY GROUP $Name JOIN"
 
         # restore database
         foreach($db in $Database)
@@ -200,10 +200,10 @@ function Set-TargetResource
 
             $query = "restore log $db from disk = '$DatabaseBackupPath\$db.log' with norecovery "
             Write-Verbose -Message "Query: $query"
-	        osql -S $InstanceName -U $sa -P $saPassword -Q $query
+            osql -S $InstanceName -U $sa -P $saPassword -Q $query
 
             # Add database to HAG
-	        osql -S $InstanceName -U $sa -P $saPassword -Q "ALTER DATABASE $db SET HADR AVAILABILITY GROUP = $Name"
+            osql -S $InstanceName -U $sa -P $saPassword -Q "ALTER DATABASE $db SET HADR AVAILABILITY GROUP = $Name"
         }
     }
 
@@ -213,10 +213,10 @@ function Set-TargetResource
 
         foreach($db in $Database)
         {
-	        Write-Verbose -Message "Create database $db ..."
-            osql -S $InstanceName -U $sa -P $saPassword -Q "if not exists (select * from master.sys.databases where name = '$db') begin Create database $db end;"	
+            Write-Verbose -Message "Create database $db ..."
+            osql -S $InstanceName -U $sa -P $saPassword -Q "if not exists (select * from master.sys.databases where name = '$db') begin Create database $db end;"    
 
-	        Write-Verbose -Message "Backup to $DatabaseBackupPath .."
+            Write-Verbose -Message "Backup to $DatabaseBackupPath .."
             osql -S $InstanceName -U $sa -P $saPassword -Q "backup database $db to disk = '$DatabaseBackupPath\$db.bak' with format"
         }
 
@@ -233,12 +233,12 @@ function Set-TargetResource
                                         Failover_Mode = Automatic `
                                      )"
 
-	    Write-Verbose -Message "Create HAG : $query.."
+        Write-Verbose -Message "Create HAG : $query.."
         osql -S $InstanceName -U $sa -P $saPassword -Q $query
 
         foreach($db in $Database)
         {
-	        Write-Verbose -Message "Backup Log to $DatabaseBackupPath .."
+            Write-Verbose -Message "Backup Log to $DatabaseBackupPath .."
             osql -S $InstanceName -U $sa -P $saPassword -Q "backup log $db to disk = '$DatabaseBackupPath\$db.log' with NOFormat"
         }
    }
@@ -251,15 +251,15 @@ function Set-TargetResource
 #
 function Test-TargetResource
 {
-	param
-	(	
+    param
+    (    
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $Name,
 
         [parameter(Mandatory)]
         [ValidateNotNull()]
-	    [string[]] $Database,
+        [string[]] $Database,
 
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -267,15 +267,15 @@ function Test-TargetResource
 
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-	    [string] $DatabaseBackupPath,
+        [string] $DatabaseBackupPath,
 
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-	    [string] $InstanceName,
+        [string] $InstanceName,
 
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-	    [string] $EndpointName,
+        [string] $EndpointName,
 
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
@@ -283,8 +283,8 @@ function Test-TargetResource
         
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [PSCredential] $SqlAdministratorCredential	
-  	)
+        [PSCredential] $SqlAdministratorCredential    
+      )
 
     if ($Database.Count -lt 1)
     {

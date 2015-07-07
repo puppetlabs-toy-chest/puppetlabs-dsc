@@ -165,92 +165,92 @@ $xPSDesiredStateConfigurationModulePath = Get-DscResourceModulePath -DscResource
                     DisplayName   = "Core Networking - Destination Unreachable (ICMPv6-In)"; 
                     Protocol      = "ICMPv6"
                 }
-		        @{
+                @{
                     Name          = "CoreNet ICMPv4-In"
                     DisplayName   = "Core Networking - Destination Unreachable Fragmentation Needed (ICMPv4-In)"; 
                     Protocol      = "ICMPv4"
                 }
-		        @{
+                @{
                     Name          = "CoreNet DHCP-In"
                     DisplayName   = "Core Networking - Dynamic Host Configuration Protocol (DHCP-In)"; 
                     Protocol      = "UDP"
                 }
-		        @{
+                @{
                     Name          = "CoreNet DHCPv6-In"
                     DisplayName   = "Core Networking - Dynamic Host Configuration Protocol for IPv6(DHCPV6-In)"; 
                     Protocol      = "UDP"
                 }
-		        @{
+                @{
                     Name          = "CoreNet IGMP-In"
                     DisplayName   = "Core Networking - Internet Group Management Protocol (IGMP-In)"; 
                     Protocol      = "2"
                 }
-		        @{
+                @{
                     Name          = "CoreNet TCP-In"
                     DisplayName   = "Core Networking - IPHTTPS (TCP-In)"; 
                     Protocol      = "TCP"
                 }
-		        @{
+                @{
                     Name          = "CoreNet IPv6-In"
                     DisplayName   = "Core Networking - IPv6 (IPv6-In)"; 
                     Protocol      = "41"
                 }
-		        @{
+                @{
                     Name          = "CoreNet MultiListener-In"
                     DisplayName   = "Core Networking - Multicast Listener Done (ICMPv6-In)"; 
                     Protocol      = "ICMPv6"
                 }
-		        @{
+                @{
                     Name          = "CoreNet MultiListener-Query-In"
                     DisplayName   = "Core Networking - Multicast Listener Query (ICMPv6-In)"; 
                     Protocol      = "ICMPv6"
                 }
-		        @{
+                @{
                     Name          = "CoreNet MultiListener-Report-In"
                     DisplayName   = "Core Networking - Multicast Listener Report (ICMPv6-In)"; 
                     Protocol      = "ICMPv6"
                 }
-		        @{
+                @{
                     Name          = "CoreNet MultiListener-Reportv2-In"
                     DisplayName   = "Core Networking - Multicast Listener Report v2 (ICMPv6-In)"; 
                     Protocol      = "ICMPv6"
                 }
-	            @{
+                @{
                     Name          = "CoreNet NeighborDisc-Ad-In"
                     DisplayName   = "Core Networking - Neighbor Discovery Advertisement (ICMPv6-In)"; 
                     Protocol      = "ICMPv6"
                 }
-		        @{
+                @{
                     Name          = "CoreNet NeighborDisc-Sol-In"
                     DisplayName   = "Core Networking - Neighbor Discovery Solicitation (ICMPv6-In)"; 
                     Protocol      = "ICMPv6"
                 }
-		        @{
+                @{
                     Name          = "CoreNet PacketBig-In"
                     DisplayName   = "Core Networking - Packet Too Big (ICMPv6-In)"; 
                     Protocol      = "ICMPv6"
                 }
-		        @{
+                @{
                     Name          = "CoreNet Parameter-In"
                     DisplayName   = "Core Networking - Parameter Problem (ICMPv6-In)"; 
                     Protocol      = "ICMPv6"
                 }
-		        @{
+                @{
                     Name          = "CoreNet Router-Ad-In"
                     DisplayName   = "Core Networking - Router Advertisement (ICMPv6-In)"; 
                     Protocol      = "ICMPv6"
                 }
-		        @{
+                @{
                     Name          = "CoreNet Router-Sol-In"
                     DisplayName   = "Core Networking - Router Solicitation (ICMPv6-In)"; 
                     Protocol      = "ICMPv6"
                 }
-		        @{
+                @{
                     Name          = "CoreNet Teredo-In"
                     DisplayName   = "Core Networking - Teredo (UDP-In)"; 
                     Protocol      = "UDP"
                 }
-		        @{
+                @{
                     Name          = "CoreNet TimeExceed-In"
                     DisplayName   = "Core Networking - Time Exceeded (ICMPv6-In)"; 
                     Protocol      = "ICMPv6"
@@ -269,20 +269,20 @@ $xPSDesiredStateConfigurationModulePath = Get-DscResourceModulePath -DscResource
                 }
             )
             AllowedInRules        = @(
-                @{	
+                @{    
                     Name          = "File SMB-In"
                     DisplayName   = "File Server Remote Management (SMB-In)"
                     Port          = "445";
                     Protocol      = "TCP";
                 }
                 @{
-		            Name          = "WSMan HTTP-In"
+                    Name          = "WSMan HTTP-In"
                     DisplayName   = "Windows Remote Management (HTTP-In)"
                     Port          = "5985";
                     Protocol      = "TCP";
                 }
                 @{
-		            Name          = "WSMan HTTPS-In"
+                    Name          = "WSMan HTTPS-In"
                     DisplayName   = "Windows Remote Management (HTTPS-In)"
                     Port          = "5986";
                     Protocol      = "TCP";

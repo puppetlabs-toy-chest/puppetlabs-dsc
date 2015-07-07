@@ -10,19 +10,19 @@ function Get-TargetResource
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param
-	(	
+    (    
         [parameter(Mandatory)]
         [string] $CollectionName,
         [parameter(Mandatory)]
         [string] $SessionHost,
         [string] $CollectionDescription,
         [string] $ConnectionBroker
-	)
+    )
     Write-Verbose "Getting information about RDSH collection."
         $Collection = Get-RDSessionCollection -ErrorAction SilentlyContinue
         @{
         "CollectionName" = $Collection.CollectionName;
-	    "CollectionDescription" = $Collection.CollectionDescription
+        "CollectionDescription" = $Collection.CollectionDescription
         "SessionHost" = $localhost
         "ConnectionBroker" = $ConnectionBroker
         }
@@ -37,14 +37,14 @@ function Set-TargetResource
 {
     [CmdletBinding()]
     param
-	(	
+    (    
         [parameter(Mandatory)]
         [string] $CollectionName,
         [parameter(Mandatory)]
         [string] $SessionHost,
         [string] $CollectionDescription,
         [string] $ConnectionBroker
-	)
+    )
     Write-Verbose "Creating a new RDSH collection."
     if ($localhost -eq $ConnectionBroker) {
         New-RDSessionCollection @PSBoundParameters
@@ -64,14 +64,14 @@ function Test-TargetResource
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param
-	(
+    (
         [parameter(Mandatory)]
         [string] $CollectionName,
         [parameter(Mandatory)]
         [string] $SessionHost,
         [string] $CollectionDescription,
         [string] $ConnectionBroker
-	)
+    )
     Write-Verbose "Checking for existance of RDSH collection."
     (Get-TargetResource @PSBoundParameters).CollectionName -ne $null
 }

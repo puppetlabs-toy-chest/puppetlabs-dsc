@@ -43,7 +43,7 @@ function Get-TargetResource
 {
     param
     (
-        
+
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [System.String]
@@ -80,7 +80,7 @@ function Test-TargetResource
         [ValidateNotNullOrEmpty()]
         [System.String]
         $Name,
-		
+        
         [System.String]
         [ValidateSet("Automatic", "Manual", "Disabled")]
         $StartupType,
@@ -156,13 +156,13 @@ function Test-TargetResource
     }
     else
     {
-    
+
         $svc=GetServiceResource $Name
 
         if($PSBoundParameters.ContainsKey("StartupType") -or $PSBoundParameters.ContainsKey("BuiltInAccount") -or $PSBoundParameters.ContainsKey("Credential"))
         {
             $svcWmi = GetWMIService $Name
-        
+
             $getUserNameAndPasswordArgs=@{}
             if($PSBoundParameters.ContainsKey("BuiltInAccount")) {$null=$getUserNameAndPasswordArgs.Add("BuiltInAccount",$BuiltInAccount)}
             if($PSBoundParameters.ContainsKey("Credential")) {$null=$getUserNameAndPasswordArgs.Add("Credential",$Credential)}
@@ -194,7 +194,7 @@ function Set-TargetResource
     [CmdletBinding(SupportsShouldProcess=$true)]
     param
     (
-        
+
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [System.String]
@@ -288,7 +288,7 @@ function Set-TargetResource
                         Write-Log ("Error creating service `"$($argumentsToNewService["Name"])`"", $_.Exception.Message)
                         throw $_
                     }
-                    
+
                 }
             }
         }
@@ -330,7 +330,7 @@ function Set-TargetResource
         StartService $svc
     }
 }
-   
+
 <#
 .Synopsis
 Validates a StartupType against the State parameter
@@ -403,7 +403,7 @@ function WriteWriteProperties
     {
         return
     }
-    
+
     $svcWmi = GetWMIService $Name
 
     $writeCredentialPropertiesArguments=@{"SvcWmi"=$svcWmi}
@@ -480,7 +480,7 @@ function WriteCredentialProperties
     [CmdletBinding(SupportsShouldProcess=$true)]
     param
     (
-        
+
         [parameter(Mandatory = $true)]
         [ValidateNotNull()]
         $SvcWmi,
@@ -498,7 +498,7 @@ function WriteCredentialProperties
     {
         return
     }
-    
+
     if($PSBoundParameters.ContainsKey("Credential") -and $PSBoundParameters.ContainsKey("BuiltInAccount"))
     {
         ThrowInvalidArgumentError "OnlyCredentialOrBuiltInAccount" ($LocalizedData.OnlyOneParameterCanBeSpecified -f "Credential","BuiltInAccount")
@@ -585,7 +585,7 @@ function GetUserNameAndPassword
     {
         return (NormalizeUserName $Credential.UserName),$Credential.GetNetworkCredential().Password
     }
-    
+
     return $null,$null
 }
 
@@ -635,7 +635,7 @@ function DeleteService
         [ValidateNotNull()]
         $svc
     )
-    
+
     $err = & "sc.exe" "delete" "$svc"
 
     #Wait for 2 seconds for a service to get deleted
@@ -688,7 +688,7 @@ function StartService
         {
             $svc.Start()
             $twoSeconds = New-Object timespan 20000000
-            $svc.WaitForStatus("Running",$twoSeconds) 
+            $svc.WaitForStatus("Running",$twoSeconds)
         }
         catch
         {
@@ -726,7 +726,7 @@ function ThrowInvalidArgumentError
     [CmdletBinding()]
     param
     (
-        
+
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [System.String]
@@ -752,7 +752,7 @@ function GetServiceResource
 {
     param
     (
-        
+
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [System.String]
@@ -887,7 +887,7 @@ function SetLogOnAsServicePolicy([string]$userName)
                     {
                         long returnValue = LsaSafeHandle.LsaClose(this.handle);
                         return returnValue != 0;
-                
+
                     }
                 }
 
@@ -1119,7 +1119,7 @@ function SetLogOnAsServicePolicy([string]$userName)
             }
         }
 "@
-    
+
     try
     {
         $existingType=[LogOnAsServiceHelper.NativeMethods]
@@ -1156,7 +1156,7 @@ function Write-Log
 {
     [CmdletBinding(SupportsShouldProcess=$true)]
     param
-    (    
+    (
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [System.String]
@@ -1165,8 +1165,8 @@ function Write-Log
 
     if ($PSCmdlet.ShouldProcess($Message, $null, $null))
     {
-        Write-Verbose $Message        
-    }    
+        Write-Verbose $Message
+    }
 }
 
 Export-ModuleMember -function Get-TargetResource, Set-TargetResource, Test-TargetResource

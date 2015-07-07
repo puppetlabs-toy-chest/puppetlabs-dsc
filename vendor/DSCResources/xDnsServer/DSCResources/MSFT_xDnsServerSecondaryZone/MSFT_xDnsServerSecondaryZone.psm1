@@ -26,16 +26,16 @@ SetPropertyMessage           = DNS server secondary zone {0} is set
 
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[String[]]$MasterServers
-	)
+        [parameter(Mandatory)]
+        [String[]]$MasterServers
+    )
 
 #region Input Validation
 
@@ -55,27 +55,27 @@ function Get-TargetResource
     }
 
     @{
-		Name = $Name
-		Ensure = $Ensure
-		MasterServers = [string[]]$($dnsZone.MasterServers.IPAddressToString)
+        Name = $Name
+        Ensure = $Ensure
+        MasterServers = [string[]]$($dnsZone.MasterServers.IPAddressToString)
         Type = $dnsZone.ZoneType
-	}
+    }
 }
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[String[]]$MasterServers,
+        [parameter(Mandatory)]
+        [String[]]$MasterServers,
 
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = 'Present'
-	)
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = 'Present'
+    )
 
     if($PSBoundParameters.ContainsKey('Debug')){$null = $PSBoundParameters.Remove('Debug')}
     Validate-ResourceProperties @PSBoundParameters -Apply
@@ -86,19 +86,19 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[String[]]$MasterServers,
+        [parameter(Mandatory)]
+        [String[]]$MasterServers,
 
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = 'Present'
-	)
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = 'Present'
+    )
 
 #region Input Validation
 
@@ -117,18 +117,18 @@ function Validate-ResourceProperties
 {
     [CmdletBinding()]
     param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[String[]]$MasterServers,
+        [parameter(Mandatory)]
+        [String[]]$MasterServers,
 
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = 'Present',
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = 'Present',
 
         [Switch]$Apply
-	)
+    )
 
     $zoneMessage = $($LocalizedData.CheckingZoneMessage) -f $Name
     Write-Verbose -Message $zoneMessage

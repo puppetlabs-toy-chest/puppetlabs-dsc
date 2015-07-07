@@ -970,8 +970,8 @@ function Get-TargetResource
         }
 
         $getTargetResourceResult = @{
-    	                                Path = $Path; 
-    	                                Destination = $Destination;
+                                        Path = $Path; 
+                                        Destination = $Destination;
                                         CompressionLevel = $CompressionLevel;
                                         DestinationType = $DestinationType;
                                         MatchSource = $MatchSource;
@@ -1009,8 +1009,8 @@ function Get-TargetResource
         }
 
         $getTargetResourceResult = @{
-    	                        Path = $archivePath; 
-    	                        Destination = $expandArchiveResult["Destination"];
+                                Path = $archivePath; 
+                                Destination = $expandArchiveResult["Destination"];
                                 CompressionLevel = $CompressionLevel;
                                 DestinationType = $DestinationType;
                                 MatchSource = $MatchSource;

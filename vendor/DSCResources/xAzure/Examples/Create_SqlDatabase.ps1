@@ -29,21 +29,21 @@ configuration CreateSqlDatabase
         
         xAzureSqlDatabaseServerFirewallRule firewallRule 
         {
-		    RuleName = $ruleName		
+            RuleName = $ruleName        
             ServerName = $serverName    
-		    StartIPAddress = $startIPAddress
-		    EndIPAddress = $endIPAddress
+            StartIPAddress = $startIPAddress
+            EndIPAddress = $endIPAddress
             DependsOn = '[xAzureSubscription]MSDN'
-	    }
+        }
 
-	    xAzureSqlDatabase sqlDatabase 
+        xAzureSqlDatabase sqlDatabase 
         {
-		    Name = $name
-		    ServerCredential = $serverCredential
-		    ServerName = $serverName
+            Name = $name
+            ServerCredential = $serverCredential
+            ServerName = $serverName
             MaximumSizeInGB = 1
             DependsOn = '[xAzureSqlDatabaseServerFirewallRule]firewallRule'
-	    }
+        }
 
         #LocalConfigurationManager 
         #{ 

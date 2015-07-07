@@ -10,7 +10,7 @@ function Get-TargetResource
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param
-	(
+    (
         [parameter(Mandatory)]
         [string] $CollectionName = "Tenant",
         [parameter(Mandatory)]
@@ -27,7 +27,7 @@ function Get-TargetResource
         [string] $IconPath,
         [string] $UserGroups,
         [boolean] $ShowInWebAccess
-	)
+    )
         Write-Verbose "Getting published RemoteApp program $DisplayName, if one exists."
         $CollectionName = Get-RDSessionCollection | % {Get-RDSessionHost $_.CollectionName} | ? {$_.SessionHost -ieq $localhost} | % {$_.CollectionName}
         $remoteApp = Get-RDRemoteApp -CollectionName $CollectionName -DisplayName $DisplayName -Alias $Alias
@@ -57,7 +57,7 @@ function Set-TargetResource
 {
     [CmdletBinding()]
     param
-	(
+    (
         [parameter(Mandatory)]
         [string] $CollectionName,
         [parameter(Mandatory)]
@@ -74,7 +74,7 @@ function Set-TargetResource
         [string] $IconPath,
         [string] $UserGroups,
         [boolean] $ShowInWebAccess
-	)
+    )
     Write-Verbose "Making updates to RemoteApp."
     $CollectionName = Get-RDSessionCollection | % {Get-RDSessionHost $_.CollectionName} | ? {$_.SessionHost -ieq $localhost} | % {$_.CollectionName}
     $PSBoundParameters.collectionName = $CollectionName
@@ -95,7 +95,7 @@ function Test-TargetResource
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param
-	(
+    (
         [parameter(Mandatory)]
         [string] $CollectionName,
         [parameter(Mandatory)]
@@ -112,7 +112,7 @@ function Test-TargetResource
         [string] $IconPath,
         [string] $UserGroups,
         [boolean] $ShowInWebAccess
-	)
+    )
     Write-Verbose "Testing if RemoteApp is published."
     $collectionName = Get-RDSessionCollection | % {Get-RDSessionHost $_.CollectionName} | ? {$_.SessionHost -ieq $localhost} | % {$_.CollectionName}
     $PSBoundParameters.Remove("Verbose") | out-null

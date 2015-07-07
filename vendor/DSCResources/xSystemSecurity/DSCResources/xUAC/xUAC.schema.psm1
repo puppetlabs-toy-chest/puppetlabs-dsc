@@ -2,10 +2,10 @@ Configuration xUac
 {
     param
     (
-		[parameter(Mandatory = $true)]
-		[ValidateSet("AlwaysNotify","NotifyChanges","NotifyChangesWithoutDimming","NeverNotify","NeverNotifyAndDisableAll")]
-		[System.String]
-		$Setting  
+        [parameter(Mandatory = $true)]
+        [ValidateSet("AlwaysNotify","NotifyChanges","NotifyChangesWithoutDimming","NeverNotify","NeverNotifyAndDisableAll")]
+        [System.String]
+        $Setting  
     )
     
     #Initialize variables to default values which is to NotifyChanges.

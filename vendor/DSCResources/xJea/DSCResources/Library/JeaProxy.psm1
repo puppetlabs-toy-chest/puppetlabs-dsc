@@ -171,14 +171,14 @@ function New-ToolKitPremable
 {
     param
     (
-    	[Parameter(Mandatory)]
-		[String]$Name,
+        [Parameter(Mandatory)]
+        [String]$Name,
 
-		[String]
-		$CommandSpecs,
+        [String]
+        $CommandSpecs,
 
-		[System.String[]]
-		$Applications
+        [System.String[]]
+        $Applications
     )
         # Now we generate the File
 @"
@@ -403,14 +403,14 @@ function Export-JeaProxy
 {
     param
     (
-    	[Parameter(Mandatory)]
-		[String]$Name,
+        [Parameter(Mandatory)]
+        [String]$Name,
 
-		[String]
-		$CommandSpecs,
+        [String]
+        $CommandSpecs,
 
-		[System.String[]]
-		$Applications
+        [System.String[]]
+        $Applications
     )
 
     $CommandSpecs >  (Join-Path (Get-JeaToolKitDir) "$($Name)-CommandSpecs.csv")

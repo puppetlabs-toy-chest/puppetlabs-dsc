@@ -44,13 +44,13 @@ The Get-TargetResource cmdlet.
 #>
 function Get-TargetResource
 {
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[ValidateNotNullOrEmpty()]
-		[System.String]
-		$GroupName
-	)
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $GroupName
+    )
 
     Set-StrictMode -Version Latest
 
@@ -70,7 +70,7 @@ function Get-TargetResource
 
             # Return all group properties and Ensure="Present".
             $returnValue = @{
-    	                        GroupName = $group.Name;
+                                GroupName = $group.Name;
                                 Ensure = "Present";
                                 Description = $group.Description;
                                 Members = [System.String[]] $members;
@@ -81,7 +81,7 @@ function Get-TargetResource
 
         # The group is not found. Return Ensure=Absent.
         return @{
-    	            GroupName = $GroupName;
+                    GroupName = $GroupName;
                     Ensure = "Absent";
                 }
     }
@@ -129,7 +129,7 @@ function Set-TargetResource
         [ValidateNotNullOrEmpty()]
         [System.Management.Automation.PSCredential]
         $Credential
-	)
+    )
 
     Set-StrictMode -Version Latest
 
@@ -444,33 +444,33 @@ The Test-TargetResource cmdlet is used to validate if the resource is in a state
 #>
 function Test-TargetResource
 {
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[ValidateNotNullOrEmpty()]
-		[System.String]
-		$GroupName,
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $GroupName,
 
         [ValidateSet("Present", "Absent")]
         [System.String]
         $Ensure = "Present",
 
-		[System.String]
-		$Description,
+        [System.String]
+        $Description,
 
-		[System.String[]]
-		$Members,
+        [System.String[]]
+        $Members,
 
-		[System.String[]]
-		$MembersToInclude,
+        [System.String[]]
+        $MembersToInclude,
 
-		[System.String[]]
-		$MembersToExclude,
+        [System.String[]]
+        $MembersToExclude,
 
         [ValidateNotNullOrEmpty()]
-		[System.Management.Automation.PSCredential]
-		$Credential
-	)
+        [System.Management.Automation.PSCredential]
+        $Credential
+    )
 
     Set-StrictMode -Version Latest
 
@@ -499,7 +499,7 @@ function Test-TargetResource
                                            $networkCredential.Domain, $networkCredential.UserName, $networkCredential.Password)
             $disposables.Add($credentialPrincipalContext) | out-null
         }
-	
+    
         # Create local machine context.
         $localPrincipalContext = New-Object System.DirectoryServices.AccountManagement.PrincipalContext -ArgumentList ([System.DirectoryServices.AccountManagement.ContextType]::Machine)
         $disposables.Add($localPrincipalContext) | out-null
@@ -825,8 +825,8 @@ function ResolveNamesToPrincipals
         [ValidateNotNull()]
         [System.Collections.ArrayList] $Disposables,
 
-		[System.Net.NetworkCredential]
-		$NetworkCredential
+        [System.Net.NetworkCredential]
+        $NetworkCredential
     )
 
     Set-StrictMode -Version Latest

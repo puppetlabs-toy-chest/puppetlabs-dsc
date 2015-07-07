@@ -17,7 +17,7 @@ configuration Sample_xFirewall_AddFirewallRuleToExistingGroup
             Name                  = "MyFirewallRule"
             DisplayName           = "My Firewall Rule"
             DisplayGroup          = "My Firewall Rule Group"
-	        Access                = "Allow"
+            Access                = "Allow"
         }
 
         xFirewall Firewall1

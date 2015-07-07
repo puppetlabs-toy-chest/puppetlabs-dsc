@@ -1,16 +1,16 @@
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[ValidateSet("External","Internal","Private")]
-		[String]$Type
-	)
+        [parameter(Mandatory)]
+        [ValidateSet("External","Internal","Private")]
+        [String]$Type
+    )
 
     # Check if Hyper-V module is present for Hyper-V cmdlets
     if(!(Get-Module -ListAvailable -Name Hyper-V))
@@ -21,38 +21,38 @@ function Get-TargetResource
     $switch = Get-VMSwitch -Name $Name -SwitchType $Type -ErrorAction SilentlyContinue
 
     @{
-		Name              = $switch.Name
-		Type              = $switch.SwitchType
-		NetAdapterName    = $( if($switch.NetAdapterInterfaceDescription){
+        Name              = $switch.Name
+        Type              = $switch.SwitchType
+        NetAdapterName    = $( if($switch.NetAdapterInterfaceDescription){
                               (Get-NetAdapter -InterfaceDescription $switch.NetAdapterInterfaceDescription).Name})
-		AllowManagementOS = $switch.AllowManagementOS
-		Ensure            = if($switch){'Present'}else{'Absent'}
-		Id                = $switch.Id
-		NetAdapterInterfaceDescription = $switch.NetAdapterInterfaceDescription
-	}
+        AllowManagementOS = $switch.AllowManagementOS
+        Ensure            = if($switch){'Present'}else{'Absent'}
+        Id                = $switch.Id
+        NetAdapterInterfaceDescription = $switch.NetAdapterInterfaceDescription
+    }
 }
 
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[ValidateSet("External","Internal","Private")]
-		[String]$Type,
+        [parameter(Mandatory)]
+        [ValidateSet("External","Internal","Private")]
+        [String]$Type,
 
         [ValidateNotNullOrEmpty()]
-		[String]$NetAdapterName,
+        [String]$NetAdapterName,
 
-		[Boolean]$AllowManagementOS,
+        [Boolean]$AllowManagementOS,
 
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = "Present"
-	)
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = "Present"
+    )
     # Check if Hyper-V module is present for Hyper-V cmdlets
     if(!(Get-Module -ListAvailable -Name Hyper-V))
     {
@@ -130,25 +130,25 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$Name,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$Name,
 
-		[parameter(Mandatory)]
-		[ValidateSet("External","Internal","Private")]
-		[String]$Type,
+        [parameter(Mandatory)]
+        [ValidateSet("External","Internal","Private")]
+        [String]$Type,
 
         [ValidateNotNullOrEmpty()]
-		[String]$NetAdapterName,
+        [String]$NetAdapterName,
 
-		[Boolean]$AllowManagementOS,
+        [Boolean]$AllowManagementOS,
 
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = "Present"
-	)
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = "Present"
+    )
 
     #region input validation
 

@@ -213,7 +213,7 @@ C:\PS> Update-xDscEventLogStatus -Channel "Debug" -ComputerName "ABC" -Status Di
 
     $LogName = "Microsoft-Windows-Dsc"
     $statusEnabled = $false
-	$eventLogFullName = "$LogName/$Channel"
+    $eventLogFullName = "$LogName/$Channel"
     if($Status -eq "Enabled")
     {
             $statusEnabled = $true

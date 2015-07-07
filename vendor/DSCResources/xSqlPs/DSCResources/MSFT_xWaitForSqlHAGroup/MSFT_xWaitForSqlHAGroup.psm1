@@ -10,7 +10,7 @@
 function Get-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $Name,
@@ -19,7 +19,7 @@ function Get-TargetResource
         [ValidateNotNullOrEmpty()]
         [string] $ClusterName,
 
-	    [UInt64] $RetryIntervalSec = 10,
+        [UInt64] $RetryIntervalSec = 10,
         [UInt32] $RetryCount = 10,
 
         [parameter(Mandatory)]
@@ -58,7 +58,7 @@ function Get-TargetResource
 function Set-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $Name,
@@ -67,7 +67,7 @@ function Set-TargetResource
         [ValidateNotNullOrEmpty()]
         [string] $ClusterName,
 
-	    [UInt64] $RetryIntervalSec = 10,
+        [UInt64] $RetryIntervalSec = 10,
         [UInt32] $RetryCount = 10,
 
         [parameter(Mandatory)]
@@ -117,7 +117,7 @@ function Set-TargetResource
 function Test-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $Name,
@@ -126,7 +126,7 @@ function Test-TargetResource
         [ValidateNotNullOrEmpty()]
         [string] $ClusterName,
 
-	    [UInt64] $RetryIntervalSec = 10,
+        [UInt64] $RetryIntervalSec = 10,
         [UInt32] $RetryCount = 10,
 
         [parameter(Mandatory)]

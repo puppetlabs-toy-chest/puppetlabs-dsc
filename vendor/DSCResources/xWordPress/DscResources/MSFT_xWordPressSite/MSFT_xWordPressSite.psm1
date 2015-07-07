@@ -21,27 +21,27 @@ Function Trace-Message
 # It gives the Website info of the requested role/feature on the target machine.  
 function Get-TargetResource 
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory = $true)]
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri,
+        [System.String]
+        $Uri,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Title,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Title,
 
-		[parameter(Mandatory = $true)]
-		[System.Management.Automation.PSCredential]
-		$AdministratorCredential,
+        [parameter(Mandatory = $true)]
+        [System.Management.Automation.PSCredential]
+        $AdministratorCredential,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$AdministratorEmail
-	)
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $AdministratorEmail
+    )
 
         $Ensure = "Absent"
            try 
@@ -75,22 +75,22 @@ function Set-TargetResource
     [CmdletBinding(SupportsShouldProcess=$true)]
     param 
     (       
-		[parameter(Mandatory = $true)]
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri,
+        [System.String]
+        $Uri,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Title,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Title,
 
-		[parameter(Mandatory = $true)]
-		[System.Management.Automation.PSCredential]
-		$AdministratorCredential,
+        [parameter(Mandatory = $true)]
+        [System.Management.Automation.PSCredential]
+        $AdministratorCredential,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$AdministratorEmail,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $AdministratorEmail,
 
         [ValidateSet("Present", "Absent")]
         [string]$Ensure = "Present"
@@ -116,26 +116,26 @@ function Set-TargetResource
 # The Test-TargetResource cmdlet is used to validate if the role or feature is in a state as expected in the instance document.
 function Test-TargetResource 
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory = $true)]
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri,
+        [System.String]
+        $Uri,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Title,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Title,
 
-		[parameter(Mandatory = $true)]
-		[System.Management.Automation.PSCredential]
-		$AdministratorCredential,
+        [parameter(Mandatory = $true)]
+        [System.Management.Automation.PSCredential]
+        $AdministratorCredential,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$AdministratorEmail,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $AdministratorEmail,
         
         [ValidateSet("Present", "Absent")]
         [string]$Ensure = "Present"   )

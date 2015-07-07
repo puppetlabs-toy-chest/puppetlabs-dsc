@@ -22,22 +22,22 @@ SetPropertyMessage         = DHCP server reservation {0} for the given ipaddress
 
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$ScopeID,
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$ScopeID,
 
-		[parameter(Mandatory)]
-		[String]$ClientMACAddress,
+        [parameter(Mandatory)]
+        [String]$ClientMACAddress,
 
-		[parameter(Mandatory)]
-		[String]$IPAddress,
+        [parameter(Mandatory)]
+        [String]$IPAddress,
 
-		[ValidateSet("IPv4")]
-		[String]$AddressFamily = 'IPv4'
-	)
+        [ValidateSet("IPv4")]
+        [String]$AddressFamily = 'IPv4'
+    )
 
 #region input validation
     # Check for DhcpServer module/role
@@ -70,39 +70,39 @@ function Get-TargetResource
         $ensure = 'Absent'
     }
 
-	@{
-		ScopeID          = $ScopeID
-		IPAddress        = $IPAddress
-		ClientMACAddress = $reservation.ClientId
-		Name             = $reservation.Name
-		AddressFamily    = $AddressFamily
-		Ensure           = $Ensure
-	}
+    @{
+        ScopeID          = $ScopeID
+        IPAddress        = $IPAddress
+        ClientMACAddress = $reservation.ClientId
+        Name             = $reservation.Name
+        AddressFamily    = $AddressFamily
+        Ensure           = $Ensure
+    }
 
 }
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$ScopeID,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$ScopeID,
 
-		[parameter(Mandatory)]
-		[String]$ClientMACAddress,
+        [parameter(Mandatory)]
+        [String]$ClientMACAddress,
 
-		[parameter(Mandatory)]
-		[String]$IPAddress,
+        [parameter(Mandatory)]
+        [String]$IPAddress,
 
-		[String]$Name,
+        [String]$Name,
 
-		[ValidateSet("IPv4")]
-		[String]$AddressFamily = 'IPv4',
+        [ValidateSet("IPv4")]
+        [String]$AddressFamily = 'IPv4',
 
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = 'Present'
-	)
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = 'Present'
+    )
 
     if($PSBoundParameters.ContainsKey('Debug')){ $null = $PSBoundParameters.Remove('Debug')}
     if($PSBoundParameters.ContainsKey('AddressFamily')) {$null = $PSBoundParameters.Remove('AddressFamily')}
@@ -112,27 +112,27 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$ScopeID,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$ScopeID,
 
-		[parameter(Mandatory)]
-		[String]$ClientMACAddress,
+        [parameter(Mandatory)]
+        [String]$ClientMACAddress,
 
-		[parameter(Mandatory)]
-		[String]$IPAddress,
+        [parameter(Mandatory)]
+        [String]$IPAddress,
 
-		[String]$Name,
+        [String]$Name,
 
-		[ValidateSet("IPv4")]
-		[String]$AddressFamily = 'IPv4',
+        [ValidateSet("IPv4")]
+        [String]$AddressFamily = 'IPv4',
 
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = 'Present'
-	)
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = 'Present'
+    )
 
 #region input validation
     # Check for DhcpServer module/role
@@ -169,27 +169,27 @@ function Test-TargetResource
 function Validate-ResourceProperties
 {
     [CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$ScopeID,
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$ScopeID,
 
-		[parameter(Mandatory)]
-		[String]$ClientMACAddress,
+        [parameter(Mandatory)]
+        [String]$ClientMACAddress,
 
-		[parameter(Mandatory)]
-		[String]$IPAddress,
+        [parameter(Mandatory)]
+        [String]$IPAddress,
 
-		[String]$Name,
+        [String]$Name,
 
-		[ValidateSet("IPv4")]
-		[String]$AddressFamily = 'IPv4',
+        [ValidateSet("IPv4")]
+        [String]$AddressFamily = 'IPv4',
 
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = 'Present',
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = 'Present',
 
         [Switch]$Apply
-	)
+    )
 
     $reservationMessage = $($LocalizedData.CheckingReservationMessage) -f $ScopeID, $IPAddress
     Write-Verbose -Message $reservationMessage

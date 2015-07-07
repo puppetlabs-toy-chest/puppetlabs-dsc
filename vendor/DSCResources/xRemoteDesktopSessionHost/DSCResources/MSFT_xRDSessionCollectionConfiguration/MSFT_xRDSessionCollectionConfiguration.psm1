@@ -11,7 +11,7 @@ function Get-TargetResource
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param
-	(
+    (
         [parameter(Mandatory)]
         [string] $CollectionName,
         [uint32] $ActiveSessionLimitMin,
@@ -32,7 +32,7 @@ function Get-TargetResource
         [string] $SecurityLayer,
         [boolean] $TemporaryFoldersDeletedOnExit,
         [string] $UserGroup
-	)
+    )
         Write-Verbose "Getting currently configured RDSH Collection properties"
         $collectionName = Get-RDSessionCollection | % {Get-RDSessionHost $_.CollectionName} | ? {$_.SessionHost -ieq $localhost} | % {$_.CollectionName}
 
@@ -72,7 +72,7 @@ function Set-TargetResource
 {
     [CmdletBinding()]
     param
-	(
+    (
         [parameter(Mandatory)]
         [string] $CollectionName,
         [uint32] $ActiveSessionLimitMin,
@@ -93,7 +93,7 @@ function Set-TargetResource
         [string] $SecurityLayer,
         [boolean] $TemporaryFoldersDeletedOnExit,
         [string] $UserGroup
-	)
+    )
     Write-Verbose "Setting DSC collection properties"
     $discoveredCollectionName = Get-RDSessionCollection | % {Get-RDSessionHost $_.CollectionName} | ? {$_.SessionHost -ieq $localhost} | % {$_.CollectionName}
     if ($collectionName -ne $discoveredCollectionName) {$PSBoundParameters.collectionName = $discoveredCollectionName}
@@ -109,7 +109,7 @@ function Test-TargetResource
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param
-	(
+    (
         [parameter(Mandatory)]
         [string] $CollectionName,
         [uint32] $ActiveSessionLimitMin,
@@ -130,7 +130,7 @@ function Test-TargetResource
         [string] $SecurityLayer,
         [boolean] $TemporaryFoldersDeletedOnExit,
         [string] $UserGroup
-	)
+    )
     
     Write-Verbose "Testing DSC collection properties"
     $collectionName = Get-RDSessionCollection | % {Get-RDSessionHost $_.CollectionName} | ? {$_.SessionHost -ieq $localhost} | % {$_.CollectionName}
