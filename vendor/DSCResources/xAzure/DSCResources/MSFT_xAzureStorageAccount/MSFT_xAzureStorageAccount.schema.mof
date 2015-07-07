@@ -1,0 +1,11 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xAzureStorageAccount")]
+class MSFT_xAzureStorageAccount : OMI_BaseResource
+{
+    [key, Description("Specifies a name for the storage account. The storage account name must be unique to Windows Azure and must be between 3 and 24 characters in length and use lowercase letters and numbers only.")] string StorageAccountName;
+    [write, Description("Specifies whether the Azure Storage Account should be present or absent."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [required, Description("Specifies the name of an existing affinity group in the current subscription. You can specify either a Location or an AffinityGroup parameter, but not both. ")] string AffinityGroup;
+    [write, Description("Specifies a name for the Container that should be created in the Azure Storage Account.")] string Container;
+    [write, Description("Specifies a local folder.  All files in the root of the folder will be uploaded to the new container.")] string Folder;
+    [write, Description("Specifies a label for the storage account. The label may be up to 100 characters in length.")] string Label;
+};

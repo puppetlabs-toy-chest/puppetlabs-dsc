@@ -1,13 +1,19 @@
-
 $ErrorActionPreference = "Stop"
-$LCMConfigFolder = "$env:windir\System32\Configuration"
+$PuppetModulesFolder = Join-Path $env:ProgramFiles 'WindowsPowerShell\Modules\PuppetVendoredModules'
+if (!(Test-Path($PuppetModulesFolder))) {
+    & cmd.exe /c mklink /d "$PuppetModulesFolder" "<%= vendored_modules_path %>" | Out-Null
+}
 
-Remove-Item $LCMConfigFolder\*.mof | out-null
+$ConfigOutputPath = [IO.Path]::GetTempPath()
 
 configuration PuppetConfiguration
 {
-<%   if resource.parameters[:dscmeta_module_name] && resource[:dscmeta_import_resource] -%>
+<% if resource.parameters[:dscmeta_module_name] && resource[:dscmeta_import_resource] -%>
+<%  if resource[:dscmeta_module_name].downcase == 'psdesiredstateconfiguration' -%>
     Import-DscResource -ModuleName <%= resource[:dscmeta_module_name] %>
+<%  else -%>
+    Import-DscResource -ModuleName @{<%= "ModuleName=\"#{resource[:dscmeta_module_name]}\"" %><%= "; ModuleVersion=\"#{resource[:dscmeta_module_version]}\"" if resource.parameters[:dscmeta_module_version] %>}
+<%  end -%>
 <% end -%>
 
     node "localhost"
@@ -17,12 +23,12 @@ configuration PuppetConfiguration
 <% dsc_parameters.each do |p| -%>
            <%= p.name.to_s.gsub(/^dsc_/,'') %> = <%= format_dsc_value(p.value) %>
 <% end -%>
-
         }
     }
 }
-$LCMConfigFolder = "$env:windir\System32\Configuration"
-PuppetConfiguration -OutputPath $LCMConfigFolder | out-null
-$set_return = Start-DscConfiguration -Path $LCMConfigFolder -Wait -Verbose
-Remove-Item $LCMConfigFolder\*.mof | out-null
+
+Remove-Item "$ConfigOutputPath\*.mof" -Force | out-null
+PuppetConfiguration -OutputPath "$ConfigOutputPath" | out-null
+$set_return = Start-DscConfiguration -Path "$ConfigOutputPath" -Wait -Verbose
+
 return $set_return
