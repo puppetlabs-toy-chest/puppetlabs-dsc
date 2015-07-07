@@ -3,7 +3,6 @@ test_name 'FM-2624 - C68527 - Apply DSC Resource Manifest with "before" on Puppe
 
 # Init
 test_dir_name = 'test'
-local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
 # In-line Manifest
 test_dir_path = "C:/#{test_dir_name}"

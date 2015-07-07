@@ -1,10 +1,6 @@
 require 'dsc_utils'
 test_name 'FM-2624 - C87654 - Apply DSC Resource Manifest with Multiple Failing DSC Resources'
 
-# Init
-test_dir_name = 'test'
-local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
-
 # In-line Manifest
 test_dir_bad = "Q:/not/here"
 

@@ -3,7 +3,6 @@ test_name 'FM-2624 - C68533 - Apply DSC Resource Manifest with Mix of Passing an
 
 # Init
 test_dir_name = 'test'
-local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
 # In-line Manifest
 test_dir_good = "C:/#{test_dir_name}"
