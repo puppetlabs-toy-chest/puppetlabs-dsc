@@ -64,8 +64,8 @@ param(
             $VM = New-AzureVMConfig -Name $Name -InstanceSize $InstanceSize -ImageName $ImageName -MediaLocation "http://$StorageAccountName.blob.core.windows.net/vhds/$Name.vhd"
             
             # Set OS Switch
-            if ($Windows -eq $true) {Add-AzureProvisioningConfig -VM $VM -AdminUserName $Credential.UserName –Password $Credential.GetNetworkCredential().Password -Windows}
-            else {Add-AzureProvisioningConfig -VM $VM -LinuxUser $Credential.UserName –Password $Credential.GetNetworkCredential().Password -Linux}
+            if ($Windows -eq $true) {Add-AzureProvisioningConfig -VM $VM -AdminUserName $Credential.UserName -Password $Credential.GetNetworkCredential().Password -Windows}
+            else {Add-AzureProvisioningConfig -VM $VM -LinuxUser $Credential.UserName -Password $Credential.GetNetworkCredential().Password -Linux}
 
             if ($ExtensionContainerName -ne '') {
                 # VM Agent
@@ -80,7 +80,7 @@ param(
             Write-Verbose "The Azure subscription ID is $($CurrentSubscription.SubscriptionID)"
             Write-Verbose "The Azure storage account is $($CurrentSubscription.CurrentStorageAccountName)"
 
-            New-AzureVM -VMs $VM –ServiceName $ServiceName
+            New-AzureVM -VMs $VM -ServiceName $ServiceName
             }
         'Absent' {
             # Native Remove cmdlet
