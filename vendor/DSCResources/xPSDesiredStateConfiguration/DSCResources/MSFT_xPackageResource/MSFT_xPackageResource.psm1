@@ -241,6 +241,7 @@ Function Get-ProductEntry
 
 function Test-TargetResource
 {
+    [OutputType([System.Boolean])]
     param
     (
         [ValidateSet("Present", "Absent")]
@@ -262,7 +263,7 @@ function Test-TargetResource
 
         [pscredential] $Credential,
 
-        [int[]] $ReturnCode,
+        [System.UInt32[]] $ReturnCode,
 
         [string] $LogPath,
 
@@ -340,6 +341,7 @@ function Get-LocalizableRegKeyValue
 
 function Get-TargetResource
 {
+    [OutputType([System.Collections.Hashtable])]
     param
     (
         [parameter(Mandatory = $true)]
@@ -542,7 +544,7 @@ function Set-TargetResource
 
         [pscredential] $Credential,
 
-        [int[]] $ReturnCode,
+        [System.UInt32[]] $ReturnCode,
 
         [string] $LogPath,
 

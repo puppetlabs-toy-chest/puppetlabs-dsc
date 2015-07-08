@@ -832,6 +832,7 @@ function Get-ExpandArchive
 
 function Test-TargetResource
 {
+    [OutputType([System.Boolean])]
     param
     (
         [parameter(mandatory=$true)]
@@ -928,6 +929,7 @@ function Set-TargetResource
 
 function Get-TargetResource
 {
+    [OutputType([System.Collections.Hashtable])]
     param
     (
         [parameter(mandatory=$true)]

@@ -51,6 +51,7 @@ function ExtractArguments($functionBoundParameters,[string[]]$argumentNames,[str
 
 function Get-TargetResource
 {
+    [OutputType([System.Collections.Hashtable])]
     param
     (
         [parameter(Mandatory = $true)]
@@ -260,6 +261,7 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
+    [OutputType([System.Boolean])]
     param
     (
         [parameter(Mandatory = $true)]

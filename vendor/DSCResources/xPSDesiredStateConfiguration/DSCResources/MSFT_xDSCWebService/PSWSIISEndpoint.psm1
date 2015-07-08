@@ -1,10 +1,7 @@
 # This module file contains a utility to perform PSWS IIS Endpoint setup
 # Module exports New-PSWSEndpoint function to perform the endpoint setup
 #
-#	Copyright (c) Microsoft Corporation, 2013
-#
-# Author: Raghu Shantha [RaghuS@Microsoft.com]
-# ChangeLog: 7/11/2013 - Providing Dispatch/Port is now optional; Removed taking backup of existing endpoints since this was unnecessary and not performant; Logging only if something fails
+#    Copyright (c) Microsoft Corporation, 2014
 #
 
 # Validate supplied configuration to setup the PSWS Endpoint
@@ -363,12 +360,6 @@ function New-IISWebSite
         # Create a new binding using the supplied certificate
         $null = Get-Item CERT:\LocalMachine\MY\$certificateThumbPrint | New-Item IIS:\SSLBindings\0.0.0.0!$port
     }
-    Write-Verbose "Delete application"
-    Remove-WebApplication -Name $app -Site $site -ErrorAction SilentlyContinue
-    
-    Write-Verbose "Add and Set Application Properties"
-    $null = New-WebApplication -Name $app -Site $site -PhysicalPath $path -ApplicationPool $appPool
-    
 
     Update-Site -siteName $site -siteAction Start    
 }
@@ -492,10 +483,10 @@ function New-PSWSEndpoint
         $protocol = "http:"
     }
 
-    # Get Machine Name and Domain
+    # Get Machine Name
     $cimInstance = Get-CimInstance -ClassName Win32_ComputerSystem -Verbose:$false
     
-    Write-Verbose ("Setting up endpoint at - $protocol//" + $cimInstance.Name + "." + $cimInstance.Domain + ":" + $port + "/" + $site + "/" + $svcName)
+    Write-Verbose ("Setting up endpoint at - $protocol//" + $cimInstance.Name + ":" + $port + "/" + $svcName)
     Initialize-Endpoint -site $site -path $path -cfgfile $cfgfile -port $port -app $app `
                         -applicationPoolIdentityType $applicationPoolIdentityType -svc $svc -mof $mof `
                         -dispatch $dispatch -asax $asax -dependentBinaries $dependentBinaries `
@@ -582,14 +573,14 @@ function Set-AppSettingsInWebconfig
 
 <#
 .Synopsis
-   Set the binding redirect setting in the web.config to redirect 6.4.0.0 version of microsoft.isam.esent.interop to 6.3.0.0.
+   Set the binding redirect setting in the web.config to redirect 10.0.0.0 version of microsoft.isam.esent.interop to 6.3.0.0.
 .DESCRIPTION
    This function creates the following section in the web.config:
    <runtime>
      <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
        <dependentAssembly>
          <assemblyIdentity name="microsoft.isam.esent.interop" publicKeyToken="31bf3856ad364e35" />
-       <bindingRedirect oldVersion="6.4.0.0" newVersion="6.3.0.0" />
+       <bindingRedirect oldVersion="10.0.0.0" newVersion="6.3.0.0" />
       </dependentAssembly>
      </assemblyBinding>
 </runtime>
@@ -603,10 +594,10 @@ function Set-BindingRedirectSettingInWebConfig
         [ValidateNotNullOrEmpty()]
         [String] $path,
 
-        # old vesion of the assembly
-        [String] $oldVersion = "6.4.0.0",
+        # old version of the assembly
+        [String] $oldVersion = "10.0.0.0",
 
-        # new vesion to redirect to     
+        # new version to redirect to     
         [String] $newVersion = "6.3.0.0"
 
         )

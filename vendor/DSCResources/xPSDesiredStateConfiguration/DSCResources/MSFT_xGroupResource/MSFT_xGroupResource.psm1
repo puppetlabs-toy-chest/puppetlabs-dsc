@@ -44,6 +44,7 @@ The Get-TargetResource cmdlet.
 #>
 function Get-TargetResource
 {
+    [OutputType([System.Collections.Hashtable])]
     param
     (
         [parameter(Mandatory = $true)]
@@ -444,6 +445,7 @@ The Test-TargetResource cmdlet is used to validate if the resource is in a state
 #>
 function Test-TargetResource
 {
+    [OutputType([System.Boolean])]
     param
     (
         [parameter(Mandatory = $true)]

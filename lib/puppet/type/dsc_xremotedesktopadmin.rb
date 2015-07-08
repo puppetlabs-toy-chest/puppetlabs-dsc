@@ -42,7 +42,7 @@ Puppet::Type.newtype(:dsc_xremotedesktopadmin) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.1"
+    defaultto "1.0.2"
   end
 
   newparam(:name, :namevar => true ) do

@@ -19,11 +19,13 @@ param (
     $Get = Get-AzureStorageAccount -StorageAccountName $StorageAccountName -ErrorAction SilentlyContinue
     if ($Get -ne $null -AND $Container -ne '') {
         $StorageKey = Get-AzureStorageKey -StorageAccountName $StorageAccountName
-        $AzureStorageContext = New-AzureStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey $StorageKey.Primary
+        $AzureStorageContext = New-AzureStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey $StorageKey.Primary -Protocol Https
         
         $GetContainer = Get-AzureStorageContainer -Name $Container -Context $AzureStorageContext -ErrorAction SilentlyContinue | % Name
         
-        $GetFolder = Get-Item $Folder -ErrorAction SilentlyContinue | % FullName
+        if ($Folder){
+            $GetFolder = Get-Item $Folder -ErrorAction SilentlyContinue | % FullName
+            }
         }
 
     # Build Hashtable from cmdlet values
@@ -96,17 +98,19 @@ param(
                     New-AzureStorageContainer -Name $Container -Context $AzureStorageContext
                     }
 
-                # If files are newer locally, update files
-                foreach ($File in (Get-ChildItem -Path $Folder)) {
-                    $Blob = Get-AzureStorageBlob -Context $AzureStorageContext -Container $Container -Blob $File.Name -ErrorAction SilentlyContinue
-                    if (!$Blob -OR $File.LastWriteTime -gt $Blob.LastModified.DateTime) {
-                        Write-Verbose "Uploading file: $($File.FUllName)"
-                        Set-AzureStorageBlobContent -Context $AzureStorageContext -Container $Container -File $File.FullName -Force
+                # If files should be uploaded and are newer locally, update files
+                if ($Folder) {
+                    foreach ($File in (Get-ChildItem -Path $Folder)) {
+                        $Blob = Get-AzureStorageBlob -Context $AzureStorageContext -Container $Container -Blob $File.Name -ErrorAction SilentlyContinue
+                        if (!$Blob -OR $File.LastWriteTime -gt $Blob.LastModified.DateTime) {
+                            Write-Verbose "Uploading file: $($File.FUllName)"
+                            Set-AzureStorageBlobContent -Context $AzureStorageContext -Container $Container -File $File.FullName -Force
+                            }
                         }
                     }
                 }
             else {
-                # Creating VM using native New cmdlet
+                # Creating storage account using native New cmdlet
                 if ($TestAzureStorageName -eq $False){
                     Write-Verbose "Creating Storage Account `"$StorageAccountName`" in Microsoft Azure."
                     Write-Verbose 'Please be patient as the operation completes.'
@@ -134,20 +138,21 @@ param(
                     Write-Verbose "Creating container: $Container"
                     New-AzureStorageContainer -Name $Container -Context $AzureStorageContext
                     
-                    # Upload files
-                    foreach ($File in (Get-ChildItem -Path $Folder)) {
-                        Write-Verbose "Uploading file: $File"
-                        Set-AzureStorageBlobContent -Context $AzureStorageContext -Container $Container -File $File.FullName -Force
+                    # Upload files if needed
+                    if ($Folder) {
+                        foreach ($File in (Get-ChildItem -Path $Folder)) {
+                            Write-Verbose "Uploading file: $File"
+                            Set-AzureStorageBlobContent -Context $AzureStorageContext -Container $Container -File $File.FullName -Force
+                            }
                         }
-                    }
 
-                else {
-                    
-                    # Test failed due to conflict or the name was invalid
-                    Write-Error "Unable to create Storage Account, the name `"$StorageAccountName`" is invalid or already in use"
-                    }
+                  if ($TestAzureStorageName -ne $False) {
+                        # Test failed due to conflict or the name was invalid
+                        Write-Error "Unable to create Storage Account, the name `"$StorageAccountName`" is invalid or already in use"
+                        }
                 }
             }
+        }
 
         'Absent' {
             $CurrentSubscription = Get-AzureSubscription -Current
@@ -155,7 +160,7 @@ param(
                                
             # Create Storage Context
             $StorageKey = Get-AzureStorageKey -StorageAccountName $StorageAccountName
-            $AzureStorageContext = New-AzureStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey $StorageKey.Primary
+            $AzureStorageContext = New-AzureStorageContext -StorageAccountName $StorageAccountName -StorageAccountKey $StorageKey.Primary -Protocol Https
 
             # Remove each item in containers
             $Containers = Get-AzureStorageContainer -Context $AzureStorageContext

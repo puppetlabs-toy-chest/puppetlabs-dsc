@@ -4,6 +4,8 @@ function Get-TargetResource {
 [CmdletBinding()]
 [OutputType([HashTable])]
 param (
+[ValidateSet('Present','Absent')]
+[string]$Ensure = 'Present',
 [Parameter(Mandatory)][string]$AffinityGroup,
 [Parameter(Mandatory)][string]$ServiceName,
 [string]$Description,
@@ -39,7 +41,7 @@ function Set-TargetResource {
 [CmdletBinding()]
 param(
 [ValidateSet('Present','Absent')]
-[Parameter(Mandatory)][string]$Ensure = 'Present',
+[string]$Ensure = 'Present',
 [Parameter(Mandatory)][string]$AffinityGroup,
 [Parameter(Mandatory)][string]$ServiceName,
 [string]$Description,
@@ -106,7 +108,7 @@ function Test-TargetResource {
 [OutputType([Boolean])]
 param(
 [ValidateSet('Present','Absent')]
-[Parameter(Mandatory)][string]$Ensure = 'Present',
+[string]$Ensure = 'Present',
 [Parameter(Mandatory)][string]$AffinityGroup,
 [Parameter(Mandatory)][string]$ServiceName,
 [string]$Description,

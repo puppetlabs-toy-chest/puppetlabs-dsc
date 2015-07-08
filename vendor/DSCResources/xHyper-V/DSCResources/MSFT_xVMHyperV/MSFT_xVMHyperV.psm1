@@ -5,10 +5,12 @@ function Get-TargetResource
     param
     (
         [parameter(Mandatory = $true)]
-        [String]$Name,
+        [System.String]
+        $Name,
 
         [parameter(Mandatory = $true)]
-        [String]$VhdPath
+        [System.String]
+        $VhdPath
     )
 
     # Check if Hyper-V module is present for Hyper-V cmdlets
@@ -103,7 +105,9 @@ function Set-TargetResource
 
         # Should the VM be created or deleted
         [ValidateSet("Present","Absent")]
-        [String]$Ensure = "Present"
+        [String]$Ensure = "Present",
+        [System.String]
+        $Notes
     )
 
     # Check if Hyper-V module is present for Hyper-V cmdlets
@@ -192,6 +196,15 @@ function Set-TargetResource
                 Change-VMProperty -Name $Name -VMCommand "Set-VMNetworkAdapter" -ChangeProperty @{StaticMacAddress=$MACAddress} -WaitForIP $WaitForIP -RestartIfNeeded $RestartIfNeeded
                 Write-Verbose -Message "VM $Name now has correct MACAddress."
             }
+
+            if($Notes -ne $null)
+            {
+                # If the VM notes do not match the desire notes, update them.  This can be done while the VM is running.
+                if($vmObj.Notes -ne $Notes)
+                {
+                    Set-Vm -Name $Name -Notes $Notes
+                }
+            }
         }
     }
 
@@ -225,7 +238,17 @@ function Set-TargetResource
                 if($MinimumMemory){$parameters["MemoryMinimumBytes"]=$MinimumMemory}
                 if($MaximumMemory){$parameters["MemoryMaximumBytes"]=$MaximumMemory}
             }
-            if($ProcessorCount){$parameters["ProcessorCount"]=$ProcessorCount}
+
+            if($Notes)
+            {
+                $parameters["Notes"] = $Notes
+            }
+
+            if($ProcessorCount)
+            {
+                $parameters["ProcessorCount"]=$ProcessorCount
+            }
+
             $null = Set-VM @parameters
                                     
             if($MACAddress)
@@ -293,7 +316,9 @@ function Test-TargetResource
 
         # Should the VM be created or deleted
         [ValidateSet("Present","Absent")]
-        [String]$Ensure = "Present"
+        [String]$Ensure = "Present",
+        [System.String]
+        $Notes
     )
 
     #region input validation

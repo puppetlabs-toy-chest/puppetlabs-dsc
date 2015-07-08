@@ -43,7 +43,7 @@ function Get-TargetResource
                         
             $svcFileName = (Get-ChildItem -Path $website.physicalPath -Filter "*.svc").Name
 
-            $serverUrl = $UrlPrefix + $fqdn + ":" + $iisPort + "/" + $webSite.name + "/" + $svcFileName
+            $serverUrl = $UrlPrefix + $fqdn + ":" + $iisPort + "/" + $svcFileName
 
             $webBinding = Get-WebBinding -Name $EndpointName
             
@@ -187,12 +187,6 @@ function Set-TargetResource
         # Create the application data directory calculated above        
         $null = New-Item -path $rootDataPath -itemType "directory" -Force
                 
-        # Set values into the web.config that define the repository and where
-        # configuration and modules files are stored. Also copy an empty database
-        # into place.        
-        PSWSIISEndpoint\Set-AppSettingsInWebconfig -path $PhysicalPath -key "dbprovider" -value $eseprovider
-        PSWSIISEndpoint\Set-AppSettingsInWebconfig -path $PhysicalPath -key "dbconnectionstr" -value $esedatabase
-
         $repository = Join-Path $rootDataPath "Devices.mdb"
         Copy-Item "$pathPullServer\Devices.mdb" $repository -Force
 

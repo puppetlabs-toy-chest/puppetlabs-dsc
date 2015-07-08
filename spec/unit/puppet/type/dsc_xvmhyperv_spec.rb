@@ -35,6 +35,7 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
       :dsc_waitforip => true,
       :dsc_restartifneeded => true,
       :dsc_ensure => 'Present',
+      :dsc_notes => 'foo',
       :dsc_id => 'foo',
       :dsc_status => 'foo',
       :dsc_cpuusage => 32,
@@ -498,6 +499,22 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
 
   it 'should not accept uint for dsc_ensure' do
     expect{dsc_xvmhyperv[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_notes' do
+    expect{dsc_xvmhyperv[:dsc_notes] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_notes' do
+    expect{dsc_xvmhyperv[:dsc_notes] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_notes' do
+    expect{dsc_xvmhyperv[:dsc_notes] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_notes' do
+    expect{dsc_xvmhyperv[:dsc_notes] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_id' do

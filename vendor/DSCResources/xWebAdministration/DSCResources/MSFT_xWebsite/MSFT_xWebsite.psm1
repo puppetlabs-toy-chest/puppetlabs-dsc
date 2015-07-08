@@ -22,6 +22,7 @@ WebsiteBindingConflictOnStartError = Website "{0}" could not be started due to b
 # It gives the Website info of the requested role/feature on the target machine.  
 function Get-TargetResource 
 {
+    [OutputType([System.Collections.Hashtable])]
     param 
     (   
         [Parameter(Mandatory)]
@@ -231,6 +232,7 @@ function Set-TargetResource
                         $errorId = "WebsiteStateFailure"; 
                         $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidOperation;
                         $errorMessage = $($LocalizedData.WebsiteStateFailureError) -f ${Name} ;
+                        $errorMessage += $_.Exception.Message
                         $exception = New-Object System.InvalidOperationException $errorMessage ;
                         $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
 
@@ -251,6 +253,7 @@ function Set-TargetResource
                         $errorId = "WebsiteStateFailure"; 
                         $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidOperation;
                         $errorMessage = $($LocalizedData.WebsiteStateFailureError) -f ${Name} ;
+                        $errorMessage += $_.Exception.Message
                         $exception = New-Object System.InvalidOperationException $errorMessage ;
                         $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
 
@@ -309,7 +312,8 @@ function Set-TargetResource
            {
                 $errorId = "WebsiteCreationFailure"; 
                 $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidOperation;
-                $errorMessage = $($LocalizedData.FeatureCreationFailureError) -f ${Name} ;
+                $errorMessage = $($LocalizedData.WebsiteCreationFailureError) -f ${Name} ;
+                $errorMessage += $_.Exception.Message
                 $exception = New-Object System.InvalidOperationException $errorMessage ;
                 $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
                 $PSCmdlet.ThrowTerminatingError($errorRecord);        
@@ -337,6 +341,7 @@ function Set-TargetResource
             $errorId = "WebsiteRemovalFailure"; 
             $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidOperation;
             $errorMessage = $($LocalizedData.WebsiteRemovalFailureError) -f ${Name} ;
+            $errorMessage += $_.Exception.Message
             $exception = New-Object System.InvalidOperationException $errorMessage ;
             $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
 
@@ -350,6 +355,7 @@ function Set-TargetResource
 # The Test-TargetResource cmdlet is used to validate if the role or feature is in a state as expected in the instance document.
 function Test-TargetResource 
 {
+    [OutputType([System.Boolean])]
     param 
     (       
         [ValidateSet("Present", "Absent")]
@@ -695,6 +701,7 @@ function compareWebsiteBindings
         $errorId = "WebsiteCompareFailure"; 
         $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidResult
         $errorMessage = $($LocalizedData.WebsiteCompareFailureError) -f ${Name} 
+        $errorMessage += $_.Exception.Message
         $exception = New-Object System.InvalidOperationException $errorMessage 
         $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
 
@@ -765,6 +772,7 @@ function UpdateBindings
             $errorId = "WebsiteBindingUpdateFailure"; 
             $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidResult
             $errorMessage = $($LocalizedData.WebsiteUpdateFailureError) -f ${Name} 
+            $errorMessage += $_.Exception.Message
             $exception = New-Object System.InvalidOperationException $errorMessage 
             $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
 
@@ -784,6 +792,7 @@ function UpdateBindings
             $errorId = "WebBindingCertifcateError"; 
             $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidOperation;
             $errorMessage = $($LocalizedData.WebBindingCertifcateError) -f ${CertificateThumbprint} ;
+            $errorMessage += $_.Exception.Message
             $exception = New-Object System.InvalidOperationException $errorMessage ;
             $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
 

@@ -9,7 +9,7 @@ DATA localizedData
         NotAClientSku = This Resource is only available for Windows Client.
         ElevationRequired = This Resource requires to be run as an Administrator.
         ValidatingPrerequisites = Validating prerequisites...
-        CouldNotCovertFeatureState = Could not convert feature state '{0}' into Enable/Disable.
+        CouldNotCovertFeatureState = Could not convert feature state '{0}' into Absent/Present.
         EnsureNotSupported = The value '{0}' for property Ensure is not supported.
         RestartNeeded = Target machine needs to be restarted.
         GetTargetResourceStartMessage = Begin executing Get functionality on the {0} feature.
@@ -67,7 +67,7 @@ function SerializeCustomProperties
     $CustomProperties | ? {$_ -ne $null} | % { "Name = $($_.Name), Value = $($_.Value), Path = $($_.Path)" }
 }
 
-# Converts state returned by Dism Get-WindowsOptionalFeature cmdlet to Enable/Disable
+# Converts state returned by Dism Get-WindowsOptionalFeature cmdlet to Present/Absent
 function ConvertStateToEnsure
 {
     param
@@ -77,11 +77,11 @@ function ConvertStateToEnsure
 
     if ($state -eq 'Disabled')
     {
-        'Disable'
+        'Absent'
     }
     elseif ($state -eq 'Enabled')
     {
-        'Enable'
+        'Present'
     }
     else
     {
@@ -208,9 +208,9 @@ function Test-TargetResource
         [System.String]
         $LogPath,
 
-		[ValidateSet("Enable","Disable")]
-		[System.String]
-		$Ensure,
+        [ValidateSet("Present","Absent")]
+        [System.String]
+        $Ensure = "Present",
 
         [System.Boolean]
         $NoWindowsUpdateCheck,
@@ -228,24 +228,22 @@ function Test-TargetResource
 
     ValidatePrerequisites
 
-    $result = Dism\Get-WindowsOptionalFeature -FeatureName $Name -Online
+    $featureState = Dism\Get-WindowsOptionalFeature -FeatureName $Name -Online
+    [bool] $result = $false
 
-    if ($result -eq $null)
+    if ($featureState -eq $null)
     {
-        $result = 'Disabled'
+        $result = $Ensure -eq 'Absent'
     }
 
     if (($result.State -eq 'Disabled' -and $Ensure -eq 'Absent')`
         -or ($result.State -eq 'Enabled' -and $Ensure -eq 'Present'))
     {
-        $true
-    }
-    else
-    {
-        $false
+        $result = $true
     }
 
     Write-Debug ($LocalizedData.TestTargetResourceEndMessage -f $Name)
+    return $result
 }
 
 

@@ -41,7 +41,7 @@ function Get-IisSitePath
         [string]$SiteName
     )
 
-    if(-not $SiteNmae)
+    if(-not $SiteName)
     {
         return "IIS:\"
     }

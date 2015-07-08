@@ -41,6 +41,7 @@ Gets a service resource
 #>
 function Get-TargetResource
 {
+    [OutputType([System.Collections.Hashtable])]
     param
     (
 
@@ -74,6 +75,7 @@ Tests a service resource
 #>
 function Test-TargetResource
 {
+    [OutputType([System.Boolean])]
     param
     (
         [parameter(Mandatory = $true)]

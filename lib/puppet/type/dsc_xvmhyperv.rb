@@ -42,7 +42,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.1"
+    defaultto "2.2.1"
   end
 
   newparam(:name, :namevar => true ) do
@@ -100,7 +100,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   # IsMandatory:  False
   # Values:       ["Running", "Paused", "Off"]
   newparam(:dsc_state) do
-    desc "State of the VM"
+    desc "State of the VM."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -145,7 +145,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_startupmemory) do
-    desc "Startup RAM for the VM"
+    desc "Startup RAM for the VM."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -161,7 +161,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_minimummemory) do
-    desc "Minimum RAM for the VM. This enables dynamic memory"
+    desc "Minimum RAM for the VM. This enables dynamic memory."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -177,7 +177,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_maximummemory) do
-    desc "Maximum RAM for the VM. This enable dynamic memory"
+    desc "Maximum RAM for the VM. This enable dynamic memory."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -193,7 +193,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_macaddress) do
-    desc "MAC address of the VM"
+    desc "MAC address of the VM."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -222,7 +222,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_waitforip) do
-    desc "Waits for VM to get valid IP address"
+    desc "Waits for VM to get valid IP address."
     validate do |value|
     end
     newvalues(true, false)
@@ -258,6 +258,19 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
       end
       unless ['Present', 'present', 'Absent', 'absent'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      end
+    end
+  end
+
+  # Name:         Notes
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_notes) do
+    desc "Notes about the VM."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end

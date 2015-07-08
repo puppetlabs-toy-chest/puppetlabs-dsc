@@ -15,7 +15,9 @@ function Get-TargetResource
 
         [parameter(Mandatory = $true)]
         [Microsoft.Management.Infrastructure.CimInstance[]]
-        $FileDirectory
+        $FileDirectory,
+            [ValidateSet('ModifiedDate','SHA-1','SHA-256','SHA-512')]
+            $CheckSum = 'ModifiedDate'
     )
 
     if ( -not (Test-path $VhdPath))
@@ -77,7 +79,9 @@ function Set-TargetResource
 
         [parameter(Mandatory = $true)]
         [Microsoft.Management.Infrastructure.CimInstance[]]
-        $FileDirectory
+        $FileDirectory,
+            [ValidateSet('ModifiedDate','SHA-1','SHA-256','SHA-512')]
+            $CheckSum = 'ModifiedDate'
     )
 
     if (-not (Test-Path $VhdPath)) { throw "Specified destination path $VhdPath does not exist!"}   
@@ -156,7 +160,10 @@ function Test-TargetResource
 
         [parameter(Mandatory = $true)]
         [Microsoft.Management.Infrastructure.CimInstance[]]
-        $FileDirectory
+        $FileDirectory,
+        
+            [ValidateSet('ModifiedDate','SHA-1','SHA-256','SHA-512')]
+            $CheckSum = 'ModifiedDate'
     )
 
     # If the VHD path does not exist throw an error and stop.
@@ -211,16 +218,13 @@ function Test-TargetResource
                             # Report if the file exist on the destination folder.
                             Write-Verbose "File exist on the destination under $finalDestinationPath :- $fileExistInDestination"
                             $result = $fileExistInDestination
-                        }
+                            $result = $result -and -not(ItemHasChanged -sourcePath $itemToCopy.SourcePath -destinationPath (Join-Path $finalDestinationPath $fileName) -CheckSum $CheckSum)
+                        }                        
                         
-
                         if (($itemToCopy.Type -eq "Directory") -and ($itemToCopy.Recurse))
                         {
-                            # make sure the child also exists.                        
-                            $allFilesToCopy = dir "$($itemToCopy.SourcePath)\*.*" -Recurse | % FullName | %{$_.Substring(($itemToCopy.SourcePath).Length)}
-                            $allDestinationFiles = dir "$($itemToCopy.DestinationPath)\*.*" -Recurse | % FullName | %{$_.Substring(($itemToCopy.DestinationPath).Length)}
-                            $allFilesToCopy | % { $result = $result -and $allDestinationFiles.Contains($_)}
-
+                            $result = $result -and -not(ItemHasChanged -sourcePath $itemToCopy.SourcePath -destinationPath $finalDestinationPath -CheckSum $CheckSum)
+                            
                             if (-not ($result))
                             {
                                break;
@@ -251,6 +255,8 @@ function Test-TargetResource
         EnsureVHDState -Dismounted -vhdPath $VhdPath
     }
    
+
+   Write-Verbose "Test retruned $result"
    return $result;
 }
 
@@ -329,6 +335,17 @@ function GetItemToCopy
       {
          $returnValue.Recurse  = "True"
       }
+      if ($returnValue.Type -eq $null)
+      {
+         if (Test-Path $returnValue.SourcePath -PathType Leaf )
+         {
+            $returnValue.Type = 'File'
+         }
+         else
+         {
+            $returnValue.Type = 'Directory'
+         }
+      }
 
       # Convert string "True" or "False" to boolean for ease of programming.
       $returnValue.Force =  $returnValue.Force -eq "True"
@@ -364,7 +381,7 @@ function SetVHDFile
     Write-Verbose "Setting the VHD file $($PSCmdlet.ParameterSetName)"
     if ($PSCmdlet.ParameterSetName -eq 'Copy')
     {
-        New-Item -Path (Split-Path $destinationPath) -ItemType Directory -ErrorAction SilentlyContinue
+        New-Item -Path (Split-Path $destinationPath) -ItemType Directory -ErrorAction SilentlyContinue        
         Copy-Item -Path $sourcePath -Destination $destinationPath -Force:$force -Recurse:$recurse -ErrorAction SilentlyContinue
     }
     elseif ($PSCmdlet.ParameterSetName -eq 'New')
@@ -389,6 +406,71 @@ function SetVHDFile
     {
         Remove-Item -Path $destinationPath -Force:$force -Recurse:$recurse
     }
+}
+
+# Detect if the item to be copied is modified version of the orginal.
+function ItemHasChanged
+{
+    param(
+    [parameter(Mandatory=$true)]
+    [ValidateScript({Test-Path $_})] 
+    $sourcePath,
+    [parameter(Mandatory=$true)]
+    [ValidateScript({Test-Path $_})]
+    $destinationPath,
+    [parameter(Mandatory=$false)]
+    [ValidateSet('ModifiedDate','SHA-1','SHA-256','SHA-512')]
+    $CheckSum = 'ModifiedDate'
+    )
+
+    $itemIsFolder = Test-Path $sourcePath -Type Container  
+    $sourceItems = $null;
+    $destinationItems = $null;
+
+    if ($itemIsFolder)
+    {
+        $sourceItems = Get-ChildItem "$sourcePath\*.*" -Recurse
+        $destinationItems = Get-ChildItem "$destinationPath\*.*" -Recurse
+
+    }
+    else
+    {
+        $sourceItems = Get-ChildItem $sourcePath
+        $destinationItems = Get-ChildItem $destinationPath
+
+    }
+
+    if ( -not ($destinationItems))
+    {
+        return $true;
+    }
+   
+    # Compute the difference using the algorithem specified.
+    $difference = $null
+
+    switch ($CheckSum)
+    {
+
+        'ModifiedDate'
+        {
+            $difference = Compare-Object -ReferenceObject $sourceItems -DifferenceObject $destinationItems -Property LastWriteTime
+        }    
+        'SHA-1'
+        {
+            $difference = Compare-Object -ReferenceObject ($sourceItems | Get-FileHash -Algorithm SHA1) -DifferenceObject ($destinationItems | Get-FileHash -Algorithm SHA1) -Property Hash
+        }
+        'SHA-256'
+        {
+            $difference = Compare-Object -ReferenceObject ($sourceItems | Get-FileHash -Algorithm SHA256) -DifferenceObject ($destinationItems | Get-FileHash -Algorithm SHA256) -Property Hash
+        }
+        'SHA-512'
+        {
+            $difference = Compare-Object -ReferenceObject ($sourceItems | Get-FileHash -Algorithm SHA512) -DifferenceObject ($destinationItems | Get-FileHash -Algorithm SHA512) -Property Hash
+        }
+    }
+    # If there are object difference between the item at the source and Items at the distenation.
+    return ($null -ne $difference)
+
 }
 
 Export-ModuleMember -Function *-TargetResource

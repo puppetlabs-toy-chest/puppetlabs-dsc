@@ -42,7 +42,7 @@ Puppet::Type.newtype(:dsc_xwaitforaddomain) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.1"
+    defaultto "2.2"
   end
 
   newparam(:name, :namevar => true ) do
