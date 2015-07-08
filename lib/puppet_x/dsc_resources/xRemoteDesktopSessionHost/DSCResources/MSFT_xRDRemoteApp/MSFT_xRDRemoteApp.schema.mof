@@ -1,3 +1,4 @@
+
 [ClassVersion("1.0.0.0"), FriendlyName("xRDRemoteApp")]
 class MSFT_xRDRemoteApp : OMI_BaseResource
 {
@@ -14,4 +15,5 @@ class MSFT_xRDRemoteApp : OMI_BaseResource
     [write, Description("Specifies a domain group that can view the RemoteApp in RD Web Access, and in RemoteApp and Desktop Connections. To allow all users to see a RemoteApp program, provide a value of Null.")] string UserGroups;
     [write, Description("Specifies whether to show the RemoteApp program in the RD Web Access server, and in RemoteApp and Desktop Connections that the user subscribes to. ")] boolean ShowInWebAccess;
 };
+
 
