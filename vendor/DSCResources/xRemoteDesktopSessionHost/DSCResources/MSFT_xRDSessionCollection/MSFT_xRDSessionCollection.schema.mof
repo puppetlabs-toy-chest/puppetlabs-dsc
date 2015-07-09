@@ -1,0 +1,12 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xRDSessionCollection")]
+class MSFT_xRDSessionCollection : OMI_BaseResource
+{
+    [key, Description("Specifies a name for the session collection. ")] string CollectionName;
+    [key, Description("Specifies an RD Session Host server to include in the session collection. ")] string SessionHost;
+    [write, Description("Specifies a description for the collection.")] string CollectionDescription;
+    [write, Description("Specifies the Remote Desktop Connection Broker (RD Connection Broker) server for a Remote Desktop deployment.")] string ConnectionBroker;
+};
+
+
+

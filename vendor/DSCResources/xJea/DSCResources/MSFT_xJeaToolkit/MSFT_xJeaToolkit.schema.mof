@@ -1,0 +1,13 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xJeaToolKit")]
+class MSFT_xJeaToolkit : OMI_BaseResource
+{
+	[Key, Description("Name of the JEA toolkit to be generated")] String Name;
+	[Write, Description("CSV formated list of command specifications")] String CommandSpecs;
+	[Write, Description("array of script directories that can be run")] String ScriptDirectory[];
+	[Write, Description("Array of executables that are allowed to run")] String Applications[];
+	[Write, ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+};
+
+
+

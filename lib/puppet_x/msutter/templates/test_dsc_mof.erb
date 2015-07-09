@@ -1,6 +1,8 @@
-
 $ErrorActionPreference = "Stop"
-$LCMConfigFolder = "$env:windir\System32\Configuration"
+$env:PSModulePath = "$env:systemroot\System32\WindowsPowerShell\v1.0\Modules\;<%= vendored_modules_path %>"
+$LCMConfigFolder = "$env:systemroot\System32\Configuration"
+
 $test_return = Test-DscConfiguration
 Remove-Item $LCMConfigFolder\*.mof | out-null
+
 return $test_return

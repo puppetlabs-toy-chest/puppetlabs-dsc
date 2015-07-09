@@ -1,0 +1,18 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xAzureVMDscConfiguration")]
+class MSFT_xAzureVMDscConfiguration : OMI_BaseResource
+{
+    [Key, Description("Specifies name of the existing storage account.")] string StorageAccountName;
+                
+    [Write, Description("Specifies whether the supplied Configuration is Present or Absent in Azure Storage"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] string Ensure;
+           
+    [Write, Description("Specifies the name of the Container in the Azure Storage Account.")] string ContainerName;
+
+    [Required, Description("Specifies location of the Dsc Configuration document")] string ConfigurationPath; 
+    
+    [Write, Description("Specifies the name of the Azure subscription that should be set to Current.")] string AzureSubscriptionName;
+    [Write, Description("Specifies the location of the Publish Settings file for the Azure Subscription.")] string AzurePublishSettingsPath;   
+    
+    [Read, Description("Absolute Uri of the Blob")] string BlobUri; 
+};
+

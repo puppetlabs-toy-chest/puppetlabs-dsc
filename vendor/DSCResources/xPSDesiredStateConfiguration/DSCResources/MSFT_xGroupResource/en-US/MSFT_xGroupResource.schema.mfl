@@ -1,0 +1,15 @@
+#pragma namespace("\\\\.\\root\\default")
+instance of __namespace{ name="MS_409";};
+#pragma namespace("\\\\.\\root\\default\\MS_409")
+
+[Description("The xGroup resource in Windows PowerShell Desired State Configuration (DSC) provides a mechanism to manage local groups on the target node.") : Amended,AMENDMENT, LOCALE("MS_409")] 
+class MSFT_xGroupResource : OMI_BaseResource
+{
+  [Key,Description("Indicates the name of the group for which you want to ensure a specific state.") : Amended] string GroupName;
+  [Description("Indicates if the group exists. Set this property to Absent to ensure that the group does not exist.\nSetting it to Present (the default value) ensures that the group exists.") : Amended] string Ensure;
+  [Description("Indicates the description of the group.") : Amended] string Description;
+  [Description("Indicates that you want to ensure these members form the group.\nNOTE: if the group already exists, this property replaces the contents of the group.") : Amended] string Members[];
+  [Description("Indicates the users who you want to ensure are members of the group.\nNOTE: This property is ignored if the 'Members' property is specified.") : Amended] string MembersToInclude[];
+  [Description("Indicates the users who you want to ensure are not members of the group.\nNOTE: This property is ignored if the 'Members' property is specified.") : Amended] string MembersToExclude[];
+  [Description("Indicates the credentials required to access remote resources.\nNOTE: This account must have the appropriate Active Directory permissions to add all non-local accounts to the group; otherwise, an error will occur.") : Amended] string Credential;
+};

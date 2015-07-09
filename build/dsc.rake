@@ -7,6 +7,7 @@ namespace :dsc do
   # defaults
   default_dsc_module_path    = dsc_build_path.parent
   default_dsc_resources_path = "#{default_dsc_module_path}/#{Dsc::Config['import_folder']}/#{Dsc::Config['dsc_modules_folder']}"
+  vendor_dsc_resources_path  = "#{default_dsc_module_path}/vendor/DSCResources"
 
   default_repofile           = "#{default_dsc_module_path}/Repofile"
   default_types_path         = "#{default_dsc_module_path}/lib/puppet/type"
@@ -75,6 +76,10 @@ eod
 
       puts "Downloading and Importing #{item_name}"
       sh "librarian-repo install --verbose --path #{dsc_resources_path} --Repofile #{repo_file}"
+
+      dest = "#{dsc_resources_path}/dsc-resource-kit"
+      puts "Copying vendored resources from #{vendor_dsc_resources_path} to #{dest}"
+      FileUtils.cp_r "#{vendor_dsc_resources_path}/.", dest
     end
 
     desc <<-eod

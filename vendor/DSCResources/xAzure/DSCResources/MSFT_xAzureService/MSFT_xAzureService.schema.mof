@@ -1,0 +1,12 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xAzureService")]
+class MSFT_xAzureService : OMI_BaseResource
+{
+    [key, Description("Specifies a name for the new cloud service that is unique to the subscription.")] string ServiceName;
+    [write, Description("Specifies whether the service should be present or absent."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [write, Description("Specifies the Azure Affinity Group for the service.")] string Description;
+    [required, Description("Specifies a description for the service.")] string AffinityGroup;
+    [write, Description("Specifies a label for the service.")] string Label;
+};
+
+

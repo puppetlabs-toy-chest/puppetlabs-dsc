@@ -1,0 +1,10 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xAzureSubscription")]
+class MSFT_xAzureSubscription : OMI_BaseResource
+{
+    [write, Description("Specifies whether the subscription should be present or absent."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] string Ensure;
+    [key, Description("Specifies the name of the Azure subscription that should be set to Current.")] string AzureSubscriptionName;
+    [write, Description("Specifies the location of the Publish Settings file for the Azure Subscription.")] string AzurePublishSettingsFile;
+};
+
+
