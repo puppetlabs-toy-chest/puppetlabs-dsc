@@ -51,7 +51,6 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
-    newvalue(:absent)  { provider.destroy }
     defaultto :present
   end
 
@@ -111,7 +110,7 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   # Name:         Ensure
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["Present", "Absent"]
+  # Values:       ["Present"]
   newparam(:dsc_ensure) do
     desc "Should the module be present or absent."
     validate do |value|
@@ -119,8 +118,8 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      unless ['Present', 'present'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present")
       end
     end
   end

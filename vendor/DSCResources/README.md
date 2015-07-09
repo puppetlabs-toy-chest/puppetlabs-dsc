@@ -2,13 +2,8 @@
 
 This is a fixed version of the [DSC Resource Kit Wave 6](http://gallery.technet.microsoft.com/scriptcenter/DSC-Resource-Kit-All-c449312d)
 
-The fixes are for compatibility with the MOF parser. This is originally from https://github.com/msutter/dsc-resource-kit-wave-6
+This is originally from https://github.com/msutter/dsc-resource-kit-wave-6
 
-
-## Fixes
-
-Resource: MSFT_xWordPressSite
-- Add Absent to valuemap in mof schema
 
 ## Notes
 
