@@ -7,9 +7,6 @@ The fixes are for compatibility with the MOF parser. This is originally from htt
 
 ## Fixes
 
-Resource: MSFT_xWindowsOptionalFeature
-- Change validateset of ensure from 'enable,disable' to 'present,absent' and adapt the ps code
-
 Resource: MSFT_xWordPressSite
 - Add Absent to valuemap in mof schema
 
