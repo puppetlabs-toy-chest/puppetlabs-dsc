@@ -7,9 +7,6 @@ The fixes are for compatibility with the MOF parser. This is originally from htt
 
 ## Fixes
 
-Resource: xRemoteDesktopAdmin
-- renaming class xRemoteDesktopAdmin to MSFT_xRemoteDesktopAdmin
-
 Resource: MSFT_xWindowsOptionalFeature
 - Change validateset of ensure from 'enable,disable' to 'present,absent' and adapt the ps code
 
