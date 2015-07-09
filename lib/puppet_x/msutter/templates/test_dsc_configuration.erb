@@ -4,7 +4,7 @@ if (!(Test-Path($PuppetModulesFolder))) {
     & cmd.exe /c mklink /d "$PuppetModulesFolder" "<%= vendored_modules_path %>" | Out-Null
 }
 
-$LCMConfigFolder = "<%= lcm_config_folder %>"
+$LCMConfigFolder = "$env:windir\System32\Configuration"
 $ConfigOutputPath = [IO.Path]::GetTempPath()
 
 configuration PuppetConfiguration
