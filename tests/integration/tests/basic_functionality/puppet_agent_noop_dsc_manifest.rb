@@ -29,6 +29,8 @@ confine_block(:to, :platform => 'windows') do
     end
 
     step 'Verify that No Changes were Made'
-    test_dsc_resource(agent, 'File', :expect_failure? => true, :DestinationPath => test_file_path, :Contents => test_file_contents)
+    expect_failure('Expect failure because nothing should have changed') do
+      test_dsc_resource(agent, 'File', :DestinationPath => test_file_path, :Contents => test_file_contents)
+    end
   end
 end
