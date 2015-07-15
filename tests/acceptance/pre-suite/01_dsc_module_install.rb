@@ -4,4 +4,4 @@ confine(:to, :platform => 'windows')
 
 step 'Install Module via PMT'
 stub_forge_on(agents)
-on(agents, puppet('module install puppetlabs-dsc'))
+on(agents, puppet('module install puppetlabs-dsc --module_working_dir C:/Windows/Temp'))
