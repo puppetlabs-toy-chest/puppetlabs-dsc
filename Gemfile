@@ -38,15 +38,13 @@ group :test do
 end
 
 beaker_version = ENV['BEAKER_VERSION']
-unless ENV['GEM_SOURCE'].nil?
-  group :system_tests do
-    if beaker_version
-      gem 'beaker', *location_for(beaker_version)
-    else
-      gem 'beaker', '~> 2.16'
-    end
-    gem 'master_manipulator', '~> 1.1'
+group :system_tests do
+  if beaker_version
+    gem 'beaker', *location_for(beaker_version)
+  else
+    gem 'beaker', '~> 2.18'
   end
+  gem 'master_manipulator', '~> 1.1'
 end
 
 if File.exists? "#{__FILE__}.local"

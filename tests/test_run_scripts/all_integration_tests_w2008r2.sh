@@ -7,7 +7,7 @@ if [ $SCRIPT_BASE_PATH = "test_run_scripts" ]; then
   cd ../../
 fi
 
-export pe_dist_dir=http://neptune.puppetlabs.lan/4.0/ci-ready/
+export pe_dist_dir=http://neptune.puppetlabs.lan/2015.2/ci-ready/
 export BEAKER_PUPPET_AGENT_VERSION=1.2.1
 export GEM_SOURCE=http://rubygems.delivery.puppetlabs.net
 
