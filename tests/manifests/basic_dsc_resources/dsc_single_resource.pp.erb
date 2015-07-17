@@ -1,0 +1,5 @@
+dsc_<%= dsc_type %> {'<%= dsc_type %>_test':
+  <% dsc_props.each do |k, v| %>
+    <%= k %> => '<%= v %>',
+  <% end %>
+}
