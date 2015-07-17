@@ -80,6 +80,9 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
     end
+    munge do |value|
+      Array(value)
+    end
   end
 
   # Name:         SecurityDescriptorSddl
@@ -105,6 +108,9 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 

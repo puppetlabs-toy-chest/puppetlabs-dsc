@@ -74,6 +74,9 @@ Puppet::Type.newtype(:dsc_xarchive) do
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
     end
+    munge do |value|
+      Array(value)
+    end
   end
 
   # Name:         CompressionLevel

@@ -48,7 +48,7 @@ EOT
     when ['trueclass','falseclass'].include?(dsc_value.class.name.downcase)
       "$#{dsc_value.to_s}"
     when dsc_value.class.name == 'Array'
-      dsc_value.collect{|m| format_dsc_value(m)}.join(', ')
+      "@(" + dsc_value.collect{|m| format_dsc_value(m)}.join(', ') + ")"
     else
       fail "unsupported type #{dsc_value.class} of value '#{dsc_value}'"
     end

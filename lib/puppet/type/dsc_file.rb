@@ -216,6 +216,9 @@ Puppet::Type.newtype(:dsc_file) do
         end
       end
     end
+    munge do |value|
+      Array(value)
+    end
   end
 
   # Name:         Size
@@ -242,6 +245,9 @@ Puppet::Type.newtype(:dsc_file) do
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 

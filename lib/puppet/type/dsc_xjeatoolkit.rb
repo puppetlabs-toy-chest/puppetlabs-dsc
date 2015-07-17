@@ -93,6 +93,9 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
     end
+    munge do |value|
+      Array(value)
+    end
   end
 
   # Name:         Applications
@@ -105,6 +108,9 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 

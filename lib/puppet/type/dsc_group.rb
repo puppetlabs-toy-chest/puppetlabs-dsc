@@ -102,6 +102,9 @@ Puppet::Type.newtype(:dsc_group) do
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
     end
+    munge do |value|
+      Array(value)
+    end
   end
 
   # Name:         MembersToInclude
@@ -114,6 +117,9 @@ Puppet::Type.newtype(:dsc_group) do
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
     end
+    munge do |value|
+      Array(value)
+    end
   end
 
   # Name:         MembersToExclude
@@ -125,6 +131,9 @@ Puppet::Type.newtype(:dsc_group) do
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 

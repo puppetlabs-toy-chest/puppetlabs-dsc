@@ -228,42 +228,42 @@ describe Puppet::Type.type(:dsc_xfirewall) do
 
   it 'should accept dsc_profile predefined value Any' do
     dsc_xfirewall[:dsc_profile] = 'Any'
-    expect(dsc_xfirewall[:dsc_profile]).to eq('Any')
+    expect(dsc_xfirewall[:dsc_profile]).to eq(['Any'])
   end
 
   it 'should accept dsc_profile predefined value any' do
     dsc_xfirewall[:dsc_profile] = 'any'
-    expect(dsc_xfirewall[:dsc_profile]).to eq('any')
+    expect(dsc_xfirewall[:dsc_profile]).to eq(['any'])
   end
 
   it 'should accept dsc_profile predefined value Public' do
     dsc_xfirewall[:dsc_profile] = 'Public'
-    expect(dsc_xfirewall[:dsc_profile]).to eq('Public')
+    expect(dsc_xfirewall[:dsc_profile]).to eq(['Public'])
   end
 
   it 'should accept dsc_profile predefined value public' do
     dsc_xfirewall[:dsc_profile] = 'public'
-    expect(dsc_xfirewall[:dsc_profile]).to eq('public')
+    expect(dsc_xfirewall[:dsc_profile]).to eq(['public'])
   end
 
   it 'should accept dsc_profile predefined value Private' do
     dsc_xfirewall[:dsc_profile] = 'Private'
-    expect(dsc_xfirewall[:dsc_profile]).to eq('Private')
+    expect(dsc_xfirewall[:dsc_profile]).to eq(['Private'])
   end
 
   it 'should accept dsc_profile predefined value private' do
     dsc_xfirewall[:dsc_profile] = 'private'
-    expect(dsc_xfirewall[:dsc_profile]).to eq('private')
+    expect(dsc_xfirewall[:dsc_profile]).to eq(['private'])
   end
 
   it 'should accept dsc_profile predefined value Domain' do
     dsc_xfirewall[:dsc_profile] = 'Domain'
-    expect(dsc_xfirewall[:dsc_profile]).to eq('Domain')
+    expect(dsc_xfirewall[:dsc_profile]).to eq(['Domain'])
   end
 
   it 'should accept dsc_profile predefined value domain' do
     dsc_xfirewall[:dsc_profile] = 'domain'
-    expect(dsc_xfirewall[:dsc_profile]).to eq('domain')
+    expect(dsc_xfirewall[:dsc_profile]).to eq(['domain'])
   end
 
   it 'should not accept values not equal to predefined values' do

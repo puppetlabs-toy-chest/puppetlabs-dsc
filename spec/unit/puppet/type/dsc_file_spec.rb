@@ -391,42 +391,42 @@ describe Puppet::Type.type(:dsc_file) do
 
   it 'should accept dsc_attributes predefined value ReadOnly' do
     dsc_file[:dsc_attributes] = 'ReadOnly'
-    expect(dsc_file[:dsc_attributes]).to eq('ReadOnly')
+    expect(dsc_file[:dsc_attributes]).to eq(['ReadOnly'])
   end
 
   it 'should accept dsc_attributes predefined value readonly' do
     dsc_file[:dsc_attributes] = 'readonly'
-    expect(dsc_file[:dsc_attributes]).to eq('readonly')
+    expect(dsc_file[:dsc_attributes]).to eq(['readonly'])
   end
 
   it 'should accept dsc_attributes predefined value Hidden' do
     dsc_file[:dsc_attributes] = 'Hidden'
-    expect(dsc_file[:dsc_attributes]).to eq('Hidden')
+    expect(dsc_file[:dsc_attributes]).to eq(['Hidden'])
   end
 
   it 'should accept dsc_attributes predefined value hidden' do
     dsc_file[:dsc_attributes] = 'hidden'
-    expect(dsc_file[:dsc_attributes]).to eq('hidden')
+    expect(dsc_file[:dsc_attributes]).to eq(['hidden'])
   end
 
   it 'should accept dsc_attributes predefined value System' do
     dsc_file[:dsc_attributes] = 'System'
-    expect(dsc_file[:dsc_attributes]).to eq('System')
+    expect(dsc_file[:dsc_attributes]).to eq(['System'])
   end
 
   it 'should accept dsc_attributes predefined value system' do
     dsc_file[:dsc_attributes] = 'system'
-    expect(dsc_file[:dsc_attributes]).to eq('system')
+    expect(dsc_file[:dsc_attributes]).to eq(['system'])
   end
 
   it 'should accept dsc_attributes predefined value Archive' do
     dsc_file[:dsc_attributes] = 'Archive'
-    expect(dsc_file[:dsc_attributes]).to eq('Archive')
+    expect(dsc_file[:dsc_attributes]).to eq(['Archive'])
   end
 
   it 'should accept dsc_attributes predefined value archive' do
     dsc_file[:dsc_attributes] = 'archive'
-    expect(dsc_file[:dsc_attributes]).to eq('archive')
+    expect(dsc_file[:dsc_attributes]).to eq(['archive'])
   end
 
   it 'should not accept values not equal to predefined values' do
