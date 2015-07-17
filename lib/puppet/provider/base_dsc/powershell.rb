@@ -28,7 +28,7 @@ EOT
   def create
     Puppet.debug "\n" + ps_script_content('set')
     output = powershell(powershell_args, ps_script_content('set'))
-    Puppet.debug output
+    Puppet.debug "Dsc Resource Return: #{output}"
   end
 
   def destroy
@@ -55,10 +55,9 @@ EOT
   end
 
   def ps_script_content(mode)
+    dsc_invoke_method = mode
     @param_hash = resource
-    template = ERB.new(File.new(template_path + "/#{mode}_dsc_configuration.erb").read, nil, '-')
+    template = ERB.new(File.new(template_path + "/invoke_dsc_resource.erb").read, nil, '-')
     template.result(binding)
   end
-
-
 end

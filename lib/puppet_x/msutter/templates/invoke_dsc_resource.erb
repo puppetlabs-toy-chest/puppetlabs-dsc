@@ -1,0 +1,66 @@
+$script:ErrorActionPreference = 'Stop'
+$PuppetModulesFolder = Join-Path $env:ProgramFiles 'WindowsPowerShell\Modules\PuppetVendoredModules'
+if (!(Test-Path($PuppetModulesFolder))) {
+  & cmd.exe /c mklink /d "$PuppetModulesFolder" "<%= vendored_modules_path %>" | Out-Null
+}
+
+function Set-RefreshMode
+{
+  param($mode)
+
+  $configOutputPath = [IO.Path]::GetTempPath()
+
+  [DscLocalConfigurationManager()]
+  Configuration LCMSettings {
+      Node localhost
+      {
+          Settings
+          {
+              RefreshMode = $mode
+          }
+      }
+  }
+
+  LCMSettings -OutputPath $configOutputPath | Out-Null
+
+  Set-DscLocalConfigurationManager -Path $configOutputPath
+}
+
+$currentState = Get-DscLocalConfigurationManager
+
+if ($currentState.RefreshMode -ne 'Disabled') {
+  $currentRefreshMode = $currentState.RefreshMode
+  Set-RefreshMode 'Disabled'
+}
+
+$invokeParams = @{
+  Name          = '<%= resource[:dscmeta_resource_friendly_name] %>'
+  Method        = '<%= dsc_invoke_method %>'
+  ErrorAction   = 'Continue'
+  ErrorVariable = 'invokeError'
+  Property      = @{
+<% dsc_parameters.each do |p| -%>
+    <%= p.name.to_s.gsub(/^dsc_/,'') %> = <%= format_dsc_value(p.value) %>
+<% end -%>
+  }
+<% if resource[:dscmeta_module_name].casecmp('PSDesiredStateConfiguration') == 0 -%>
+  ModuleName = @{
+    <%= "ModuleName=\"#{resource[:dscmeta_module_name]}\"" %>
+    <%= "RequiredVersion=\"#{resource[:dscmeta_module_version]}\"" if resource.parameters[:dscmeta_module_version] %>
+  }
+<% end -%>
+}
+
+$result = Invoke-DscResource @invokeParams
+
+if ($currentRefreshMode) { Set-RefreshMode $currentRefreshMode }
+if ($invokeError) { throw $invokeError }
+
+switch ($invokeParams.Method) {
+  'Test' {
+    [bool]($result.InDesiredState)
+  }
+  'Set' {
+    @($Null, 0) -contains $result.ReturnValue
+  }
+}
