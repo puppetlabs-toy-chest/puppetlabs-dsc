@@ -16,7 +16,7 @@ dsc_manifest_template_path = File.join(local_files_root_path, 'basic_functionali
 dsc_manifest = ERB.new(File.read(dsc_manifest_template_path)).result(binding)
 
 # Verify
-debug_msg = /File "tmp_folder".*File "tmp_file"/m
+debug_msg = /Debug:.*Dsc_file\[tmp_file\]: The container Node\[default\] will propagate my refresh event/
 
 # Teardown
 teardown do
@@ -41,8 +41,11 @@ confine_block(:to, :platform => 'windows') do
     end
 
     step 'Verify that No Changes were Made'
-    expect_failure('Expected failure due to MODULES-1960 not being implemented yet') do
-      assert_dsc_resource(agent, 'File', :DestinationPath => test_file_path, :Contents => test_file_contents)
-    end
+    assert_dsc_resource(
+      agent,
+      'File',
+      :DestinationPath => test_file_path,
+      :Contents => test_file_contents
+    )
   end
 end

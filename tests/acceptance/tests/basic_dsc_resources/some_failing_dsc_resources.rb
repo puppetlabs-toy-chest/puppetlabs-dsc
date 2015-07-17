@@ -1,8 +1,6 @@
 require 'dsc_utils'
 test_name 'FM-2624 - C68533 - Apply DSC Resource Manifest with Mix of Passing and Failing DSC Resources'
 
-skip_test('Expected to fail due to MODULES-2194')
-
 # Init
 test_dir_name = 'test'
 
@@ -24,7 +22,7 @@ dsc_file {'bad_test_dir':
 MANIFEST
 
 # Verify
-error_msg = /Error:/
+error_msg = /BOGUS/
 
 # Teardown
 teardown do
@@ -38,8 +36,10 @@ end
 confine_block(:to, :platform => 'windows') do
   agents.each do |agent|
     step 'Apply Manifest'
-    on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => [0,2]) do |result|
-      assert_match(error_msg, result.stderr, 'Expected error was not detected!')
+    on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => 0) do |result|
+      expect_failure('Expected to fail because of MODULES-2194') do
+        assert_match(error_msg, result.stderr, 'Expected error was not detected!')
+      end
     end
   end
 end
