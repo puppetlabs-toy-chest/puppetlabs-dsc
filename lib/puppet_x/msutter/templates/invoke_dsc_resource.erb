@@ -42,12 +42,13 @@ $invokeParams = @{
 <% dsc_parameters.each do |p| -%>
     <%= p.name.to_s.gsub(/^dsc_/,'') %> = <%= format_dsc_value(p.value) %>
 <% end -%>
-  }
-<% if resource[:dscmeta_module_name].casecmp('PSDesiredStateConfiguration') == 0 -%>
+  }<% if resource.parameters[:dscmeta_module_version] %>
   ModuleName = @{
-    <%= "ModuleName=\"#{resource[:dscmeta_module_name]}\"" %>
-    <%= "RequiredVersion=\"#{resource[:dscmeta_module_version]}\"" if resource.parameters[:dscmeta_module_version] %>
+    ModuleName      = <%= "\"#{resource[:dscmeta_module_name]}\"" %>
+    RequiredVersion = <%= "\"#{resource[:dscmeta_module_version]}\"" %>
   }
+<% else %>
+  ModuleName = <%= "\"#{resource[:dscmeta_module_name]}\"" %>
 <% end -%>
 }
 
