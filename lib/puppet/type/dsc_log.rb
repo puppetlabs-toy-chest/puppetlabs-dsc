@@ -42,10 +42,6 @@ Puppet::Type.newtype(:dsc_log) do
     defaultto "PSDesiredStateConfiguration"
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.0"
-  end
-
   newparam(:name, :namevar => true ) do
   end
 

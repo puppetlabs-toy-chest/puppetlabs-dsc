@@ -44,11 +44,11 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   newparam(:dscmeta_module_name) do
     defaultto "<%= resource.ps_module.name %>"
   end
-
+<%  if resource.ps_module.name != 'PSDesiredStateConfiguration' %>
   newparam(:dscmeta_module_version) do
     defaultto "<%= resource.ps_module.version %>"
   end
-
+<%  end %>
   newparam(:name, :namevar => true ) do
   end
 <%  if resource.ensurable? -%>
