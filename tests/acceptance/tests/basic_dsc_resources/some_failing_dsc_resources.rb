@@ -22,7 +22,7 @@ dsc_file {'bad_test_dir':
 MANIFEST
 
 # Verify
-error_msg = /BOGUS/
+error_msg = /Error:/
 
 # Teardown
 teardown do
@@ -38,7 +38,7 @@ confine_block(:to, :platform => 'windows') do
     step 'Apply Manifest'
     on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => 0) do |result|
       expect_failure('Expected to fail because of MODULES-2194') do
-        assert_match(error_msg, result.stderr, 'Expected error was not detected!')
+        assert_no_match(error_msg, result.stderr, 'Expected error was not detected!')
       end
     end
   end
