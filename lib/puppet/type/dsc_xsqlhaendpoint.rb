@@ -51,6 +51,12 @@ Puppet::Type.newtype(:dsc_xsqlhaendpoint) do
   newparam(:name, :namevar => true ) do
   end
 
+  ensurable do
+    newvalue(:exists?) { provider.exists? }
+    newvalue(:present) { provider.create }
+    defaultto :present
+  end
+
   # Name:         InstanceName
   # Type:         string
   # IsMandatory:  True

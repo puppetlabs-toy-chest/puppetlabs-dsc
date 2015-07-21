@@ -50,6 +50,12 @@ Puppet::Type.newtype(:dsc_xiiswordpresssite) do
   newparam(:name, :namevar => true ) do
   end
 
+  ensurable do
+    newvalue(:exists?) { provider.exists? }
+    newvalue(:present) { provider.create }
+    defaultto :present
+  end
+
   # Name:         DestinationPath
   # Type:         string
   # IsMandatory:  True

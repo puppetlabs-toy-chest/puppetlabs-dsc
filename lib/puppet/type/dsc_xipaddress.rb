@@ -51,6 +51,12 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   newparam(:name, :namevar => true ) do
   end
 
+  ensurable do
+    newvalue(:exists?) { provider.exists? }
+    newvalue(:present) { provider.create }
+    defaultto :present
+  end
+
   # Name:         IPAddress
   # Type:         string
   # IsMandatory:  True

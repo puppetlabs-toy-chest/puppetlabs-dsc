@@ -51,13 +51,15 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 <%  end %>
   newparam(:name, :namevar => true ) do
   end
-<%  if resource.ensurable? -%>
 
   ensurable do
-    defaultvalues
+    newvalue(:exists?) { provider.exists? }
+    newvalue(:present) { provider.create }
+<%  if resource.ensurable? -%>
+    newvalue(:absent)  { provider.destroy }
+<%  end -%>
     defaultto :present
   end
-<%  end -%>
 
 <%  resource.properties.each do |property| -%>
   # Name:         <%= property.name %>
