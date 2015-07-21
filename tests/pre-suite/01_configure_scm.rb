@@ -1,4 +1,4 @@
-test_name 'FM-2626 - C70297 - Configure LCM for "Push" RefreshMode'
+test_name 'FM-2626 - C70297 - Configure LCM for "Disabled" Refresh Mode'
 
 confine(:to, :platform => 'windows')
 
@@ -10,7 +10,7 @@ dsc_conf_path_name = 'LCMSettings'
 dsc_conf_mof = <<-CONF
 instance of MSFT_DSCMetaConfiguration as $MSFT_DSCMetaConfiguration1ref
 {
-  RefreshMode = "Push";
+  RefreshMode = "Disabled";
 };
 
 instance of OMI_ConfigurationDocument

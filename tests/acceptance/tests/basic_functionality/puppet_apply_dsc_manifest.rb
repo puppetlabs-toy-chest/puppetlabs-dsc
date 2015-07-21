@@ -31,8 +31,11 @@ confine_block(:to, :platform => 'windows') do
     end
 
     step 'Verify Results'
-    expect_failure('Expected failure due to MODULES-1960 not being implemented yet') do
-      assert_dsc_resource(agent, 'File', :DestinationPath => test_file_path, :Contents => test_file_contents)
-    end
+    assert_dsc_resource(
+      agent,
+      'File',
+      :DestinationPath => test_file_path,
+      :Contents => test_file_contents
+    )
   end
 end

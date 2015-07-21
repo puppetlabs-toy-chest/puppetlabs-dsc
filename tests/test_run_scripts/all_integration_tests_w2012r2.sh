@@ -7,8 +7,7 @@ if [ $SCRIPT_BASE_PATH = "test_run_scripts" ]; then
   cd ../../
 fi
 
-export pe_dist_dir=http://neptune.puppetlabs.lan/2015.2/ci-ready/
-export BEAKER_PUPPET_AGENT_VERSION=1.2.1
+export pe_dist_dir=http://neptune.puppetlabs.lan/2015.2/preview/
 export GEM_SOURCE=http://rubygems.delivery.puppetlabs.net
 
 bundle install --without build development test --path .bundle/gems
@@ -19,7 +18,7 @@ bundle exec beaker \
   --debug \
   --tests tests/integration/tests \
   --keyfile ~/.ssh/id_rsa-acceptance \
-  --pre-suite tests/pre-suite,tests/integration/pre-suite \
+  --pre-suite tests/integration/pre-suite,tests/pre-suite \
   --load-path tests/lib
 
 rm -rf tmp
