@@ -165,6 +165,9 @@ Puppet::Type.newtype(:dsc_xfirewall) do
         end
       end
     end
+    munge do |value|
+      Array(value)
+    end
   end
 
   # Name:         Direction
@@ -194,6 +197,9 @@ Puppet::Type.newtype(:dsc_xfirewall) do
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
     end
+    munge do |value|
+      Array(value)
+    end
   end
 
   # Name:         LocalPort
@@ -206,6 +212,9 @@ Puppet::Type.newtype(:dsc_xfirewall) do
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 

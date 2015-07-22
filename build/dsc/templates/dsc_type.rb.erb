@@ -118,6 +118,10 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     newvalues(true, false)
 <%  end -%>
 <%    case -%>
+<%    when property.array? -%>
+    munge do |value|
+      Array(value)
+    end
 <%    when property.bool? -%>
     munge do |value|
       value.to_s.downcase.to_bool

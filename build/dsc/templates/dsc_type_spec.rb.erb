@@ -45,6 +45,17 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 <%    if property.values -%>
 <%      property.values.each do |value| -%>
 
+<%    if property.array? -%>
+  it 'should accept dsc_<%= property.name.downcase %> predefined value <%= value %>' do
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = '<%= value %>'
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(['<%= value %>'])
+  end
+
+  it 'should accept dsc_<%= property.name.downcase %> predefined value <%= value.downcase %>' do
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = '<%= value.downcase %>'
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(['<%= value.downcase %>'])
+  end
+<%    else -%>
   it 'should accept dsc_<%= property.name.downcase %> predefined value <%= value %>' do
     dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = '<%= value %>'
     expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq('<%= value %>')
@@ -54,6 +65,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
     dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = '<%= value.downcase %>'
     expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq('<%= value.downcase %>')
   end
+<%    end -%>
 <%        if property.name.downcase == 'ensure' -%>
 
   it 'should accept dsc_ensure predefined value <%= value.downcase %> and update ensure with this value (ensure end value should be a symbol)' do
