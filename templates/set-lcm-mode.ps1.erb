@@ -1,0 +1,50 @@
+$lcmRefreshMode = '<%= @refresh_mode %>'
+$generationDate = (Get-Date -Format 'M/d/yyyy HH:mm:ss')
+$encoding       = [Text.Encoding]::UTF8
+$namespace      = 'root/Microsoft/Windows/DesiredStateConfiguration'
+$className      = 'MSFT_DSCLocalConfigurationManager'
+$generationHost = [Environment]::MachineName
+
+$mofData = @"
+/*
+@TargetNode=''localhost''
+@GeneratedBy=PUPPET
+@GenerationDate=$generationDate
+@GenerationHost=$generationHost
+*/
+
+instance of MSFT_DSCMetaConfiguration as `$MSFT_DSCMetaConfiguration1ref
+{
+RefreshMode = "$lcmRefreshMode";
+};
+
+instance of OMI_ConfigurationDocument
+{
+Version="2.0.0";
+MinimumCompatibleVersion = "1.0.0";
+CompatibleVersionAdditionalProperties= { "MSFT_DSCMetaConfiguration:StatusRetentionTimeInDays" };
+Author="PUPPET";
+GenerationDate="$generationDate";
+GenerationHost="$generationHost";
+Name="LCMSettings";
+};
+"@
+
+$totalSize = [BitConverter]::GetBytes($mofData.Length + 4)
+$bytes     = $totalSize + $encoding.GetBytes($mofData)
+
+$cimClass       = Get-CimClass -Namespace $namespace -ClassName $className
+$sessionOptions = New-CimSessionOption -Protocol Wsman
+$wsmanSession   = New-CimSession -ComputerName localhost -SessionOption $sessionOptions
+
+$invokeParams = @{
+  Verbose    = $true
+  CimClass   = $cimClass
+  CimSession = $wsmanSession
+  MethodName = 'SendMetaConfigurationApply'
+  Arguments  = @{
+    ConfigurationData = $bytes;
+  }
+}
+
+Invoke-CimMethod @invokeParams
