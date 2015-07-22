@@ -48,7 +48,9 @@ Puppet::Type.newtype(:dsc_registry) do
   end
 
   ensurable do
-    defaultvalues
+    newvalue(:exists?) { provider.exists? }
+    newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto :present
   end
 

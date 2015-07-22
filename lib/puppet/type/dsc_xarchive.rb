@@ -50,6 +50,12 @@ Puppet::Type.newtype(:dsc_xarchive) do
   newparam(:name, :namevar => true ) do
   end
 
+  ensurable do
+    newvalue(:exists?) { provider.exists? }
+    newvalue(:present) { provider.create }
+    defaultto :present
+  end
+
   # Name:         Destination
   # Type:         string
   # IsMandatory:  True

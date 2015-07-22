@@ -17,7 +17,7 @@ EOT
     if ['true','false'].include?(output.to_s.strip.downcase)
       check = (output.to_s.strip.downcase == 'true')
       Puppet.debug "Dsc Resource Exists?: #{check}"
-      Puppet.debug "dsc_ensure: #{resource[:dsc_ensure]}"
+      Puppet.debug "dsc_ensure: #{resource[:dsc_ensure]}" if resource.parameters.has_key?(:dsc_ensure)
       Puppet.debug "ensure: #{resource[:ensure]}"
       check
     else

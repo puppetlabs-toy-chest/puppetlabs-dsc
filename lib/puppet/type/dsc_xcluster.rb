@@ -50,6 +50,12 @@ Puppet::Type.newtype(:dsc_xcluster) do
   newparam(:name, :namevar => true ) do
   end
 
+  ensurable do
+    newvalue(:exists?) { provider.exists? }
+    newvalue(:present) { provider.create }
+    defaultto :present
+  end
+
   # Name:         Name
   # Type:         string
   # IsMandatory:  True

@@ -50,6 +50,12 @@ Puppet::Type.newtype(:dsc_xwaitforaddomain) do
   newparam(:name, :namevar => true ) do
   end
 
+  ensurable do
+    newvalue(:exists?) { provider.exists? }
+    newvalue(:present) { provider.create }
+    defaultto :present
+  end
+
   # Name:         DomainName
   # Type:         string
   # IsMandatory:  True

@@ -51,7 +51,9 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
   end
 
   ensurable do
-    defaultvalues
+    newvalue(:exists?) { provider.exists? }
+    newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto :present
   end
 
