@@ -1,6 +1,8 @@
 require 'dsc_utils'
 test_name 'FM-2624 - C68533 - Apply DSC Resource Manifest with Mix of Passing and Failing DSC Resources'
 
+confine(:to, :platform => 'windows')
+
 # Init
 test_dir_name = 'test'
 
@@ -26,20 +28,16 @@ error_msg = /Error:/
 
 # Teardown
 teardown do
-  confine_block(:to, :platform => 'windows') do
-    step 'Remove Test Artifacts'
-    on(agents, "rm -rf /cygdrive/c/#{test_dir_name}")
-  end
+  step 'Remove Test Artifacts'
+  on(agents, "rm -rf /cygdrive/c/#{test_dir_name}")
 end
 
 # Tests
-confine_block(:to, :platform => 'windows') do
-  agents.each do |agent|
-    step 'Apply Manifest'
-    on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => 0) do |result|
-      expect_failure('Expected to fail because of MODULES-2194') do
-        assert_no_match(error_msg, result.stderr, 'Expected error was not detected!')
-      end
+agents.each do |agent|
+  step 'Apply Manifest'
+  on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => 0) do |result|
+    expect_failure('Expected to fail because of MODULES-2194') do
+      assert_no_match(error_msg, result.stderr, 'Expected error was not detected!')
     end
   end
 end

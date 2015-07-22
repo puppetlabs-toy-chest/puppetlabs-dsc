@@ -2,6 +2,8 @@ require 'erb'
 require 'dsc_utils'
 test_name 'FM-2625 - C68511 - Apply DSC Resource Manifest via "puppet apply"'
 
+confine(:to, :platform => 'windows')
+
 # Init
 test_dir_name = 'test'
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
@@ -16,26 +18,22 @@ dsc_manifest = ERB.new(File.read(dsc_manifest_template_path)).result(binding)
 
 # Teardown
 teardown do
-  confine_block(:to, :platform => 'windows') do
-    step 'Remove Test Artifacts'
-    on(agents, "rm -rf /cygdrive/c/#{test_dir_name}")
-  end
+  step 'Remove Test Artifacts'
+  on(agents, "rm -rf /cygdrive/c/#{test_dir_name}")
 end
 
 # Tests
-confine_block(:to, :platform => 'windows') do
-  agents.each do |agent|
-    step 'Apply Manifest'
-    on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => [0,2]) do |result|
-      assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
-    end
-
-    step 'Verify Results'
-    assert_dsc_resource(
-      agent,
-      'File',
-      :DestinationPath => test_file_path,
-      :Contents => test_file_contents
-    )
+agents.each do |agent|
+  step 'Apply Manifest'
+  on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => [0,2]) do |result|
+    assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
   end
+
+  step 'Verify Results'
+  assert_dsc_resource(
+    agent,
+    'File',
+    :DestinationPath => test_file_path,
+    :Contents => test_file_contents
+  )
 end
