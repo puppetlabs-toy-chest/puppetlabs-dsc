@@ -4,33 +4,10 @@ if (!(Test-Path($PuppetModulesFolder))) {
   & cmd.exe /c mklink /d "$PuppetModulesFolder" "<%= vendored_modules_path %>" | Out-Null
 }
 
-function Set-RefreshMode
-{
-  param($mode)
-
-  $configOutputPath = [IO.Path]::GetTempPath()
-
-  [DscLocalConfigurationManager()]
-  Configuration LCMSettings {
-      Node localhost
-      {
-          Settings
-          {
-              RefreshMode = $mode
-          }
-      }
-  }
-
-  LCMSettings -OutputPath $configOutputPath | Out-Null
-
-  Set-DscLocalConfigurationManager -Path $configOutputPath
-}
-
 $currentState = Get-DscLocalConfigurationManager
 
 if ($currentState.RefreshMode -ne 'Disabled') {
-  $currentRefreshMode = $currentState.RefreshMode
-  Set-RefreshMode 'Disabled'
+  throw "DSC LCM RefreshMode must be set to Disabled for Puppet to execute DSC Resources!"
 }
 
 $invokeParams = @{
