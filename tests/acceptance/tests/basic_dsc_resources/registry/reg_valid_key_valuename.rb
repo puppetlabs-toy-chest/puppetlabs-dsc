@@ -2,8 +2,9 @@ require 'erb'
 require 'dsc_utils'
 test_name 'MODULES-2230 - C68700 - Apply DSC Registry Resource with Valid "Key" and "ValueName" Specified'
 
+confine(:to, :platform => 'windows')
+
 # Init
-test_dir_name = 'test'
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
 # ERB Manifest
@@ -19,33 +20,29 @@ dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(bin
 
 # Teardown
 teardown do
-  confine_block(:to, :platform => 'windows') do
-    step 'Remove Test Artifacts'
-    set_dsc_resource(
-      agents,
-      dsc_type,
-      :Ensure    => 'Absent',
-      :Key       => dsc_props[:dsc_key],
-      :ValueName => dsc_props[:dsc_valuename]
-    )
-  end
+  step 'Remove Test Artifacts'
+  set_dsc_resource(
+    agents,
+    dsc_type,
+    :Ensure    => 'Absent',
+    :Key       => dsc_props[:dsc_key],
+    :ValueName => dsc_props[:dsc_valuename]
+  )
 end
 
 # Tests
-confine_block(:to, :platform => 'windows') do
-  agents.each do |agent|
-    step 'Apply Manifest'
-    on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => [0,2]) do |result|
-      assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
-    end
-
-    step 'Verify Results'
-    assert_dsc_resource(
-      agent,
-      dsc_type,
-      :Ensure    => dsc_props[:dsc_ensure],
-      :Key       => dsc_props[:dsc_key],
-      :ValueName => dsc_props[:dsc_valuename]
-    )
+agents.each do |agent|
+  step 'Apply Manifest'
+  on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => [0,2]) do |result|
+    assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
   end
+
+  step 'Verify Results'
+  assert_dsc_resource(
+    agent,
+    dsc_type,
+    :Ensure    => dsc_props[:dsc_ensure],
+    :Key       => dsc_props[:dsc_key],
+    :ValueName => dsc_props[:dsc_valuename]
+  )
 end

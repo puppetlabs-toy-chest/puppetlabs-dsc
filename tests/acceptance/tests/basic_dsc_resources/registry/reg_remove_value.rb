@@ -2,8 +2,9 @@ require 'erb'
 require 'dsc_utils'
 test_name 'MODULES-2230 - C68706 - Apply DSC Registry Resource that Removes Registry Value'
 
+confine(:to, :platform => 'windows')
+
 # Init
-test_dir_name = 'test'
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
 # ERB Manifest
@@ -20,37 +21,31 @@ dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resourc
 dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
 
 # Tests
-confine_block(:to, :platform => 'windows') do
-  agents.each do |agent|
-    step 'Apply Manifest to Create Value'
-    on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => [0,2]) do |result|
-      expect_failure('Expected to fail because of MODULES-2256') do
-        assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
-      end
-    end
+agents.each do |agent|
+  step 'Apply Manifest to Create Value'
+  on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => [0,2]) do |result|
+    assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
+  end
 
-    # New manifest to remove value.
-    dsc_props[:dsc_ensure] = 'Absent'
-    dsc_remove_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+  # New manifest to remove value.
+  dsc_props[:dsc_ensure] = 'Absent'
+  dsc_remove_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
 
-    step 'Apply Manifest to Remove Value'
-    on(agent, puppet('apply'), :stdin => dsc_remove_manifest, :acceptable_exit_codes => [0,2]) do |result|
-      expect_failure('Expected to fail because of MODULES-2256') do
-        assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
-      end
-    end
+  step 'Apply Manifest to Remove Value'
+  on(agent, puppet('apply'), :stdin => dsc_remove_manifest, :acceptable_exit_codes => [0,2]) do |result|
+    assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
+  end
 
-    step 'Verify Results'
-    expect_failure('Expected to fail because of MODULES-2256') do
-      assert_dsc_resource(
-        agent,
-        dsc_type,
-        :Ensure    => dsc_props[:dsc_ensure],
-        :Key       => dsc_props[:dsc_key],
-        :ValueName => dsc_props[:dsc_valuename],
-        :ValueData => dsc_props[:dsc_valuedata],
-        :ValueType => dsc_props[:dsc_valuetype]
-      )
-    end
+  step 'Verify Results'
+  expect_failure('Expected to fail because of MODULES-2267') do
+    assert_dsc_resource(
+      agent,
+      dsc_type,
+      :Ensure    => dsc_props[:dsc_ensure],
+      :Key       => dsc_props[:dsc_key],
+      :ValueName => dsc_props[:dsc_valuename],
+      :ValueData => "@(\"#{dsc_props[:dsc_valuedata]}\")",
+      :ValueType => dsc_props[:dsc_valuetype]
+    )
   end
 end
