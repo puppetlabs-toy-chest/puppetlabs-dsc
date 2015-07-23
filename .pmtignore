@@ -1,6 +1,5 @@
 import/
 /spec/fixtures/
-.librarian
 .tmp
 *.lock
 .rbenv-gemsets

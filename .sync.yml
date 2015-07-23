@@ -17,8 +17,6 @@ Gemfile:
       - gem: mocha
         version: '~>0.10.5'
       - gem: puppet-blacksmith
-      - gem: librarian-puppet
-        version: '>=1.0.2'
     ':system_tests':
       - gem: beaker
       - gem: master_manipulator
@@ -41,7 +39,6 @@ spec/spec_helper.rb:
   paths:
   - 'bin'
   - 'import'
-  - '.librarian'
   - '.tmp'
   - '.rbenv-gemsets'
   - '.ruby-version'
