@@ -4,11 +4,15 @@ require 'fileutils'
 require 'pathname'
 require 'erb'
 require 'open-uri'
-require 'mof'
-require 'cim'
 require 'find'
 require 'logger'
-require 'charlock_holmes/string'
+
+# Bundler group 'build'
+if Bundler.rubygems.find_name('mof').any?
+  require 'mof'
+  require 'cim'
+  require 'charlock_holmes/string'
+end
 
 # Debug
 require 'pry' if Bundler.rubygems.find_name('pry').any?
