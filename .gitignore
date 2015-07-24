@@ -17,7 +17,6 @@ coverage/
 
 bin
 import
-.librarian
 .tmp
 .rbenv-gemsets
 .ruby-version

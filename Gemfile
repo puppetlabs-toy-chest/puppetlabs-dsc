@@ -33,7 +33,6 @@ group :development do
   gem 'puppet_facts',                 :require => false
   gem 'mocha', '~>0.10.5',            :require => false
   gem 'puppet-blacksmith',            :require => false
-  gem 'librarian-puppet', '>=1.0.2',  :require => false
 end
 
 group :system_tests do
