@@ -471,6 +471,22 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
 
     end
 
+    describe "when dsc_ensure is 'absent' for realz" do
+
+      it "should compute powershell dsc set script in which ensure value is 'absent'" do
+        dsc_xsmbshare.original_parameters[:dsc_ensure] = 'absent'
+        dsc_xsmbshare[:dsc_ensure] = 'absent'
+        @provider = described_class.provider(:powershell).new(dsc_xsmbshare)
+
+        @provider.set_test_dsc_parameters
+        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
+
+        @provider.set_original_dsc_parameters
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
+      end
+
+    end
+
   end
 
   # mof PROVIDERS TESTS

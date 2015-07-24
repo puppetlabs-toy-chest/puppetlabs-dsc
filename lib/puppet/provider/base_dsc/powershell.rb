@@ -11,9 +11,10 @@ Applies DSC Resources by generating a configuration file and applying it.
 EOT
 
   def exists?
-    Puppet.debug "\n" + ps_script_content('test')
     set_test_dsc_parameters
-    output = powershell(powershell_args, ps_script_content('test'))
+    script_content = ps_script_content('test')
+    Puppet.debug "\n" + script_content
+    output = powershell(powershell_args, script_content)
     if ['true','false'].include?(output.to_s.strip.downcase)
       check = (output.to_s.strip.downcase == 'true')
       Puppet.debug "Dsc Resource Exists?: #{check}"
@@ -26,15 +27,19 @@ EOT
   end
 
   def create
-    Puppet.debug "\n" + ps_script_content('set')
-    output = powershell(powershell_args, ps_script_content('set'))
+    set_original_dsc_parameters
+    script_content = ps_script_content('set')
+    Puppet.debug "\n" + script_content
+    output = powershell(powershell_args, script_content)
     Puppet.debug "Dsc Resource Return: #{output}"
   end
 
   def destroy
-    Puppet.debug "\n" + ps_script_content('set')
-    output = powershell(powershell_args, ps_script_content('set'))
-    Puppet.debug output
+    set_original_dsc_parameters
+    script_content = ps_script_content('set')
+    Puppet.debug "\n" + script_content
+    output = powershell(powershell_args, script_content)
+    Puppet.debug "Dsc Resource Return: #{output}"
   end
 
   def format_dsc_value(dsc_value)

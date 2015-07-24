@@ -242,6 +242,22 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
       end
 
     end
+
+    describe "when dsc_ensure is 'absent' in a real execution run that both tests and sets" do
+
+      it "should compute powershell dsc set script in which ensure value is 'absent'" do
+        dsc_<%= resource.friendlyname.downcase %>.original_parameters[:dsc_ensure] = 'absent'
+        dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'absent'
+        @provider = described_class.provider(:powershell).new(dsc_<%= resource.friendlyname.downcase %>)
+
+        @provider.set_test_dsc_parameters
+        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
+
+        @provider.set_original_dsc_parameters
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
+      end
+
+    end
 <%  end # if resource.ensurable? -%>
 
   end
