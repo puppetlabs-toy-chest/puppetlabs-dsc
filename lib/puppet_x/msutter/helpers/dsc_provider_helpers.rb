@@ -28,17 +28,6 @@ module PuppetX
           end
         end
 
-        def set_test_dsc_parameters
-          if resource.parameters.has_key?(:dsc_ensure) && resource[:dsc_ensure] == 'absent'
-            resource[:dsc_ensure] = 'present'
-            resource[:ensure] = 'absent'
-          end
-        end
-
-        def set_original_dsc_parameters
-          resource[:dsc_ensure] = resource.original_parameters[:dsc_ensure].downcase if resource.original_parameters[:dsc_ensure]
-        end
-
         def dsc_parameters
           resource.parameters_with_value.select do |p|
             p.name.to_s =~ /dsc_/

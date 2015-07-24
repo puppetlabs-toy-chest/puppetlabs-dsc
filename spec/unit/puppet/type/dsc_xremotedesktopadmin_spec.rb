@@ -161,12 +161,10 @@ describe Puppet::Type.type(:dsc_xremotedesktopadmin) do
       end
 
       it "should compute powershell dsc test script in which ensure value is 'present'" do
-        @provider.set_test_dsc_parameters
         expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
       end
 
       it "should compute powershell dsc set script in which ensure value is 'present'" do
-        @provider.set_original_dsc_parameters
         expect(@provider.ps_script_content('set')).to match(/ensure = 'present'/)
       end
 
@@ -185,12 +183,10 @@ describe Puppet::Type.type(:dsc_xremotedesktopadmin) do
       end
 
       it "should compute powershell dsc test script in which ensure value is 'present'" do
-        @provider.set_test_dsc_parameters
         expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
       end
 
       it "should compute powershell dsc set script in which ensure value is 'absent'" do
-        @provider.set_original_dsc_parameters
         expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
       end
 
