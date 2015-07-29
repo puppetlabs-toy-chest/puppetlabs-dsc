@@ -9,8 +9,6 @@ Puppet::Type.newtype(:dsc_xvhd) do
     defaultfor :operatingsystem => :windows
   end
 
-  provide :mof, :parent => Puppet::Type.type(:base_dsc).provider(:mof)
-
   @doc = %q{
     The DSC xVHD resource type.
     Originally generated from the following schema.mof file:

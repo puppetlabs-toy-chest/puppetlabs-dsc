@@ -248,24 +248,4 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
     end
 
   end
-
-  # mof PROVIDERS TESTS
-
-  describe "mof provider tests" do
-
-    it "should successfully instanciate the provider" do
-      described_class.provider(:mof).new(dsc_xwineventlog)
-    end
-
-    before(:each) do
-      @provider = described_class.provider(:mof).new(dsc_xwineventlog)
-    end
-
-    it "should successfully build mof file" do
-#     expect(@provider.mof_test_content).to match(/instance of MSFT_xWinEventLog as $MSFT_xWinEventLog1ref$/)
-      expect(@provider.mof_test_content).to match(/instance of MSFT_xWinEventLog/)
-    end
-
-
-  end
 end

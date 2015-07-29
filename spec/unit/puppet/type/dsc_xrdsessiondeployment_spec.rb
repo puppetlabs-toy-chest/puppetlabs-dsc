@@ -124,24 +124,4 @@ describe Puppet::Type.type(:dsc_xrdsessiondeployment) do
     end
 
   end
-
-  # mof PROVIDERS TESTS
-
-  describe "mof provider tests" do
-
-    it "should successfully instanciate the provider" do
-      described_class.provider(:mof).new(dsc_xrdsessiondeployment)
-    end
-
-    before(:each) do
-      @provider = described_class.provider(:mof).new(dsc_xrdsessiondeployment)
-    end
-
-    it "should successfully build mof file" do
-#     expect(@provider.mof_test_content).to match(/instance of MSFT_xRDSessionDeployment as $MSFT_xRDSessionDeployment1ref$/)
-      expect(@provider.mof_test_content).to match(/instance of MSFT_xRDSessionDeployment/)
-    end
-
-
-  end
 end

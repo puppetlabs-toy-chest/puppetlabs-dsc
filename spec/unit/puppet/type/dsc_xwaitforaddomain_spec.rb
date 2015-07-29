@@ -159,24 +159,4 @@ describe Puppet::Type.type(:dsc_xwaitforaddomain) do
     end
 
   end
-
-  # mof PROVIDERS TESTS
-
-  describe "mof provider tests" do
-
-    it "should successfully instanciate the provider" do
-      described_class.provider(:mof).new(dsc_xwaitforaddomain)
-    end
-
-    before(:each) do
-      @provider = described_class.provider(:mof).new(dsc_xwaitforaddomain)
-    end
-
-    it "should successfully build mof file" do
-#     expect(@provider.mof_test_content).to match(/instance of MSFT_xWaitForADDomain as $MSFT_xWaitForADDomain1ref$/)
-      expect(@provider.mof_test_content).to match(/instance of MSFT_xWaitForADDomain/)
-    end
-
-
-  end
 end

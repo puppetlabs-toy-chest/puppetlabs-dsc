@@ -193,24 +193,4 @@ describe Puppet::Type.type(:dsc_xipaddress) do
     end
 
   end
-
-  # mof PROVIDERS TESTS
-
-  describe "mof provider tests" do
-
-    it "should successfully instanciate the provider" do
-      described_class.provider(:mof).new(dsc_xipaddress)
-    end
-
-    before(:each) do
-      @provider = described_class.provider(:mof).new(dsc_xipaddress)
-    end
-
-    it "should successfully build mof file" do
-#     expect(@provider.mof_test_content).to match(/instance of MSFT_xIPAddress as $MSFT_xIPAddress1ref$/)
-      expect(@provider.mof_test_content).to match(/instance of MSFT_xIPAddress/)
-    end
-
-
-  end
 end

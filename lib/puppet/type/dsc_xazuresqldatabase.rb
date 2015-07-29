@@ -9,8 +9,6 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
     defaultfor :operatingsystem => :windows
   end
 
-  provide :mof, :parent => Puppet::Type.type(:base_dsc).provider(:mof)
-
   @doc = %q{
     The DSC xAzureSqlDatabase resource type.
     Originally generated from the following schema.mof file:

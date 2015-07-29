@@ -315,24 +315,4 @@ describe Puppet::Type.type(:dsc_xarchive) do
     end
 
   end
-
-  # mof PROVIDERS TESTS
-
-  describe "mof provider tests" do
-
-    it "should successfully instanciate the provider" do
-      described_class.provider(:mof).new(dsc_xarchive)
-    end
-
-    before(:each) do
-      @provider = described_class.provider(:mof).new(dsc_xarchive)
-    end
-
-    it "should successfully build mof file" do
-#     expect(@provider.mof_test_content).to match(/instance of MSFT_xArchive as $MSFT_xArchive1ref$/)
-      expect(@provider.mof_test_content).to match(/instance of MSFT_xArchive/)
-    end
-
-
-  end
 end

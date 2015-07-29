@@ -27,17 +27,4 @@ describe Puppet::Type.type(:base_dsc) do
 
   end
 
-  # mof PROVIDERS TESTS
-
-  describe "mof provider tests" do
-
-    it "should successfully instanciate the provider" do
-      described_class.provider(:mof).new(base_dsc)
-    end
-
-    before(:each) do
-      @provider = described_class.provider(:mof).new(base_dsc)
-    end
-
-  end
 end
