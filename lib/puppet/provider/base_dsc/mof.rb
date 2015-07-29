@@ -72,7 +72,6 @@ EOT
   end
 
   def mof_test_content
-    set_test_dsc_parameters
     @param_hash = resource
     template = ERB.new(File.new(template_path + '/mof.erb').read, nil, '-')
     template.result(binding)

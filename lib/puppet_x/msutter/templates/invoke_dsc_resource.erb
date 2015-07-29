@@ -17,7 +17,11 @@ $invokeParams = @{
   ErrorVariable = 'invokeError'
   Property      = @{
 <% dsc_parameters.each do |p| -%>
-    <%= p.name.to_s.gsub(/^dsc_/,'') %> = <%= format_dsc_value(p.value) %>
+    <%- name = p.name.to_s.gsub(/^dsc_/,'')
+    value = format_dsc_value(p.value)
+    value = '\'present\'' if name == 'ensure' && dsc_invoke_method == 'test'
+    -%>
+    <%= name %> = <%= value %>
 <% end -%>
   }<% if resource.parameters[:dscmeta_module_version] %>
   ModuleName = @{
