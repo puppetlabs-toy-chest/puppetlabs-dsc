@@ -37,15 +37,13 @@ agents.each do |agent|
   end
 
   step 'Verify Results'
-  expect_failure('Expected to fail because of MODULES-2267') do
-    assert_dsc_resource(
-      agent,
-      dsc_type,
-      :Ensure    => dsc_props[:dsc_ensure],
-      :Key       => dsc_props[:dsc_key],
-      :ValueName => dsc_props[:dsc_valuename],
-      :ValueData => "@(\"#{dsc_props[:dsc_valuedata]}\")",
-      :ValueType => dsc_props[:dsc_valuetype]
-    )
-  end
+  assert_dsc_resource(
+    agent,
+    dsc_type,
+    :Ensure    => dsc_props[:dsc_ensure],
+    :Key       => dsc_props[:dsc_key],
+    :ValueName => dsc_props[:dsc_valuename],
+    :ValueData => "@(\"#{dsc_props[:dsc_valuedata]}\")",
+    :ValueType => dsc_props[:dsc_valuetype]
+  )
 end
