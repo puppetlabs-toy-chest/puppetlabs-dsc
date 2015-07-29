@@ -1,8 +1,0 @@
-#winrm s winrm/config/client '@{TrustedHosts="localhost"}'
-$ErrorActionPreference = "Stop"
-$LCMConfigFolder = "$env:systemroot\System32\Configuration"
-
-$set_return = Start-DscConfiguration -Path $LCMConfigFolder -Wait -Verbose
-Remove-Item $LCMConfigFolder\*.mof | out-null
-
-return $set_return

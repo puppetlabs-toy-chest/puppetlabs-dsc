@@ -213,24 +213,4 @@ describe Puppet::Type.type(:dsc_xdbpackage) do
     end
 
   end
-
-  # mof PROVIDERS TESTS
-
-  describe "mof provider tests" do
-
-    it "should successfully instanciate the provider" do
-      described_class.provider(:mof).new(dsc_xdbpackage)
-    end
-
-    before(:each) do
-      @provider = described_class.provider(:mof).new(dsc_xdbpackage)
-    end
-
-    it "should successfully build mof file" do
-#     expect(@provider.mof_test_content).to match(/instance of MSFT_xDBPackage as $MSFT_xDBPackage1ref$/)
-      expect(@provider.mof_test_content).to match(/instance of MSFT_xDBPackage/)
-    end
-
-
-  end
 end

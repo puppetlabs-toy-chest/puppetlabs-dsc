@@ -237,24 +237,4 @@ describe Puppet::Type.type(:dsc_xsqlserverinstall) do
     end
 
   end
-
-  # mof PROVIDERS TESTS
-
-  describe "mof provider tests" do
-
-    it "should successfully instanciate the provider" do
-      described_class.provider(:mof).new(dsc_xsqlserverinstall)
-    end
-
-    before(:each) do
-      @provider = described_class.provider(:mof).new(dsc_xsqlserverinstall)
-    end
-
-    it "should successfully build mof file" do
-#     expect(@provider.mof_test_content).to match(/instance of MSFT_xSqlServerInstall as $MSFT_xSqlServerInstall1ref$/)
-      expect(@provider.mof_test_content).to match(/instance of MSFT_xSqlServerInstall/)
-    end
-
-
-  end
 end

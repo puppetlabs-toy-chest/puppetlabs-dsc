@@ -88,24 +88,4 @@ describe Puppet::Type.type(:dsc_xvhdfile) do
     end
 
   end
-
-  # mof PROVIDERS TESTS
-
-  describe "mof provider tests" do
-
-    it "should successfully instanciate the provider" do
-      described_class.provider(:mof).new(dsc_xvhdfile)
-    end
-
-    before(:each) do
-      @provider = described_class.provider(:mof).new(dsc_xvhdfile)
-    end
-
-    it "should successfully build mof file" do
-#     expect(@provider.mof_test_content).to match(/instance of MSFT_xVhdFileDirectory as $MSFT_xVhdFileDirectory1ref$/)
-      expect(@provider.mof_test_content).to match(/instance of MSFT_xVhdFileDirectory/)
-    end
-
-
-  end
 end

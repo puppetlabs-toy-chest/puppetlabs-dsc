@@ -9,8 +9,6 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
     defaultfor :operatingsystem => :windows
   end
 
-  provide :mof, :parent => Puppet::Type.type(:base_dsc).provider(:mof)
-
   @doc = %q{
     The DSC xAzureQuickVM resource type.
     Originally generated from the following schema.mof file:

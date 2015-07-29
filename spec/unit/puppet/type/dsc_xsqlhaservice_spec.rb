@@ -104,24 +104,4 @@ describe Puppet::Type.type(:dsc_xsqlhaservice) do
     end
 
   end
-
-  # mof PROVIDERS TESTS
-
-  describe "mof provider tests" do
-
-    it "should successfully instanciate the provider" do
-      described_class.provider(:mof).new(dsc_xsqlhaservice)
-    end
-
-    before(:each) do
-      @provider = described_class.provider(:mof).new(dsc_xsqlhaservice)
-    end
-
-    it "should successfully build mof file" do
-#     expect(@provider.mof_test_content).to match(/instance of MSFT_xSqlHAService as $MSFT_xSqlHAService1ref$/)
-      expect(@provider.mof_test_content).to match(/instance of MSFT_xSqlHAService/)
-    end
-
-
-  end
 end
