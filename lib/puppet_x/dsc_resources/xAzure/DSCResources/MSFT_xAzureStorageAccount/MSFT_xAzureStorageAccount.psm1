@@ -69,7 +69,7 @@ param(
             $TestAzureStorageName = Test-AzureName -Name $StorageAccountName -Storage
 
             # Test storage account name for Azure requirements, lowercase, no special characters, and between 3 and 24 characters
-            $AzureStorageNameRequirements = ($StorageAccountName -cmatch '^[a-z\d]+$')
+            $AzureStorageNameRequirements = ($StorageAccountName -cmatch ‘^[a-z\d]+$’)
             if ($AzureStorageNameRequirements -eq $False) {
                 Write-Error 'The Storage Account Name does not meet requirements of 3-24 characters, lower case letters, and numbers.'
                 }
