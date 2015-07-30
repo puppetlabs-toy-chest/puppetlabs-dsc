@@ -18,7 +18,7 @@ bundle exec beaker \
   --debug \
   --tests tests/integration/tests \
   --keyfile ~/.ssh/id_rsa-acceptance \
-  --pre-suite tests/integration/pre-suite,tests/pre-suite \
+  --pre-suite tests/integration/pre-suite \
   --load-path tests/lib
 
 rm -rf tmp

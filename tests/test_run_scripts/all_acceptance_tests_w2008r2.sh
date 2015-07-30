@@ -18,7 +18,7 @@ bundle exec beaker \
   --debug \
   --tests tests/acceptance/tests \
   --keyfile ~/.ssh/id_rsa-acceptance \
-  --pre-suite tests/acceptance/pre-suite,tests/pre-suite \
+  --pre-suite tests/acceptance/pre-suite \
   --load-path tests/lib \
   --type aio
 
