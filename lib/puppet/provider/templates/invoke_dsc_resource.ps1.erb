@@ -13,8 +13,6 @@ if ($currentState.RefreshMode -ne 'Disabled') {
 $invokeParams = @{
   Name          = '<%= resource[:dscmeta_resource_friendly_name] %>'
   Method        = '<%= dsc_invoke_method %>'
-  ErrorAction   = 'Continue'
-  ErrorVariable = 'invokeError'
   Property      = @{
 <% dsc_parameters.each do |p| -%>
     <%- name = p.name.to_s.gsub(/^dsc_/,'')
