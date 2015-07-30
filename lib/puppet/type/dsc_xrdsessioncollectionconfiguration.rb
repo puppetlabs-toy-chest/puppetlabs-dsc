@@ -31,7 +31,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
     newvalues(true, false)
 
     munge do |value|
-      value.to_s.downcase.to_bool
+      provider.munge_boolean(value.to_s)
     end
 
     defaultto true
@@ -94,7 +94,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
     end
     newvalues(true, false)
     munge do |value|
-      value.to_s.downcase.to_bool
+      provider.munge_boolean(value.to_s)
     end
   end
 
@@ -108,7 +108,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
     end
     newvalues(true, false)
     munge do |value|
-      value.to_s.downcase.to_bool
+      provider.munge_boolean(value.to_s)
     end
   end
 
@@ -148,7 +148,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
     end
     newvalues(true, false)
     munge do |value|
-      value.to_s.downcase.to_bool
+      provider.munge_boolean(value.to_s)
     end
   end
 
@@ -162,7 +162,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
     end
     newvalues(true, false)
     munge do |value|
-      value.to_s.downcase.to_bool
+      provider.munge_boolean(value.to_s)
     end
   end
 
@@ -276,7 +276,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
     end
     newvalues(true, false)
     munge do |value|
-      value.to_s.downcase.to_bool
+      provider.munge_boolean(value.to_s)
     end
   end
 
@@ -303,7 +303,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
     end
     newvalues(true, false)
     munge do |value|
-      value.to_s.downcase.to_bool
+      provider.munge_boolean(value.to_s)
     end
   end
 
