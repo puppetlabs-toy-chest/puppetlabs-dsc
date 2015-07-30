@@ -35,9 +35,6 @@ $invokeParams = @{
 
 $result = Invoke-DscResource @invokeParams
 
-if ($currentRefreshMode) { Set-RefreshMode $currentRefreshMode }
-if ($invokeError) { throw $invokeError }
-
 switch ($invokeParams.Method) {
   'Test' {
     [bool]($result.InDesiredState)
