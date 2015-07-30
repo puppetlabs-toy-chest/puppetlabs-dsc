@@ -18,16 +18,6 @@ module PuppetX
           end
         end
 
-        def lcm_config_folder
-          if File.exists?("#{ENV['SYSTEMROOT']}\\sysnative\\Configuration")
-            "#{ENV['SYSTEMROOT']}\\sysnative\\Configuration"
-          elsif File.exists?("#{ENV['SYSTEMROOT']}\\System32\\Configuration")
-            "#{ENV['SYSTEMROOT']}\\System32\\Configuration"
-          else
-            fail "Could not find the LCM Config Directory"
-          end
-        end
-
         def dsc_parameters
           resource.parameters_with_value.select do |p|
             p.name.to_s =~ /dsc_/
@@ -45,11 +35,6 @@ module PuppetX
         def powershell_args
           ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command']
         end
-
-        def native_path(path)
-          path.gsub(File::SEPARATOR, File::ALT_SEPARATOR)
-        end
-
       end
     end
   end
