@@ -22,7 +22,7 @@ EOT
   end
 
   def template_path
-    File.expand_path('../../../../puppet_x/msutter/templates', __FILE__)
+    File.expand_path('../../templates', __FILE__)
   end
 
   def vendored_modules_path
@@ -82,7 +82,7 @@ EOT
   def ps_script_content(mode)
     dsc_invoke_method = mode
     @param_hash = resource
-    template = ERB.new(File.new(template_path + "/invoke_dsc_resource.erb").read, nil, '-')
+    template = ERB.new(File.new(template_path + "/invoke_dsc_resource.ps1.erb").read, nil, '-')
     template.result(binding)
   end
 end
