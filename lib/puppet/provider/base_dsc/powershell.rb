@@ -62,6 +62,13 @@ EOT
     Puppet.debug "Dsc Resource Return: #{output}"
   end
 
+  def munge_boolean(value)
+    return true if value =~ (/^(true|t|yes|y|1)$/i)
+    return false if value.empty? || value =~ (/^(false|f|no|n|0)$/i)
+
+    raise ArgumentError.new "invalid value: #{value}"
+  end
+
   def format_dsc_value(dsc_value)
     case
     when dsc_value.class.name == 'String'

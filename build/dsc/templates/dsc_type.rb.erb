@@ -33,7 +33,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     newvalues(true, false)
 
     munge do |value|
-      value.to_s.downcase.to_bool
+      provider.munge_boolean(value.to_s)
     end
 
     defaultto true
@@ -124,7 +124,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     end
 <%    when property.bool? -%>
     munge do |value|
-      value.to_s.downcase.to_bool
+      provider.munge_boolean(value.to_s)
     end
 <%    when (property.int? || property.uint?) -%>
     munge do |value|

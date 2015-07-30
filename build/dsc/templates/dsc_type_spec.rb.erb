@@ -1,6 +1,14 @@
 #!/usr/bin/env ruby
 require 'spec_helper'
 
+<%-
+def munge_boolean(value)
+  return true if value =~ (/^(true|t|yes|y|1)$/i)
+  return false if value.empty? || value =~ (/^(false|f|no|n|0)$/i)
+
+  raise ArgumentError.new "invalid value: #{value}"
+end
+-%>
 describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
   let :dsc_<%= resource.friendlyname.downcase %> do
@@ -108,7 +116,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 <%      @spec_test_values['munged_bools'].each do |munged_bool| %>
   it "should accept boolean-like value <%= format_type_value(munged_bool) %> and munge this value to boolean for dsc_<%= property.name.downcase %>" do
     dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(munged_bool) %>
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= munged_bool.to_s.downcase.to_bool %>)
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= munge_boolean(munged_bool.to_s) %>)
   end
 <%      end #  @spec_test_values['munged_bools']... -%>
 <%    else # if property.bool? -%>
