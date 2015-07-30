@@ -17,4 +17,3 @@ class MSFT_xSqlHAGroup : OMI_BaseResource
     String SqlAdministratorCredential;
 };
 
-

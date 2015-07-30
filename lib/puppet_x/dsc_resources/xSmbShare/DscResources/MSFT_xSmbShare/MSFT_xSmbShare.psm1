@@ -315,27 +315,29 @@ function Test-TargetResource
         $Ensure
     )
     $testResult = $false;
-    $share = Get-SmbShare -Name $Name -ErrorAction SilentlyContinue -ErrorVariable ev
-    if ($Ensure -eq "Present")
+    $share = Get-TargetResource -Name $Name -Path $Path -ErrorAction SilentlyContinue -ErrorVariable ev
+    if ($Ensure -ne "Absent")
     {
-        if ($share -eq $null)
+        if ($share.Ensure -eq "Absent")
         {
             $testResult = $false
         }
-        elseif ($share -ne $null -and $PSBoundParameters.Count -gt 3)
-        # This means some other parameter in addition to Name, Path, Ensure could have been specified
-        # Which means we need to modify something
+        elseif ($share.Ensure -eq "Present")
         {
-            $testResult = $false
-        }
-        else
-        {
-            $testResult = $true
+            $Params = 'Name', 'Path', 'Description', 'ChangeAccess', 'ConcurrentUserLimit', 'EncryptData', 'FolderEnumerationMode', 'FullAccess', 'NoAccess', 'ReadAccess', 'Ensure'
+            if ($PSBoundParameters.Keys.Where({$_ -in $Params}) | ForEach-Object {Compare-Object -ReferenceObject $PSBoundParameters.$_ -DifferenceObject $share.$_})
+            { 
+                $testResult = $false
+            }
+            else
+            {
+                $testResult = $true
+            }
         }
     }
     else
     {
-        if ($share -eq $null)
+        if ($share.Ensure -eq "Absent")
         {
             $testResult = $true
         }
