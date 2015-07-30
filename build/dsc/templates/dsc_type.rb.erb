@@ -53,7 +53,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
-<%  if resource.ensurable? -%>
+<%  if resource.absentable? -%>
     newvalue(:absent)  { provider.destroy }
 <%  end -%>
     defaultto :present
