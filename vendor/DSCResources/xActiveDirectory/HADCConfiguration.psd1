@@ -6,8 +6,8 @@
             Role = "Primary DC"
             DomainName = "sva-dscdom.nttest.microsoft.com"
             PSDscAllowPlainTextPassword = $true
-	    RetryCount = 20 
-	    RetryIntervalSec = 30 
+        RetryCount = 20 
+        RetryIntervalSec = 30 
         },
 
         @{
@@ -15,8 +15,8 @@
             Role = "Replica DC"
             DomainName = "sva-dscdom.nttest.microsoft.com"
             PSDscAllowPlainTextPassword = $true
-	    RetryCount = 20 
-	    RetryIntervalSec = 30 
+        RetryCount = 20 
+        RetryIntervalSec = 30 
         }
     )
 }

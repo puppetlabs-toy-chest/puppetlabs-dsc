@@ -1,5 +1,5 @@
 
-[ClassVersion("1.0.0.0"), FriendlyName("xAzureStorageAccount")]
+[ClassVersion("1.0.1.0"), FriendlyName("xAzureStorageAccount")]
 class MSFT_xAzureStorageAccount : OMI_BaseResource
 {
     [key, Description("Specifies a name for the storage account. The storage account name must be unique to Windows Azure and must be between 3 and 24 characters in length and use lowercase letters and numbers only.")] string StorageAccountName;

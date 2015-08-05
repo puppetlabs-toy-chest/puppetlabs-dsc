@@ -225,6 +225,8 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
     end
 
+<%  end # if resource.ensurable? -%>
+<%  if resource.absentable? -%>
     describe "when dsc_ensure is 'absent'" do
 
       before(:each) do
@@ -246,7 +248,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
       end
 
     end
-<%  end # if resource.ensurable? -%>
+<%  end # if resource.absentable? -%>
 
   end
 end

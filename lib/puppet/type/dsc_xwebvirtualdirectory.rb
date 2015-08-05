@@ -44,7 +44,7 @@ Puppet::Type.newtype(:dsc_xwebvirtualdirectory) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.3.2"
+    defaultto "1.3.2.4"
   end
 
   newparam(:name, :namevar => true ) do

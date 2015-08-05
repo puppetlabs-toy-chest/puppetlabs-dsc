@@ -42,7 +42,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "3.0.2.0"
+    defaultto "3.1.3.4"
   end
 
   newparam(:name, :namevar => true ) do

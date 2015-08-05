@@ -1,24 +1,24 @@
 Configuration FileUploadConfiguration
 {
 param (
-	[parameter(Mandatory = $true)]
-	[String] $destinationPath,
-	[parameter(Mandatory = $true)]
-	[String] $sourcePath,
-	[PSCredential] $credential,
-	[String] $certificateThumbprint
+    [parameter(Mandatory = $true)]
+    [String] $destinationPath,
+    [parameter(Mandatory = $true)]
+    [String] $sourcePath,
+    [PSCredential] $credential,
+    [String] $certificateThumbprint
 )
 
 Import-DscResource -modulename xPSDesiredStateConfiguration
 node localhost 
 {
-	xFileUpload fileUpload 
-	{
-		destinationPath = $destinationPath
-		sourcePath = $sourcePath
-		credential = $credential
-		certificateThumbprint = $certificateThumbprint
-	}
+    xFileUpload fileUpload 
+    {
+        destinationPath = $destinationPath
+        sourcePath = $sourcePath
+        credential = $credential
+        certificateThumbprint = $certificateThumbprint
+    }
 }
 
 }

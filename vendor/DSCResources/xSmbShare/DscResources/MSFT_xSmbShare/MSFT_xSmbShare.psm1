@@ -1,19 +1,19 @@
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Path
-	)
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Path
+    )
 
-	$smbShare = Get-SmbShare -Name $Name -ErrorAction SilentlyContinue
+    $smbShare = Get-SmbShare -Name $Name -ErrorAction SilentlyContinue
     $changeAccess = @()
     $readAccess = @()
     $fullAccess = @()
@@ -46,13 +46,13 @@ function Get-TargetResource
         Write-Verbose "Share with name $Name does not exist"
     } 
 
-	$returnValue = @{
-		Name = $smbShare.Name
-		Path = $smbShare.Path
+    $returnValue = @{
+        Name = $smbShare.Name
+        Path = $smbShare.Path
         Description = $smbShare.Description
-		ConcurrentUserLimit = $smbShare.ConcurrentUserLimit
-		EncryptData = $smbShare.EncryptData
-		FolderEnumerationMode = $smbShare.FolderEnumerationMode	    		
+        ConcurrentUserLimit = $smbShare.ConcurrentUserLimit
+        EncryptData = $smbShare.EncryptData
+        FolderEnumerationMode = $smbShare.FolderEnumerationMode                
         ShareState = $smbShare.ShareState
         ShareType = $smbShare.ShareType
         ShadowCopy = $smbShare.ShadowCopy
@@ -62,9 +62,9 @@ function Get-TargetResource
         FullAccess = $fullAccess
         NoAccess = $noAccess     
         Ensure = if($smbShare) {"Present"} else {"Absent"}
-	}
+    }
 
-	$returnValue
+    $returnValue
 }
 
 function Set-AccessPermission
@@ -123,50 +123,50 @@ function Remove-AccessPermission
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Path,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Path,
 
-		[System.String]
-		$Description,
+        [System.String]
+        $Description,
 
-		[System.String[]]
-		$ChangeAccess,
+        [System.String[]]
+        $ChangeAccess,
 
-		[System.UInt32]
-		$ConcurrentUserLimit,
+        [System.UInt32]
+        $ConcurrentUserLimit,
 
-		[System.Boolean]
-		$EncryptData,
+        [System.Boolean]
+        $EncryptData,
 
-		[ValidateSet("AccessBased","Unrestricted")]
-		[System.String]
-		$FolderEnumerationMode,
+        [ValidateSet("AccessBased","Unrestricted")]
+        [System.String]
+        $FolderEnumerationMode,
 
-		[System.String[]]
-		$FullAccess,
+        [System.String[]]
+        $FullAccess,
 
-		[System.String[]]
-		$NoAccess,
+        [System.String[]]
+        $NoAccess,
 
-		[System.String[]]
-		$ReadAccess,
+        [System.String[]]
+        $ReadAccess,
 
-		[ValidateSet("Present","Absent")]
-		[System.String]
-		$Ensure
-	)
+        [ValidateSet("Present","Absent")]
+        [System.String]
+        $Ensure
+    )
 
     $psboundparameters.Remove("Debug")
 
-	$shareExists = $false
+    $shareExists = $false
     $smbShare = Get-SmbShare -Name $Name -ErrorAction SilentlyContinue
     if($smbShare -ne $null)
     {
@@ -273,47 +273,47 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Path,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Path,
 
-		[System.String]
-		$Description,
+        [System.String]
+        $Description,
 
-		[System.String[]]
-		$ChangeAccess,
+        [System.String[]]
+        $ChangeAccess,
 
-		[System.UInt32]
-		$ConcurrentUserLimit,
+        [System.UInt32]
+        $ConcurrentUserLimit,
 
-		[System.Boolean]
-		$EncryptData,
+        [System.Boolean]
+        $EncryptData,
 
-		[ValidateSet("AccessBased","Unrestricted")]
-		[System.String]
-		$FolderEnumerationMode,
+        [ValidateSet("AccessBased","Unrestricted")]
+        [System.String]
+        $FolderEnumerationMode,
 
-		[System.String[]]
-		$FullAccess,
+        [System.String[]]
+        $FullAccess,
 
-		[System.String[]]
-		$NoAccess,
+        [System.String[]]
+        $NoAccess,
 
-		[System.String[]]
-		$ReadAccess,
+        [System.String[]]
+        $ReadAccess,
 
-		[ValidateSet("Present","Absent")]
-		[System.String]
-		$Ensure
-	)
+        [ValidateSet("Present","Absent")]
+        [System.String]
+        $Ensure
+    )
     $testResult = $false;
     $share = Get-SmbShare -Name $Name -ErrorAction SilentlyContinue -ErrorVariable ev
     if ($Ensure -eq "Present")
@@ -345,7 +345,7 @@ function Test-TargetResource
         }
     }
 
-	$testResult
+    $testResult
 }
 
 Export-ModuleMember -Function *-TargetResource

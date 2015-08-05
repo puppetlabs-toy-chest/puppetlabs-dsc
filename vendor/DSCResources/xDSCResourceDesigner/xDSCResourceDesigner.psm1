@@ -225,7 +225,9 @@ $TypeMap = @{
         "Boolean[]" = [System.Boolean[]];
         "DateTime[]"= [System.DateTime[]];
         
-        "Hashtable[]"    = [System.Collections.Hashtable[]];
+        # An array of hashtables is not converted back to a hashtable, but is
+        # passed to the provider as an array of CimInstances
+        "Hashtable[]"    = [Microsoft.Management.Infrastructure.CimInstance[]];
         "PSCredential[]" = [PSCredential[]];
     }
 
@@ -1821,6 +1823,30 @@ function Test-GetKeyRequiredMandatory
     return ($errorIds.Length -eq 0)
 }
 
+<#
+.Synopsis
+    Determines if the parameter is the internal -WhatIf or -Confirm switch parameter that is
+    defined when Set-TargetResource declares SupportsShouldProcess.
+#>
+function Test-IsShouldProcessParameter
+{
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory=$true)]
+        [System.Management.Automation.ParameterMetadata]
+        $parameter
+    )
+    if ($parameter.ParameterType -eq [System.Management.Automation.SwitchParameter])
+    {
+        if (($parameter.Name -eq "WhatIf") -or ($parameter.Name -eq "Confirm"))
+        {
+            return $true
+        }
+    }
+    return $false
+}
+
 function Test-SetHasExactlyAllNonReadProperties
 {
     param
@@ -1865,6 +1891,12 @@ function Test-SetHasExactlyAllNonReadProperties
     #Make sure there are no extra properties in the function
     foreach ($parameter in $SetParameters.Values)
     {
+        if (Test-IsShouldProcessParameter -parameter $parameter)
+        {
+            # ignore -WhatIf and -Confirm
+            continue
+        }
+
         if (-not $propertiesHash[$parameter.Name] -and -not $commonParameters.Contains($parameter.Name))
         {
             $errorId = "SetAndTestExtraParameterError"
@@ -2759,6 +2791,11 @@ function Test-GetSubsetSet
 
     foreach ($parameter in $getCommandInfo.Parameters.Values)
     {
+        if (Test-IsShouldProcessParameter -parameter $parameter)
+        {
+            # ignore -WhatIf and -Confirm
+            continue
+        }
         
         if (-not $setCommandInfo.Parameters.Keys.Contains($parameter.Name))
         {
@@ -3005,6 +3042,12 @@ function Test-BasicDscFunction
 
     foreach ($parameter in $command.Parameters.Values)
     {
+        if (Test-IsShouldProcessParameter -parameter $parameter)
+        {
+            # ignore -WhatIf and -Confirm
+            continue
+        }
+
         if ($commonParameters.Contains($parameter.Name))
         {
             continue;
@@ -3110,6 +3153,11 @@ function Test-SetTestIdentical
     # Loop over the longer list, if we find errors, report them then stop
     foreach($parameter in $commandWithMoreParameters.Parameters.Values)
     {
+        if (Test-IsShouldProcessParameter -parameter $parameter)
+        {
+            # ignore -WhatIf and -Confirm
+            continue
+        }
 
         # Powershell automatically adds common parameters to functions (Verbose/Debug/ErrorAction/etc)
         #   Displaying an error regarding these auto populated parameters is not useful
@@ -3140,17 +3188,30 @@ function Test-SetTestIdentical
     }
 
     
-    if ($setCommand.Parameters.Values.Count -ne $testCommand.Parameters.Values.Count `
-        -and -not $errorReported)
+    if (-not $errorReported)
     {
-        # if the counts are different but we didnt get an error, something is wrong...
-        $errorId = "SetTestNotIdenticalError"
-        Write-Error ($localizedData[$errorId]) `
-            -ErrorId $errorId -ErrorAction Continue
-        $errorIds += $errorId
-        $errorReported = $true
+        # Generate a count for the Set-TargetResource command that doesn't include the -Whatif and -Confirm parameters
+        [int] $setCount = 0;
+        foreach ($parameter in $setCommand.Parameters.Values)
+        {
+            if (Test-IsShouldProcessParameter -parameter $parameter)
+            {
+                # ignore -WhatIf and -Confirm
+                continue
+            }
+            $setCount++
+        }
+        if ($setCount -ne $testCommand.Parameters.Count)
+        {
+            # if the counts are different but we didnt get an error, something is wrong...
+            $errorId = "SetTestNotIdenticalError"
+            Write-Error ($localizedData[$errorId]) `
+                -ErrorId $errorId -ErrorAction Continue
+            $errorIds += $errorId
+            $errorReported = $true
+        }
     }
-    elseif ($errorReported) # If there is an error, give the Set/Testerror as well
+    else # if there is an error, give the Set/Test error as well
     {
         $errorId = "SetTestNotIdenticalError"
         Write-Error ($localizedData[$errorId]) `

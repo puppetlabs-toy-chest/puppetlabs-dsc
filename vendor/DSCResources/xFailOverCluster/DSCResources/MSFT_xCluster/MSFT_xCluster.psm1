@@ -9,7 +9,7 @@
 function Get-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)]
         [string] $Name,
 
@@ -59,7 +59,7 @@ function Get-TargetResource
 function Set-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)]
         [string] $Name,
 
@@ -157,7 +157,7 @@ function Set-TargetResource
 function Test-TargetResource  
 {
     param
-    (	
+    (    
         [parameter(Mandatory)]
         [string] $Name,
 

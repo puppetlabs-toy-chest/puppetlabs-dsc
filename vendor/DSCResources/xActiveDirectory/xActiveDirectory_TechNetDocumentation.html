@@ -1,6 +1,5 @@
 <body>
         <div id="longDesc">
-            <p><span style="font-family:Calibri; font-size:medium">&nbsp;</span></p>
             <h1 style="color:#2e74b5; font-family:Calibri Light; font-size:large">Introduction</h1>       
             <div id="longDesc">
                 <span style="font-family:Calibri; font-size:medium">
@@ -253,6 +252,12 @@
                     <ul style="list-style-type:disc; direction:ltr">
                         <li>
                             Minor update: Get-TargetResource to use domain name instead of name
+                        </li>
+                    </ul>
+                    <p>2.2</p>
+                    <ul style="list-style-type:disc; direction:ltr">
+                        <li>
+                            Modified xAdDomain and xAdDomainController to support Ensure as Present / Absent, rather than True/False. Note: this may cause issues for existing scripts. Also corrected return value to be a hashtable in both resources. 
                         </li>
                     </ul>
                     <h1 style="margin-bottom:0pt; font-family:Calibri Light; color:#2e74b5; font-size:large">

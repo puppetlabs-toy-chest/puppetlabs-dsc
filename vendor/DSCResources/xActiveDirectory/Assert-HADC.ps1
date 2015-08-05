@@ -62,7 +62,7 @@ configuration AssertHADC
         {
             DomainName = $Node.DomainName
             DomainUserCredential = $domaincred
-	    RetryCount = $Node.RetryCount
+        RetryCount = $Node.RetryCount
             RetryIntervalSec = $Node.RetryIntervalSec
             DependsOn = "[WindowsFeature]ADDSInstall"
         }

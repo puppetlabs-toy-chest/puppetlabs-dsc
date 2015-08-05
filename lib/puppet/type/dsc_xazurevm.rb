@@ -42,7 +42,7 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.1.2"
+    defaultto "0.1.3"
   end
 
   newparam(:name, :namevar => true ) do

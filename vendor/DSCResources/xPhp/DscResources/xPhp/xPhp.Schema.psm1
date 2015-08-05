@@ -116,8 +116,8 @@ configuration xPhp
                DependsOn = @("[Package]vcRedist","[File]PhpIni") 
 
                # Removed because this dependency does not work in Windows Server 2012 R2 and below
-	           # This should work in WMF v5 and above
-			   # "[IisPreReqs_php]Iis" 
+               # This should work in WMF v5 and above
+               # "[IisPreReqs_php]Iis" 
             }
 
         # Make sure the php binary folder is in the path

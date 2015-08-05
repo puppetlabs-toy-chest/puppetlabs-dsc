@@ -10,7 +10,7 @@
 function Get-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)][string] $Name,
 
         [UInt64] $RetryIntervalSec = 10,
@@ -30,7 +30,7 @@ function Get-TargetResource
 function Set-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)][string] $Name,
 
         [UInt64] $RetryIntervalSec = 10,
@@ -83,7 +83,7 @@ function Set-TargetResource
 function Test-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)][string] $Name,
 
         [UInt64] $RetryIntervalSec = 10,

@@ -21,30 +21,30 @@ SetPropertyMessage        = {0} between domains is set
 
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$SourceDomainName,
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$SourceDomainName,
 
-		[parameter(Mandatory)]
-		[String]$TargetDomainName,
+        [parameter(Mandatory)]
+        [String]$TargetDomainName,
 
-		[parameter(Mandatory)]
-		[PSCredential]$TargetDomainAdministratorCredential,
+        [parameter(Mandatory)]
+        [PSCredential]$TargetDomainAdministratorCredential,
 
-		[parameter(Mandatory)]
-		[ValidateSet("External")]
-		[String]$TrustType,
+        [parameter(Mandatory)]
+        [ValidateSet("External")]
+        [String]$TrustType,
 
-		[parameter(Mandatory)]
-		[ValidateSet("Bidirectional","Inbound","Outbound")]
-		[String]$TrustDirection,
+        [parameter(Mandatory)]
+        [ValidateSet("Bidirectional","Inbound","Outbound")]
+        [String]$TrustDirection,
 
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = 'Present'
-	)
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = 'Present'
+    )
 
 #region Input Validation
 
@@ -91,41 +91,41 @@ function Get-TargetResource
                                                 }
 
     @{
-		SourceDomainName = $SourceDomainName
-		TargetDomainName = $TargetDomainName
-		Ensure           = $Ensure
-		TrustType        = $trust.TrustType
-		TrustDirection   = $trust.TrustDirection
-		TargetDomainAdministratorCredential = $CIMCredential
-	}
+        SourceDomainName = $SourceDomainName
+        TargetDomainName = $TargetDomainName
+        Ensure           = $Ensure
+        TrustType        = $trust.TrustType
+        TrustDirection   = $trust.TrustDirection
+        TargetDomainAdministratorCredential = $CIMCredential
+    }
 
 }
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$SourceDomainName,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$SourceDomainName,
 
-		[parameter(Mandatory)]
-		[String]$TargetDomainName,
+        [parameter(Mandatory)]
+        [String]$TargetDomainName,
 
-		[parameter(Mandatory)]
-		[PSCredential]$TargetDomainAdministratorCredential,
+        [parameter(Mandatory)]
+        [PSCredential]$TargetDomainAdministratorCredential,
 
-		[parameter(Mandatory)]
-		[ValidateSet("External")]
-		[String]$TrustType,
+        [parameter(Mandatory)]
+        [ValidateSet("External")]
+        [String]$TrustType,
 
-		[parameter(Mandatory)]
-		[ValidateSet("Bidirectional","Inbound","Outbound")]
-		[String]$TrustDirection,
+        [parameter(Mandatory)]
+        [ValidateSet("Bidirectional","Inbound","Outbound")]
+        [String]$TrustDirection,
 
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = 'Present'
-	)
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = 'Present'
+    )
 
     if($PSBoundParameters.ContainsKey('Debug')){$null = $PSBoundParameters.Remove('Debug')}
     Validate-ResourceProperties @PSBoundParameters -Apply
@@ -133,30 +133,30 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory)]
-		[String]$SourceDomainName,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory)]
+        [String]$SourceDomainName,
 
-		[parameter(Mandatory)]
-		[String]$TargetDomainName,
+        [parameter(Mandatory)]
+        [String]$TargetDomainName,
 
-		[parameter(Mandatory)]
-		[PSCredential]$TargetDomainAdministratorCredential,
+        [parameter(Mandatory)]
+        [PSCredential]$TargetDomainAdministratorCredential,
 
-		[parameter(Mandatory)]
-		[ValidateSet("External")]
-		[String]$TrustType,
+        [parameter(Mandatory)]
+        [ValidateSet("External")]
+        [String]$TrustType,
 
-		[parameter(Mandatory)]
-		[ValidateSet("Bidirectional","Inbound","Outbound")]
-		[String]$TrustDirection,
+        [parameter(Mandatory)]
+        [ValidateSet("Bidirectional","Inbound","Outbound")]
+        [String]$TrustDirection,
 
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = 'Present'
-	)
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = 'Present'
+    )
 
 #region Input Validation
 
@@ -183,29 +183,29 @@ function Validate-ResourceProperties
 {
     [Cmdletbinding()]
     param
-	(
-		[parameter(Mandatory)]
-		[String]$SourceDomainName,
+    (
+        [parameter(Mandatory)]
+        [String]$SourceDomainName,
 
-		[parameter(Mandatory)]
-		[String]$TargetDomainName,
+        [parameter(Mandatory)]
+        [String]$TargetDomainName,
 
-		[parameter(Mandatory)]
-		[PSCredential]$TargetDomainAdministratorCredential,
+        [parameter(Mandatory)]
+        [PSCredential]$TargetDomainAdministratorCredential,
 
-		[parameter(Mandatory)]
-		[ValidateSet("External")]
-		[String]$TrustType,
+        [parameter(Mandatory)]
+        [ValidateSet("External")]
+        [String]$TrustType,
 
-		[parameter(Mandatory)]
-		[ValidateSet("Bidirectional","Inbound","Outbound")]
-		[String]$TrustDirection,
+        [parameter(Mandatory)]
+        [ValidateSet("Bidirectional","Inbound","Outbound")]
+        [String]$TrustDirection,
 
-		[ValidateSet("Present","Absent")]
-		[String]$Ensure = 'Present',
+        [ValidateSet("Present","Absent")]
+        [String]$Ensure = 'Present',
 
         [Switch]$Apply
-	)
+    )
 
     try
     {

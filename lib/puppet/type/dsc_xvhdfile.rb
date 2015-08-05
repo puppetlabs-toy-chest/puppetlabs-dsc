@@ -42,7 +42,7 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.1"
+    defaultto "2.2.1"
   end
 
   newparam(:name, :namevar => true ) do
@@ -81,6 +81,21 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
     end
     munge do |value|
       Array(value)
+    end
+  end
+
+  # Name:         CheckSum
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["ModifiedDate", "SHA-1", "SHA-256", "SHA-512"]
+  newparam(:dsc_checksum) do
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['ModifiedDate', 'modifieddate', 'SHA-1', 'sha-1', 'SHA-256', 'sha-256', 'SHA-512', 'sha-512'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are ModifiedDate, SHA-1, SHA-256, SHA-512")
+      end
     end
   end
 

@@ -32,7 +32,7 @@ configuration AssertParentChildDomains
         {
             DomainName = $Node.DomainName
             DomainUserCredential = $domaincred
-	    RetryCount = $Node.RetryCount
+        RetryCount = $Node.RetryCount
             RetryIntervalSec = $Node.RetryIntervalSec
             DependsOn = "[xADDomain]FirstDS"
         }
@@ -61,7 +61,7 @@ configuration AssertParentChildDomains
         {
             DomainName = $Node.ParentDomainName
             DomainUserCredential = $domaincred
-	    RetryCount = $Node.RetryCount
+        RetryCount = $Node.RetryCount
             RetryIntervalSec = $Node.RetryIntervalSec
             DependsOn = "[WindowsFeature]ADDSInstall"
         }

@@ -30,7 +30,7 @@ configuration Sample_xIPAddress_Parameterized
             InterfaceAlias = $InterfaceAlias
             DefaultGateway = $DefaultGateway
             SubnetMask     = $SubnetMask
-	        AddressFamily  = $AddressFamily
+            AddressFamily  = $AddressFamily
         }
     }
 }

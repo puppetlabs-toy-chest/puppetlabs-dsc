@@ -1,12 +1,6 @@
 # Purpose:
 # Resource to Publish a Dsc Configuration archive to Azure storage
 
-# Prerequisite: Azure PowerShell SDK
-if (-not (Get-Module Azure))
-{
-    throw "Azure module is not present in $env:PSModulePath"
-}
-
 #region GET
 
 function Get-TargetResource {
@@ -52,10 +46,10 @@ param(
     Write-Verbose "Blob Uri is $blobUri"
 
     $returnValue = @{
-		BlobUri = $blobUri
-	    }
+        BlobUri = $blobUri
+        }
 
-	return $returnValue    
+    return $returnValue    
 
     }
 

@@ -11,28 +11,28 @@
 ######################################################################################
 function Get-TargetResource
 {
-	param
-	(		
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
-		[String[]]$Address,
+    param
+    (        
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [String[]]$Address,
 
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
         [String]$InterfaceAlias,
 
         [ValidateSet("IPv4", "IPv6")]
         [String]$AddressFamily = "IPv4"
-	)
-	
+    )
+    
     
     $returnValue = @{
         Address = (Get-DnsClientServerAddress -InterfaceAlias $InterfaceAlias -AddressFamily $AddressFamily).ServerAddresses
         AddressFamily = $AddressFamily
         InterfaceAlias = $InterfaceAlias
-	}
+    }
 
-	$returnValue
+    $returnValue
 }
 
 ######################################################################################
@@ -41,20 +41,20 @@ function Get-TargetResource
 ######################################################################################
 function Set-TargetResource
 {
-	param
-	(	
-        #IP Address that has to be set	
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
-		[String[]]$Address,
+    param
+    (    
+        #IP Address that has to be set    
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [String[]]$Address,
 
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
         [String]$InterfaceAlias,
 
         [ValidateSet("IPv4", "IPv6")]
         [String]$AddressFamily = "IPv4"
-	)
+    )
 
     ValidateProperties @PSBoundParameters -Apply
 }
@@ -65,19 +65,19 @@ function Set-TargetResource
 ######################################################################################
 function Test-TargetResource
 {
-	param
-	(		
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
-		[String[]]$Address,
+    param
+    (        
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [String[]]$Address,
 
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
         [String]$InterfaceAlias,
 
         [ValidateSet("IPv4", "IPv6")]
         [String]$AddressFamily = "IPv4"
-	)
+    )
 
     ValidateProperties @PSBoundParameters
 }
@@ -92,11 +92,11 @@ function ValidateProperties
     param
     (
         [Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
-		[String[]]$Address,
+        [ValidateNotNullOrEmpty()]
+        [String[]]$Address,
 
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
         [String]$InterfaceAlias,
 
         [ValidateSet("IPv4", "IPv6")]

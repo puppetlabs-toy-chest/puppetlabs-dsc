@@ -51,6 +51,7 @@ function ExtractArguments($functionBoundParameters,[string[]]$argumentNames,[str
 
 function Get-TargetResource
 {
+    [OutputType([System.Collections.Hashtable])]
     param
     (
         [parameter(Mandatory = $true)]
@@ -67,7 +68,7 @@ function Get-TargetResource
         [System.Management.Automation.PSCredential]
         $Credential
     )
-    
+
     $Path=(ResolvePath $Path)
     $PSBoundParameters["Path"] = $Path
     $getArguments = ExtractArguments $PSBoundParameters ("Path","Arguments","Credential")
@@ -152,7 +153,7 @@ function Set-TargetResource
            $processIds=$processes.ProcessId
 
            $err=Stop-Process -Id $processIds -force 2>&1
-           
+
            if($err -eq $null)
            {
                Write-Log ($LocalizedData.ProcessesStopped -f $Path,($processIds -join ","))
@@ -226,7 +227,7 @@ function Set-TargetResource
                         }
                         $err = $errorRecord
                     }
-                        
+
                 }
                 else
                 {
@@ -260,6 +261,7 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
+    [OutputType([System.Boolean])]
     param
     (
         [parameter(Mandatory = $true)]
@@ -318,7 +320,7 @@ function GetWin32ProcessOwner
         $process
     )
 
-    # if the process was killed by the time this is called, GetOwner 
+    # if the process was killed by the time this is called, GetOwner
     # will throw a WMIMethodException "Not found"
     try
     {
@@ -327,12 +329,12 @@ function GetWin32ProcessOwner
     catch
     {
     }
-    
+
     if($owner.Domain -ne $null)
     {
         return $owner.Domain + "\" + $owner.User
     }
-    else                
+    else
     {
         return $owner.User
     }
@@ -365,7 +367,7 @@ function WaitForProcessCount
         $getArguments = ExtractArguments $PSBoundParameters ("Path","Arguments","Credential")
         $value = @(GetWin32_Process @getArguments).Count -eq $waitCount
     } while(!$value -and ([DateTime]::Now - $start).TotalMilliseconds -lt 2000)
-    
+
     return $value
 }
 
@@ -374,7 +376,7 @@ function GetWin32_Process
     [CmdletBinding(SupportsShouldProcess=$true)]
     param
     (
-        
+
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [System.String]
@@ -395,7 +397,7 @@ function GetWin32_Process
     $fileName = [io.path]::GetFileNameWithoutExtension($Path)
 
     $gpsProcesses = @(get-process -Name $fileName -ErrorAction SilentlyContinue)
-    
+
     if($gpsProcesses.Count -ge $useWmiObjectCount)
     {
         # if there are many processes it is faster to perform a Get-WmiObject
@@ -457,7 +459,7 @@ function GetProcessArgumentsFromCommandLine
     {
         return ""
     }
-    
+
     $commandLine=$commandLine.Trim()
 
     if($commandLine.Length -eq 0)
@@ -491,7 +493,7 @@ function WQLEscape
 {
     param
     (
-        
+
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [System.String]
@@ -506,7 +508,7 @@ function ThrowInvalidArgumentError
     [CmdletBinding()]
     param
     (
-        
+
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [System.String]
@@ -568,18 +570,18 @@ function ResolvePath
         try
         {
             # If the whole path passed through [IO.Path]::IsPathRooted with no exceptions, it does not have
-            # invalid characters, so segment has no invalid characters and will not throw as well 
+            # invalid characters, so segment has no invalid characters and will not throw as well
             $segmentRooted=[IO.Path]::IsPathRooted($segment)
         }
         catch {}
-        
+
         if(!$segmentRooted)
         {
             continue
         }
 
         $candidate = join-path $segment $Path
-        
+
         if(Test-Path $candidate -PathType Leaf)
         {
             return $candidate
@@ -607,16 +609,16 @@ function AssertAbsolutePath
 
     Process
     {
-        if(!$ParentBoundParameters.ContainsKey($ParameterName)) 
+        if(!$ParentBoundParameters.ContainsKey($ParameterName))
         {
             return
         }
 
         $path=$ParentBoundParameters[$ParameterName]
-        
+
         if(!(IsRootedPath $Path))
         {
-            ThrowInvalidArgumentError "PathShouldBeAbsolute" ($LocalizedData.InvalidArgumentAndMessage -f ($LocalizedData.InvalidArgument -f $ParameterName,$Path), 
+            ThrowInvalidArgumentError "PathShouldBeAbsolute" ($LocalizedData.InvalidArgumentAndMessage -f ($LocalizedData.InvalidArgument -f $ParameterName,$Path),
                 $LocalizedData.PathShouldBeAbsolute)
         }
 
@@ -627,7 +629,7 @@ function AssertAbsolutePath
 
         if(!(Test-Path $Path))
         {
-            ThrowInvalidArgumentError "PathShouldExist" ($LocalizedData.InvalidArgumentAndMessage -f ($LocalizedData.InvalidArgument -f $ParameterName,$Path), 
+            ThrowInvalidArgumentError "PathShouldExist" ($LocalizedData.InvalidArgumentAndMessage -f ($LocalizedData.InvalidArgument -f $ParameterName,$Path),
                 $LocalizedData.PathShouldExist)
         }
     }
@@ -647,7 +649,7 @@ function AssertParameterIsNotSpecified
 
     Process
     {
-        if($ParentBoundParameters.ContainsKey($ParameterName)) 
+        if($ParentBoundParameters.ContainsKey($ParameterName))
         {
             ThrowInvalidArgumentError "ParameterShouldNotBeSpecified" ($LocalizedData.ParameterShouldNotBeSpecified -f $ParameterName)
         }
@@ -679,7 +681,7 @@ function Write-Log
 {
     [CmdletBinding(SupportsShouldProcess=$true)]
     param
-    (    
+    (
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [System.String]
@@ -688,10 +690,10 @@ function Write-Log
 
     if ($PSCmdlet.ShouldProcess($Message, $null, $null))
     {
-        Write-Verbose $Message        
-    }  
+        Write-Verbose $Message
+    }
 }
-  
+
 function CallPInvoke
 {
 $script:ProgramSource = @"
@@ -711,7 +713,7 @@ namespace Source
     public static class NativeMethods
     {
         //The following structs and enums are used by the various Win32 API's that are used in the code below
-        
+
         [StructLayout(LayoutKind.Sequential)]
         public struct STARTUPINFO
         {
@@ -809,25 +811,25 @@ namespace Source
               EntryPoint = "CreateProcessAsUser", SetLastError = true,
               CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public static extern bool CreateProcessAsUser(
-            IntPtr hToken, 
-            string lpApplicationName, 
+            IntPtr hToken,
+            string lpApplicationName,
             string lpCommandLine,
-            ref SECURITY_ATTRIBUTES lpProcessAttributes, 
+            ref SECURITY_ATTRIBUTES lpProcessAttributes,
             ref SECURITY_ATTRIBUTES lpThreadAttributes,
-            bool bInheritHandle, 
-            Int32 dwCreationFlags, 
+            bool bInheritHandle,
+            Int32 dwCreationFlags,
             IntPtr lpEnvrionment,
-            string lpCurrentDirectory, 
+            string lpCurrentDirectory,
             ref STARTUPINFO lpStartupInfo,
             ref PROCESS_INFORMATION lpProcessInformation
             );
 
         [DllImport("advapi32.dll", EntryPoint = "DuplicateTokenEx")]
         public static extern bool DuplicateTokenEx(
-            IntPtr hExistingToken, 
+            IntPtr hExistingToken,
             Int32 dwDesiredAccess,
             ref SECURITY_ATTRIBUTES lpThreadAttributes,
-            Int32 ImpersonationLevel, 
+            Int32 ImpersonationLevel,
             Int32 dwTokenType,
             ref IntPtr phNewToken
             );
@@ -844,11 +846,11 @@ namespace Source
 
         [DllImport("advapi32.dll", ExactSpelling = true, SetLastError = true)]
         internal static extern bool AdjustTokenPrivileges(
-            IntPtr htok, 
+            IntPtr htok,
             bool disall,
-            ref TokPriv1Luid newst, 
-            int len, 
-            IntPtr prev, 
+            ref TokPriv1Luid newst,
+            int len,
+            IntPtr prev,
             IntPtr relen
             );
 
@@ -857,14 +859,14 @@ namespace Source
 
         [DllImport("advapi32.dll", ExactSpelling = true, SetLastError = true)]
         internal static extern bool OpenProcessToken(
-            IntPtr h, 
-            int acc, 
+            IntPtr h,
+            int acc,
             ref IntPtr phtok
             );
 
         [DllImport("advapi32.dll", SetLastError = true)]
         internal static extern bool LookupPrivilegeValue(
-            string host, 
+            string host,
             string name,
             ref long pluid
             );
@@ -888,15 +890,15 @@ namespace Source
                     LogonProvider.LOGON32_PROVIDER_DEFAULT,
                     out hToken
                     );
-                if (!bResult) 
-                { 
-                    throw new Win32Exception("The user could not be logged on. Ensure that the user has an existing profile on the machine and that correct credentials are provided. Logon error #" + Marshal.GetLastWin32Error().ToString()); 
+                if (!bResult)
+                {
+                    throw new Win32Exception("The user could not be logged on. Ensure that the user has an existing profile on the machine and that correct credentials are provided. Logon error #" + Marshal.GetLastWin32Error().ToString());
                 }
                 IntPtr hproc = GetCurrentProcess();
                 IntPtr htok = IntPtr.Zero;
                 bResult = OpenProcessToken(
-                        hproc, 
-                        TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, 
+                        hproc,
+                        TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY,
                         ref htok
                     );
                 if(!bResult)
@@ -907,8 +909,8 @@ namespace Source
                 tp.Luid = 0;
                 tp.Attr = SE_PRIVILEGE_ENABLED;
                 bResult = LookupPrivilegeValue(
-                    null, 
-                    SE_INCRASE_QUOTA, 
+                    null,
+                    SE_INCRASE_QUOTA,
                     ref tp.Luid
                     );
                 if(!bResult)
@@ -916,18 +918,18 @@ namespace Source
                     throw new Win32Exception("Error in looking up privilege of the process. This should not happen if DSC is running as LocalSystem Lookup privilege error #" + Marshal.GetLastWin32Error().ToString());
                 }
                 bResult = AdjustTokenPrivileges(
-                    htok, 
-                    false, 
-                    ref tp, 
-                    0, 
-                    IntPtr.Zero, 
+                    htok,
+                    false,
+                    ref tp,
+                    0,
+                    IntPtr.Zero,
                     IntPtr.Zero
                     );
                 if(!bResult)
                 {
                     throw new Win32Exception("Token elevation error #" + Marshal.GetLastWin32Error().ToString());
                 }
-                
+
                 bResult = DuplicateTokenEx(
                     hToken,
                     GENERIC_ALL_ACCESS,
@@ -947,13 +949,13 @@ namespace Source
                     hDupedToken,
                     null,
                     strCommand,
-                    ref sa, 
                     ref sa,
-                    false, 
-                    0, 
+                    ref sa,
+                    false,
+                    0,
                     IntPtr.Zero,
-                    null, 
-                    ref si, 
+                    null,
+                    ref si,
                     ref pi
                     );
                 if(!bResult)

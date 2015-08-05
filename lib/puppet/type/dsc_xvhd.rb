@@ -43,7 +43,7 @@ Puppet::Type.newtype(:dsc_xvhd) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.1"
+    defaultto "2.2.1"
   end
 
   newparam(:name, :namevar => true ) do

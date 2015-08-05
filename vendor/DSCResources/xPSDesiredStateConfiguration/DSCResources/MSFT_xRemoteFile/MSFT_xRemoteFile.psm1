@@ -4,9 +4,9 @@ data localizedData
     ConvertFrom-StringData @'
 InvalidWebUriError=Specified URI is not valid: "{0}". Only http and https paths are accepted.
 InvalidDestinationPathSchemeError=Specified DestinationPath is not valid: "{0}". DestinationPath should be absolute path.
-DestinationPathParentNotExistsError=Specified DestinationPath is not valid: "{0}". DestinationPath's parent should exist.
-DestinationPathIsExistingDirectoryError=Specified DestinationPath is not valid: "{0}". DestinationPath should not point to the existing directory.
 DestinationPathIsUncError=Specified DestinationPath is not valid: "{0}". DestinationPath should be local path instead of UNC path.
+DestinationPathHasInvalidCharactersError=Specified DestinationPath is not valid: "{0}". DestinationPath should be contains following characters: * ? " < > |
+DestinationPathEndsWithInvalidCharacterError=Specified DestinationPath is not valid: "{0}". DestinationPath should not end with / or \\
 '@
 }
 
@@ -16,20 +16,20 @@ $script:cacheLocation = "$env:ProgramData\Microsoft\Windows\PowerShell\Configura
 # The Get-TargetResource function is used to fetch the status of file specified in DestinationPath on the target machine.
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory = $true)]
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$DestinationPath,
+        [System.String]
+        $DestinationPath,
 
-		[parameter(Mandatory = $true)]
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri
-	)   
+        [System.String]
+        $Uri
+    )    
     
     # Check whether DestinationPath is existing file
     $fileExists = $false
@@ -37,21 +37,28 @@ function Get-TargetResource
     switch($pathItemType)
     {
         "File" {
-            Write-Debug "DestinationPath: '$DestinationPath' is existing file on the machine"
+            Write-Verbose "DestinationPath: '$DestinationPath' is existing file on the machine"
             $fileExists = $true
         }
 
         "Directory" {
-            # We expect DestinationPath to point to a file. Therefore fileExists should be false even if it exists but is directory.
-            Write-Debug "DestinationPath: '$DestinationPath' is existing directory on the machine although should be file"
+            Write-Verbose "DestinationPath: '$DestinationPath' is existing directory on the machine"
+            
+            # If it's existing directory, let's check whether expectedDestinationPath exists
+            $uriFileName = Split-Path $Uri -Leaf
+            $expectedDestinationPath = Join-Path $DestinationPath $uriFileName
+            if (Test-Path $expectedDestinationPath) {
+                Write-Verbose "File $uriFileName exists in DestinationPath"
+                $fileExists = $true
+            }
         }
 
         "Other" {
-            Write-Debug "DestinationPath: '$DestinationPath' has unknown type: '$pathItemType'"
+            Write-Verbose "DestinationPath: '$DestinationPath' has unknown type: '$pathItemType'"
         }
 
         "NotExists" {
-            Write-Debug "DestinationPath: '$DestinationPath' doesn't exist on the machine"
+            Write-Verbose "DestinationPath: '$DestinationPath' doesn't exist on the machine"
         }
     }
     
@@ -73,28 +80,28 @@ function Get-TargetResource
 # Additional parameters can be specified to configure web request
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
+    [CmdletBinding()]
+    param
+    (
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$DestinationPath,
+        [System.String]
+        $DestinationPath,
 
-		[parameter(Mandatory = $true)]
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri,		
+        [System.String]
+        $Uri,        
 
-		[System.String]
-		$UserAgent,
+        [System.String]
+        $UserAgent,
 
-		[Microsoft.Management.Infrastructure.CimInstance[]]
-		$Headers,
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $Headers,
 
-		[System.Management.Automation.PSCredential]
-		$Credential
-	)
+        [System.Management.Automation.PSCredential]
+        $Credential
+    )
 
     # Validate Uri
     if (!(Check-UriScheme -uri $Uri -scheme "http") -and !(Check-UriScheme -uri $Uri -scheme "https"))
@@ -118,19 +125,33 @@ function Set-TargetResource
         Throw-InvalidDataException -errorId "DestinationPathIsUncFailure" -errorMessage $errorMessage
     }
 
-    # Validate DestinationPath's parent directory exists
+    # Validate DestinationPath does not contain invalid characters
+    $invalidCharacters = '*','?','"','<','>','|'
+    $invalidCharacters | % { 
+        if ($DestinationPath.Contains($_) ){
+            $errorMessage = $($LocalizedData.DestinationPathHasInvalidCharactersError) -f ${DestinationPath} 
+            Throw-InvalidDataException -errorId "DestinationPathHasInvalidCharactersError" -errorMessage $errorMessage
+        }
+    }
+
+    # Validate DestinationPath does not end with / or \ (Invoke-WebRequest requirement)
+    if ($DestinationPath.EndsWith('/') -or $DestinationPath.EndsWith('\')){
+        $errorMessage = $($LocalizedData.DestinationPathEndsWithInvalidCharacterError) -f ${DestinationPath} 
+        Throw-InvalidDataException -errorId "DestinationPathEndsWithInvalidCharacterError" -errorMessage $errorMessage
+    }
+
+    # Check whether DestinationPath's parent directory exists. Create if it doesn't.
     $destinationPathParent = Split-Path $DestinationPath -Parent
     if (!(Test-Path $destinationPathParent))
     {
-        $errorMessage = $($LocalizedData.DestinationPathParentNotExistsError) -f ${DestinationPath} 
-        Throw-InvalidDataException -errorId "DestinationPathParentNotExistsFailure" -errorMessage $errorMessage
+        New-Item -Type Directory -Path $destinationPathParent -Force
     }
-
-    # Validate DestinationPath's leaf is not an existing folder
+    
+    # Check whether DestinationPath's leaf is an existing folder
+    $uriFileName = Split-Path $Uri -Leaf
     if (Test-Path $DestinationPath -PathType Container)
     {
-        $errorMessage = $($LocalizedData.DestinationPathIsExistingDirectoryError) -f ${DestinationPath} 
-        Throw-InvalidDataException -errorId "DestinationPathIsExistingDirectoryFailure" -errorMessage $errorMessage
+        $DestinationPath = Join-Path $DestinationPath $uriFileName        
     }
 
     # Remove DestinationPath from parameters as it is not parameter of Invoke-WebRequest
@@ -157,7 +178,7 @@ function Set-TargetResource
     }
     catch [System.Exception]
     {
-        throw "Invoking web request failed: $_"
+        throw "Invoking web request failed with error $($_.Exception.Response.StatusCode.Value__): $($_.Exception.Response.StatusDescription)"
     }
     
     # Update cache
@@ -174,32 +195,33 @@ function Set-TargetResource
 # The Test-TargetResource function is used to validate if the DestinationPath exists on the machine.
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$DestinationPath,
+        [System.String]
+        $DestinationPath,
 
-		[parameter(Mandatory = $true)]
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri,		
+        [System.String]
+        $Uri,        
 
-		[System.String]
-		$UserAgent,
+        [System.String]
+        $UserAgent,
 
-		[Microsoft.Management.Infrastructure.CimInstance[]]
-		$Headers,
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $Headers,
 
-		[System.Management.Automation.PSCredential]
-		$Credential
-	)
+        [System.Management.Automation.PSCredential]
+        $Credential
+    )
 
-    # Check whether DestinationPath points to existing file
+    # Check whether DestinationPath points to existing file or directory
     $fileExists = $false
+    $uriFileName = Split-Path $Uri -Leaf
     $pathItemType = Get-PathItemType -path $DestinationPath
     switch($pathItemType)
     {
@@ -222,8 +244,22 @@ function Test-TargetResource
         }
 
         "Directory" {
-            # We expect DestinationPath to point to a file. Therefore test should return false even if it exists but is directory.
-            Write-Debug "DestinationPath: '$DestinationPath' is existing directory on the machine although should be file"
+            Write-Debug "DestinationPath: '$DestinationPath' is existing directory on the machine"
+            $expectedDestinationPath = Join-Path $DestinationPath $uriFileName
+            
+            if (Test-Path $expectedDestinationPath) {
+                $file = Get-Item $expectedDestinationPath
+                $cache = Get-Cache -DestinationPath $expectedDestinationPath -Uri $Uri
+                if ($cache -ne $null -and ($cache.LastWriteTime -eq $file.LastWriteTimeUtc))
+                {
+                    Write-Debug "Cache reflects current state. No need for downloading file."
+                    $fileExists = $true
+                }
+                else
+                {
+                    Write-Debug "Cache is empty or it doesn't reflect current state. File will be downloaded."
+                }
+            }    
         }
 
         "Other" {
@@ -338,13 +374,13 @@ function Get-Cache
     param (
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$DestinationPath,
+        [System.String]
+        $DestinationPath,
 
-		[parameter(Mandatory = $true)]
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri
+        [System.String]
+        $Uri
     )
 
     $cacheContent = $null
@@ -372,13 +408,13 @@ function Update-Cache
     param (
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$DestinationPath,
+        [System.String]
+        $DestinationPath,
 
-		[parameter(Mandatory = $true)]
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri,
+        [System.String]
+        $Uri,
         
         [parameter(Mandatory = $true)]
         [Object]
@@ -403,13 +439,13 @@ function Get-CacheKey
     param (
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$DestinationPath,
+        [System.String]
+        $DestinationPath,
 
-		[parameter(Mandatory = $true)]
+        [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-		[System.String]
-		$Uri
+        [System.String]
+        $Uri
     )
     $key = [string]::Join("", @($DestinationPath, $Uri)).GetHashCode().ToString()
     return $key

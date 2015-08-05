@@ -11,40 +11,40 @@ Import-Module $PSScriptRoot\..\Library\JeaInitFile.psm1
 
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name
-	)
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name
+    )
 
     try
     {
         write-Verbose "$((get-date).GetDateTimeFormats()[112]) Start Get [EndPoint]$Name" 
         $endpoint = Get-PSSessionConfiguration -Name $Name -ErrorAction SilentlyContinue -Verbose:0
-	
+    
         if ($endpoint)
         {
-	        $returnValue = @{
-		        Name    = [System.String]$Name
-		        Toolkit = [System.String[]]"TODO: GET TOOLKITS"
-		        Ensure  = [System.String]'Present'
-		        SecurityDescriptorSddl = [System.String]$endpoint.SecurityDescriptorSddl
-		        Group = [String[]]$(
+            $returnValue = @{
+                Name    = [System.String]$Name
+                Toolkit = [System.String[]]"TODO: GET TOOLKITS"
+                Ensure  = [System.String]'Present'
+                SecurityDescriptorSddl = [System.String]$endpoint.SecurityDescriptorSddl
+                Group = [String[]]$(
                     "TODO: Get Groups"
                 )
             }
         }
         else
         {
-	        $returnValue = @{
-		        Name   = [System.String]$Name
-		        Ensure = [System.String]'Absent'
+            $returnValue = @{
+                Name   = [System.String]$Name
+                Ensure = [System.String]'Absent'
             }
         }
-	    $returnValue
+        $returnValue
     }catch
     {
         write-Debug "ERROR: $($_|fl * -force|out-string)"
@@ -52,35 +52,35 @@ function Get-TargetResource
     }finally
     {
         write-Verbose "$((get-date).GetDateTimeFormats()[112]) Done  Get [EndPoint]$Name" 
-    }	
+    }    
 }
 
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[System.String[]]
-		$Toolkit,
+        [System.String[]]
+        $Toolkit,
 
-		[System.String]
-		$SecurityDescriptorSddl='O:NSG:BAD:P(A;;GA;;;BA)(A;;GA;;;RM)S:P(AU;FA;GA;;;WD)(AU;SA;GXGW;;;WD)',
+        [System.String]
+        $SecurityDescriptorSddl='O:NSG:BAD:P(A;;GA;;;BA)(A;;GA;;;RM)S:P(AU;FA;GA;;;WD)(AU;SA;GXGW;;;WD)',
 
-		[System.String[]]
-		$Group = @('Administrators'),
+        [System.String[]]
+        $Group = @('Administrators'),
 
-		[System.Boolean]
-		$CleanAll,
+        [System.Boolean]
+        $CleanAll,
 
-		[ValidateSet('Present','Absent')]
-		[System.String]
-		$Ensure = 'Present'
-	)
+        [ValidateSet('Present','Absent')]
+        [System.String]
+        $Ensure = 'Present'
+    )
     try
     {    
         write-Verbose "$((get-date).GetDateTimeFormats()[112]) Start Set [EndPoint]$Name" 
@@ -201,30 +201,30 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[System.String[]]
-		$Toolkit,
+        [System.String[]]
+        $Toolkit,
 
-		[System.String]
-		$SecurityDescriptorSddl,
+        [System.String]
+        $SecurityDescriptorSddl,
 
-		[System.String[]]
-		$Group,
+        [System.String[]]
+        $Group,
 
-		[System.Boolean]
-		$CleanAll,
+        [System.Boolean]
+        $CleanAll,
 
-		[ValidateSet('Present','Absent')]
-		[System.String]
-		$Ensure = 'Present'
-	)
+        [ValidateSet('Present','Absent')]
+        [System.String]
+        $Ensure = 'Present'
+    )
 
     try
     {
@@ -242,7 +242,7 @@ function Test-TargetResource
             Write-Verbose -Message $namePresentMessage
             if ($Ensure -eq 'Absent')
             {
-	            return $false
+                return $false
             }
             else
             {
@@ -254,7 +254,7 @@ function Test-TargetResource
                 }
                 Write-Verbose '       TODO: Check for Toolkits, StartupScript and UserAccount'
                 return $true
-	        }
+            }
         }
     }catch 
     {

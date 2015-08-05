@@ -4,12 +4,12 @@
 DATA localizedData
 {
     # culture = "en-US"
-    ConvertFrom-StringData @'                
+    ConvertFrom-StringData @'
         DismNotAvailable = PowerShell module Dism could not be imported.
         NotAClientSku = This Resource is only available for Windows Client.
         ElevationRequired = This Resource requires to be run as an Administrator.
         ValidatingPrerequisites = Validating prerequisites...
-        CouldNotCovertFeatureState = Could not convert feature state '{0}' into Enable/Disable.
+        CouldNotCovertFeatureState = Could not convert feature state '{0}' into Absent/Present.
         EnsureNotSupported = The value '{0}' for property Ensure is not supported.
         RestartNeeded = Target machine needs to be restarted.
         GetTargetResourceStartMessage = Begin executing Get functionality on the {0} feature.
@@ -26,14 +26,14 @@ Import-Module Dism -Force -ErrorAction SilentlyContinue
 
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name
-	)
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name
+    )
 
     Write-Debug ($LocalizedData.GetTargetResourceStartMessage -f $Name)
 
@@ -41,17 +41,17 @@ function Get-TargetResource
 
     $result = Dism\Get-WindowsOptionalFeature -FeatureName $Name -Online
 
-	$returnValue = @{
-		LogPath = $result.LogPath
-		Ensure = ConvertStateToEnsure $result.State
-		CustomProperties = SerializeCustomProperties $result.CustomProperties
-		Name = $result.FeatureName
-		LogLevel = $result.LogLevel
-		Description = $result.Description
-		DisplayName = $result.DisplayName
-	}
+    $returnValue = @{
+        LogPath = $result.LogPath
+        Ensure = ConvertStateToEnsure $result.State
+        CustomProperties = SerializeCustomProperties $result.CustomProperties
+        Name = $result.FeatureName
+        LogLevel = $result.LogLevel
+        Description = $result.Description
+        DisplayName = $result.DisplayName
+    }
 
-	$returnValue
+    $returnValue
 
     Write-Debug ($LocalizedData.GetTargetResourceEndMessage -f $Name)
 }
@@ -67,7 +67,7 @@ function SerializeCustomProperties
     $CustomProperties | ? {$_ -ne $null} | % { "Name = $($_.Name), Value = $($_.Value), Path = $($_.Path)" }
 }
 
-# Converts state returned by Dism Get-WindowsOptionalFeature cmdlet to Enable/Disable
+# Converts state returned by Dism Get-WindowsOptionalFeature cmdlet to Present/Absent
 function ConvertStateToEnsure
 {
     param
@@ -77,11 +77,11 @@ function ConvertStateToEnsure
 
     if ($state -eq 'Disabled')
     {
-        'Disable'
+        'Absent'
     }
     elseif ($state -eq 'Enabled')
     {
-        'Enable'
+        'Present'
     }
     else
     {
@@ -93,34 +93,34 @@ function ConvertStateToEnsure
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[System.String[]]
-		$Source,
+    [CmdletBinding()]
+    param
+    (
+        [System.String[]]
+        $Source,
 
-		[System.Boolean]
-		$RemoveFilesOnDisable,
+        [System.Boolean]
+        $RemoveFilesOnDisable,
 
-		[System.String]
-		$LogPath,
+        [System.String]
+        $LogPath,
 
         [parameter(Mandatory = $true)]
 		[ValidateSet("Present","Absent")]
 		[System.String]
 		$Ensure,
 
-		[System.Boolean]
-		$NoWindowsUpdateCheck,
+        [System.Boolean]
+        $NoWindowsUpdateCheck,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[ValidateSet("ErrorsOnly","ErrorsAndWarning","ErrorsAndWarningAndInformation")]
-		[System.String]
-		$LogLevel
-	)
+        [ValidateSet("ErrorsOnly","ErrorsAndWarning","ErrorsAndWarningAndInformation")]
+        [System.String]
+        $LogLevel
+    )
 
     Write-Debug ($LocalizedData.SetTargetResourceStartMessage -f $Name)
 
@@ -195,67 +195,66 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[System.String[]]
-		$Source,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [System.String[]]
+        $Source,
 
-		[System.Boolean]
-		$RemoveFilesOnDisable,
+        [System.Boolean]
+        $RemoveFilesOnDisable,
 
-		[System.String]
-		$LogPath,
+        [System.String]
+        $LogPath,
 
-		[ValidateSet("Enable","Disable")]
-		[System.String]
-		$Ensure,
+        [ValidateSet("Present","Absent")]
+        [System.String]
+        $Ensure = "Present",
 
-		[System.Boolean]
-		$NoWindowsUpdateCheck,
+        [System.Boolean]
+        $NoWindowsUpdateCheck,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$Name,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-		[ValidateSet("ErrorsOnly","ErrorsAndWarning","ErrorsAndWarningAndInformation")]
-		[System.String]
-		$LogLevel
-	)
+        [ValidateSet("ErrorsOnly","ErrorsAndWarning","ErrorsAndWarningAndInformation")]
+        [System.String]
+        $LogLevel
+    )
 
     Write-Debug ($LocalizedData.TestTargetResourceStartMessage -f $Name)
 
     ValidatePrerequisites
 
-    $result = Dism\Get-WindowsOptionalFeature -FeatureName $Name -Online
+    $featureState = Dism\Get-WindowsOptionalFeature -FeatureName $Name -Online
+    [bool] $result = $false
 
-    if ($result -eq $null)
+    if ($featureState -eq $null)
     {
-        $result = 'Disabled'
+        $result = $Ensure -eq 'Absent'
     }
 
     if (($result.State -eq 'Disabled' -and $Ensure -eq 'Absent')`
         -or ($result.State -eq 'Enabled' -and $Ensure -eq 'Present'))
     {
-        $true
-    }
-    else
-    {
-        $false
+        $result = $true
     }
 
     Write-Debug ($LocalizedData.TestTargetResourceEndMessage -f $Name)
+    return $result
 }
 
+
 # ValidatePrerequisites is a helper function used to validate if the MSFT_WindowsOptionalFeature is supported on the target machine.
-function ValidatePrerequisites   
+function ValidatePrerequisites
 {
     Write-Verbose $LocalizedData.ValidatingPrerequisites
 
     # check that we're running on a client SKU
     $os = Get-CimInstance -ClassName  Win32_OperatingSystem
-    
+
     if ($os.ProductType -ne 1)
     {
         throw $LocalizedData.NotAClientSku

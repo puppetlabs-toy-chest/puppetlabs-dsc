@@ -14,8 +14,8 @@ function Get-TargetResource
     )
 
     $returnValue = @{
-        Name = $DomainName
-        Ensure = $false
+        DomainName = $DomainName
+        Ensure     = 'Absent'
     }
 
     try
@@ -32,7 +32,7 @@ function Get-TargetResource
                 if($dc.Domain -eq $DomainName)
                 {
                     Write-Verbose -Message "Current node $($dc.Name) is already a domain controller for $($dc.Domain)."
-                    $returnValue.Ensure = $true
+                    $returnValue.Ensure = 'Present'
                 }
             }
             catch
@@ -65,12 +65,6 @@ function Set-TargetResource
     )
     
     $parameters = $PSBoundParameters.Remove("Debug");
-    $state = Test-TargetResource @PSBoundParameters
-    if( $state -eq $true )
-    {
-        Write-Verbose -Message "Already at desired state. Returning."
-        return
-    }
 
     Write-Verbose -Message "Checking if Domain $DomainName is present ..."
     # Check if the domain exists
@@ -117,7 +111,7 @@ function Test-TargetResource
     {
         $parameters = $PSBoundParameters.Remove("Debug");
         $existingResource = Get-TargetResource @PSBoundParameters
-        $existingResource.Ensure
+        ($existingResource.Ensure -eq 'Present')
     }
     # If the domain doesn't exist
     catch

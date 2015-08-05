@@ -1,33 +1,33 @@
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$RuleName,
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $RuleName,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$ServerName,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $ServerName,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$StartIPAddress,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $StartIPAddress,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$EndIPAddress,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $EndIPAddress,
 
         [System.String]
-		$AzureSubscriptionName,
+        $AzureSubscriptionName,
 
-		[System.String]
-		$AzurePublishSettingsFile
-	)
+        [System.String]
+        $AzurePublishSettingsFile
+    )
 
-	# Select Azure subscription
+    # Select Azure subscription
     if ($AzureSubscriptionName -and $AzurePublishSettingsFile)
     {
         Write-Verbose "Azure Publish Setting provided. AzureSubscriptionName = $AzureSubscriptionName,  AzurePublishSettingsFile = $AzurePublishSettingsFile. Selecting Azure subscription."
@@ -53,55 +53,55 @@ function Get-TargetResource
         $ensureState = "Absent"
     }
 
-	$returnValue = @{
-		RuleName = $RuleName
-		ServerName = $ServerName
-		StartIPAddress = $startIPAddressState
-		EndIPAddress = $endIPAddressState
-		AzureSubscriptionName = $AzureSubscriptionName
-		AzurePublishSettingsFile = $AzurePublishSettingsFile
-		Ensure = $ensureState
-	}
+    $returnValue = @{
+        RuleName = $RuleName
+        ServerName = $ServerName
+        StartIPAddress = $startIPAddressState
+        EndIPAddress = $endIPAddressState
+        AzureSubscriptionName = $AzureSubscriptionName
+        AzurePublishSettingsFile = $AzurePublishSettingsFile
+        Ensure = $ensureState
+    }
 
-	$returnValue
+    $returnValue
 }
 
 
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$RuleName,
+    [CmdletBinding()]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $RuleName,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$ServerName,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $ServerName,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$StartIPAddress,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $StartIPAddress,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$EndIPAddress,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $EndIPAddress,
 
-		[System.String]
-		$AzureSubscriptionName,
+        [System.String]
+        $AzureSubscriptionName,
 
-		[System.String]
-		$AzurePublishSettingsFile,
+        [System.String]
+        $AzurePublishSettingsFile,
 
-		[ValidateSet("Present","Absent")]
-		[System.String]
-		$Ensure = "Present"
-	)
+        [ValidateSet("Present","Absent")]
+        [System.String]
+        $Ensure = "Present"
+    )
 
     # Check whether firwall rule with specific name exists
     $PSBoundParameters.Remove("Ensure") | Out-Null
-	$currentFirewallRule = Get-TargetResource @PSBoundParameters
+    $currentFirewallRule = Get-TargetResource @PSBoundParameters
     $firwallRuleExists = $false
     if ($currentFirewallRule.Ensure -eq "Present") {
         $firewallRuleExists = $true
@@ -138,36 +138,36 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Boolean])]
-	param
-	(
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$RuleName,
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $RuleName,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$ServerName,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $ServerName,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$StartIPAddress,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $StartIPAddress,
 
-		[parameter(Mandatory = $true)]
-		[System.String]
-		$EndIPAddress,
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $EndIPAddress,
 
-		[System.String]
-		$AzureSubscriptionName,
+        [System.String]
+        $AzureSubscriptionName,
 
-		[System.String]
-		$AzurePublishSettingsFile,
+        [System.String]
+        $AzurePublishSettingsFile,
 
-		[ValidateSet("Present","Absent")]
-		[System.String]
-		$Ensure = "Present"
-	)
+        [ValidateSet("Present","Absent")]
+        [System.String]
+        $Ensure = "Present"
+    )
 
     $testResult = $true;
 

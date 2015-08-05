@@ -1,9 +1,3 @@
-#    [Key] String DomainName;
-#    [Key] String ParentDomainName;
-#    [Required, EmbeddedInstance("MSFT_Credential")] String DomainAdministratorCredential;
-#    [write,EmbeddedInstance("MSFT_Credential")] String DnsDelegationCredential;
-
-
 function Get-TargetResource
 {
     [OutputType([System.Collections.Hashtable])]
@@ -24,8 +18,8 @@ function Get-TargetResource
     )
 
     $returnValue = @{
-        Name = $DomainName
-        Ensure = $false
+        DomainName = $DomainName
+        Ensure     = 'Absent'
     }
 
     try
@@ -48,7 +42,7 @@ function Get-TargetResource
                 if(($dc.Domain -eq $DomainName) -and ( ( !($dc.ParentDomain) -and  !($ParentDomainName) ) -or ($dc.ParentDomain -eq $ParentDomainName)))
                 {
                     Write-Verbose -Message "Current node $($dc.Name) is already a domain controller for $($dc.Domain). Parent Domain "
-                    $returnValue.Ensure = $true
+                    $returnValue.Ensure = 'Present'
                 }
             }
             catch
@@ -84,12 +78,6 @@ function Set-TargetResource
     )
     
     $parameters = $PSBoundParameters.Remove("Debug");
-    $state = Test-TargetResource @PSBoundParameters
-    if( $state -eq $true )
-    {
-        Write-Verbose -Message "Already at desired state. Nothing to set."
-        return
-    }
 
     $fullDomainName = $DomainName
     if( $ParentDomainName )
@@ -110,7 +98,7 @@ function Set-TargetResource
     if( $domain -ne $null )
     {
         Write-Error -Message "Domain $DomainName is already present, but is not hosted by this node. Returning error"
-        throw (new-object -TypeName System.InvalidOperationException -ArgumentList "Domain $Name is already present, but is not hosted by this node")
+        throw (new-object -TypeName System.InvalidOperationException -ArgumentList "Domain $DomainName is already present, but is not hosted by this node")
     }
 
     Write-Verbose -Message "Verified that Domain $DomainName is not already present in the network. Going on to create the domain."
@@ -169,12 +157,12 @@ function Test-TargetResource
     {
         $parameters = $PSBoundParameters.Remove("Debug");
         $existingResource = Get-TargetResource @PSBoundParameters
-        $existingResource.Ensure
+        ($existingResource.Ensure -eq 'Present')
     }
     # If the domain doesn't exist
     catch
     {
-        Write-Verbose -Message "Domain $Name is NOT present on the node"
+        Write-Verbose -Message "Domain $DomainName is NOT present on the node"
         $false
     } 
 }

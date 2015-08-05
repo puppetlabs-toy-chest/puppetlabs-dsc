@@ -9,11 +9,11 @@
 function Get-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $InstanceName,
-	    
+        
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $AllowedUser,
@@ -45,11 +45,11 @@ function Get-TargetResource
 function Set-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $InstanceName,
-	    
+        
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $AllowedUser,
@@ -84,11 +84,11 @@ function Set-TargetResource
 function Test-TargetResource
 {
     param
-    (	
+    (    
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $InstanceName,
-	    
+        
         [parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string] $AllowedUser,
@@ -110,7 +110,7 @@ function Test-TargetResource
       
     Write-Verbose -Message "Test EndPoint $Name on instance $InstanceName ..."
 
-	$endpoint = OSQL -S $InstanceName -E -Q "select count(*) from master.sys.endpoints where name = '$Name'" -h-1
+    $endpoint = OSQL -S $InstanceName -E -Q "select count(*) from master.sys.endpoints where name = '$Name'" -h-1
 
     return ([bool] [int] $endpoint[0].Trim() )
 }

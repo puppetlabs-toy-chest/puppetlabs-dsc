@@ -22,6 +22,7 @@ WebsiteBindingConflictOnStartError = Website "{0}" could not be started due to b
 # It gives the Website info of the requested role/feature on the target machine.  
 function Get-TargetResource 
 {
+    [OutputType([System.Collections.Hashtable])]
     param 
     (   
         [Parameter(Mandatory)]
@@ -56,7 +57,7 @@ function Get-TargetResource
                 New-CimInstance -ClassName MSFT_xWebBindingInformation -Namespace root/microsoft/Windows/DesiredStateConfiguration -Property @{Port=[System.UInt16]$BindingObject.Port;Protocol=$BindingObject.Protocol;IPAddress=$BindingObject.IPaddress;HostName=$BindingObject.Hostname;CertificateThumbprint=$BindingObject.CertificateThumbprint;CertificateStoreName=$BindingObject.CertificateStoreName} -ClientOnly
             }
 
-	   $allDefaultPage = @(Get-WebConfiguration //defaultDocument/files/*  -PSPath (Join-Path "IIS:\sites\" $Name) |%{Write-Output $_.value})
+       $allDefaultPage = @(Get-WebConfiguration //defaultDocument/files/*  -PSPath (Join-Path "IIS:\sites\" $Name) |%{Write-Output $_.value})
 
         }
         else # Multiple websites with the same name exist. This is not supported and is an error
@@ -72,14 +73,14 @@ function Get-TargetResource
 
         # Add all Website properties to the hash table
         $getTargetResourceResult = @{
-    	                                Name = $Website.Name; 
+                                        Name = $Website.Name; 
                                         Ensure = $ensureResult;
                                         PhysicalPath = $Website.physicalPath;
                                         State = $Website.state;
                                         ID = $Website.id;
                                         ApplicationPool = $Website.applicationPool;
                                         BindingInfo = $CimBindings;
-					DefaultPage = $allDefaultPage
+                    DefaultPage = $allDefaultPage
                                     }
         
         return $getTargetResourceResult;
@@ -110,7 +111,7 @@ function Set-TargetResource
 
         [Microsoft.Management.Infrastructure.CimInstance[]]$BindingInfo,
 
-  	[string[]]$DefaultPage
+      [string[]]$DefaultPage
 
     )
  
@@ -175,11 +176,11 @@ function Set-TargetResource
                 Write-Verbose("Application Pool for website $Name has been updated to $ApplicationPool")
             }
 
-	    #Update Default pages if required 
-	    if($DefaultPage -ne $null)
+        #Update Default pages if required 
+        if($DefaultPage -ne $null)
             {
-	    	UpdateDefaultPages -Name $Name -DefaultPage $DefaultPage 
-	    }
+            UpdateDefaultPages -Name $Name -DefaultPage $DefaultPage 
+        }
 
             #Update State if required
             if($website.state -ne $State -and $State -ne "")
@@ -231,6 +232,7 @@ function Set-TargetResource
                         $errorId = "WebsiteStateFailure"; 
                         $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidOperation;
                         $errorMessage = $($LocalizedData.WebsiteStateFailureError) -f ${Name} ;
+                        $errorMessage += $_.Exception.Message
                         $exception = New-Object System.InvalidOperationException $errorMessage ;
                         $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
 
@@ -251,6 +253,7 @@ function Set-TargetResource
                         $errorId = "WebsiteStateFailure"; 
                         $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidOperation;
                         $errorMessage = $($LocalizedData.WebsiteStateFailureError) -f ${Name} ;
+                        $errorMessage += $_.Exception.Message
                         $exception = New-Object System.InvalidOperationException $errorMessage ;
                         $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
 
@@ -285,11 +288,11 @@ function Set-TargetResource
                     }
                 }
 
-		#Add Default pages for new created website  
-	        if($DefaultPage -ne $null)
-            	{
-	    		UpdateDefaultPages -Name $Name -DefaultPage $DefaultPage  
-		}
+        #Add Default pages for new created website  
+            if($DefaultPage -ne $null)
+                {
+                UpdateDefaultPages -Name $Name -DefaultPage $DefaultPage  
+        }
 
                 Write-Verbose("successfully created website $Name")
                 
@@ -303,16 +306,17 @@ function Set-TargetResource
                 }
 
                 Write-Verbose("successfully started website $Name")
- 	 
+      
             }
             catch
            {
                 $errorId = "WebsiteCreationFailure"; 
                 $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidOperation;
-                $errorMessage = $($LocalizedData.FeatureCreationFailureError) -f ${Name} ;
+                $errorMessage = $($LocalizedData.WebsiteCreationFailureError) -f ${Name} ;
+                $errorMessage += $_.Exception.Message
                 $exception = New-Object System.InvalidOperationException $errorMessage ;
                 $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
-                $PSCmdlet.ThrowTerminatingError($errorRecord);		
+                $PSCmdlet.ThrowTerminatingError($errorRecord);        
             }
         }    
     }
@@ -337,6 +341,7 @@ function Set-TargetResource
             $errorId = "WebsiteRemovalFailure"; 
             $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidOperation;
             $errorMessage = $($LocalizedData.WebsiteRemovalFailureError) -f ${Name} ;
+            $errorMessage += $_.Exception.Message
             $exception = New-Object System.InvalidOperationException $errorMessage ;
             $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
 
@@ -350,6 +355,7 @@ function Set-TargetResource
 # The Test-TargetResource cmdlet is used to validate if the role or feature is in a state as expected in the instance document.
 function Test-TargetResource 
 {
+    [OutputType([System.Boolean])]
     param 
     (       
         [ValidateSet("Present", "Absent")]
@@ -370,7 +376,7 @@ function Test-TargetResource
 
         [Microsoft.Management.Infrastructure.CimInstance[]]$BindingInfo,
 
-	[string[]]$DefaultPage
+    [string[]]$DefaultPage
     )
  
     $DesiredConfigurationMatch = $true;
@@ -434,29 +440,29 @@ function Test-TargetResource
             }
         }
 
-   	    #Check Default Pages 
+           #Check Default Pages 
             if($DefaultPage -ne $null)
             {
-		$allDefaultPage = @(Get-WebConfiguration //defaultDocument/files/*  -PSPath (Join-Path "IIS:\sites\" $Name) |%{Write-Output $_.value})
+        $allDefaultPage = @(Get-WebConfiguration //defaultDocument/files/*  -PSPath (Join-Path "IIS:\sites\" $Name) |%{Write-Output $_.value})
 
-		$allDefaultPagesPresent = $true
+        $allDefaultPagesPresent = $true
 
                 foreach($page in $DefaultPage )
                 {
                     if(-not ($allDefaultPage  -icontains $page))
                     {   
                         $DesiredConfigurationMatch = $false
-			Write-Verbose("Default Page for website $Name do not mach the desired state.");
-			$allDefaultPagesPresent = $false  
-			break
+            Write-Verbose("Default Page for website $Name do not mach the desired state.");
+            $allDefaultPagesPresent = $false  
+            break
                     }
                 }
-		
- 		if($allDefaultPagesPresent -eq $false)
-            	{
-			# This is to break out from Test 
-			break 
-		}
+        
+         if($allDefaultPagesPresent -eq $false)
+                {
+            # This is to break out from Test 
+            break 
+        }
             }
 
 
@@ -695,6 +701,7 @@ function compareWebsiteBindings
         $errorId = "WebsiteCompareFailure"; 
         $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidResult
         $errorMessage = $($LocalizedData.WebsiteCompareFailureError) -f ${Name} 
+        $errorMessage += $_.Exception.Message
         $exception = New-Object System.InvalidOperationException $errorMessage 
         $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
 
@@ -765,6 +772,7 @@ function UpdateBindings
             $errorId = "WebsiteBindingUpdateFailure"; 
             $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidResult
             $errorMessage = $($LocalizedData.WebsiteUpdateFailureError) -f ${Name} 
+            $errorMessage += $_.Exception.Message
             $exception = New-Object System.InvalidOperationException $errorMessage 
             $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
 
@@ -784,6 +792,7 @@ function UpdateBindings
             $errorId = "WebBindingCertifcateError"; 
             $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidOperation;
             $errorMessage = $($LocalizedData.WebBindingCertifcateError) -f ${CertificateThumbprint} ;
+            $errorMessage += $_.Exception.Message
             $exception = New-Object System.InvalidOperationException $errorMessage ;
             $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
 
@@ -831,13 +840,13 @@ function UpdateDefaultPages
         [string[]] $DefaultPage
     )
 
-	$allDefaultPage = @(Get-WebConfiguration //defaultDocument/files/*  -PSPath (Join-Path "IIS:\sites\" $Name) |%{Write-Output $_.value})
+    $allDefaultPage = @(Get-WebConfiguration //defaultDocument/files/*  -PSPath (Join-Path "IIS:\sites\" $Name) |%{Write-Output $_.value})
 
         foreach($page in $DefaultPage )
         {
             if(-not ($allDefaultPage  -icontains $page))
             {   
-		Write-Verbose("Deafult page for website $Name has been updated to $page");
+        Write-Verbose("Deafult page for website $Name has been updated to $page");
                 Add-WebConfiguration //defaultDocument/files -PSPath (Join-Path "IIS:\sites\" $Name) -Value @{value = $page }
             }
         }

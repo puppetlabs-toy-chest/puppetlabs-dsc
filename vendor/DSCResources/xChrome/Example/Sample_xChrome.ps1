@@ -4,19 +4,19 @@ Configuration Sample_InstallChromeBrowser
 {
     param
     (
-	[Parameter(Mandatory)]
-	$Language,
-		
-	[Parameter(Mandatory)]
-	$LocalPath
-		
+    [Parameter(Mandatory)]
+    $Language,
+        
+    [Parameter(Mandatory)]
+    $LocalPath
+        
     )
-	
+    
     Import-DscResource -module xChrome
-	
+    
     MSFT_xChrome chrome
     {
-	Language = $Language
-	LocalPath = $LocalPath
+    Language = $Language
+    LocalPath = $LocalPath
     }
 }

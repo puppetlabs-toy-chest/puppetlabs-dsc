@@ -53,7 +53,7 @@ Function Throw-InvalidArgumentException
         [string] $Message,
         [string] $ParamName
     )
-    
+
     $exception = new-object System.ArgumentException $Message,$ParamName
     $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception,$ParamName,"InvalidArgument",$null
     throw $errorRecord
@@ -64,7 +64,7 @@ Function Throw-InvalidNameOrIdException
     param(
         [string] $Message
     )
-    
+
     $exception = new-object System.ArgumentException $Message
     $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception,"NameOrIdNotInMSI","InvalidArgument",$null
     throw $errorRecord
@@ -76,7 +76,7 @@ Function Throw-TerminatingError
         [string] $Message,
         [System.Management.Automation.ErrorRecord] $ErrorRecord
     )
-    
+
     $exception = new-object "System.InvalidOperationException" $Message,$ErrorRecord.Exception
     $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception,"MachineStateIncorrect","InvalidOperation",$null
     throw $errorRecord
@@ -113,9 +113,9 @@ Function Get-RegistryValueIgnoreError
         }
     }
     catch
-    {        
+    {
         $exceptionText = ($_ | Out-String).Trim()
-        Write-Verbose "Exception occured in Get-RegistryValueIgnoreError: $exceptionText"        
+        Write-Verbose "Exception occured in Get-RegistryValueIgnoreError: $exceptionText"
     }
     return $null
 }
@@ -127,7 +127,7 @@ Function Validate-StandardArguments
         $ProductId,
         $Name
     )
-    
+
     Trace-Message "Validate-StandardArguments, Path was $Path"
     $uri = $null
     try
@@ -138,20 +138,20 @@ Function Validate-StandardArguments
     {
         Throw-InvalidArgumentException ($LocalizedData.InvalidPath -f $Path) "Path"
     }
-    
+
     if(-not @("file", "http", "https") -contains $uri.Scheme)
     {
         Trace-Message "The uri scheme was $uri.Scheme"
         Throw-InvalidArgumentException ($LocalizedData.InvalidPath -f $Path) "Path"
     }
-    
+
     $pathExt = [System.IO.Path]::GetExtension($Path)
     Trace-Message "The path extension was $pathExt"
     if(-not @(".msi",".exe") -contains $pathExt.ToLower())
     {
         Throw-InvalidArgumentException ($LocalizedData.InvalidBinaryType -f $Path) "Path"
     }
-    
+
     $identifyingNumber = $null
     if(-not $Name -and -not $ProductId)
     {
@@ -171,7 +171,7 @@ Function Validate-StandardArguments
             Throw-InvalidArgumentException ($LocalizedData.InvalidIdentifyingNumber -f $ProductId) $ProductId
         }
     }
-    
+
     return $uri, $identifyingNumber
 }
 
@@ -185,10 +185,10 @@ Function Get-ProductEntry
         [string] $InstalledCheckRegValueName,
         [string] $InstalledCheckRegValueData
     )
-    
+
     $uninstallKey = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
     $uninstallKeyWow64 = "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
-    
+
     if($IdentifyingNumber)
     {
         $keyLocation = "$uninstallKey\$identifyingNumber"
@@ -201,7 +201,7 @@ Function Get-ProductEntry
 
         return $item
     }
-    
+
     foreach($item in (Get-ChildItem -EA Ignore $uninstallKey, $uninstallKeyWow64))
     {
         if($Name -eq (Get-LocalizableRegKeyValue $item "DisplayName"))
@@ -209,17 +209,17 @@ Function Get-ProductEntry
             return $item
         }
     }
-    
+
     if ($InstalledCheckRegKey -and $InstalledCheckRegValueName -and $InstalledCheckRegValueData)
     {
         $installValue = $null
 
         #if 64bit OS, check 64bit registry view first
-        if ((Get-WmiObject -Class Win32_OperatingSystem -ComputerName "localhost" -ea 0).OSArchitecture -eq '64-bit') 
+        if ((Get-WmiObject -Class Win32_OperatingSystem -ComputerName "localhost" -ea 0).OSArchitecture -eq '64-bit')
         {
             $installValue = Get-RegistryValueIgnoreError LocalMachine "$InstalledCheckRegKey" "$InstalledCheckRegValueName" Registry64
         }
-        
+
         if($installValue -eq $null)
         {
             $installValue = Get-RegistryValueIgnoreError LocalMachine "$InstalledCheckRegKey" "$InstalledCheckRegValueName" Registry32
@@ -233,37 +233,38 @@ Function Get-ProductEntry
                     Installed = $true
                 }
             }
-        } 
+        }
     }
 
     return $null
 }
 
-function Test-TargetResource 
+function Test-TargetResource
 {
+    [OutputType([System.Boolean])]
     param
     (
         [ValidateSet("Present", "Absent")]
         [string] $Ensure = "Present",
-        
+
         [parameter(Mandatory = $true)]
         [AllowEmptyString()]
         [string] $Name,
-        
+
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [string] $Path,
-        
+
         [parameter(Mandatory = $true)]
         [AllowEmptyString()]
         [string] $ProductId,
-        
+
         [string] $Arguments,
-        
+
         [pscredential] $Credential,
-        
-        [int[]] $ReturnCode,
-        
+
+        [System.UInt32[]] $ReturnCode,
+
         [string] $LogPath,
 
         [pscredential] $RunAsCredential,
@@ -274,7 +275,7 @@ function Test-TargetResource
 
         [string] $InstalledCheckRegValueData
     )
-    
+
     $uri, $identifyingNumber = Validate-StandardArguments $Path $ProductId $Name
     $product = Get-ProductEntry $Name $identifyingNumber $InstalledCheckRegKey $InstalledCheckRegValueName $InstalledCheckRegValueData
     Trace-Message "Ensure is $Ensure"
@@ -303,7 +304,7 @@ function Test-TargetResource
             Write-Verbose ($LocalizedData.PackageAppearsInstalled -f $name)
         }
         else
-        {   
+        {
             $displayName = $null
             if($Name)
             {
@@ -313,12 +314,12 @@ function Test-TargetResource
             {
                 $displayName = $ProductId
             }
-        
+
             Write-Verbose ($LocalizedData.PackageDoesNotAppearInstalled -f $displayName)
         }
 
     }
-    
+
     return $res
 }
 
@@ -328,28 +329,29 @@ function Get-LocalizableRegKeyValue
         [object] $RegKey,
         [string] $ValueName
     )
-    
+
     $res = $RegKey.GetValue("{0}_Localized" -f $ValueName)
     if(-not $res)
     {
         $res = $RegKey.GetValue($ValueName)
     }
-    
+
     return $res
 }
 
 function Get-TargetResource
 {
+    [OutputType([System.Collections.Hashtable])]
     param
     (
         [parameter(Mandatory = $true)]
         [AllowEmptyString()]
         [string] $Name,
-        
+
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [string] $Path,
-        
+
         [parameter(Mandatory = $true)]
         [AllowEmptyString()]
         [string] $ProductId,
@@ -359,15 +361,16 @@ function Get-TargetResource
         [string] $InstalledCheckRegValueName,
 
         [string] $InstalledCheckRegValueData
+
     )
-    
+
     #If the user gave the ProductId then we derive $identifyingNumber
     $uri, $identifyingNumber = Validate-StandardArguments $Path $ProductId $Name
-    
+
     $localMsi = $uri.IsFile -and -not $uri.IsUnc
-    
+
     $product = Get-ProductEntry $Name $identifyingNumber $InstalledCheckRegKey $InstalledCheckRegValueName $InstalledCheckRegValueData
-    
+
     if(-not $product)
     {
         return @{
@@ -380,7 +383,7 @@ function Get-TargetResource
             InstalledCheckRegValueData = $InstalledCheckRegValueData
         }
     }
-    
+
     if ($InstalledCheckRegKey -and $InstalledCheckRegValueName -and $InstalledCheckRegValueData)
     {
         return @{
@@ -400,7 +403,7 @@ function Get-TargetResource
     {
         $identifyingNumber = Split-Path -Leaf $product.Name
     }
-    
+
     $date = $product.GetValue("InstallDate")
     if($date)
     {
@@ -413,14 +416,14 @@ function Get-TargetResource
             $date = $null
         }
     }
-    
+
     $publisher = Get-LocalizableRegKeyValue $product "Publisher"
     $size = $product.GetValue("EstimatedSize")
     if($size)
     {
         $size = $size/1024
     }
-    
+
     $version = $product.GetValue("DisplayVersion")
     $description = $product.GetValue("Comments")
     $name = Get-LocalizableRegKeyValue $product "DisplayName"
@@ -444,7 +447,7 @@ Function Get-MsiTools
     {
         return $script:MsiTools
     }
-    
+
     $sig = @'
     [DllImport("msi.dll", CharSet = CharSet.Unicode, PreserveSig = true, SetLastError = true, ExactSpelling = true)]
     private static extern UInt32 MsiOpenPackageW(string szPackagePath, out IntPtr hProduct);
@@ -465,7 +468,7 @@ Function Get-MsiTools
             {
                 return null;
             }
-            
+
             int length = 256;
             var buffer = new StringBuilder(length);
             res = MsiGetPropertyW(MsiHandle, property, buffer, ref length);
@@ -483,7 +486,7 @@ Function Get-MsiTools
     {
         return GetPackageProperty(msi, "ProductCode");
     }
-    
+
     public static string GetProductName(string msi)
     {
         return GetPackageProperty(msi, "ProductName");
@@ -506,7 +509,7 @@ Function Get-MsiProductEntry
     {
         Throw-TerminatingError ($LocalizedData.PathDoesNotExist -f $Path)
     }
-    
+
     $tools = Get-MsiTools
 
     $pn = $tools::GetProductName($Path)
@@ -517,32 +520,32 @@ Function Get-MsiProductEntry
 }
 
 
-function Set-TargetResource 
+function Set-TargetResource
 {
     [CmdletBinding(SupportsShouldProcess=$true)]
     param
     (
         [ValidateSet("Present", "Absent")]
         [string] $Ensure = "Present",
-        
+
         [parameter(Mandatory = $true)]
         [AllowEmptyString()]
         [string] $Name,
-        
+
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [string] $Path,
-        
+
         [parameter(Mandatory = $true)]
         [AllowEmptyString()]
         [string] $ProductId,
-        
+
         [string] $Arguments,
-        
+
         [pscredential] $Credential,
-        
-        [int[]] $ReturnCode,
-        
+
+        [System.UInt32[]] $ReturnCode,
+
         [string] $LogPath,
 
         [pscredential] $RunAsCredential,
@@ -553,9 +556,9 @@ function Set-TargetResource
 
         [string] $InstalledCheckRegValueData
     )
-    
+
     $ErrorActionPreference = "Stop"
-    
+
     if((Test-TargetResource -Ensure $Ensure -Name $Name -Path $Path -ProductId $ProductId `
         -InstalledCheckRegKey $InstalledCheckRegKey -InstalledCheckRegValueName $InstalledCheckRegValueName `
         -InstalledCheckRegValueData $InstalledCheckRegValueData))
@@ -564,17 +567,17 @@ function Set-TargetResource
     }
 
     $uri, $identifyingNumber = Validate-StandardArguments $Path $ProductId $Name
-    
+
     #Path gets overwritten in the download code path. Retain the user's original Path in case the install succeeded
     #but the named package wasn't present on the system afterward so we can give a better message
     $OrigPath = $Path
-    
+
     Write-Verbose $LocalizedData.PackageConfigurationStarting
     if(-not $ReturnCode)
     {
         $ReturnCode = @(0)
     }
-    
+
     $logStream = $null
     $psdrive = $null
     $downloadedFileName = $null
@@ -594,7 +597,7 @@ function Set-TargetResource
                     {
                         rm $LogPath
                     }
-                    
+
                     if($PSCmdlet.ShouldProcess($LocalizedData.CreateLogFile, $null, $null))
                     {
                         New-Item -Type File $LogPath | Out-Null
@@ -610,7 +613,7 @@ function Set-TargetResource
                 Throw-TerminatingError ($LocalizedData.CouldNotOpenLog -f $LogPath) $_
             }
         }
-        
+
         #Download or mount file as necessary
         if(-not ($fileExtension -eq ".msi" -and $Ensure -eq "Absent"))
         {
@@ -623,7 +626,7 @@ function Set-TargetResource
                     #we pass a null for Credential which causes the cmdlet to pop a dialog up
                     $psdriveArgs["Credential"] = $Credential
                 }
-                
+
                 $psdrive = New-PSDrive @psdriveArgs
                 $Path = Join-Path $psdrive.Root (Split-Path -Leaf $uri.LocalPath) #Necessary?
             }
@@ -641,9 +644,9 @@ function Set-TargetResource
                     {
                         mkdir $CacheLocation | Out-Null
                     }
-                
+
                     $destName = Join-Path $CacheLocation (Split-Path -Leaf $uri.LocalPath)
-                
+
                     Trace-Message "Need to download file from $scheme, destination will be $destName"
 
                     try
@@ -667,7 +670,7 @@ function Set-TargetResource
                         {
                             Trace-Message "Setting authentication level"
                             # default value is MutualAuthRequested, which applies to https scheme
-                            $request.AuthenticationLevel = [System.Net.Security.AuthenticationLevel]::None                            
+                            $request.AuthenticationLevel = [System.Net.Security.AuthenticationLevel]::None
                         }
                         if ($scheme -eq "https")
                         {
@@ -701,7 +704,7 @@ function Set-TargetResource
                     {
                         $outStream.Close()
                     }
-                    
+
                     if($responseStream)
                     {
                         $responseStream.Close()
@@ -711,13 +714,13 @@ function Set-TargetResource
                 $Path = $downloadedFileName = $destName
             }
         }
-        
+
         #At this point the Path ought to be valid unless it's an MSI uninstall case
         if(-not (Test-Path -PathType Leaf $Path) -and -not ($Ensure -eq "Absent" -and $fileExtension -eq ".msi"))
         {
             Throw-TerminatingError ($LocalizedData.PathDoesNotExist -f $Path)
         }
-        
+
         $startInfo = New-Object System.Diagnostics.ProcessStartInfo
         $startInfo.UseShellExecute = $false #Necessary for I/O redirection and just generally a good idea
         $process = New-Object System.Diagnostics.Process
@@ -748,14 +751,14 @@ function Set-TargetResource
                 $id = Split-Path -Leaf $product.Name #We may have used the Name earlier, now we need the actual ID
                 $startInfo.Arguments = ("/x{0}" -f $id)
             }
-            
+
             if($LogPath)
             {
                 $startInfo.Arguments += ' /log "{0}"' -f $LogPath
             }
-            
+
             $startInfo.Arguments += " /quiet"
-            
+
             if($Arguments)
             {
                 $startInfo.Arguments += " " + $Arguments
@@ -775,9 +778,9 @@ function Set-TargetResource
                 Register-ObjectEvent -InputObject $process -EventName "ErrorDataReceived" -SourceIdentifier $errLogPath
             }
         }
-        
+
         Trace-Message ("Starting {0} with {1}" -f $startInfo.FileName, $startInfo.Arguments)
-        
+
         if($PSCmdlet.ShouldProcess(($LocalizedData.StartingProcessMessage -f $startInfo.FileName, $startInfo.Arguments), $null, $null))
         {
             try
@@ -800,7 +803,7 @@ function Set-TargetResource
                         $process.BeginOutputReadLine();
                         $process.BeginErrorReadLine();
                     }
-            
+
                     $process.WaitForExit()
 
                     if($process)
@@ -814,7 +817,7 @@ function Set-TargetResource
                 Throw-TerminatingError ($LocalizedData.CouldNotStartProcess -f $Path) $_
             }
 
-            
+
             if($logStream)
             {
                 #We have to re-mux these since they appear to us as different streams
@@ -825,16 +828,16 @@ function Set-TargetResource
                 $errorEvents = Get-Event -SourceIdentifier $errLogPath
                 $masterEvents = @() + $outputEvents + $errorEvents
                 $masterEvents = $masterEvents | Sort-Object -Property TimeGenerated
-                
+
                 foreach($event in $masterEvents)
                 {
                     $logStream.Write($event.SourceEventArgs.Data);
                 }
-                
+
                 Remove-Event -SourceIdentifier $LogPath
                 Remove-Event -SourceIdentifier $errLogPath
             }
-            
+
             if(-not ($ReturnCode -contains $exitCode))
             {
                 Throw-TerminatingError ($LocalizedData.UnexpectedReturnCode -f $exitCode.ToString())
@@ -847,26 +850,26 @@ function Set-TargetResource
         {
             Remove-PSDrive -Force $psdrive
         }
-        
+
         if($logStream)
         {
             $logStream.Dispose()
         }
     }
-    
+
     if($downloadedFileName -and $PSCmdlet.ShouldProcess($LocalizedData.RemoveDownloadedFile, $null, $null))
     {
         #This is deliberately not in the Finally block. We want to leave the downloaded file on disk
         #in the error case as a debugging aid for the user
         rm $downloadedFileName
     }
-    
+
     $operationString = $LocalizedData.PackageUninstalled
     if($Ensure -eq "Present")
     {
         $operationString = $LocalizedData.PackageInstalled
     }
-    
+
     # Check if reboot is required, if so notify CA. The MSFT_ServerManagerTasks provider is missing on client SKUs
     $featureData = invoke-wmimethod -EA Ignore -Name GetServerFeature -namespace root\microsoft\windows\servermanager -Class MSFT_ServerManagerTasks
     $regData = Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager" "PendingFileRenameOperations" -EA Ignore
@@ -875,7 +878,7 @@ function Set-TargetResource
         Write-Verbose $LocalizedData.MachineRequiresReboot
         $global:DSCMachineStatus = 1
     }
-    
+
     if($Ensure -eq "Present")
     {
         $productEntry = Get-ProductEntry $Name $identifyingNumber $InstalledCheckRegKey $InstalledCheckRegValueName $InstalledCheckRegValueData
@@ -884,7 +887,7 @@ function Set-TargetResource
             Throw-TerminatingError ($LocalizedData.PostValidationError -f $OrigPath)
         }
     }
-    
+
     Write-Verbose $operationString
     Write-Verbose $LocalizedData.PackageConfigurationComplete
 }
@@ -908,7 +911,7 @@ namespace Source
     public static class NativeMethods
     {
         //The following structs and enums are used by the various Win32 API's that are used in the code below
-        
+
         [StructLayout(LayoutKind.Sequential)]
         public struct STARTUPINFO
         {
@@ -1006,25 +1009,25 @@ namespace Source
               EntryPoint = "CreateProcessAsUser", SetLastError = true,
               CharSet = CharSet.Ansi, CallingConvention = CallingConvention.StdCall)]
         public static extern bool CreateProcessAsUser(
-            IntPtr hToken, 
-            string lpApplicationName, 
+            IntPtr hToken,
+            string lpApplicationName,
             string lpCommandLine,
-            ref SECURITY_ATTRIBUTES lpProcessAttributes, 
+            ref SECURITY_ATTRIBUTES lpProcessAttributes,
             ref SECURITY_ATTRIBUTES lpThreadAttributes,
-            bool bInheritHandle, 
-            Int32 dwCreationFlags, 
+            bool bInheritHandle,
+            Int32 dwCreationFlags,
             IntPtr lpEnvrionment,
-            string lpCurrentDirectory, 
+            string lpCurrentDirectory,
             ref STARTUPINFO lpStartupInfo,
             ref PROCESS_INFORMATION lpProcessInformation
             );
 
         [DllImport("advapi32.dll", EntryPoint = "DuplicateTokenEx")]
         public static extern bool DuplicateTokenEx(
-            IntPtr hExistingToken, 
+            IntPtr hExistingToken,
             Int32 dwDesiredAccess,
             ref SECURITY_ATTRIBUTES lpThreadAttributes,
-            Int32 ImpersonationLevel, 
+            Int32 ImpersonationLevel,
             Int32 dwTokenType,
             ref IntPtr phNewToken
             );
@@ -1041,11 +1044,11 @@ namespace Source
 
         [DllImport("advapi32.dll", ExactSpelling = true, SetLastError = true)]
         internal static extern bool AdjustTokenPrivileges(
-            IntPtr htok, 
+            IntPtr htok,
             bool disall,
-            ref TokPriv1Luid newst, 
-            int len, 
-            IntPtr prev, 
+            ref TokPriv1Luid newst,
+            int len,
+            IntPtr prev,
             IntPtr relen
             );
 
@@ -1054,26 +1057,26 @@ namespace Source
 
         [DllImport("advapi32.dll", ExactSpelling = true, SetLastError = true)]
         internal static extern bool OpenProcessToken(
-            IntPtr h, 
-            int acc, 
+            IntPtr h,
+            int acc,
             ref IntPtr phtok
             );
 
         [DllImport("kernel32.dll", ExactSpelling = true)]
         internal static extern int WaitForSingleObject(
-            IntPtr h, 
+            IntPtr h,
             int milliseconds
             );
 
         [DllImport("kernel32.dll", ExactSpelling = true)]
         internal static extern bool GetExitCodeProcess(
-            IntPtr h, 
+            IntPtr h,
             out int exitcode
             );
 
         [DllImport("advapi32.dll", SetLastError = true)]
         internal static extern bool LookupPrivilegeValue(
-            string host, 
+            string host,
             string name,
             ref long pluid
             );
@@ -1097,15 +1100,15 @@ namespace Source
                     LogonProvider.LOGON32_PROVIDER_DEFAULT,
                     out hToken
                     );
-                if (!bResult) 
-                { 
-                    throw new Win32Exception("Logon error #" + Marshal.GetLastWin32Error().ToString()); 
+                if (!bResult)
+                {
+                    throw new Win32Exception("Logon error #" + Marshal.GetLastWin32Error().ToString());
                 }
                 IntPtr hproc = GetCurrentProcess();
                 IntPtr htok = IntPtr.Zero;
                 bResult = OpenProcessToken(
-                        hproc, 
-                        TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, 
+                        hproc,
+                        TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY,
                         ref htok
                     );
                 if(!bResult)
@@ -1116,8 +1119,8 @@ namespace Source
                 tp.Luid = 0;
                 tp.Attr = SE_PRIVILEGE_ENABLED;
                 bResult = LookupPrivilegeValue(
-                    null, 
-                    SE_INCRASE_QUOTA, 
+                    null,
+                    SE_INCRASE_QUOTA,
                     ref tp.Luid
                     );
                 if(!bResult)
@@ -1125,18 +1128,18 @@ namespace Source
                     throw new Win32Exception("Lookup privilege error #" + Marshal.GetLastWin32Error().ToString());
                 }
                 bResult = AdjustTokenPrivileges(
-                    htok, 
-                    false, 
-                    ref tp, 
-                    0, 
-                    IntPtr.Zero, 
+                    htok,
+                    false,
+                    ref tp,
+                    0,
+                    IntPtr.Zero,
                     IntPtr.Zero
                     );
                 if(!bResult)
                 {
                     throw new Win32Exception("Token elevation error #" + Marshal.GetLastWin32Error().ToString());
                 }
-                
+
                 bResult = DuplicateTokenEx(
                     hToken,
                     GENERIC_ALL_ACCESS,
@@ -1156,13 +1159,13 @@ namespace Source
                     hDupedToken,
                     null,
                     strCommand,
-                    ref sa, 
                     ref sa,
-                    false, 
-                    0, 
+                    ref sa,
+                    false,
+                    0,
                     IntPtr.Zero,
-                    null, 
-                    ref si, 
+                    null,
+                    ref si,
                     ref pi
                     );
                 if(!bResult)

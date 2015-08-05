@@ -80,6 +80,12 @@ module Dsc
       properties.detect{|p|p.is_ensure?} ? true : false
     end
 
+    def absentable?
+      properties.detect do |p|
+        p.is_ensure? && p.values.any? { |v| v.casecmp('absent') == 0 }
+      end
+    end
+
     def has_name?
       properties.detect{|p|p.is_name?} ? true : false
     end

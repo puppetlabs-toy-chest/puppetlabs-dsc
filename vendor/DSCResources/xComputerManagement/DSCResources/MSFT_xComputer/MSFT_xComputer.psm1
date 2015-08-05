@@ -4,8 +4,8 @@
 #######################################################################
 function Get-TargetResource
 {
-	param
-	(	
+    param
+    (    
         [parameter(Mandatory)]
         [string] $Name,
 
@@ -15,21 +15,21 @@ function Get-TargetResource
 
         [PSCredential]$UnjoinCredential,
 
-	    [string] $WorkGroupName
-  	)
+        [string] $WorkGroupName
+      )
 
     $convertToCimCredential = New-CimInstance -ClassName MSFT_Credential -Property @{Username=[string]$Credential.UserName; Password=[string]$null} -Namespace root/microsoft/windows/desiredstateconfiguration -ClientOnly
     $convertToCimUnjoinCredential = New-CimInstance -ClassName MSFT_Credential -Property @{Username=[string]$UnjoinCredential.UserName; Password=[string]$null} -Namespace root/microsoft/windows/desiredstateconfiguration -ClientOnly
 
     $returnValue = @{
-		Name = $env:COMPUTERNAME
+        Name = $env:COMPUTERNAME
         DomainName =(gwmi WIN32_ComputerSystem).Domain
-		Credential = [ciminstance]$convertToCimCredential
+        Credential = [ciminstance]$convertToCimCredential
         UnjoinCredential = [ciminstance]$convertToCimUnjoinCredential
-		WorkGroupName= (gwmi WIN32_ComputerSystem).WorkGroup
-	}
+        WorkGroupName= (gwmi WIN32_ComputerSystem).WorkGroup
+    }
 
-	$returnValue
+    $returnValue
 }
 
 ######################################################################## 
@@ -37,23 +37,23 @@ function Get-TargetResource
 ########################################################################
 function Set-TargetResource
 {
-	param
-	(	
+    param
+    (    
         [parameter(Mandatory)]
         [string] $Name,
-	
+    
         [string] $DomainName,
         
         [PSCredential]$Credential,
 
         [PSCredential]$UnjoinCredential,
 
-	    [string] $WorkGroupName
-	)
+        [string] $WorkGroupName
+    )
 
     ValidateDomainWorkGroup -DomainName $DomainName -WorkGroupName $WorkGroupName
    
-	$currName = $env:COMPUTERNAME
+    $currName = $env:COMPUTERNAME
 
     if($Credential)
     {
@@ -195,9 +195,9 @@ function Set-TargetResource
 #######################################################################
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	param
-	(
+    [CmdletBinding()]
+    param
+    (
         [parameter(Mandatory)]
         [string] $Name,
         
@@ -207,8 +207,8 @@ function Test-TargetResource
         
         [string] $DomainName,
 
-	    [string] $WorkGroupName
-	)
+        [string] $WorkGroupName
+    )
     
     Write-Verbose -Message "Checking if computer name is $Name"
 
@@ -249,12 +249,12 @@ function Test-TargetResource
 
 function ValidateDomainWorkGroup
 {
-	param($DomainName,$WorkGroupName)
-	if($DomainName -and $WorkGroupName)
-	{
-		throw "Only one of either the domain name or the workgroup name can be set! Please edit the configuration to ensure that only one of these properties have a value."
+    param($DomainName,$WorkGroupName)
+    if($DomainName -and $WorkGroupName)
+    {
+        throw "Only one of either the domain name or the workgroup name can be set! Please edit the configuration to ensure that only one of these properties have a value."
 
-	}
+    }
 }
 
 

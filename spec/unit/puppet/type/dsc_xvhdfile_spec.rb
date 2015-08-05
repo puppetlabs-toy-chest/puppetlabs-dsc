@@ -19,6 +19,7 @@ describe Puppet::Type.type(:dsc_xvhdfile) do
     expect { Puppet::Type.type(:dsc_xvhdfile).new(
       :name     => 'foo',
       :dsc_filedirectory => ["foo", "bar", "spec"],
+      :dsc_checksum => 'ModifiedDate',
     )}.to raise_error(Puppet::Error, /dsc_vhdpath is a required attribute/)
   end
 
@@ -53,6 +54,66 @@ describe Puppet::Type.type(:dsc_xvhdfile) do
 
   it 'should not accept uint for dsc_filedirectory' do
     expect{dsc_xvhdfile[:dsc_filedirectory] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_checksum predefined value ModifiedDate' do
+    dsc_xvhdfile[:dsc_checksum] = 'ModifiedDate'
+    expect(dsc_xvhdfile[:dsc_checksum]).to eq('ModifiedDate')
+  end
+
+  it 'should accept dsc_checksum predefined value modifieddate' do
+    dsc_xvhdfile[:dsc_checksum] = 'modifieddate'
+    expect(dsc_xvhdfile[:dsc_checksum]).to eq('modifieddate')
+  end
+
+  it 'should accept dsc_checksum predefined value SHA-1' do
+    dsc_xvhdfile[:dsc_checksum] = 'SHA-1'
+    expect(dsc_xvhdfile[:dsc_checksum]).to eq('SHA-1')
+  end
+
+  it 'should accept dsc_checksum predefined value sha-1' do
+    dsc_xvhdfile[:dsc_checksum] = 'sha-1'
+    expect(dsc_xvhdfile[:dsc_checksum]).to eq('sha-1')
+  end
+
+  it 'should accept dsc_checksum predefined value SHA-256' do
+    dsc_xvhdfile[:dsc_checksum] = 'SHA-256'
+    expect(dsc_xvhdfile[:dsc_checksum]).to eq('SHA-256')
+  end
+
+  it 'should accept dsc_checksum predefined value sha-256' do
+    dsc_xvhdfile[:dsc_checksum] = 'sha-256'
+    expect(dsc_xvhdfile[:dsc_checksum]).to eq('sha-256')
+  end
+
+  it 'should accept dsc_checksum predefined value SHA-512' do
+    dsc_xvhdfile[:dsc_checksum] = 'SHA-512'
+    expect(dsc_xvhdfile[:dsc_checksum]).to eq('SHA-512')
+  end
+
+  it 'should accept dsc_checksum predefined value sha-512' do
+    dsc_xvhdfile[:dsc_checksum] = 'sha-512'
+    expect(dsc_xvhdfile[:dsc_checksum]).to eq('sha-512')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xvhdfile[:dsc_checksum] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_checksum' do
+    expect{dsc_xvhdfile[:dsc_checksum] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_checksum' do
+    expect{dsc_xvhdfile[:dsc_checksum] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_checksum' do
+    expect{dsc_xvhdfile[:dsc_checksum] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_checksum' do
+    expect{dsc_xvhdfile[:dsc_checksum] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

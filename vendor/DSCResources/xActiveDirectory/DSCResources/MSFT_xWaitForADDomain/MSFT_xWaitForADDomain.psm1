@@ -1,45 +1,45 @@
 function Get-TargetResource
 {
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[Parameter(Mandatory)]
-		[String]$DomainName,
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [Parameter(Mandatory)]
+        [String]$DomainName,
 
-		[Parameter(Mandatory)]
-		[PSCredential]$DomainUserCredential,
+        [Parameter(Mandatory)]
+        [PSCredential]$DomainUserCredential,
 
-		[UInt64]$RetryIntervalSec = 10,
+        [UInt64]$RetryIntervalSec = 10,
 
-		[UInt32]$RetryCount = 5
-	)
+        [UInt32]$RetryCount = 5
+    )
 
     $convertToCimCredential = New-CimInstance -ClassName MSFT_Credential -Property @{Username=[string]$DomainUserCredential.UserName; Password=[string]$null} -Namespace root/microsoft/windows/desiredstateconfiguration -ClientOnly
 
-	$returnValue = @{
-		DomainName = $DomainName
+    $returnValue = @{
+        DomainName = $DomainName
         DomainUserCredential = $convertToCimCredential
-		RetryIntervalSec = $RetryIntervalSec
-		RetryCount = $RetryCount
-	}
-	$returnValue
+        RetryIntervalSec = $RetryIntervalSec
+        RetryCount = $RetryCount
+    }
+    $returnValue
 }
 
 
 function Set-TargetResource
 {
-	param
-	(
-		[Parameter(Mandatory)]
-		[String]$DomainName,
+    param
+    (
+        [Parameter(Mandatory)]
+        [String]$DomainName,
 
-		[Parameter(Mandatory)]
-		[PSCredential]$DomainUserCredential,
+        [Parameter(Mandatory)]
+        [PSCredential]$DomainUserCredential,
 
-		[UInt64]$RetryIntervalSec = 10,
+        [UInt64]$RetryIntervalSec = 10,
 
-		[UInt32]$RetryCount = 5
-	)
+        [UInt32]$RetryCount = 5
+    )
 
     $domainFound = $false
     Write-Verbose -Message "Checking for domain $DomainName ..."
@@ -65,19 +65,19 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
-	[OutputType([System.Boolean])]
-	param
-	(
-		[Parameter(Mandatory)]
-		[String]$DomainName,
+    [OutputType([System.Boolean])]
+    param
+    (
+        [Parameter(Mandatory)]
+        [String]$DomainName,
 
-		[Parameter(Mandatory)]
-		[PSCredential]$DomainUserCredential,
+        [Parameter(Mandatory)]
+        [PSCredential]$DomainUserCredential,
 
-		[UInt64]$RetryIntervalSec = 10,
+        [UInt64]$RetryIntervalSec = 10,
 
-		[UInt32]$RetryCount = 5
-	)
+        [UInt32]$RetryCount = 5
+    )
 
     Write-Verbose -Message "Checking for domain $DomainName ..."
     try

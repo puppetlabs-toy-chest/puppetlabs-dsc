@@ -62,7 +62,7 @@ define( 'WP_ALLOW_MULTISITE', true );
 
 /* Absolute path to the WordPress directory. */
 if ( !defined('ABSPATH') )
-	define('ABSPATH', dirname(__FILE__) . '/');
+    define('ABSPATH', dirname(__FILE__) . '/');
 
 /* Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');

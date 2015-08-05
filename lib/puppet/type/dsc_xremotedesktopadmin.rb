@@ -12,7 +12,7 @@ Puppet::Type.newtype(:dsc_xremotedesktopadmin) do
   @doc = %q{
     The DSC xRemoteDesktopAdmin resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xRemoteDesktopAdmin/DSCResources/MSFT_xRemoteDesktopAdmin/MSFT_xRemoteDesktopAdmin.schema.mof
+      import/dsc_resources/dsc-resource-kit/xRemoteDesktopAdmin/DSCResources/xRemoteDesktopAdmin/xRemoteDesktopAdmin.schema.mof
   }
 
   validate do
@@ -42,7 +42,7 @@ Puppet::Type.newtype(:dsc_xremotedesktopadmin) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.1"
+    defaultto "1.0.2"
   end
 
   newparam(:name, :namevar => true ) do

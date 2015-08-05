@@ -832,6 +832,7 @@ function Get-ExpandArchive
 
 function Test-TargetResource
 {
+    [OutputType([System.Boolean])]
     param
     (
         [parameter(mandatory=$true)]
@@ -928,6 +929,7 @@ function Set-TargetResource
 
 function Get-TargetResource
 {
+    [OutputType([System.Collections.Hashtable])]
     param
     (
         [parameter(mandatory=$true)]
@@ -970,8 +972,8 @@ function Get-TargetResource
         }
 
         $getTargetResourceResult = @{
-    	                                Path = $Path; 
-    	                                Destination = $Destination;
+                                        Path = $Path; 
+                                        Destination = $Destination;
                                         CompressionLevel = $CompressionLevel;
                                         DestinationType = $DestinationType;
                                         MatchSource = $MatchSource;
@@ -1009,8 +1011,8 @@ function Get-TargetResource
         }
 
         $getTargetResourceResult = @{
-    	                        Path = $archivePath; 
-    	                        Destination = $expandArchiveResult["Destination"];
+                                Path = $archivePath; 
+                                Destination = $expandArchiveResult["Destination"];
                                 CompressionLevel = $CompressionLevel;
                                 DestinationType = $DestinationType;
                                 MatchSource = $MatchSource;

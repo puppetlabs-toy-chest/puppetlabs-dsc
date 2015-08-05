@@ -11,25 +11,25 @@
 ######################################################################################
 function Get-TargetResource
 {
-	param
-	(		
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
-		[String]$IPAddress,
+    param
+    (        
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [String]$IPAddress,
 
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
         [String]$InterfaceAlias,
 
         [Int]$SubnetMask = 16,
 
-		[ValidateNotNullOrEmpty()]
+        [ValidateNotNullOrEmpty()]
         [String]$DefaultGateway,
         
         [ValidateSet("IPv4", "IPv6")]
         [String]$AddressFamily = "IPv4"
-	)
-	
+    )
+    
     
     $returnValue = @{
         IPAddress = [System.String]::Join(", ",(Get-NetIPAddress -InterfaceAlias $InterfaceAlias -AddressFamily $AddressFamily).IPAddress)
@@ -37,9 +37,9 @@ function Get-TargetResource
         DefaultGateway = $DefaultGateway
         AddressFamily = $AddressFamily
         InterfaceAlias=$InterfaceAlias
-	}
+    }
 
-	$returnValue
+    $returnValue
 }
 
 ######################################################################################
@@ -48,25 +48,25 @@ function Get-TargetResource
 ######################################################################################
 function Set-TargetResource
 {
-	param
-	(	
-        #IP Address that has to be set	
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
-		[String]$IPAddress,
+    param
+    (    
+        #IP Address that has to be set    
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [String]$IPAddress,
 
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
         [String]$InterfaceAlias,
 
         [Int]$SubnetMask,
 
-		[ValidateNotNullOrEmpty()]
+        [ValidateNotNullOrEmpty()]
         [String]$DefaultGateway,
 
         [ValidateSet("IPv4", "IPv6")]
         [String]$AddressFamily = "IPv4"
-	)
+    )
 
     
     ValidateProperties @PSBoundParameters -Apply
@@ -78,24 +78,24 @@ function Set-TargetResource
 ######################################################################################
 function Test-TargetResource
 {
-	param
-	(		
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
-		[String]$IPAddress,
+    param
+    (        
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
+        [String]$IPAddress,
 
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
         [String]$InterfaceAlias,
 
         [Int]$SubnetMask,
 
-		[ValidateNotNullOrEmpty()]
+        [ValidateNotNullOrEmpty()]
         [String]$DefaultGateway,
 
         [ValidateSet("IPv4", "IPv6")]
         [String]$AddressFamily = "IPv4"
-	)
+    )
 
     ValidateProperties @PSBoundParameters
 }
@@ -110,11 +110,11 @@ function ValidateProperties
     param
     (
         [Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
-		[String]$IPAddress,
+        [ValidateNotNullOrEmpty()]
+        [String]$IPAddress,
 
-		[Parameter(Mandatory)]
-		[ValidateNotNullOrEmpty()]
+        [Parameter(Mandatory)]
+        [ValidateNotNullOrEmpty()]
         [String]$InterfaceAlias,
 
         [ValidateNotNullOrEmpty()]
@@ -122,7 +122,7 @@ function ValidateProperties
 
         [Int]$SubnetMask = 16,
 
-	[ValidateSet("IPv4", "IPv6")]
+    [ValidateSet("IPv4", "IPv6")]
         [String]$AddressFamily = "IPv4",
 
         [Switch]$Apply

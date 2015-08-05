@@ -8,7 +8,7 @@ Configuration Sample_xService_DeleteService
 
         [System.String]
         $Name,
-		
+        
         [System.String]
         [ValidateSet("Automatic", "Manual", "Disabled")]
         $StartupType,

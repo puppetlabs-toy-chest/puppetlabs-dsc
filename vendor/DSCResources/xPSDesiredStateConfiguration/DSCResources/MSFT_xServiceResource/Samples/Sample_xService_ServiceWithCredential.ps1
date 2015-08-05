@@ -8,7 +8,7 @@ Configuration Sample_xService_ServiceWithCredential
 
         [System.String]
         $Name,
-		
+        
         [System.String]
         [ValidateSet("Automatic", "Manual", "Disabled")]
         $StartupType="Automatic",
