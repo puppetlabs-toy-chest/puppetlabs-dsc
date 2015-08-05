@@ -7,7 +7,7 @@ namespace :dsc do
   # defaults
   default_dsc_module_path    = dsc_build_path.parent
   default_dsc_resources_path = "#{default_dsc_module_path}/#{Dsc::Config['import_folder']}/#{Dsc::Config['dsc_modules_folder']}"
-  vendor_dsc_resources_path  = "#{default_dsc_module_path}/vendor/DSCResources"
+  vendor_dsc_resources_path  = "#{default_dsc_module_path}/lib/puppet_x/dsc_resources"
 
   default_repofile           = "#{default_dsc_module_path}/Repofile"
   default_types_path         = "#{default_dsc_module_path}/lib/puppet/type"

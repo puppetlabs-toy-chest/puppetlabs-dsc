@@ -26,7 +26,7 @@ EOT
   end
 
   def vendored_modules_path
-    File.expand_path(File.join(__FILE__, '..', '..', '..', '..', '..', 'vendor','DSCResources')).gsub(/\//,'\\')
+    File.expand_path(File.join(__FILE__, '..', '..', '..', '..', 'puppet_x', 'dsc_resources')).gsub(/\//,'\\')
   end
 
   def powershell_args
