@@ -54,6 +54,34 @@ reasons we do not provide examples from the Puppet Labs testing environment. Hop
 be able to provide necessary infrastructure to the community to allow for contributors to run the "acceptance" and
 "integration" test suites.
 
+### Running Acceptance Tests
+
+To run acceptance tests use the "acceptance_tests.sh" test run script.
+
+**Example: Run with defaults on Windows 2012 R2**
+```
+./acceptance.sh
+```
+
+**Example: Run with Puppet Agent 1.2.1 on Windows 2008 R2**
+```
+./acceptance.sh windows-2008r2-64a 1.2.1
+```
+
+### Running Integration Tests
+
+To run integration tests use the "integration_tests.sh" test run script.
+
+**Example: Run with defaults on Windows 2012 R2**
+```
+./integration.sh
+```
+
+**Example: Run with alternate PE package repo on Windows 2008 R2**
+```
+./integration.sh windows-2008r2-64mda http://alt.address.local/3.8.2/preview
+```
+
 ## Documentation
 
 Each sub-folder may contain a "README.md" that describes the content found in the sub-folder if it the content is
