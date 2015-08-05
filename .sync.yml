@@ -51,4 +51,4 @@ appveyor.yml:
       RUBY_VER: 200-x64
   appveyor_bundle_install: "bundle install --jobs 4 --retry 2 --without system_tests build"
   test_script:
-    - 'bundle exec rspec spec/unit -fd -b'
+    - 'bundle exec rspec spec/unit spec/integration -fd -b'
