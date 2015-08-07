@@ -12,8 +12,9 @@ declare -a ARGS
 if [ $# -eq 0 ]; then
   ARGS[0]='windows-2012r2-64a'
   ARGS[1]='1.2.2'
-elif [ $# -ne 2 ]; then
-  echo 'USAGE acceptance_tests.sh <CONFIG> <PUPPET_AGENT_VERSION>'
+  ARGS[2]='forge'
+elif [ $# -ne 3 ]; then
+  echo 'USAGE acceptance_tests.sh <CONFIG> <PUPPET_AGENT_VER> <LOCAL_OR_FORGE>'
   exit 1
 else
   ARGS=("$@")
@@ -22,6 +23,18 @@ fi
 # Figure out where we are in the directory hierarchy
 if [ $SCRIPT_BASE_PATH = "test_run_scripts" ]; then
   cd ../../
+fi
+
+# Determine if the forge is needed for the test.
+if [ ${ARGS[2]} == 'forge' ]; then
+  echo 'Testing Module Using Forge Package'
+  export BEAKER_FORGE_HOST=api-module-staging.puppetlabs.com
+elif [ ${ARGS[2]} == 'local' ]; then
+  echo 'Testing Module Using Local Code'
+else
+  echo 'You must specify "forge" or "local" for test type!'
+  echo 'USAGE acceptance_tests.sh <CONFIG> <PUPPET_AGENT_VER> <LOCAL_OR_FORGE>'
+  exit 1
 fi
 
 export BEAKER_PUPPET_AGENT_VERSION=${ARGS[1]}
