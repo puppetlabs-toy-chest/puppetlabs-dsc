@@ -13,4 +13,3 @@ CONFIG:
   folder: Delivery/Quality Assurance/Enterprise/Dynamic
   resourcepool: delivery/Quality Assurance/Enterprise/Dynamic
   pooling_api: http://vmpooler.delivery.puppetlabs.net/
-  forge_host: api-module-staging.puppetlabs.com

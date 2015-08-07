@@ -60,12 +60,17 @@ To run acceptance tests use the "acceptance_tests.sh" test run script.
 
 **Example: Run with defaults on Windows 2012 R2**
 ```
-./acceptance.sh
+./acceptance_tests.sh
 ```
 
-**Example: Run with Puppet Agent 1.2.1 on Windows 2008 R2**
+**Example: Run with Puppet Agent 1.2.1 on Windows 2008 R2 using Forge**
 ```
-./acceptance.sh windows-2008r2-64a 1.2.1
+./acceptance_tests.sh windows-2008r2-64a 1.2.1 forge
+```
+
+**Example: Run with Puppet Agent 1.2.2 on Windows 2012 R2 with local module code (No Forge)**
+```
+./acceptance_tests.sh windows-2012r2-64a 1.2.2 local
 ```
 
 ### Running Integration Tests
@@ -74,12 +79,17 @@ To run integration tests use the "integration_tests.sh" test run script.
 
 **Example: Run with defaults on Windows 2012 R2**
 ```
-./integration.sh
+./integration_tests.sh
 ```
 
-**Example: Run with alternate PE package repo on Windows 2008 R2**
+**Example: Run with alternate PE package repo on Windows 2008 R2 using Forge**
 ```
-./integration.sh windows-2008r2-64mda http://alt.address.local/3.8.2/preview
+./integration_tests.sh windows-2008r2-64mda http://alt.address.local/3.8.2/preview forge
+```
+
+**Example: Run with alternate PE package repo on Windows 2012 R2 with local module code (No Forge)**
+```
+./integration_tests.sh windows-2012r2-64mda http://alt.address.local/3.8.2/preview local
 ```
 
 ## Documentation
