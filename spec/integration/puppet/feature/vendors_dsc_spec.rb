@@ -1,18 +1,13 @@
 #! /usr/bin/env ruby
 require 'spec_helper'
 require 'puppet/type'
-require 'puppet/type/base_dsc'
 require 'fileutils'
 require 'puppet/file_system'
+require 'puppet/feature/vendors_dsc'
 
-describe Puppet::Type.type(:base_dsc).provider(:powershell), :if => Puppet.features.microsoft_windows? do
+module DscSymlink; end # for tests on non-Windows
 
-  # Override initialize so we don't call the symlink set
-  class Puppet::Type::Base_dsc::ProviderPowershell
-    def initialize(value={})
-      super(value)
-    end
-  end
+describe DscSymlink, :if => Puppet::Util::Platform.windows? do
 
   let (:top_level_path) do
     Dir.mktmpdir('dsc_playground')
