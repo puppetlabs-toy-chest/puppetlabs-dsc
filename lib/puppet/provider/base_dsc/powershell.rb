@@ -1,9 +1,9 @@
-require 'puppet/file_system'
-require 'fileutils'
-require 'win32/registry' if Puppet::Util::Platform.windows?
+require 'puppet/feature/vendors_dsc'
+
 Puppet::Type.type(:base_dsc).provide(:powershell) do
   confine :operatingsystem => :windows
   defaultfor :operatingsystem => :windows
+  has_features :vendors_dsc?
 
   commands :powershell =>
     if File.exists?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
@@ -18,61 +18,6 @@ Puppet::Type.type(:base_dsc).provide(:powershell) do
 Applies DSC Resources by generating a configuration file and applying it.
 EOT
 
-  def initialize(value={})
-    super(value)
-    set_symlink_folder
-  end
-
-  # do nothing by default on non-Windows
-  def set_symlink_folder; end
-
-  if Puppet::Util::Platform.windows?
-    # Ensure the symlink folder exists and is pointing to the proper location.
-    # This also ensures the directory structure is in place prior to creating
-    # the symlink, otherwise the symlink creation fails.
-    def set_symlink_folder
-      puppet_modules_vendor_folder = "#{get_program_files_dir}\\WindowsPowerShell\\Modules\\PuppetVendoredModules"
-      return if Puppet::FileSystem.symlink?(puppet_modules_vendor_folder) &&
-                Puppet::FileSystem.readlink(puppet_modules_vendor_folder) == vendored_modules_path
-
-      recreate_link = false
-
-      if Puppet::FileSystem.exist?(puppet_modules_vendor_folder)
-        if Puppet::FileSystem.symlink?(puppet_modules_vendor_folder)
-          recreate_link = true
-          Puppet::FileSystem.unlink(puppet_modules_vendor_folder)
-        else
-          recreate_link = true
-          FileUtils.mv puppet_modules_vendor_folder, "#{puppet_modules_vendor_folder}.#{Time.now.utc.strftime("%Y%m%d_%H%M%S_%L")}"
-        end
-      end
-
-      if recreate_link || !Puppet::FileSystem.symlink?(puppet_modules_vendor_folder)
-        Puppet.debug "Creating symlink at '#{puppet_modules_vendor_folder}' \n pointed to '#{vendored_modules_path}'."
-        Puppet::FileSystem.dir_mkpath(puppet_modules_vendor_folder) if !Puppet::FileSystem.dir_exist?(puppet_modules_vendor_folder)
-        Puppet::FileSystem.symlink(vendored_modules_path, puppet_modules_vendor_folder,{ :force => true})
-      end
-    end
-
-    # Get the non-x86 program files path, no matter whether the process is
-    # a 32 bit or 64 bit process. Shut off registry redirection and query
-    # the ProgramFilesDir key to retrieve the program files value.
-    def get_program_files_dir
-      program_files_dir = nil
-      begin
-        hive = Win32::Registry::HKEY_LOCAL_MACHINE
-        hive.open('SOFTWARE\Microsoft\Windows\CurrentVersion', Win32::Registry::KEY_READ | 0x100) do |reg|
-          program_files_dir = reg['ProgramFilesDir']
-        end
-      rescue Win32::Registry::Error => e
-        Puppet.warning "Error occurred attempting to read program files directory from registry, using default. \n Message: #{e.message}"
-        program_files_dir = 'C:\Program Files'
-      end
-
-      program_files_dir
-    end
-  end
-
   def dsc_parameters
     resource.parameters_with_value.select do |p|
       p.name.to_s =~ /dsc_/
@@ -83,9 +28,6 @@ EOT
     File.expand_path('../../templates', __FILE__)
   end
 
-  def vendored_modules_path
-    File.expand_path(File.join(__FILE__, '..', '..', '..', '..', 'puppet_x', 'dsc_resources')).gsub(/\//,'\\')
-  end
 
   def powershell_args
     ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command']
