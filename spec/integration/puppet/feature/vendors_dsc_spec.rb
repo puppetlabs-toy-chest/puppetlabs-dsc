@@ -40,19 +40,28 @@ describe DscSymlink, :if => Puppet::Util::Platform.windows? do
     end
 
     it "should recreate a symlink if the existing link path is wrong" do
-      FileUtils.mkdir_p(program_files)
-      Puppet::FileSystem.symlink(subject.vendored_modules_path, Dir.mktmpdir('dsc_link'), { :force => true})
+      FileUtils.mkdir_p(::File.expand_path('..', vendored_modules_symlink_path))
+      Puppet::FileSystem.symlink(Dir.mktmpdir('dsc_link'), vendored_modules_symlink_path, { :force => true})
 
       set_symlink_and_check
     end
 
-    it "should recreate a symlink if the existing path is a directory" do
+    it "should recreate a symlink if the existing link path does not exist" do
+      FileUtils.mkdir_p(::File.expand_path('..', vendored_modules_symlink_path))
+      link_target = Dir.mktmpdir('dsc_link')
+      Puppet::FileSystem.symlink(link_target, vendored_modules_symlink_path, { :force => true})
+      system("rmdir /s /q \"#{link_target}\"")
+
+      set_symlink_and_check
+    end
+
+    it "should create a symlink if the existing path is a directory" do
       FileUtils.mkdir_p(vendored_modules_symlink_path)
 
       set_symlink_and_check
     end
 
-    it "should recreate a symlink if the existing path is a file" do
+    it "should create a symlink if the existing path is a file" do
       FileUtils.mkdir_p(::File.expand_path('..', vendored_modules_symlink_path))
       FileUtils.touch vendored_modules_symlink_path
 

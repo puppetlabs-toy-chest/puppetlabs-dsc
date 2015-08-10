@@ -65,13 +65,27 @@ describe DscSymlink, :if => Puppet::Util::Platform.windows? do
 
       it "should recreate a symlink if the existing link path is wrong" do
         Puppet::FileSystem.expects(:symlink?).returns(true).times(2)
-        Puppet::FileSystem.expects(:readlink).returns('C:\dsc')
+        Puppet::FileSystem.expects(:readlink).returns('C:\dsc').times(2)
+        Puppet::FileSystem.expects(:exist?).with('C:\dsc').returns(true)
         Puppet::FileSystem.expects(:unlink)
         Puppet::FileSystem.expects(:dir_exist?).returns(true)
         Puppet::FileSystem.expects(:symlink)
 
-        Puppet::FileSystem.expects(:exist?).never
         FileUtils.expects(:mv).never
+        Puppet::FileSystem.expects(:dir_mkpath).never
+
+        subject.set_symlink_folder
+      end
+
+      it "should recreate a symlink if the existing link path does not exist" do
+        Puppet::FileSystem.expects(:symlink?).returns(true).times(2)
+        Puppet::FileSystem.expects(:readlink).returns('C:\dsc').times(2)
+        Puppet::FileSystem.expects(:exist?).with('C:\dsc').returns(false)
+        FileUtils.expects(:mv)
+        Puppet::FileSystem.expects(:dir_exist?).returns(true)
+        Puppet::FileSystem.expects(:symlink)
+
+        Puppet::FileSystem.expects(:unlink).never
         Puppet::FileSystem.expects(:dir_mkpath).never
 
         subject.set_symlink_folder
