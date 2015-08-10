@@ -1,9 +1,4 @@
 $script:ErrorActionPreference = 'Stop'
-$PuppetModulesFolder = Join-Path $env:ProgramFiles 'WindowsPowerShell\Modules\PuppetVendoredModules'
-if (!(Test-Path($PuppetModulesFolder))) {
-  & cmd.exe /c mklink /d "$PuppetModulesFolder" "<%= vendored_modules_path %>" | Out-Null
-}
-
 $currentState = Get-DscLocalConfigurationManager
 
 if ($currentState.RefreshMode -ne 'Disabled') {

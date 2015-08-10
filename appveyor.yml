@@ -33,7 +33,7 @@ build: off
 test_script:
 - bundle exec puppet -V
 - ruby -v
-- bundle exec rspec spec/unit -fd -b
+- bundle exec rspec spec/unit spec/integration -fd -b
 notifications:
 - provider: Email
   to:
