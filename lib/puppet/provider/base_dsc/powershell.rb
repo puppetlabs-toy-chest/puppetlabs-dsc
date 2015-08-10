@@ -1,4 +1,5 @@
 require 'puppet/feature/vendors_dsc'
+require 'json'
 
 Puppet::Type.type(:base_dsc).provide(:powershell) do
   confine :operatingsystem => :windows
@@ -37,29 +38,34 @@ EOT
     script_content = ps_script_content('test')
     Puppet.debug "\n" + script_content
     output = powershell(powershell_args, script_content)
-    if ['true','false'].include?(output.to_s.strip.downcase)
-      check = (output.to_s.strip.downcase == 'true')
-      Puppet.debug "Dsc Resource Exists?: #{check}"
-      Puppet.debug "dsc_ensure: #{resource[:dsc_ensure]}" if resource.parameters.has_key?(:dsc_ensure)
-      Puppet.debug "ensure: #{resource[:ensure]}"
-      check
-    else
-      fail(output)
-    end
+    Puppet.debug "Dsc Resource returned: #{output}"
+    data = JSON.parse(output)
+    fail(data['errormessage']) if !data['errormessage'].empty?
+    exists = data['indesiredstate']
+    Puppet.debug "Dsc Resource Exists?: #{exists}"
+    Puppet.debug "dsc_ensure: #{resource[:dsc_ensure]}" if resource.parameters.has_key?(:dsc_ensure)
+    Puppet.debug "ensure: #{resource[:ensure]}"
+    exists
   end
 
   def create
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
     output = powershell(powershell_args, script_content)
-    Puppet.debug "Dsc Resource Return: #{output}"
+    Puppet.debug "Create Dsc Resource returned: #{output}"
+    data = JSON.parse(output)
+    fail(data['errormessage']) if !data['errormessage'].empty?
+    true
   end
 
   def destroy
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
     output = powershell(powershell_args, script_content)
-    Puppet.debug "Dsc Resource Return: #{output}"
+    Puppet.debug "Destroy Dsc Resource returned: #{output}"
+    data = JSON.parse(output)
+    fail(data['errormessage']) if !data['errormessage'].empty?
+    true
   end
 
   def munge_boolean(value)
