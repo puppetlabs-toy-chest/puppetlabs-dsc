@@ -4,10 +4,17 @@ if (!(Test-Path($PuppetModulesFolder))) {
   & cmd.exe /c mklink /d "$PuppetModulesFolder" "<%= vendored_modules_path %>" | Out-Null
 }
 
+$response = @{
+  indesiredstate = $false
+  rebootrequired = $false
+  errormessage   = ''
+}
+
 $currentState = Get-DscLocalConfigurationManager
 
 if ($currentState.RefreshMode -ne 'Disabled') {
-  throw "DSC LCM RefreshMode must be set to Disabled for Puppet to execute DSC Resources!"
+  $response.errormessage = "DSC LCM RefreshMode must be set to Disabled for Puppet to execute DSC Resources! Please run dsc::lcm_config first"
+  return ($response | ConvertTo-Json -Compress)
 }
 
 $invokeParams = @{
@@ -31,13 +38,22 @@ $invokeParams = @{
 <% end -%>
 }
 
-$result = Invoke-DscResource @invokeParams
+try{
+    $result = Invoke-DscResource @invokeParams
+}catch{
+  $response.errormessage   = $_.Exception.Message
+  return ($response | ConvertTo-Json -Compress)
+}
 
+# keep the switch for when Test passes back changed properties
 switch ($invokeParams.Method) {
   'Test' {
-    [bool]($result.InDesiredState)
+    $response.indesiredstate = $result.InDesiredState
+    return ($response | ConvertTo-Json -Compress)
   }
   'Set' {
-    @($Null, 0) -contains $result.ReturnValue
+    $response.indesiredstate = $true
+    $response.rebootrequired = $result.RebootRequired
+    return ($response | ConvertTo-Json -Compress)
   }
 }
