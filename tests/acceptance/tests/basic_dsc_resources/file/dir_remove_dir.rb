@@ -29,7 +29,7 @@ agents.each do |agent|
   dsc_props[:dsc_ensure] = 'Absent'
   dsc_remove_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
 
-  step 'Apply Manifest to Remove File'
+  step 'Apply Manifest to Remove Directory'
   on(agent, puppet('apply'), :stdin => dsc_remove_manifest, :acceptable_exit_codes => [0,2]) do |result|
     assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
   end

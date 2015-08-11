@@ -1,6 +1,6 @@
 require 'erb'
 require 'dsc_utils'
-test_name 'MODULES-2286 - C68559 - Apply DSC File Resource with Valid Unicode "DestinationPath" Specified'
+test_name 'MODULES-2286 - C68565 - Apply DSC File (Directory) Resource with Valid Unicode "DestinationPath" Specified'
 
 confine(:to, :platform => 'windows')
 

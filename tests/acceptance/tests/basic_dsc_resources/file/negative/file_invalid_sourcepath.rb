@@ -19,12 +19,12 @@ dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resourc
 dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
 
 # Verify
-error_msg = /returned 1: Invoke-CimMethod : SourcePath must be accessible for current configuration/
+error_msg = /Error:.*SourcePath must be accessible for current configuration./
 
 # Tests
 agents.each do |agent|
   step 'Attempt to Apply Manifest'
-  on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => [0,2]) do |result|
+  on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => 0) do |result|
     assert_match(error_msg, result.stderr, 'Expected error was not detected!')
   end
 end
