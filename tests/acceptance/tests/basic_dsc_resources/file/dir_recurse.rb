@@ -10,6 +10,7 @@ sub_dir_name = "sub_dir_test_"
 
 # ERB Manifest
 dsc_type = 'file'
+dsc_module = 'PSDesiredStateConfiguration'
 dsc_props = {
   :dsc_ensure          => 'Present',
   :dsc_type            => 'Directory',
@@ -27,6 +28,7 @@ teardown do
   set_dsc_resource(
     agents,
     dsc_type,
+    dsc_module,
     :Ensure          => 'Absent',
     :Type            => dsc_props[:dsc_type],
     :DestinationPath => dsc_props[:dsc_destinationpath],
@@ -36,6 +38,7 @@ teardown do
   set_dsc_resource(
     agents,
     dsc_type,
+    dsc_module,
     :Ensure          => 'Absent',
     :Type            => dsc_props[:dsc_type],
     :DestinationPath => dsc_props[:dsc_sourcepath],
@@ -51,6 +54,7 @@ agents.each do |agent|
     set_dsc_resource(
       agent,
       dsc_type,
+      dsc_module,
       :Ensure          => 'Present',
       :Type            => dsc_props[:dsc_type],
       :DestinationPath => "#{dsc_props[:dsc_sourcepath]}\\#{sub_dir_name}#{n}"
@@ -70,6 +74,7 @@ agents.each do |agent|
     assert_dsc_resource(
       agent,
       dsc_type,
+      dsc_module,
       :Ensure          => dsc_props[:dsc_ensure],
       :Type            => dsc_props[:dsc_type],
       :DestinationPath => "#{dsc_props[:dsc_destinationpath]}\\#{sub_dir_name}#{n}"

@@ -4,6 +4,7 @@
 #
 # * +dsc_method+ - The method (set, test) to use for the DSC command.
 # * +dsc_resource_type+ - The DSC resource type name to verify.
+# * +dsc_module+ - The DSC module for the specified resource type.
 # * +dsc_properties+ - DSC properties to verify on resource.
 #
 # ==== Returns
@@ -16,10 +17,19 @@
 #
 # ==== Examples
 #
-# _build_dsc_command('Set', 'File', :DestinationPath=>'C:\test.txt', :Contents=>'catcat')
-def _build_dsc_command(dsc_method, dsc_resource_type, dsc_properties)
+# _build_dsc_command('Set',
+#                    'File',
+#                    'PSDesiredStateConfiguration',
+#                    :DestinationPath=>'C:\test.txt',
+#                    :Contents=>'catcat')
+def _build_dsc_command(dsc_method, dsc_resource_type, dsc_module, dsc_properties)
   #Init
-  ps_launch = 'powershell.exe -ExecutionPolicy Bypass -InputFormat Text -OutputFormat Text -NoLogo -NoProfile -NonInteractive'
+  ps_launch = 'powershell.exe -ExecutionPolicy Bypass ' \
+              '-InputFormat Text ' \
+              '-OutputFormat Text ' \
+              '-NoLogo ' \
+              '-NoProfile ' \
+              '-NonInteractive'
 
   #Flatten hash into formatted string.
   dsc_prop_merge = '@{'
@@ -41,7 +51,11 @@ def _build_dsc_command(dsc_method, dsc_resource_type, dsc_properties)
   dsc_prop_merge << '}'
 
   #Compose strings for PS command.
-  dsc_command = "Invoke-DscResource -Name #{dsc_resource_type} -Method #{dsc_method} -Verbose -Property #{dsc_prop_merge}"
+  dsc_command = "Invoke-DscResource -Name #{dsc_resource_type} " \
+                "-Method #{dsc_method} " \
+                "-ModuleName #{dsc_module} " \
+                "-Verbose " \
+                "-Property #{dsc_prop_merge}"
 
   return "#{ps_launch} -Command \"if ( #{dsc_command} ) { exit 0 } else { exit 1 }\""
 end
@@ -52,6 +66,7 @@ end
 #
 # * +host+ - The target Windows host for verification.
 # * +dsc_resource_type+ - The DSC resource type name to verify.
+# * +dsc_module+ - The DSC module for the specified resource type.
 # * +dsc_properties+ - DSC properties to verify on resource.
 #
 # ==== Returns
@@ -64,16 +79,20 @@ end
 #
 # ==== Examples
 #
-# set_dsc_resource(agents, 'File', :DestinationPath=>'C:\test.txt', :Contents=>'catcat')
-def set_dsc_resource(host, dsc_resource_type, dsc_properties)
+# set_dsc_resource('agents'
+#                  'File',
+#                  'PSDesiredStateConfiguration',
+#                  :DestinationPath=>'C:\test.txt',
+#                  :Contents=>'catcat')
+def set_dsc_resource(host, dsc_resource_type, dsc_module, dsc_properties)
   # Init
-  ps_command = _build_dsc_command('Set', dsc_resource_type, dsc_properties)
+  ps_command = _build_dsc_command('Set', dsc_resource_type, dsc_module, dsc_properties)
 
   # Execute Set Command
   on(host, ps_command, :acceptable_exit_codes => [0,1])
 
   # Verify State
-  assert_dsc_resource(host, dsc_resource_type, dsc_properties)
+  assert_dsc_resource(host, dsc_resource_type, dsc_module, dsc_properties)
 end
 
 module Beaker
@@ -85,6 +104,7 @@ module Beaker
       #
       # * +host+ - The target Windows host for verification.
       # * +dsc_resource_type+ - The DSC resource type name to verify.
+      # * +dsc_module+ - The DSC module for the specified resource type.
       # * +dsc_properties+ - DSC properties to verify on resource.
       #
       # ==== Returns
@@ -97,10 +117,14 @@ module Beaker
       #
       # ==== Examples
       #
-      # assert_dsc_resource(agents, 'File', :DestinationPath=>'C:\test.txt', :Contents=>'catcat')
-      def assert_dsc_resource(host, dsc_resource_type, dsc_properties)
+      # assert_dsc_resource(agents,
+      #                     'File',
+      #                     'PSDesiredStateConfiguration',
+      #                     :DestinationPath=>'C:\test.txt',
+      #                     :Contents=>'catcat')
+      def assert_dsc_resource(host, dsc_resource_type, dsc_module, dsc_properties)
         # Init
-        ps_command = _build_dsc_command('Test', dsc_resource_type, dsc_properties)
+        ps_command = _build_dsc_command('Test', dsc_resource_type, dsc_module, dsc_properties)
 
         on(host, ps_command, :acceptable_exit_codes => [0,1]) do |result|
           assert(0 == result.exit_code, 'DSC resource not in desired state!')

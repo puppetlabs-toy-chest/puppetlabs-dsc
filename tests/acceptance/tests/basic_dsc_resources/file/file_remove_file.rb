@@ -9,6 +9,7 @@ local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
 # ERB Manifest
 dsc_type = 'file'
+dsc_module = 'PSDesiredStateConfiguration'
 dsc_props = {
   :dsc_ensure          => 'Present',
   :dsc_destinationpath => 'C:\test_remove.file',
@@ -38,6 +39,7 @@ agents.each do |agent|
   assert_dsc_resource(
     agent,
     dsc_type,
+    dsc_module,
     :Ensure          => dsc_props[:dsc_ensure],
     :DestinationPath => dsc_props[:dsc_destinationpath],
     :Contents        => dsc_props[:dsc_contents]

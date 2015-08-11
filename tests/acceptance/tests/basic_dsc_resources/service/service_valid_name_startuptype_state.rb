@@ -9,6 +9,7 @@ local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
 # ERB Manifest
 dsc_type = 'service'
+dsc_module = 'PSDesiredStateConfiguration'
 dsc_props = {
   :dsc_name        => 'w32time',
   :dsc_state       => 'Running',
@@ -24,6 +25,7 @@ teardown do
   set_dsc_resource(
     agents,
     dsc_type,
+    dsc_module,
     :Name        => 'w32time',
     :State       => 'Stopped',
     :StartupType => 'Manual'
@@ -41,6 +43,7 @@ agents.each do |agent|
   assert_dsc_resource(
     agent,
     dsc_type,
+    dsc_module,
     :Name        => dsc_props[:dsc_name],
     :State       => dsc_props[:dsc_state],
     :StartupType => dsc_props[:dsc_startuptype]

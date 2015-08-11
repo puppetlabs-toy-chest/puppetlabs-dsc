@@ -9,6 +9,7 @@ local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
 # ERB Manifest
 dsc_type = 'registry'
+dsc_module = 'PSDesiredStateConfiguration'
 dsc_props = {
   :dsc_ensure    => 'Present',
   :dsc_key       => 'HKEY_LOCAL_MACHINE\SOFTWARE\TestKey',
@@ -26,6 +27,7 @@ teardown do
   set_dsc_resource(
     agents,
     dsc_type,
+    dsc_module,
     :Ensure    => 'Absent',
     :Key       => dsc_props[:dsc_key],
     :ValueName => dsc_props[:dsc_valuename]
@@ -53,6 +55,7 @@ agents.each do |agent|
   assert_dsc_resource(
     agent,
     dsc_type,
+    dsc_module,
     :Ensure    => dsc_props[:dsc_ensure],
     :Key       => dsc_props[:dsc_key],
     :ValueName => dsc_props[:dsc_valuename],

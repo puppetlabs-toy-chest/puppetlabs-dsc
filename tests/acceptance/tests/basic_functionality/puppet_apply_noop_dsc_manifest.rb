@@ -28,6 +28,7 @@ agents.each do |agent|
     assert_dsc_resource(
       agent,
       'File',
+      'PSDesiredStateConfiguration',
       :DestinationPath => test_file_path,
       :Contents => test_file_contents
     )
