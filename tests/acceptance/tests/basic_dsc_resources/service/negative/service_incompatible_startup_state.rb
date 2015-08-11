@@ -19,7 +19,7 @@ dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resourc
 dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
 
 # Verify
-error_msg = /returned 1:.*Cannot start and\s+disable a service/m
+error_msg = /Error\:.*Dsc_service\[service_test\]:.*Cannot start and disable a service/m
 
 # Tests
 agents.each do |agent|

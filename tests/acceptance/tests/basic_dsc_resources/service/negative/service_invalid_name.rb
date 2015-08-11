@@ -19,7 +19,7 @@ dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resourc
 dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
 
 # Verify
-error_msg = /returned 1:.*The service\s+'makebelieve' does not exist/m
+error_msg = /Error: PowerShell DSC resource MSFT_ServiceResource.*Dsc_service\[service_test\].*The service 'makebelieve' does not exist/m
 
 # Tests
 agents.each do |agent|
