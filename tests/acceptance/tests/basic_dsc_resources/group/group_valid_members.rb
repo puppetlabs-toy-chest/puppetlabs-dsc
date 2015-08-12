@@ -9,6 +9,7 @@ local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
 # ERB Manifest
 dsc_type = 'group'
+dsc_module = 'PSDesiredStateConfiguration'
 dsc_props = {
   :dsc_ensure    => 'Present',
   :dsc_groupname => 'TestGroupMembers',
@@ -24,6 +25,7 @@ teardown do
   set_dsc_resource(
     agents,
     dsc_type,
+    dsc_module,
     :Ensure    => 'Absent',
     :GroupName  => dsc_props[:dsc_groupname]
   )
@@ -40,6 +42,7 @@ agents.each do |agent|
   assert_dsc_resource(
     agent,
     dsc_type,
+    dsc_module,
     :Ensure    => dsc_props[:dsc_ensure],
     :GroupName => dsc_props[:dsc_groupname],
     :Members   => '@("Administrator","Guest")'

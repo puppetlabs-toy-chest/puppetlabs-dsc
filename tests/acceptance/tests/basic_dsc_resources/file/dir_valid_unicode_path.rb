@@ -11,6 +11,7 @@ test_dir_name = "\u1134\u1169\u1185\u1173\u112D\u1117\u1114\u1135\u114E"
 
 # ERB Manifest
 dsc_type = 'file'
+dsc_module = 'PSDesiredStateConfiguration'
 dsc_props = {
   :dsc_ensure          => 'Present',
   :dsc_type            => 'Directory',

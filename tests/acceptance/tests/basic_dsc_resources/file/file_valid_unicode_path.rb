@@ -11,6 +11,7 @@ test_file_name = "\u3172\u3142\u3144\u3149\u3151\u3167\u3169\u3159\u3158\u3140\u
 
 # ERB Manifest
 dsc_type = 'file'
+dsc_module = 'PSDesiredStateConfiguration'
 dsc_props = {
   :dsc_ensure          => 'Present',
   :dsc_destinationpath => "C:\\#{test_file_name}"

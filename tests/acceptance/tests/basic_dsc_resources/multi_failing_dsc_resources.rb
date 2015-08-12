@@ -20,14 +20,14 @@ dsc_file {'bad_test_dir_2':
 MANIFEST
 
 # Verify
-error_msg = /Error:/
+error_msg_1 = /Error: The system cannot find the path specified\. The related file\/directory is: Q:\/not\/here_1\./
+error_msg_2 = /Error: The system cannot find the path specified\. The related file\/directory is: Q:\/not\/here_2\./
 
 # Tests
 agents.each do |agent|
   step 'Apply Manifest'
   on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => 0) do |result|
-    expect_failure('Expected to fail because of MODULES-2194') do
-      assert_no_match(error_msg, result.stderr, 'Expected error was not detected!')
-    end
+    assert_match(error_msg_1, result.stderr, 'Expected error was not detected!')
+    assert_match(error_msg_2, result.stderr, 'Expected error was not detected!')
   end
 end

@@ -9,6 +9,7 @@ local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
 # ERB Manifest
 dsc_type = 'file'
+dsc_module = 'PSDesiredStateConfiguration'
 dsc_props = {
   :dsc_ensure          => 'Present',
   :dsc_destinationpath => 'C:\test.file',
@@ -27,6 +28,7 @@ teardown do
   set_dsc_resource(
     agents,
     dsc_type,
+    dsc_module,
     :Ensure          => 'Absent',
     :DestinationPath => dsc_props[:dsc_destinationpath]
   )
@@ -34,6 +36,7 @@ teardown do
   set_dsc_resource(
     agents,
     dsc_type,
+    dsc_module,
     :Ensure          => 'Absent',
     :DestinationPath => dsc_props[:dsc_sourcepath]
   )
@@ -43,6 +46,7 @@ end
 set_dsc_resource(
   agents,
   dsc_type,
+  dsc_module,
   :Ensure          => 'Present',
   :DestinationPath => dsc_props[:dsc_sourcepath],
   :Contents        => source_file_contents
@@ -59,6 +63,7 @@ agents.each do |agent|
   assert_dsc_resource(
     agent,
     dsc_type,
+    dsc_module,
     :Ensure          => dsc_props[:dsc_ensure],
     :DestinationPath => dsc_props[:dsc_destinationpath],
     :Contents        => source_file_contents,
