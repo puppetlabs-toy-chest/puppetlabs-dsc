@@ -16,10 +16,17 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
+        [System.Management.Automation.PSCredential]
+        $Credentials,
+
         [parameter(Mandatory = $true)]
         [ValidateSet("Present","Absent")]
         [System.String]
         $Ensure,
+
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $SqlServer,
 
         [parameter(Mandatory = $true)]
         [ValidateSet("2008-R2","2012","2014")]
@@ -30,6 +37,26 @@ function Get-TargetResource
         [System.String]
         $DatabaseName
     )
+
+        if($PSBoundParameters.ContainsKey('Credentials'))
+    {
+        $ConnectionString = Construct-ConnectionString -sqlServer $SqlServer -credentials $Credentials
+    }
+    else
+    {
+        $ConnectionString = Construct-ConnectionString -sqlServer $SqlServer
+    }
+
+    $dbExists = CheckIfDbExists $ConnectionString $DatabaseName
+    $Ensure = if ($dbExists) { "Present" } else { "Absent" }
+
+    $result = @{
+        Ensure = $Ensure
+        DatabaseName = $DatabaseName
+        SqlServer = $SqlServer
+        SqlServerVersion = $SqlServerVersion
+    }
+    return $result
 }
 
 
@@ -71,7 +98,14 @@ function Set-TargetResource
         $DacPacApplicationVersion
     )
 
-    $ConnectionString = Construct-ConnectionString -sqlServer $SqlServer -credentials $Credentials
+    if($PSBoundParameters.ContainsKey('Credentials'))
+    {
+        $ConnectionString = Construct-ConnectionString -sqlServer $SqlServer -credentials $Credentials
+    }
+    else
+    {
+        $ConnectionString = Construct-ConnectionString -sqlServer $SqlServer
+    }
 
     if($Ensure -eq "Present")
     {
@@ -292,12 +326,12 @@ function ExecuteSqlQuery([system.data.SqlClient.SQLConnection]$sqlConnection, [s
 function Construct-ConnectionString([string]$sqlServer, [System.Management.Automation.PSCredential]$credentials)
 {
 
-    $uid = $credentials.UserName
-    $pwd = $credentials.GetNetworkCredential().Password
     $server = "Server=$sqlServer;"
 
     if($PSBoundParameters.ContainsKey('credentials'))
     {
+        $uid = $credentials.UserName
+        $pwd = $credentials.GetNetworkCredential().Password
         $integratedSecurity = "Integrated Security=False;"
         $userName = "uid=$uid;pwd=$pwd;"
     }
@@ -382,6 +416,5 @@ function Get-SqlServerMajoreVersion([string]$sqlServerVersion)
 }
 
 Export-ModuleMember -Function *-TargetResource
-
 
 

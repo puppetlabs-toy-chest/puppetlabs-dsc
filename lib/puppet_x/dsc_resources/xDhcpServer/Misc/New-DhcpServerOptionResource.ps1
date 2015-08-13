@@ -1,6 +1,8 @@
 $Properties = @{
     DnsServer     = New-xDscResourceProperty -Name DnsServerIPAddress -Type String[] -Attribute Required `
                                          -Description 'IP address of DNS Servers'
+    Router     = New-xDscResourceProperty -Name Router -Type String[] -Attribute Required `
+                                         -Description 'IP address of the router/default gateway.'
     DnsDomain     = New-xDscResourceProperty -Name DnsDomain -Type String -Attribute Write `
                                          -Description 'Domain name of DNS Server'
     AddressFamily = New-xDscResourceProperty -Name AddressFamily -Type String -Attribute Write `

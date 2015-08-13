@@ -4,7 +4,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.1'
+ModuleVersion = '1.2.0'
 
 # ID used to uniquely identify this module
 GUID = '8ad956dd-4a36-4767-9725-ed0466893edb'
@@ -33,6 +33,5 @@ VariablesToExport = '*'
 # Aliases to export from this module
 AliasesToExport = '*'
 }
-
 
 

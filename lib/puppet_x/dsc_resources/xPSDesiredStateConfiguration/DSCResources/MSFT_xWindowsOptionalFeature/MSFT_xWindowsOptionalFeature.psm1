@@ -105,10 +105,9 @@ function Set-TargetResource
         [System.String]
         $LogPath,
 
-        [parameter(Mandatory = $true)]
-		[ValidateSet("Present","Absent")]
-		[System.String]
-		$Ensure,
+        [ValidateSet("Present","Absent")]
+        [System.String]
+        $Ensure = "Present",
 
         [System.Boolean]
         $NoWindowsUpdateCheck,
@@ -151,7 +150,7 @@ function Set-TargetResource
     {
         $PSBoundParameters.Remove('LogLevel')
     }
-    
+
     if ($Ensure -eq 'Present')
     {
         if ($NoWindowsUpdateCheck)
@@ -235,7 +234,6 @@ function Test-TargetResource
     {
         $result = $Ensure -eq 'Absent'
     }
-
     if (($result.State -eq 'Disabled' -and $Ensure -eq 'Absent')`
         -or ($result.State -eq 'Enabled' -and $Ensure -eq 'Present'))
     {

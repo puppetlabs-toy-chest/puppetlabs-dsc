@@ -11,4 +11,3 @@ class MSFT_xJeaEndpoint : OMI_BaseResource
 };
 
 
-

@@ -13,7 +13,7 @@ Configuration SetupJea
         {
             RefreshFrequencyMins = 30
             ConfigurationMode    = "ApplyAndAutoCorrect"
-            DebugMode            = "True"    #This disables provider caching 
+            DebugMode            = "ForceModuleImport"    #This disables provider caching 
         }
     }
 }

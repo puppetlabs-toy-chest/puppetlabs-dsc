@@ -1,5 +1,5 @@
 #requires -version 5
-# Copyright Â© 2014, Microsoft Corporation. All rights reserved.
+# Copyright © 2014, Microsoft Corporation. All rights reserved.
 #region Helper
 Import-Module $PSScriptRoot\..\Library\Helper.psm1
 Import-Module $PSScriptRoot\..\Library\JeaDir.psm1

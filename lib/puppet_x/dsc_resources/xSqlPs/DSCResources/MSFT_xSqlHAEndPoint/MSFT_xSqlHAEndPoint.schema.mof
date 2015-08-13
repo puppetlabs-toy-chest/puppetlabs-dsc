@@ -10,4 +10,3 @@ class MSFT_xSqlHAEndPoint : OMI_BaseResource
     [write, Description("The single port number(nnnn) on which the Sql HA to listen to.")] Uint32 PortNumber;
 };
 
-

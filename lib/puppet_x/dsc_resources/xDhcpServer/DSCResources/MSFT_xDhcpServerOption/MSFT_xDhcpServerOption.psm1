@@ -61,9 +61,9 @@ function Get-TargetResource
         $dhcpOption = Get-DhcpServerv4OptionValue -ScopeID $ScopeID
         if($dhcpOption)
         {
-            $dnsDomain = (($dhcpOption | ? Name -like 'DNS Domain Name').value)[0]
+            $dnsDomain = (($dhcpOption | Where-Object Name -like 'DNS Domain Name').value)[0]
             $ensure = 'Present'
-            $dnsServerIP = ($dhcpOption | ? Name -like 'DNS Servers').value
+            $dnsServerIP = ($dhcpOption | Where-Object Name -like 'DNS Servers').value
         }
     }
     catch
@@ -90,6 +90,8 @@ function Set-TargetResource
         [parameter(Mandatory = $true)]
         [String[]]$DnsServerIPAddress,
 
+        [String[]]$Router,
+
         [String]$DnsDomain,
 
         [ValidateSet('IPv4')]
@@ -114,6 +116,16 @@ function Set-TargetResource
     }
     $DnsServerIPAddress = $validDnSServer
 
+    # Array of valid IP Address
+    [String[]]$validRouter = @()
+
+    # Convert the input to be valid IPAddress
+    foreach ($routerIp in $Router)
+    {
+        $validRouter += (Get-ValidIpAddress -ipString $routerIp -AddressFamily $AddressFamily -parameterName 'Router').ToString()
+    }
+    $Router = $validRouter
+
 #endregion Input Validation
 
     # Remove $AddressFamily and $debug from PSBoundParameters and pass it to validate-properties helper function
@@ -134,6 +146,8 @@ function Test-TargetResource
 
         [parameter(Mandatory = $true)]
         [String[]]$DnsServerIPAddress,
+
+        [String[]]$Router,
 
         [String]$DnsDomain,
 
@@ -161,6 +175,16 @@ function Test-TargetResource
         $validDnSServer += (Get-ValidIpAddress -ipString $dnsServerIp -AddressFamily $AddressFamily -parameterName 'DnsServerIPAddress').ToString()
     }
     $DnsServerIPAddress = $validDnSServer
+
+    # Array of valid IP Address
+    [String[]]$validRouter = @()
+
+    # Convert the input to be valid IPAddress
+    foreach ($routerIp in $Router)
+    {
+        $validRouter += (Get-ValidIpAddress -ipString $routerIp -AddressFamily $AddressFamily -parameterName 'Router').ToString()
+    }
+    $Router = $validRouter
 
     # Test if the ScopeID is valid
     $null = Get-DhcpServerv4Scope -ScopeId $ScopeID -ErrorAction SilentlyContinue -ErrorVariable err
@@ -195,6 +219,8 @@ function Validate-ResourceProperties
 
         [String]$DnsDomain,
 
+        [String[]]$Router,
+
         [ValidateSet('Present','Absent')]
         [String]$Ensure = 'Present',
 
@@ -219,7 +245,7 @@ function Validate-ResourceProperties
             $checkPropertyMessage = $($LocalizedData.CheckPropertyMessage) -f 'Dns server ip'
             Write-Verbose -Message $checkPropertyMessage
 
-            $dnsServerIP = ($dhcpOption | ? Name -like 'DNS Servers').value
+            $dnsServerIP = ($dhcpOption | Where-Object Name -like 'DNS Servers').value
 
             # If comparison return something, they are not equal
             if((-not $dnsServerIP) -or (Compare-Object $dnsServerIP $DnsServerIPAddress))
@@ -254,7 +280,7 @@ function Validate-ResourceProperties
                 $checkPropertyMessage = $($LocalizedData.CheckPropertyMessage) -f 'Dns domain name'
                 Write-Verbose -Message $checkPropertyMessage
 
-                $dnsDomainName = ($DhcpOption | ? Name -like 'DNS Domain Name').value
+                $dnsDomainName = ($DhcpOption | Where-Object Name -like 'DNS Domain Name').value
                 if($dnsDomainName -ne $DnsDomain) 
                 {
                     $notDesiredPropertyMessage = $($LocalizedData.NotDesiredPropertyMessage) -f 'DNS domain name', $DnsDomain, $dnsDomainName
@@ -282,6 +308,41 @@ function Validate-ResourceProperties
                 }
             } # end $PSBoundParameters.ContainsKey('DnsDomain')
 
+            # If Router is specified, test that
+            if($PSBoundParameters.ContainsKey('Router'))
+            {
+                $propertyName = 'Router ip addresses'
+                $checkPropertyMessage = $($LocalizedData.CheckPropertyMessage) -f 'Router ip addresses'
+                Write-Verbose -Message $checkPropertyMessage
+
+                $propertyValue = ($DhcpOption | Where-Object OptionId -eq 3).value
+
+                if((-not $propertyValue) -or (Compare-Object $propertyValue $Router))
+                {
+                    $notDesiredPropertyMessage = $($LocalizedData.NotDesiredPropertyMessage) -f $propertyName, $DnsDomain, $dnsDomainName
+                    Write-Verbose -Message $notDesiredPropertyMessage
+
+                    if($Apply)
+                    {
+                        $settingPropertyMessage = $($LocalizedData.SettingPropertyMessage) -f $propertyName
+                        Write-Verbose -Message $settingPropertyMessage
+
+                        Set-DhcpServerv4OptionValue -ScopeId $ScopeID -Router $Router
+
+                        $setPropertyMessage = $($LocalizedData.SetPropertyMessage) -f $propertyName,$Router
+                        Write-Verbose -Message $setPropertyMessage
+                    } # end $Apply
+                    else
+                    { 
+                        return $false
+                    }
+                } # end $dnsDomainName -ne $DnsDomain
+                else
+                {
+                    $desiredPropertyMessage = $($LocalizedData.DesiredPropertyMessage) -f $propertyName
+                    Write-Verbose -Message $desiredPropertyMessage
+                }
+            } # end $PSBoundParameters.ContainsKey('DnsDomain')
             if(-not $Apply)
             {
                 return $true
@@ -334,6 +395,7 @@ function Validate-ResourceProperties
     }
 }
 #endregion Helper function
-
-Export-ModuleMember -Function *-TargetResource
-
+if($global:DhpcOptionTest -ne $true)
+{
+    Export-ModuleMember -Function *-TargetResource
+}
