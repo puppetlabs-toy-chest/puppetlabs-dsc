@@ -1,23 +1,35 @@
-Puppet PowerShell DSC Module
-============================
+# dsc
+[wmf-5.0]: https://www.microsoft.com/en-us/download/details.aspx?id=46889
+[DSCResources]: https://github.com/powershell/DSCResources
 
-## Overview
+
+#### Table of Contents
+1. [Module Description - What is the dsc module and what does it do](#module-description)
+2. [Prerequisites](#windows-system-prerequisites)
+3. [Setup](#setup)
+4. [Usage](#usage)
+  * [Install Website Example](#install-website-example)
+5. [Limitations](#limitations)
+6. [Notes](#notes)
+7. [License](#license)
+
+## Module Description
 
 Puppet module for managing Windows poweshell DSC resources.
 
 This module generates Puppet Types based on DSC resources MOF schema files.
 
 In this version, the following DSC Resources are already built and ready for use:
-- All base DSC resources found in PowerShell 5. ([WMF 5.0](https://www.microsoft.com/en-us/download/details.aspx?id=46889))
-- All DSC resources found in the [Microsoft PowerShell DSC Resource Kit](https://github.com/powershell/DSCResources).
+- All base DSC resources found in PowerShell 5. ([WMF 5.0][wmf-5.0])
+- All DSC resources found in the [Microsoft PowerShell DSC Resource Kit][DSCResources]
 
 This module is available on the [Puppet Forge](https://forge.puppetlabs.com/puppetlabs/dsc)
 
-## Windows systems prerequisites
+## Windows system prerequisites
 
- - PowerShell 5 which is included in the [Windows Management Framework 5.0](https://www.microsoft.com/en-us/download/details.aspx?id=46889). PowerShell v5 is currently in limited preview, so the above link may change after official release.
+ - PowerShell 5 which is included in the [Windows Management Framework 5.0][wmf-5.0]. PowerShell v5 is currently in limited preview, so the above link may change after official release.
 
-## Installation on your puppet master
+## Setup
 
 ~~~
 puppet module install puppetlabs-dsc
@@ -36,9 +48,7 @@ dsc_windowsfeature {'IIS':
 
 All DSC Resource names and parameters have to be in lowercase, e.g: `dsc_windowsfeature` or `dsc_name`.
 
-## Example
-
-The following example class will install the 'Backery' website.
+### Install website example
 
 It's a real example and should also work for you.
 
