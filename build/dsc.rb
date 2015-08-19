@@ -28,11 +28,5 @@ require "#{LIB_PATH}/dsc/manager"
 
 module Dsc
 
-  begin
-    Config = YAML::load_file("#{LIB_PATH}/dsc.yaml")
-  rescue
-    puts "Configuration file not found."
-    exit 1
-  end
 
 end

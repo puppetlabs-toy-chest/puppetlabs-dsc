@@ -51,6 +51,7 @@ module Dsc
       moffiles.unshift @dmtf_cim_mof unless moffiles.include? @dmtf_cim_mof
       moffiles.unshift @dmtf_qualifiers_optional_mof unless moffiles.include? @dmtf_qualifiers_optional_mof
       moffiles.unshift @dmtf_qualifiers_mof unless moffiles.include? @dmtf_qualifiers_mof
+
       parser = MOF::Parser.new options
 
       begin

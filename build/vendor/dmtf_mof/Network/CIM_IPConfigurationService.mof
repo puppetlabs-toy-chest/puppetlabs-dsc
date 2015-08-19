@@ -1,0 +1,53 @@
+// Copyright (c) 2008 DMTF.  All rights reserved.
+   [Version ( "2.19.0" ), 
+    UMLPackagePath ( "CIM::Network::IP" ), 
+    Description ( 
+       "CIM_IPConfigurationService provides management of the IP "
+       "configuration associated with a LANEndpoint or "
+       "IPProtocolEndpoint." )]
+class CIM_IPConfigurationService : CIM_Service {
+
+
+      [Description ( 
+          "Apply the configuration represented by the "
+          "CIM_IPAssignmentSettingData to the specified "
+          "IPProtocolEndpoint. This will result in the value of the "
+          "IsCurrent property of the CIM_ElementSettingData which "
+          "associates the specified CIM_IPAssignmentSettingData and "
+          "specified CIM_IPProtocolEndpoint having a value of "
+          "\"true\". The IsCurrent property of any other instances "
+          "of CIM_ElementSettingData which reference the specified "
+          "CIM_IPProtocolEndpoint and an instance of "
+          "CIM_IPAssignmentSettingData will have a value of "
+          "\"false\". Each instance of CIM_IPAssignmentSettingData "
+          "which is aggregated into the target "
+          "CIM_IPAssignmentSettingData instance will be applied to "
+          "the CIM_ProtocolEndpoint to which it is associated via "
+          "an instance of CIM_ElementSettingData where the "
+          "CIM_ProtocolEndpoint is associated with the target "
+          "CIM_IPProtocolEndpoint via an instance of "
+          "CIM_EndpointIdentity." ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "4096", "..", 
+          "32768..65535" }, 
+       Values { "Completed with No Error", "Not Supported", 
+          "Unknown/Unspecified Error", "Failed", 
+          "Invalid Parameter", "Busy", 
+          "Method Parameters Checked - Job Started", 
+          "DMTF Reserved", "Vendor Reserved" }]
+   uint32 ApplySettingToIPProtocolEndpoint(
+         [Required, IN, Description ( 
+             "The IPAssignmentSettingData to apply." )]
+      CIM_IPAssignmentSettingData REF Configuration, 
+         [Required, IN, Description ( 
+             "The IPProtocolEndpoint to which the configuration "
+             "will be applied." )]
+      CIM_IPProtocolEndpoint REF Endpoint, 
+         [IN ( false ), OUT, Description ( 
+             "Reference to the job spawned if the operation "
+             "continues after the method returns. This parameter "
+             "MUST NOT be null if a value of 4096 is returned. "
+             "This parameter MUST be null if any other value is "
+             "returned by the method." )]
+      CIM_ConcreteJob REF Job);
+
+};

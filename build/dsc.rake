@@ -6,12 +6,14 @@ namespace :dsc do
   dsc_repo_branch            = %x(git rev-parse --abbrev-ref HEAD).strip
   # defaults
   default_dsc_module_path    = dsc_build_path.parent
-  default_dsc_resources_path = "#{default_dsc_module_path}/#{Dsc::Config['import_folder']}/#{Dsc::Config['dsc_modules_folder']}"
+  default_dsc_resources_path = "#{default_dsc_module_path}/import/dsc_resources"
   vendor_dsc_resources_path  = "#{default_dsc_module_path}/lib/puppet_x/dsc_resources"
 
   default_repofile           = "#{default_dsc_module_path}/Repofile"
   default_types_path         = "#{default_dsc_module_path}/lib/puppet/type"
   default_type_specs_path    = "#{default_dsc_module_path}/spec/unit/puppet/type"
+
+  dsc_repo                   = 'https://github.com/PowerShell/DscResources.git'
 
   desc "Import and build all"
   task :build, [:dsc_module_path] do |t, args|
@@ -21,13 +23,7 @@ namespace :dsc do
       Rake::Task['dsc:module:skeleton'].invoke(dsc_module_path)
     end
 
-    Rake::Task['dsc:dmtf:import'].invoke
-
-    repofile = "#{dsc_module_path}/Repofile"
-    raise "#{repofile} does not exist. Exiting" unless File.exists?(repofile)
-    Rake::Task['dsc:resources:clean'].invoke(default_dsc_resources_path)
-    Rake::Task['dsc:resources:import'].invoke(repofile)
-
+    Rake::Task['dsc:resources:import'].invoke unless File.exists?(default_dsc_resources_path)
     Rake::Task['dsc:types:clean'].invoke(dsc_module_path)
     Rake::Task['dsc:types:build'].invoke(dsc_module_path)
   end
@@ -37,26 +33,7 @@ namespace :dsc do
     dsc_module_path = args[:dsc_module_path] || default_dsc_module_path
 
     Rake::Task['dsc:types:clean'].invoke(dsc_module_path)
-
     Rake::Task['dsc:resources:clean'].invoke(default_dsc_resources_path)
-
-    Rake::Task['dsc:dmtf:clean'].invoke
-  end
-
-  namespace :dmtf do
-
-    item_name = 'DMTF CIM MOF Schema files'
-
-    desc "Import #{item_name}"
-    task :import do
-      sh "librarian-repo install --verbose --path #{Dsc::Config['import_folder']} --Repofile 'build/dmtf.repo'"
-    end
-
-    desc "Cleanup #{item_name}"
-    task :clean do
-      sh "librarian-repo clean --verbose --path #{Dsc::Config['import_folder']}/#{Dsc::Config['dmtf_mof_folder']}"
-    end
-
   end
 
   namespace :resources do
@@ -67,19 +44,26 @@ namespace :dsc do
 
 Default values:
   dsc_resources_path: #{default_dsc_resources_path}
-  repofile:           #{default_repofile}
 eod
 
-    task :import, [:repo_file, :dsc_resources_path] do |t, args|
-      repo_file          = args[:repo_file] || default_repofile
+    task :import, [:dsc_resources_path] do |t, args|
       dsc_resources_path = args[:dsc_resources_path] || default_dsc_resources_path
+      dsc_resources_path_tmp = "#{dsc_resources_path}_tmp"
 
       puts "Downloading and Importing #{item_name}"
-      sh "librarian-repo install --verbose --path #{dsc_resources_path} --Repofile #{repo_file}"
+      sh "git clone --depth 1 --recursive #{dsc_repo} #{dsc_resources_path_tmp}"
+      FileUtils.rm_rf "#{dsc_resources_path_tmp}/.git"
+      FileUtils.rm_rf "#{dsc_resources_path_tmp}/xDscResources/*/.git"
 
-      dest = "#{dsc_resources_path}/dsc-resource-kit"
-      puts "Copying vendored resources from #{vendor_dsc_resources_path} to #{dest}"
-      FileUtils.cp_r "#{vendor_dsc_resources_path}/.", dest
+      puts "Copying vendored resources from #{dsc_resources_path_tmp}/xDscResources to #{vendor_dsc_resources_path}"
+      FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", vendor_dsc_resources_path
+      FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", dsc_resources_path
+
+      puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{vendor_dsc_resources_path}/dsc_resources"
+      FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{dsc_resources_path}/"
+
+      puts "Removing extra dir #{dsc_resources_path_tmp}"
+      FileUtils.rm_rf "#{dsc_resources_path_tmp}"
     end
 
     desc <<-eod
@@ -92,7 +76,7 @@ eod
     task :clean, [:dsc_resources_path] do |t, args|
       dsc_resources_path = args[:dsc_resources_path] || default_dsc_resources_path
       puts "Cleaning #{item_name}"
-      sh "librarian-repo clean --verbose --path #{dsc_resources_path}"
+      FileUtils.rm_rf "#{default_dsc_resources_path}"
     end
 
   end

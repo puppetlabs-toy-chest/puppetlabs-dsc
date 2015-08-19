@@ -1,0 +1,30 @@
+// Copyright (c) 2005 DMTF.  All rights reserved.
+// <change cr="ArchCR00066.004" type="add">Add UmlPackagePath
+// qualifier values to CIM Schema.</change>
+// ==================================================================
+//  CIM_DiagnosticResultForTest 
+// ==================================================================
+   [Association, Deprecated { "No Value" }, 
+    Version ( "2.9.0" ), 
+    UMLPackagePath ( "CIM::System::Diagnostics" ), 
+    Description ( 
+       "This class is being deprecated as part of the deprecation of "
+       "the DiagnosticResult class. \n"
+       "This is an association class to relate the results of a test "
+       "to the test itself." )]
+class CIM_DiagnosticResultForTest {
+
+      [Deprecated { "No Value" }, 
+       Key, Weak, Min ( 1 ), 
+       Max ( 1 ), 
+       Description ( "The result object." )]
+   CIM_DiagnosticResult REF DiagnosticResult;
+
+      [Deprecated { "No Value" }, 
+       Key, Min ( 1 ), 
+       Max ( 1 ), 
+       Description ( "The test that generated the result object." )]
+   CIM_DiagnosticTest REF DiagnosticTest;
+
+
+};
