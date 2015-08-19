@@ -23,6 +23,15 @@ This module is available on the [Puppet Forge](https://forge.puppetlabs.com/pupp
 puppet module install puppetlabs-dsc
 ~~~
 
+**NOTE**
+
+When installing the module on Windows you may run into an issue regarding long file names (LFN), this is due to the generated schema files. If you are running in a master environment and installing the module on your master this will not be an issue, however if you are running masterless then you may run into this during installation depending on the length of the username it is ran from.  One way to get around this is to download the `.tar.gz` and install using the file rather than directly from the forge. For more info see [PUP-4866](https://tickets.puppetlabs.com/browse/PUP-4866)
+
+~~~
+Error: No such file or directory @ rb_sysopen - C:/ProgramData/PuppetLabs/puppet/cache/puppet-module/cache/tmp-unpacker20150713-...mof
+Error: Try 'puppet help module install' for usage
+~~~
+
 ## Usage
 
 You can use a DSC Resource by prefixing each DSC Resource name and parameter with 'dsc_'.
