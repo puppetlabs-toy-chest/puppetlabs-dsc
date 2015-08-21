@@ -1,0 +1,42 @@
+// Copyright (c) 2010 DMTF.  All rights reserved.
+   [Version ( "2.26.0" ), 
+    UMLPackagePath ( "CIM::Core::Resource" ), 
+    Description ( 
+       "The EthernetPortAllocationSettingData class represents "
+       "settings specifically related to the allocation of an "
+       "EthernetPort that are outside the scope of the EthernetPort "
+       "CIM class itselfThese settings are used to provide information "
+       "specific to the resource itself." )]
+class CIM_EthernetPortAllocationSettingData : CIM_ResourceAllocationSettingData {
+
+      [Description ( 
+          "The desired VLAN mode that is requested for use. This "
+          "property is usedto set the initial "
+          "OperationalEndpointMode property value in theinstance of "
+          "CIM_VLANEndpoint associated with the targeted Ethernet "
+          "Port.Refer to the description for the property "
+          "OperationalEndpointMode inCIM_VLANEndpoint for a "
+          "description of the values" ), 
+       ValueMap { "0", "1", "2", "3", "4", "5", "6", "..", 
+          "0x8000..0xFFFF" }, 
+       Values { "DMTF Reserved", "Other", "Access", "Dynamic Auto", 
+          "Dynamic Desirable", "Trunk", "Dot1Q Tunnel", 
+          "DMTF Reserved", "Vendor Reserved" }, 
+       ModelCorrespondence { 
+          "CIM_VLANEndpoint.OperationalEndpointMode", 
+          "CIM_VLANEndpoint.DesiredEndpointMode", 
+          "CIM_EthernetPortAllocationSettingData.OtherEndpointMode" }]
+   uint16 DesiredVLANEndpointMode;
+
+      [Description ( 
+          "A string describing the type of VLAN endpoint model that "
+          "is supported by this VLANEndpoint, when the value of the "
+          "mode property is set to 1 (i.e., \"Other\"). This "
+          "property should be set to NULL when the mode property is "
+          "any value other than 1." ), 
+       ModelCorrespondence { 
+          "CIM_EthernetPortAllocationSettingData.DesiredVLANEndpointMode" }]
+   string OtherEndpointMode;
+
+
+};

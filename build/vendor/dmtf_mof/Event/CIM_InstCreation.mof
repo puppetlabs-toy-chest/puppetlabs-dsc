@@ -1,0 +1,9 @@
+// Copyright (c) 2005 DMTF.  All rights reserved.
+   [Indication, Version ( "2.6.0" ), 
+    UMLPackagePath ( "CIM::Event" ), 
+    Description ( 
+       "CIM_InstCreation notifies when a new instance is created." )]
+class CIM_InstCreation : CIM_InstIndication {
+
+
+};

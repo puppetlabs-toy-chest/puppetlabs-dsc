@@ -10,9 +10,9 @@ module Dsc
 
       @base_qualifiers_folder   = "#{@module_path}/build/qualifiers/base"
 
-      @import_folder            = "#{@module_path}/#{Dsc::Config['import_folder']}"
-      @dsc_modules_folder       = "#{@import_folder}/#{Dsc::Config['dsc_modules_folder']}"
-      @dmtf_mof_folder          = "#{@import_folder}/#{Dsc::Config['dmtf_mof_folder']}"
+      @import_folder            = "#{@module_path}/import"
+      @dsc_modules_folder       = "#{@import_folder}/dsc_resources"
+      @dmtf_mof_folder          = "#{@module_path}/build/vendor/dmtf_mof"
 
       @type_template_file       = "#{@dsc_lib_path}/templates/dsc_type.rb.erb"
       @type_spec_template_file  = "#{@dsc_lib_path}/templates/dsc_type_spec.rb.erb"

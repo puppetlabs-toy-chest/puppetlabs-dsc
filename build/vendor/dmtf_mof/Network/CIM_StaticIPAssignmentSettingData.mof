@@ -1,0 +1,39 @@
+// Copyright (c) 2005 DMTF.  All rights reserved.
+   [Version ( "2.14.0" ), 
+    UMLPackagePath ( "CIM::Network::IP" ), 
+    Description ( 
+       "CIM_StaticIPAssignmentSettingData defines a basic IP "
+       "configuration which could be statically assigned to an "
+       "IPProtocolEndpoint. This class defines a partial "
+       "configuration. Instances are aggregated into an instance of "
+       "IPAssignmentSettingData which defines a full configuration." )]
+class CIM_StaticIPAssignmentSettingData : CIM_IPAssignmentSettingData {
+
+      [Override ( "AddressOrigin" ), 
+       Description ( 
+          "AddressOrigin identifies the method by which the IP "
+          "Address, Subnet Mask, and Gateway were assigned to the "
+          "IPProtocolEndpoint. A value of 2 indicates that the "
+          "application of the IPAssignmentSettingData instance does "
+          "not affect these properties." ), 
+       ValueMap { "0..2", "3", "4..32767", "32768.." }, 
+       Values { "DMTF Reserved", "Static", "DMTF Reserved", 
+          "Vendor Reserved" }]
+   uint16 AddressOrigin = 3;
+
+      [Write, Description ( 
+          "The IPv4 address that will be assigned to the ProtocolEndpoint."
+           )]
+   string IPv4Address;
+
+      [Write, Description ( 
+          "The subnet mask for the IPv4 address of this "
+          "ProtocolEndpoint, if one is defined." )]
+   string SubnetMask;
+
+      [Write, Description ( 
+          "The IP v4 address of the default gateway." )]
+   string GatewayIPv4Address;
+
+
+};

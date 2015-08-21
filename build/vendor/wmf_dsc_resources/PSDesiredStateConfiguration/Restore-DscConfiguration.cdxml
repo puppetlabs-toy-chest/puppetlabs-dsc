@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+This CDXML exposes the Restore-DscConfiguration CIM class as a cmdlet. To use this cmdlet please run the following command
+at the PowerShell prompt:
+
+  PS> Import-Module .\Restore-DscConfiguration.cdxml
+  PS> Restore-DscConfiguration ...
+
+-->
+<PowerShellMetadata xmlns="http://schemas.microsoft.com/cmdlets-over-objects/2009/11">
+  <Class ClassName="root/Microsoft/Windows/DesiredStateConfiguration/MSFT_DSCLocalConfigurationManager" ClassVersion="1.0.0">
+    <Version>2.0.0.0</Version>
+    <DefaultNoun>DscConfiguration</DefaultNoun>
+    <StaticCmdlets>
+	<Cmdlet>
+        <CmdletMetadata Verb="Restore" HelpUri="http://go.microsoft.com/fwlink/?LinkId=403987" ConfirmImpact="Low"/>
+        <Method MethodName="Rollback">
+          <ReturnValue>
+            <Type PSType="int" />
+            <CmdletOutputMetadata>
+              <ErrorCode />
+            </CmdletOutputMetadata>
+          </ReturnValue>
+        </Method>
+      </Cmdlet>
+    </StaticCmdlets>
+  </Class>
+</PowerShellMetadata>

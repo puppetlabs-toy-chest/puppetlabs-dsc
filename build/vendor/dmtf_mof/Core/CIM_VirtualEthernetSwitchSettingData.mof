@@ -1,0 +1,31 @@
+// Copyright (c) 2010 DMTF.  All rights reserved.
+   [Version ( "2.26.0" ), 
+    UMLPackagePath ( "CIM::Core::Virtualization" ), 
+    Description ( 
+       "CIM_VirtualEthernetSwitchSettingData specializes "
+       "CIM_VirtualSystemSettingDatato add the specific properties "
+       "required to define a virtual Ethernet switch." )]
+class CIM_VirtualEthernetSwitchSettingData : CIM_VirtualSystemSettingData {
+
+      [Description ( "A list of VLANIds that this switch can access" )]
+   string VLANConnection[];
+
+      [Description ( 
+          "A list of host resource pools to be associated or that "
+          "are currentlyassociated with the Ethernet Switch for the "
+          "purpose of the allocation of Ethernet connections "
+          "between a virtual machine and an Ethernet switch Each "
+          "non-Null value of the AssoicatedResourcePool property "
+          "shall conformto the production "
+          "WBEM_URI_UntypedInstancePath as defined in DSP0207" )]
+   string AssociatedResourcePool[];
+
+      [Description ( 
+          "This property specifies the number of unique MAC "
+          "addresses that can be learnedby the switch to support "
+          "MAC Address Learning, as defined in the IEEE 802.1 "
+          "standard" )]
+   uint32 MaxNumMACAddress;
+
+
+};
