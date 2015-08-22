@@ -56,7 +56,7 @@ eod
       FileUtils.rm_rf "#{dsc_resources_path_tmp}/xDscResources/*/.git"
 
       puts "Copying vendored resources from #{dsc_resources_path_tmp}/xDscResources to #{vendor_dsc_resources_path}"
-      FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", vendor_dsc_resources_path
+      FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", vendor_dsc_resources_path, :remove_destination => true
       FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", dsc_resources_path
 
       puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{vendor_dsc_resources_path}/dsc_resources"
