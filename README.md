@@ -113,13 +113,26 @@ All [puppet metaparameters](https://docs.puppetlabs.com/references/latest/metapa
 - DSC Composite Resources are not yet fully supported.
 - PSObjects like 'PSCredential' as parameters value not yet supported.
 
+## Known Issues
+
+When installing the module on Windows you may run into an issue regarding long file names (LFN), due to the long paths of generated schema files. If you install your module on a Linux master and then use plugin sync, you will not likely see this issue, but if you are attempting to install the module on a Windows machine, you may run into an error that looks similar to the following during `puppet module install puppetlabs-dsc`:
+
+~~~
+Error: No such file or directory @ rb_sysopen - C:/ProgramData/PuppetLabs/puppet/cache/puppet-module/cache/tmp-unpacker20150713-...mof
+Error: Try 'puppet help module install' for usage
+~~~
+
+For Puppet 4.2.2+ (and 3.8.2) we've lessened the possibility of the issue occurring based on the fixes in [PUP-4854](https://tickets.puppetlabs.com/browse/PUP-4854). However, a complete fix will become available in a version of Puppet that incorporates [PUP-4866](https://tickets.puppetlabs.com/browse/PUP-4866).
+
+If you are affected by this issue, a known workaround is to download the `.tar.gz` from the forge and use `puppet module install` using the file rather than directly from the forge.
+
 ## Notes
 
-The puppet types are built from the source code of each DSC Resources MOF schema files.  
-If you want the build Puppet types for your own custom DSC Resources, read the [README_BUILD](README_BUILD.md)
+* The puppet types are built from the source code of each DSC Resources MOF schema files.
+* If you want the build Puppet types for your own custom DSC Resources, read the [README_BUILD](README_BUILD.md)
 
 ## License
 
-Copyright (c) 2014 Marc Sutter, original author  
-Copyright (c) 2015 Puppet Labs  
-License: [Apache License, Version 2.0](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/LICENSE)
+* Copyright (c) 2014 Marc Sutter, original author
+* Copyright (c) 2015 Puppet Labs
+* License: [Apache License, Version 2.0](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/LICENSE)
