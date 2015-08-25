@@ -5,8 +5,6 @@ require 'fileutils'
 require 'puppet/file_system'
 require 'puppet/feature/vendors_dsc'
 
-module DscSymlink; end # for tests on non-Windows
-
 describe DscSymlink, :if => Puppet::Util::Platform.windows? do
 
   let (:top_level_path) do

@@ -4,7 +4,7 @@ require 'json'
 Puppet::Type.type(:base_dsc).provide(:powershell) do
   confine :operatingsystem => :windows
   defaultfor :operatingsystem => :windows
-  has_features :vendors_dsc?
+  has_features :vendors_dsc
 
   commands :powershell =>
     if File.exists?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
