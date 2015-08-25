@@ -1,4 +1,5 @@
-require 'puppet/feature/vendors_dsc'
+require 'pathname'
+require Pathname.new(__FILE__).dirname + '../../../' + 'puppet/feature/vendors_dsc'
 require 'json'
 
 Puppet::Type.type(:base_dsc).provide(:powershell) do
