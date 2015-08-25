@@ -1,0 +1,101 @@
+$temp_dl_path        = '<%= temp_dl_path %>'
+
+$seven_zip_url          = '<%= seven_zip_url %>'
+$seven_zip_dl_path      = '<%= seven_zip_dl_path %>'
+$seven_zip_product_name = '<%= seven_zip_product_name %>'
+$seven_zip_install_path = '<%= seven_zip_install_path %>'
+
+$seven_zip_test_archive_path = '<%= seven_zip_test_archive_path %>'
+$seven_zip_exe_path          = '<%= seven_zip_exe_path %>'
+$seven_zip_command_args      = '<%= seven_zip_command_args %>'
+
+$env_var_name  = '<%= env_var_name %>'
+$env_var_value = '<%= env_var_value %>'
+
+$nssm_url     = '<%= nssm_url %>'
+$nssm_dl_path = '<%= nssm_dl_path %>'
+
+$ftp_feature_name         = '<%= ftp_feature_name %>'
+$ftp_service_name         = '<%= ftp_service_name %>'
+$ftp_service_startup_type = '<%= ftp_service_startup_type %>'
+$ftp_service_state        = '<%= ftp_service_state %>'
+
+$user_name  = '<%= user_name %>'
+$group_name = '<%= group_name %>'
+
+$registry_key   = '<%= registry_key %>'
+$registry_value = '<%= registry_value %>'
+
+dsc_file { 'temp_dl_path':
+  dsc_ensure          => 'Present',
+  dsc_type            => 'Directory',
+  dsc_destinationpath => $temp_dl_path
+}
+->
+dsc_script { 'download_7zip':
+  dsc_getscript  => 'return @{ 7zip = "Installed" }',
+  dsc_testscript => "Test-Path \"${seven_zip_dl_path}\"",
+  dsc_setscript  => "(New-Object Net.WebClient).DownloadFile(\"${seven_zip_url}\", \"${seven_zip_dl_path}\")"
+}
+->
+dsc_script { 'download_nssm':
+  dsc_getscript  => 'return @{ NSSM = "Installed" }',
+  dsc_testscript => "Test-Path \"${nssm_dl_path}\"",
+  dsc_setscript  => "(New-Object Net.WebClient).DownloadFile(\"${nssm_url}\", \"${nssm_dl_path}\")"
+}
+->
+dsc_package { 'install_7zip':
+  dsc_ensure    => 'Present',
+  dsc_path      => $seven_zip_dl_path,
+  dsc_name      => $seven_zip_product_name,
+  dsc_productid => '',
+  dsc_arguments => "/S /D=${seven_zip_install_path}"
+}
+dsc_environment { 'add_env_var':
+  dsc_ensure => 'Present',
+  dsc_name   => $env_var_name,
+  dsc_value  => $env_var_value
+}
+->
+dsc_archive { 'extract_nssm':
+  dsc_ensure      => 'Present',
+  dsc_path        => $nssm_dl_path,
+  dsc_destination => $temp_dl_path
+}
+->
+dsc_windowsfeature { 'ftp_server':
+  dsc_ensure  => 'Present',
+  dsc_name    => $ftp_feature_name,
+  dsc_logpath => "$temp_dl_path/ftp_install.log"
+}
+->
+dsc_service { 'disable_ftp_service':
+  dsc_name        => $ftp_service_name,
+  dsc_startuptype => $ftp_service_startup_type,
+  dsc_state       => $ftp_service_state
+}
+->
+dsc_user { 'create_test_user':
+  dsc_ensure   => 'Present',
+  dsc_disabled => 'false',
+  dsc_username => $user_name,
+}
+->
+dsc_group { 'create_test_group':
+  dsc_ensure    => 'Present',
+  dsc_groupname => $group_name,
+  dsc_members   => [$user_name]
+}
+->
+dsc_registry { 'create_registry_entry':
+  dsc_ensure    => 'Present',
+  dsc_key       => $registry_key,
+  dsc_valuename => $registry_value
+}
+->
+dsc_windowsprocess { 'create_7zip_archive':
+  dsc_ensure           => 'Present',
+  dsc_path             => $seven_zip_exe_path,
+  dsc_arguments        => $seven_zip_command_args,
+  dsc_workingdirectory => $seven_zip_install_path
+}
