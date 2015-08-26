@@ -78,7 +78,7 @@ EOT
   def format_dsc_value(dsc_value)
     case
     when dsc_value.class.name == 'String'
-      "'#{dsc_value}'"
+      "'#{escape_quotes(dsc_value)}'"
     when dsc_value.class.ancestors.include?(Numeric)
       "#{dsc_value}"
     when [:true, :false].include?(dsc_value)
@@ -90,6 +90,10 @@ EOT
     else
       fail "unsupported type #{dsc_value.class} of value '#{dsc_value}'"
     end
+  end
+
+  def escape_quotes(text)
+    text.gsub("'", "''")
   end
 
   def ps_script_content(mode)
