@@ -1,9 +1,7 @@
-# workaround for cross modules dependencies
-master_path = File.expand_path(File.join(__FILE__, '..', '..', '..', '..', '..', 'dsc','lib'))
-$:.push(master_path) if File.directory?(master_path)
-require 'puppet/type/base_dsc'
+require 'pathname'
 
 Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
+  require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
