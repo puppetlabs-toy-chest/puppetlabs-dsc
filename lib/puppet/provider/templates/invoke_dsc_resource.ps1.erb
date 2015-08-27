@@ -1,6 +1,15 @@
 $script:ErrorActionPreference = 'Stop'
 $script:WarningPreference     = 'SilentlyContinue'
 
+function new-pscredential
+{
+  param($user, $password)
+
+  $secpasswd   = ConvertTo-SecureString $password -AsPlainText -Force
+  $credentials = New-Object System.Management.Automation.PSCredential ($user, $secpasswd)
+  return $credentials
+}
+
 $response = @{
   indesiredstate = $false
   rebootrequired = $false
@@ -22,6 +31,7 @@ $invokeParams = @{
     <%- name = p.name.to_s.gsub(/^dsc_/,'')
     value = format_dsc_value(p.value)
     value = '\'present\'' if name == 'ensure' && dsc_invoke_method == 'test'
+    value = p.value['user'] if name =~ /credential/
     -%>
     <%= name %> = <%= value %>
 <% end -%>

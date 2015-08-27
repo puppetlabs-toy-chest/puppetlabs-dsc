@@ -249,6 +249,21 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
     end
 <%  end # if resource.absentable? -%>
+<%  if resource.has_credential? -%>
+
+    describe "when dsc_resource has credentials" do
+
+      before(:each) do
+        @provider = described_class.provider(:powershell).new(dsc_<%= resource.friendlyname.downcase %>)
+      end
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/ensure = 'new-credential'/)
+      end
+
+    end
+
+<%  end # if resource.ensurable? -%>
 
   end
 end

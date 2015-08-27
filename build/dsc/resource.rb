@@ -94,6 +94,10 @@ module Dsc
       properties.detect{|p|p.embeddedinstance?} ? true : false
     end
 
+    def has_credential?
+      properties.detect{|p|p.is_credential?} ? true : false
+    end
+
     def ps_module
       unless @ps_module
         path_array = @resource_mof_path.split('/')

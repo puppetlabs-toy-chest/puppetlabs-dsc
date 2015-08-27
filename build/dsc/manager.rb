@@ -29,6 +29,7 @@ module Dsc
       @spec_test_values         = {
         'string'   => 'foo',
         'string[]' => ['foo','bar','spec'],
+        'credential' => ['users','password'],
         'bool'     => true,
         'boolean'  => true,
         'munged_bools' => ['true','false','True', 'False', :true, :false],

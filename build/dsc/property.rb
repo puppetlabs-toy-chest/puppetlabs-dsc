@@ -72,6 +72,10 @@ module Dsc
       name.downcase == 'name' ? true : false
     end
 
+    def is_credential?
+      name.downcase =~ /credential/ ? true : false
+    end
+
     def bool?
       ["bool","boolean"].include?(type)
     end
