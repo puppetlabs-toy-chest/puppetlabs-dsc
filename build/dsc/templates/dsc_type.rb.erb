@@ -114,7 +114,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   newparam(:dsc_<%= property.name.downcase %><% if property.array? && !property.keyvaluepair? %>, :array_matching => :all<% end %>) do
     def mof_type; '<%= property.type %>' end
     def mof_is_embedded?; <%= property.embeddedinstance? -%> end
-<%    if property.embeddedinstance? && property.embeddedinstance_class_name != 'MSFT_Credential' && !property.keyvaluepair?
+<%    if property.embeddedinstance? && !property.credential? && !property.keyvaluepair?
 
         type_map = {}
         cim_classes_with_path
@@ -158,7 +158,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
       (value.kind_of?(Hash) ? [value] : value).each_with_index do |v, i|
         fail "<%= property.name %> value at index #{i} should be a Hash" unless v.is_a? Hash
 
-        PuppetX::Dsc::TypeHelpers.validate_<%= property.embeddedinstance_class_name %>(<%=  property.embeddedinstance_class_name != 'MSFT_Credential' ? 'mof_type_map, ' : '' %>"<%= property.name %>", v)
+        PuppetX::Dsc::TypeHelpers.validate_<%= property.embeddedinstance_class_name %>(<%= !property.credential? ? 'mof_type_map, ' : '' %>"<%= property.name %>", v)
       end
 <%      end -%>
 <%    when property.embeddedinstance? && !property.embeddedinstance_array? -%>
@@ -168,7 +168,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 <%      if property.keyvaluepair? -%>
       fail '<%= property.name %> may only have a single key / value pair' unless value.length == 1
 <%      else -%>
-      PuppetX::Dsc::TypeHelpers.validate_<%= property.embeddedinstance_class_name %>(<%=  property.embeddedinstance_class_name != 'MSFT_Credential' ? 'mof_type_map, ' : '' %>"<%= property.name %>", value)
+      PuppetX::Dsc::TypeHelpers.validate_<%= property.embeddedinstance_class_name %>(<%= !property.credential? ? 'mof_type_map, ' : '' %>"<%= property.name %>", value)
 <%      end -%>
 <%    when property.array? -%>
       unless value.kind_of?(Array) || value.kind_of?(String)
@@ -222,7 +222,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
       Array(value)
 <%      end -%>
     end
-<%    when property.embeddedinstance? && !property.keyvaluepair? && !property.embeddedinstance_class_name == 'MSFT_Credential' -%>
+<%    when property.embeddedinstance? && !property.keyvaluepair? && !property.credential? -%>
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, value)
     end

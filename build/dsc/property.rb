@@ -78,6 +78,10 @@ module Dsc
       name.downcase == 'name' ? true : false
     end
 
+    def credential?
+      embeddedinstance? && embeddedinstance_class_name == 'MSFT_Credential'
+    end
+
     def keyvaluepair?
       embeddedinstance? && embeddedinstance_class_name == 'MSFT_KeyValuePair'
     end

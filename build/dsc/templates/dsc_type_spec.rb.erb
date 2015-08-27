@@ -266,6 +266,17 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
     end
 <%  end # if resource.absentable? -%>
+<%  if resource.has_credential? -%>
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
+<%  end # if resource.has_credential? -%>
 
   end
 end

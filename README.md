@@ -299,7 +299,6 @@ dsc::lcm_config {'disable_lcm':
 ## Limitations
 
 - DSC Composite Resources are not supported.
-- PSObjects like 'PSCredential' as parameters value not yet supported.
 - DSC requires PowerShell `Execution Policy` for the `LocalMachine` scope to be set to a less restrictive setting than `Restricted`. If you see the error below, see [MODULES-2500](https://tickets.puppetlabs.com/browse/MODULES-2500) for more information.
 
 ~~~

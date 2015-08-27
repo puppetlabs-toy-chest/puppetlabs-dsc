@@ -137,5 +137,14 @@ describe Puppet::Type.type(:dsc_xspsearchserviceapp) do
 
     end
 
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
+
   end
 end

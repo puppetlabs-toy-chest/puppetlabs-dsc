@@ -1,6 +1,26 @@
 $script:ErrorActionPreference = 'Stop'
 $script:WarningPreference     = 'SilentlyContinue'
 
+function new-pscredential
+{
+  [CmdletBinding()]
+  param (
+    [parameter(Mandatory=$true,
+      ValueFromPipelineByPropertyName=$true)]
+    [string]
+    $user,
+
+    [parameter(Mandatory=$true,
+      ValueFromPipelineByPropertyName=$true)]
+    [string]
+    $password
+  )
+
+  $secpasswd   = ConvertTo-SecureString $password -AsPlainText -Force
+  $credentials = New-Object System.Management.Automation.PSCredential ($user, $secpasswd)
+  return $credentials
+}
+
 $response = @{
   indesiredstate = $false
   rebootrequired = $false
@@ -13,15 +33,18 @@ $invokeParams = @{
   Property      = @{
 <% dsc_parameters.each do |p| -%>
     <%- name = p.name.to_s.gsub(/^dsc_/,'')
-    value = format_dsc_value(p.value)
     if name == 'ensure' && dsc_invoke_method == 'test'
       value = "\'#{resource.parameters[:ensure].default.to_s}\'"
+    elsif p.mof_type == 'MSFT_Credential'
+      value = "[PSCustomObject]#{format_dsc_value(p.value)} | new-pscredential"
     elsif p.mof_is_embedded? && p.mof_type != 'MSFT_KeyValuePair'
       vals = p.value.is_a?(Hash) ? [p.value] : p.value
       vals = vals.collect do |v|
         "(New-CimInstance -ClassName '#{p.mof_type.gsub('[]','')}' -ClientOnly -Property #{format_dsc_value(v)})"
       end
       value = "[CimInstance[]]@(#{vals.join(',')})"
+    else
+      value = format_dsc_value(p.value)
     end
     -%>
     <%= name %> = <%= value %>
