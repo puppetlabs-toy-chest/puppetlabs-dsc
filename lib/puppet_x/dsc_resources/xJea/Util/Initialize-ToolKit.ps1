@@ -6,6 +6,7 @@ param(
 )
 
 ipmo (Join-Path $env:ProgramFiles 'Jea\Util\SafeProxy.psm1') -DisableNameChecking
+$winrm = Get-Service WinRM
 
 function Write-ActivityRecord
 {
@@ -161,6 +162,7 @@ Approve-Command -name `
     'New-Object', # This needs to be constrained
     'Select-Object',
     'Sort-Object',
+    'Get-SerializedCommand',
     'Tabexpansion2',
     'Where-Object'
 Approve-Command -name $((Get-Module  $ToolkitName ).Exportedfunctions.Values.name)

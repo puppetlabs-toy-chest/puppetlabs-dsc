@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
   @doc = %q{
     The DSC xJeaEndPoint resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xJea/DSCResources/MSFT_xJeaEndpoint/MSFT_xJeaEndpoint.schema.mof
+      import/dsc_resources/xJea/DSCResources/MSFT_xJeaEndpoint/MSFT_xJeaEndpoint.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.2.16.1"
+    defaultto "0.2.16.5"
   end
 
   newparam(:name, :namevar => true ) do

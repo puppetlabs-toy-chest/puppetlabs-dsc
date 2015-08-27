@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xazureservice) do
   @doc = %q{
     The DSC xAzureService resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xAzure/DSCResources/MSFT_xAzureService/MSFT_xAzureService.schema.mof
+      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureService/MSFT_xAzureService.schema.mof
   }
 
   validate do

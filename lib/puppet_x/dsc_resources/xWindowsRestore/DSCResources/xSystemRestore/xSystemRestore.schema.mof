@@ -1,0 +1,10 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xSystemRestore")]
+class xSystemRestore : OMI_BaseResource
+{
+    [Key, Description("Indicates that the computer restore is enabled or is disabled."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("Specifies the file system drives. Enter one or more file system drive letters, each followed by a colon and a backslash and enclosed in quotation marks, such as 'C:\' or 'D:\'.")] String Drive[];
+};
+
+
+

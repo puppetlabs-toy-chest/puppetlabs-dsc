@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xwineventlog) do
   @doc = %q{
     The DSC xWinEventLog resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xWinEventLog/DSCResources/MSFT_xWinEventLog/MSFT_xWinEventLog.schema.mof
+      import/dsc_resources/xWinEventLog/DSCResources/MSFT_xWinEventLog/MSFT_xWinEventLog.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xwineventlog) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.0.0.1"
+    defaultto "1.0.0.1"
   end
 
   newparam(:name, :namevar => true ) do
@@ -115,6 +115,18 @@ Puppet::Type.newtype(:dsc_xwineventlog) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_securitydescriptor) do
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         LogFilePath
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_logfilepath) do
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

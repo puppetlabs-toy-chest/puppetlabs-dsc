@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   @doc = %q{
     The DSC xWaitForCluster resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xFailOverCluster/DSCResources/MSFT_xWaitForCluster/MSFT_xWaitForCluster.schema.mof
+      import/dsc_resources/xFailOverCluster/DSCResources/MSFT_xWaitForCluster/MSFT_xWaitForCluster.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.1"
+    defaultto "1.1.1"
   end
 
   newparam(:name, :namevar => true ) do

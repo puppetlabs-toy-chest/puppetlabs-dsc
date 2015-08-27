@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xdbpackage) do
   @doc = %q{
     The DSC xDBPackage resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xDatabase/DSCResources/MSFT_xDBPackage/MSFT_xDBPackage.schema.mof
+      import/dsc_resources/xDatabase/DSCResources/MSFT_xDBPackage/MSFT_xDBPackage.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xdbpackage) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.1"
+    defaultto "1.2.0"
   end
 
   newparam(:name, :namevar => true ) do

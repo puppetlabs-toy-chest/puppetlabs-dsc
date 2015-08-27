@@ -1,0 +1,18 @@
+
+[ClassVersion("0.1.0.0"), FriendlyName("xRobocopy")]
+class MSFT_xRobocopy : OMI_BaseResource
+{
+    [Key, Description("Source Directory, Drive or UNC path.")] String Source;
+    [Key, Description("Destination Dir, Drive or UNC path.")] String Destination;
+    [Write, Description("File(s) to copy  (names/wildcards: default is all files).")] String Files;
+    [Write, Description("Number of Retries on failed copies: default 1 million.")] UInt32 Retry;
+    [Write, Description("Wait time between retries: default is 30 seconds.")] UInt32 Wait;
+    [Write, Description("Copy subdirectories, including Empty ones.")] Boolean SubdirectoriesIncludingEmpty;
+    [Write, Description("Copy files in restartable mode.")] Boolean Restartable;
+    [Write, Description("Do multi-threaded copies with n threads (default 8). N must be at least 1 and not greater than 128. This option is incompatible with the /IPG and /EFSRAW options. Redirect output using /LOG option for better performance.")] Boolean MultiThreaded;
+    [Write, Description("Exclude Files matching given names/paths/wildcards.")] String ExcludeFiles;
+    [Write, Description("Output status to LOG file.")] String LogOutput;
+    [Write, Description("Determine whether to overwrite log file or append.")] Boolean AppendLog;
+    [Write, Description("Robocopy has MANY configuration options.  Too many to present them all as DSC parameters effectively. Use this option to set additional parameters.  The string will be appended to the arguements list.  For a list of options run Robocopy /??? in a shell window.")] String AdditionalArgs;
+};
+

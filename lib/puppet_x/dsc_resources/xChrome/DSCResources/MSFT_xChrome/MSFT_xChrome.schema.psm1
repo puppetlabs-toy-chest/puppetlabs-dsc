@@ -1,5 +1,7 @@
-Configuration MSFT_xChrome
-{
+### The MSFT_xChrome DSC Resource is implemented as a "composite" DSC Resource, which is
+### a DSC Configuration Document comprised of other DSC Resource instances. Consequently,
+### the MSFT_xChrome DSC Resource does not implement its own Get, Test, and Set methods.
+Configuration MSFT_xChrome {
     param
     (
     [string]$Language = "en",

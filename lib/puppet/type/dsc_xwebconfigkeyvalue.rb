@@ -10,12 +10,13 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
   @doc = %q{
     The DSC xWebConfigKeyValue resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xWebAdministration/DSCResources/MSFT_xWebConfigKeyValue/MSFT_xWebConfigKeyValue.schema.mof
+      import/dsc_resources/xWebAdministration/DSCResources/MSFT_xWebConfigKeyValue/MSFT_xWebConfigKeyValue.schema.mof
   }
 
   validate do
       fail('dsc_websitepath is a required attribute') if self[:dsc_websitepath].nil?
       fail('dsc_configsection is a required attribute') if self[:dsc_configsection].nil?
+      fail('dsc_key is a required attribute') if self[:dsc_key].nil?
     end
 
   newparam(:dscmeta_resource_friendly_name) do
@@ -41,7 +42,7 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.3.2.4"
+    defaultto "1.7.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -103,10 +104,11 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
 
   # Name:         Key
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_key) do
     desc "Key for AppSettings"
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

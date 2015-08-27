@@ -123,6 +123,16 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
     expect(dsc_xaddomaintrust[:dsc_trusttype]).to eq('external')
   end
 
+  it 'should accept dsc_trusttype predefined value Forest' do
+    dsc_xaddomaintrust[:dsc_trusttype] = 'Forest'
+    expect(dsc_xaddomaintrust[:dsc_trusttype]).to eq('Forest')
+  end
+
+  it 'should accept dsc_trusttype predefined value forest' do
+    dsc_xaddomaintrust[:dsc_trusttype] = 'forest'
+    expect(dsc_xaddomaintrust[:dsc_trusttype]).to eq('forest')
+  end
+
   it 'should not accept values not equal to predefined values' do
     expect{dsc_xaddomaintrust[:dsc_trusttype] = 'invalid value'}.to raise_error(Puppet::ResourceError)
   end

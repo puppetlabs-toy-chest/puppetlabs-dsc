@@ -1,0 +1,10 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xDatabaseServer")]
+class MSFT_xDatabaseServer : OMI_BaseResource
+{
+    [Key, ValueMap{"Windows","Mixed"}, Values{"Windows","Mixed"}] String LoginMode;
+};
+
+
+
+

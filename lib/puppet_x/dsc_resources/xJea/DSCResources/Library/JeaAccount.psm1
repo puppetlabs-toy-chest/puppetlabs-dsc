@@ -223,7 +223,12 @@ $RestartWinRM = @'
 If you restart the WinRM service while DSC is running, it puts WinRM in a bad state
 so this script waits for DSC to finish it's work and then restarts WinRM
 #>
-While ((Get-DscLocalConfigurationManager).LocalConfigurationManagerState -ne 'Ready')
+if ((Get-DscLocalConfigurationManager).LocalConfigurationManagerState)
+{   $property = "LocalConfigurationManagerState"
+}else
+{   $property = "LCMState"
+}
+While ((Get-DscLocalConfigurationManager).$property -ne 'Ready')
 {
     Start-Sleep -Seconds 2
 }

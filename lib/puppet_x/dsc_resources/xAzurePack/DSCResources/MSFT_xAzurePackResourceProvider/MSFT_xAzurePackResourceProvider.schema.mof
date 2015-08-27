@@ -1,0 +1,40 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xAzurePackResourceProvider")]
+class MSFT_xAzurePackResourceProvider : OMI_BaseResource
+{
+    [Required, Description("URL of the authentication site.")] String AuthenticationSite;
+    [Required, Description("Specifies the URI of the Windows Azure Pack administrator API.")] String AdminUri;
+    [Key, Description("Specifies the name of a resource provider.")] String Name;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String AzurePackAdminCredential;
+    [Write, Description("Specifies the display name of a resource provider.")] String DisplayName;
+    [Write, Description("Enables the resource provider.")] Boolean Enabled;
+    [Write, Description("Indicates whether the resource provider supports API pass-through.")] Boolean PassthroughEnabled;
+    [Write, Description("Specifies the URI of the Windows Azure Pack administrator API.")] Boolean AllowAnonymousAccess;
+    [Write, Description("Indicates that the cmdlet allows multiple instances of the resource provider.")] Boolean AllowMultipleInstances;
+    [Write, Description("Specifies an administrative forwarding address for a resource provider.")] String AdminForwardingAddress;
+    [Write, Description("Specifies the administrative authentication mode for a resource provider."), ValueMap{"None","Basic","Windows"}, Values{"None","Basic","Windows"}] String AdminAuthenticationMode;
+    [Write, EmbeddedInstance("MSFT_Credential"), Description("Specifies, as a PSCredential object, an administrative user name and password to connect to a resource provider.")] String AdminAuthenticationUser;
+    [Read, Description("Output for the administrative user name.")] String AdminAuthenticationUsername;
+    [Write, Description("Specifies the tenant forwarding address of a resource provider.")] String TenantForwardingAddress;
+    [Write, Description("Specifies the tenant authentication mode for a resource provider."), ValueMap{"None","Basic","Windows"}, Values{"None","Basic","Windows"}] String TenantAuthenticationMode;
+    [Write, EmbeddedInstance("MSFT_Credential"), Description("Specifies, as a PSCredential object, a tenant user name and password to connect to a resource provider.")] String TenantAuthenticationUser;
+    [Read, Description("Output for the tenant user name.")] String TenantAuthenticationUsername;
+    [Write, Description("Specifies the tenant source URI template of a resource provider.")] String TenantSourceUriTemplate;
+    [Write, Description("Specifies the tenant target URI template of a resource provider.")] String TenantTargetUriTemplate;
+    [Write, Description("Specifies the tenant forwarding address of a resource provider.")] String UsageForwardingAddress;
+    [Write, Description("Specifies the usage authentication mode for a resource provider."), ValueMap{"None","Basic","Windows"}, Values{"None","Basic","Windows"}] String UsageAuthenticationMode;
+    [Write, EmbeddedInstance("MSFT_Credential"), Description("Specifies, as a PSCredential object, a usage user name and password to connect to a resource provider.")] String UsageAuthenticationUser;
+    [Read, Description("Output for the usage user name.")] String UsageAuthenticationUsername;
+    [Write, Description("Specifies the health check forwarding address for a resource provider.")] String HealthCheckForwardingAddress;
+    [Write, Description("Specifies the health check authentication mode for a resource provider."), ValueMap{"None","Basic","Windows"}, Values{"None","Basic","Windows"}] String HealthCheckAuthenticationMode;
+    [Write, EmbeddedInstance("MSFT_Credential"), Description("Specifies, as a PSCredential object, a health check user name and password to connect to a resource provider.")] String HealthCheckAuthenticationUser;
+    [Read, Description("Output for the health check user name.")] String HealthCheckAuthenticationUsername;
+    [Write, Description("Specifies the notification forwarding address of a resource provider.")] String NotificationForwardingAddress;
+    [Write, Description("Specifies the notification authentication mode for a resource provider."), ValueMap{"None","Basic","Windows"}, Values{"None","Basic","Windows"}] String NotificationAuthenticationMode;
+    [Write, EmbeddedInstance("MSFT_Credential"), Description("Specifies, as a PSCredential object, a notification user name and password to connect to a resource provider.")] String NotificationAuthenticationUser;
+    [Read, Description("Output for the notification user name.")] String NotificationAuthenticationUsername;
+    [Write, Description("Specifies an ID for an instance of a resource provider.")] String InstanceId;
+    [Write, Description("Specifies a display name for an instance of a resource provider.")] String InstanceDisplayName;
+    [Write, Description("Specifies the number of subscriptions that can be updated in a single request.")] String MaxQuotaUpdateBatchSize;
+    [Write, Description("Specifies the time interval at which the management service polls the resource provider for subscription status updates.")] String SubscriptionStatusPollingInterval;
+    [Write, Description("Specifies the type of the resource provider."), ValueMap{"Standard","UsageProvider","CloudServiceProvider"}, Values{"Standard","UsageProvider","CloudServiceProvider"}] String Type;
+};

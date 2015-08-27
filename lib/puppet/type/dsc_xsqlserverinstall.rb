@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   @doc = %q{
     The DSC xSqlServerInstall resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xSqlPs/DSCResources/MSFT_xSqlServerInstall/MSFT_xSqlServerInstall.schema.mof
+      import/dsc_resources/xSqlPs/DSCResources/MSFT_xSqlServerInstall/MSFT_xSqlServerInstall.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.1.3"
+    defaultto "1.1.3.1"
   end
 
   newparam(:name, :namevar => true ) do

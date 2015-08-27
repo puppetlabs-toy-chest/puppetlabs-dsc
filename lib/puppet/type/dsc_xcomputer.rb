@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   @doc = %q{
     The DSC xComputer resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xComputerManagement/DSCResources/MSFT_xComputer/MSFT_xComputer.schema.mof
+      import/dsc_resources/xComputerManagement/DSCResources/MSFT_xComputer/MSFT_xComputer.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.2"
+    defaultto "1.3.0"
   end
 
   newparam(:name, :namevar => true ) do

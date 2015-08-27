@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xazuresubscription) do
   @doc = %q{
     The DSC xAzureSubscription resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xAzure/DSCResources/MSFT_xAzureSubscription/MSFT_xAzureSubscription.schema.mof
+      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureSubscription/MSFT_xAzureSubscription.schema.mof
   }
 
   validate do

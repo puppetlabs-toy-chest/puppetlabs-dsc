@@ -1,4 +1,4 @@
-cls
+﻿cls
 
 $before = Get-WinEvent -ListLog "Microsoft-Windows-MSPaint/Admin" 
 configuration Demo1

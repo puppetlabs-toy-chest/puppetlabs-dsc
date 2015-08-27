@@ -1,4 +1,4 @@
-﻿#requires -version 5
+#requires -version 5
 # Copyright © 2014, Microsoft Corporation. All rights reserved.
 #region HelperFunctions
 Import-Module $PSScriptRoot\..\Library\Helper.psm1

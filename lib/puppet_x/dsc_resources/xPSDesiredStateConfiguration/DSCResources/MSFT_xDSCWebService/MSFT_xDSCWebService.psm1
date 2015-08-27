@@ -23,6 +23,7 @@ function Get-TargetResource
     if ($webSite)
     {
             $Ensure = 'Present'
+            $AcceptSelfSignedCertificates = $false
                 
             # Get Full Path for Web.config file    
             $webConfigFullPath = Join-Path $website.physicalPath "web.config"
@@ -30,6 +31,7 @@ function Get-TargetResource
             # Get module and configuration path
             $modulePath = Get-WebConfigAppSetting -WebConfigFullPath $webConfigFullPath -AppSettingName "ModulePath"
             $ConfigurationPath = Get-WebConfigAppSetting -WebConfigFullPath $webConfigFullPath -AppSettingName "ConfigurationPath"
+            $RegistrationKeyPath = Get-WebConfigAppSetting -WebConfigFullPath $webConfigFullPath -AppSettingName "RegistrationKeyPath"
 
             $UrlPrefix = $website.bindings.Collection[0].protocol + "://"
 
@@ -46,7 +48,20 @@ function Get-TargetResource
             $serverUrl = $UrlPrefix + $fqdn + ":" + $iisPort + "/" + $svcFileName
 
             $webBinding = Get-WebBinding -Name $EndpointName
-            
+
+            # This is the 64 bit module
+            $certNativeModule = Get-WebConfigModulesSetting -WebConfigFullPath $webConfigFullPath -ModuleName "IISSelfSignedCertModule" 
+            if($certNativeModule)
+            {
+                $AcceptSelfSignedCertificates = $true
+            }           
+
+            # This is the 32 bit module
+            $certNativeModule = Get-WebConfigModulesSetting -WebConfigFullPath $webConfigFullPath -ModuleName "IISSelfSignedCertModule(32bit)" 
+            if($certNativeModule)
+            {
+                $AcceptSelfSignedCertificates = $true
+            }           
         }
     else
     {
@@ -54,15 +69,17 @@ function Get-TargetResource
     }
 
     @{
-        EndpointName      = $EndpointName
-        CertificateThumbPrint = if($CertificateThumbPrint -eq 'AllowUnencryptedTraffic'){$CertificateThumbPrint} else {Get-WebBinding -Name $EndpointName}
-        Port              = $iisPort
-        PhysicalPath      = $website.physicalPath
-        State             = $webSite.state
-        ModulePath        = $modulePath
-        ConfigurationPath = $ConfigurationPath
-        DSCServerUrl      = $serverUrl
-        Ensure            = $Ensure
+        EndpointName                    = $EndpointName
+        CertificateThumbPrint           = if($CertificateThumbPrint -eq 'AllowUnencryptedTraffic'){$CertificateThumbPrint} else {(Get-WebBinding -Name $EndpointName).CertificateHash}
+        Port                            = $iisPort
+        PhysicalPath                    = $website.physicalPath
+        State                           = $webSite.state
+        ModulePath                      = $modulePath
+        ConfigurationPath               = $ConfigurationPath
+        DSCServerUrl                    = $serverUrl
+        Ensure                          = $Ensure
+        RegistrationKeyPath             = $RegistrationKeyPath
+        AcceptSelfSignedCertificates    = $AcceptSelfSignedCertificates
     }
 }
 
@@ -79,8 +96,8 @@ function Set-TargetResource
         # Port number of the DSC Pull Server IIS Endpoint
         [Uint32]$Port = $( if ($IsComplianceServer) { 7070 } else { 8080 } ),
 
-        # Physical path for the IIS Endpoint on the machine (usually under inetpub/wwwroot)                            
-        [string]$PhysicalPath = "$env:SystemDrive\inetpub\wwwroot\$EndpointName",
+        # Physical path for the IIS Endpoint on the machine (usually under inetpub)                            
+        [string]$PhysicalPath = "$env:SystemDrive\inetpub\$EndpointName",
 
         # Thumbprint of the Certificate in CERT:\LocalMachine\MY\ for Pull Server
         [Parameter(Mandatory)]
@@ -100,10 +117,18 @@ function Set-TargetResource
         [string]$ConfigurationPath = "$env:PROGRAMFILES\WindowsPowerShell\DscService\Configuration",
 
         # Is the endpoint for a DSC Compliance Server
-        [boolean] $IsComplianceServer
+        [boolean]$IsComplianceServer,
+
+        # Location on the disk where the RegistrationKeys file is stored                    
+        [string]$RegistrationKeyPath = "$env:PROGRAMFILES\WindowsPowerShell\DscService",
+
+        # Add the IISSelfSignedCertModule native module to prevent self-signed certs being rejected.
+        [boolean]$AcceptSelfSignedCertificates
     )
 
-    # Initialize with default values        
+    # Initialize with default values     
+    $script:appCmd = "$env:windir\system32\inetsrv\appcmd.exe"
+   
     $pathPullServer = "$pshome\modules\PSDesiredStateConfiguration\PullServer"
     $rootDataPath ="$env:PROGRAMFILES\WindowsPowerShell\DscService"
     $jet4provider = "System.Data.OleDb"
@@ -113,6 +138,10 @@ function Set-TargetResource
 
     $culture = Get-Culture
     $language = $culture.TwoLetterISOLanguageName
+    # the two letter iso languagename is not actually implemented in the source path, it's always 'en'
+    if (-not (Test-Path $pathPullServer\$language\Microsoft.Powershell.DesiredStateConfiguration.Service.Resources.dll)) {
+        $language = 'en'
+    }
 
     $os = [System.Environment]::OSVersion.Version
     $IsBlue = $false;
@@ -135,6 +164,43 @@ function Set-TargetResource
         $pswsMofFileName = "$pathPullServer\PSDSCComplianceServer.mof"
         $pswsDispatchFileName = "$pathPullServer\PSDSCComplianceServer.xml"
     }
+
+    # check for the existance of Windows authentication, this is needed for the Compliance Server    
+    if(($Ensure -eq "Present"))
+    {
+        Write-Verbose "Check IIS Windows Authentication"
+        # only important if Present, Get-WindowsFeature works under 2008 R2 and newer
+        if ((Get-WindowsFeature -name Web-Windows-Auth | Where Installed).count -eq 0)
+        {
+            # enable the feature     
+            # Checking for Windows Server 2008 R2:
+            if([Environment]::OSVersion.Version.ToString().StartsWith("6.1."))
+            {
+                Add-WindowsFeature -Name Web-Windows-Auth
+            }
+            else
+            {
+                Install-WindowsFeature -Name Web-Windows-Auth
+            }                       
+        }      
+    }
+
+    # ============ Absent block to remove existing site =========
+    if(($Ensure -eq "Absent"))
+    {
+         $website = Get-Website -Name $EndpointName
+         if($website -ne $null)
+         {
+            # there is a web site, but there shouldn't be one
+            Write-Verbose "Removing web site $EndpointName"
+            PSWSIISEndpoint\Remove-PSWSEndpoint -SiteName $EndpointName
+         }
+
+         # we are done here, all stuff below is for 'Present'
+         return 
+    }
+    # ===========================================================
+
                 
     Write-Verbose "Create the IIS endpoint"    
     PSWSIISEndpoint\New-PSWSEndpoint -site $EndpointName `
@@ -161,8 +227,11 @@ function Set-TargetResource
     if ($IsBlue)
     {
         Write-Verbose "Set values into the web.config that define the repository for BLUE OS"
-        PSWSIISEndpoint\Set-AppSettingsInWebconfig -path $PhysicalPath -key "dbprovider" -value $eseprovider
-        PSWSIISEndpoint\Set-AppSettingsInWebconfig -path $PhysicalPath -key "dbconnectionstr"-value $esedatabase
+        #PSWSIISEndpoint\Set-AppSettingsInWebconfig -path $PhysicalPath -key "dbprovider" -value $eseprovider
+        #PSWSIISEndpoint\Set-AppSettingsInWebconfig -path $PhysicalPath -key "dbconnectionstr"-value $esedatabase
+        #ESE database is not present in current build
+        PSWSIISEndpoint\Set-AppSettingsInWebconfig -path $PhysicalPath -key "dbprovider" -value $jet4provider
+        PSWSIISEndpoint\Set-AppSettingsInWebconfig -path $PhysicalPath -key "dbconnectionstr" -value $jet4database
         Set-BindingRedirectSettingInWebConfig -path $PhysicalPath
     }
     else
@@ -196,7 +265,27 @@ function Set-TargetResource
 
         $null = New-Item -path "$ModulePath" -itemType "directory" -Force
 
-        PSWSIISEndpoint\Set-AppSettingsInWebconfig -path $PhysicalPath -key "ModulePath" -value $ModulePath    
+        PSWSIISEndpoint\Set-AppSettingsInWebconfig -path $PhysicalPath -key "ModulePath" -value $ModulePath
+
+        $null = New-Item -path "$RegistrationKeyPath" -itemType "directory" -Force
+
+        PSWSIISEndpoint\Set-AppSettingsInWebconfig -path $PhysicalPath -key "RegistrationKeyPath" -value $RegistrationKeyPath
+
+        if($AcceptSelfSignedCertificates)
+        {
+            Copy-Item "$pathPullServer\IISSelfSignedCertModule.dll" $env:windir\System32\inetsrv -Force
+            Copy-Item "$env:windir\SysWOW64\WindowsPowerShell\v1.0\Modules\PSDesiredStateConfiguration\PullServer\IISSelfSignedCertModule.dll" $env:windir\SysWOW64\inetsrv -Force
+
+            & $script:appCmd install module /name:"IISSelfSignedCertModule(32bit)" /image:$env:windir\SysWOW64\inetsrv\IISSelfSignedCertModule.dll /add:false /lock:false
+            & $script:appCmd add module /name:"IISSelfSignedCertModule(32bit)"  /app.name:"PSDSCPullServer/"
+        }
+        else
+        {
+            if($AcceptSelfSignedCertificates -and ($AcceptSelfSignedCertificates -eq $false))
+            {
+                & $script:appCmd delete module /name:"IISSelfSignedCertModule(32bit)"  /app.name:"PSDSCPullServer/"
+            }
+        }
     }
 }
 
@@ -214,8 +303,8 @@ function Test-TargetResource
         # Port number of the DSC Pull Server IIS Endpoint
         [Uint32]$Port = $( if ($IsComplianceServer) { 7070 } else { 8080 } ),
 
-        # Physical path for the IIS Endpoint on the machine (usually under inetpub/wwwroot)                            
-        [string]$PhysicalPath = "$env:SystemDrive\inetpub\wwwroot\$EndpointName",
+        # Physical path for the IIS Endpoint on the machine (usually under inetpub)                            
+        [string]$PhysicalPath = "$env:SystemDrive\inetpub\$EndpointName",
 
         # Thumbprint of the Certificate in CERT:\LocalMachine\MY\ for Pull Server
         [Parameter(Mandatory)]
@@ -235,7 +324,13 @@ function Test-TargetResource
         [string]$ConfigurationPath = "$env:PROGRAMFILES\WindowsPowerShell\DscService\Configuration",
 
         # Is the endpoint for a DSC Compliance Server
-        [boolean] $IsComplianceServer
+        [boolean]$IsComplianceServer,
+
+        # Location on the disk where the RegistrationKeys file is stored                    
+        [string]$RegistrationKeyPath,
+
+        # Are self-signed certs being accepted for client auth.                    
+        [boolean]$AcceptSelfSignedCertificates
     )
 
     $desiredConfigurationMatch = $true;
@@ -246,11 +341,37 @@ function Test-TargetResource
     Do
     {
         Write-Verbose "Check Ensure"
-        if(($Ensure -eq "Present" -and $website -eq $null) -or ($Ensure -eq "Absent" -and $website -ne $null))
+        if(($Ensure -eq "Present" -and $website -eq $null))
         {
             $DesiredConfigurationMatch = $false            
             Write-Verbose "The Website $EndpointName is not present"
             break       
+        }
+        if(($Ensure -eq "Absent" -and $website -ne $null))
+        {
+            $DesiredConfigurationMatch = $false            
+            Write-Verbose "The Website $EndpointName is present but should not be"
+            break       
+        }
+        if(($Ensure -eq "Absent" -and $website -eq $null))
+        {
+            $DesiredConfigurationMatch = $true            
+            Write-Verbose "The Website $EndpointName is not present as requested"
+            break       
+        }
+        # the other case is: Ensure and exist, we continue with more checks
+
+        # check for the existance of Windows authentication, this is needed for the Compliance Server        
+        if(($Ensure -eq "Present"))
+        {
+            Write-Verbose "Check IIS Windows Authentication"
+            # only important if Present, Get-WindowsFeature works under 2008 R2 and newer
+            if ((Get-WindowsFeature -name Web-Windows-Auth | Where Installed).count -eq 0)
+            {
+                $DesiredConfigurationMatch = $false
+                Write-Verbose "Required Windows authentication is not installed, does not match the desired state."
+                break                 
+            }      
         }
 
         Write-Verbose "Check Port"
@@ -296,6 +417,26 @@ function Test-TargetResource
             if ($ConfigurationPath)
             {
                 if (-not (Test-WebConfigAppSetting -WebConfigFullPath $webConfigFullPath -AppSettingName "ConfigurationPath" -ExpectedAppSettingValue $ConfigurationPath))
+                {
+                    $DesiredConfigurationMatch = $false
+                    break
+                }
+            }
+
+            Write-Verbose "Check RegistrationKeyPath"
+            if ($RegistrationKeyPath)
+            {
+                if (-not (Test-WebConfigAppSetting -WebConfigFullPath $webConfigFullPath -AppSettingName "RegistrationKeyPath" -ExpectedAppSettingValue $RegistrationKeyPath))
+                {
+                    $DesiredConfigurationMatch = $false
+                    break
+                }
+            }
+
+            Write-Verbose "Check AcceptSelfSignedCertificates"
+            if ($AcceptSelfSignedCertificates)
+            {
+                if (-not (Test-WebConfigModulesSetting -WebConfigFullPath $webConfigFullPath -ModuleName "IISSelfSignedCertModule(32bit)" -ExpectedInstallationStatus $AcceptSelfSignedCertificates))
                 {
                     $DesiredConfigurationMatch = $false
                     break
@@ -391,6 +532,72 @@ function Get-WebConfigAppSetting
     $appSettingValue
 }
 
+# Helper function to Test the specified Web.Config Modules Setting
+function Test-WebConfigModulesSetting
+{
+    param
+    (
+        [string] $WebConfigFullPath,
+        [string] $ModuleName,
+        [boolean] $ExpectedInstallationStatus
+    )
+    
+    $returnValue = $false
+
+    if (Test-Path $WebConfigFullPath)
+    {
+        $webConfigXml = [xml](get-content $WebConfigFullPath)
+        $root = $webConfigXml.get_DocumentElement() 
+
+        foreach ($item in $root."system.webServer".modules.add) 
+        { 
+            if( $item.name -eq $ModuleName ) 
+            {           
+                if($ExpectedInstallationStatus -eq $true)
+                {
+                    $returnValue = $true                  
+                }
+                break
+            } 
+        }
+    }
+
+    if(($ExpectedInstallationStatus -eq $false) -and ($returnValue -eq $false))
+    {
+        $returnValue = $true
+    }
+
+    $returnValue
+}
+
+# Helper function to Get the specified Web.Config Modules Setting
+function Get-WebConfigModulesSetting
+{
+    param
+    (
+        [string] $WebConfigFullPath,
+        [string] $ModuleName
+    )
+    
+    $moduleValue = ""
+    if (Test-Path $WebConfigFullPath)
+    {
+        $webConfigXml = [xml](get-content $WebConfigFullPath)
+        $root = $webConfigXml.get_DocumentElement() 
+
+        foreach ($item in $root."system.webServer".modules.add) 
+        { 
+            if( $item.name -eq $ModuleName ) 
+            {     
+                $moduleValue = $item.name          
+                break
+            } 
+        }        
+    }
+    
+    $moduleValue
+}
+
 # Helper to get current script Folder
 function Get-ScriptFolder
 {
@@ -406,7 +613,7 @@ function Update-LocationTagInApplicationHostConfigForAuthentication
         [String] $WebSite,
 
         # Authentication Type
-        [ValidateSet('anonymous', 'basic', 'windows')]        
+        [ValidateSet('anonymous', 'basic', 'windows')]
         [String] $Authentication
     )
 

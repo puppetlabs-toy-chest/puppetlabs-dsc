@@ -1,0 +1,22 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xAzureVMDscExtension")]
+class MSFT_xAzureVMDscExtension : OMI_BaseResource
+{
+    [Key, Description("Specifies name of the VM.  This is used together with ServiceName to construct a persistent vm object.")] string VMName;
+    [Required, Description("Specifies name of the Service where the VM is deployed.")] string ServiceName;
+    [Required, Description("The name of the configuration package .zip file that was previously uploaded by Publish-AzureVMDscConfiguration. This parameter must specify only the name of the file, without any path.")] string ConfigurationArchive;
+    [Required, Description("Specifies the name of the Storage Account used to create the Storage Context.  The Azure Storage Context provides the security settings used to access the configuration script. This context should provide read access to the container specified by ContainerName.")] string StorageAccountName;
+    [Write, EmbeddedInstance("MSFT_KeyValuePair"), Description("A hashtable specifying the arguments to the configuration function. The keys correspond to the parameter names and the values to the parameter values.")] string ConfigurationArgument;
+    [Write, Description("The path to a .psd1 file that specifies the data for the configuration function.")] string ConfigurationDataPath;
+    [Write, Description("Name of the configuration script or module that will be invoked by the DSC Extension.")] string Configuration;
+    [Write, Description("Name of the Azure Storage Container where the ConfigurationArchive is located.")] string ContainerName;
+    [Write, Description("By default Set-AzureVMDscExtension will not overwrite any existing blobs. Use -Force to overwrite them.")] boolean Force;
+    [Write, Description("The Extension Reference Name")] string ReferenceName;
+    [Write, Description("The DNS endpoint suffix for all storage services, e.g. core.windows.net")] string StorageEndpointSuffix;
+    [Write, Description("The specific version of the DSC Extension to use. If not given, it will default to 1.*")] string Version;
+    [Read, Description("Returns the timestamp of the last DSC Extension execution.")] string TimeStamp; 
+    [Read, Description("Returns the message code for the latest oepration by the DSC Extension.")] string Code; 
+    [Read, Description("Returns the formatted message string for the latest operation by the DSC Extension.")] string Message;
+    [Read, Description("Returns the state of the DSC Extension from Azure.")] string Status; 
+};
+

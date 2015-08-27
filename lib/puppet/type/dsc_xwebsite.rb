@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
   @doc = %q{
     The DSC xWebsite resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xWebAdministration/DSCResources/MSFT_xWebsite/MSFT_xWebsite.schema.mof
+      import/dsc_resources/xWebAdministration/DSCResources/MSFT_xWebsite/MSFT_xWebsite.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.3.2.4"
+    defaultto "1.7.0.0"
   end
 
   newparam(:name, :namevar => true ) do

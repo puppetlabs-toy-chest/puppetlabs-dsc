@@ -13,17 +13,17 @@ UserAuthentication [string] translates to reg value UserAuthentication [Int] - A
 #region GET RDP Settings
 function Get-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[Parameter(Mandatory)]
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [Parameter(Mandatory)]
         [ValidateSet("Present","Absent")]
         [System.String]$Ensure,
 
         [ValidateSet("NonSecure", "Secure")]
-		[System.String]$UserAuthentication
-	)
+        [System.String]$UserAuthentication
+    )
 
     switch ($Ensure) {
         "Present" {[System.Byte]$fDenyTSConnections = 0}
@@ -47,7 +47,7 @@ function Get-TargetResource
                                         0 {"NonSecure"}
                                         1 {"Secure"}
                                         } 
-	        }
+            }
     
     $returnValue
     }
@@ -60,17 +60,17 @@ function Get-TargetResource
 #region SET RDP Settings
 function Set-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[Parameter(Mandatory)]
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [Parameter(Mandatory)]
         [ValidateSet("Present","Absent")]
         [System.String]$Ensure,
 
         [ValidateSet("NonSecure", "Secure")]
-		[System.String]$UserAuthentication
-	)
+        [System.String]$UserAuthentication
+    )
 
     switch ($Ensure) {
         "Present" {[System.Byte]$fDenyTSConnections = 0}
@@ -86,8 +86,8 @@ function Set-TargetResource
     $GetUserAuthentiation = (Get-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication").UserAuthentication
     
     #The make it so section
-    if ($Ensure -ne $GetEnsure) {
-        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value $fDenyTSConnections	    
+    if ($fDenyTSConnections -ne $GetEnsure) {
+        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value $fDenyTSConnections        
         }
     if ($UserAuthentication -ne $GetUserAuthentication) {
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value $UserAuthentication
@@ -102,17 +102,17 @@ function Set-TargetResource
 #region TEST RDP Settings
 function Test-TargetResource
 {
-	[CmdletBinding()]
-	[OutputType([System.Collections.Hashtable])]
-	param
-	(
-		[Parameter(Mandatory)]
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [Parameter(Mandatory)]
         [ValidateSet("Present","Absent")]
         [System.String]$Ensure,
 
         [ValidateSet("NonSecure", "Secure")]
-		[System.String]$UserAuthentication
-	)
+        [System.String]$UserAuthentication
+    )
 
     switch ($Ensure) {
         "Present" {[System.Byte]$fDenyTSConnections = 0}
@@ -155,3 +155,4 @@ function Test-TargetResource
 
 
 Export-ModuleMember -Function *-TargetResource
+

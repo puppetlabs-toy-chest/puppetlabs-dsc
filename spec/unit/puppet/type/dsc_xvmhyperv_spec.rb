@@ -26,7 +26,7 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
       :dsc_switchname => 'foo',
       :dsc_state => 'Running',
       :dsc_path => 'foo',
-      :dsc_generation => 'Vhd',
+      :dsc_generation => 32,
       :dsc_startupmemory => 64,
       :dsc_minimummemory => 64,
       :dsc_maximummemory => 64,
@@ -161,30 +161,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_generation predefined value Vhd' do
-    dsc_xvmhyperv[:dsc_generation] = 'Vhd'
-    expect(dsc_xvmhyperv[:dsc_generation]).to eq('Vhd')
-  end
-
-  it 'should accept dsc_generation predefined value vhd' do
-    dsc_xvmhyperv[:dsc_generation] = 'vhd'
-    expect(dsc_xvmhyperv[:dsc_generation]).to eq('vhd')
-  end
-
-  it 'should accept dsc_generation predefined value Vhdx' do
-    dsc_xvmhyperv[:dsc_generation] = 'Vhdx'
-    expect(dsc_xvmhyperv[:dsc_generation]).to eq('Vhdx')
-  end
-
-  it 'should accept dsc_generation predefined value vhdx' do
-    dsc_xvmhyperv[:dsc_generation] = 'vhdx'
-    expect(dsc_xvmhyperv[:dsc_generation]).to eq('vhdx')
-  end
-
-  it 'should not accept values not equal to predefined values' do
-    expect{dsc_xvmhyperv[:dsc_generation] = 'invalid value'}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_generation' do
     expect{dsc_xvmhyperv[:dsc_generation] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -197,8 +173,27 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_generation] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_generation' do
-    expect{dsc_xvmhyperv[:dsc_generation] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should accept uint for dsc_generation' do
+    dsc_xvmhyperv[:dsc_generation] = 32
+    expect(dsc_xvmhyperv[:dsc_generation]).to eq(32)
+  end
+
+
+  it 'should accept string-like int for dsc_generation' do
+    dsc_xvmhyperv[:dsc_generation] = '16'
+    expect(dsc_xvmhyperv[:dsc_generation]).to eq(16)
+  end
+
+
+  it 'should accept string-like int for dsc_generation' do
+    dsc_xvmhyperv[:dsc_generation] = '32'
+    expect(dsc_xvmhyperv[:dsc_generation]).to eq(32)
+  end
+
+
+  it 'should accept string-like int for dsc_generation' do
+    dsc_xvmhyperv[:dsc_generation] = '64'
+    expect(dsc_xvmhyperv[:dsc_generation]).to eq(64)
   end
 
   it 'should not accept array for dsc_startupmemory' do

@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
   @doc = %q{
     The DSC xAzureQuickVM resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xAzure/DSCResources/MSFT_xAzureQuickVM/MSFT_xAzureQuickVM.schema.mof
+      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureQuickVM/MSFT_xAzureQuickVM.schema.mof
   }
 
   validate do

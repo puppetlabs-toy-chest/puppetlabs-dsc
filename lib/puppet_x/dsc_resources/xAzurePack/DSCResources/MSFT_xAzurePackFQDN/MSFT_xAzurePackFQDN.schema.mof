@@ -1,0 +1,10 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xAzurePackFQDN")]
+class MSFT_xAzurePackFQDN : OMI_BaseResource
+{
+    [Key, Description("Specifies a namespace."), ValueMap{"AdminSite","AuthSite","TenantSite","WindowsAuthSite"}, Values{"AdminSite","AuthSite","TenantSite","WindowsAuthSite"}] String Namespace;
+    [Required, Description("Specifies a Fully Qualified Domain Name (FQDN).")] String FullyQualifiedDomainName;
+    [Write, Description("Specifies a port number.")] Uint16 Port;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String AzurePackAdminCredential;
+    [Required, Description("Database server for the Azure Pack databases.")] String SQLServer;
+    [Write, Description("Database instance for the Azure Pack databases.")] String SQLInstance;
+};

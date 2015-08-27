@@ -1,0 +1,8 @@
+
+[ClassVersion("0.1.0.0"), FriendlyName("xWEFCollector")]
+class MSFT_xWEFCollector : OMI_BaseResource
+{
+    [Write, Description("Determines whether the Collector service should be enabled or disabled"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Key, Description("Provide a unique name for the setting")] String Name;
+};
+

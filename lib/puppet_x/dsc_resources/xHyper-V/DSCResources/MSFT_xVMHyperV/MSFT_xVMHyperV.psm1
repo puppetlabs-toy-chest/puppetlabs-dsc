@@ -34,7 +34,7 @@ function Get-TargetResource
         SwitchName       = $vmObj.NetworkAdapters[0].SwitchName
         State            = $vmobj.State
         Path             = $vmobj.Path
-        Generation       = if($vmobj.Generation -eq 1){"Vhd"}else{"Vhdx"}
+        Generation       = $vmobj.Generation
         StartupMemory    = $vmobj.MemoryStartup
         MinimumMemory    = $vmobj.MemoryMinimum
         MaximumMemory    = $vmobj.MemoryMaximum
@@ -69,15 +69,16 @@ function Set-TargetResource
         [String]$SwitchName,
 
         # State of the VM
+        [AllowNull()]
         [ValidateSet("Running","Paused","Off")]
-        [String]$State = "Off",
+        [String]$State,
 
         # Folder where the VM data will be stored
         [String]$Path,
 
-        # Associated Virtual disk format - Vhd or Vhdx
-        [ValidateSet("Vhd","Vhdx")]
-        [String]$Generation = "Vhd",
+        # Virtual machine generation
+        [ValidateRange(1,2)]
+        [UInt32]$Generation = 1,
 
         # Startup RAM for the VM
         [ValidateRange(32MB,17342MB)]
@@ -136,8 +137,8 @@ function Set-TargetResource
         # One cannot set the VM's vhdpath, path, generation and switchName after creation 
         else
         {
-            # If the VM is not in right state, set it to right state
-            if($vmObj.State -ne $State)
+            # If state has been specified and the VM is not in right state, set it to right state
+            if($State -and ($vmObj.State -ne $State))
             {
                 Write-Verbose -Message "VM $Name is not $State. Expected $State, actual $($vmObj.State)"
                 Set-VMState -Name $Name -State $State -WaitForIP $WaitForIP
@@ -186,8 +187,10 @@ function Set-TargetResource
                 $changeProperty["ProcessorCount"]=$ProcessorCount
             }
 
-            # Stop the VM, set the right properties, start the VM
-            Change-VMProperty -Name $Name -VMCommand "Set-VM" -ChangeProperty $changeProperty -WaitForIP $WaitForIP -RestartIfNeeded $RestartIfNeeded
+            # Stop the VM, set the right properties, start the VM only if there are properties to change
+            if ($changeProperty.Count -gt 0) {
+                Change-VMProperty -Name $Name -VMCommand "Set-VM" -ChangeProperty $changeProperty -WaitForIP $WaitForIP -RestartIfNeeded $RestartIfNeeded
+            }
 
             # If the VM does not have the right MACAddress, stop the VM, set the right MACAddress, start the VM
             if($MACAddress -and ($vmObj.NetWorkAdapters.MacAddress -notcontains $MACAddress))
@@ -219,11 +222,11 @@ function Set-TargetResource
             $parameters = @{}
             $parameters["Name"] = $Name
             $parameters["VHDPath"] = $VhdPath
+            $parameters["Generation"] = $Generation
 
             # Optional parameters
             if($SwitchName){$parameters["SwitchName"]=$SwitchName}
             if($Path){$parameters["Path"]=$Path}
-            if($Generation){$parameters["Generation"]=if($Generation -eq "Vhd"){1}else{2}}
             $defaultStartupMemory = 512MB
             if($StartupMemory){$parameters["MemoryStartupBytes"]=$StartupMemory}
             elseif($MinimumMemory -and $defaultStartupMemory -lt $MinimumMemory){$parameters["MemoryStartupBytes"]=$MinimumMemory}
@@ -255,9 +258,15 @@ function Set-TargetResource
             {
                 Set-VMNetworkAdapter -VMName $Name -StaticMacAddress $MACAddress
             }
-                
-            Set-VMState -Name $Name -State $State -WaitForIP $WaitForIP
-            Write-Verbose -Message "VM $Name created and is $State"
+            
+            Write-Verbose -Message "VM $Name created"
+
+            if ($State)
+            {
+                Set-VMState -Name $Name -State $State -WaitForIP $WaitForIP
+                Write-Verbose -Message "VM $Name is $State"
+            }
+            
         }
     }
 }
@@ -280,15 +289,16 @@ function Test-TargetResource
         [String]$SwitchName,
 
         # State of the VM
+        [AllowNull()]
         [ValidateSet("Running","Paused","Off")]
-        [String]$State = "Off",
+        [String]$State,
 
         # Folder where the VM data will be stored
         [String]$Path,
 
-        # Associated Virtual disk format - Vhd or Vhdx
-        [ValidateSet("Vhd","Vhdx")]
-        [String]$Generation = "Vhd",
+        # Virtual machine generation
+        [ValidateRange(1,2)]
+        [UInt32]$Generation = 1,
 
         # Startup RAM for the VM
         [ValidateRange(32MB,17342MB)]
@@ -359,11 +369,13 @@ function Test-TargetResource
         Throw "StartupMemory($StartupMemory) should not be greater than MaximumMemory($MaximumMemory)"
     }        
 
-    # Check if the generation matches the VhdPath extenstion
-    if($Generation -and ($VhdPath.Split('.')[-1] -ne $Generation))
+    <#  VM Generation has no direct relation to the virtual hard disk format and cannot be changed
+        after the virtual machine has been created. Generation 2 VMs do not support .VHD files.  #>
+    if(($Generation -eq 2) -and ($VhdPath.Split('.')[-1] -eq 'vhd'))
     {
-        Throw "Generation $geneartion should match virtual disk extension $($VhdPath.Split('.')[-1])"
+        Throw "Generation 2 virtual machines do not support the .VHD virtual disk extension."
     }
+
 
     # Check if $Path exist
     if($Path -and !(Test-Path -Path $Path))
@@ -386,6 +398,7 @@ function Test-TargetResource
             if($state -and ($vmObj.State -ne $State)){return $false}
             if($StartupMemory -and ($vmObj.MemoryStartup -ne $StartupMemory)){return $false}
             if($MACAddress -and ($vmObj.NetWorkAdapters.MacAddress -notcontains $MACAddress)){return $false}
+            if($Generation -ne $vmObj.Generation){return $false}
             if($ProcessorCount -and ($vmObj.ProcessorCount -ne $ProcessorCount)){return $false}
             if($MaximumMemory -and ($vmObj.MemoryMaximum -ne $MaximumMemory)){return $false}
             if($MinimumMemory -and ($vmObj.MemoryMinimum -ne $MinimumMemory)){return $false}
@@ -500,4 +513,3 @@ function Get-VMIPAddress
 #endregion
 
 Export-ModuleMember -Function *-TargetResource
-

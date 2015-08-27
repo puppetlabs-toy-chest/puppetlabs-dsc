@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   @doc = %q{
     The DSC xIPAddress resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xNetworking/DSCResources/MSFT_xIPAddress/MSFT_xIPAddress.schema.mof
+      import/dsc_resources/xNetworking/DSCResources/MSFT_xIPAddress/MSFT_xIPAddress.schema.mof
   }
 
   validate do
@@ -41,7 +41,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.1.1"
+    defaultto "2.2.0.0"
   end
 
   newparam(:name, :namevar => true ) do

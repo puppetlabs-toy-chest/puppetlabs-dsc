@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   @doc = %q{
     The DSC xRDRemoteApp resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xRemoteDesktopSessionHost/DSCResources/MSFT_xRDRemoteApp/MSFT_xRDRemoteApp.schema.mof
+      import/dsc_resources/xRemoteDesktopSessionHost/DSCResources/MSFT_xRDRemoteApp/MSFT_xRDRemoteApp.schema.mof
   }
 
   validate do
@@ -43,7 +43,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.0"
+    defaultto "1.0.1"
   end
 
   newparam(:name, :namevar => true ) do

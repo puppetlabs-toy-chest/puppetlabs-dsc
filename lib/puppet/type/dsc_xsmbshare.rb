@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   @doc = %q{
     The DSC xSmbShare resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xSmbShare/DscResources/MSFT_xSmbShare/MSFT_xSmbShare.schema.mof
+      import/dsc_resources/xSmbShare/DscResources/MSFT_xSmbShare/MSFT_xSmbShare.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.0"
+    defaultto "1.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do

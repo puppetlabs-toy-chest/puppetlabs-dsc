@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   @doc = %q{
     The DSC xVMSwitch resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xHyper-V/DSCResources/MSFT_xVMSwitch/MSFT_xVMSwitch.schema.mof
+      import/dsc_resources/xHyper-V/DSCResources/MSFT_xVMSwitch/MSFT_xVMSwitch.schema.mof
   }
 
   validate do
@@ -41,7 +41,7 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.2.1"
+    defaultto "3.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do

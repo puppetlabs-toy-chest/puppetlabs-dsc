@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xaddomaintrust) do
   @doc = %q{
     The DSC xADDomainTrust resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xActiveDirectory/DSCResources/MSFT_xADDomainTrust/MSFT_xADDomainTrust.schema.mof
+      import/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADDomainTrust/MSFT_xADDomainTrust.schema.mof
   }
 
   validate do
@@ -41,7 +41,7 @@ Puppet::Type.newtype(:dsc_xaddomaintrust) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.2"
+    defaultto "2.5.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -101,15 +101,15 @@ Puppet::Type.newtype(:dsc_xaddomaintrust) do
   # Name:         TrustType
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["External"]
+  # Values:       ["External", "Forest"]
   newparam(:dsc_trusttype) do
     desc "Type of trust"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['External', 'external'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are External")
+      unless ['External', 'external', 'Forest', 'forest'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are External, Forest")
       end
     end
   end

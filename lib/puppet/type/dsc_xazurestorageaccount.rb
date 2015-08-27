@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   @doc = %q{
     The DSC xAzureStorageAccount resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xAzure/DSCResources/MSFT_xAzureStorageAccount/MSFT_xAzureStorageAccount.schema.mof
+      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureStorageAccount/MSFT_xAzureStorageAccount.schema.mof
   }
 
   validate do

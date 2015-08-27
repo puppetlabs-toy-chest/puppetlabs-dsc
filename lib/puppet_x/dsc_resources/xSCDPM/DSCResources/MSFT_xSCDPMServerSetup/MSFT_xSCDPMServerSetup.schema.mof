@@ -1,0 +1,18 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCDPMServerSetup")]
+class MSFT_xSCDPMServerSetup : OMI_BaseResource
+{
+    [Key, Description("An enumerated value that describes if the DPM server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Required, Description("UNC path to the root of the source filesfor installation.")] String SourcePath;
+    [Write, Description("Folder within the source path containing the source files for installation.")] String SourceFolder;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String SetupCredential;
+    [Write, Description("User name that the software will be registered to.")] String UserName;
+    [Write, Description("Company name that the software will be registered to.")] String CompanyName;
+    [Write, Description("Product key for licensed installations.")] String ProductKey;
+    [Write, Description("Installation path for the software.")] String ProgramFiles;
+    [Required, Description("Name of the SQL server for the DPM database.")] String YukonMachineName;
+    [Required, Description("SQL instance for the DPM database.")] String YukonInstanceName;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to access the SQL instance for DPM at installation time.")] String YukonMachineCredential;
+    [Required, Description("Name of the SQL server for reporting.")] String ReportingMachineName;
+    [Required, Description("SQL instance for reporting.")] String ReportingInstanceName;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to access SQL reporting for DPM at installation time.")] String ReportingMachineCredential;
+};

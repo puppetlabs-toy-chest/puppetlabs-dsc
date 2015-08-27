@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   @doc = %q{
     The DSC xDNSServerAddress resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xNetworking/DSCResources/MSFT_xDNSServerAddress/MSFT_xDNSServerAddress.schema.mof
+      import/dsc_resources/xNetworking/DSCResources/MSFT_xDNSServerAddress/MSFT_xDNSServerAddress.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.1.1"
+    defaultto "2.2.0.0"
   end
 
   newparam(:name, :namevar => true ) do

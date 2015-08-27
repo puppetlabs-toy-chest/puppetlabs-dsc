@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   @doc = %q{
     The DSC xDSCWebService resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xPSDesiredStateConfiguration/DSCResources/MSFT_xDSCWebService/MSFT_xDSCWebService.Schema.mof
+      import/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xDSCWebService/MSFT_xDSCWebService.Schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "3.1.3.4"
+    defaultto "3.4.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -182,6 +182,31 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         RegistrationKeyPath
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_registrationkeypath) do
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         AcceptSelfSignedCertificates
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_acceptselfsignedcertificates) do
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      provider.munge_boolean(value.to_s)
     end
   end
 

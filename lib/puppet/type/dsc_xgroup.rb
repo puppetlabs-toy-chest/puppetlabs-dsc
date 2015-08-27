@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xgroup) do
   @doc = %q{
     The DSC xGroup resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xPSDesiredStateConfiguration/DSCResources/MSFT_xGroupResource/MSFT_xGroupResource.schema.mof
+      import/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xGroupResource/MSFT_xGroupResource.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xgroup) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "3.1.3.4"
+    defaultto "3.4.0.0"
   end
 
   newparam(:name, :namevar => true ) do

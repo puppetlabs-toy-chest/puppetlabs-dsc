@@ -1,0 +1,9 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCSRServerUpdate")]
+class MSFT_xSCSRServerUpdate : OMI_BaseResource
+{
+    [Key, Description("An enumerated value that describes if the update is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Required, Description("UNC path to the root of the source files for installation.")] String SourcePath;
+    [Write, Description("Folder within the source path containing the source files for installation.")] String SourceFolder;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String SetupCredential;
+    [Read, Description("Display name of the update.")] String Update;
+};

@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   @doc = %q{
     The DSC xAzureSqlDatabaseServerFirewallRule resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xAzure/DSCResources/MSFT_xAzureSqlDatabaseServerFirewallRule/MSFT_xAzureSqlDatabaseServerFirewallRule.schema.mof
+      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureSqlDatabaseServerFirewallRule/MSFT_xAzureSqlDatabaseServerFirewallRule.schema.mof
   }
 
   validate do

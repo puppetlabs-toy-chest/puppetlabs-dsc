@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   @doc = %q{
     The DSC xAzureSqlDatabase resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xAzure/DSCResources/MSFT_xAzureSqlDatabase/MSFT_xAzureSqlDatabase.schema.mof
+      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureSqlDatabase/MSFT_xAzureSqlDatabase.schema.mof
   }
 
   validate do

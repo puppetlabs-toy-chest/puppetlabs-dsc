@@ -1,0 +1,7 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xDismFeature")]
+class MSFT_xDismFeature : OMI_BaseResource
+{
+    [Write, Description("An enumerated value that describes if the feature is expected to be enabled on the machine.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Key, Description("Name of the feature.")] String Name;
+};
+

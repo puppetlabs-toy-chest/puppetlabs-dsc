@@ -16,4 +16,3 @@ class MSFT_xWaitForSqlHAGroup : OMI_BaseResource
     [Required, EmbeddedInstance("MSFT_Credential"), Description("Sql sa credential")] 
     String SqlAdministratorCredential;
 };
-

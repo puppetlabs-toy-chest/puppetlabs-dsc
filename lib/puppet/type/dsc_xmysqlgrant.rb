@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   @doc = %q{
     The DSC xMySqlGrant resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xMySql/DscResources/MSFT_xMySqlGrant/MSFT_xMySqlGrant.schema.mof
+      import/dsc_resources/xMySql/DscResources/MSFT_xMySqlGrant/MSFT_xMySqlGrant.schema.mof
   }
 
   validate do

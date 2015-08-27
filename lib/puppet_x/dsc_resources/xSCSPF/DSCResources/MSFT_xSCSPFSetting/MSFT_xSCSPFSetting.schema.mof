@@ -1,0 +1,10 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCSPFSetting")]
+class MSFT_xSCSPFSetting : OMI_BaseResource
+{
+    [Write, Description("An enumerated value that describes if the SPF setting exists.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Key, Description("Specifies the name of the server the setting is associated with.")] String ServerName;
+    [Required, Description("Specifies either DatabaseConnectionString or EndPointConnectionString."), ValueMap{"DatabaseConnectionString","EndPointConnectionString"}, Values{"DatabaseConnectionString","EndPointConnectionString"}] String SettingType;
+    [Key, Description("Specifies a friendly name for the setting.")] String Name;
+    [Required, Description("Specifies the value for the setting.")] String Value;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential with admin permissions to Service Provider Foundation.")] String SCSPFAdminCredential;
+};

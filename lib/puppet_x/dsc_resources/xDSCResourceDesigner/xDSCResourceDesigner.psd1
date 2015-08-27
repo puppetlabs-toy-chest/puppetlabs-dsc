@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '1.1.1.2'
+ModuleVersion = '1.5.0.0'
 
 # ID used to uniquely identify this module
 GUID = '74951b31-1aa5-472b-9109-738de1bca38f'
@@ -12,7 +12,7 @@ Author = 'Microsoft Corporation'
 CompanyName = 'Microsoft Corporation'
 
 # Copyright statement for this module
-Copyright = '(c) 2014 Microsoft Corporation. All rights reserved.'
+Copyright = '(c) 2015 Microsoft Corporation. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'This module is meant to assist with the development and testing of DSC Resources.'

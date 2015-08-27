@@ -1,0 +1,26 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCSMAWebServiceServerSetup")]
+class MSFT_xSCSMAWebServiceServerSetup : OMI_BaseResource
+{
+    [Key, Description("An enumerated value that describes if the SMA Web Service server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Required, Description("UNC path to the root of the source files for installation.")] String SourcePath;
+    [Write, Description("Folder within the source path containing the source files for installation.")] String SourceFolder;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String SetupCredential;
+    [Required, Description("Is this the first Management Server?")] Boolean FirstWebServiceServer;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Service account of the web service application pool.")] String ApPool;
+    [Read, Description("Output username of the web service application pool.")] String ApPoolUsername;
+    [Write, Description("A comma-separated list of users to add to the IIS Administrators group.")] String AdminGroupMembers;
+    [Required, Description("Name of the SQL Server for the SMA database.")] String SqlServer;
+    [Required, Description("Name of the SQL Instance for the SMA database.")] String SqlInstance;
+    [Write, Description("Name of the SMA database.")] String SqlDatabase;
+    [Write, Description("Name of the SMA web site.")] String SiteName;
+    [Write, Description("Port of the SMA web site.")] UInt16 WebServicePort;
+    [Write, Description("Installation folder for SMA.")] String InstallFolder;
+    [Write, Description("Use SSL?")] String UseSSL;
+    [Write, Description("Specify an existing certificate for the SMA web site.")] String SpecifyCertificate;
+    [Write, Description("Name of the existing certificate to use.")] String CertificateName;
+    [Write, Description("Log to ETW.")] String ETWManifest;
+    [Write, Description("Send Customer Experience Improvement Program.")] String SendCEIPReports;
+    [Write, Description("Use Microsoft Update.")] String MSUpdate;
+    [Write, Description("Product key for licensed installations.")] String ProductKey;
+    [Write, Description("Array of Runbook Worker servers in this deployment.")] String RunbookWorkerServers[];
+};

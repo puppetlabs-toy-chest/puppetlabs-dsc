@@ -1,0 +1,9 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xAzurePackAdmin")]
+class MSFT_xAzurePackAdmin : OMI_BaseResource
+{
+    [Write, Description("An enumerated value that describes if the principal is an Azure Pack admin.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Key, Description("The Azure Pack admin principal.")] String Principal;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String AzurePackAdminCredential;
+    [Required, Description("Database server for the Azure Pack databases.")] String SQLServer;
+    [Write, Description("Database instance for the Azure Pack databases.")] String SQLInstance;
+};

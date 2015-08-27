@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollection) do
   @doc = %q{
     The DSC xRDSessionCollection resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xRemoteDesktopSessionHost/DSCResources/MSFT_xRDSessionCollection/MSFT_xRDSessionCollection.schema.mof
+      import/dsc_resources/xRemoteDesktopSessionHost/DSCResources/MSFT_xRDSessionCollection/MSFT_xRDSessionCollection.schema.mof
   }
 
   validate do
@@ -41,7 +41,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollection) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.0"
+    defaultto "1.0.1"
   end
 
   newparam(:name, :namevar => true ) do

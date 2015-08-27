@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xsqlhaservice) do
   @doc = %q{
     The DSC xSqlHAService resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xSqlPs/DSCResources/MSFT_xSqlHAService/MSFT_xSqlHAService.schema.mof
+      import/dsc_resources/xSqlPs/DSCResources/MSFT_xSqlHAService/MSFT_xSqlHAService.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xsqlhaservice) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.1.3"
+    defaultto "1.1.3.1"
   end
 
   newparam(:name, :namevar => true ) do

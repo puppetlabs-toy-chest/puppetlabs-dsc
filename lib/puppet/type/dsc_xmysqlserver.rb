@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
   @doc = %q{
     The DSC xMySqlServer resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xMySql/DscResources/MSFT_xMySqlServer/MSFT_xMySqlServer.schema.mof
+      import/dsc_resources/xMySql/DscResources/MSFT_xMySqlServer/MSFT_xMySqlServer.schema.mof
   }
 
   validate do

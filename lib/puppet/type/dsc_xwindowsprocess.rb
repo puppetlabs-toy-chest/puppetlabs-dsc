@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xwindowsprocess) do
   @doc = %q{
     The DSC xWindowsProcess resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xPSDesiredStateConfiguration/DSCResources/MSFT_xProcessResource/MSFT_xProcessResource.schema.mof
+      import/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xProcessResource/MSFT_xProcessResource.schema.mof
   }
 
   validate do
@@ -41,7 +41,7 @@ Puppet::Type.newtype(:dsc_xwindowsprocess) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "3.1.3.4"
+    defaultto "3.4.0.0"
   end
 
   newparam(:name, :namevar => true ) do

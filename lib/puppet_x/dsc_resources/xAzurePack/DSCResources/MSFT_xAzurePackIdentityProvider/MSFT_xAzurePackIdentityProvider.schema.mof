@@ -1,0 +1,10 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xAzurePackIdentityProvider")]
+class MSFT_xAzurePackIdentityProvider : OMI_BaseResource
+{
+    [Key, Description("Specifies the target site."), ValueMap{"Membership","Windows"}, Values{"Membership","Windows"}] String Target;
+    [Required, Description("Specifies a Fully Qualified Domain Name (FQDN).")] String FullyQualifiedDomainName;
+    [Write, Description("Specifies a port number.")] Uint16 Port;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String AzurePackAdminCredential;
+    [Required, Description("Database server for the Azure Pack databases.")] String SQLServer;
+    [Write, Description("Database instance for the Azure Pack databases.")] String SQLInstance;
+};

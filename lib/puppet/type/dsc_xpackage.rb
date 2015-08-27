@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xpackage) do
   @doc = %q{
     The DSC xPackage resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xPSDesiredStateConfiguration/DSCResources/MSFT_xPackageResource/MSFT_xPackageResource.schema.mof
+      import/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xPackageResource/MSFT_xPackageResource.schema.mof
   }
 
   validate do
@@ -41,7 +41,7 @@ Puppet::Type.newtype(:dsc_xpackage) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "3.1.3.4"
+    defaultto "3.4.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -243,6 +243,84 @@ Puppet::Type.newtype(:dsc_xpackage) do
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         FileHash
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_filehash) do
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         HashAlgorithm
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["SHA1", "SHA256", "SHA384", "SHA512", "MD5", "RIPEMD160"]
+  newparam(:dsc_hashalgorithm) do
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['SHA1', 'sha1', 'SHA256', 'sha256', 'SHA384', 'sha384', 'SHA512', 'sha512', 'MD5', 'md5', 'RIPEMD160', 'ripemd160'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are SHA1, SHA256, SHA384, SHA512, MD5, RIPEMD160")
+      end
+    end
+  end
+
+  # Name:         SignerSubject
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_signersubject) do
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SignerThumbprint
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_signerthumbprint) do
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ServerCertificateValidationCallback
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_servercertificatevalidationcallback) do
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         InstalledCheckRegHive
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["LocalMachine", "CurrentUser"]
+  newparam(:dsc_installedcheckreghive) do
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['LocalMachine', 'localmachine', 'CurrentUser', 'currentuser'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are LocalMachine, CurrentUser")
       end
     end
   end

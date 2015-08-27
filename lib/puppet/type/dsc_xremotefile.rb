@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xremotefile) do
   @doc = %q{
     The DSC xRemoteFile resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xPSDesiredStateConfiguration/DSCResources/MSFT_xRemoteFile/MSFT_xRemoteFile.schema.mof
+      import/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xRemoteFile/MSFT_xRemoteFile.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xremotefile) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "3.1.3.4"
+    defaultto "3.4.0.0"
   end
 
   newparam(:name, :namevar => true ) do

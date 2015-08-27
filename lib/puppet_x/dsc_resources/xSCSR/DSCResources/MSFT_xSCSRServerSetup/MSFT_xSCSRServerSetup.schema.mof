@@ -1,0 +1,19 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCSRServerSetup")]
+class MSFT_xSCSRServerSetup : OMI_BaseResource
+{
+    [Key, Description("An enumerated value that describes if the Service Reporting server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Required, Description("UNC path to the root of the source files for installation.")] String SourcePath;
+    [Write, Description("Folder within the source path containing the source files for installation.")] String SourceFolder;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String SetupCredential;
+    [Write, Description("Participation in Customer Experience Improvement Program (yes or no)."), ValueMap{"Yes","No"}, Values{"Yes","No"}] String SendCEIPReports;
+    [Write, Description("Participation in Microsoft Update (yes or no)."), ValueMap{"Yes","No"}, Values{"Yes","No"}] String UseMicrosoftUpdate;
+    [Write, Description("Folder to install to.")] String InstallFolder;
+    [Required, Description("Name of the server that is running SQL Server where the databases already exist, or where Setup will create them .")] String DatabaseServer;
+    [Required, Description("Name of the SQL Server database instance to install to.")] String DatabaseServerInstance;
+    [Write, Description("Name of the usage repository database that already exists, or that Setup will create.")] String RepositoryDatabaseName;
+    [Write, Description("Name of the usage staging database that already exists, or that Setup will create.")] String StagingDatabaseName;
+    [Write, Description("Name of the usage data warehouse database that already exists, or that Setup will create.")] String DWDatabaseName;
+    [Required, Description("Name of the server that is running SQL Server where the analysis database already exists, or where Setup will create it.")] String AnalysisDatabaseServer;
+    [Required, Description("Name of the SQL Server analysis database instance to install to.")] String AnalysisDatabaseServerInstance;
+    [Write, Description("Name of the analysis database that already exists, or that Setup will create.")] String AnalysisDatabaseName;
+};
