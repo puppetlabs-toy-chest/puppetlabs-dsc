@@ -5,12 +5,21 @@ Puppet::Type.newtype(:dsc_service) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+    def ensure_value
+        'present'
+    end
+
+    def absent_value
+        'absent'
+    end
+
   end
 
   @doc = %q{
     The DSC Service resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-wmf-4/PSDesiredStateConfiguration/DSCResources/MSFT_ServiceResource/MSFT_ServiceResource.schema.mof
+      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_ServiceResource/MSFT_ServiceResource.schema.mof
   }
 
   validate do
@@ -45,6 +54,7 @@ Puppet::Type.newtype(:dsc_service) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto :present
   end
 
@@ -178,6 +188,22 @@ Puppet::Type.newtype(:dsc_service) do
     end
     munge do |value|
       Array(value)
+    end
+  end
+
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
+    validate do |value|
+      resource[:ensure] = provider.munge_ensure(value.downcase)
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      end
     end
   end
 

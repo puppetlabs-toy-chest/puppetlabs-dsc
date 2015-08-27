@@ -55,7 +55,7 @@ describe Puppet::Type.type(:dsc_xmysqldatabase) do
 
   it 'should accept dsc_ensure predefined value present and update ensure with this value (ensure end value should be a symbol)' do
     dsc_xmysqldatabase[:dsc_ensure] = 'present'
-    expect(dsc_xmysqldatabase[:ensure]).to eq(dsc_xmysqldatabase[:dsc_ensure].downcase.to_sym)
+    expect(dsc_xmysqldatabase[:ensure]).to eq(dsc_xmysqldatabase.provider.munge_ensure(dsc_xmysqldatabase[:dsc_ensure].downcase).to_sym)
   end
 
   it 'should accept dsc_ensure predefined value Absent' do
@@ -70,7 +70,7 @@ describe Puppet::Type.type(:dsc_xmysqldatabase) do
 
   it 'should accept dsc_ensure predefined value absent and update ensure with this value (ensure end value should be a symbol)' do
     dsc_xmysqldatabase[:dsc_ensure] = 'absent'
-    expect(dsc_xmysqldatabase[:ensure]).to eq(dsc_xmysqldatabase[:dsc_ensure].downcase.to_sym)
+    expect(dsc_xmysqldatabase[:ensure]).to eq(dsc_xmysqldatabase.provider.munge_ensure(dsc_xmysqldatabase[:dsc_ensure].downcase).to_sym)
   end
 
   it 'should not accept values not equal to predefined values' do
@@ -164,23 +164,22 @@ describe Puppet::Type.type(:dsc_xmysqldatabase) do
     end
 
     describe "when dsc_ensure is 'absent'" do
-
       before(:each) do
-        dsc_xmysqldatabase.original_parameters[:dsc_ensure] = 'absent'
-        dsc_xmysqldatabase[:dsc_ensure] = 'absent'
+        dsc_xmysqldatabase.original_parameters[:dsc_ensure] = 'present'
+        dsc_xmysqldatabase[:dsc_ensure] = 'present'
         @provider = described_class.provider(:powershell).new(dsc_xmysqldatabase)
       end
 
       it "should update :ensure to :absent" do
-        expect(dsc_xmysqldatabase[:ensure]).to eq(:absent)
+        expect(dsc_xmysqldatabase[:ensure]).to eq(:present)
       end
 
       it "should compute powershell dsc test script in which ensure value is 'present'" do
         expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
       end
 
-      it "should compute powershell dsc set script in which ensure value is 'absent'" do
-        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
+      it "should compute powershell dsc set script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'present'/)
       end
 
     end

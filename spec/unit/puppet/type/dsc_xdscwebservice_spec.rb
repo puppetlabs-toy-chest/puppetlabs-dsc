@@ -31,6 +31,8 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
       :dsc_configurationpath => 'foo',
       :dsc_iscomplianceserver => true,
       :dsc_dscserverurl => 'foo',
+      :dsc_registrationkeypath => 'foo',
+      :dsc_acceptselfsignedcertificates => true,
     )}.to raise_error(Puppet::Error, /dsc_endpointname is a required attribute/)
   end
 
@@ -129,7 +131,7 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
 
   it 'should accept dsc_ensure predefined value present and update ensure with this value (ensure end value should be a symbol)' do
     dsc_xdscwebservice[:dsc_ensure] = 'present'
-    expect(dsc_xdscwebservice[:ensure]).to eq(dsc_xdscwebservice[:dsc_ensure].downcase.to_sym)
+    expect(dsc_xdscwebservice[:ensure]).to eq(dsc_xdscwebservice.provider.munge_ensure(dsc_xdscwebservice[:dsc_ensure].downcase).to_sym)
   end
 
   it 'should accept dsc_ensure predefined value Absent' do
@@ -144,7 +146,7 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
 
   it 'should accept dsc_ensure predefined value absent and update ensure with this value (ensure end value should be a symbol)' do
     dsc_xdscwebservice[:dsc_ensure] = 'absent'
-    expect(dsc_xdscwebservice[:ensure]).to eq(dsc_xdscwebservice[:dsc_ensure].downcase.to_sym)
+    expect(dsc_xdscwebservice[:ensure]).to eq(dsc_xdscwebservice.provider.munge_ensure(dsc_xdscwebservice[:dsc_ensure].downcase).to_sym)
   end
 
   it 'should not accept values not equal to predefined values' do
@@ -302,6 +304,69 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
     expect{dsc_xdscwebservice[:dsc_dscserverurl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it 'should not accept array for dsc_registrationkeypath' do
+    expect{dsc_xdscwebservice[:dsc_registrationkeypath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_registrationkeypath' do
+    expect{dsc_xdscwebservice[:dsc_registrationkeypath] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_registrationkeypath' do
+    expect{dsc_xdscwebservice[:dsc_registrationkeypath] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_registrationkeypath' do
+    expect{dsc_xdscwebservice[:dsc_registrationkeypath] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_acceptselfsignedcertificates' do
+    expect{dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_acceptselfsignedcertificates' do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = true
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_acceptselfsignedcertificates" do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = 'true'
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_acceptselfsignedcertificates" do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = 'false'
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_acceptselfsignedcertificates" do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = 'True'
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_acceptselfsignedcertificates" do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = 'False'
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_acceptselfsignedcertificates" do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = :true
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_acceptselfsignedcertificates" do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = :false
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_acceptselfsignedcertificates' do
+    expect{dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_acceptselfsignedcertificates' do
+    expect{dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
   # Configuration PROVIDER TESTS
 
   describe "powershell provider tests" do
@@ -357,23 +422,22 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
     end
 
     describe "when dsc_ensure is 'absent'" do
-
       before(:each) do
-        dsc_xdscwebservice.original_parameters[:dsc_ensure] = 'absent'
-        dsc_xdscwebservice[:dsc_ensure] = 'absent'
+        dsc_xdscwebservice.original_parameters[:dsc_ensure] = 'present'
+        dsc_xdscwebservice[:dsc_ensure] = 'present'
         @provider = described_class.provider(:powershell).new(dsc_xdscwebservice)
       end
 
       it "should update :ensure to :absent" do
-        expect(dsc_xdscwebservice[:ensure]).to eq(:absent)
+        expect(dsc_xdscwebservice[:ensure]).to eq(:present)
       end
 
       it "should compute powershell dsc test script in which ensure value is 'present'" do
         expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
       end
 
-      it "should compute powershell dsc set script in which ensure value is 'absent'" do
-        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
+      it "should compute powershell dsc set script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'present'/)
       end
 
     end

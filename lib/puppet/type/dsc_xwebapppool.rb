@@ -5,12 +5,21 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+    def ensure_value
+        'present'
+    end
+
+    def absent_value
+        'absent'
+    end
+
   end
 
   @doc = %q{
     The DSC xWebAppPool resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xWebAdministration/DSCResources/MSFT_xWebAppPool/MSFT_xWebAppPool.schema.mof
+      import/dsc_resources/xWebAdministration/DSCResources/MSFT_xWebAppPool/MSFT_xWebAppPool.schema.mof
   }
 
   validate do
@@ -40,7 +49,7 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.3.2.4"
+    defaultto "1.7.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -74,7 +83,7 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
   newparam(:dsc_ensure) do
     desc "Web Application Pool Present/Absent"
     validate do |value|
-      resource[:ensure] = value.downcase
+      resource[:ensure] = provider.munge_ensure(value.downcase)
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end

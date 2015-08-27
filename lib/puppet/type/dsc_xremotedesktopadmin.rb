@@ -5,12 +5,21 @@ Puppet::Type.newtype(:dsc_xremotedesktopadmin) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+    def ensure_value
+        'present'
+    end
+
+    def absent_value
+        'absent'
+    end
+
   end
 
   @doc = %q{
     The DSC xRemoteDesktopAdmin resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xRemoteDesktopAdmin/DSCResources/xRemoteDesktopAdmin/xRemoteDesktopAdmin.schema.mof
+      import/dsc_resources/xRemoteDesktopAdmin/DSCResources/xRemoteDesktopAdmin/xRemoteDesktopAdmin.schema.mof
   }
 
   validate do
@@ -22,7 +31,7 @@ Puppet::Type.newtype(:dsc_xremotedesktopadmin) do
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xRemoteDesktopAdmin"
+    defaultto "xRemoteDesktopAdmin"
   end
 
   newparam(:dscmeta_import_resource) do
@@ -40,7 +49,7 @@ Puppet::Type.newtype(:dsc_xremotedesktopadmin) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.0.2"
+    defaultto "1.0.3.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -61,7 +70,7 @@ Puppet::Type.newtype(:dsc_xremotedesktopadmin) do
     desc "Determines whether or not the computer should accept remote connections.  Present sets the value to Enabled and Absent sets the value to Disabled."
     isrequired
     validate do |value|
-      resource[:ensure] = value.downcase
+      resource[:ensure] = provider.munge_ensure(value.downcase)
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end

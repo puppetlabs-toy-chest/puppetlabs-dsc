@@ -5,12 +5,21 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+    def ensure_value
+        'present'
+    end
+
+    def absent_value
+        'absent'
+    end
+
   end
 
   @doc = %q{
     The DSC xSmbShare resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xSmbShare/DscResources/MSFT_xSmbShare/MSFT_xSmbShare.schema.mof
+      import/dsc_resources/xSmbShare/DscResources/MSFT_xSmbShare/MSFT_xSmbShare.schema.mof
   }
 
   validate do
@@ -40,7 +49,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.0"
+    defaultto "1.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -210,7 +219,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_ensure) do
     desc "Specifies if the share should be added or removed"
     validate do |value|
-      resource[:ensure] = value.downcase
+      resource[:ensure] = provider.munge_ensure(value.downcase)
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end

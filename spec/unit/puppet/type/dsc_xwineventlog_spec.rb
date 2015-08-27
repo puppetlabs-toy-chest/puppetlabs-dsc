@@ -22,6 +22,7 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
       :dsc_isenabled => true,
       :dsc_logmode => 'AutoBackup',
       :dsc_securitydescriptor => 'foo',
+      :dsc_logfilepath => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_logname is a required attribute/)
   end
 
@@ -213,6 +214,22 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
 
   it 'should not accept uint for dsc_securitydescriptor' do
     expect{dsc_xwineventlog[:dsc_securitydescriptor] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_logfilepath' do
+    expect{dsc_xwineventlog[:dsc_logfilepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_logfilepath' do
+    expect{dsc_xwineventlog[:dsc_logfilepath] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_logfilepath' do
+    expect{dsc_xwineventlog[:dsc_logfilepath] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_logfilepath' do
+    expect{dsc_xwineventlog[:dsc_logfilepath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

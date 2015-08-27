@@ -31,7 +31,7 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
 
   it 'should accept dsc_ensure predefined value present and update ensure with this value (ensure end value should be a symbol)' do
     dsc_xaddomaintrust[:dsc_ensure] = 'present'
-    expect(dsc_xaddomaintrust[:ensure]).to eq(dsc_xaddomaintrust[:dsc_ensure].downcase.to_sym)
+    expect(dsc_xaddomaintrust[:ensure]).to eq(dsc_xaddomaintrust.provider.munge_ensure(dsc_xaddomaintrust[:dsc_ensure].downcase).to_sym)
   end
 
   it 'should accept dsc_ensure predefined value Absent' do
@@ -46,7 +46,7 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
 
   it 'should accept dsc_ensure predefined value absent and update ensure with this value (ensure end value should be a symbol)' do
     dsc_xaddomaintrust[:dsc_ensure] = 'absent'
-    expect(dsc_xaddomaintrust[:ensure]).to eq(dsc_xaddomaintrust[:dsc_ensure].downcase.to_sym)
+    expect(dsc_xaddomaintrust[:ensure]).to eq(dsc_xaddomaintrust.provider.munge_ensure(dsc_xaddomaintrust[:dsc_ensure].downcase).to_sym)
   end
 
   it 'should not accept values not equal to predefined values' do
@@ -121,6 +121,16 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
   it 'should accept dsc_trusttype predefined value external' do
     dsc_xaddomaintrust[:dsc_trusttype] = 'external'
     expect(dsc_xaddomaintrust[:dsc_trusttype]).to eq('external')
+  end
+
+  it 'should accept dsc_trusttype predefined value Forest' do
+    dsc_xaddomaintrust[:dsc_trusttype] = 'Forest'
+    expect(dsc_xaddomaintrust[:dsc_trusttype]).to eq('Forest')
+  end
+
+  it 'should accept dsc_trusttype predefined value forest' do
+    dsc_xaddomaintrust[:dsc_trusttype] = 'forest'
+    expect(dsc_xaddomaintrust[:dsc_trusttype]).to eq('forest')
   end
 
   it 'should not accept values not equal to predefined values' do
@@ -276,23 +286,22 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
     end
 
     describe "when dsc_ensure is 'absent'" do
-
       before(:each) do
-        dsc_xaddomaintrust.original_parameters[:dsc_ensure] = 'absent'
-        dsc_xaddomaintrust[:dsc_ensure] = 'absent'
+        dsc_xaddomaintrust.original_parameters[:dsc_ensure] = 'present'
+        dsc_xaddomaintrust[:dsc_ensure] = 'present'
         @provider = described_class.provider(:powershell).new(dsc_xaddomaintrust)
       end
 
       it "should update :ensure to :absent" do
-        expect(dsc_xaddomaintrust[:ensure]).to eq(:absent)
+        expect(dsc_xaddomaintrust[:ensure]).to eq(:present)
       end
 
       it "should compute powershell dsc test script in which ensure value is 'present'" do
         expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
       end
 
-      it "should compute powershell dsc set script in which ensure value is 'absent'" do
-        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
+      it "should compute powershell dsc set script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'present'/)
       end
 
     end

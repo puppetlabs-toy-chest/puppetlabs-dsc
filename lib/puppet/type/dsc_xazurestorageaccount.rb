@@ -5,12 +5,21 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+    def ensure_value
+        'present'
+    end
+
+    def absent_value
+        'absent'
+    end
+
   end
 
   @doc = %q{
     The DSC xAzureStorageAccount resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xAzure/DSCResources/MSFT_xAzureStorageAccount/MSFT_xAzureStorageAccount.schema.mof
+      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureStorageAccount/MSFT_xAzureStorageAccount.schema.mof
   }
 
   validate do
@@ -74,7 +83,7 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   newparam(:dsc_ensure) do
     desc "Specifies whether the Azure Storage Account should be present or absent."
     validate do |value|
-      resource[:ensure] = value.downcase
+      resource[:ensure] = provider.munge_ensure(value.downcase)
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end

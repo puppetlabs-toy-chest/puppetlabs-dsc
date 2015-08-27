@@ -5,12 +5,21 @@ Puppet::Type.newtype(:dsc_file) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+    def ensure_value
+        'present'
+    end
+
+    def absent_value
+        'absent'
+    end
+
   end
 
   @doc = %q{
     The DSC File resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-wmf-4/PSDesiredStateConfiguration/DSCResources/MSFT_FileDirectoryConfiguration/MSFT_FileDirectoryConfiguration.Schema.mof
+      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_FileDirectoryConfiguration/MSFT_FileDirectoryConfiguration.schema.mof
   }
 
   validate do
@@ -68,7 +77,7 @@ Puppet::Type.newtype(:dsc_file) do
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
     validate do |value|
-      resource[:ensure] = value.downcase
+      resource[:ensure] = provider.munge_ensure(value.downcase)
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
@@ -170,30 +179,6 @@ Puppet::Type.newtype(:dsc_file) do
     end
   end
 
-  # Name:         CreatedDate
-  # Type:         datetime
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_createddate) do
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         ModifiedDate
-  # Type:         datetime
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_modifieddate) do
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
   # Name:         Attributes
   # Type:         string[]
   # IsMandatory:  False
@@ -219,26 +204,11 @@ Puppet::Type.newtype(:dsc_file) do
     end
   end
 
-  # Name:         Size
-  # Type:         uint64
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_size) do
-    validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
-    end
-    munge do |value|
-      value.to_i
-    end
-  end
-
-  # Name:         SubItems
+  # Name:         DependsOn
   # Type:         string[]
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_subitems, :array_matching => :all) do
+  newparam(:dsc_dependson, :array_matching => :all) do
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -259,6 +229,18 @@ Puppet::Type.newtype(:dsc_file) do
     newvalues(true, false)
     munge do |value|
       provider.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         PsDscRunAsCredential
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_psdscrunascredential) do
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
     end
   end
 

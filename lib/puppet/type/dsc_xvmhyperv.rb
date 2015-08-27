@@ -5,12 +5,21 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+    def ensure_value
+        'present'
+    end
+
+    def absent_value
+        'absent'
+    end
+
   end
 
   @doc = %q{
     The DSC xVMHyperV resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xHyper-V/DSCResources/MSFT_xVMHyperV/MSFT_xVMHyperV.schema.mof
+      import/dsc_resources/xHyper-V/DSCResources/MSFT_xVMHyperV/MSFT_xVMHyperV.schema.mof
   }
 
   validate do
@@ -40,7 +49,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.2.1"
+    defaultto "3.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -123,18 +132,18 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   end
 
   # Name:         Generation
-  # Type:         string
+  # Type:         uint32
   # IsMandatory:  False
-  # Values:       ["Vhd", "Vhdx"]
+  # Values:       None
   newparam(:dsc_generation) do
-    desc "Associated Virtual disk format - Vhd or Vhdx"
+    desc "Virtual machine generation"
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
       end
-      unless ['Vhd', 'vhd', 'Vhdx', 'vhdx'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Vhd, Vhdx")
-      end
+    end
+    munge do |value|
+      value.to_i
     end
   end
 
@@ -250,7 +259,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_ensure) do
     desc "Should the VM be created or deleted"
     validate do |value|
-      resource[:ensure] = value.downcase
+      resource[:ensure] = provider.munge_ensure(value.downcase)
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end

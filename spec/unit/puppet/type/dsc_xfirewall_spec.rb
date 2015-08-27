@@ -27,7 +27,7 @@ describe Puppet::Type.type(:dsc_xfirewall) do
       :dsc_ensure => 'Present',
       :dsc_access => 'NotConfigured',
       :dsc_state => 'Enabled',
-      :dsc_profile => 'Any',
+      :dsc_profile => ["foo", "bar", "spec"],
       :dsc_direction => 'Inbound',
       :dsc_remoteport => ["foo", "bar", "spec"],
       :dsc_localport => ["foo", "bar", "spec"],
@@ -98,7 +98,7 @@ describe Puppet::Type.type(:dsc_xfirewall) do
 
   it 'should accept dsc_ensure predefined value present and update ensure with this value (ensure end value should be a symbol)' do
     dsc_xfirewall[:dsc_ensure] = 'present'
-    expect(dsc_xfirewall[:ensure]).to eq(dsc_xfirewall[:dsc_ensure].downcase.to_sym)
+    expect(dsc_xfirewall[:ensure]).to eq(dsc_xfirewall.provider.munge_ensure(dsc_xfirewall[:dsc_ensure].downcase).to_sym)
   end
 
   it 'should accept dsc_ensure predefined value Absent' do
@@ -113,7 +113,7 @@ describe Puppet::Type.type(:dsc_xfirewall) do
 
   it 'should accept dsc_ensure predefined value absent and update ensure with this value (ensure end value should be a symbol)' do
     dsc_xfirewall[:dsc_ensure] = 'absent'
-    expect(dsc_xfirewall[:ensure]).to eq(dsc_xfirewall[:dsc_ensure].downcase.to_sym)
+    expect(dsc_xfirewall[:ensure]).to eq(dsc_xfirewall.provider.munge_ensure(dsc_xfirewall[:dsc_ensure].downcase).to_sym)
   end
 
   it 'should not accept values not equal to predefined values' do
@@ -226,53 +226,9 @@ describe Puppet::Type.type(:dsc_xfirewall) do
     expect{dsc_xfirewall[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_profile predefined value Any' do
-    dsc_xfirewall[:dsc_profile] = 'Any'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['Any'])
-  end
-
-  it 'should accept dsc_profile predefined value any' do
-    dsc_xfirewall[:dsc_profile] = 'any'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['any'])
-  end
-
-  it 'should accept dsc_profile predefined value Public' do
-    dsc_xfirewall[:dsc_profile] = 'Public'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['Public'])
-  end
-
-  it 'should accept dsc_profile predefined value public' do
-    dsc_xfirewall[:dsc_profile] = 'public'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['public'])
-  end
-
-  it 'should accept dsc_profile predefined value Private' do
-    dsc_xfirewall[:dsc_profile] = 'Private'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['Private'])
-  end
-
-  it 'should accept dsc_profile predefined value private' do
-    dsc_xfirewall[:dsc_profile] = 'private'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['private'])
-  end
-
-  it 'should accept dsc_profile predefined value Domain' do
-    dsc_xfirewall[:dsc_profile] = 'Domain'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['Domain'])
-  end
-
-  it 'should accept dsc_profile predefined value domain' do
-    dsc_xfirewall[:dsc_profile] = 'domain'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['domain'])
-  end
-
-  it 'should not accept values not equal to predefined values' do
-    expect{dsc_xfirewall[:dsc_profile] = 'invalid value'}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept array of predefined values for dsc_profile' do
-    dsc_xfirewall[:dsc_profile] = ["Any", "Public", "Private", "Domain"]
-    expect(dsc_xfirewall[:dsc_profile]).to eq(["Any", "Public", "Private", "Domain"])
+  it 'should accept array for dsc_profile' do
+    dsc_xfirewall[:dsc_profile] = ["foo", "bar", "spec"]
+    expect(dsc_xfirewall[:dsc_profile]).to eq(["foo", "bar", "spec"])
   end
 
   it 'should not accept boolean for dsc_profile' do
@@ -480,23 +436,22 @@ describe Puppet::Type.type(:dsc_xfirewall) do
     end
 
     describe "when dsc_ensure is 'absent'" do
-
       before(:each) do
-        dsc_xfirewall.original_parameters[:dsc_ensure] = 'absent'
-        dsc_xfirewall[:dsc_ensure] = 'absent'
+        dsc_xfirewall.original_parameters[:dsc_ensure] = 'present'
+        dsc_xfirewall[:dsc_ensure] = 'present'
         @provider = described_class.provider(:powershell).new(dsc_xfirewall)
       end
 
       it "should update :ensure to :absent" do
-        expect(dsc_xfirewall[:ensure]).to eq(:absent)
+        expect(dsc_xfirewall[:ensure]).to eq(:present)
       end
 
       it "should compute powershell dsc test script in which ensure value is 'present'" do
         expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
       end
 
-      it "should compute powershell dsc set script in which ensure value is 'absent'" do
-        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
+      it "should compute powershell dsc set script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'present'/)
       end
 
     end
