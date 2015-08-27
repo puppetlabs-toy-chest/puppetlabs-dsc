@@ -77,11 +77,11 @@ module Dsc
     end
 
     def uint?
-      ["uint16","uint32","uint64"].include?(type)
+      ["uint8","uint16","uint32","uint64"].include?(type)
     end
 
     def uint_array?
-      ["uint16[]","uint32[]","uint64[]"].include?(type)
+      ["uint8[]","uint16[]","uint32[]","uint64[]"].include?(type)
     end
 
     def int?
