@@ -82,7 +82,26 @@ module Dsc
 
     def absentable?
       properties.detect do |p|
-        p.is_ensure? && p.values.any? { |v| v.casecmp('absent') == 0 }
+        return 'absent' if p.is_ensure? && p.values.any? { |v| v.casecmp('absent') }
+        return 'disable' if p.is_ensure? && p.values.any? { |v| v.casecmp('disable') }
+      end
+    end
+
+     def absent_value
+      properties.detect do |p|
+        p.is_ensure? && p.values.each do |v|
+          return 'absent' if v.casecmp('absent') == 0
+          return 'disable' if v.casecmp('disable') == 0
+        end
+      end
+    end
+
+    def ensure_value
+      properties.detect do |p|
+        p.is_ensure? && p.values.each do |v|
+          return 'present' if v.casecmp('present') == 0
+          return 'enable' if v.casecmp('enable') == 0
+        end
       end
     end
 

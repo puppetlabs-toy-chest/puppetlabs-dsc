@@ -78,7 +78,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
   it 'should accept dsc_ensure predefined value <%= value.downcase %> and update ensure with this value (ensure end value should be a symbol)' do
     dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = '<%= value.downcase %>'
-    expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq(dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure].downcase.to_sym)
+    expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq(dsc_<%= resource.friendlyname.downcase %>.provider.munge_ensure(dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure].downcase).to_sym)
   end
 <%        end # if property.name.downcase.... -%>
 <%      end # property.values.each....-%>
@@ -203,11 +203,11 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 <%  end # unless ['msft_filedirectoryconfiguration'].... -%>
 <%  if resource.ensurable? -%>
 
-    describe "when dsc_ensure is 'present'" do
+    describe "when dsc_ensure is '<%= resource.ensure_value %>'" do
 
       before(:each) do
-        dsc_<%= resource.friendlyname.downcase %>.original_parameters[:dsc_ensure] = 'present'
-        dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'present'
+        dsc_<%= resource.friendlyname.downcase %>.original_parameters[:dsc_ensure] = '<%= resource.ensure_value %>'
+        dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = '<%= resource.ensure_value %>'
         @provider = described_class.provider(:powershell).new(dsc_<%= resource.friendlyname.downcase %>)
       end
 
@@ -215,23 +215,22 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
         expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq(:present)
       end
 
-      it "should compute powershell dsc test script in which ensure value is 'present'" do
-        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
+      it "should compute powershell dsc test script in which ensure value is '<%= resource.ensure_value %>'" do
+        expect(@provider.ps_script_content('test')).to match(/ensure = '<%= resource.ensure_value %>'/)
       end
 
-      it "should compute powershell dsc set script in which ensure value is 'present'" do
-        expect(@provider.ps_script_content('set')).to match(/ensure = 'present'/)
+      it "should compute powershell dsc set script in which ensure value is '<%= resource.ensure_value %>'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = '<%= resource.ensure_value %>'/)
       end
 
     end
 
 <%  end # if resource.ensurable? -%>
 <%  if resource.absentable? -%>
-    describe "when dsc_ensure is 'absent'" do
-
+    describe "when dsc_ensure is '<%= resource.absent_value %>'" do
       before(:each) do
-        dsc_<%= resource.friendlyname.downcase %>.original_parameters[:dsc_ensure] = 'absent'
-        dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = 'absent'
+        dsc_<%= resource.friendlyname.downcase %>.original_parameters[:dsc_ensure] = '<%= resource.absent_value %>'
+        dsc_<%= resource.friendlyname.downcase %>[:dsc_ensure] = '<%= resource.absent_value %>'
         @provider = described_class.provider(:powershell).new(dsc_<%= resource.friendlyname.downcase %>)
       end
 
@@ -239,12 +238,12 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
         expect(dsc_<%= resource.friendlyname.downcase %>[:ensure]).to eq(:absent)
       end
 
-      it "should compute powershell dsc test script in which ensure value is 'present'" do
-        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
+      it "should compute powershell dsc test script in which ensure value is '<%= resource.ensure_value %>'" do
+        expect(@provider.ps_script_content('test')).to match(/ensure = '<%= resource.ensure_value %>'/)
       end
 
-      it "should compute powershell dsc set script in which ensure value is 'absent'" do
-        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
+      it "should compute powershell dsc set script in which ensure value is '<%= resource.absent_value %>'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = '<%= resource.absent_value %>'/)
       end
 
     end
