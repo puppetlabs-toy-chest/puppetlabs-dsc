@@ -5,12 +5,21 @@ Puppet::Type.newtype(:dsc_xfirewall) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+    def ensure_value
+        'present'
+    end
+
+    def absent_value
+        'absent'
+    end
+
   end
 
   @doc = %q{
     The DSC xFirewall resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xNetworking/DSCResources/MSFT_xFirewall/MSFT_xFirewall.Schema.mof
+      import/dsc_resources/xNetworking/DSCResources/MSFT_xFirewall/MSFT_xFirewall.Schema.mof
   }
 
   validate do
@@ -40,7 +49,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.1.1"
+    defaultto "2.2.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -100,7 +109,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_ensure) do
     desc "Ensure the presence/absence of the resource"
     validate do |value|
-      resource[:ensure] = value.downcase
+      resource[:ensure] = provider.munge_ensure(value.downcase)
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
@@ -145,22 +154,12 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   # Name:         Profile
   # Type:         string[]
   # IsMandatory:  False
-  # Values:       ["Any", "Public", "Private", "Domain"]
+  # Values:       None
   newparam(:dsc_profile, :array_matching => :all) do
     desc "Specifies one or more profiles to which the rule is assigned"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
-      end
-      if value.kind_of?(Array)
-        unless (['Any', 'any', 'Public', 'public', 'Private', 'private', 'Domain', 'domain'] & value).count == value.count
-          fail("Invalid value #{value}. Valid values are Any, Public, Private, Domain")
-        end
-      end
-      if value.kind_of?(String)
-        unless ['Any', 'any', 'Public', 'public', 'Private', 'private', 'Domain', 'domain'].include?(value)
-          fail("Invalid value #{value}. Valid values are Any, Public, Private, Domain")
-        end
       end
     end
     munge do |value|

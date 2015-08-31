@@ -24,6 +24,7 @@ describe Puppet::Type.type(:dsc_xdhcpserveroption) do
       :name     => 'foo',
       :dsc_dnsserveripaddress => ["foo", "bar", "spec"],
       :dsc_dnsdomain => 'foo',
+      :dsc_router => ["foo", "bar", "spec"],
       :dsc_addressfamily => 'IPv4',
       :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_scopeid is a required attribute/)
@@ -78,6 +79,23 @@ describe Puppet::Type.type(:dsc_xdhcpserveroption) do
     expect{dsc_xdhcpserveroption[:dsc_dnsdomain] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it 'should accept array for dsc_router' do
+    dsc_xdhcpserveroption[:dsc_router] = ["foo", "bar", "spec"]
+    expect(dsc_xdhcpserveroption[:dsc_router]).to eq(["foo", "bar", "spec"])
+  end
+
+  it 'should not accept boolean for dsc_router' do
+    expect{dsc_xdhcpserveroption[:dsc_router] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_router' do
+    expect{dsc_xdhcpserveroption[:dsc_router] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_router' do
+    expect{dsc_xdhcpserveroption[:dsc_router] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept dsc_addressfamily predefined value IPv4' do
     dsc_xdhcpserveroption[:dsc_addressfamily] = 'IPv4'
     expect(dsc_xdhcpserveroption[:dsc_addressfamily]).to eq('IPv4')
@@ -120,7 +138,7 @@ describe Puppet::Type.type(:dsc_xdhcpserveroption) do
 
   it 'should accept dsc_ensure predefined value present and update ensure with this value (ensure end value should be a symbol)' do
     dsc_xdhcpserveroption[:dsc_ensure] = 'present'
-    expect(dsc_xdhcpserveroption[:ensure]).to eq(dsc_xdhcpserveroption[:dsc_ensure].downcase.to_sym)
+    expect(dsc_xdhcpserveroption[:ensure]).to eq(dsc_xdhcpserveroption.provider.munge_ensure(dsc_xdhcpserveroption[:dsc_ensure].downcase).to_sym)
   end
 
   it 'should accept dsc_ensure predefined value Absent' do
@@ -135,7 +153,7 @@ describe Puppet::Type.type(:dsc_xdhcpserveroption) do
 
   it 'should accept dsc_ensure predefined value absent and update ensure with this value (ensure end value should be a symbol)' do
     dsc_xdhcpserveroption[:dsc_ensure] = 'absent'
-    expect(dsc_xdhcpserveroption[:ensure]).to eq(dsc_xdhcpserveroption[:dsc_ensure].downcase.to_sym)
+    expect(dsc_xdhcpserveroption[:ensure]).to eq(dsc_xdhcpserveroption.provider.munge_ensure(dsc_xdhcpserveroption[:dsc_ensure].downcase).to_sym)
   end
 
   it 'should not accept values not equal to predefined values' do
@@ -213,23 +231,22 @@ describe Puppet::Type.type(:dsc_xdhcpserveroption) do
     end
 
     describe "when dsc_ensure is 'absent'" do
-
       before(:each) do
-        dsc_xdhcpserveroption.original_parameters[:dsc_ensure] = 'absent'
-        dsc_xdhcpserveroption[:dsc_ensure] = 'absent'
+        dsc_xdhcpserveroption.original_parameters[:dsc_ensure] = 'present'
+        dsc_xdhcpserveroption[:dsc_ensure] = 'present'
         @provider = described_class.provider(:powershell).new(dsc_xdhcpserveroption)
       end
 
       it "should update :ensure to :absent" do
-        expect(dsc_xdhcpserveroption[:ensure]).to eq(:absent)
+        expect(dsc_xdhcpserveroption[:ensure]).to eq(:present)
       end
 
       it "should compute powershell dsc test script in which ensure value is 'present'" do
         expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
       end
 
-      it "should compute powershell dsc set script in which ensure value is 'absent'" do
-        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
+      it "should compute powershell dsc set script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'present'/)
       end
 
     end

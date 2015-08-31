@@ -5,12 +5,21 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+    def ensure_value
+        'present'
+    end
+
+    def absent_value
+        'absent'
+    end
+
   end
 
   @doc = %q{
     The DSC xJeaToolKit resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xJea/DSCResources/MSFT_xJeaToolkit/MSFT_xJeaToolkit.schema.mof
+      import/dsc_resources/xJea/DSCResources/MSFT_xJeaToolkit/MSFT_xJeaToolkit.schema.mof
   }
 
   validate do
@@ -40,7 +49,7 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.2.16.1"
+    defaultto "0.2.16.5"
   end
 
   newparam(:name, :namevar => true ) do
@@ -118,7 +127,7 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
     validate do |value|
-      resource[:ensure] = value.downcase
+      resource[:ensure] = provider.munge_ensure(value.downcase)
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end

@@ -5,12 +5,15 @@ Puppet::Type.newtype(:dsc_xarchive) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+
+
   end
 
   @doc = %q{
     The DSC xArchive resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xPSDesiredStateConfiguration/DSCResources/MSFT_xArchive/MSFT_xArchive.schema.mof
+      import/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xArchive/MSFT_xArchive.schema.mof
   }
 
   validate do
@@ -40,7 +43,7 @@ Puppet::Type.newtype(:dsc_xarchive) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "3.1.3.4"
+    defaultto "3.4.0.0"
   end
 
   newparam(:name, :namevar => true ) do

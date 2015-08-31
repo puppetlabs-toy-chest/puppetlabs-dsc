@@ -5,12 +5,21 @@ Puppet::Type.newtype(:dsc_xazurevmdscconfiguration) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+    def ensure_value
+        'present'
+    end
+
+    def absent_value
+        'absent'
+    end
+
   end
 
   @doc = %q{
     The DSC xAzureVMDscConfiguration resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xAzure/DSCResources/MSFT_xAzureVMDscConfiguration/MSFT_xAzureVMDscConfiguration.schema.mof
+      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureVMDscConfiguration/MSFT_xAzureVMDscConfiguration.schema.mof
   }
 
   validate do
@@ -74,7 +83,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscconfiguration) do
   newparam(:dsc_ensure) do
     desc "Specifies whether the supplied Configuration is Present or Absent in Azure Storage"
     validate do |value|
-      resource[:ensure] = value.downcase
+      resource[:ensure] = provider.munge_ensure(value.downcase)
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end

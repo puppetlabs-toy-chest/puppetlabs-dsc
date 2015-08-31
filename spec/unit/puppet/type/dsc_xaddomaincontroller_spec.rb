@@ -14,17 +14,15 @@ describe Puppet::Type.type(:dsc_xaddomaincontroller) do
     expect(dsc_xaddomaincontroller.to_s).to eq("Dsc_xaddomaincontroller[foo]")
   end
 
-  it 'should default to ensure => present' do
-    expect(dsc_xaddomaincontroller[:ensure]).to eq :present
-  end
-
   it 'should require that dsc_domainname is specified' do
     #dsc_xaddomaincontroller[:dsc_domainname]
     expect { Puppet::Type.type(:dsc_xaddomaincontroller).new(
       :name     => 'foo',
       :dsc_domainadministratorcredential => 'foo',
       :dsc_safemodeadministratorpassword => 'foo',
-      :dsc_ensure => 'Present',
+      :dsc_databasepath => 'foo',
+      :dsc_logpath => 'foo',
+      :dsc_sysvolpath => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_domainname is a required attribute/)
   end
 
@@ -76,54 +74,52 @@ describe Puppet::Type.type(:dsc_xaddomaincontroller) do
     expect{dsc_xaddomaincontroller[:dsc_safemodeadministratorpassword] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_ensure predefined value Present' do
-    dsc_xaddomaincontroller[:dsc_ensure] = 'Present'
-    expect(dsc_xaddomaincontroller[:dsc_ensure]).to eq('Present')
+  it 'should not accept array for dsc_databasepath' do
+    expect{dsc_xaddomaincontroller[:dsc_databasepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_ensure predefined value present' do
-    dsc_xaddomaincontroller[:dsc_ensure] = 'present'
-    expect(dsc_xaddomaincontroller[:dsc_ensure]).to eq('present')
+  it 'should not accept boolean for dsc_databasepath' do
+    expect{dsc_xaddomaincontroller[:dsc_databasepath] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_ensure predefined value present and update ensure with this value (ensure end value should be a symbol)' do
-    dsc_xaddomaincontroller[:dsc_ensure] = 'present'
-    expect(dsc_xaddomaincontroller[:ensure]).to eq(dsc_xaddomaincontroller[:dsc_ensure].downcase.to_sym)
+  it 'should not accept int for dsc_databasepath' do
+    expect{dsc_xaddomaincontroller[:dsc_databasepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_ensure predefined value Absent' do
-    dsc_xaddomaincontroller[:dsc_ensure] = 'Absent'
-    expect(dsc_xaddomaincontroller[:dsc_ensure]).to eq('Absent')
+  it 'should not accept uint for dsc_databasepath' do
+    expect{dsc_xaddomaincontroller[:dsc_databasepath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_ensure predefined value absent' do
-    dsc_xaddomaincontroller[:dsc_ensure] = 'absent'
-    expect(dsc_xaddomaincontroller[:dsc_ensure]).to eq('absent')
+  it 'should not accept array for dsc_logpath' do
+    expect{dsc_xaddomaincontroller[:dsc_logpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_ensure predefined value absent and update ensure with this value (ensure end value should be a symbol)' do
-    dsc_xaddomaincontroller[:dsc_ensure] = 'absent'
-    expect(dsc_xaddomaincontroller[:ensure]).to eq(dsc_xaddomaincontroller[:dsc_ensure].downcase.to_sym)
+  it 'should not accept boolean for dsc_logpath' do
+    expect{dsc_xaddomaincontroller[:dsc_logpath] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept values not equal to predefined values' do
-    expect{dsc_xaddomaincontroller[:dsc_ensure] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_logpath' do
+    expect{dsc_xaddomaincontroller[:dsc_logpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_ensure' do
-    expect{dsc_xaddomaincontroller[:dsc_ensure] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_logpath' do
+    expect{dsc_xaddomaincontroller[:dsc_logpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept boolean for dsc_ensure' do
-    expect{dsc_xaddomaincontroller[:dsc_ensure] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept array for dsc_sysvolpath' do
+    expect{dsc_xaddomaincontroller[:dsc_sysvolpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_ensure' do
-    expect{dsc_xaddomaincontroller[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_sysvolpath' do
+    expect{dsc_xaddomaincontroller[:dsc_sysvolpath] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xaddomaincontroller[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_sysvolpath' do
+    expect{dsc_xaddomaincontroller[:dsc_sysvolpath] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_sysvolpath' do
+    expect{dsc_xaddomaincontroller[:dsc_sysvolpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS
@@ -154,50 +150,6 @@ describe Puppet::Type.type(:dsc_xaddomaincontroller) do
 
       it "should compute powershell dsc test script with method Set" do
         expect(@provider.ps_script_content('set')).to match(/Method\s+=\s*'set'/)
-      end
-
-    end
-
-    describe "when dsc_ensure is 'present'" do
-
-      before(:each) do
-        dsc_xaddomaincontroller.original_parameters[:dsc_ensure] = 'present'
-        dsc_xaddomaincontroller[:dsc_ensure] = 'present'
-        @provider = described_class.provider(:powershell).new(dsc_xaddomaincontroller)
-      end
-
-      it "should update :ensure to :present" do
-        expect(dsc_xaddomaincontroller[:ensure]).to eq(:present)
-      end
-
-      it "should compute powershell dsc test script in which ensure value is 'present'" do
-        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
-      end
-
-      it "should compute powershell dsc set script in which ensure value is 'present'" do
-        expect(@provider.ps_script_content('set')).to match(/ensure = 'present'/)
-      end
-
-    end
-
-    describe "when dsc_ensure is 'absent'" do
-
-      before(:each) do
-        dsc_xaddomaincontroller.original_parameters[:dsc_ensure] = 'absent'
-        dsc_xaddomaincontroller[:dsc_ensure] = 'absent'
-        @provider = described_class.provider(:powershell).new(dsc_xaddomaincontroller)
-      end
-
-      it "should update :ensure to :absent" do
-        expect(dsc_xaddomaincontroller[:ensure]).to eq(:absent)
-      end
-
-      it "should compute powershell dsc test script in which ensure value is 'present'" do
-        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
-      end
-
-      it "should compute powershell dsc set script in which ensure value is 'absent'" do
-        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
       end
 
     end

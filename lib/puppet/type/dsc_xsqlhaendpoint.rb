@@ -5,12 +5,15 @@ Puppet::Type.newtype(:dsc_xsqlhaendpoint) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+
+
   end
 
   @doc = %q{
     The DSC xSqlHAEndPoint resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xSqlPs/DSCResources/MSFT_xSqlHAEndPoint/MSFT_xSqlHAEndPoint.schema.mof
+      import/dsc_resources/xSqlPs/DSCResources/MSFT_xSqlHAEndPoint/MSFT_xSqlHAEndPoint.schema.mof
   }
 
   validate do
@@ -41,7 +44,7 @@ Puppet::Type.newtype(:dsc_xsqlhaendpoint) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.1.3"
+    defaultto "1.1.3.1"
   end
 
   newparam(:name, :namevar => true ) do

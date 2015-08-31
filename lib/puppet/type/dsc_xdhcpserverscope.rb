@@ -5,12 +5,21 @@ Puppet::Type.newtype(:dsc_xdhcpserverscope) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+    def ensure_value
+        'present'
+    end
+
+    def absent_value
+        'absent'
+    end
+
   end
 
   @doc = %q{
     The DSC xDhcpServerScope resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xDhcpServer/DSCResources/MSFT_xDhcpServerScope/MSFT_xDhcpServerScope.schema.mof
+      import/dsc_resources/xDhcpServer/DSCResources/MSFT_xDhcpServerScope/MSFT_xDhcpServerScope.schema.mof
   }
 
   validate do
@@ -41,7 +50,7 @@ Puppet::Type.newtype(:dsc_xdhcpserverscope) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.1"
+    defaultto "1.2"
   end
 
   newparam(:name, :namevar => true ) do
@@ -160,7 +169,7 @@ Puppet::Type.newtype(:dsc_xdhcpserverscope) do
   newparam(:dsc_ensure) do
     desc "Whether scope should be set or removed"
     validate do |value|
-      resource[:ensure] = value.downcase
+      resource[:ensure] = provider.munge_ensure(value.downcase)
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end

@@ -5,12 +5,15 @@ Puppet::Type.newtype(:dsc_xcluster) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+
+
   end
 
   @doc = %q{
     The DSC xCluster resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xFailOverCluster/DSCResources/MSFT_xCluster/MSFT_xCluster.schema.mof
+      import/dsc_resources/xFailOverCluster/DSCResources/MSFT_xCluster/MSFT_xCluster.schema.mof
   }
 
   validate do
@@ -40,7 +43,7 @@ Puppet::Type.newtype(:dsc_xcluster) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.1"
+    defaultto "1.1.1"
   end
 
   newparam(:name, :namevar => true ) do

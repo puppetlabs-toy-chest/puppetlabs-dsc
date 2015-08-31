@@ -5,12 +5,15 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+
+
   end
 
   @doc = %q{
     The DSC xRDSessionCollectionConfiguration resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xRemoteDesktopSessionHost/DSCResources/MSFT_xRDSessionCollectionConfiguration/MSFT_xRDSessionCollectionConfiguration.schema.mof
+      import/dsc_resources/xRemoteDesktopSessionHost/DSCResources/MSFT_xRDSessionCollectionConfiguration/MSFT_xRDSessionCollectionConfiguration.schema.mof
   }
 
   validate do
@@ -40,7 +43,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.0"
+    defaultto "1.0.1"
   end
 
   newparam(:name, :namevar => true ) do

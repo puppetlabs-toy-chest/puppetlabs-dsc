@@ -105,7 +105,7 @@ describe Puppet::Type.type(:dsc_xwordpresssite) do
 
   it 'should accept dsc_ensure predefined value present and update ensure with this value (ensure end value should be a symbol)' do
     dsc_xwordpresssite[:dsc_ensure] = 'present'
-    expect(dsc_xwordpresssite[:ensure]).to eq(dsc_xwordpresssite[:dsc_ensure].downcase.to_sym)
+    expect(dsc_xwordpresssite[:ensure]).to eq(dsc_xwordpresssite.provider.munge_ensure(dsc_xwordpresssite[:dsc_ensure].downcase).to_sym)
   end
 
   it 'should not accept values not equal to predefined values' do

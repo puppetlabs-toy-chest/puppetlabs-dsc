@@ -1,29 +1,37 @@
 require 'pathname'
 
-Puppet::Type.newtype(:dsc_webdeploy) do
+Puppet::Type.newtype(:dsc_xwebpackagedeploy) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+    def ensure_value
+        'present'
+    end
+
+    def absent_value
+        'absent'
+    end
+
   end
 
   @doc = %q{
-    The DSC WebDeploy resource type.
+    The DSC xWebPackageDeploy resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xWebAdministration/DSCResources/MSFT_xWebDeploy/MSFT_xWebdeploy.schema.mof
+      import/dsc_resources/xWebDeploy/DSCResources/xWebPackageDeploy/xWebPackageDeploy.schema.mof
   }
 
   validate do
-      fail('dsc_packagepath is a required attribute') if self[:dsc_packagepath].nil?
-      fail('dsc_contentpath is a required attribute') if self[:dsc_contentpath].nil?
+      fail('dsc_destination is a required attribute') if self[:dsc_destination].nil?
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "WebDeploy"
+    defaultto "xWebPackageDeploy"
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xWebdeploy"
+    defaultto "xWebPackageDeploy"
   end
 
   newparam(:dscmeta_import_resource) do
@@ -37,11 +45,11 @@ Puppet::Type.newtype(:dsc_webdeploy) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xWebAdministration"
+    defaultto "xWebDeploy"
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.3.2.4"
+    defaultto "1.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -54,13 +62,12 @@ Puppet::Type.newtype(:dsc_webdeploy) do
     defaultto :present
   end
 
-  # Name:         PackagePath
+  # Name:         SourcePath
   # Type:         string
-  # IsMandatory:  True
+  # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_packagepath) do
-    desc "Path to Web Deploy package (zip format)."
-    isrequired
+  newparam(:dsc_sourcepath) do
+    desc "Full path to the zip package."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -68,12 +75,12 @@ Puppet::Type.newtype(:dsc_webdeploy) do
     end
   end
 
-  # Name:         ContentPath
+  # Name:         Destination
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_contentpath) do
-    desc "Path to Web Site (content path or site name)."
+  newparam(:dsc_destination) do
+    desc "WebDeploy destination for content path or website name)."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -89,7 +96,7 @@ Puppet::Type.newtype(:dsc_webdeploy) do
   newparam(:dsc_ensure) do
     desc "Desired state of resource."
     validate do |value|
-      resource[:ensure] = value.downcase
+      resource[:ensure] = provider.munge_ensure(value.downcase)
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end

@@ -5,12 +5,15 @@ Puppet::Type.newtype(:dsc_xwaitforaddomain) do
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
+
+
+
   end
 
   @doc = %q{
     The DSC xWaitForADDomain resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xActiveDirectory/DSCResources/MSFT_xWaitForADDomain/MSFT_xWaitForADDomain.schema.mof
+      import/dsc_resources/xActiveDirectory/DSCResources/MSFT_xWaitForADDomain/MSFT_xWaitForADDomain.schema.mof
   }
 
   validate do
@@ -40,7 +43,7 @@ Puppet::Type.newtype(:dsc_xwaitforaddomain) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.2"
+    defaultto "2.5.0.0"
   end
 
   newparam(:name, :namevar => true ) do
