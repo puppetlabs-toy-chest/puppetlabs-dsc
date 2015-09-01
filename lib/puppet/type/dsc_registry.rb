@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_registry) do
   @doc = %q{
     The DSC Registry resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-wmf-4/PSDesiredStateConfiguration/DSCResources/MSFT_RegistryResource/MSFT_RegistryResource.schema.mof
+      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_RegistryResource/MSFT_RegistryResource.schema.mof
   }
 
   validate do

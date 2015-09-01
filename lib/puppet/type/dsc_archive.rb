@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_archive) do
   @doc = %q{
     The DSC Archive resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-wmf-4/PSDesiredStateConfiguration/DSCResources/MSFT_ArchiveResource/MSFT_ArchiveResource.schema.mof
+      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_ArchiveResource/MSFT_ArchiveResource.schema.mof
   }
 
   validate do
@@ -130,6 +130,18 @@ Puppet::Type.newtype(:dsc_archive) do
     newvalues(true, false)
     munge do |value|
       provider.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         Credential
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_credential) do
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
     end
   end
 

@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   @doc = %q{
     The DSC WindowsProcess resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-wmf-4/PSDesiredStateConfiguration/DSCResources/MSFT_ProcessResource/MSFT_ProcessResource.schema.mof
+      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_ProcessResource/MSFT_ProcessResource.schema.mof
   }
 
   validate do

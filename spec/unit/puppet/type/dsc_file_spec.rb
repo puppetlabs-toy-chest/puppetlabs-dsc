@@ -30,12 +30,10 @@ describe Puppet::Type.type(:dsc_file) do
       :dsc_recurse => true,
       :dsc_force => true,
       :dsc_credential => 'foo',
-      :dsc_createddate => '20140711',
-      :dsc_modifieddate => '20140711',
       :dsc_attributes => 'ReadOnly',
-      :dsc_size => 64,
-      :dsc_subitems => ["foo", "bar", "spec"],
+      :dsc_dependson => ["foo", "bar", "spec"],
       :dsc_matchsource => true,
+      :dsc_psdscrunascredential => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_destinationpath is a required attribute/)
   end
 
@@ -357,38 +355,6 @@ describe Puppet::Type.type(:dsc_file) do
     expect{dsc_file[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_createddate' do
-    expect{dsc_file[:dsc_createddate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_createddate' do
-    expect{dsc_file[:dsc_createddate] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_createddate' do
-    expect{dsc_file[:dsc_createddate] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_createddate' do
-    expect{dsc_file[:dsc_createddate] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_modifieddate' do
-    expect{dsc_file[:dsc_modifieddate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_modifieddate' do
-    expect{dsc_file[:dsc_modifieddate] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_modifieddate' do
-    expect{dsc_file[:dsc_modifieddate] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_modifieddate' do
-    expect{dsc_file[:dsc_modifieddate] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_attributes predefined value ReadOnly' do
     dsc_file[:dsc_attributes] = 'ReadOnly'
     expect(dsc_file[:dsc_attributes]).to eq(['ReadOnly'])
@@ -450,56 +416,21 @@ describe Puppet::Type.type(:dsc_file) do
     expect{dsc_file[:dsc_attributes] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_size' do
-    expect{dsc_file[:dsc_size] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should accept array for dsc_dependson' do
+    dsc_file[:dsc_dependson] = ["foo", "bar", "spec"]
+    expect(dsc_file[:dsc_dependson]).to eq(["foo", "bar", "spec"])
   end
 
-  it 'should not accept boolean for dsc_size' do
-    expect{dsc_file[:dsc_size] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_dependson' do
+    expect{dsc_file[:dsc_dependson] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_size' do
-    expect{dsc_file[:dsc_size] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_dependson' do
+    expect{dsc_file[:dsc_dependson] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_size' do
-    dsc_file[:dsc_size] = 64
-    expect(dsc_file[:dsc_size]).to eq(64)
-  end
-
-
-  it 'should accept string-like int for dsc_size' do
-    dsc_file[:dsc_size] = '16'
-    expect(dsc_file[:dsc_size]).to eq(16)
-  end
-
-
-  it 'should accept string-like int for dsc_size' do
-    dsc_file[:dsc_size] = '32'
-    expect(dsc_file[:dsc_size]).to eq(32)
-  end
-
-
-  it 'should accept string-like int for dsc_size' do
-    dsc_file[:dsc_size] = '64'
-    expect(dsc_file[:dsc_size]).to eq(64)
-  end
-
-  it 'should accept array for dsc_subitems' do
-    dsc_file[:dsc_subitems] = ["foo", "bar", "spec"]
-    expect(dsc_file[:dsc_subitems]).to eq(["foo", "bar", "spec"])
-  end
-
-  it 'should not accept boolean for dsc_subitems' do
-    expect{dsc_file[:dsc_subitems] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_subitems' do
-    expect{dsc_file[:dsc_subitems] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_subitems' do
-    expect{dsc_file[:dsc_subitems] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_dependson' do
+    expect{dsc_file[:dsc_dependson] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_matchsource' do
@@ -547,6 +478,22 @@ describe Puppet::Type.type(:dsc_file) do
 
   it 'should not accept uint for dsc_matchsource' do
     expect{dsc_file[:dsc_matchsource] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_psdscrunascredential' do
+    expect{dsc_file[:dsc_psdscrunascredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_psdscrunascredential' do
+    expect{dsc_file[:dsc_psdscrunascredential] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_psdscrunascredential' do
+    expect{dsc_file[:dsc_psdscrunascredential] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_psdscrunascredential' do
+    expect{dsc_file[:dsc_psdscrunascredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

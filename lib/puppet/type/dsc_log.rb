@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_log) do
   @doc = %q{
     The DSC Log resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-wmf-4/PSDesiredStateConfiguration/DSCResources/MSFT_LogResource/MSFT_LogResource.schema.mof
+      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_LogResource/MSFT_LogResource.schema.mof
   }
 
   validate do

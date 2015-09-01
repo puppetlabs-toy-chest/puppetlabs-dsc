@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_environment) do
   @doc = %q{
     The DSC Environment resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-wmf-4/PSDesiredStateConfiguration/DSCResources/MSFT_EnvironmentResource/MSFT_EnvironmentResource.schema.mof
+      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_EnvironmentResource/MSFT_EnvironmentResource.schema.mof
   }
 
   validate do

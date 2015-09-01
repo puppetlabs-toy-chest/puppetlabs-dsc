@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_group) do
   @doc = %q{
     The DSC Group resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-wmf-4/PSDesiredStateConfiguration/DSCResources/MSFT_GroupResource/MSFT_GroupResource.schema.mof
+      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_GroupResource/MSFT_GroupResource.schema.mof
   }
 
   validate do
