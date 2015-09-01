@@ -1,29 +1,54 @@
-Puppet PowerShell DSC Module
-============================
+# dsc
+[wmf-5.0]: https://www.microsoft.com/en-us/download/details.aspx?id=46889
+[DSCResources]: https://github.com/powershell/DSCResources
 
-## Overview
 
-Puppet module for managing Windows poweshell DSC resources.
+#### Table of Contents
+1. [Module Description - What is the dsc module and what does it do](#module-description)
+2. [Prerequisites](#windows-system-prerequisites)
+3. [Setup](#setup)
+4. [Usage](#usage)
+  * [Website Installation Example](#website-installation-example)
+5. [Limitations](#limitations)
+  * [Known Issues](#known-issues)
+6. [Notes](#notes)
+7. [License](#license)
 
-This module generates Puppet Types based on DSC resources MOF schema files.
+## Module Description
+
+Puppet module for managing Windows PowerShell DSC (Desired State Configuration) resources.
+
+This module generates Puppet Types based on DSC resources' MOF (Managed Object Format) schema files.
 
 In this version, the following DSC Resources are already built and ready for use:
-- All base DSC resources found in PowerShell 5. ([WMF 5.0](https://www.microsoft.com/en-us/download/details.aspx?id=46889))
-- All DSC resources found in the [Microsoft PowerShell DSC Resource Kit](https://github.com/powershell/DSCResources).
+- All base DSC resources found in PowerShell 5. ([WMF 5.0][wmf-5.0])
+- All DSC resources found in the [Microsoft PowerShell DSC Resource Kit][DSCResources]
 
 This module is available on the [Puppet Forge](https://forge.puppetlabs.com/puppetlabs/dsc)
 
-## Windows systems prerequisites
+## Windows System Prerequisites
 
- - PowerShell 5 which is included in the [Windows Management Framework 5.0](https://www.microsoft.com/en-us/download/details.aspx?id=46889). PowerShell v5 is currently in limited preview, so the above link may change after official release.
+ - PowerShell 5 which is included in [Windows Management Framework 5.0][wmf-5.0]. PowerShell v5 is currently in limited preview, so the above link may change after official release.
 
-## Installation on your puppet master
+## Setup
 
 ~~~
 puppet module install puppetlabs-dsc
 ~~~
 
 ## Usage
+
+### Refresh Mode Must be Disabled
+
+You must set refresh mode to disabled before you can use this module to apply any resources.
+
+~~~puppet
+dsc::lcm_config {'disable_lcm':
+  refresh_mode => 'Disabled',
+}
+~~~
+
+### Puppet DSC Resources
 
 You can use a DSC Resource by prefixing each DSC Resource name and parameter with 'dsc_'.
 
@@ -36,9 +61,7 @@ dsc_windowsfeature {'IIS':
 
 All DSC Resource names and parameters have to be in lowercase, e.g: `dsc_windowsfeature` or `dsc_name`.
 
-## Example
-
-The following example class will install the 'Backery' website.
+### Website Installation Example
 
 It's a real example and should also work for you.
 
@@ -110,12 +133,12 @@ All [puppet metaparameters](https://docs.puppetlabs.com/references/latest/metapa
 
 ## Limitations
 
-- DSC Composite Resources are not yet fully supported.
+- DSC Composite Resources are not supported.
 - PSObjects like 'PSCredential' as parameters value not yet supported.
 
-## Known Issues
+### Known Issues
 
-When installing the module on Windows you may run into an issue regarding long file names (LFN), due to the long paths of generated schema files. If you install your module on a Linux master and then use plugin sync, you will not likely see this issue, but if you are attempting to install the module on a Windows machine, you may run into an error that looks similar to the following during `puppet module install puppetlabs-dsc`:
+When installing the module on Windows you may run into an issue regarding long file names (LFN) due to the long paths of the generated schema files. If you install your module on a Linux master and then use plugin sync you will likely not see this issue. If you are attempting to install the module on a Windows machine using `puppet module install puppetlabs-dsc` you may run into an error that looks similar to the following:
 
 ~~~
 Error: No such file or directory @ rb_sysopen - C:/ProgramData/PuppetLabs/puppet/cache/puppet-module/cache/tmp-unpacker20150713-...mof
