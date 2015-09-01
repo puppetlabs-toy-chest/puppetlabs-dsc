@@ -87,6 +87,12 @@ describe Puppet::Type.type(:dsc_xpackage) do
       :dsc_version => 'foo',
       :dsc_installed => true,
       :dsc_runascredential => 'foo',
+      :dsc_filehash => 'foo',
+      :dsc_hashalgorithm => 'SHA1',
+      :dsc_signersubject => 'foo',
+      :dsc_signerthumbprint => 'foo',
+      :dsc_servercertificatevalidationcallback => 'foo',
+      :dsc_installedcheckreghive => 'LocalMachine',
       :dsc_installedcheckregkey => 'foo',
       :dsc_installedcheckregvaluename => 'foo',
       :dsc_installedcheckregvaluedata => 'foo',
@@ -143,6 +149,12 @@ describe Puppet::Type.type(:dsc_xpackage) do
       :dsc_version => 'foo',
       :dsc_installed => true,
       :dsc_runascredential => 'foo',
+      :dsc_filehash => 'foo',
+      :dsc_hashalgorithm => 'SHA1',
+      :dsc_signersubject => 'foo',
+      :dsc_signerthumbprint => 'foo',
+      :dsc_servercertificatevalidationcallback => 'foo',
+      :dsc_installedcheckreghive => 'LocalMachine',
       :dsc_installedcheckregkey => 'foo',
       :dsc_installedcheckregvaluename => 'foo',
       :dsc_installedcheckregvaluedata => 'foo',
@@ -390,6 +402,190 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept uint for dsc_runascredential' do
     expect{dsc_xpackage[:dsc_runascredential] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_filehash' do
+    expect{dsc_xpackage[:dsc_filehash] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_filehash' do
+    expect{dsc_xpackage[:dsc_filehash] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_filehash' do
+    expect{dsc_xpackage[:dsc_filehash] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_filehash' do
+    expect{dsc_xpackage[:dsc_filehash] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_hashalgorithm predefined value SHA1' do
+    dsc_xpackage[:dsc_hashalgorithm] = 'SHA1'
+    expect(dsc_xpackage[:dsc_hashalgorithm]).to eq('SHA1')
+  end
+
+  it 'should accept dsc_hashalgorithm predefined value sha1' do
+    dsc_xpackage[:dsc_hashalgorithm] = 'sha1'
+    expect(dsc_xpackage[:dsc_hashalgorithm]).to eq('sha1')
+  end
+
+  it 'should accept dsc_hashalgorithm predefined value SHA256' do
+    dsc_xpackage[:dsc_hashalgorithm] = 'SHA256'
+    expect(dsc_xpackage[:dsc_hashalgorithm]).to eq('SHA256')
+  end
+
+  it 'should accept dsc_hashalgorithm predefined value sha256' do
+    dsc_xpackage[:dsc_hashalgorithm] = 'sha256'
+    expect(dsc_xpackage[:dsc_hashalgorithm]).to eq('sha256')
+  end
+
+  it 'should accept dsc_hashalgorithm predefined value SHA384' do
+    dsc_xpackage[:dsc_hashalgorithm] = 'SHA384'
+    expect(dsc_xpackage[:dsc_hashalgorithm]).to eq('SHA384')
+  end
+
+  it 'should accept dsc_hashalgorithm predefined value sha384' do
+    dsc_xpackage[:dsc_hashalgorithm] = 'sha384'
+    expect(dsc_xpackage[:dsc_hashalgorithm]).to eq('sha384')
+  end
+
+  it 'should accept dsc_hashalgorithm predefined value SHA512' do
+    dsc_xpackage[:dsc_hashalgorithm] = 'SHA512'
+    expect(dsc_xpackage[:dsc_hashalgorithm]).to eq('SHA512')
+  end
+
+  it 'should accept dsc_hashalgorithm predefined value sha512' do
+    dsc_xpackage[:dsc_hashalgorithm] = 'sha512'
+    expect(dsc_xpackage[:dsc_hashalgorithm]).to eq('sha512')
+  end
+
+  it 'should accept dsc_hashalgorithm predefined value MD5' do
+    dsc_xpackage[:dsc_hashalgorithm] = 'MD5'
+    expect(dsc_xpackage[:dsc_hashalgorithm]).to eq('MD5')
+  end
+
+  it 'should accept dsc_hashalgorithm predefined value md5' do
+    dsc_xpackage[:dsc_hashalgorithm] = 'md5'
+    expect(dsc_xpackage[:dsc_hashalgorithm]).to eq('md5')
+  end
+
+  it 'should accept dsc_hashalgorithm predefined value RIPEMD160' do
+    dsc_xpackage[:dsc_hashalgorithm] = 'RIPEMD160'
+    expect(dsc_xpackage[:dsc_hashalgorithm]).to eq('RIPEMD160')
+  end
+
+  it 'should accept dsc_hashalgorithm predefined value ripemd160' do
+    dsc_xpackage[:dsc_hashalgorithm] = 'ripemd160'
+    expect(dsc_xpackage[:dsc_hashalgorithm]).to eq('ripemd160')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xpackage[:dsc_hashalgorithm] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_hashalgorithm' do
+    expect{dsc_xpackage[:dsc_hashalgorithm] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_hashalgorithm' do
+    expect{dsc_xpackage[:dsc_hashalgorithm] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_hashalgorithm' do
+    expect{dsc_xpackage[:dsc_hashalgorithm] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_hashalgorithm' do
+    expect{dsc_xpackage[:dsc_hashalgorithm] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_signersubject' do
+    expect{dsc_xpackage[:dsc_signersubject] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_signersubject' do
+    expect{dsc_xpackage[:dsc_signersubject] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_signersubject' do
+    expect{dsc_xpackage[:dsc_signersubject] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_signersubject' do
+    expect{dsc_xpackage[:dsc_signersubject] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_signerthumbprint' do
+    expect{dsc_xpackage[:dsc_signerthumbprint] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_signerthumbprint' do
+    expect{dsc_xpackage[:dsc_signerthumbprint] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_signerthumbprint' do
+    expect{dsc_xpackage[:dsc_signerthumbprint] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_signerthumbprint' do
+    expect{dsc_xpackage[:dsc_signerthumbprint] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_servercertificatevalidationcallback' do
+    expect{dsc_xpackage[:dsc_servercertificatevalidationcallback] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_servercertificatevalidationcallback' do
+    expect{dsc_xpackage[:dsc_servercertificatevalidationcallback] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_servercertificatevalidationcallback' do
+    expect{dsc_xpackage[:dsc_servercertificatevalidationcallback] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_servercertificatevalidationcallback' do
+    expect{dsc_xpackage[:dsc_servercertificatevalidationcallback] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_installedcheckreghive predefined value LocalMachine' do
+    dsc_xpackage[:dsc_installedcheckreghive] = 'LocalMachine'
+    expect(dsc_xpackage[:dsc_installedcheckreghive]).to eq('LocalMachine')
+  end
+
+  it 'should accept dsc_installedcheckreghive predefined value localmachine' do
+    dsc_xpackage[:dsc_installedcheckreghive] = 'localmachine'
+    expect(dsc_xpackage[:dsc_installedcheckreghive]).to eq('localmachine')
+  end
+
+  it 'should accept dsc_installedcheckreghive predefined value CurrentUser' do
+    dsc_xpackage[:dsc_installedcheckreghive] = 'CurrentUser'
+    expect(dsc_xpackage[:dsc_installedcheckreghive]).to eq('CurrentUser')
+  end
+
+  it 'should accept dsc_installedcheckreghive predefined value currentuser' do
+    dsc_xpackage[:dsc_installedcheckreghive] = 'currentuser'
+    expect(dsc_xpackage[:dsc_installedcheckreghive]).to eq('currentuser')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xpackage[:dsc_installedcheckreghive] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_installedcheckreghive' do
+    expect{dsc_xpackage[:dsc_installedcheckreghive] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_installedcheckreghive' do
+    expect{dsc_xpackage[:dsc_installedcheckreghive] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_installedcheckreghive' do
+    expect{dsc_xpackage[:dsc_installedcheckreghive] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_installedcheckreghive' do
+    expect{dsc_xpackage[:dsc_installedcheckreghive] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_installedcheckregkey' do

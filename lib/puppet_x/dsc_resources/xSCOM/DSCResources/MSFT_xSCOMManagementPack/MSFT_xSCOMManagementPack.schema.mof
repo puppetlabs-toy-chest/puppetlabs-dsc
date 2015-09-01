@@ -1,0 +1,11 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCOMManagementPack")]
+class MSFT_xSCOMManagementPack : OMI_BaseResource
+{
+    [Key, Description("Name of the Management Pack.")] String Name;
+    [Write, Description("Specific version of the Management Pack, overrides MinVersion if both set.")] String Version;
+    [Write, Description("Minimum version of the Management Pack, overridden by Version if both set.")] String MinVersion;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential with admin permissions to Operations Manager.")] String SCOMAdminCredential;
+    [Write, Description("UNC path to the root of the source files for installation, if omitted the Operations Manager installation folder will be used.")] String SourcePath;
+    [Required, Description("Folder within the source path containing the source files for installation.")] String SourceFolder;
+    [Required, Description("Name of the file in the source folder for the Management Pack.")] String SourceFile;
+};

@@ -1,0 +1,18 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCSMARunbookWorkerServerSetup")]
+class MSFT_xSCSMARunbookWorkerServerSetup : OMI_BaseResource
+{
+    [Key, Description("An enumerated value that describes if the SMA Runbook Worker server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Required, Description("UNC path to the root of the source files for installation.")] String SourcePath;
+    [Write, Description("Folder within the source path containing the source files for installation.")] String SourceFolder;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String SetupCredential;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Service account of the web service application pool.")] String Service;
+    [Read, Description("Output username of the Service account of the web service application pool.")] String ServiceUserName;
+    [Required, Description("Name of the SQL Server for the SMA database.")] String SqlServer;
+    [Required, Description("Name of the SQL Instance for the SMA database.")] String SqlInstance;
+    [Write, Description("Name of the SMA database.")] String SqlDatabase;
+    [Write, Description("Installation folder for SMA.")] String InstallFolder;
+    [Write, Description("Log to ETW.")] String ETWManifest;
+    [Write, Description("Participate in the Customer Experience Improvement Program.")] String SendCEIPReports;
+    [Write, Description("Use Microsoft Update.")] String MSUpdate;
+    [Write, Description("Product key for licensed installations.")] String ProductKey;
+};

@@ -1,0 +1,8 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCOMAdmin")]
+class MSFT_xSCOMAdmin : OMI_BaseResource
+{
+    [Write, Description("An enumerated value that describes if the principal is an Operations Manager admin.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Key, Description("The Operations Manager admin principal.")] String Principal;
+    [Key, Description("The Operations Manager user role.")] String UserRole;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the operations.")] String SCOMAdminCredential;
+};

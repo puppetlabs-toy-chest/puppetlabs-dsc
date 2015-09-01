@@ -1,0 +1,10 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xAzurePackDatabaseSetting")]
+class MSFT_xAzurePackDatabaseSetting : OMI_BaseResource
+{
+    [Key, Description("Specifies the namespace."),ValueMap{"AdminSite","TenantSite"}, Values{"AdminSite","TenantSite"}] String Namespace;
+    [Key, Description("Specifies the name of the setting.")] String Name;
+    [Required, Description("Specifies the value of the setting.")] String Value;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String AzurePackAdminCredential;
+    [Required, Description("Database server for the Azure Pack databases.")] String SQLServer;
+    [Write, Description("Database instance for the Azure Pack databases.")] String SQLInstance;
+};

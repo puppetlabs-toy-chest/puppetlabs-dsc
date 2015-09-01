@@ -31,6 +31,8 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
       :dsc_configurationpath => 'foo',
       :dsc_iscomplianceserver => true,
       :dsc_dscserverurl => 'foo',
+      :dsc_registrationkeypath => 'foo',
+      :dsc_acceptselfsignedcertificates => true,
     )}.to raise_error(Puppet::Error, /dsc_endpointname is a required attribute/)
   end
 
@@ -300,6 +302,69 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
 
   it 'should not accept uint for dsc_dscserverurl' do
     expect{dsc_xdscwebservice[:dsc_dscserverurl] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_registrationkeypath' do
+    expect{dsc_xdscwebservice[:dsc_registrationkeypath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_registrationkeypath' do
+    expect{dsc_xdscwebservice[:dsc_registrationkeypath] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_registrationkeypath' do
+    expect{dsc_xdscwebservice[:dsc_registrationkeypath] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_registrationkeypath' do
+    expect{dsc_xdscwebservice[:dsc_registrationkeypath] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_acceptselfsignedcertificates' do
+    expect{dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_acceptselfsignedcertificates' do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = true
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_acceptselfsignedcertificates" do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = 'true'
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_acceptselfsignedcertificates" do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = 'false'
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_acceptselfsignedcertificates" do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = 'True'
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_acceptselfsignedcertificates" do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = 'False'
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_acceptselfsignedcertificates" do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = :true
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_acceptselfsignedcertificates" do
+    dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = :false
+    expect(dsc_xdscwebservice[:dsc_acceptselfsignedcertificates]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_acceptselfsignedcertificates' do
+    expect{dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_acceptselfsignedcertificates' do
+    expect{dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

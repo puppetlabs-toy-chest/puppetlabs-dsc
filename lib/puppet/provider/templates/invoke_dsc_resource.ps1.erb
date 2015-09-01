@@ -21,7 +21,7 @@ $invokeParams = @{
 <% dsc_parameters.each do |p| -%>
     <%- name = p.name.to_s.gsub(/^dsc_/,'')
     value = format_dsc_value(p.value)
-    value = '\'present\'' if name == 'ensure' && dsc_invoke_method == 'test'
+    value = "\'#{resource.parameters[:ensure].default.to_s}\'" if name == 'ensure' && dsc_invoke_method == 'test'
     -%>
     <%= name %> = <%= value %>
 <% end -%>

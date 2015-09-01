@@ -1,5 +1,5 @@
 
-[ClassVersion("1.0.0.0"), FriendlyName("xWinEventLog")]
+[ClassVersion("1.0.0.1"), FriendlyName("xWinEventLog")]
 class MSFT_xWinEventLog : OMI_BaseResource
 {
     [Key, Description("Name of the event log")] String LogName;
@@ -7,6 +7,7 @@ class MSFT_xWinEventLog : OMI_BaseResource
     [Write] Boolean IsEnabled;
     [Write, ValueMap{"AutoBackup","Circular","Retain"}, Values{"AutoBackup","Circular","Retain"}] String LogMode;
     [Write] String SecurityDescriptor;
+    [Write] String LogFilePath;
 };
 
 

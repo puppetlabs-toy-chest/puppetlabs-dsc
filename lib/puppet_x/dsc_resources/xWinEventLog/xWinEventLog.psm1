@@ -1,4 +1,4 @@
-
+﻿
 function Show-xWinEventLogExamples
 {
     $path = Join-Path $PSScriptRoot 'Examples\*'

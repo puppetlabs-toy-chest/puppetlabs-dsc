@@ -11,4 +11,3 @@ class MSFT_xDBPackage : OMI_BaseResource
 };
 
 
-

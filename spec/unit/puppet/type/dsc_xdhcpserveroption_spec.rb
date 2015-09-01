@@ -24,6 +24,7 @@ describe Puppet::Type.type(:dsc_xdhcpserveroption) do
       :name     => 'foo',
       :dsc_dnsserveripaddress => ["foo", "bar", "spec"],
       :dsc_dnsdomain => 'foo',
+      :dsc_router => ["foo", "bar", "spec"],
       :dsc_addressfamily => 'IPv4',
       :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_scopeid is a required attribute/)
@@ -76,6 +77,23 @@ describe Puppet::Type.type(:dsc_xdhcpserveroption) do
 
   it 'should not accept uint for dsc_dnsdomain' do
     expect{dsc_xdhcpserveroption[:dsc_dnsdomain] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept array for dsc_router' do
+    dsc_xdhcpserveroption[:dsc_router] = ["foo", "bar", "spec"]
+    expect(dsc_xdhcpserveroption[:dsc_router]).to eq(["foo", "bar", "spec"])
+  end
+
+  it 'should not accept boolean for dsc_router' do
+    expect{dsc_xdhcpserveroption[:dsc_router] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_router' do
+    expect{dsc_xdhcpserveroption[:dsc_router] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_router' do
+    expect{dsc_xdhcpserveroption[:dsc_router] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_addressfamily predefined value IPv4' do

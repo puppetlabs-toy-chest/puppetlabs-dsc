@@ -78,6 +78,7 @@ describe Puppet::Type.type(:dsc_archive) do
       :dsc_validate => true,
       :dsc_checksum => 'SHA-1',
       :dsc_force => true,
+      :dsc_credential => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_path is a required attribute/)
   end
 
@@ -106,6 +107,7 @@ describe Puppet::Type.type(:dsc_archive) do
       :dsc_validate => true,
       :dsc_checksum => 'SHA-1',
       :dsc_force => true,
+      :dsc_credential => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_destination is a required attribute/)
   end
 
@@ -287,6 +289,22 @@ describe Puppet::Type.type(:dsc_archive) do
 
   it 'should not accept uint for dsc_force' do
     expect{dsc_archive[:dsc_force] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_credential' do
+    expect{dsc_archive[:dsc_credential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_credential' do
+    expect{dsc_archive[:dsc_credential] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_credential' do
+    expect{dsc_archive[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_credential' do
+    expect{dsc_archive[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

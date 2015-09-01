@@ -1,0 +1,13 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCOMConsoleSetup")]
+class MSFT_xSCOMConsoleSetup : OMI_BaseResource
+{
+    [Key, Description("An enumerated value that describes if the OM Console is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Required, Description("UNC path to the root of the source files for installation.")] String SourcePath;
+    [Write, Description("Folder within the source path containing the source files for installation.")] String SourceFolder;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String SetupCredential;
+    [Write, Description("Installation path for the software.")] String InstallPath;
+    [Write, Description("0: Do not opt in to Microsoft Update. 1: Opt in to Microsoft Update.")] UInt8 UseMicrosoftUpdate;
+    [Write, Description("0: Do not opt in to the Customer Experience Improvement Program (CEIP). 1: Opt in to CEIP.")] UInt8 SendCEIPReports;
+    [Write, Description("Never: Do not opt in to sending automatic error reports. Queued: Opt in to sending error reports, but queue the reports for review before sending. Always: Opt in to automatically send error reports."), ValueMap{"Never","Queued","Always"}, Values{"Never","Queued","Always"}] String EnableErrorReporting;
+    [Write, Description("0: Do not opt in to sending operational data reports. 1: opt in to sending operational data reports.")] UInt8 SendODRReports;
+};

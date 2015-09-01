@@ -1,0 +1,11 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCVMMConsoleSetup")]
+class MSFT_xSCVMMConsoleSetup : OMI_BaseResource
+{
+    [Key, Description("An enumerated value that describes if the DPM server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Required, Description("UNC path to the root of the source files for installation.")] String SourcePath;
+    [Write, Description("Folder within the source path containing the source files for installation.")] String SourceFolder;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String SetupCredential;
+    [Write, Description("Installation path for the software.")] String ProgramFiles;
+    [Write, Description("Port for communication with the VMM management server.")] UInt16 IndigoTcpPort;
+    [Write, Description("0: Do not opt in to Microsoft Update. 1: Opt in to Microsoft Update.")] UInt8 MUOptIn;
+};

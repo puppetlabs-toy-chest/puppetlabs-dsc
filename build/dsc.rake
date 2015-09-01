@@ -52,8 +52,7 @@ eod
 
       puts "Downloading and Importing #{item_name}"
       sh "git clone --depth 1 --recursive #{dsc_repo} #{dsc_resources_path_tmp}"
-      FileUtils.rm_rf "#{dsc_resources_path_tmp}/.git"
-      FileUtils.rm_rf "#{dsc_resources_path_tmp}/xDscResources/*/.git"
+      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git"])
 
       puts "Copying vendored resources from #{dsc_resources_path_tmp}/xDscResources to #{vendor_dsc_resources_path}"
       FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", vendor_dsc_resources_path, :remove_destination => true

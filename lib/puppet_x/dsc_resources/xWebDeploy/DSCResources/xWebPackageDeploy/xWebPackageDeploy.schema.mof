@@ -1,0 +1,12 @@
+#pragma namespace("\\\\.\\root\\microsoft\\windows\\DesiredStateConfiguration")
+
+[ClassVersion("1.0.0.0"), FriendlyName("xWebPackageDeploy")]
+class xWebPackageDeploy : OMI_BaseResource
+{
+    [Required, Description("Full path to the zip package.")] String SourcePath;
+    [Key, Description("WebDeploy destination for content path or website name).")] String Destination;    
+    [Write, Description("Desired state of resource."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+};
+
+
+

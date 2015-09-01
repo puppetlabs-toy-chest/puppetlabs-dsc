@@ -12,7 +12,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.0.0'
+ModuleVersion = '1.0.2.0'
 
 # ID used to uniquely identify this module
 GUID = 'f7882c21-0820-4d27-811f-c095e1a91ec3'
@@ -27,7 +27,7 @@ CompanyName = 'Microsoft'
 Copyright = '(c) 2014 Microsoft. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'Module for installing the chrome'
+Description = 'PowerShell Desired State Configuration (DSC) module for installing Google Chrome.'
 
 # Minimum version of the Windows PowerShell engine required by this module
 # PowerShellVersion = ''

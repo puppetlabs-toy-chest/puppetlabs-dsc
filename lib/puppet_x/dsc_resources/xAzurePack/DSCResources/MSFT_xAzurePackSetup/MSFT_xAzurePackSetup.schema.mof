@@ -1,0 +1,14 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xAzurePackSetup")]
+class MSFT_xAzurePackSetup : OMI_BaseResource
+{
+    [Key, Description("The Azure Pack role to be installed or initialized."), ValueMap{"Admin API","Tenant API","Tenant Public API","SQL Server Extension","MySQL Extension","Admin Site","Admin Authentication Site","Tenant Site","Tenant Authentication Site"}, Values{"Admin API","Tenant API","Tenant Public API","SQL Server Extension","MySQL Extension","Admin Site","Admin Authentication Site","Tenant Site","Tenant Authentication Site"}] String Role;
+    [Key, Description("Install or initialize."), ValueMap{"Install","Initialize"}, Values{"Install","Initialize"}] String Action;
+    [Required, Description("UNC path to the root of the source files for installation.")] String SourcePath;
+    [Write, Description("Folder within the source path containing the source files for installation.")] String SourceFolder;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String SetupCredential;
+    [Write, EmbeddedInstance("MSFT_Credential"), Description("Passphrase for the Azure Pack deployment.")] String Passphrase;
+    [Write, Description("Database server for the Azure Pack databases.")] String SQLServer;
+    [Write, Description("Database instance for the Azure Pack databases.")] String SQLInstance;
+    [Write, EmbeddedInstance("MSFT_Credential"), Description("SQL user to be used to create the database if the SetupCredential cannot be used.")] String dbUser;
+    [Write, Description("Enable Customer Experience Improvement Program.")] String EnableCeip;
+};

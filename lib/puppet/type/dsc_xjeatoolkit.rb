@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
   @doc = %q{
     The DSC xJeaToolKit resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xJea/DSCResources/MSFT_xJeaToolkit/MSFT_xJeaToolkit.schema.mof
+      import/dsc_resources/xJea/DSCResources/MSFT_xJeaToolkit/MSFT_xJeaToolkit.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.2.16.1"
+    defaultto "0.2.16.5"
   end
 
   newparam(:name, :namevar => true ) do
@@ -50,7 +50,7 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
     newvalue(:absent)  { provider.destroy }
-    defaultto :present
+    defaultto { :present }
   end
 
   # Name:         Name

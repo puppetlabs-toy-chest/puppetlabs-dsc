@@ -143,7 +143,7 @@ function Test-TargetResource
 
     if ($virtualDirectory.count -eq 0 -and $Ensure -eq "Absent")
     {
-        Write-Verbose "Web virtual direcotry $Name should be absent and is absent"
+        Write-Verbose "Web virtual directory $Name should be absent and is absent"
         return $true
     }
 
@@ -227,6 +227,7 @@ function GetCompositeVirtualDirectoryName
 }
 
 Export-ModuleMember -Function *-TargetResource
+
 
 
 

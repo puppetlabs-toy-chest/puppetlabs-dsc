@@ -1,0 +1,8 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCSPFServer")]
+class MSFT_xSCSPFServer : OMI_BaseResource
+{
+    [Write, Description("An enumerated value that describes if the SPF server exists.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Key, Description("Specifies a name for the server.")] String Name;
+    [Required, Description("Specifies the type of server."), ValueMap{"VMM","OM","DPM","OMDW","RDGateway","Orchestrator","None"}, Values{"VMM","OM","DPM","OMDW","RDGateway","Orchestrator","None"}] String ServerType;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential with admin permissions to Service Provider Foundation.")] String SCSPFAdminCredential;
+};

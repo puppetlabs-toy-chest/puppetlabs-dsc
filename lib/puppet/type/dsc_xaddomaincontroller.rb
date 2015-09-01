@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xaddomaincontroller) do
   @doc = %q{
     The DSC xADDomainController resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xActiveDirectory/DSCResources/MSFT_xADDomainController/MSFT_xADDomainController.schema.mof
+      import/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADDomainController/MSFT_xADDomainController.schema.mof
   }
 
   validate do
@@ -40,7 +40,7 @@ Puppet::Type.newtype(:dsc_xaddomaincontroller) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.2"
+    defaultto "2.5.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -49,8 +49,7 @@ Puppet::Type.newtype(:dsc_xaddomaincontroller) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
-    newvalue(:absent)  { provider.destroy }
-    defaultto :present
+    defaultto { :present }
   end
 
   # Name:         DomainName
@@ -90,19 +89,38 @@ Puppet::Type.newtype(:dsc_xaddomaincontroller) do
     end
   end
 
-  # Name:         Ensure
+  # Name:         DatabasePath
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["Present", "Absent"]
-  newparam(:dsc_ensure) do
-    desc "Is this resource present or absent"
+  # Values:       None
+  newparam(:dsc_databasepath) do
     validate do |value|
-      resource[:ensure] = value.downcase
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Present, Absent")
+    end
+  end
+
+  # Name:         LogPath
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_logpath) do
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SysvolPath
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sysvolpath) do
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end

@@ -1,0 +1,26 @@
+
+[ClassVersion("0.1.0.0"), FriendlyName("xWEFSubscription")]
+class MSFT_xWEFSubscription : OMI_BaseResource
+{
+    [Key, Description("Name of the Subscription")] String SubscriptionID;
+    [Write, Description("Determines whether to validate or remove the scubscription"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Required, Description("Type of Subscription to create"), ValueMap{"CollectorInitiated","SourceInitiated"}, Values{"CollectorInitiated","SourceInitiated"}] String SubscriptionType;
+    [Write, Description("Description of the Collector subscription")] String Description;
+    [Write, Description("Sets whether the subscription will be enabled, default true"), ValueMap{"true","false"}, Values{"true","false"}] String Enabled;
+    [Write, Description("Configures whether the collector will pull events from source nodes or if the source nodes will push events to the collector, default push"), ValueMap{"Push","Pull"}, Values{"Push","Pull"}] String DeliveryMode;
+    [Write, Description("The number of events that can occur on the source before they are submitted to the collector, default 1")] Sint32 MaxItems;
+    [Write, Description("The maximum amount of time that can pass before events are submitted to the collector, default 20000")] Uint64 MaxLatencyTime;
+    [Write, Description("Frequency to verify connectivity, default 20000")] Uint64 HeartBeatInterval;
+    [Write, Description("Should the collector read existing or only new events, default false"), ValueMap{"true","false"}, Values{"true","false"}] String ReadExistingEvents;
+    [Write, Description("Determines whether to require SSL, default HTTP"), ValueMap{"HTTP","HTTPS"}, Values{"HTTP","HTTPS"}] String TransportName;
+    [Write, Description("Set the port number that WinRM should use to make a connection, default 5985")] String TransportPort;
+    [Write, Description("Format that event logs will be submitted in, default RenderedText")] String ContentFormat;
+    [Write, Description("Sets the subscription Locale, default en-US")] String Locale;
+    [Write, Description("Sets the event log that the collected events will be written to, default ForwardedEvents")] String LogFile;
+    [Write, Description("Sets the credential type used for authenticating to WinRM, default Default"), ValueMap{"Default","Basic","Negotiate","Digest"}, Values{"Default","Basic","Negotiate","Digest"}] String CredentialsType;
+    [Write, Description("This parameter has not been fully implemented, only required for source initiated scenarios, provide XML to set IssuerCAList, AllowedSubjectList, or DeniedSubjectList if this will be used, default empty string")] String AllowedSourceNonDomainComputers[];
+    [Write, Description("In Source Initiated scenario this SDDL determines who can push events, default O:NSG:NSD:(A;;GA;;;DC)(A;;GA;;;NS) which equates to Domain Computers and Network Service")] String AllowedSourceDomainComputers;
+    [Write, Description("Expects an array of hashtables that set which events should be collected, default is all application and system logs")] String Query[];
+    [Write, Description("Expects an array of source node FQDNs, default source.wef.test to prevent errors when only staging test subscription")] String Address[];
+};
+

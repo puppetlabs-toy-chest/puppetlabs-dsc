@@ -1,0 +1,11 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xInternetExplorerHomePage")]
+class xInternetExplorerHomePage : OMI_BaseResource
+{
+    [Key, Description("Specifies the URL for the home page of Internet Explorer.")] String StartPage;
+    [Write, Description("Specifies the URL for the secondary home pages of Internet Explorer.")] String SecondaryStartPages;
+    [Write, Description("Should the IE home page is configured or unconfigured."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+};
+
+
+

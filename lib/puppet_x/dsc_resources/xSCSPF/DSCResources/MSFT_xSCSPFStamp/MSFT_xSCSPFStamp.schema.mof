@@ -1,0 +1,8 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCSPFStamp")]
+class MSFT_xSCSPFStamp : OMI_BaseResource
+{
+    [Write, Description("An enumerated value that describes if the SPF stamp exists.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Key, Description("Specifies a name for the stamp.")] String Name;
+    [Required, Description("Specifies the name of one or more server objects to associate with the new stamp.")] String Servers[];
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential with admin permissions to Service Provider Foundation.")] String SCSPFAdminCredential;
+};

@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   @doc = %q{
     The DSC xWordPressSite resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xWordPress/DscResources/MSFT_xWordPressSite/MSFT_xWordPressSite.schema.mof
+      import/dsc_resources/xWordPress/DscResources/MSFT_xWordPressSite/MSFT_xWordPressSite.schema.mof
   }
 
   validate do
@@ -49,7 +49,7 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
-    defaultto :present
+    defaultto { :present }
   end
 
   # Name:         Uri

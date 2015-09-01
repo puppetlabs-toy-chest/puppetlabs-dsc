@@ -21,4 +21,3 @@ class MSFT_xSqlServerInstall : OMI_BaseResource
     [write, Description("Specify the account for SQL server agent service.")] string AgentSvcAccount;
 };
 
-

@@ -1,0 +1,8 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xAzurePackUpdate")]
+class MSFT_xAzurePackUpdate : OMI_BaseResource
+{
+    [Key, Description("The Azure Pack role to be updated."), ValueMap{"Admin API","Tenant API","Tenant Public API","SQL Server Extension","MySQL Extension","Admin Site","Admin Authentication Site","Tenant Site","Tenant Authentication Site"}, Values{"Admin API","Tenant API","Tenant Public API","SQL Server Extension","MySQL Extension","Admin Site","Admin Authentication Site","Tenant Site","Tenant Authentication Site"}] String Role;
+    [Required, Description("UNC path to the root of the source files for installation.")] String SourcePath;
+    [Write, Description("Folder within the source path containing the source files for installation.")] String SourceFolder;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String SetupCredential;
+};

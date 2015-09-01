@@ -1,0 +1,15 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xDatabaseLogin")]
+class MSFT_xDatabaseLogin : OMI_BaseResource
+{
+    [Write, ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Key] String LoginName;
+    [Write] String LoginPassword;
+    [Write, ValueMap{"Windows","SQL"}, Values{"Windows","SQL"}] string SqlAuthType;
+    [Write, Description("Sql Server Name")] String SqlServer;
+    [Write, EmbeddedInstance("MSFT_Credential")] String SqlConnectionCredential;
+};
+
+
+
+

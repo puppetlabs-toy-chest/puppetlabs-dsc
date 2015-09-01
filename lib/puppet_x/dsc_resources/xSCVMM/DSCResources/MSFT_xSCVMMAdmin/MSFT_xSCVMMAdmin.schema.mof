@@ -1,0 +1,8 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCVMMAdmin")]
+class MSFT_xSCVMMAdmin : OMI_BaseResource
+{
+    [Write, Description("An enumerated value that describes if the principal is an Virtual Machine Manager admin.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Key, Description("The Virtual Machine Manager admin principal.")] String Principal;
+    [Key, Description("The Virtual Machine Manager user role.")] String UserRole;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the operations.")] String SCVMMAdminCredential;
+};

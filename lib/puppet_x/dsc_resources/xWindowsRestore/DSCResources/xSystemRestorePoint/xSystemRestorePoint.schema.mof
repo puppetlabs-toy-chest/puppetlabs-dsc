@@ -1,0 +1,11 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xSystemRestorePoint")]
+class xSystemRestorePoint : OMI_BaseResource
+{
+    [Key, Description("Specifies a descriptive name for the restore point.")] String Description;
+    [Write, Description("Specifies the type of restore point. The default is APPLICATION_INSTALL."), ValueMap{"APPLICATION_INSTALL","APPLICATION_UNINSTALL","DEVICE_DRIVER_INSTALL","MODIFY_SETTINGS","CANCELLED_OPERATION"}, Values{"APPLICATION_INSTALL","APPLICATION_UNINSTALL","DEVICE_DRIVER_INSTALL","MODIFY_SETTINGS","CANCELLED_OPERATION"}] String RestorePointType;
+    [Write, Description("Indicates if the specified restore point created. Set this property to 'Absent' to ensure that the restore point does not exist. Set it to 'Present' to ensure that the restore point does exist. The default is 'Present'."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+};
+
+
+

@@ -1,0 +1,28 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCSPFServerSetup")]
+class MSFT_xSCSPFServerSetup : OMI_BaseResource
+{
+    [Key, Description("An enumerated value that describes if SPF server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Required, Description("UNC path to the root of the source files for installation.")] String SourcePath;
+    [Write, Description("Folder within the source path containing the source files for installation.")] String SourceFolder;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String SetupCredential;
+    [Write, Description("Participate in the Customer Experience Improvement Program.")] String SendCEIPReports;
+    [Write, Description("Use Microsoft Update.")] String UseMicrosoftUpdate;
+    [Write, Description("Use an existing certificate.")] Boolean SpecifyCertificate;
+    [Write, Description("Name of existing certificate to use.")] String CertificateName;
+    [Required, Description("Name of the database server.")] String DatabaseServer;
+    [Write, Description("Port of the database server instance.")] UInt16 DatabasePortNumber;
+    [Write, Description("Name of the SPF database.")] String DatabaseName;
+    [Write, Description("Port for the SPF web service.")] UInt16 WebSitePortNumber;
+    [Write,EmbeddedInstance("MSFT_Credential"), Description("Credential for the VMM application pool.")] String SCVMM;
+    [Read, Description("Output username of the VMM application pool serivce.")] String SCVMMUsername;
+    [Write,EmbeddedInstance("MSFT_Credential"), Description("Credential for the Admin application pool")] String SCAdmin;
+    [Read, Description("Output username of the Admin application pool serivce.")] String SCAdminUsername;
+    [Write,EmbeddedInstance("MSFT_Credential"), Description("Credential for the Provider application pool")] String SCProvider;
+    [Read, Description("Output username of the Provider application pool serivce.")] String SCProviderUsername;
+    [Write,EmbeddedInstance("MSFT_Credential"), Description("Credential for the Usage application pool")] String SCUsage;
+    [Read, Description("Output username of the Usage application pool serivce.")] String SCUsageUsername;
+    [Write, Description("Administrator of the VMM application pool.")] String VMMSecurityGroupUsers;
+    [Write, Description("Administrator of the Admin application pool")] String AdminSecurityGroupUsers;
+    [Write, Description("Administrator of the Provider application pool")] String ProviderSecurityGroupUsers;
+    [Write, Description("Administrator of the Usage application pool")] String UsageSecurityGroupUsers;
+};

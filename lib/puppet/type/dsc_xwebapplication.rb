@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
   @doc = %q{
     The DSC xWebApplication resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-kit/xWebAdministration/DSCResources/MSFT_xWebApplication/MSFT_xWebApplication.schema.mof
+      import/dsc_resources/xWebAdministration/DSCResources/MSFT_xWebApplication/MSFT_xWebApplication.schema.mof
   }
 
   validate do
@@ -41,7 +41,7 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.3.2.4"
+    defaultto "1.7.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -51,7 +51,7 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
     newvalue(:absent)  { provider.destroy }
-    defaultto :present
+    defaultto { :present }
   end
 
   # Name:         Website

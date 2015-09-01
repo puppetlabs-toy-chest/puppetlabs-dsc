@@ -19,6 +19,60 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect(dsc_xaduser[:ensure]).to eq :present
   end
 
+  it 'should require that dsc_domainname is specified' do
+    #dsc_xaduser[:dsc_domainname]
+    expect { Puppet::Type.type(:dsc_xaduser).new(
+      :name     => 'foo',
+      :dsc_username => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_password => 'foo',
+      :dsc_domainadministratorcredential => 'foo',
+    )}.to raise_error(Puppet::Error, /dsc_domainname is a required attribute/)
+  end
+
+  it 'should not accept array for dsc_domainname' do
+    expect{dsc_xaduser[:dsc_domainname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_domainname' do
+    expect{dsc_xaduser[:dsc_domainname] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_domainname' do
+    expect{dsc_xaduser[:dsc_domainname] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_domainname' do
+    expect{dsc_xaduser[:dsc_domainname] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should require that dsc_username is specified' do
+    #dsc_xaduser[:dsc_username]
+    expect { Puppet::Type.type(:dsc_xaduser).new(
+      :name     => 'foo',
+      :dsc_domainname => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_password => 'foo',
+      :dsc_domainadministratorcredential => 'foo',
+    )}.to raise_error(Puppet::Error, /dsc_username is a required attribute/)
+  end
+
+  it 'should not accept array for dsc_username' do
+    expect{dsc_xaduser[:dsc_username] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_username' do
+    expect{dsc_xaduser[:dsc_username] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_username' do
+    expect{dsc_xaduser[:dsc_username] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_username' do
+    expect{dsc_xaduser[:dsc_username] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xaduser[:dsc_ensure] = 'Present'
     expect(dsc_xaduser[:dsc_ensure]).to eq('Present')
@@ -67,60 +121,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept uint for dsc_ensure' do
     expect{dsc_xaduser[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should require that dsc_domainname is specified' do
-    #dsc_xaduser[:dsc_domainname]
-    expect { Puppet::Type.type(:dsc_xaduser).new(
-      :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_username => 'foo',
-      :dsc_password => 'foo',
-      :dsc_domainadministratorcredential => 'foo',
-    )}.to raise_error(Puppet::Error, /dsc_domainname is a required attribute/)
-  end
-
-  it 'should not accept array for dsc_domainname' do
-    expect{dsc_xaduser[:dsc_domainname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_domainname' do
-    expect{dsc_xaduser[:dsc_domainname] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_domainname' do
-    expect{dsc_xaduser[:dsc_domainname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domainname' do
-    expect{dsc_xaduser[:dsc_domainname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should require that dsc_username is specified' do
-    #dsc_xaduser[:dsc_username]
-    expect { Puppet::Type.type(:dsc_xaduser).new(
-      :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_domainname => 'foo',
-      :dsc_password => 'foo',
-      :dsc_domainadministratorcredential => 'foo',
-    )}.to raise_error(Puppet::Error, /dsc_username is a required attribute/)
-  end
-
-  it 'should not accept array for dsc_username' do
-    expect{dsc_xaduser[:dsc_username] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_username' do
-    expect{dsc_xaduser[:dsc_username] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_username' do
-    expect{dsc_xaduser[:dsc_username] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_username' do
-    expect{dsc_xaduser[:dsc_username] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_password' do

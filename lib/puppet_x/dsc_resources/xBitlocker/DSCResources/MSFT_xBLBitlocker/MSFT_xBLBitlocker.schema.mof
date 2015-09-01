@@ -1,0 +1,30 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xBLBitlocker")]
+class MSFT_xBLBitlocker : OMI_BaseResource
+{
+    [Key] String MountPoint; //The MountPoint name as reported in Get-BitLockerVolume
+    [Required, ValueMap{"PasswordProtector","RecoveryPasswordProtector","StartupKeyProtector","TpmProtector"}, Values{"PasswordProtector","RecoveryPasswordProtector","StartupKeyProtector","TpmProtector"}] String PrimaryProtector; //The type of key protector that will be used as the primary key protector
+    [Write] Boolean AutoUnlock; //Whether volumes should be enabled for auto unlock using Enable-BitlockerAutoUnlock
+    [Write] Boolean AllowImmediateReboot; //Whether the computer can be immediately rebooted after enabling Bitlocker on an OS drive. Defaults to false.
+
+    //Remaing properties correspond directly to Enable-Bitlocker parameters
+    //http://technet.microsoft.com/en-us/library/jj649837.aspx
+    [Write] String AdAccountOrGroup;
+    [Write] Boolean AdAccountOrGroupProtector;
+    [Write, ValueMap{"Aes128","Aes256"}, Values{"Aes128","Aes256"}] String EncryptionMethod;
+    [Write] Boolean HardwareEncryption;
+    [Write, EmbeddedInstance("MSFT_Credential")] String Password; //NOTE: Username doesn't matter for the credential. Just put the Password in the Password field
+    [Write] Boolean PasswordProtector;
+    [Write, EmbeddedInstance("MSFT_Credential")] String Pin; //NOTE: Username doesn't matter for the credential. Just put the Pin in the Password field
+    [Write] String RecoveryKeyPath;
+    [Write] Boolean RecoveryKeyProtector;
+    [Write] Boolean RecoveryPasswordProtector;
+    [Write] Boolean Service;
+    [Write] Boolean SkipHardwareTest;
+    [Write] String StartupKeyPath;
+    [Write] Boolean StartupKeyProtector;
+    [Write] Boolean TpmProtector;
+    [Write] Boolean UsedSpaceOnly;
+};
+
+

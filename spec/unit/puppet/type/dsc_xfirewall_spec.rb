@@ -27,7 +27,7 @@ describe Puppet::Type.type(:dsc_xfirewall) do
       :dsc_ensure => 'Present',
       :dsc_access => 'NotConfigured',
       :dsc_state => 'Enabled',
-      :dsc_profile => 'Any',
+      :dsc_profile => ["foo", "bar", "spec"],
       :dsc_direction => 'Inbound',
       :dsc_remoteport => ["foo", "bar", "spec"],
       :dsc_localport => ["foo", "bar", "spec"],
@@ -226,53 +226,9 @@ describe Puppet::Type.type(:dsc_xfirewall) do
     expect{dsc_xfirewall[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_profile predefined value Any' do
-    dsc_xfirewall[:dsc_profile] = 'Any'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['Any'])
-  end
-
-  it 'should accept dsc_profile predefined value any' do
-    dsc_xfirewall[:dsc_profile] = 'any'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['any'])
-  end
-
-  it 'should accept dsc_profile predefined value Public' do
-    dsc_xfirewall[:dsc_profile] = 'Public'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['Public'])
-  end
-
-  it 'should accept dsc_profile predefined value public' do
-    dsc_xfirewall[:dsc_profile] = 'public'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['public'])
-  end
-
-  it 'should accept dsc_profile predefined value Private' do
-    dsc_xfirewall[:dsc_profile] = 'Private'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['Private'])
-  end
-
-  it 'should accept dsc_profile predefined value private' do
-    dsc_xfirewall[:dsc_profile] = 'private'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['private'])
-  end
-
-  it 'should accept dsc_profile predefined value Domain' do
-    dsc_xfirewall[:dsc_profile] = 'Domain'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['Domain'])
-  end
-
-  it 'should accept dsc_profile predefined value domain' do
-    dsc_xfirewall[:dsc_profile] = 'domain'
-    expect(dsc_xfirewall[:dsc_profile]).to eq(['domain'])
-  end
-
-  it 'should not accept values not equal to predefined values' do
-    expect{dsc_xfirewall[:dsc_profile] = 'invalid value'}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept array of predefined values for dsc_profile' do
-    dsc_xfirewall[:dsc_profile] = ["Any", "Public", "Private", "Domain"]
-    expect(dsc_xfirewall[:dsc_profile]).to eq(["Any", "Public", "Private", "Domain"])
+  it 'should accept array for dsc_profile' do
+    dsc_xfirewall[:dsc_profile] = ["foo", "bar", "spec"]
+    expect(dsc_xfirewall[:dsc_profile]).to eq(["foo", "bar", "spec"])
   end
 
   it 'should not accept boolean for dsc_profile' do

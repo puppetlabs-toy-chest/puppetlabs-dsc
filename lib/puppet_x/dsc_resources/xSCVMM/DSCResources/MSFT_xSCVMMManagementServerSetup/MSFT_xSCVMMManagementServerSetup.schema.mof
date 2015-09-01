@@ -1,0 +1,37 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xSCVMMManagementServerSetup")]
+class MSFT_xSCVMMManagementServerSetup : OMI_BaseResource
+{
+    [Key, Description("An enumerated value that describes if the DPM server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Required, Description("UNC path to the root of the source files for installation.")] String SourcePath;
+    [Write, Description("Folder within the source path containing the source files for installation.")] String SourceFolder;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to be used to perform the installation.")] String SetupCredential;
+    [Write, EmbeddedInstance("MSFT_Credential"), Description("Domain account for the VMM service.")] String vmmService;
+    [Read, Description("Output username of the VMM service.")] String vmmServiceUsername;
+    [Write, Description("Product key for licensed installations.")] String ProductKey;
+    [Write, Description("Display name for the user.")] String UserName;
+    [Write, Description("Display name for the organization.")] String CompanyName;
+    [Write, Description("Installation path for the software.")] String ProgramFiles;
+    [Write, Description("Is this a clustered Management Server?")] Boolean ClusterManagementServer;
+    [Write, Description("Is this the first Management Server?")] Boolean FirstManagementServer;
+    [Write, Description("0: Use an existing Microsoft SQL Server database. 1: Create a new SQL Server database.")] String CreateNewSqlDatabase;
+    [Required, Description("Name of the server that is hosting SQL Server.")] String SqlMachineName;
+    [Required, Description("Name of the new or existing instance of SQL Server.")] String SqlInstanceName;
+    [Write, Description("Name of the new or existing SQL Server database.")] String SqlDatabaseName;
+    [Write, Description("Port for communication with the VMM console.")] UInt16 IndigoTcpPort;
+    [Write, Description("Port for communication with the Windows Preinstallation Environment agents.")] UInt16 IndigoHTTPSPort;
+    [Write, Description("Port for communication with Windows Deployment Services.")] UInt16 IndigoNETTCPPort;
+    [Write, Description("Port for communication with Windows PE agent for time synchronization.")] UInt16 IndigoHTTPPort;
+    [Write, Description("Port for communication with agents on hosts and library servers.")] UInt16 WSManTcpPort;
+    [Write, Description("Port for file transfers to agents on hosts and library servers.")] UInt16 BitsTcpPort;
+    [Write, Description("0: Use an existing library share. 1: Create a new library share.")] String CreateNewLibraryShare;
+    [Write, Description("Name of the file share to be used or created.")] String LibraryShareName;
+    [Write, Description("Location of the existing file share or the new file share to be created.")] String LibrarySharePath;
+    [Write, Description("Description of the share.")] String LibraryShareDescription;
+    [Write, Description("Container for Distributed Key Management.")] String TopContainerName;
+    [Write, Description("Clustered service name for a highly available VMM management server.")] String VmmServerName;
+    [Write, Description("IP address for the clustered service name for a highly available VMM management server, if you are not using Dynamic Host Configuration Protocol (DHCP).")] String VMMStaticIPAddress;
+    [Write, Description("0: Remove the SQL Server database. 1: Do not remove the SQL Server database.")] UInt8 RetainSqlDatabase;
+    [Write, Description("0: Do not force uninstallation if setup.exe cannot verify whether this node is the final node of the highly available installation. 1: Force the uninstallation.")] UInt8 ForceHAVMMUninstall;
+    [Write, Description("0: Do not opt in to the Customer Experience Improvement Program (CEIP). 1: Opt in to CEIP.")] UInt8 SQMOptIn;
+    [Write, Description("0: Do not opt in to Microsoft Update. 1: Opt in to Microsoft Update.")] UInt8 MUOptIn;
+};

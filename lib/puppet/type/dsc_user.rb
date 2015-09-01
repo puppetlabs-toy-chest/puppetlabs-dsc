@@ -10,7 +10,7 @@ Puppet::Type.newtype(:dsc_user) do
   @doc = %q{
     The DSC User resource type.
     Originally generated from the following schema.mof file:
-      import/dsc_resources/dsc-resource-wmf-4/PSDesiredStateConfiguration/DSCResources/MSFT_UserResource/MSFT_UserResource.schema.mof
+      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_UserResource/MSFT_UserResource.schema.mof
   }
 
   validate do
@@ -46,7 +46,7 @@ Puppet::Type.newtype(:dsc_user) do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
     newvalue(:absent)  { provider.destroy }
-    defaultto :present
+    defaultto { :present }
   end
 
   # Name:         UserName
