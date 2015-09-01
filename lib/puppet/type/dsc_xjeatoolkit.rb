@@ -50,7 +50,7 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
     newvalue(:absent)  { provider.destroy }
-    defaultto :present
+    defaultto { :present }
   end
 
   # Name:         Name

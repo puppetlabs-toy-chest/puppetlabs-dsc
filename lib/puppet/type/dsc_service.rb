@@ -45,7 +45,7 @@ Puppet::Type.newtype(:dsc_service) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
-    defaultto :present
+    defaultto { :present }
   end
 
   # Name:         Name

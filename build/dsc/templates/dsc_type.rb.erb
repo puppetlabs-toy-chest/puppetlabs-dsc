@@ -54,7 +54,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 <%  if resource.absentable? -%>
     newvalue(:absent)  { provider.destroy }
 <%  end -%>
-    defaultto :present
+    defaultto { :present }
   end
 
 <%  resource.properties.each do |property| -%>
