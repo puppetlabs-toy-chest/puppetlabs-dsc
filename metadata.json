@@ -1,12 +1,12 @@
 {
   "name": "puppetlabs-dsc",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "author": "puppetlabs",
   "summary": "PowerShell Desired State Configuration (DSC)",
   "license": "Apache-2.0",
   "source": "https://github.com/puppetlabs/puppetlabs-dsc",
-  "project_page": "(https://forge.puppetlabs.com/puppetlabs/dsc)",
-  "issues_url": "https://github.com/puppetlabs/puppetlabs-dsc/issues",
+  "project_page": "https://forge.puppetlabs.com/puppetlabs/dsc",
+  "issues_url": "https://tickets.puppetlabs.com/browse/MODULES",
   "tags": [
     "powershell",
     "desired-state-configuration",

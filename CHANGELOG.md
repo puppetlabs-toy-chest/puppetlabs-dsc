@@ -1,3 +1,16 @@
+##2015-09-02 - Unsupported Release 0.8.1
+
+###Summary
+
+Fix forge links and update url for WMF 5.
+
+###Features
+- Update WMF 5 links to production preview
+
+###Bugfixes
+- Fix links in metadata.json
+
+
 ##2015-09-02 - Initial Puppet Labs Unsupported Release 0.8.0
 
 ###Summary
@@ -20,6 +33,7 @@ Initial release from Puppet Labs moving to PowerShell 5 to take advantage of Inv
 - Uint8 type generation (MODULES-2481)
 - Ensure Puppet 4 compatibility (MODULES-2299)
 
+
 ##2014-09-19 - Release 0.1.1 (msutter)
 
 ###Summary
@@ -33,6 +47,7 @@ Initial release from Puppet Labs moving to PowerShell 5 to take advantage of Inv
 - fix import of base resource 'file'
 - fix dsc File resource
 - remove includeallfeature attribute from IIS role
+
 
 ##2014-09-15 - Initial Release 0.1.0 (msutter)
 
