@@ -5,7 +5,7 @@
   "summary": "PowerShell Desired State Configuration (DSC)",
   "license": "Apache-2.0",
   "source": "https://github.com/puppetlabs/puppetlabs-dsc",
-  "project_page": "https://forge.puppetlabs.com/puppetlabs/dsc",
+  "project_page": "https://github.com/puppetlabs/puppetlabs-dsc",
   "issues_url": "https://tickets.puppetlabs.com/browse/MODULES",
   "tags": [
     "powershell",
