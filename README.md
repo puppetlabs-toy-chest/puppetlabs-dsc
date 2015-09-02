@@ -1,5 +1,5 @@
 # dsc
-[wmf-5.0]: https://www.microsoft.com/en-us/download/details.aspx?id=46889
+[wmf-5.0]: https://www.microsoft.com/en-us/download/details.aspx?id=48729
 [DSCResources]: https://github.com/powershell/DSCResources
 
 
@@ -28,7 +28,7 @@ This module is available on the [Puppet Forge](https://forge.puppetlabs.com/pupp
 
 ## Windows System Prerequisites
 
- - PowerShell 5 which is included in [Windows Management Framework 5.0][wmf-5.0]. PowerShell v5 is currently in limited preview, so the above link may change after official release.
+ - PowerShell 5 which is included in [Windows Management Framework 5.0][wmf-5.0]. PowerShell v5 is currently in [production preview](http://blogs.msdn.com/b/powershell/archive/2015/08/31/windows-management-framework-5-0-production-preview-is-now-available.aspx), so the above link may change after official release.
 
 ## Setup
 
