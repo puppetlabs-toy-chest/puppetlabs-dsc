@@ -142,6 +142,7 @@ Puppet::Type.newtype(:dsc_xpackage) do
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
   end
 
@@ -275,6 +276,7 @@ Puppet::Type.newtype(:dsc_xpackage) do
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("RunAsCredential", value)
     end
   end
 

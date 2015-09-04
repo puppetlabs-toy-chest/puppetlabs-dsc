@@ -99,6 +99,7 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("ConnectionCredential", value)
     end
   end
 

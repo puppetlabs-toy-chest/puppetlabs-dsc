@@ -34,6 +34,31 @@ module PuppetX
 
         Hash[remapped_value]
       end
+
+      def self.validate_MSFT_Credential(name, value)
+        unless value.kind_of?(Hash)
+          fail("Invalid value '#{value}'. Should be a hash")
+        end
+
+        required = ['user', 'password']
+        required.each do |key|
+          if value[key]
+            fail "#{key} for #{name} should be a String" unless value[key].is_a? String
+          end
+        end
+
+        specified_keys = value.keys.map(&:to_s)
+
+        missing = required - specified_keys
+        unless missing.empty?
+          fail "#{name} is missing the following required keys: #{missing.join(',')}"
+        end
+
+        extraneous = specified_keys - required
+        unless extraneous.empty?
+          fail "#{name} includes invalid keys: #{extraneous.join(',')}"
+        end
+      end
     end
   end
 end

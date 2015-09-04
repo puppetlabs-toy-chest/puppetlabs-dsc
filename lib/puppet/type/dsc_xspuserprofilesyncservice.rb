@@ -98,6 +98,7 @@ Puppet::Type.newtype(:dsc_xspuserprofilesyncservice) do
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("FarmAccount", value)
     end
   end
 
@@ -112,6 +113,7 @@ Puppet::Type.newtype(:dsc_xspuserprofilesyncservice) do
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
     end
   end
 

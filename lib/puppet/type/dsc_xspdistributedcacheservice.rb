@@ -129,6 +129,7 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
     end
   end
 

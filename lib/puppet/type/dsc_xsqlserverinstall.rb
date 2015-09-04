@@ -96,6 +96,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SourcePathCredential", value)
     end
   end
 
@@ -126,6 +127,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SqlAdministratorCredential", value)
     end
   end
 

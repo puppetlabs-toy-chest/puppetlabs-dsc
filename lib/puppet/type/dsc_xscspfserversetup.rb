@@ -116,6 +116,7 @@ Puppet::Type.newtype(:dsc_xscspfserversetup) do
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SetupCredential", value)
     end
   end
 
@@ -258,6 +259,7 @@ Puppet::Type.newtype(:dsc_xscspfserversetup) do
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SCVMM", value)
     end
   end
 
@@ -288,6 +290,7 @@ Puppet::Type.newtype(:dsc_xscspfserversetup) do
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SCAdmin", value)
     end
   end
 
@@ -318,6 +321,7 @@ Puppet::Type.newtype(:dsc_xscspfserversetup) do
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SCProvider", value)
     end
   end
 
@@ -348,6 +352,7 @@ Puppet::Type.newtype(:dsc_xscspfserversetup) do
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SCUsage", value)
     end
   end
 
