@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xtimezone) do
   # IsMandatory:  True
   # Values:       ["Yes"]
   newparam(:dsc_issingleinstance) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the resource is a single instance, the value must be 'Yes'"
     isrequired
     validate do |value|
@@ -75,6 +77,8 @@ Puppet::Type.newtype(:dsc_xtimezone) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_timezone) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the TimeZone."
     validate do |value|
       unless value.kind_of?(String)

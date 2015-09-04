@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -71,6 +73,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_credential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -83,6 +87,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_databasecopycount) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -98,6 +104,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_server) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -110,6 +118,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_edbfilepath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -122,6 +132,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_logfolderpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -134,6 +146,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_adserversettingspreferredserver) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -146,6 +160,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_skipinitialdatabasemount) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -159,6 +175,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_allowservicerestart) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -172,6 +190,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_autodagexcludefrommonitoring) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -185,6 +205,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_backgrounddatabasemaintenance) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -198,6 +220,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_calendarloggingquota) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -210,6 +234,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_circularloggingenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -223,6 +249,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       ["None", "SecondCopy", "SecondDatacenter", "AllDatacenters", "AllCopies"]
   newparam(:dsc_datamovereplicationconstraint) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -238,6 +266,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_deleteditemretention) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -250,6 +280,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_domaincontroller) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -262,6 +294,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_eventhistoryretentionperiod) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -274,6 +308,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_indexenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -287,6 +323,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_isexcludedfromprovisioning) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -300,6 +338,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_issuewarningquota) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -312,6 +352,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_issuspendedfromprovisioning) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -325,6 +367,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_journalrecipient) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -337,6 +381,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_mailboxretention) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -349,6 +395,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_mountatstartup) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -362,6 +410,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_offlineaddressbook) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -374,6 +424,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_prohibitsendquota) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -386,6 +438,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_prohibitsendreceivequota) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -398,6 +452,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_recoverableitemsquota) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -410,6 +466,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_recoverableitemswarningquota) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -422,6 +480,8 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_retaindeleteditemsuntilbackup) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)

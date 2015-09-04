@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_url) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -71,6 +73,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_owneralias) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -83,6 +87,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_compatibilitylevel) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -98,6 +104,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_contentdatabase) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -110,6 +118,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_description) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -122,6 +132,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_hostheaderwebapplication) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -134,6 +146,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_language) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -149,6 +163,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -161,6 +177,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_owneremail) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -173,6 +191,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_quotatemplate) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -185,6 +205,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_secondaryemail) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -197,6 +219,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_secondaryowneralias) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -209,6 +233,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_template) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -221,6 +247,8 @@ Puppet::Type.newtype(:dsc_xspsite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_installaccount) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

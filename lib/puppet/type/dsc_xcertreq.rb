@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_subject) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Provide the text string to use as the subject of the certificate"
     isrequired
     validate do |value|
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_caserverfqdn) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The FQDN of the Active Directory Certificate Authority on the local area network"
     validate do |value|
       unless value.kind_of?(String)
@@ -85,6 +89,8 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_carootname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The name of the certificate authority, by default this will be in format domain-servername-ca"
     validate do |value|
       unless value.kind_of?(String)
@@ -98,6 +104,8 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_credential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "The credentials that will be used to access the template in the Certificate Authority"
     validate do |value|
       unless value.kind_of?(String)
@@ -111,6 +119,8 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_autorenew) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     desc "Determines if the resource will also renew a certificate within 7 days of expiration"
     validate do |value|
     end

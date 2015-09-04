@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xspclearremotesessions) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_clearremotesessions) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
     end

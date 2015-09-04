@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_uri) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The WordPress Site URI."
     isrequired
     validate do |value|
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_title) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The WordPress Site Default page title."
     validate do |value|
       unless value.kind_of?(String)
@@ -85,6 +89,8 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_administratorcredential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "The username and password of the WordPress administrator to create when creating the site."
     validate do |value|
       unless value.kind_of?(String)
@@ -98,6 +104,8 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_administratoremail) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The email address of the WordPress administrator to create."
     validate do |value|
       unless value.kind_of?(String)
@@ -111,6 +119,8 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   # IsMandatory:  False
   # Values:       ["Present"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Should the module be present or absent."
     validate do |value|
       resource[:ensure] = value.downcase

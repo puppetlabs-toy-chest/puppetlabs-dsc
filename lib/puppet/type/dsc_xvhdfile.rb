@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_vhdpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Path to the VHD"
     isrequired
     validate do |value|
@@ -72,6 +74,11 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_filedirectory, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; true end
+    def mof_type_map
+      {"destinationpath"=>{:type=>"string"}, "sourcepath"=>{:type=>"string"}, "ensure"=>{:type=>"string", :values=>["Present", "Absent"]}, "type"=>{:type=>"string", :values=>["File", "Directory"]}, "recurse"=>{:type=>"boolean"}, "force"=>{:type=>"boolean"}, "content"=>{:type=>"string"}, "attributes"=>{:type=>"string[]", :values=>["ReadOnly", "Hidden", "System", "Archive"]}}
+    end
     desc "The FileDirectory objects to copy to the VHD"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
@@ -88,6 +95,8 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
   # IsMandatory:  False
   # Values:       ["ModifiedDate", "SHA-1", "SHA-256", "SHA-512"]
   newparam(:dsc_checksum) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

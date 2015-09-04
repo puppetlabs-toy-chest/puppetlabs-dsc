@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_identity) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Not actually used. Enter anything, as long as it's not null"
     isrequired
     validate do |value|
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_credential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "Credentials used to perform Active Directory lookups against the Schema, Configuration, and Domain naming contexts"
     validate do |value|
       unless value.kind_of?(String)
@@ -85,6 +89,8 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_schemaversion) do
+    def mof_type; 'sint32' end
+    def mof_is_embedded?; false end
     desc "Specifies that the Active Directory schema should have been prepared using Exchange 2013 'setup /PrepareSchema', and should be at the specified version"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value || value.to_i >= 0
@@ -101,6 +107,8 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_organizationversion) do
+    def mof_type; 'sint32' end
+    def mof_is_embedded?; false end
     desc "Specifies that the Exchange Organization should have been prepared using Exchange 2013 'setup /PrepareAD', and should be at the specified version"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value || value.to_i >= 0
@@ -117,6 +125,8 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_domainversion) do
+    def mof_type; 'sint32' end
+    def mof_is_embedded?; false end
     desc "Specifies that the domain containing the target Exchange 2013 server was prepared using setup /PrepareAD, /PrepareDomain, or /PrepareAllDomains, and should be at the specified version"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value || value.to_i >= 0
@@ -133,6 +143,8 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_exchangedomains, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     desc "The FQDN's of domains that should be checked for DomainVersion in addition to the domain that this Exchange server belongs to"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
@@ -149,6 +161,8 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_retryintervalsec) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     desc "How many seconds to wait between retries when checking whether AD has been prepped. Defaults to 60."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
@@ -165,6 +179,8 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_retrycount) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     desc "How many retry attempts should be made to see if AD has been prepped before an exception is thrown. Defaults to 30."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)

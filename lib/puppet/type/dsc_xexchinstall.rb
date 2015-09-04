@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_path) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Full path to setup.exe in the Exchange 2013 setup directory"
     isrequired
     validate do |value|
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_arguments) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Command line arguments to pass to setup.exe"
     validate do |value|
       unless value.kind_of?(String)
@@ -85,6 +89,8 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_credential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "The credentials to use to perform the installation"
     validate do |value|
       unless value.kind_of?(String)

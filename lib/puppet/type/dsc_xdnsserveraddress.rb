@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_address, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -73,6 +75,8 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_interfacealias) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -86,6 +90,8 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   # IsMandatory:  False
   # Values:       ["IPv4", "IPv6"]
   newparam(:dsc_addressfamily) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

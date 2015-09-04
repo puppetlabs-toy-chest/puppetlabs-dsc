@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_mountpoint) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -71,6 +73,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       ["PasswordProtector", "RecoveryPasswordProtector", "StartupKeyProtector", "TpmProtector"]
   newparam(:dsc_primaryprotector) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -86,6 +90,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_autounlock) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -99,6 +105,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_allowimmediatereboot) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -112,6 +120,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_adaccountorgroup) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -124,6 +134,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_adaccountorgroupprotector) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -137,6 +149,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       ["Aes128", "Aes256"]
   newparam(:dsc_encryptionmethod) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -152,6 +166,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_hardwareencryption) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -165,6 +181,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_password) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -177,6 +195,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_passwordprotector) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -190,6 +210,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_pin) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -202,6 +224,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_recoverykeypath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -214,6 +238,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_recoverykeyprotector) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -227,6 +253,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_recoverypasswordprotector) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -240,6 +268,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_service) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -253,6 +283,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_skiphardwaretest) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -266,6 +298,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_startupkeypath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -278,6 +312,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_startupkeyprotector) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -291,6 +327,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_tpmprotector) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -304,6 +342,8 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_usedspaceonly) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)

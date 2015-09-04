@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_instancename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The name of sql instance."
     isrequired
     validate do |value|
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sourcepath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The share path of sql server software."
     validate do |value|
       unless value.kind_of?(String)
@@ -85,6 +89,8 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sourcepathcredential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "The credential that vm could use to access net share of sql server software."
     validate do |value|
       unless value.kind_of?(String)
@@ -98,6 +104,8 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_features) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "List of names of Sql Server features to install"
     validate do |value|
       unless value.kind_of?(String)
@@ -111,6 +119,8 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sqladministratorcredential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "Sql sa credential"
     validate do |value|
       unless value.kind_of?(String)
@@ -124,6 +134,8 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_updateenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     desc "Specify whether SQL server setup should discover and include product updates."
     validate do |value|
     end
@@ -138,6 +150,8 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_svcaccount) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specify the startup account for the SQL server service."
     validate do |value|
       unless value.kind_of?(String)
@@ -151,6 +165,8 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sysadminaccounts) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specify logins to be members of the sysadmin role."
     validate do |value|
       unless value.kind_of?(String)
@@ -164,6 +180,8 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_agentsvcaccount) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specify the account for SQL server agent service."
     validate do |value|
       unless value.kind_of?(String)

@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
   # IsMandatory:  True
   # Values:       ["Admin API", "Tenant API", "Tenant Public API", "SQL Server Extension", "MySQL Extension", "Admin Site", "Admin Authentication Site", "Tenant Site", "Tenant Authentication Site"]
   newparam(:dsc_role) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The Azure Pack role to be updated."
     isrequired
     validate do |value|
@@ -75,6 +77,8 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sourcepath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "UNC path to the root of the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
@@ -88,6 +92,8 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sourcefolder) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
@@ -101,6 +107,8 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_setupcredential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "Credential to be used to perform the installation."
     validate do |value|
       unless value.kind_of?(String)

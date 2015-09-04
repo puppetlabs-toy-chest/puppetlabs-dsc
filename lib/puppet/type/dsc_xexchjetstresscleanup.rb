@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_jetstresspath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The path to the folder where Jetstress is installed, and which contains JetstressCmd.exe"
     isrequired
     validate do |value|
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_configfilepath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Either ConfigFilePath, or DatabasePaths AND LogPaths MUST be specified. ConfigFilePath takes precedence. This is the full path to the JetstressConfig.xml file. If ConfigFilePath is specified, the config file will be used to determine the database and log folders that need to be removed"
     validate do |value|
       unless value.kind_of?(String)
@@ -85,6 +89,8 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_databasepaths, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     desc "Either ConfigFilePath, or DatabasePaths AND LogPaths MUST be specified. DatabasePaths specifies the paths to database directories that should be cleaned up."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
@@ -101,6 +107,8 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_deleteassociatedmountpoints) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     desc "Defaults to $false. If specified, indicates that mount points associated with the Jetstress database and log paths should be removed"
     validate do |value|
     end
@@ -115,6 +123,8 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_logpaths, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     desc "Either ConfigFilePath, or DatabasePaths AND LogPaths MUST be specified. LogPaths specifies the paths to log directories that should be cleaned up."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
@@ -131,6 +141,8 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_outputsavelocation) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "If RemoveBinaries is set to $true and Jetstress output was saved to the default location (the installation path of Jetstress), specifies the folder path to copy the Jetstress output files to."
     validate do |value|
       unless value.kind_of?(String)
@@ -144,6 +156,8 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_removebinaries) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     desc "Specifies that the files in the Jetstress installation directory should be removed"
     validate do |value|
     end

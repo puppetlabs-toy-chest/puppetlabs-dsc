@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xexchumcallroutersettings) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_server) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Hostname of the UM server to configure"
     isrequired
     validate do |value|
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_xexchumcallroutersettings) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_credential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "Credentials used to establish a remote Powershell session to Exchange"
     validate do |value|
       unless value.kind_of?(String)
@@ -85,6 +89,8 @@ Puppet::Type.newtype(:dsc_xexchumcallroutersettings) do
   # IsMandatory:  False
   # Values:       ["TCP", "TLS", "Dual"]
   newparam(:dsc_umstartupmode) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "UMStartupMode for the UM call router"
     validate do |value|
       unless value.kind_of?(String)
@@ -101,6 +107,8 @@ Puppet::Type.newtype(:dsc_xexchumcallroutersettings) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_domaincontroller) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Optional Domain Controller to connect to"
     validate do |value|
       unless value.kind_of?(String)

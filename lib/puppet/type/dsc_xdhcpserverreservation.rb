@@ -60,6 +60,8 @@ Puppet::Type.newtype(:dsc_xdhcpserverreservation) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_scopeid) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "ScopeId for which reservations are set"
     isrequired
     validate do |value|
@@ -74,6 +76,8 @@ Puppet::Type.newtype(:dsc_xdhcpserverreservation) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_ipaddress) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "IP address of the reservation for which the properties are modified"
     isrequired
     validate do |value|
@@ -88,6 +92,8 @@ Puppet::Type.newtype(:dsc_xdhcpserverreservation) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_clientmacaddress) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Client MAC Address to set on the reservation"
     validate do |value|
       unless value.kind_of?(String)
@@ -101,6 +107,8 @@ Puppet::Type.newtype(:dsc_xdhcpserverreservation) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Reservation name"
     validate do |value|
       unless value.kind_of?(String)
@@ -114,6 +122,8 @@ Puppet::Type.newtype(:dsc_xdhcpserverreservation) do
   # IsMandatory:  False
   # Values:       ["IPv4"]
   newparam(:dsc_addressfamily) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Address family type"
     validate do |value|
       unless value.kind_of?(String)
@@ -130,6 +140,8 @@ Puppet::Type.newtype(:dsc_xdhcpserverreservation) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Whether option should be set or removed"
     validate do |value|
       resource[:ensure] = value.downcase

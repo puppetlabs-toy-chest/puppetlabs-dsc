@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_domainname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -71,6 +73,8 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_parentdomainname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -83,6 +87,8 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_domainnetbiosname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -95,6 +101,8 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_domainadministratorcredential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -107,6 +115,8 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_safemodeadministratorpassword) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -119,6 +129,8 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_dnsdelegationcredential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -131,6 +143,8 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_databasepath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -143,6 +157,8 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_logpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -155,6 +171,8 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sysvolpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

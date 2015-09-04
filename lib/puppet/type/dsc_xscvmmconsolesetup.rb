@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xscvmmconsolesetup) do
   # IsMandatory:  True
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "An enumerated value that describes if the DPM server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"
     isrequired
     validate do |value|
@@ -77,6 +79,8 @@ Puppet::Type.newtype(:dsc_xscvmmconsolesetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sourcepath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "UNC path to the root of the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
@@ -90,6 +94,8 @@ Puppet::Type.newtype(:dsc_xscvmmconsolesetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sourcefolder) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
@@ -103,6 +109,8 @@ Puppet::Type.newtype(:dsc_xscvmmconsolesetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_setupcredential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "Credential to be used to perform the installation."
     validate do |value|
       unless value.kind_of?(String)
@@ -116,6 +124,8 @@ Puppet::Type.newtype(:dsc_xscvmmconsolesetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_programfiles) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Installation path for the software."
     validate do |value|
       unless value.kind_of?(String)
@@ -129,6 +139,8 @@ Puppet::Type.newtype(:dsc_xscvmmconsolesetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_indigotcpport) do
+    def mof_type; 'uint16' end
+    def mof_is_embedded?; false end
     desc "Port for communication with the VMM management server."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
@@ -145,6 +157,8 @@ Puppet::Type.newtype(:dsc_xscvmmconsolesetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_muoptin) do
+    def mof_type; 'uint8' end
+    def mof_is_embedded?; false end
     desc "0: Do not opt in to Microsoft Update. 1: Opt in to Microsoft Update."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)

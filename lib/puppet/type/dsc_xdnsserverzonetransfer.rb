@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xdnsserverzonetransfer) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the DNS zone"
     isrequired
     validate do |value|
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_xdnsserverzonetransfer) do
   # IsMandatory:  False
   # Values:       ["None", "Any", "Named", "Specific"]
   newparam(:dsc_type) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Type of transfer allowed"
     validate do |value|
       unless value.kind_of?(String)
@@ -88,6 +92,8 @@ Puppet::Type.newtype(:dsc_xdnsserverzonetransfer) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_secondaryserver, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     desc "IP address or DNS name of DNS servers where zone information can be transfered"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)

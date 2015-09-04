@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xarchive) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_destination) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -71,6 +73,8 @@ Puppet::Type.newtype(:dsc_xarchive) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_path, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     desc "Represnts the source path to one or more files or directories.\n"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
@@ -87,6 +91,8 @@ Puppet::Type.newtype(:dsc_xarchive) do
   # IsMandatory:  False
   # Values:       ["Optimal", "NoCompression", "Fastest"]
   newparam(:dsc_compressionlevel) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies values that indicate whether a compression operation emphasizes speed or compression size.\nOptimal {default} \n"
     validate do |value|
       unless value.kind_of?(String)
@@ -103,6 +109,8 @@ Puppet::Type.newtype(:dsc_xarchive) do
   # IsMandatory:  False
   # Values:       ["File", "Directory"]
   newparam(:dsc_destinationtype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "An enumerated value that describes if the Destination path points to a File or Directory. If Directory is specified then the archive file contents would be expanded to the specified path on the other hand if File is specified, an archive file would be created at the specified destination path.\nDirectory {default} \n"
     validate do |value|
       unless value.kind_of?(String)
@@ -119,6 +127,8 @@ Puppet::Type.newtype(:dsc_xarchive) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_matchsource) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     desc "An boolean value to indicate if the destination contents have to be always kept in sync with the files or directories specified in the source path.\n"
     validate do |value|
     end
@@ -133,6 +143,8 @@ Puppet::Type.newtype(:dsc_xarchive) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_creationtime) do
+    def mof_type; 'datetime' end
+    def mof_is_embedded?; false end
     desc "Specifies the local time at which the file or directory was created in datetime format.\n"
     validate do |value|
       unless value.kind_of?(String)
@@ -146,6 +158,8 @@ Puppet::Type.newtype(:dsc_xarchive) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_attributes) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the attributes of the file or directory in string format.\n"
     validate do |value|
       unless value.kind_of?(String)
@@ -159,6 +173,8 @@ Puppet::Type.newtype(:dsc_xarchive) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_mode) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the mode of the file or directory.\n"
     validate do |value|
       unless value.kind_of?(String)
@@ -172,6 +188,8 @@ Puppet::Type.newtype(:dsc_xarchive) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_size) do
+    def mof_type; 'uint64' end
+    def mof_is_embedded?; false end
     desc "Specifis the size of the file or directory in bytes.\n"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)

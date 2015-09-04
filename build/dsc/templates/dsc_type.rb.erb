@@ -64,6 +64,27 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   # IsMandatory:  <%= property.required? ? 'True' : 'False' %>
   # Values:       <%= property.values ? property.values : 'None' %>
   newparam(:dsc_<%= property.name.downcase %><% if property.array? %>, :array_matching => :all<% end %>) do
+    def mof_type; '<%= property.type %>' end
+    def mof_is_embedded?; <%= property.embeddedinstance? -%> end
+<%    if property.embeddedinstance? && property.embeddedinstance_class_name != 'MSFT_Credential' && property.embeddedinstance_class_name != 'MSFT_KeyValuePair'
+
+        type_map = {}
+        cim_classes_with_path
+          .select { |c| c[:klass].name == property.embeddedinstance_class_name }
+          .first[:klass]
+          .features
+          .map { |p| Dsc::Property.new(p) }
+          .each do |dsc_prop|
+
+          name = dsc_prop.name.downcase.gsub("'", "\\\\'")
+          type_map[name] = { :type => dsc_prop.type }
+          type_map[name][:values] = dsc_prop.values if dsc_prop.values
+        end
+-%>
+    def mof_type_map
+      <%= type_map.to_s %>
+    end
+<%    end -%>
 <%    if property.description -%>
     desc "<%= property.description %>"
 <%    end -%>

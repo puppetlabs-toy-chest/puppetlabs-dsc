@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_ipaddress) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_interfacealias) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -85,6 +89,8 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_defaultgateway) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -97,6 +103,8 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_subnetmask) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -112,6 +120,8 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   # IsMandatory:  False
   # Values:       ["IPv4", "IPv6"]
   newparam(:dsc_addressfamily) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

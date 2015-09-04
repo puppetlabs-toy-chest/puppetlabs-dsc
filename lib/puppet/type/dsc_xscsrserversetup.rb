@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  True
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "An enumerated value that describes if the Service Reporting server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"
     isrequired
     validate do |value|
@@ -77,6 +79,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sourcepath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "UNC path to the root of the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
@@ -90,6 +94,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sourcefolder) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
@@ -103,6 +109,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_setupcredential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "Credential to be used to perform the installation."
     validate do |value|
       unless value.kind_of?(String)
@@ -116,6 +124,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       ["Yes", "No"]
   newparam(:dsc_sendceipreports) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Participation in Customer Experience Improvement Program (yes or no)."
     validate do |value|
       unless value.kind_of?(String)
@@ -132,6 +142,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       ["Yes", "No"]
   newparam(:dsc_usemicrosoftupdate) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Participation in Microsoft Update (yes or no)."
     validate do |value|
       unless value.kind_of?(String)
@@ -148,6 +160,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_installfolder) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Folder to install to."
     validate do |value|
       unless value.kind_of?(String)
@@ -161,6 +175,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_databaseserver) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the server that is running SQL Server where the databases already exist, or where Setup will create them ."
     validate do |value|
       unless value.kind_of?(String)
@@ -174,6 +190,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_databaseserverinstance) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the SQL Server database instance to install to."
     validate do |value|
       unless value.kind_of?(String)
@@ -187,6 +205,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_repositorydatabasename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the usage repository database that already exists, or that Setup will create."
     validate do |value|
       unless value.kind_of?(String)
@@ -200,6 +220,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_stagingdatabasename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the usage staging database that already exists, or that Setup will create."
     validate do |value|
       unless value.kind_of?(String)
@@ -213,6 +235,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_dwdatabasename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the usage data warehouse database that already exists, or that Setup will create."
     validate do |value|
       unless value.kind_of?(String)
@@ -226,6 +250,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_analysisdatabaseserver) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the server that is running SQL Server where the analysis database already exists, or where Setup will create it."
     validate do |value|
       unless value.kind_of?(String)
@@ -239,6 +265,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_analysisdatabaseserverinstance) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the SQL Server analysis database instance to install to."
     validate do |value|
       unless value.kind_of?(String)
@@ -252,6 +280,8 @@ Puppet::Type.newtype(:dsc_xscsrserversetup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_analysisdatabasename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the analysis database that already exists, or that Setup will create."
     validate do |value|
       unless value.kind_of?(String)

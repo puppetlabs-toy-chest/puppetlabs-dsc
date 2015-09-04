@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_servicename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Provides the service name to use during setup of MySQL"
     isrequired
     validate do |value|
@@ -73,6 +75,8 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Ensure resource is present or absent"
     validate do |value|
       resource[:ensure] = value.downcase
@@ -90,6 +94,8 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_rootpassword) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "The root credential that is used to install mySql server."
     validate do |value|
       unless value.kind_of?(String)

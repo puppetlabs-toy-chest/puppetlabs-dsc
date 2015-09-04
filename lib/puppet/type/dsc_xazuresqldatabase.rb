@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the database"
     isrequired
     validate do |value|
@@ -73,6 +75,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_maximumsizeingb) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     desc "Maximum size of the database in GB"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
@@ -89,6 +93,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_collation) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Collation of the database"
     validate do |value|
       unless value.kind_of?(String)
@@ -102,6 +108,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_edition) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Edition of the database"
     validate do |value|
       unless value.kind_of?(String)
@@ -115,6 +123,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_servercredential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "Credential to the database server"
     validate do |value|
       unless value.kind_of?(String)
@@ -128,6 +138,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_servername) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the database server"
     validate do |value|
       unless value.kind_of?(String)
@@ -141,6 +153,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_azuresubscriptionname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the name of the Azure subscription that should be set to Current"
     validate do |value|
       unless value.kind_of?(String)
@@ -154,6 +168,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_azurepublishsettingsfile) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the location of the Publish Settings file for the Azure Subscription"
     validate do |value|
       unless value.kind_of?(String)
@@ -167,6 +183,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Ensure that database is present or absent"
     validate do |value|
       resource[:ensure] = value.downcase

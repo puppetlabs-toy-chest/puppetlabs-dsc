@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the SMB Share"
     isrequired
     validate do |value|
@@ -73,6 +75,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_path) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Path to the share"
     validate do |value|
       unless value.kind_of?(String)
@@ -86,6 +90,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_description) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Description of the share"
     validate do |value|
       unless value.kind_of?(String)
@@ -99,6 +105,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_changeaccess, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     desc "Specifies which user will be granted modify permission to access the share"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
@@ -115,6 +123,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_concurrentuserlimit) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     desc "Specifies the maximum number of concurrently connected users that the new SMB share may accommodate. If this parameter is set to zero (0), then the number of users is unlimited. The default value is zero (0)."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
@@ -131,6 +141,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_encryptdata) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     desc "Indicates that the share is encrypted."
     validate do |value|
     end
@@ -145,6 +157,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       ["AccessBased", "Unrestricted"]
   newparam(:dsc_folderenumerationmode) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies which files and folders in the new SMB share are visible to users."
     validate do |value|
       unless value.kind_of?(String)
@@ -161,6 +175,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_fullaccess, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     desc "Specifies which accounts are granted full permission to access the share."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
@@ -177,6 +193,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_noaccess, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     desc "Specifies which accounts are denied access to the share."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
@@ -193,6 +211,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_readaccess, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     desc "Specifies which user is granted read permission to access the share."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
@@ -209,6 +229,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies if the share should be added or removed"
     validate do |value|
       resource[:ensure] = value.downcase
@@ -226,6 +248,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sharestate) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specfies the state of the share"
     validate do |value|
       unless value.kind_of?(String)
@@ -239,6 +263,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sharetype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specfies the type of the share"
     validate do |value|
       unless value.kind_of?(String)
@@ -252,6 +278,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_shadowcopy) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies if this share is a ShadowCopy"
     validate do |value|
       unless value.kind_of?(String)
@@ -265,6 +293,8 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_special) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies if this share is a Special Share. Admin share, default shares, IPC$ share are examples."
     validate do |value|
       unless value.kind_of?(String)

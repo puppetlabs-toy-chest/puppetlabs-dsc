@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xazuresubscription) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies whether the subscription should be present or absent."
     validate do |value|
       resource[:ensure] = value.downcase
@@ -76,6 +78,8 @@ Puppet::Type.newtype(:dsc_xazuresubscription) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_azuresubscriptionname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the name of the Azure subscription that should be set to Current."
     isrequired
     validate do |value|
@@ -90,6 +94,8 @@ Puppet::Type.newtype(:dsc_xazuresubscription) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_azurepublishsettingsfile) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the location of the Publish Settings file for the Azure Subscription."
     validate do |value|
       unless value.kind_of?(String)

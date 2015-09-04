@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_identity) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -71,6 +73,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_credential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -83,6 +87,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_allowservicerestart) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -96,6 +102,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_domaincontroller) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -108,6 +116,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_externalclientsrequiressl) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -121,6 +131,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_extendedprotectionflags, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -136,6 +148,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_extendedprotectionspnlist, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -151,6 +165,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       ["Allow", "None", "Require"]
   newparam(:dsc_extendedprotectiontokenchecking) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -166,6 +182,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       ["Ntlm", "Basic", "Negotiate"]
   newparam(:dsc_externalclientauthenticationmethod) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -181,6 +199,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_externalhostname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -193,6 +213,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_iisauthenticationmethods, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -208,6 +230,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       ["Ntlm", "Basic", "Negotiate"]
   newparam(:dsc_internalclientauthenticationmethod) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -223,6 +247,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_internalclientsrequiressl) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -236,6 +262,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_internalhostname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -248,6 +276,8 @@ Puppet::Type.newtype(:dsc_xexchoutlookanywhere) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_ssloffloading) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)

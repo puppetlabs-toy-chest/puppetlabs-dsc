@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The name of Sql High Availability group"
     isrequired
     validate do |value|
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_clustername) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The name of windows failover cluster for the availability group."
     validate do |value|
       unless value.kind_of?(String)
@@ -85,6 +89,8 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_retryintervalsec) do
+    def mof_type; 'uint64' end
+    def mof_is_embedded?; false end
     desc "Interval to check the HA group existency"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
@@ -101,6 +107,8 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_retrycount) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     desc "Maximum number of retries to check HA group existency"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
@@ -117,6 +125,8 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_instancename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The name of sql instance."
     validate do |value|
       unless value.kind_of?(String)
@@ -130,6 +140,8 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_domaincredential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "Domain credential could get list of cluster nodes."
     validate do |value|
       unless value.kind_of?(String)
@@ -143,6 +155,8 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sqladministratorcredential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     desc "Sql sa credential"
     validate do |value|
       unless value.kind_of?(String)

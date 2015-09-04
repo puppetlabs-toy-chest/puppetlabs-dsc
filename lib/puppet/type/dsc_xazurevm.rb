@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the name of the virtual machine."
     isrequired
     validate do |value|
@@ -73,6 +75,8 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies whether the Azure VM should be present or absent."
     validate do |value|
       resource[:ensure] = value.downcase
@@ -90,6 +94,8 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_imagename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the name of the operating system image to use to create the operating system disk."
     validate do |value|
       unless value.kind_of?(String)
@@ -103,6 +109,8 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_servicename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the new or existing service name."
     validate do |value|
       unless value.kind_of?(String)
@@ -116,6 +124,8 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_storageaccountname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the name of the storage account for the VM."
     validate do |value|
       unless value.kind_of?(String)
@@ -129,6 +139,8 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_instancesize) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the size of the instance.   For a list of virtual machine sizes, see http://msdn.microsoft.com/library/azure/dn197896.aspx"
     validate do |value|
       unless value.kind_of?(String)
@@ -142,6 +154,8 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_linux) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     desc "Creates a Linux virtual machine."
     validate do |value|
     end
@@ -156,6 +170,8 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_windows) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     desc "Creates a Windows virtual machine."
     validate do |value|
     end
@@ -170,6 +186,8 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_credential) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; true end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -182,6 +200,8 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_extensioncontainername) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The name of the Container in Azure Blob storage where the script files will reside.  Case sensitive."
     validate do |value|
       unless value.kind_of?(String)
@@ -195,6 +215,8 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_extensionfilelist) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "List of files in Azure Blob container that should be copied in to the VM.  Case sensitive."
     validate do |value|
       unless value.kind_of?(String)
@@ -208,6 +230,8 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_extensionscriptname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of one of the files in the container that will be exectued at startup.  Case sensitive."
     validate do |value|
       unless value.kind_of?(String)
