@@ -1,19 +1,19 @@
 require 'erb'
 require 'dsc_utils'
-test_name 'MODULES-2523 - C68578 - Apply DSC Group Resource with Valid "GroupName" and "Members" Specified'
+test_name 'MODULES-2523 - C68585 - Apply DSC Group Resource with Valid Unicode "GroupName" Specified'
 
 confine(:to, :platform => 'windows')
 
 # Init
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
+test_manifest_name = 'test_manifest.pp'
 
 # ERB Manifest
 dsc_type = 'group'
 dsc_module = 'PSDesiredStateConfiguration'
 dsc_props = {
   :dsc_ensure    => 'Present',
-  :dsc_groupname => 'TestGroupMembers',
-  :dsc_members   => '["Administrator","Guest"]'
+  :dsc_groupname => "\u1134\u1169\u1185\u1173\u112D\u1117\u1114\u1135\u114E"
 }
 
 dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resources', 'dsc_single_resource.pp.erb')
@@ -29,12 +29,16 @@ teardown do
     :Ensure    => 'Absent',
     :GroupName  => dsc_props[:dsc_groupname]
   )
+  on(agents, "rm -rf /cygdrive/c/#{test_manifest_name}")
 end
+
+# Setup
+create_remote_file(agents, "/cygdrive/c/#{test_manifest_name}", dsc_manifest)
 
 # Tests
 agents.each do |agent|
   step 'Apply Manifest'
-  on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => [0,2]) do |result|
+  on(agent, puppet("apply C:\\\\#{test_manifest_name}"), :acceptable_exit_codes => [0,2]) do |result|
     assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
   end
 
@@ -44,7 +48,6 @@ agents.each do |agent|
     dsc_type,
     dsc_module,
     :Ensure    => dsc_props[:dsc_ensure],
-    :GroupName => dsc_props[:dsc_groupname],
-    :Members   => '@("Administrator","Guest")'
+    :GroupName => dsc_props[:dsc_groupname]
   )
 end

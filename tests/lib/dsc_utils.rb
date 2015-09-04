@@ -69,7 +69,7 @@ def _build_dsc_command(dsc_method, dsc_resource_type, dsc_module, dsc_properties
     dsc_prop_merge << "\\\"#{k}\\\"="
 
     if v =~ /^\$/
-      dsc_prop_merge << "\\#{v};"
+      dsc_prop_merge << "#{v};"
     elsif v =~ /^@/
       dsc_prop_merge << "#{v.gsub(/\"/, '\\\"')};"
     elsif v =~ /^-?\d+$/
@@ -99,7 +99,7 @@ end
 # * +host+ - The target Windows host for verification.
 # * +dsc_resource_type+ - The DSC resource type name to verify.
 # * +dsc_module+ - The DSC module for the specified resource type.
-# * +dsc_properties+ - DSC properties to verify on resource.
+# * +dsc_properties+ - DSC properties to set on resource.
 #
 # ==== Returns
 #
@@ -119,9 +119,12 @@ end
 def set_dsc_resource(host, dsc_resource_type, dsc_module, dsc_properties)
   # Init
   ps_command = _build_dsc_command('Set', dsc_resource_type, dsc_module, dsc_properties)
+  temp_script = 'temp.cmd'
+
+  create_remote_file(agents, "/cygdrive/c/#{temp_script}", ps_command)
 
   # Execute Set Command
-  on(host, ps_command, :acceptable_exit_codes => [0,1])
+  on(host, "cmd /c C:\\\\#{temp_script}", :acceptable_exit_codes => [0,1])
 
   # Verify State
   assert_dsc_resource(host, dsc_resource_type, dsc_module, dsc_properties)
@@ -157,8 +160,11 @@ module Beaker
       def assert_dsc_resource(host, dsc_resource_type, dsc_module, dsc_properties)
         # Init
         ps_command = _build_dsc_command('Test', dsc_resource_type, dsc_module, dsc_properties)
+        temp_script = 'temp.cmd'
 
-        on(host, ps_command, :acceptable_exit_codes => [0,1]) do |result|
+        create_remote_file(agents, "/cygdrive/c/#{temp_script}", ps_command)
+
+        on(host, "cmd /c C:\\\\#{temp_script}", :acceptable_exit_codes => [0,1]) do |result|
           assert(0 == result.exit_code, 'DSC resource not in desired state!')
         end
       end
