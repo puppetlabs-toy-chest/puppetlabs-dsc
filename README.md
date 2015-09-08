@@ -11,6 +11,7 @@
   * [Website Installation Example](#website-installation-example)
 5. [Limitations](#limitations)
   * [Known Issues](#known-issues)
+  * [Running Puppet and DSC without Administrative Privileges](#running-puppet-and-dsc-without-administrative-privileges)
 6. [Notes](#notes)
 7. [License](#license)
 
@@ -152,6 +153,15 @@ Error: Try 'puppet help module install' for usage
 For Puppet 4.2.2+ (and 3.8.2) we've lessened the possibility of the issue occurring based on the fixes in [PUP-4854](https://tickets.puppetlabs.com/browse/PUP-4854). However, a complete fix will become available in a version of Puppet that incorporates [PUP-4866](https://tickets.puppetlabs.com/browse/PUP-4866).
 
 If you are affected by this issue, a known workaround is to download the `.tar.gz` from the forge and use `puppet module install` using the file rather than directly from the forge.
+
+### Running Puppet and DSC without Administrative Privileges
+
+While there are avenues for using Puppet with a non-administrative account, DSC is limited to only accounts with administrative privileges. The underlying CIM implementation DSC uses for DSC Resource invocation requires administrative credentials to function.
+
+- Setting the LCM RefreshMode to Disabled requires administrative credentials
+- Using the Invoke-DscResource cmdlet requires administrative credentials
+
+The Puppet agent on a Windows node can run DSC with a normal default install. If the Puppet agent was configured to use an alternate user account, that account must have administrative privileges on the system in order to run DSC.
 
 ## Notes
 
