@@ -136,12 +136,21 @@ All [puppet metaparameters](https://docs.puppetlabs.com/references/latest/metapa
 
 - DSC Composite Resources are not supported.
 - PSObjects like 'PSCredential' as parameters value not yet supported.
+- DSC requires PowerShell `Execution Policy` for the `LocalMachine` scope to be set to a less restrictive setting than `Restricted`. If you see the error below, see [MODULES-2500](https://tickets.puppetlabs.com/browse/MODULES-2500) for more information.
+
+~~~
+Error: /Stage[main]/Main/Dsc_xgroup[testgroup]: Could not evaluate: Importing module MSFT_xGroupResource failed with
+ error - File C:\Program
+Files\WindowsPowerShell\Modules\PuppetVendoredModules\xPSDesiredStateConfiguration\DscResources\MSFT_xGroupR
+esource\MSFT_xGroupResource.psm1 cannot be loaded because running scripts is disabled on this system. For more
+information, see about_Execution_Policies at http://go.microsoft.com/fwlink/?LinkID=135170.
+~~~
 
 ### Known Issues
 
 - The `dsc_log` resource may not appear to work. The ["Log" resource](https://technet.microsoft.com/en-us/library/Dn282117.aspx) writes events to the 'Microsoft-Windows-Desired State Configuration/Analytic' event log, which is [disabled by default](https://technet.microsoft.com/en-us/library/Cc749492.aspx).
 
-- You may have issues attempting to use `dsc_ensure => absent` on `dsc_service`. [MODULES-2512](https://tickets.puppetlabs.com/browse/MODULES-2512)
+- You may have issues attempting to use `dsc_ensure => absent` on `dsc_service`. See [MODULES-2512](https://tickets.puppetlabs.com/browse/MODULES-2512) for details.
 
 - When installing the module on Windows you may run into an issue regarding long file names (LFN) due to the long paths of the generated schema files. If you install your module on a Linux master and then use plugin sync you will likely not see this issue. If you are attempting to install the module on a Windows machine using `puppet module install puppetlabs-dsc` you may run into an error that looks similar to the following:
 
