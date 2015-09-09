@@ -71,7 +71,7 @@ module Dsc
     end
 
     def cim_classes_with_path
-      unless @cim_classes
+      unless @cim_classes_with_path
         cim_classes_array = []
         dsc_results.each do |mof_path, mof_res|
           mof_res.classes.each do |cim_class|
