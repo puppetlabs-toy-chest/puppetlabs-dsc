@@ -28,7 +28,8 @@ teardown do
     dsc_module,
     :Ensure          => 'Absent',
     :Type            => dsc_props[:dsc_type],
-    :DestinationPath => dsc_props[:dsc_destinationpath]
+    :DestinationPath => dsc_props[:dsc_destinationpath],
+    :Force           => '$true'
   )
 end
 
