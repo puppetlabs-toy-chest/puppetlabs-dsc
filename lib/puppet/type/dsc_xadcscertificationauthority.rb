@@ -74,16 +74,16 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   end
 
   # Name:         Credential
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_credential) do
-    def mof_type; 'string' end
+    def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
     desc "To install an enterprise certification authority, the computer must be joined to an Active Directory Domain Services domain and a user account that is a member of the Enterprise Admin group is required. To install a standalone certification authority, the computer can be in a workgroup or AD DS domain. If the computer is in a workgroup, a user account that is a member of Administrators is required. If the computer is in an AD DS domain, a user account that is a member of Domain Admins is required."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
     end
   end
@@ -153,16 +153,16 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   end
 
   # Name:         CertFilePassword
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_certfilepassword) do
-    def mof_type; 'string' end
+    def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
     desc "Specifies the password for certification authority certificate file."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
     end
   end

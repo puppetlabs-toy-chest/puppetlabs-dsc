@@ -63,10 +63,10 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   # Type:         <%= property.type %>
   # IsMandatory:  <%= property.required? ? 'True' : 'False' %>
   # Values:       <%= property.values ? property.values : 'None' %>
-  newparam(:dsc_<%= property.name.downcase %><% if property.array? %>, :array_matching => :all<% end %>) do
+  newparam(:dsc_<%= property.name.downcase %><% if property.array? && !property.keyvaluepair? %>, :array_matching => :all<% end %>) do
     def mof_type; '<%= property.type %>' end
     def mof_is_embedded?; <%= property.embeddedinstance? -%> end
-<%    if property.embeddedinstance? && property.embeddedinstance_class_name != 'MSFT_Credential' && property.embeddedinstance_class_name != 'MSFT_KeyValuePair'
+<%    if property.embeddedinstance? && property.embeddedinstance_class_name != 'MSFT_Credential' && !property.keyvaluepair?
 
         type_map = {}
         cim_classes_with_path
@@ -96,6 +96,28 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
       resource[:ensure] = value.downcase
 <%    end -%>
 <%    case -%>
+<%    when property.embeddedinstance? && property.embeddedinstance_array? -%>
+<%#     an array of keyvaluepairs is a special case as it's really a plain old hashtable -%>
+<%      if property.keyvaluepair? -%>
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+<%#     otherwise an array of embeddedinstances is an array of hashes -%>
+<%      else -%>
+      unless value.kind_of?(Array) || value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be an array of hashes or a hash")
+      end
+      (value.kind_of?(Hash) ? [value] : value).each_with_index do |v, i|
+        fail "<%= property.name %> value at index #{i} should be a Hash" unless v.is_a? Hash
+      end
+<%      end -%>
+<%    when property.embeddedinstance? && !property.embeddedinstance_array? -%>
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+<%      if property.keyvaluepair? -%>
+      fail '<%= property.name %> may only have a single key / value pair' unless value.length == 1
+<%      end -%>
 <%    when property.array? -%>
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -138,9 +160,13 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     newvalues(true, false)
 <%  end -%>
 <%    case -%>
-<%    when property.array? -%>
+<%    when property.array? && !property.keyvaluepair? -%>
     munge do |value|
+<%      if property.embeddedinstance_array? -%>
+      value.kind_of?(Hash) ? [value] : value
+<%      else -%>
       Array(value)
+<%      end -%>
     end
 <%    when property.bool? -%>
     munge do |value|

@@ -25,7 +25,7 @@ describe Puppet::Type.type(:dsc_user) do
       :dsc_ensure => 'Present',
       :dsc_fullname => 'foo',
       :dsc_description => 'foo',
-      :dsc_password => 'foo',
+      :dsc_password => {"user"=>"user", "password"=>"password"},
       :dsc_disabled => true,
       :dsc_passwordneverexpires => true,
       :dsc_passwordchangerequired => true,

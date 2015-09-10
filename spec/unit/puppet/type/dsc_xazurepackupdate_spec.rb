@@ -20,7 +20,7 @@ describe Puppet::Type.type(:dsc_xazurepackupdate) do
       :name     => 'foo',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_role is a required attribute/)
   end
 

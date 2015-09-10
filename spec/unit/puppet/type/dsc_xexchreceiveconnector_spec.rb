@@ -22,7 +22,7 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     #dsc_xexchreceiveconnector[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchreceiveconnector).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_ensure => 'Present',
       :dsc_advertiseclientsettings => true,
       :dsc_authmechanism => ["foo", "bar", "spec"],

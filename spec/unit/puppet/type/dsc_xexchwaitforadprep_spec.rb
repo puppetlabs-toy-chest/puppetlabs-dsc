@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     #dsc_xexchwaitforadprep[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchwaitforadprep).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_schemaversion => -32,
       :dsc_organizationversion => -32,
       :dsc_domainversion => -32,

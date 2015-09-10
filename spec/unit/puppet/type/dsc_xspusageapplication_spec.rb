@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
     #dsc_xspusageapplication[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspusageapplication).new(
       :name     => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_databasename => 'foo',
       :dsc_databasepassword => 'foo',
       :dsc_databaseserver => 'foo',

@@ -24,7 +24,7 @@ describe Puppet::Type.type(:dsc_xmysqlgrant) do
     expect { Puppet::Type.type(:dsc_xmysqlgrant).new(
       :name     => 'foo',
       :dsc_databasename => 'foo',
-      :dsc_connectioncredential => 'foo',
+      :dsc_connectioncredential => {"user"=>"user", "password"=>"password"},
       :dsc_permissiontype => 'ALL PRIVILEGES',
       :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_username is a required attribute/)
@@ -51,7 +51,7 @@ describe Puppet::Type.type(:dsc_xmysqlgrant) do
     expect { Puppet::Type.type(:dsc_xmysqlgrant).new(
       :name     => 'foo',
       :dsc_username => 'foo',
-      :dsc_connectioncredential => 'foo',
+      :dsc_connectioncredential => {"user"=>"user", "password"=>"password"},
       :dsc_permissiontype => 'ALL PRIVILEGES',
       :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_databasename is a required attribute/)

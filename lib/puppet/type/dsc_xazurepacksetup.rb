@@ -123,31 +123,31 @@ Puppet::Type.newtype(:dsc_xazurepacksetup) do
   end
 
   # Name:         SetupCredential
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_setupcredential) do
-    def mof_type; 'string' end
+    def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
     desc "Credential to be used to perform the installation."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
     end
   end
 
   # Name:         Passphrase
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_passphrase) do
-    def mof_type; 'string' end
+    def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
     desc "Passphrase for the Azure Pack deployment."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
     end
   end
@@ -183,16 +183,16 @@ Puppet::Type.newtype(:dsc_xazurepacksetup) do
   end
 
   # Name:         dbUser
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_dbuser) do
-    def mof_type; 'string' end
+    def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
     desc "SQL user to be used to create the database if the SetupCredential cannot be used."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
     end
   end

@@ -21,7 +21,7 @@ describe Puppet::Type.type(:dsc_xazurevmdscextension) do
       :dsc_servicename => 'foo',
       :dsc_configurationarchive => 'foo',
       :dsc_storageaccountname => 'foo',
-      :dsc_configurationargument => 'foo',
+      :dsc_configurationargument => {"somekey"=>"somevalue"},
       :dsc_configurationdatapath => 'foo',
       :dsc_configuration => 'foo',
       :dsc_containername => 'foo',

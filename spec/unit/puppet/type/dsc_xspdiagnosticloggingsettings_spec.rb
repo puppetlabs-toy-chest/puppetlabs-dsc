@@ -35,7 +35,7 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
       :dsc_scripterrorreportingdelay => 32,
       :dsc_scripterrorreportingenabled => true,
       :dsc_scripterrorreportingrequireauth => true,
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_logpath is a required attribute/)
   end
 

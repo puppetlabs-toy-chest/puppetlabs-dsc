@@ -25,8 +25,8 @@ describe Puppet::Type.type(:dsc_xaduser) do
       :name     => 'foo',
       :dsc_username => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_password => 'foo',
-      :dsc_domainadministratorcredential => 'foo',
+      :dsc_password => {"user"=>"user", "password"=>"password"},
+      :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_domainname is a required attribute/)
   end
 
@@ -52,8 +52,8 @@ describe Puppet::Type.type(:dsc_xaduser) do
       :name     => 'foo',
       :dsc_domainname => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_password => 'foo',
-      :dsc_domainadministratorcredential => 'foo',
+      :dsc_password => {"user"=>"user", "password"=>"password"},
+      :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_username is a required attribute/)
   end
 

@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchwaitformailboxdatabase) do
     #dsc_xexchwaitformailboxdatabase[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchwaitformailboxdatabase).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_adserversettingspreferredserver => 'foo',
       :dsc_domaincontroller => 'foo',
       :dsc_retryintervalsec => 32,

@@ -21,7 +21,7 @@ describe Puppet::Type.type(:dsc_xazurepackdatabasesetting) do
       :name     => 'foo',
       :dsc_name => 'foo',
       :dsc_value => 'foo',
-      :dsc_azurepackadmincredential => 'foo',
+      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
       :dsc_sqlinstance => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_namespace is a required attribute/)
@@ -73,7 +73,7 @@ describe Puppet::Type.type(:dsc_xazurepackdatabasesetting) do
       :name     => 'foo',
       :dsc_namespace => 'AdminSite',
       :dsc_value => 'foo',
-      :dsc_azurepackadmincredential => 'foo',
+      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
       :dsc_sqlinstance => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)

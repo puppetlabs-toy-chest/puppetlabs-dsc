@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchoabvirtualdirectory) do
     #dsc_xexchoabvirtualdirectory[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchoabvirtualdirectory).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_oabstodistribute => ["foo", "bar", "spec"],
       :dsc_allowservicerestart => true,
       :dsc_basicauthentication => true,

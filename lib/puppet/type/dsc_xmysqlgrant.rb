@@ -88,16 +88,16 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   end
 
   # Name:         ConnectionCredential
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_connectioncredential) do
-    def mof_type; 'string' end
+    def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
     desc "MySql connection credential used for the root."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
     end
   end

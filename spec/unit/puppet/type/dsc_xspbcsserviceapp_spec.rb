@@ -21,7 +21,7 @@ describe Puppet::Type.type(:dsc_xspbcsserviceapp) do
       :dsc_applicationpool => 'foo',
       :dsc_databasename => 'foo',
       :dsc_databaseserver => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

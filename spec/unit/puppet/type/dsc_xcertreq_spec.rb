@@ -20,7 +20,7 @@ describe Puppet::Type.type(:dsc_xcertreq) do
       :name     => 'foo',
       :dsc_caserverfqdn => 'foo',
       :dsc_carootname => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_autorenew => true,
     )}.to raise_error(Puppet::Error, /dsc_subject is a required attribute/)
   end

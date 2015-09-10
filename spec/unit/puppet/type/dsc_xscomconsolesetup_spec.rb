@@ -24,7 +24,7 @@ describe Puppet::Type.type(:dsc_xscomconsolesetup) do
       :name     => 'foo',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
       :dsc_installpath => 'foo',
       :dsc_usemicrosoftupdate => 1,
       :dsc_sendceipreports => 1,

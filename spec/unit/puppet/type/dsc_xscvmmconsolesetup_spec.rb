@@ -24,7 +24,7 @@ describe Puppet::Type.type(:dsc_xscvmmconsolesetup) do
       :name     => 'foo',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
       :dsc_programfiles => 'foo',
       :dsc_indigotcpport => 16,
       :dsc_muoptin => 1,

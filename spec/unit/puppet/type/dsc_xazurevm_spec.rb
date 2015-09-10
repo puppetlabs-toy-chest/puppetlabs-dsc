@@ -29,7 +29,7 @@ describe Puppet::Type.type(:dsc_xazurevm) do
       :dsc_instancesize => 'foo',
       :dsc_linux => true,
       :dsc_windows => true,
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_extensioncontainername => 'foo',
       :dsc_extensionfilelist => 'foo',
       :dsc_extensionscriptname => 'foo',

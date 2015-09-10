@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     #dsc_xexchmailboxdatabase[:dsc_name]
     expect { Puppet::Type.type(:dsc_xexchmailboxdatabase).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_databasecopycount => 32,
       :dsc_server => 'foo',
       :dsc_edbfilepath => 'foo',

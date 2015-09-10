@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupmember) do
     #dsc_xexchdatabaseavailabilitygroupmember[:dsc_mailboxserver]
     expect { Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupmember).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_dagname => 'foo',
       :dsc_domaincontroller => 'foo',
       :dsc_skipdagvalidation => true,

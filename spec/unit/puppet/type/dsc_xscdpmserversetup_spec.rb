@@ -24,17 +24,17 @@ describe Puppet::Type.type(:dsc_xscdpmserversetup) do
       :name     => 'foo',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
       :dsc_username => 'foo',
       :dsc_companyname => 'foo',
       :dsc_productkey => 'foo',
       :dsc_programfiles => 'foo',
       :dsc_yukonmachinename => 'foo',
       :dsc_yukoninstancename => 'foo',
-      :dsc_yukonmachinecredential => 'foo',
+      :dsc_yukonmachinecredential => {"user"=>"user", "password"=>"password"},
       :dsc_reportingmachinename => 'foo',
       :dsc_reportinginstancename => 'foo',
-      :dsc_reportingmachinecredential => 'foo',
+      :dsc_reportingmachinecredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

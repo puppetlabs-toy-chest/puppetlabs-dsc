@@ -22,12 +22,12 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     #dsc_xadcscertificationauthority[:dsc_catype]
     expect { Puppet::Type.type(:dsc_xadcscertificationauthority).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_ensure => 'Present',
       :dsc_cacommonname => 'foo',
       :dsc_cadistinguishednamesuffix => 'foo',
       :dsc_certfile => 'foo',
-      :dsc_certfilepassword => 'foo',
+      :dsc_certfilepassword => {"user"=>"user", "password"=>"password"},
       :dsc_certificateid => 'foo',
       :dsc_cryptoprovidername => 'foo',
       :dsc_databasedirectory => 'foo',

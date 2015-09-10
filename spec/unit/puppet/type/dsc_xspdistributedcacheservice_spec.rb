@@ -25,7 +25,7 @@ describe Puppet::Type.type(:dsc_xspdistributedcacheservice) do
       :dsc_ensure => 'Present',
       :dsc_cachesizeinmb => 32,
       :dsc_serviceaccount => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_createfirewallrules => true,
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end

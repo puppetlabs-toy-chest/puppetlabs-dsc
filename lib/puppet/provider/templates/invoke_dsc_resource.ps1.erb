@@ -14,7 +14,15 @@ $invokeParams = @{
 <% dsc_parameters.each do |p| -%>
     <%- name = p.name.to_s.gsub(/^dsc_/,'')
     value = format_dsc_value(p.value)
-    value = "\'#{resource.parameters[:ensure].default.to_s}\'" if name == 'ensure' && dsc_invoke_method == 'test'
+    if name == 'ensure' && dsc_invoke_method == 'test'
+      value = "\'#{resource.parameters[:ensure].default.to_s}\'"
+    elsif p.mof_is_embedded? && p.mof_type != 'MSFT_KeyValuePair'
+      vals = p.value.is_a?(Hash) ? [p.value] : p.value
+      vals = vals.collect do |v|
+        "(New-CimInstance -ClassName '#{p.mof_type.gsub('[]','')}' -ClientOnly -Property #{format_dsc_value(v)})"
+      end
+      value = "[CimInstance[]]@(#{vals.join(',')})"
+    end
     -%>
     <%= name %> = <%= value %>
 <% end -%>

@@ -19,7 +19,7 @@ describe Puppet::Type.type(:dsc_xspmanagedpath) do
     #dsc_xspmanagedpath[:dsc_webappurl]
     expect { Puppet::Type.type(:dsc_xspmanagedpath).new(
       :name     => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_relativeurl => 'foo',
       :dsc_explicit => true,
       :dsc_hostheader => true,
@@ -63,7 +63,7 @@ describe Puppet::Type.type(:dsc_xspmanagedpath) do
     expect { Puppet::Type.type(:dsc_xspmanagedpath).new(
       :name     => 'foo',
       :dsc_webappurl => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_explicit => true,
       :dsc_hostheader => true,
     )}.to raise_error(Puppet::Error, /dsc_relativeurl is a required attribute/)

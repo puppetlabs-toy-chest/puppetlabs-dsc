@@ -19,9 +19,9 @@ describe Puppet::Type.type(:dsc_xsqlserverinstall) do
     expect { Puppet::Type.type(:dsc_xsqlserverinstall).new(
       :name     => 'foo',
       :dsc_sourcepath => 'foo',
-      :dsc_sourcepathcredential => 'foo',
+      :dsc_sourcepathcredential => {"user"=>"user", "password"=>"password"},
       :dsc_features => 'foo',
-      :dsc_sqladministratorcredential => 'foo',
+      :dsc_sqladministratorcredential => {"user"=>"user", "password"=>"password"},
       :dsc_updateenabled => true,
       :dsc_svcaccount => 'foo',
       :dsc_sysadminaccounts => 'foo',

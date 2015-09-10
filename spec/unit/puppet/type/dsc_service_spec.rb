@@ -25,7 +25,7 @@ describe Puppet::Type.type(:dsc_service) do
       :dsc_state => 'Running',
       :dsc_startuptype => 'Automatic',
       :dsc_builtinaccount => 'LocalSystem',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_status => 'foo',
       :dsc_displayname => 'foo',
       :dsc_description => 'foo',

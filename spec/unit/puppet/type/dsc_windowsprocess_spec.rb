@@ -24,7 +24,7 @@ describe Puppet::Type.type(:dsc_windowsprocess) do
     expect { Puppet::Type.type(:dsc_windowsprocess).new(
       :name     => 'foo',
       :dsc_arguments => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_ensure => 'Present',
       :dsc_standardoutputpath => 'foo',
       :dsc_standarderrorpath => 'foo',
@@ -59,7 +59,7 @@ describe Puppet::Type.type(:dsc_windowsprocess) do
     expect { Puppet::Type.type(:dsc_windowsprocess).new(
       :name     => 'foo',
       :dsc_path => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_ensure => 'Present',
       :dsc_standardoutputpath => 'foo',
       :dsc_standarderrorpath => 'foo',

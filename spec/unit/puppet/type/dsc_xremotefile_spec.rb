@@ -24,8 +24,8 @@ describe Puppet::Type.type(:dsc_xremotefile) do
       :name     => 'foo',
       :dsc_uri => 'foo',
       :dsc_useragent => 'foo',
-      :dsc_headers => ["foo", "bar", "spec"],
-      :dsc_credential => 'foo',
+      :dsc_headers => {"somekey"=>"somevalue", "somekey2"=>"somevalue2"},
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_destinationpath is a required attribute/)
   end
@@ -78,9 +78,9 @@ describe Puppet::Type.type(:dsc_xremotefile) do
     expect{dsc_xremotefile[:dsc_useragent] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept array for dsc_headers' do
-    dsc_xremotefile[:dsc_headers] = ["foo", "bar", "spec"]
-    expect(dsc_xremotefile[:dsc_headers]).to eq(["foo", "bar", "spec"])
+  it 'should accept a hash for dsc_headers' do
+    dsc_xremotefile[:dsc_headers] = {"somekey"=>"somevalue", "somekey2"=>"somevalue2"}
+    expect(dsc_xremotefile[:dsc_headers]).to eq({"somekey"=>"somevalue", "somekey2"=>"somevalue2"})
   end
 
   it 'should not accept boolean for dsc_headers' do

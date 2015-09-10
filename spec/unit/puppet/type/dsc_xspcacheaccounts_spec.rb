@@ -20,7 +20,7 @@ describe Puppet::Type.type(:dsc_xspcacheaccounts) do
       :name     => 'foo',
       :dsc_superuseralias => 'foo',
       :dsc_superreaderalias => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_webappurl is a required attribute/)
   end
 

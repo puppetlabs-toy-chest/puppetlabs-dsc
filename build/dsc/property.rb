@@ -37,7 +37,9 @@ module Dsc
     end
 
     def type
-      @type ||= @cim_feature.type.to_s.downcase
+      @type ||= (embeddedinstance? ?
+        embeddedinstance_class_name + (embeddedinstance_array? ? '[]' : '') :
+        @cim_feature.type.to_s.downcase)
     end
 
     def required?
@@ -50,6 +52,10 @@ module Dsc
 
     def embeddedinstance?
       embeddedinstance ? true: false
+    end
+
+    def embeddedinstance_array?
+      embeddedinstance? && @cim_feature.type.to_s.casecmp('string[]') == 0
     end
 
     def embeddedinstance_class_name
@@ -70,6 +76,10 @@ module Dsc
 
     def is_name?
       name.downcase == 'name' ? true : false
+    end
+
+    def keyvaluepair?
+      embeddedinstance? && embeddedinstance_class_name == 'MSFT_KeyValuePair'
     end
 
     def bool?
@@ -101,7 +111,7 @@ module Dsc
     end
 
     def array?
-      string_array? or int_array? or uint_array?
+      string_array? or int_array? or uint_array? or embeddedinstance_array?
     end
 
   end

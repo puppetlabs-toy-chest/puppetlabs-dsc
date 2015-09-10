@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchwaitfordag) do
     #dsc_xexchwaitfordag[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchwaitfordag).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_domaincontroller => 'foo',
       :dsc_retryintervalsec => 32,
       :dsc_retrycount => 32,

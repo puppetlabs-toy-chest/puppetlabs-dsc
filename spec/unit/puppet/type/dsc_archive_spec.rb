@@ -78,7 +78,7 @@ describe Puppet::Type.type(:dsc_archive) do
       :dsc_validate => true,
       :dsc_checksum => 'SHA-1',
       :dsc_force => true,
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_path is a required attribute/)
   end
 
@@ -107,7 +107,7 @@ describe Puppet::Type.type(:dsc_archive) do
       :dsc_validate => true,
       :dsc_checksum => 'SHA-1',
       :dsc_force => true,
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_destination is a required attribute/)
   end
 

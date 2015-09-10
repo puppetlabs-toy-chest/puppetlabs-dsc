@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xvhdfile) do
     #dsc_xvhdfile[:dsc_vhdpath]
     expect { Puppet::Type.type(:dsc_xvhdfile).new(
       :name     => 'foo',
-      :dsc_filedirectory => ["foo", "bar", "spec"],
+      :dsc_filedirectory => {"DestinationPath"=>"c:/foo/bar"},
       :dsc_checksum => 'ModifiedDate',
     )}.to raise_error(Puppet::Error, /dsc_vhdpath is a required attribute/)
   end
@@ -39,9 +39,14 @@ describe Puppet::Type.type(:dsc_xvhdfile) do
     expect{dsc_xvhdfile[:dsc_vhdpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept array for dsc_filedirectory' do
-    dsc_xvhdfile[:dsc_filedirectory] = ["foo", "bar", "spec"]
-    expect(dsc_xvhdfile[:dsc_filedirectory]).to eq(["foo", "bar", "spec"])
+  it 'should accept a hash for dsc_filedirectory' do
+    dsc_xvhdfile[:dsc_filedirectory] = {"DestinationPath"=>"c:/foo/bar"}
+    expect(dsc_xvhdfile[:dsc_filedirectory]).to eq([{"DestinationPath"=>"c:/foo/bar"}])
+  end
+
+  it 'should accept a an array of hashes for dsc_filedirectory' do
+    dsc_xvhdfile[:dsc_filedirectory] = [{"DestinationPath"=>"c:/foo/bar"}]
+    expect(dsc_xvhdfile[:dsc_filedirectory]).to eq([{"DestinationPath"=>"c:/foo/bar"}])
   end
 
   it 'should not accept boolean for dsc_filedirectory' do

@@ -22,7 +22,7 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork) do
     #dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_name]
     expect { Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_databaseavailabilitygroup => 'foo',
       :dsc_ensure => 'Present',
       :dsc_domaincontroller => 'foo',

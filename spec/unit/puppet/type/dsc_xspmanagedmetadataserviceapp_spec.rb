@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xspmanagedmetadataserviceapp) do
     #dsc_xspmanagedmetadataserviceapp[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspmanagedmetadataserviceapp).new(
       :name     => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_applicationpool => 'foo',
       :dsc_databaseserver => 'foo',
       :dsc_databasename => 'foo',

@@ -88,7 +88,24 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
   end
 <%    end # if property.values -%>
 <%    if property.array? -%>
-<%      if property.values -%>
+<%      if property.keyvaluepair? -%>
+
+  it 'should accept a hash for dsc_<%= property.name.downcase %>' do
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values[property.type]) %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(@spec_test_values[property.type]) %>)
+  end
+<%      elsif property.embeddedinstance? -%>
+
+  it 'should accept a hash for dsc_<%= property.name.downcase %>' do
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values[property.type]) %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq([<%= format_type_value(@spec_test_values[property.type]) %>])
+  end
+
+  it 'should accept a an array of hashes for dsc_<%= property.name.downcase %>' do
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = [<%= format_type_value(@spec_test_values[property.type]) %>]
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq([<%= format_type_value(@spec_test_values[property.type]) %>])
+  end
+<%      elsif property.values -%>
 
   it 'should accept array of predefined values for dsc_<%= property.name.downcase %>' do
     dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= property.values %>

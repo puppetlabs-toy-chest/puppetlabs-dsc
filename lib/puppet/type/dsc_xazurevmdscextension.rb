@@ -115,17 +115,18 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   end
 
   # Name:         ConfigurationArgument
-  # Type:         string
+  # Type:         MSFT_KeyValuePair
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_configurationargument) do
-    def mof_type; 'string' end
+    def mof_type; 'MSFT_KeyValuePair' end
     def mof_is_embedded?; true end
     desc "A hashtable specifying the arguments to the configuration function. The keys correspond to the parameter names and the values to the parameter values."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
+      fail 'ConfigurationArgument may only have a single key / value pair' unless value.length == 1
     end
   end
 

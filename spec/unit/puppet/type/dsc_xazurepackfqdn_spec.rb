@@ -20,7 +20,7 @@ describe Puppet::Type.type(:dsc_xazurepackfqdn) do
       :name     => 'foo',
       :dsc_fullyqualifieddomainname => 'foo',
       :dsc_port => 16,
-      :dsc_azurepackadmincredential => 'foo',
+      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
       :dsc_sqlinstance => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_namespace is a required attribute/)

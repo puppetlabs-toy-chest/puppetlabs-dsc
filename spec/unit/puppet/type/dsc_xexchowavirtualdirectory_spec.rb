@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
     #dsc_xexchowavirtualdirectory[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchowavirtualdirectory).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_adfsauthentication => true,
       :dsc_allowservicerestart => true,
       :dsc_basicauthentication => true,

@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory) do
     #dsc_xexchactivesyncvirtualdirectory[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_allowservicerestart => true,
       :dsc_autocertbasedauth => true,
       :dsc_autocertbasedauththumbprint => 'foo',

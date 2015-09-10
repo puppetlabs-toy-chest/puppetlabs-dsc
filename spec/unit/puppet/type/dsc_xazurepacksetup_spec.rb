@@ -22,11 +22,11 @@ describe Puppet::Type.type(:dsc_xazurepacksetup) do
       :dsc_action => 'Install',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => 'foo',
-      :dsc_passphrase => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_passphrase => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
       :dsc_sqlinstance => 'foo',
-      :dsc_dbuser => 'foo',
+      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
       :dsc_enableceip => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_role is a required attribute/)
   end
@@ -148,11 +148,11 @@ describe Puppet::Type.type(:dsc_xazurepacksetup) do
       :dsc_role => 'Admin API',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => 'foo',
-      :dsc_passphrase => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_passphrase => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
       :dsc_sqlinstance => 'foo',
-      :dsc_dbuser => 'foo',
+      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
       :dsc_enableceip => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_action is a required attribute/)
   end

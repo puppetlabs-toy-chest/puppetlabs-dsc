@@ -75,7 +75,7 @@ describe Puppet::Type.type(:dsc_xscomadmin) do
       :name     => 'foo',
       :dsc_ensure => 'Present',
       :dsc_userrole => 'foo',
-      :dsc_scomadmincredential => 'foo',
+      :dsc_scomadmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_principal is a required attribute/)
   end
 
@@ -101,7 +101,7 @@ describe Puppet::Type.type(:dsc_xscomadmin) do
       :name     => 'foo',
       :dsc_ensure => 'Present',
       :dsc_principal => 'foo',
-      :dsc_scomadmincredential => 'foo',
+      :dsc_scomadmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_userrole is a required attribute/)
   end
 

@@ -20,7 +20,7 @@ describe Puppet::Type.type(:dsc_xscommanagementpack) do
       :name     => 'foo',
       :dsc_version => 'foo',
       :dsc_minversion => 'foo',
-      :dsc_scomadmincredential => 'foo',
+      :dsc_scomadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
       :dsc_sourcefile => 'foo',

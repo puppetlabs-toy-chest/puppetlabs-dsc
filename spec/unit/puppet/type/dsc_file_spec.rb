@@ -29,11 +29,11 @@ describe Puppet::Type.type(:dsc_file) do
       :dsc_checksum => 'SHA-1',
       :dsc_recurse => true,
       :dsc_force => true,
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_attributes => 'ReadOnly',
       :dsc_dependson => ["foo", "bar", "spec"],
       :dsc_matchsource => true,
-      :dsc_psdscrunascredential => 'foo',
+      :dsc_psdscrunascredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_destinationpath is a required attribute/)
   end
 

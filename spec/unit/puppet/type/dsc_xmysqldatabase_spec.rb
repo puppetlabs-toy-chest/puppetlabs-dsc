@@ -23,7 +23,7 @@ describe Puppet::Type.type(:dsc_xmysqldatabase) do
     expect { Puppet::Type.type(:dsc_xmysqldatabase).new(
       :name     => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_connectioncredential => 'foo',
+      :dsc_connectioncredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

@@ -25,7 +25,7 @@ describe Puppet::Type.type(:dsc_xhotfix) do
       :dsc_id => 'foo',
       :dsc_log => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_path is a required attribute/)
   end
 

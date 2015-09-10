@@ -27,7 +27,7 @@ describe Puppet::Type.type(:dsc_xgroup) do
       :dsc_members => ["foo", "bar", "spec"],
       :dsc_memberstoinclude => ["foo", "bar", "spec"],
       :dsc_memberstoexclude => ["foo", "bar", "spec"],
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_groupname is a required attribute/)
   end
 

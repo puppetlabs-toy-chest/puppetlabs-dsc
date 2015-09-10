@@ -29,6 +29,12 @@ module Dsc
       @spec_test_values         = {
         'string'   => 'foo',
         'string[]' => ['foo','bar','spec'],
+        'MSFT_Credential' => { 'user' => 'user', 'password' => 'password' },
+        'MSFT_KeyValuePair' => { 'somekey' => 'somevalue' },
+        'MSFT_KeyValuePair[]' => { 'somekey' => 'somevalue', 'somekey2' => 'somevalue2' },
+        # these hashes will be automatically wrapped in tests
+        'MSFT_xFileDirectory[]' => { 'DestinationPath' => 'c:/foo/bar' },
+        'MSFT_xWebBindingInformation[]' => { 'Port' => 8080, 'Protocol' => 'https' },
         'bool'     => true,
         'boolean'  => true,
         'munged_bools' => ['true','false','True', 'False', :true, :false],

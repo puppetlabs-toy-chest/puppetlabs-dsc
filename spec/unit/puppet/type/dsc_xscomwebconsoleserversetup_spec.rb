@@ -24,7 +24,7 @@ describe Puppet::Type.type(:dsc_xscomwebconsoleserversetup) do
       :name     => 'foo',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
       :dsc_installpath => 'foo',
       :dsc_managementserver => 'foo',
       :dsc_websitename => 'foo',

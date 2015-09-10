@@ -76,7 +76,7 @@ describe Puppet::Type.type(:dsc_xdatabaselogin) do
       :dsc_loginpassword => 'foo',
       :dsc_sqlauthtype => 'Windows',
       :dsc_sqlserver => 'foo',
-      :dsc_sqlconnectioncredential => 'foo',
+      :dsc_sqlconnectioncredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_loginname is a required attribute/)
   end
 

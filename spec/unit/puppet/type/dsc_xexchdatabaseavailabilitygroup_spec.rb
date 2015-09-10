@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     #dsc_xexchdatabaseavailabilitygroup[:dsc_name]
     expect { Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_autodagtotalnumberofservers => -32,
       :dsc_alternatewitnessdirectory => 'foo',
       :dsc_alternatewitnessserver => 'foo',

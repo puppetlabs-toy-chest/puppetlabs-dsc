@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
     #dsc_xexchmailboxdatabasecopy[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchmailboxdatabasecopy).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_mailboxserver => 'foo',
       :dsc_adserversettingspreferredserver => 'foo',
       :dsc_allowservicerestart => true,

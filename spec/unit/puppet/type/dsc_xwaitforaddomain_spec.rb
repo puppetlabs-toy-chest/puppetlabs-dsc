@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xwaitforaddomain) do
     #dsc_xwaitforaddomain[:dsc_domainname]
     expect { Puppet::Type.type(:dsc_xwaitforaddomain).new(
       :name     => 'foo',
-      :dsc_domainusercredential => 'foo',
+      :dsc_domainusercredential => {"user"=>"user", "password"=>"password"},
       :dsc_retryintervalsec => 64,
       :dsc_retrycount => 32,
     )}.to raise_error(Puppet::Error, /dsc_domainname is a required attribute/)

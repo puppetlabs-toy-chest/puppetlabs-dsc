@@ -20,8 +20,8 @@ describe Puppet::Type.type(:dsc_xspjoinfarm) do
     expect { Puppet::Type.type(:dsc_xspjoinfarm).new(
       :name     => 'foo',
       :dsc_databaseserver => 'foo',
-      :dsc_farmaccount => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_passphrase => 'foo',
       :dsc_waittime => 32,
       :dsc_waitcount => 32,
@@ -49,8 +49,8 @@ describe Puppet::Type.type(:dsc_xspjoinfarm) do
     expect { Puppet::Type.type(:dsc_xspjoinfarm).new(
       :name     => 'foo',
       :dsc_farmconfigdatabasename => 'foo',
-      :dsc_farmaccount => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_passphrase => 'foo',
       :dsc_waittime => 32,
       :dsc_waitcount => 32,

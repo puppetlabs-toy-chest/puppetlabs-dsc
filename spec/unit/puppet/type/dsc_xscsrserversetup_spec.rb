@@ -24,7 +24,7 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
       :name     => 'foo',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
       :dsc_sendceipreports => 'Yes',
       :dsc_usemicrosoftupdate => 'Yes',
       :dsc_installfolder => 'foo',

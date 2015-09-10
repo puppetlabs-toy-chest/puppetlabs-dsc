@@ -101,34 +101,31 @@ Puppet::Type.newtype(:dsc_xremotefile) do
   end
 
   # Name:         Headers
-  # Type:         string[]
+  # Type:         MSFT_KeyValuePair[]
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_headers, :array_matching => :all) do
-    def mof_type; 'string[]' end
+  newparam(:dsc_headers) do
+    def mof_type; 'MSFT_KeyValuePair[]' end
     def mof_is_embedded?; true end
     desc "Headers of the web request."
     validate do |value|
-      unless value.kind_of?(Array) || value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
-    end
-    munge do |value|
-      Array(value)
     end
   end
 
   # Name:         Credential
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_credential) do
-    def mof_type; 'string' end
+    def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
     desc "Specifies a user account that has permission to send the request."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
     end
   end
