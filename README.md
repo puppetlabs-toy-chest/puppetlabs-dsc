@@ -10,6 +10,7 @@
 4. [Usage](#usage)
   * [LCM RefreshMode Must be Disabled](#lcm-refreshmode-must-be-disabled)
   * [Using DSC Resources with Puppet](#using-dsc-resources-with-puppet)
+  * [Installing Packages with DSC](#installing-packages-with-dsc)
   * [Setting Registry Values](#setting-registry-values)
   * [Adding or Removing Windows Features](#adding-or-removing-windows-features)
   * [Website Installation Example](#website-installation-example)
@@ -55,6 +56,69 @@ dsc_windowsfeature {'IIS':
 ~~~
 
 All DSC Resource names and parameters have to be in lowercase, e.g: `dsc_windowsfeature` or `dsc_name`.
+
+### Installing Packages with DSC
+
+You can install MSIs or EXEs with DSC using the Puppet type `dsc_package` which maps to the `Package` DSC Resource.
+
+~~~puppet
+dsc_package{'installpython'
+  dsc_ensure    => 'Present',
+  dsc_name      => 'Python 2.7.10',
+  dsc_productid => 'E2B51919-207A-43EB-AE78-733F9C6797C2'
+  dsc_path      => 'C:\\python.msi',
+}
+~~~
+
+The `Package` DSC Resource requires the following pieces of information to install an MSI:
+
+- ProductName: The `Name` of product being installed.
+- ProductId: The `ProductCode` property of the MSI, which is a unique identifier for the particular product release, represented as a GUID string. For more information see the [MSDN ProductCode property](https://msdn.microsoft.com/en-us/library/aa370854.aspx) documentation page.
+
+You can obtain this information in a variety of ways.
+
+- Use a tool like Orca to open the MSI file and inspect the `Name` and `ProductCode`.
+- Install the product on a test system and inspect the `Name` and `ProductCode` in the Windows Add/Remove Programs Control Panel
+- Use a script to query the MSI file for the `Name` and `ProductCode` like the example PowerShell script below which was adapted from [Stack Overflow](http://stackoverflow.com/a/8743878/1083).
+
+~~~powershell
+function Get-MsiDatabaseInfo{
+  param ([IO.FileInfo]$FilePath)
+
+  $productName = Invoke-MSIQuery -FilePath $filePath.FullName -Query "SELECT Value FROM Property WHERE Property = 'ProductName'"
+  $productCode = Invoke-MSIQuery -FilePath $filePath.FullName -Query "SELECT Value FROM Property WHERE Property = 'ProductCode'"
+
+  return [PSCustomObject]@{
+    FullName    = $FilePath.FullName
+    ProductName = ([string]$productName).TrimStart()
+    ProductCode = ([string]$productCode).Replace("{","").Replace("}","").TrimStart()
+  }
+}
+
+function Invoke-MSIQuery{
+  param($FilePath, $Query)
+  try{
+    $windowsInstaller = New-Object -com WindowsInstaller.Installer
+    $database = $windowsInstaller.GetType().InvokeMember("OpenDatabase", "InvokeMethod", $Null, $windowsInstaller, @($FilePath, 0))
+  }catch{
+    throw "Failed to open MSI file. The error was: {0}." -f $_
+  }
+
+  try{
+    $View = $database.GetType().InvokeMember("OpenView", "InvokeMethod", $Null, $database, ($query))
+    $View.GetType().InvokeMember("Execute", "InvokeMethod", $Null, $View, $Null)
+
+    $record = $View.GetType().InvokeMember("Fetch", "InvokeMethod", $Null, $View, $Null)
+    $property = $record.GetType().InvokeMember("StringData", "GetProperty", $Null, $record, 1)
+
+    $View.GetType().InvokeMember("Close", "InvokeMethod", $Null, $View, $Null)
+
+    return $property
+  }catch{
+    throw "Failed to read MSI file. The error was: {0}." -f $_
+  }
+}
+~~~
 
 ### Using Credentials
 
