@@ -33,7 +33,7 @@ module Dsc
         'MSFT_KeyValuePair' => { 'somekey' => 'somevalue' },
         'MSFT_KeyValuePair[]' => { 'somekey' => 'somevalue', 'somekey2' => 'somevalue2' },
         # these hashes will be automatically wrapped in tests
-        'MSFT_xFileDirectory[]' => { 'DestinationPath' => 'c:/foo/bar' },
+        'MSFT_xFileDirectory[]' => { 'DestinationPath' => 'c:/foo/bar', 'Recurse' => true },
         'MSFT_xWebBindingInformation[]' => { 'Port' => 8080, 'Protocol' => 'https' },
         'bool'     => true,
         'boolean'  => true,

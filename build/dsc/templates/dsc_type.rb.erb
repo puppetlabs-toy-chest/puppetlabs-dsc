@@ -31,7 +31,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     end
   -%>
     class PuppetX::Dsc::TypeHelpers
-      def self.validate_<%= class_name %>(name, value)
+      def self.validate_<%= class_name %>(mof_type_map, name, value)
 <%# emit required or allowed fields based on embeddedinstance definition -%>
         required = [<%= required.join(',') %>]
         allowed = [<%=  allowed.join(',') %>]
@@ -45,6 +45,12 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
         extraneous = lowkey_hash.keys - required - allowed
         unless extraneous.empty?
           fail "#{name} includes invalid keys: #{extraneous.join(',')}"
+        end
+
+        lowkey_hash.keys.each do |key|
+          if lowkey_hash[key]
+            validate_mof_type(mof_type_map[key], '<%= class_name %>', key, lowkey_hash[key])
+          end
         end
       end
     end
@@ -152,7 +158,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
       (value.kind_of?(Hash) ? [value] : value).each_with_index do |v, i|
         fail "<%= property.name %> value at index #{i} should be a Hash" unless v.is_a? Hash
 
-        PuppetX::Dsc::TypeHelpers.validate_<%= property.embeddedinstance_class_name %>("<%= property.name %>", v)
+        PuppetX::Dsc::TypeHelpers.validate_<%= property.embeddedinstance_class_name %>(<%=  property.embeddedinstance_class_name != 'MSFT_Credential' ? 'mof_type_map, ' : '' %>"<%= property.name %>", v)
       end
 <%      end -%>
 <%    when property.embeddedinstance? && !property.embeddedinstance_array? -%>
@@ -162,7 +168,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 <%      if property.keyvaluepair? -%>
       fail '<%= property.name %> may only have a single key / value pair' unless value.length == 1
 <%      else -%>
-      PuppetX::Dsc::TypeHelpers.validate_<%= property.embeddedinstance_class_name %>("<%= property.name %>", value)
+      PuppetX::Dsc::TypeHelpers.validate_<%= property.embeddedinstance_class_name %>(<%=  property.embeddedinstance_class_name != 'MSFT_Credential' ? 'mof_type_map, ' : '' %>"<%= property.name %>", value)
 <%      end -%>
 <%    when property.array? -%>
       unless value.kind_of?(Array) || value.kind_of?(String)

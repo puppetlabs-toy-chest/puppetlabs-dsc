@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
     defaultfor :operatingsystem => :windows
   end
     class PuppetX::Dsc::TypeHelpers
-      def self.validate_MSFT_xWebBindingInformation(name, value)
+      def self.validate_MSFT_xWebBindingInformation(mof_type_map, name, value)
         required = []
         allowed = ['port','protocol','ipaddress','hostname','certificatethumbprint','certificatestorename','sslflags']
         lowkey_hash = Hash[value.map { |k, v| [k.to_s.downcase, v] }]
@@ -21,6 +21,12 @@ Puppet::Type.newtype(:dsc_xwebsite) do
         extraneous = lowkey_hash.keys - required - allowed
         unless extraneous.empty?
           fail "#{name} includes invalid keys: #{extraneous.join(',')}"
+        end
+
+        lowkey_hash.keys.each do |key|
+          if lowkey_hash[key]
+            validate_mof_type(mof_type_map[key], 'MSFT_xWebBindingInformation', key, lowkey_hash[key])
+          end
         end
       end
     end
@@ -153,7 +159,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
       (value.kind_of?(Hash) ? [value] : value).each_with_index do |v, i|
         fail "BindingInfo value at index #{i} should be a Hash" unless v.is_a? Hash
 
-        PuppetX::Dsc::TypeHelpers.validate_MSFT_xWebBindingInformation("BindingInfo", v)
+        PuppetX::Dsc::TypeHelpers.validate_MSFT_xWebBindingInformation(mof_type_map, "BindingInfo", v)
       end
     end
     munge do |value|
