@@ -52,6 +52,17 @@ agents.each do |agent|
     assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
   end
 
+  step 'Verify Results'
+  assert_dsc_resource(
+    agent,
+    dsc_type,
+    dsc_module,
+    :Ensure    => dsc_props[:dsc_ensure],
+    :Path      => dsc_props[:dsc_path],
+    :Name      => dsc_props[:dsc_name],
+    :ProductId => dsc_props[:dsc_productid]
+  )
+
   # New manifest to uninstall package.
   dsc_props[:dsc_ensure] = 'Absent'
   dsc_remove_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)

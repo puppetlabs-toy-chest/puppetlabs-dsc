@@ -65,10 +65,11 @@ agents.each do |agent|
       agent,
       dsc_type,
       dsc_module,
-      :Ensure    => dsc_props[:dsc_ensure],
-      :Path      => dsc_props[:dsc_path],
-      :Name      => dsc_props[:dsc_name],
-      :ProductId => dsc_props[:dsc_productid]
+      :Ensure     => dsc_props[:dsc_ensure],
+      :Path       => dsc_props[:dsc_path],
+      :Name       => dsc_props[:dsc_name],
+      :ProductId  => dsc_props[:dsc_productid],
+      :ReturnCode => dsc_props[:dsc_returncode]
     )
   end
 end
