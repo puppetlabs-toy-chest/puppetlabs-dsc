@@ -53,7 +53,7 @@ set_dsc_resource(
 # Tests
 agents.each do |agent|
   step 'Apply Manifest'
-  on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => 1) do |result|
+  on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => 0) do |result|
     expect_failure('Expected to fail because of MODULES-2562') do
       assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
     end
