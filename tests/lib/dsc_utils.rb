@@ -72,7 +72,9 @@ def _build_dsc_command(dsc_method, dsc_resource_type, dsc_module, dsc_properties
       dsc_prop_merge << "#{v};"
     elsif v =~ /^@/
       dsc_prop_merge << "#{v.gsub(/\"/, '\\\"')};"
-    elsif v =~ /^-?\d+$/
+    elsif v =~ /^(-|\[)?\d+$/
+      dsc_prop_merge << "#{v};"
+    elsif v =~ /^\[.+\].+$/     #This is for wacky type conversions
       dsc_prop_merge << "#{v};"
     else
       dsc_prop_merge << "\\\"#{v}\\\";"

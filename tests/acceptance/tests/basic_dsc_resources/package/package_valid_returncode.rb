@@ -69,7 +69,7 @@ agents.each do |agent|
       :Path       => dsc_props[:dsc_path],
       :Name       => dsc_props[:dsc_name],
       :ProductId  => dsc_props[:dsc_productid],
-      :ReturnCode => dsc_props[:dsc_returncode]
+      :ReturnCode => "[uint32[]]@(#{dsc_props[:dsc_returncode]})"
     )
   end
 end
