@@ -8,6 +8,8 @@
 2. [Prerequisites](#windows-system-prerequisites)
 3. [Setup](#setup)
 4. [Usage](#usage)
+  * [LCM RefreshMode Must be Disabled](#lcm-refreshmode-must-be-disabled)
+  * [Using DSC Resources with Puppet](#using-dsc-resources-with-puppet)
   * [Website Installation Example](#website-installation-example)
 5. [Limitations](#limitations)
   * [Known Issues](#known-issues)
@@ -39,9 +41,9 @@ puppet module install puppetlabs-dsc
 
 ## Usage
 
-### Refresh Mode Must be Disabled
+### LCM RefreshMode Must be Disabled
 
-You must set refresh mode to disabled before you can use this module to apply any resources.
+You must set the Local Configuration Mananger `RefreshMode` to `Disabled` before you can use this module to apply any resources.
 
 ~~~puppet
 dsc::lcm_config {'disable_lcm':
@@ -49,7 +51,7 @@ dsc::lcm_config {'disable_lcm':
 }
 ~~~
 
-### Puppet DSC Resources
+### Using DSC Resources with Puppet
 
 You can use a DSC Resource by prefixing each DSC Resource name and parameter with 'dsc_'.
 
