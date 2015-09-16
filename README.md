@@ -145,6 +145,7 @@ Files\WindowsPowerShell\Modules\PuppetVendoredModules\xPSDesiredStateConfigurati
 esource\MSFT_xGroupResource.psm1 cannot be loaded because running scripts is disabled on this system. For more
 information, see about_Execution_Policies at http://go.microsoft.com/fwlink/?LinkID=135170.
 ~~~
+- You cannot use forward slashes for the MSI `Path` property for the `Package` DSC Resource. The underlying implementation does not handle forward slashes instead of backward slashes in paths and throws a misleading error that it could not find a Package with the Name and ProductId provided. [MODULES-2486](https://tickets.puppetlabs.com/browse/MODULES-2486) has more examples and information on this subject.
 
 ### Known Issues
 
