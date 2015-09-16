@@ -36,6 +36,8 @@ EOT
   end
 
   def exists?
+    version = Facter.value(:powershell_version)
+    Puppet.debug "PowerShell Version: #{version}"
     script_content = ps_script_content('test')
     Puppet.debug "\n" + script_content
     output = powershell(powershell_args, script_content)

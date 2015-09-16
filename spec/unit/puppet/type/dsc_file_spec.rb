@@ -3,6 +3,11 @@ require 'spec_helper'
 
 describe Puppet::Type.type(:dsc_file) do
 
+  let(:facts) {
+    {
+      :powershell_version  => '5.0.10514.6',
+    }
+  }
   let :dsc_file do
     Puppet::Type.type(:dsc_file).new(
       :name     => 'foo',
