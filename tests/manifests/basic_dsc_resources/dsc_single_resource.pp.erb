@@ -2,6 +2,8 @@ dsc_<%= dsc_type %> {'<%= dsc_type %>_test':
   <% dsc_props.each do |k, v| %>
     <% if v =~ /^\[.*\]$/ %>
       <%= k %> => <%= v %>,
+    <% elsif v =~ /^(true|false)$/ %>
+      <%= k %> => <%= v %>,
     <% else %>
       <%= k %> => '<%= v %>',
     <% end %>
