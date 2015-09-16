@@ -74,15 +74,28 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   <%  end -%>
   end
 
-  newparam(:dscmeta_resource_friendly_name) do
+  newproperty(:dscmeta_resource_friendly_name) do
     desc "A read-only value that is the DSC Resource Friendly Name ('<%= resource.friendlyname %>')."
-    defaultto "<%= resource.friendlyname %>"
 
+    def retrieve
+      '<%= resource.friendlyname %>'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
+  newproperty(:dscmeta_resource_name) do
     desc "A read-only value that is the DSC Resource Name ('<%= resource.name %>')."
-    defaultto "<%= resource.name %>"
+
+    def retrieve
+      '<%= resource.name %>'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
@@ -97,17 +110,31 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
+  newproperty(:dscmeta_module_name) do
     desc "A read-only value that is the DSC Module Name ('<%= resource.ps_module.name %>')."
-    defaultto "<%= resource.ps_module.name %>"
+
+    def retrieve
+      '<%= resource.ps_module.name %>'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 <%  if resource.ps_module.name != 'PSDesiredStateConfiguration' %>
-  newparam(:dscmeta_module_version) do
+  newproperty(:dscmeta_module_version) do
     desc "A read-only value for the DSC Module Version ('<%= resource.ps_module.version %>').
       This is the supported version of the PowerShell module that this
       type was built on. When Puppet runs this resource, it will explicitly
       use this version."
-    defaultto "<%= resource.ps_module.version %>"
+
+    def retrieve
+      '<%= resource.ps_module.version %>'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 <%  end %>
   newparam(:name, :namevar => true ) do
