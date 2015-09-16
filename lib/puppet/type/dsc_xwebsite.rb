@@ -138,7 +138,9 @@ Puppet::Type.newtype(:dsc_xwebsite) do
       end
     end
     munge do |value|
-      value.kind_of?(Hash) ? [value] : value
+      value.kind_of?(Hash) ?
+        [PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, value)] :
+        value.map { |v| PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, v) }
     end
   end
 
