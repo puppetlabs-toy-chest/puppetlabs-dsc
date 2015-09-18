@@ -7,13 +7,6 @@ $response = @{
   errormessage   = ''
 }
 
-$currentState = Get-DscLocalConfigurationManager
-
-if ($currentState.RefreshMode -ne 'Disabled') {
-  $response.errormessage = "DSC LCM RefreshMode must be set to Disabled for Puppet to execute DSC Resources! Please run dsc::lcm_config first"
-  return ($response | ConvertTo-Json -Compress)
-}
-
 $invokeParams = @{
   Name          = '<%= resource[:dscmeta_resource_friendly_name] %>'
   Method        = '<%= dsc_invoke_method %>'

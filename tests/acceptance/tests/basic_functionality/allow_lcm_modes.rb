@@ -1,6 +1,6 @@
 require 'erb'
 require 'dsc_utils'
-test_name 'MODULES-2480 - C89505 - Misconfigure LCM and Attempt to Apply DSC Manifest'
+test_name 'MODULES-2480 - C89505 - Apply DSC Manifest with LCM refresh mode set to Push'
 
 confine(:to, :platform => 'windows')
 
@@ -24,9 +24,6 @@ teardown do
   configure_lcm(agents, refresh_mode = 'Disabled')
 end
 
-# Verify
-error_msg = /Error:.*DSC LCM RefreshMode must be set to Disabled/
-
 # Setup
 step 'Enable LCM on Windows Agents'
 configure_lcm(agents, refresh_mode = 'Push')
@@ -35,6 +32,15 @@ configure_lcm(agents, refresh_mode = 'Push')
 agents.each do |agent|
   step 'Attempt to Apply Manifest'
   on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => 0) do |result|
-    assert_match(error_msg, result.stderr, 'Expected error was not detected!')
+    assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
   end
+
+  step 'Verify Results'
+  assert_dsc_resource(
+    agent,
+    'File',
+    'PSDesiredStateConfiguration',
+    :DestinationPath => 'C:\test.file',
+    :Contents => 'Cats go meow!'
+  )
 end

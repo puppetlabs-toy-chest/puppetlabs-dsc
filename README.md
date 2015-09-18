@@ -41,16 +41,6 @@ puppet module install puppetlabs-dsc
 
 ## Usage
 
-### LCM RefreshMode Must be Disabled
-
-You must set the Local Configuration Mananger `RefreshMode` to `Disabled` before you can use this module to apply any resources.
-
-~~~puppet
-dsc::lcm_config {'disable_lcm':
-  refresh_mode => 'Disabled',
-}
-~~~
-
 ### Using DSC Resources with Puppet
 
 You can use a DSC Resource by prefixing each DSC Resource name and parameter with 'dsc_'.
@@ -133,6 +123,18 @@ class fourthcoffee(
 
 As you can see, you can mix and match dsc resources with common puppet resources.
 All [puppet metaparameters](https://docs.puppetlabs.com/references/latest/metaparameter.html) should also be supported.
+
+### Optionally configuring the Systems LCM Refresh Mode
+
+Prior to the WMF5 production preview, the global LCM refresh mode had to be set
+to 'Disabled' for the module to work.  That limitation has been removed, but the
+module still supports configuring this setting if you wish to change it.
+
+~~~puppet
+dsc::lcm_config {'disable_lcm':
+  refresh_mode => 'Disabled',
+}
+~~~
 
 ## Limitations
 
