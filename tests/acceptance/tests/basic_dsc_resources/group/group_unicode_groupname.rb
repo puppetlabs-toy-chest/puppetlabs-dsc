@@ -43,11 +43,13 @@ agents.each do |agent|
   end
 
   step 'Verify Results'
-  assert_dsc_resource(
-    agent,
-    dsc_type,
-    dsc_module,
-    :Ensure    => dsc_props[:dsc_ensure],
-    :GroupName => dsc_props[:dsc_groupname]
-  )
+  expect_failure('Expected to fail because of MODULES-2593') do
+    assert_dsc_resource(
+      agent,
+      dsc_type,
+      dsc_module,
+      :Ensure    => dsc_props[:dsc_ensure],
+      :GroupName => dsc_props[:dsc_groupname]
+    )
+  end
 end
