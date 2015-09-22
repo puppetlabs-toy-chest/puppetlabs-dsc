@@ -65,6 +65,9 @@ eod
                           "#{dsc_resources_path_tmp}/**/*Example*",
                           "#{dsc_resources_path_tmp}/**/*Test*"])
 
+      puts "Cleaning out extraneous files for #{item_name}"
+      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/*.{pptx,docx,sln,gitattributes,gitignore,gitmodules,cmd,xml,pssproj,pfx,html,txt,xlsm,csv,png,git,yml,md}"])
+
       puts "Copying vendored resources from #{dsc_resources_path_tmp}/xDscResources to #{vendor_dsc_resources_path}"
       FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", vendor_dsc_resources_path, :remove_destination => true
       FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", dsc_resources_path
