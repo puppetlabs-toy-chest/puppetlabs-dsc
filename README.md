@@ -1,18 +1,20 @@
 # dsc
 [wmf-5.0]: https://www.microsoft.com/en-us/download/details.aspx?id=48729
 [DSCResources]: https://github.com/powershell/DSCResources
-
+[wmf5-blog-post]: http://blogs.msdn.com/b/powershell/archive/2015/08/31/windows-management-framework-5-0-production-preview-is-now-available.aspx
 
 #### Table of Contents
 1. [Module Description - What is the dsc module and what does it do](#module-description)
 2. [Prerequisites](#windows-system-prerequisites)
 3. [Setup](#setup)
 4. [Usage](#usage)
-  * [LCM RefreshMode Must be Disabled](#lcm-refreshmode-must-be-disabled)
   * [Using DSC Resources with Puppet](#using-dsc-resources-with-puppet)
+  * [Installing Packages with DSC](#installing-packages-with-dsc)
+  * [Using Credentials](#using-credentials)
   * [Setting Registry Values](#setting-registry-values)
   * [Adding or Removing Windows Features](#adding-or-removing-windows-features)
   * [Website Installation Example](#website-installation-example)
+  * [Optionally Configure the DSC LCM RefreshMode](#optionally-configure-the-dsc-lcm-refreshmode)
 5. [Limitations](#limitations)
   * [Known Issues](#known-issues)
   * [Running Puppet and DSC without Administrative Privileges](#running-puppet-and-dsc-without-administrative-privileges)
@@ -26,14 +28,14 @@ Puppet module for managing Windows PowerShell DSC (Desired State Configuration) 
 This module generates Puppet Types based on DSC resources' MOF (Managed Object Format) schema files.
 
 In this version, the following DSC Resources are already built and ready for use:
-- All base DSC resources found in PowerShell 5. ([WMF 5.0][wmf-5.0])
+- All base DSC resources found in PowerShell 5 ([WMF 5.0][wmf-5.0]).
 - All DSC resources found in the [Microsoft PowerShell DSC Resource Kit][DSCResources]
 
 This module is available on the [Puppet Forge](https://forge.puppetlabs.com/puppetlabs/dsc)
 
 ## Windows System Prerequisites
 
- - PowerShell 5 which is included in [Windows Management Framework 5.0][wmf-5.0]. PowerShell v5 is currently in [production preview](http://blogs.msdn.com/b/powershell/archive/2015/08/31/windows-management-framework-5-0-production-preview-is-now-available.aspx), so the above link may change after official release.
+ - PowerShell 5 which is included in [Windows Management Framework 5.0][wmf-5.0]. PowerShell v5 is currently in [production preview][wmf5-blog-post], so the above link may change after official release.
 
 ## Setup
 
@@ -55,6 +57,69 @@ dsc_windowsfeature {'IIS':
 ~~~
 
 All DSC Resource names and parameters have to be in lowercase, e.g: `dsc_windowsfeature` or `dsc_name`.
+
+### Installing Packages with DSC
+
+You can install MSIs or EXEs with DSC using the Puppet type `dsc_package` which maps to the `Package` DSC Resource.
+
+~~~puppet
+dsc_package{'installpython'
+  dsc_ensure    => 'Present',
+  dsc_name      => 'Python 2.7.10',
+  dsc_productid => 'E2B51919-207A-43EB-AE78-733F9C6797C2'
+  dsc_path      => 'C:\\python.msi',
+}
+~~~
+
+The `Package` DSC Resource requires the following pieces of information to install an MSI:
+
+- ProductName: The `Name` of product being installed.
+- ProductId: The `ProductCode` property of the MSI, which is a unique identifier for the particular product release, represented as a GUID string. For more information see the [MSDN ProductCode property](https://msdn.microsoft.com/en-us/library/aa370854.aspx) documentation page.
+
+You can obtain this information in a variety of ways.
+
+- Use a tool like Orca to open the MSI file and inspect the `Name` and `ProductCode`.
+- Install the product on a test system and inspect the `Name` and `ProductCode` in the Windows Add/Remove Programs Control Panel
+- Use a script to query the MSI file for the `Name` and `ProductCode` like the example PowerShell script below which was adapted from [Stack Overflow](http://stackoverflow.com/a/8743878/1083).
+
+~~~powershell
+function Get-MsiDatabaseInfo{
+  param ([IO.FileInfo]$FilePath)
+
+  $productName = Invoke-MSIQuery -FilePath $filePath.FullName -Query "SELECT Value FROM Property WHERE Property = 'ProductName'"
+  $productCode = Invoke-MSIQuery -FilePath $filePath.FullName -Query "SELECT Value FROM Property WHERE Property = 'ProductCode'"
+
+  return [PSCustomObject]@{
+    FullName    = $FilePath.FullName
+    ProductName = ([string]$productName).TrimStart()
+    ProductCode = ([string]$productCode).Replace("{","").Replace("}","").TrimStart()
+  }
+}
+
+function Invoke-MSIQuery{
+  param($FilePath, $Query)
+  try{
+    $windowsInstaller = New-Object -com WindowsInstaller.Installer
+    $database = $windowsInstaller.GetType().InvokeMember("OpenDatabase", "InvokeMethod", $Null, $windowsInstaller, @($FilePath, 0))
+  }catch{
+    throw "Failed to open MSI file. The error was: {0}." -f $_
+  }
+
+  try{
+    $View = $database.GetType().InvokeMember("OpenView", "InvokeMethod", $Null, $database, ($query))
+    $View.GetType().InvokeMember("Execute", "InvokeMethod", $Null, $View, $Null)
+
+    $record = $View.GetType().InvokeMember("Fetch", "InvokeMethod", $Null, $View, $Null)
+    $property = $record.GetType().InvokeMember("StringData", "GetProperty", $Null, $record, 1)
+
+    $View.GetType().InvokeMember("Close", "InvokeMethod", $Null, $View, $Null)
+
+    return $property
+  }catch{
+    throw "Failed to read MSI file. The error was: {0}." -f $_
+  }
+}
+~~~
 
 ### Using Credentials
 
@@ -221,11 +286,9 @@ class fourthcoffee(
 As you can see, you can mix and match dsc resources with common puppet resources.
 All [puppet metaparameters](https://docs.puppetlabs.com/references/latest/metaparameter.html) should also be supported.
 
-### Optionally configuring the Systems LCM Refresh Mode
+### Optionally Configure the DSC LCM RefreshMode
 
-Prior to the WMF5 production preview, the global LCM refresh mode had to be set
-to 'Disabled' for the module to work.  That limitation has been removed, but the
-module still supports configuring this setting if you wish to change it.
+Prior to the WMF5 Production Preview, the DSC Local Configuration Manager (LCM) `RefreshMode` had to be set to `'Disabled'` for the module to work. That limitation has been removed in the [WMF 5 Production Preview][wmf5-blog-post], but the module still supports configuring this setting if you wish to change it.
 
 ~~~puppet
 dsc::lcm_config {'disable_lcm':
