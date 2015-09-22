@@ -59,6 +59,11 @@ eod
       sh cmd
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git"])
 
+      blacklist = ['xChrome', 'xDSCResourceDesigner', 'xDscDiagnostics',
+                   'xFireFox', 'xSafeHarbor', 'xSystemSecurity']
+      puts "Cleaning out black-listed DSC resources: #{blacklist}"
+      blacklist.each { |res| FileUtils.rm_rf("#{dsc_resources_path_tmp}/xDSCResources/#{res}") }
+
       puts "Cleaning out test and example files for #{item_name}"
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git",
                           "#{dsc_resources_path_tmp}/**/*Sample*",
