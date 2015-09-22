@@ -1,19 +1,20 @@
 # dsc
 [wmf-5.0]: https://www.microsoft.com/en-us/download/details.aspx?id=48729
 [DSCResources]: https://github.com/powershell/DSCResources
-
+[wmf5-blog-post]: http://blogs.msdn.com/b/powershell/archive/2015/08/31/windows-management-framework-5-0-production-preview-is-now-available.aspx
 
 #### Table of Contents
 1. [Module Description - What is the dsc module and what does it do](#module-description)
 2. [Prerequisites](#windows-system-prerequisites)
 3. [Setup](#setup)
 4. [Usage](#usage)
-  * [LCM RefreshMode Must be Disabled](#lcm-refreshmode-must-be-disabled)
   * [Using DSC Resources with Puppet](#using-dsc-resources-with-puppet)
   * [Installing Packages with DSC](#installing-packages-with-dsc)
+  * [Using Credentials](#using-credentials)
   * [Setting Registry Values](#setting-registry-values)
   * [Adding or Removing Windows Features](#adding-or-removing-windows-features)
   * [Website Installation Example](#website-installation-example)
+  * [Optionally Configure the DSC LCM RefreshMode](#optionally-configure-the-dsc-lcm-refreshmode)
 5. [Limitations](#limitations)
   * [Known Issues](#known-issues)
   * [Running Puppet and DSC without Administrative Privileges](#running-puppet-and-dsc-without-administrative-privileges)
@@ -27,14 +28,14 @@ Puppet module for managing Windows PowerShell DSC (Desired State Configuration) 
 This module generates Puppet Types based on DSC resources' MOF (Managed Object Format) schema files.
 
 In this version, the following DSC Resources are already built and ready for use:
-- All base DSC resources found in PowerShell 5. ([WMF 5.0][wmf-5.0])
+- All base DSC resources found in PowerShell 5 ([WMF 5.0][wmf-5.0]).
 - All DSC resources found in the [Microsoft PowerShell DSC Resource Kit][DSCResources]
 
 This module is available on the [Puppet Forge](https://forge.puppetlabs.com/puppetlabs/dsc)
 
 ## Windows System Prerequisites
 
- - PowerShell 5 which is included in [Windows Management Framework 5.0][wmf-5.0]. PowerShell v5 is currently in [production preview](http://blogs.msdn.com/b/powershell/archive/2015/08/31/windows-management-framework-5-0-production-preview-is-now-available.aspx), so the above link may change after official release.
+ - PowerShell 5 which is included in [Windows Management Framework 5.0][wmf-5.0]. PowerShell v5 is currently in [production preview][wmf5-blog-post], so the above link may change after official release.
 
 ## Setup
 
@@ -285,11 +286,9 @@ class fourthcoffee(
 As you can see, you can mix and match dsc resources with common puppet resources.
 All [puppet metaparameters](https://docs.puppetlabs.com/references/latest/metaparameter.html) should also be supported.
 
-### Optionally configuring the Systems LCM Refresh Mode
+### Optionally Configure the DSC LCM RefreshMode
 
-Prior to the WMF5 production preview, the global LCM refresh mode had to be set
-to 'Disabled' for the module to work.  That limitation has been removed, but the
-module still supports configuring this setting if you wish to change it.
+Prior to the WMF5 Production Preview, the DSC Local Configuration Manager (LCM) `RefreshMode` had to be set to `'Disabled'` for the module to work. That limitation has been removed in the [WMF 5 Production Preview][wmf5-blog-post], but the module still supports configuring this setting if you wish to change it.
 
 ~~~puppet
 dsc::lcm_config {'disable_lcm':
