@@ -10,6 +10,8 @@
 4. [Usage](#usage)
   * [LCM RefreshMode Must be Disabled](#lcm-refreshmode-must-be-disabled)
   * [Using DSC Resources with Puppet](#using-dsc-resources-with-puppet)
+  * [Setting Registry Values](#setting-registry-values)
+  * [Adding or Removing Windows Features](#adding-or-removing-windows-features)
   * [Website Installation Example](#website-installation-example)
 5. [Limitations](#limitations)
   * [Known Issues](#known-issues)
@@ -54,9 +56,104 @@ dsc_windowsfeature {'IIS':
 
 All DSC Resource names and parameters have to be in lowercase, e.g: `dsc_windowsfeature` or `dsc_name`.
 
+### Using Credentials
+
+DSC uses `MSFT_Credential` objects to pass credentials to DSC Resources. Supply a hash to any `credential` parameter and Puppet will handle creating the `credential` object for you.
+
+~~~puppet
+dsc_user { 'jane-doe':
+  dsc_username             => 'jane-doe',
+  dsc_description          => 'Jane Doe user',
+  dsc_ensure               => present,
+  dsc_password             => {
+    'user' => 'jane-doe',
+    'password' => 'jane-password'
+  },
+  dsc_passwordneverexpires => false,
+  dsc_disabled             => true,
+}
+~~~
+
+### Setting Registry Values
+
+Creating and modifying Registry keys and values is done with the `dsc_registry` Puppet type which maps to the `Registry` DSC Resource.
+
+#### Registry Example: Simple
+
+Setting simple values works like you would expect.
+
+~~~puppet
+dsc_registry {'registry_test':
+    dsc_ensure    => 'Present'
+    dsc_key       => 'HKEY_LOCAL_MACHINE\SOFTWARE\ExampleKey'
+    dsc_valuename => 'TestValue'
+    dsc_valuedata => 'TestData'
+}
+~~~
+
+#### Registry Example: Binary
+
+The 'Binary' data type expects hexadecimal in a single string.
+
+~~~puppet
+dsc_registry {'registry_test':
+  dsc_ensure => 'Present',
+  dsc_key => 'HKEY_LOCAL_MACHINE\SOFTWARE\TestKey',
+  dsc_valuename => 'TestBinaryValue',
+  dsc_valuedata => 'BEEF',
+  dsc_valuetype => 'Binary',
+}
+~~~
+
+#### Registry Example: Dword and Qword
+
+The 'Dword' and 'Qword' data types expect signed integer values as opposed to hexadecimal or unsigned.
+
+~~~puppet
+dsc_registry {'registry_test':
+  dsc_ensure => 'Present',
+  dsc_key => 'HKEY_LOCAL_MACHINE\SOFTWARE\TestKey',
+  dsc_valuename => 'TestDwordValue',
+  dsc_valuedata => '-2147483648',
+  dsc_valuetype => 'Dword',
+}
+~~~
+
+*Note*: DSC Resources are executed under the SYSTEM context by default, which means you are unable to access any user level Registry key without providing alternate credentials.
+
+### Adding or Removing Windows Features
+
+You can add or remove Windows Features using Puppet type `dsc_windowsfeature` which maps to the `WindowsFeature` DSC Resource.
+
+#### Add a Windows Feature
+
+~~~puppet
+dsc_windowsfeature {'featureexample':
+  dsc_ensure = 'present'
+  dsc_name = 'Web-Server'
+}
+~~~
+
+#### Remove a Windows Feature
+
+~~~puppet
+dsc_windowsfeature {'featureexample':
+  dsc_ensure = 'absent'
+  dsc_name = 'Web-Server'
+}
+~~~
+
+#### Finding Windows Feature Names
+
+You can find the name to use when adding or removing Windows Features by executing the `Get-WindowsFeature` cmdlet and using the `Name` property.
+
+~~~
+[PS]> Get-WindowsFeature
+~~~
+
 ### Website Installation Example
 
-It's a real example and should also work for you.
+An end to end example installtion of a test website.
 
 ~~~puppet
 class fourthcoffee(
