@@ -212,9 +212,9 @@ module Beaker
       # * +host+ - The target Windows host(s) for verification.
       # * +user+ - A valid user account on target Windows host(s).
       # * +password+ - The password for the associated user account.
-      # * +dsc_cred_param+ - The DSC resource parameter that requires a 'PSCredential' object.
       # * +dsc_resource_type+ - The DSC resource type name to verify.
       # * +dsc_module+ - The DSC module for the specified resource type.
+      # * +dsc_cred_param+ - The DSC resource parameter that requires a 'PSCredential' object.
       # * +dsc_properties+ - DSC properties to verify on resource.
       #
       # ==== Returns
@@ -230,9 +230,9 @@ module Beaker
       # assert_dsc_cred_resource(agents,
       #                          'user1',
       #                          'secret',
-      #                          'Password',
       #                          'User',
       #                          'PSDesiredStateConfiguration',
+      #                          'Password',
       #                          :UserName=>'user1',
       #                          :FullName=>'User One')
       def assert_dsc_cred_resource(hosts,
