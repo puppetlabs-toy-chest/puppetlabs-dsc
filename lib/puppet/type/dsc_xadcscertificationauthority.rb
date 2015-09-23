@@ -2,6 +2,7 @@ require 'pathname'
 
 Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
+  require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
@@ -29,7 +30,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
     newvalues(true, false)
 
     munge do |value|
-      provider.munge_boolean(value.to_s)
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
 
     defaultto true
@@ -214,7 +215,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
     end
     newvalues(true, false)
     munge do |value|
-      provider.munge_boolean(value.to_s)
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
@@ -283,7 +284,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
     end
     newvalues(true, false)
     munge do |value|
-      provider.munge_boolean(value.to_s)
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
@@ -297,7 +298,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
     end
     newvalues(true, false)
     munge do |value|
-      provider.munge_boolean(value.to_s)
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
@@ -311,7 +312,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
     end
     newvalues(true, false)
     munge do |value|
-      provider.munge_boolean(value.to_s)
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
