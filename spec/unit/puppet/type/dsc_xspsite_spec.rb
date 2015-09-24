@@ -30,7 +30,7 @@ describe Puppet::Type.type(:dsc_xspsite) do
       :dsc_secondaryemail => 'foo',
       :dsc_secondaryowneralias => 'foo',
       :dsc_template => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_url is a required attribute/)
   end
 
@@ -327,6 +327,15 @@ describe Puppet::Type.type(:dsc_xspsite) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

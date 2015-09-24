@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the cluster"
     isrequired
     validate do |value|
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_retryintervalsec) do
+    def mof_type; 'uint64' end
+    def mof_is_embedded?; false end
     desc "Interval to check the cluster existency"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
@@ -88,6 +92,8 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_retrycount) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     desc "Maximum number of retries to check cluster existency"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)

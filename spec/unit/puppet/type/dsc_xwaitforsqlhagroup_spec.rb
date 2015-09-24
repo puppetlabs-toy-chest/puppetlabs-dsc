@@ -22,8 +22,8 @@ describe Puppet::Type.type(:dsc_xwaitforsqlhagroup) do
       :dsc_retryintervalsec => 64,
       :dsc_retrycount => 32,
       :dsc_instancename => 'foo',
-      :dsc_domaincredential => 'foo',
-      :dsc_sqladministratorcredential => 'foo',
+      :dsc_domaincredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sqladministratorcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -208,6 +208,15 @@ describe Puppet::Type.type(:dsc_xwaitforsqlhagroup) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

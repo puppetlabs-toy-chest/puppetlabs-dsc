@@ -54,6 +54,8 @@ Puppet::Type.newtype(:dsc_waitforall) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_resourcename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of Resource on remote machine"
     isrequired
     validate do |value|
@@ -68,6 +70,8 @@ Puppet::Type.newtype(:dsc_waitforall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_nodename, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     desc "List of remote machines"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
@@ -84,6 +88,8 @@ Puppet::Type.newtype(:dsc_waitforall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_retryintervalsec) do
+    def mof_type; 'uint64' end
+    def mof_is_embedded?; false end
     desc "Time between various retries. Lower bound is 1."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
@@ -100,6 +106,8 @@ Puppet::Type.newtype(:dsc_waitforall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_retrycount) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     desc "Maximum number of retries to check the state of resource."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
@@ -116,6 +124,8 @@ Puppet::Type.newtype(:dsc_waitforall) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_throttlelimit) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     desc "Number of machines to connect simultaneously. Default is new-cimsession default"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)

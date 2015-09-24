@@ -28,7 +28,7 @@ describe Puppet::Type.type(:dsc_xspwebapplication) do
       :dsc_hostheader => 'foo',
       :dsc_path => 'foo',
       :dsc_port => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -310,6 +310,15 @@ describe Puppet::Type.type(:dsc_xspwebapplication) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

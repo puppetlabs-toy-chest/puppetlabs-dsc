@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xmicrosoftupdate) do
   # IsMandatory:  True
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Indicates that the Microsoft Update is enabled or is disabled."
     isrequired
     validate do |value|

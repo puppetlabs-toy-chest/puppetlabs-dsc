@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xwaitforaddomain) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_domainname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -67,14 +69,17 @@ Puppet::Type.newtype(:dsc_xwaitforaddomain) do
   end
 
   # Name:         DomainUserCredential
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_domainusercredential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("DomainUserCredential", value)
     end
   end
 
@@ -83,6 +88,8 @@ Puppet::Type.newtype(:dsc_xwaitforaddomain) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_retryintervalsec) do
+    def mof_type; 'uint64' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -98,6 +105,8 @@ Puppet::Type.newtype(:dsc_xwaitforaddomain) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_retrycount) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

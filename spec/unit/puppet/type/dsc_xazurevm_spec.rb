@@ -29,7 +29,7 @@ describe Puppet::Type.type(:dsc_xazurevm) do
       :dsc_instancesize => 'foo',
       :dsc_linux => true,
       :dsc_windows => true,
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_extensioncontainername => 'foo',
       :dsc_extensionfilelist => 'foo',
       :dsc_extensionscriptname => 'foo',
@@ -399,6 +399,15 @@ describe Puppet::Type.type(:dsc_xazurevm) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

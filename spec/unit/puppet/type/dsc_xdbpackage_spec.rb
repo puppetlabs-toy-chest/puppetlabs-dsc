@@ -34,7 +34,7 @@ describe Puppet::Type.type(:dsc_xdbpackage) do
     #dsc_xdbpackage[:dsc_databasename]
     expect { Puppet::Type.type(:dsc_xdbpackage).new(
       :name     => 'foo',
-      :dsc_credentials => 'foo',
+      :dsc_credentials => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
       :dsc_path => 'foo',
       :dsc_type => 'DACPAC',
@@ -211,6 +211,15 @@ describe Puppet::Type.type(:dsc_xdbpackage) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

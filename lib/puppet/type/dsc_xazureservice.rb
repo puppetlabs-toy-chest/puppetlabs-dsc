@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xazureservice) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_servicename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies a name for the new cloud service that is unique to the subscription."
     isrequired
     validate do |value|
@@ -73,6 +75,8 @@ Puppet::Type.newtype(:dsc_xazureservice) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies whether the service should be present or absent."
     validate do |value|
       resource[:ensure] = value.downcase
@@ -90,6 +94,8 @@ Puppet::Type.newtype(:dsc_xazureservice) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_description) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the Azure Affinity Group for the service."
     validate do |value|
       unless value.kind_of?(String)
@@ -103,6 +109,8 @@ Puppet::Type.newtype(:dsc_xazureservice) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_affinitygroup) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies a description for the service."
     validate do |value|
       unless value.kind_of?(String)
@@ -116,6 +124,8 @@ Puppet::Type.newtype(:dsc_xazureservice) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_label) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies a label for the service."
     validate do |value|
       unless value.kind_of?(String)

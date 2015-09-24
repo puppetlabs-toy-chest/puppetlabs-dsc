@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xspmanagedmetadataserviceapp) do
     #dsc_xspmanagedmetadataserviceapp[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspmanagedmetadataserviceapp).new(
       :name     => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_applicationpool => 'foo',
       :dsc_databaseserver => 'foo',
       :dsc_databasename => 'foo',
@@ -136,6 +136,15 @@ describe Puppet::Type.type(:dsc_xspmanagedmetadataserviceapp) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

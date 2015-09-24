@@ -60,6 +60,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_rulename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the firewall rule"
     isrequired
     validate do |value|
@@ -74,6 +76,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_servername) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the database server for which firewall rule should be created"
     isrequired
     validate do |value|
@@ -88,6 +92,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_startipaddress) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Start IP address of the firewall rule"
     validate do |value|
       unless value.kind_of?(String)
@@ -101,6 +107,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_endipaddress) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "End IP address of the firewall rule"
     validate do |value|
       unless value.kind_of?(String)
@@ -114,6 +122,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_azuresubscriptionname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the name of the Azure subscription that should be set to Current"
     validate do |value|
       unless value.kind_of?(String)
@@ -127,6 +137,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_azurepublishsettingsfile) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the location of the Publish Settings file for the Azure Subscription"
     validate do |value|
       unless value.kind_of?(String)
@@ -140,6 +152,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Ensure that firewall rule is present or absent"
     validate do |value|
       resource[:ensure] = value.downcase

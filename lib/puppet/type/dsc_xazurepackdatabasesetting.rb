@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xazurepackdatabasesetting) do
   # IsMandatory:  True
   # Values:       ["AdminSite", "TenantSite"]
   newparam(:dsc_namespace) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the namespace."
     isrequired
     validate do |value|
@@ -76,6 +78,8 @@ Puppet::Type.newtype(:dsc_xazurepackdatabasesetting) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the name of the setting."
     isrequired
     validate do |value|
@@ -90,6 +94,8 @@ Puppet::Type.newtype(:dsc_xazurepackdatabasesetting) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_value) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the value of the setting."
     validate do |value|
       unless value.kind_of?(String)
@@ -99,15 +105,18 @@ Puppet::Type.newtype(:dsc_xazurepackdatabasesetting) do
   end
 
   # Name:         AzurePackAdminCredential
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_azurepackadmincredential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
     desc "Credential to be used to perform the installation."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("AzurePackAdminCredential", value)
     end
   end
 
@@ -116,6 +125,8 @@ Puppet::Type.newtype(:dsc_xazurepackdatabasesetting) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sqlserver) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Database server for the Azure Pack databases."
     validate do |value|
       unless value.kind_of?(String)
@@ -129,6 +140,8 @@ Puppet::Type.newtype(:dsc_xazurepackdatabasesetting) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sqlinstance) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Database instance for the Azure Pack databases."
     validate do |value|
       unless value.kind_of?(String)

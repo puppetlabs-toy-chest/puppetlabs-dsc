@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xscomwebconsoleserverupdate) do
   # IsMandatory:  True
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "An enumerated value that describes if the update is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"
     isrequired
     validate do |value|
@@ -77,6 +79,8 @@ Puppet::Type.newtype(:dsc_xscomwebconsoleserverupdate) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sourcepath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "UNC path to the root of the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
@@ -90,6 +94,8 @@ Puppet::Type.newtype(:dsc_xscomwebconsoleserverupdate) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sourcefolder) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
@@ -99,15 +105,18 @@ Puppet::Type.newtype(:dsc_xscomwebconsoleserverupdate) do
   end
 
   # Name:         SetupCredential
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_setupcredential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
     desc "Credential to be used to perform the installation."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SetupCredential", value)
     end
   end
 
@@ -116,6 +125,8 @@ Puppet::Type.newtype(:dsc_xscomwebconsoleserverupdate) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_update) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Display name of the update."
     validate do |value|
       unless value.kind_of?(String)

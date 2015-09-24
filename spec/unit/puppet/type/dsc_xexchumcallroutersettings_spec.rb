@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchumcallroutersettings) do
     #dsc_xexchumcallroutersettings[:dsc_server]
     expect { Puppet::Type.type(:dsc_xexchumcallroutersettings).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_umstartupmode => 'TCP',
       :dsc_domaincontroller => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_server is a required attribute/)
@@ -153,6 +153,15 @@ describe Puppet::Type.type(:dsc_xexchumcallroutersettings) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

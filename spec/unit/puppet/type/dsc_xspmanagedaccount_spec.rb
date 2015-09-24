@@ -18,8 +18,8 @@ describe Puppet::Type.type(:dsc_xspmanagedaccount) do
     #dsc_xspmanagedaccount[:dsc_accountname]
     expect { Puppet::Type.type(:dsc_xspmanagedaccount).new(
       :name     => 'foo',
-      :dsc_account => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_account => {"user"=>"user", "password"=>"password"},
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_emailnotification => 32,
       :dsc_preexpiredays => 32,
       :dsc_schedule => 'foo',
@@ -191,6 +191,15 @@ describe Puppet::Type.type(:dsc_xspmanagedaccount) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

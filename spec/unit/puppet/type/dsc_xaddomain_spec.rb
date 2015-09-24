@@ -20,9 +20,9 @@ describe Puppet::Type.type(:dsc_xaddomain) do
       :name     => 'foo',
       :dsc_parentdomainname => 'foo',
       :dsc_domainnetbiosname => 'foo',
-      :dsc_domainadministratorcredential => 'foo',
-      :dsc_safemodeadministratorpassword => 'foo',
-      :dsc_dnsdelegationcredential => 'foo',
+      :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_safemodeadministratorpassword => {"user"=>"user", "password"=>"password"},
+      :dsc_dnsdelegationcredential => {"user"=>"user", "password"=>"password"},
       :dsc_databasepath => 'foo',
       :dsc_logpath => 'foo',
       :dsc_sysvolpath => 'foo',
@@ -204,6 +204,15 @@ describe Puppet::Type.type(:dsc_xaddomain) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

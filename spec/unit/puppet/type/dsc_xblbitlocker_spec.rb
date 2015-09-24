@@ -25,9 +25,9 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
       :dsc_adaccountorgroupprotector => true,
       :dsc_encryptionmethod => 'Aes128',
       :dsc_hardwareencryption => true,
-      :dsc_password => 'foo',
+      :dsc_password => {"user"=>"user", "password"=>"password"},
       :dsc_passwordprotector => true,
-      :dsc_pin => 'foo',
+      :dsc_pin => {"user"=>"user", "password"=>"password"},
       :dsc_recoverykeypath => 'foo',
       :dsc_recoverykeyprotector => true,
       :dsc_recoverypasswordprotector => true,
@@ -831,6 +831,15 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

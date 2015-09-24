@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     #dsc_xexchmailboxdatabase[:dsc_name]
     expect { Puppet::Type.type(:dsc_xexchmailboxdatabase).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_databasecopycount => 32,
       :dsc_server => 'foo',
       :dsc_edbfilepath => 'foo',
@@ -944,6 +944,15 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

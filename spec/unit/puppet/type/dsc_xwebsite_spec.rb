@@ -25,7 +25,7 @@ describe Puppet::Type.type(:dsc_xwebsite) do
       :dsc_physicalpath => 'foo',
       :dsc_ensure => 'Present',
       :dsc_state => 'Started',
-      :dsc_bindinginfo => ["foo", "bar", "spec"],
+      :dsc_bindinginfo => {"Port"=>8080, "Protocol"=>"https"},
       :dsc_applicationpool => 'foo',
       :dsc_id => 'foo',
       :dsc_defaultpage => ["foo", "bar", "spec"],
@@ -154,9 +154,14 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept array for dsc_bindinginfo' do
-    dsc_xwebsite[:dsc_bindinginfo] = ["foo", "bar", "spec"]
-    expect(dsc_xwebsite[:dsc_bindinginfo]).to eq(["foo", "bar", "spec"])
+  it 'should accept a hash for dsc_bindinginfo' do
+    dsc_xwebsite[:dsc_bindinginfo] = {"Port"=>8080, "Protocol"=>"https"}
+    expect(dsc_xwebsite[:dsc_bindinginfo]).to eq([{"Port"=>8080, "Protocol"=>"https"}])
+  end
+
+  it 'should accept a an array of hashes for dsc_bindinginfo' do
+    dsc_xwebsite[:dsc_bindinginfo] = [{"Port"=>8080, "Protocol"=>"https"}]
+    expect(dsc_xwebsite[:dsc_bindinginfo]).to eq([{"Port"=>8080, "Protocol"=>"https"}])
   end
 
   it 'should not accept boolean for dsc_bindinginfo' do

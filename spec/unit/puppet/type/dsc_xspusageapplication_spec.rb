@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
     #dsc_xspusageapplication[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspusageapplication).new(
       :name     => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_databasename => 'foo',
       :dsc_databasepassword => 'foo',
       :dsc_databaseserver => 'foo',
@@ -295,6 +295,15 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

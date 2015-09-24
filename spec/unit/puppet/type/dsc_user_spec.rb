@@ -25,7 +25,7 @@ describe Puppet::Type.type(:dsc_user) do
       :dsc_ensure => 'Present',
       :dsc_fullname => 'foo',
       :dsc_description => 'foo',
-      :dsc_password => 'foo',
+      :dsc_password => {"user"=>"user", "password"=>"password"},
       :dsc_disabled => true,
       :dsc_passwordneverexpires => true,
       :dsc_passwordchangerequired => true,
@@ -410,6 +410,15 @@ describe Puppet::Type.type(:dsc_user) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

@@ -24,8 +24,8 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
       :name     => 'foo',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => 'foo',
-      :dsc_service => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_service => {"user"=>"user", "password"=>"password"},
       :dsc_serviceusername => 'foo',
       :dsc_sqlserver => 'foo',
       :dsc_sqlinstance => 'foo',
@@ -371,6 +371,15 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

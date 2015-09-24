@@ -77,7 +77,7 @@ describe Puppet::Type.type(:dsc_package) do
       :dsc_path => 'foo',
       :dsc_productid => 'foo',
       :dsc_arguments => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_returncode => [32, 64, 128],
       :dsc_logpath => 'foo',
       :dsc_packagedescription => 'foo',
@@ -129,7 +129,7 @@ describe Puppet::Type.type(:dsc_package) do
       :dsc_name => 'foo',
       :dsc_path => 'foo',
       :dsc_arguments => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_returncode => [32, 64, 128],
       :dsc_logpath => 'foo',
       :dsc_packagedescription => 'foo',
@@ -443,6 +443,15 @@ describe Puppet::Type.type(:dsc_package) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

@@ -60,6 +60,8 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_extension) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,6 +75,8 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_mimetype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -86,6 +90,8 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

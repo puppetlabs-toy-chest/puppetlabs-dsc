@@ -78,7 +78,7 @@ describe Puppet::Type.type(:dsc_archive) do
       :dsc_validate => true,
       :dsc_checksum => 'SHA-1',
       :dsc_force => true,
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_path is a required attribute/)
   end
 
@@ -107,7 +107,7 @@ describe Puppet::Type.type(:dsc_archive) do
       :dsc_validate => true,
       :dsc_checksum => 'SHA-1',
       :dsc_force => true,
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_destination is a required attribute/)
   end
 
@@ -382,6 +382,15 @@ describe Puppet::Type.type(:dsc_archive) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

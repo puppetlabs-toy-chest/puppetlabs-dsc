@@ -22,10 +22,10 @@ describe Puppet::Type.type(:dsc_xexchexchangecertificate) do
     #dsc_xexchexchangecertificate[:dsc_thumbprint]
     expect { Puppet::Type.type(:dsc_xexchexchangecertificate).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_ensure => 'Present',
       :dsc_allowextraservices => true,
-      :dsc_certcreds => 'foo',
+      :dsc_certcreds => {"user"=>"user", "password"=>"password"},
       :dsc_certfilepath => 'foo',
       :dsc_domaincontroller => 'foo',
       :dsc_services => ["foo", "bar", "spec"],
@@ -301,6 +301,15 @@ describe Puppet::Type.type(:dsc_xexchexchangecertificate) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

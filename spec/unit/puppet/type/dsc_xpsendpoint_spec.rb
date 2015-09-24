@@ -24,7 +24,7 @@ describe Puppet::Type.type(:dsc_xpsendpoint) do
       :name     => 'foo',
       :dsc_ensure => 'Present',
       :dsc_startupscript => 'foo',
-      :dsc_runascredential => 'foo',
+      :dsc_runascredential => {"user"=>"user", "password"=>"password"},
       :dsc_securitydescriptorsddl => 'foo',
       :dsc_accessmode => 'Local',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
@@ -269,6 +269,15 @@ describe Puppet::Type.type(:dsc_xpsendpoint) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

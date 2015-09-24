@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_farmconfigdatabasename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_databaseserver) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -81,26 +85,32 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
   end
 
   # Name:         FarmAccount
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_farmaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("FarmAccount", value)
     end
   end
 
   # Name:         InstallAccount
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_installaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
     end
   end
 
@@ -109,6 +119,8 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_passphrase) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -121,6 +133,8 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_admincontentdatabasename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -75,7 +75,7 @@ describe Puppet::Type.type(:dsc_xscvmmadmin) do
       :name     => 'foo',
       :dsc_ensure => 'Present',
       :dsc_userrole => 'foo',
-      :dsc_scvmmadmincredential => 'foo',
+      :dsc_scvmmadmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_principal is a required attribute/)
   end
 
@@ -101,7 +101,7 @@ describe Puppet::Type.type(:dsc_xscvmmadmin) do
       :name     => 'foo',
       :dsc_ensure => 'Present',
       :dsc_principal => 'foo',
-      :dsc_scvmmadmincredential => 'foo',
+      :dsc_scvmmadmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_userrole is a required attribute/)
   end
 
@@ -212,6 +212,15 @@ describe Puppet::Type.type(:dsc_xscvmmadmin) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

@@ -74,7 +74,7 @@ describe Puppet::Type.type(:dsc_xscspfstamp) do
       :name     => 'foo',
       :dsc_ensure => 'Present',
       :dsc_servers => ["foo", "bar", "spec"],
-      :dsc_scspfadmincredential => 'foo',
+      :dsc_scspfadmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -202,6 +202,15 @@ describe Puppet::Type.type(:dsc_xscspfstamp) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

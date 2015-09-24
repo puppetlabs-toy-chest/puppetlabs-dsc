@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchoabvirtualdirectory) do
     #dsc_xexchoabvirtualdirectory[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchoabvirtualdirectory).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_oabstodistribute => ["foo", "bar", "spec"],
       :dsc_allowservicerestart => true,
       :dsc_basicauthentication => true,
@@ -495,6 +495,15 @@ describe Puppet::Type.type(:dsc_xexchoabvirtualdirectory) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

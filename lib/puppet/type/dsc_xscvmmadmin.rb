@@ -60,6 +60,8 @@ Puppet::Type.newtype(:dsc_xscvmmadmin) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "An enumerated value that describes if the principal is an Virtual Machine Manager admin.\nPresent {default}  \nAbsent   \n"
     validate do |value|
       resource[:ensure] = value.downcase
@@ -77,6 +79,8 @@ Puppet::Type.newtype(:dsc_xscvmmadmin) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_principal) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The Virtual Machine Manager admin principal."
     isrequired
     validate do |value|
@@ -91,6 +95,8 @@ Puppet::Type.newtype(:dsc_xscvmmadmin) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_userrole) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The Virtual Machine Manager user role."
     isrequired
     validate do |value|
@@ -101,15 +107,18 @@ Puppet::Type.newtype(:dsc_xscvmmadmin) do
   end
 
   # Name:         SCVMMAdminCredential
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_scvmmadmincredential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
     desc "Credential to be used to perform the operations."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SCVMMAdminCredential", value)
     end
   end
 

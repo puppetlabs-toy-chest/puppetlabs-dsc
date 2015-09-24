@@ -24,11 +24,11 @@ describe Puppet::Type.type(:dsc_xscomreportingserversetup) do
       :name     => 'foo',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
       :dsc_installpath => 'foo',
       :dsc_managementserver => 'foo',
       :dsc_srsinstance => 'foo',
-      :dsc_datareader => 'foo',
+      :dsc_datareader => {"user"=>"user", "password"=>"password"},
       :dsc_datareaderusername => 'foo',
       :dsc_usemicrosoftupdate => 1,
       :dsc_sendceipreports => 1,
@@ -445,6 +445,15 @@ describe Puppet::Type.type(:dsc_xscomreportingserversetup) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

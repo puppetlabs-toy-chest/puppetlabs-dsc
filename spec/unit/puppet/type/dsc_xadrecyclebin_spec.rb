@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xadrecyclebin) do
     #dsc_xadrecyclebin[:dsc_forestfqdn]
     expect { Puppet::Type.type(:dsc_xadrecyclebin).new(
       :name     => 'foo',
-      :dsc_enterpriseadministratorcredential => 'foo',
+      :dsc_enterpriseadministratorcredential => {"user"=>"user", "password"=>"password"},
       :dsc_recyclebinenabled => 'foo',
       :dsc_forestmode => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_forestfqdn is a required attribute/)
@@ -119,6 +119,15 @@ describe Puppet::Type.type(:dsc_xadrecyclebin) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory) do
     #dsc_xexchactivesyncvirtualdirectory[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_allowservicerestart => true,
       :dsc_autocertbasedauth => true,
       :dsc_autocertbasedauththumbprint => 'foo',
@@ -498,6 +498,15 @@ describe Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

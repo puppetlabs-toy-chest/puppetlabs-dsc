@@ -23,8 +23,8 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
       :dsc_databasebackuppath => 'foo',
       :dsc_instancename => 'foo',
       :dsc_endpointname => 'foo',
-      :dsc_domaincredential => 'foo',
-      :dsc_sqladministratorcredential => 'foo',
+      :dsc_domaincredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sqladministratorcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -188,6 +188,15 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

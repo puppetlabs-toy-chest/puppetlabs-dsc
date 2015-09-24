@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_caconfig) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "CAConfig parameter string. Do not specify this if there is a local CA installed."
     validate do |value|
       unless value.kind_of?(String)
@@ -68,15 +70,18 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
   end
 
   # Name:         Credential
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_credential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
     desc "If the Web Enrollment service is configured to use Standalone certification authority, then an account that is a member of the local Administrators on the CA is required. If the Web Enrollment service is configured to use an Enterprise CA, then an account that is a member of Domain Admins is required."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
   end
 
@@ -85,6 +90,8 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies whether the Web Enrollment feature should be installed or uninstalled."
     validate do |value|
       resource[:ensure] = value.downcase
@@ -102,6 +109,8 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)

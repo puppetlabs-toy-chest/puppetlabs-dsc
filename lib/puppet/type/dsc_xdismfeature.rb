@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xdismfeature) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "An enumerated value that describes if the feature is expected to be enabled on the machine.\nPresent {default}  \nAbsent   \n"
     validate do |value|
       resource[:ensure] = value.downcase
@@ -76,6 +78,8 @@ Puppet::Type.newtype(:dsc_xdismfeature) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the feature."
     isrequired
     validate do |value|

@@ -7,6 +7,29 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
   end
+    class PuppetX::Dsc::TypeHelpers
+      def self.validate_MSFT_xFileDirectory(mof_type_map, name, value)
+        required = ['destinationpath']
+        allowed = ['sourcepath','ensure','type','recurse','force','content','attributes']
+        lowkey_hash = Hash[value.map { |k, v| [k.to_s.downcase, v] }]
+
+        missing = required - lowkey_hash.keys
+        unless missing.empty?
+          fail "#{name} is missing the following required keys: #{missing.join(',')}"
+        end
+
+        extraneous = lowkey_hash.keys - required - allowed
+        unless extraneous.empty?
+          fail "#{name} includes invalid keys: #{extraneous.join(',')}"
+        end
+
+        lowkey_hash.keys.each do |key|
+          if lowkey_hash[key]
+            validate_mof_type(mof_type_map[key], 'MSFT_xFileDirectory', key, lowkey_hash[key])
+          end
+        end
+      end
+    end
 
   @doc = %q{
     The DSC xVhdFile resource type.
@@ -58,6 +81,8 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_vhdpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Path to the VHD"
     isrequired
     validate do |value|
@@ -68,18 +93,30 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
   end
 
   # Name:         FileDirectory
-  # Type:         string[]
+  # Type:         MSFT_xFileDirectory[]
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_filedirectory, :array_matching => :all) do
+    def mof_type; 'MSFT_xFileDirectory[]' end
+    def mof_is_embedded?; true end
+    def mof_type_map
+      {"destinationpath"=>{:type=>"string"}, "sourcepath"=>{:type=>"string"}, "ensure"=>{:type=>"string", :values=>["Present", "Absent"]}, "type"=>{:type=>"string", :values=>["File", "Directory"]}, "recurse"=>{:type=>"boolean"}, "force"=>{:type=>"boolean"}, "content"=>{:type=>"string"}, "attributes"=>{:type=>"string[]", :values=>["ReadOnly", "Hidden", "System", "Archive"]}}
+    end
     desc "The FileDirectory objects to copy to the VHD"
     validate do |value|
-      unless value.kind_of?(Array) || value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      unless value.kind_of?(Array) || value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be an array of hashes or a hash")
+      end
+      (value.kind_of?(Hash) ? [value] : value).each_with_index do |v, i|
+        fail "FileDirectory value at index #{i} should be a Hash" unless v.is_a? Hash
+
+        PuppetX::Dsc::TypeHelpers.validate_MSFT_xFileDirectory(mof_type_map, "FileDirectory", v)
       end
     end
     munge do |value|
-      Array(value)
+      value.kind_of?(Hash) ?
+        [PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, value)] :
+        value.map { |v| PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, v) }
     end
   end
 
@@ -88,6 +125,8 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
   # IsMandatory:  False
   # Values:       ["ModifiedDate", "SHA-1", "SHA-256", "SHA-512"]
   newparam(:dsc_checksum) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -81,6 +81,8 @@ EOT
       "$#{dsc_value.to_s}"
     when dsc_value.class.name == 'Array'
       "@(" + dsc_value.collect{|m| format_dsc_value(m)}.join(', ') + ")"
+    when dsc_value.class.name == 'Hash'
+      "@{" + dsc_value.collect{|k, v| format_dsc_value(k) + ' = ' + format_dsc_value(v)}.join('; ') + "}"
     else
       fail "unsupported type #{dsc_value.class} of value '#{dsc_value}'"
     end

@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_storageaccountname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies a name for the storage account. The storage account name must be unique to Windows Azure and must be between 3 and 24 characters in length and use lowercase letters and numbers only."
     isrequired
     validate do |value|
@@ -73,6 +75,8 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies whether the Azure Storage Account should be present or absent."
     validate do |value|
       resource[:ensure] = value.downcase
@@ -90,6 +94,8 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_affinitygroup) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the name of an existing affinity group in the current subscription. You can specify either a Location or an AffinityGroup parameter, but not both. "
     validate do |value|
       unless value.kind_of?(String)
@@ -103,6 +109,8 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_container) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies a name for the Container that should be created in the Azure Storage Account."
     validate do |value|
       unless value.kind_of?(String)
@@ -116,6 +124,8 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_folder) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies a local folder.  All files in the root of the folder will be uploaded to the new container."
     validate do |value|
       unless value.kind_of?(String)
@@ -129,6 +139,8 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_label) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies a label for the storage account. The label may be up to 100 characters in length."
     validate do |value|
       unless value.kind_of?(String)

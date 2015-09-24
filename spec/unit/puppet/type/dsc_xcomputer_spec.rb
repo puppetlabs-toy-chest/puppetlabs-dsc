@@ -19,8 +19,8 @@ describe Puppet::Type.type(:dsc_xcomputer) do
     expect { Puppet::Type.type(:dsc_xcomputer).new(
       :name     => 'foo',
       :dsc_domainname => 'foo',
-      :dsc_credential => 'foo',
-      :dsc_unjoincredential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_unjoincredential => {"user"=>"user", "password"=>"password"},
       :dsc_workgroupname => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
@@ -136,6 +136,15 @@ describe Puppet::Type.type(:dsc_xcomputer) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

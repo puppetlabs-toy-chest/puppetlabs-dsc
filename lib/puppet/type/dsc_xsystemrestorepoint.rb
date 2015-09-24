@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xsystemrestorepoint) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_description) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies a descriptive name for the restore point."
     isrequired
     validate do |value|
@@ -73,6 +75,8 @@ Puppet::Type.newtype(:dsc_xsystemrestorepoint) do
   # IsMandatory:  False
   # Values:       ["APPLICATION_INSTALL", "APPLICATION_UNINSTALL", "DEVICE_DRIVER_INSTALL", "MODIFY_SETTINGS", "CANCELLED_OPERATION"]
   newparam(:dsc_restorepointtype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the type of restore point. The default is APPLICATION_INSTALL."
     validate do |value|
       unless value.kind_of?(String)
@@ -89,6 +93,8 @@ Puppet::Type.newtype(:dsc_xsystemrestorepoint) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Indicates if the specified restore point created. Set this property to 'Absent' to ensure that the restore point does not exist. Set it to 'Present' to ensure that the restore point does exist. The default is 'Present'."
     validate do |value|
       resource[:ensure] = value.downcase

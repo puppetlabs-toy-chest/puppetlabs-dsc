@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchclientaccessserver) do
     #dsc_xexchclientaccessserver[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchclientaccessserver).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_autodiscoverserviceinternaluri => 'foo',
       :dsc_autodiscoversitescope => ["foo", "bar", "spec"],
       :dsc_domaincontroller => 'foo',
@@ -137,6 +137,15 @@ describe Puppet::Type.type(:dsc_xexchclientaccessserver) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

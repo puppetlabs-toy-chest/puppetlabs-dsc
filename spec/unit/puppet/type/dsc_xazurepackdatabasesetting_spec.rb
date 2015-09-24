@@ -21,7 +21,7 @@ describe Puppet::Type.type(:dsc_xazurepackdatabasesetting) do
       :name     => 'foo',
       :dsc_name => 'foo',
       :dsc_value => 'foo',
-      :dsc_azurepackadmincredential => 'foo',
+      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
       :dsc_sqlinstance => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_namespace is a required attribute/)
@@ -73,7 +73,7 @@ describe Puppet::Type.type(:dsc_xazurepackdatabasesetting) do
       :name     => 'foo',
       :dsc_namespace => 'AdminSite',
       :dsc_value => 'foo',
-      :dsc_azurepackadmincredential => 'foo',
+      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
       :dsc_sqlinstance => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
@@ -190,6 +190,15 @@ describe Puppet::Type.type(:dsc_xazurepackdatabasesetting) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

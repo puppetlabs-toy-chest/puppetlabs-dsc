@@ -24,19 +24,19 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
       :name     => 'foo',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
       :dsc_productkey => 'foo',
       :dsc_installpath => 'foo',
       :dsc_managementgroupname => 'foo',
       :dsc_firstmanagementserver => true,
       :dsc_managementserviceport => 16,
-      :dsc_actionaccount => 'foo',
+      :dsc_actionaccount => {"user"=>"user", "password"=>"password"},
       :dsc_actionaccountusername => 'foo',
-      :dsc_dasaccount => 'foo',
+      :dsc_dasaccount => {"user"=>"user", "password"=>"password"},
       :dsc_dasaccountusername => 'foo',
-      :dsc_datareader => 'foo',
+      :dsc_datareader => {"user"=>"user", "password"=>"password"},
       :dsc_datareaderusername => 'foo',
-      :dsc_datawriter => 'foo',
+      :dsc_datawriter => {"user"=>"user", "password"=>"password"},
       :dsc_datawriterusername => 'foo',
       :dsc_sqlserverinstance => 'foo',
       :dsc_databasename => 'foo',
@@ -771,6 +771,15 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

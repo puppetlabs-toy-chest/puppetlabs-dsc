@@ -60,6 +60,8 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_username) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of MySQL user."
     isrequired
     validate do |value|
@@ -74,6 +76,8 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_databasename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "MySql database name to grant permissions."
     isrequired
     validate do |value|
@@ -84,15 +88,18 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   end
 
   # Name:         ConnectionCredential
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_connectioncredential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
     desc "MySql connection credential used for the root."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("ConnectionCredential", value)
     end
   end
 
@@ -101,6 +108,8 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   # IsMandatory:  False
   # Values:       ["ALL PRIVILEGES", "CREATE", "DROP", "DELETE", "INSERT", "SELECT", "UPDATE", "EXECUTE"]
   newparam(:dsc_permissiontype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "MySql user permission type."
     validate do |value|
       unless value.kind_of?(String)
@@ -117,6 +126,8 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Ensure given grant to mySql database present or absent."
     validate do |value|
       resource[:ensure] = value.downcase

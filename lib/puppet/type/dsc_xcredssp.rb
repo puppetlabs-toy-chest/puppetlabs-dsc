@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xcredssp) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "An enumerated value that describes if the role is expected to be enabled on the machine.\nPresent {default}  \nAbsent   \n"
     validate do |value|
       resource[:ensure] = value.downcase
@@ -76,6 +78,8 @@ Puppet::Type.newtype(:dsc_xcredssp) do
   # IsMandatory:  True
   # Values:       ["Server", "Client"]
   newparam(:dsc_role) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Specifies the CredSSP role.\nServer   \nClient   \n"
     isrequired
     validate do |value|
@@ -93,6 +97,8 @@ Puppet::Type.newtype(:dsc_xcredssp) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_delegatecomputers, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     desc "Specifies the array of computers that CredSSP client can delegate to."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)

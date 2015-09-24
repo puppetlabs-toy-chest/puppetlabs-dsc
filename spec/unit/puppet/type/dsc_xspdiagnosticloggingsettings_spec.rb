@@ -35,7 +35,7 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
       :dsc_scripterrorreportingdelay => 32,
       :dsc_scripterrorreportingenabled => true,
       :dsc_scripterrorreportingrequireauth => true,
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_logpath is a required attribute/)
   end
 
@@ -805,6 +805,15 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

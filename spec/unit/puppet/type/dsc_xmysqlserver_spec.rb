@@ -23,7 +23,7 @@ describe Puppet::Type.type(:dsc_xmysqlserver) do
     expect { Puppet::Type.type(:dsc_xmysqlserver).new(
       :name     => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_rootpassword => 'foo',
+      :dsc_rootpassword => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_servicename is a required attribute/)
   end
 
@@ -184,6 +184,15 @@ describe Puppet::Type.type(:dsc_xmysqlserver) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

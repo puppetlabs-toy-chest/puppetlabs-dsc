@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the Web Application Pool"
     isrequired
     validate do |value|
@@ -73,6 +75,8 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Web Application Pool Present/Absent"
     validate do |value|
       resource[:ensure] = value.downcase
@@ -90,6 +94,8 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
   # IsMandatory:  False
   # Values:       ["Started", "Stopped"]
   newparam(:dsc_state) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "State of Web Application Pool"
     validate do |value|
       unless value.kind_of?(String)

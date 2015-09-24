@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xdnsserversecondaryzone) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Name of the secondary zone"
     isrequired
     validate do |value|
@@ -73,6 +75,8 @@ Puppet::Type.newtype(:dsc_xdnsserversecondaryzone) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_masterservers, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     desc "IP address or DNS name of the secondary DNS servers"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
@@ -89,6 +93,8 @@ Puppet::Type.newtype(:dsc_xdnsserversecondaryzone) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Should this resource be present or absent"
     validate do |value|
       resource[:ensure] = value.downcase
@@ -106,6 +112,8 @@ Puppet::Type.newtype(:dsc_xdnsserversecondaryzone) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_type) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Type of the DNS server zone"
     validate do |value|
       unless value.kind_of?(String)

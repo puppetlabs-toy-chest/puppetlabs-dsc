@@ -20,7 +20,7 @@ describe Puppet::Type.type(:dsc_xscommanagementpack) do
       :name     => 'foo',
       :dsc_version => 'foo',
       :dsc_minversion => 'foo',
-      :dsc_scomadmincredential => 'foo',
+      :dsc_scomadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
       :dsc_sourcefile => 'foo',
@@ -170,6 +170,15 @@ describe Puppet::Type.type(:dsc_xscommanagementpack) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

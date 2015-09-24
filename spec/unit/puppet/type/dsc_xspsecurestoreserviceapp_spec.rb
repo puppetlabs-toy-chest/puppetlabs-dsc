@@ -21,7 +21,7 @@ describe Puppet::Type.type(:dsc_xspsecurestoreserviceapp) do
       :dsc_applicationpool => 'foo',
       :dsc_auditingenabled => true,
       :dsc_auditlogmaxsize => 32,
-      :dsc_databasecredentials => 'foo',
+      :dsc_databasecredentials => {"user"=>"user", "password"=>"password"},
       :dsc_databasename => 'foo',
       :dsc_databasepassword => 'foo',
       :dsc_databaseserver => 'foo',
@@ -29,7 +29,7 @@ describe Puppet::Type.type(:dsc_xspsecurestoreserviceapp) do
       :dsc_failoverdatabaseserver => 'foo',
       :dsc_partitionmode => true,
       :dsc_sharing => true,
-      :dsc_installaccount => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -384,6 +384,15 @@ describe Puppet::Type.type(:dsc_xspsecurestoreserviceapp) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

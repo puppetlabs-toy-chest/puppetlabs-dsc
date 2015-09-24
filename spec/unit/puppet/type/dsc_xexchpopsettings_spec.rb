@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchpopsettings) do
     #dsc_xexchpopsettings[:dsc_server]
     expect { Puppet::Type.type(:dsc_xexchpopsettings).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_allowservicerestart => true,
       :dsc_domaincontroller => 'foo',
       :dsc_logintype => 'PlainTextLogin',
@@ -236,6 +236,15 @@ describe Puppet::Type.type(:dsc_xexchpopsettings) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

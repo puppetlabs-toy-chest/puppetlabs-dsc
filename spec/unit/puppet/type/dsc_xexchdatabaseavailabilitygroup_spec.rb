@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     #dsc_xexchdatabaseavailabilitygroup[:dsc_name]
     expect { Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_autodagtotalnumberofservers => -32,
       :dsc_alternatewitnessdirectory => 'foo',
       :dsc_alternatewitnessserver => 'foo',
@@ -909,6 +909,15 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

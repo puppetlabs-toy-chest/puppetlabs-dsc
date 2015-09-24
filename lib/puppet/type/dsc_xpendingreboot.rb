@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -71,6 +73,8 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_componentbasedservicing) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -84,6 +88,8 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_windowsupdate) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -97,6 +103,8 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_pendingfilerename) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -110,6 +118,8 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_pendingcomputerrename) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -123,6 +133,8 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_ccmclientsdk) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)

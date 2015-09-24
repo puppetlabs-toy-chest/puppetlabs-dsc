@@ -7,6 +7,54 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
     defaultfor :operatingsystem => :windows
   end
+<%  ignored = ['MSFT_KeyValuePair', 'MSFT_Credential']
+    resource.embedded_properties
+      .map { |p| p.embeddedinstance_class_name }
+      .select { |class_name| !ignored.include?(class_name) }
+      .uniq
+      .each do |class_name|
+
+    allowed = []
+    required = []
+    cim_classes_with_path
+      .select { |c| c[:klass].name == class_name }
+      .first[:klass]
+      .features
+      .each do |prop|
+
+      name = prop.name.downcase.gsub("'", "\\\\'")
+      if prop.qualifiers.any? { |q| q.name.casecmp('Required') == 0 }
+        required << "'" + name + "'"
+      else
+        allowed << "'" + name + "'"
+      end
+    end
+  -%>
+    class PuppetX::Dsc::TypeHelpers
+      def self.validate_<%= class_name %>(mof_type_map, name, value)
+<%# emit required or allowed fields based on embeddedinstance definition -%>
+        required = [<%= required.join(',') %>]
+        allowed = [<%=  allowed.join(',') %>]
+        lowkey_hash = Hash[value.map { |k, v| [k.to_s.downcase, v] }]
+
+        missing = required - lowkey_hash.keys
+        unless missing.empty?
+          fail "#{name} is missing the following required keys: #{missing.join(',')}"
+        end
+
+        extraneous = lowkey_hash.keys - required - allowed
+        unless extraneous.empty?
+          fail "#{name} includes invalid keys: #{extraneous.join(',')}"
+        end
+
+        lowkey_hash.keys.each do |key|
+          if lowkey_hash[key]
+            validate_mof_type(mof_type_map[key], '<%= class_name %>', key, lowkey_hash[key])
+          end
+        end
+      end
+    end
+<%  end # def validate_XXX -%>
 
   @doc = %q{
     The DSC <%= resource.friendlyname%> resource type.
@@ -63,7 +111,28 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   # Type:         <%= property.type %>
   # IsMandatory:  <%= property.required? ? 'True' : 'False' %>
   # Values:       <%= property.values ? property.values : 'None' %>
-  newparam(:dsc_<%= property.name.downcase %><% if property.array? %>, :array_matching => :all<% end %>) do
+  newparam(:dsc_<%= property.name.downcase %><% if property.array? && !property.keyvaluepair? %>, :array_matching => :all<% end %>) do
+    def mof_type; '<%= property.type %>' end
+    def mof_is_embedded?; <%= property.embeddedinstance? -%> end
+<%    if property.embeddedinstance? && !property.credential? && !property.keyvaluepair?
+
+        type_map = {}
+        cim_classes_with_path
+          .select { |c| c[:klass].name == property.embeddedinstance_class_name }
+          .first[:klass]
+          .features
+          .map { |p| Dsc::Property.new(p) }
+          .each do |dsc_prop|
+
+          name = dsc_prop.name.downcase.gsub("'", "\\\\'")
+          type_map[name] = { :type => dsc_prop.type }
+          type_map[name][:values] = dsc_prop.values if dsc_prop.values
+        end
+-%>
+    def mof_type_map
+      <%= type_map.to_s %>
+    end
+<%    end -%>
 <%    if property.description -%>
     desc "<%= property.description %>"
 <%    end -%>
@@ -75,6 +144,32 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
       resource[:ensure] = value.downcase
 <%    end -%>
 <%    case -%>
+<%    when property.embeddedinstance? && property.embeddedinstance_array? -%>
+<%#     an array of keyvaluepairs is a special case as it's really a plain old hashtable -%>
+<%      if property.keyvaluepair? -%>
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+<%#     otherwise an array of embeddedinstances is an array of hashes -%>
+<%      else -%>
+      unless value.kind_of?(Array) || value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be an array of hashes or a hash")
+      end
+      (value.kind_of?(Hash) ? [value] : value).each_with_index do |v, i|
+        fail "<%= property.name %> value at index #{i} should be a Hash" unless v.is_a? Hash
+
+        PuppetX::Dsc::TypeHelpers.validate_<%= property.embeddedinstance_class_name %>(<%= !property.credential? ? 'mof_type_map, ' : '' %>"<%= property.name %>", v)
+      end
+<%      end -%>
+<%    when property.embeddedinstance? && !property.embeddedinstance_array? -%>
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+<%      if property.keyvaluepair? -%>
+      fail '<%= property.name %> may only have a single key / value pair' unless value.length == 1
+<%      else -%>
+      PuppetX::Dsc::TypeHelpers.validate_<%= property.embeddedinstance_class_name %>(<%= !property.credential? ? 'mof_type_map, ' : '' %>"<%= property.name %>", value)
+<%      end -%>
 <%    when property.array? -%>
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -117,9 +212,19 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     newvalues(true, false)
 <%  end -%>
 <%    case -%>
-<%    when property.array? -%>
+<%    when property.array? && !property.keyvaluepair? -%>
     munge do |value|
+<%      if property.embeddedinstance_array? -%>
+      value.kind_of?(Hash) ?
+        [PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, value)] :
+        value.map { |v| PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, v) }
+<%      else -%>
       Array(value)
+<%      end -%>
+    end
+<%    when property.embeddedinstance? && !property.keyvaluepair? && !property.credential? -%>
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, value)
     end
 <%    when property.bool? -%>
     munge do |value|

@@ -23,7 +23,7 @@ describe Puppet::Type.type(:dsc_xwordpresssite) do
     expect { Puppet::Type.type(:dsc_xwordpresssite).new(
       :name     => 'foo',
       :dsc_title => 'foo',
-      :dsc_administratorcredential => 'foo',
+      :dsc_administratorcredential => {"user"=>"user", "password"=>"password"},
       :dsc_administratoremail => 'foo',
       :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_uri is a required attribute/)
@@ -178,6 +178,15 @@ describe Puppet::Type.type(:dsc_xwordpresssite) do
 
       it "should compute powershell dsc set script in which ensure value is 'present'" do
         expect(@provider.ps_script_content('set')).to match(/ensure = 'present'/)
+      end
+
+    end
+
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
       end
 
     end

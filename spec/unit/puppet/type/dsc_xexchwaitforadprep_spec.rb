@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     #dsc_xexchwaitforadprep[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchwaitforadprep).new(
       :name     => 'foo',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_schemaversion => -32,
       :dsc_organizationversion => -32,
       :dsc_domainversion => -32,
@@ -361,6 +361,15 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

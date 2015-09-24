@@ -20,7 +20,7 @@ describe Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel) do
     expect { Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel).new(
       :name     => 'foo',
       :dsc_secureconnectionlevel => 16,
-      :dsc_sqladmincredential => 'foo',
+      :dsc_sqladmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_instancename is a required attribute/)
   end
 
@@ -45,7 +45,7 @@ describe Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel) do
     expect { Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel).new(
       :name     => 'foo',
       :dsc_instancename => 'foo',
-      :dsc_sqladmincredential => 'foo',
+      :dsc_sqladmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_secureconnectionlevel is a required attribute/)
   end
 
@@ -131,6 +131,15 @@ describe Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

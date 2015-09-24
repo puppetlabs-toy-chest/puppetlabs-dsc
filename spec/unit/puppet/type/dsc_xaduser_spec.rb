@@ -25,8 +25,8 @@ describe Puppet::Type.type(:dsc_xaduser) do
       :name     => 'foo',
       :dsc_username => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_password => 'foo',
-      :dsc_domainadministratorcredential => 'foo',
+      :dsc_password => {"user"=>"user", "password"=>"password"},
+      :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_domainname is a required attribute/)
   end
 
@@ -52,8 +52,8 @@ describe Puppet::Type.type(:dsc_xaduser) do
       :name     => 'foo',
       :dsc_domainname => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_password => 'foo',
-      :dsc_domainadministratorcredential => 'foo',
+      :dsc_password => {"user"=>"user", "password"=>"password"},
+      :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_username is a required attribute/)
   end
 
@@ -230,6 +230,15 @@ describe Puppet::Type.type(:dsc_xaduser) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

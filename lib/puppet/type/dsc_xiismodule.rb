@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_path) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The path to the module, usually a dll, to be added to IIS."
     isrequired
     validate do |value|
@@ -73,6 +75,8 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The logical name of the module to add to IIS."
     validate do |value|
       unless value.kind_of?(String)
@@ -86,6 +90,8 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_requestpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The allowed request Path example: *.php"
     validate do |value|
       unless value.kind_of?(String)
@@ -99,6 +105,8 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_verb, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     desc "The supported verbs for the module."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
@@ -115,6 +123,8 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sitename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The IIS Site to register the module."
     validate do |value|
       unless value.kind_of?(String)
@@ -128,6 +138,8 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "Should the module be present or absent."
     validate do |value|
       resource[:ensure] = value.downcase
@@ -145,6 +157,8 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   # IsMandatory:  False
   # Values:       ["FastCgiModule"]
   newparam(:dsc_moduletype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "The type of the module."
     validate do |value|
       unless value.kind_of?(String)
@@ -161,6 +175,8 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_endpointsetup) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     desc "The End Point is setup.  Such as a Fast Cgi endpoint."
     validate do |value|
     end

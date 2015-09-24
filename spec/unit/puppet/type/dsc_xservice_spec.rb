@@ -25,7 +25,7 @@ describe Puppet::Type.type(:dsc_xservice) do
       :dsc_state => 'Running',
       :dsc_startuptype => 'Automatic',
       :dsc_builtinaccount => 'LocalSystem',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_status => 'foo',
       :dsc_displayname => 'foo',
       :dsc_description => 'foo',
@@ -413,6 +413,15 @@ describe Puppet::Type.type(:dsc_xservice) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

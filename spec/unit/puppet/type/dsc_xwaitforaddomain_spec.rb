@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xwaitforaddomain) do
     #dsc_xwaitforaddomain[:dsc_domainname]
     expect { Puppet::Type.type(:dsc_xwaitforaddomain).new(
       :name     => 'foo',
-      :dsc_domainusercredential => 'foo',
+      :dsc_domainusercredential => {"user"=>"user", "password"=>"password"},
       :dsc_retryintervalsec => 64,
       :dsc_retrycount => 32,
     )}.to raise_error(Puppet::Error, /dsc_domainname is a required attribute/)
@@ -157,6 +157,15 @@ describe Puppet::Type.type(:dsc_xwaitforaddomain) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

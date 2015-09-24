@@ -23,8 +23,8 @@ describe Puppet::Type.type(:dsc_xspuserprofilesyncservice) do
     expect { Puppet::Type.type(:dsc_xspuserprofilesyncservice).new(
       :name     => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_farmaccount => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_userprofileserviceappname is a required attribute/)
   end
 
@@ -201,6 +201,15 @@ describe Puppet::Type.type(:dsc_xspuserprofilesyncservice) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

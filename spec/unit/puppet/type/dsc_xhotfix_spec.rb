@@ -25,7 +25,7 @@ describe Puppet::Type.type(:dsc_xhotfix) do
       :dsc_id => 'foo',
       :dsc_log => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_credential => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_path is a required attribute/)
   end
 
@@ -218,6 +218,15 @@ describe Puppet::Type.type(:dsc_xhotfix) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

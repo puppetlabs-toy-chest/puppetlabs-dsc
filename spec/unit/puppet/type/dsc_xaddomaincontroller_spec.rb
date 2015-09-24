@@ -18,8 +18,8 @@ describe Puppet::Type.type(:dsc_xaddomaincontroller) do
     #dsc_xaddomaincontroller[:dsc_domainname]
     expect { Puppet::Type.type(:dsc_xaddomaincontroller).new(
       :name     => 'foo',
-      :dsc_domainadministratorcredential => 'foo',
-      :dsc_safemodeadministratorpassword => 'foo',
+      :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_safemodeadministratorpassword => {"user"=>"user", "password"=>"password"},
       :dsc_databasepath => 'foo',
       :dsc_logpath => 'foo',
       :dsc_sysvolpath => 'foo',
@@ -153,6 +153,15 @@ describe Puppet::Type.type(:dsc_xaddomaincontroller) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

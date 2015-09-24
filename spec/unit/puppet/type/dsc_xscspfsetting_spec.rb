@@ -77,7 +77,7 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
       :dsc_settingtype => 'DatabaseConnectionString',
       :dsc_name => 'foo',
       :dsc_value => 'foo',
-      :dsc_scspfadmincredential => 'foo',
+      :dsc_scspfadmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_servername is a required attribute/)
   end
 
@@ -145,7 +145,7 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
       :dsc_servername => 'foo',
       :dsc_settingtype => 'DatabaseConnectionString',
       :dsc_value => 'foo',
-      :dsc_scspfadmincredential => 'foo',
+      :dsc_scspfadmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -272,6 +272,15 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

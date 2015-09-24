@@ -55,6 +55,8 @@ Puppet::Type.newtype(:dsc_windowsfeature) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -68,6 +70,8 @@ Puppet::Type.newtype(:dsc_windowsfeature) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     desc "An enumerated value that describes if the role or feature is expected to be installed on not on the machine.\nPresent {default}  \nAbsent   \n"
     validate do |value|
       resource[:ensure] = value.downcase
@@ -85,6 +89,8 @@ Puppet::Type.newtype(:dsc_windowsfeature) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_displayname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -97,6 +103,8 @@ Puppet::Type.newtype(:dsc_windowsfeature) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_source) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -109,6 +117,8 @@ Puppet::Type.newtype(:dsc_windowsfeature) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_includeallsubfeature) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -122,6 +132,8 @@ Puppet::Type.newtype(:dsc_windowsfeature) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_logpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -130,14 +142,17 @@ Puppet::Type.newtype(:dsc_windowsfeature) do
   end
 
   # Name:         Credential
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_credential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
   end
 

@@ -20,8 +20,8 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
     expect { Puppet::Type.type(:dsc_xspcreatefarm).new(
       :name     => 'foo',
       :dsc_databaseserver => 'foo',
-      :dsc_farmaccount => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_passphrase => 'foo',
       :dsc_admincontentdatabasename => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_farmconfigdatabasename is a required attribute/)
@@ -48,8 +48,8 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
     expect { Puppet::Type.type(:dsc_xspcreatefarm).new(
       :name     => 'foo',
       :dsc_farmconfigdatabasename => 'foo',
-      :dsc_farmaccount => 'foo',
-      :dsc_installaccount => 'foo',
+      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_passphrase => 'foo',
       :dsc_admincontentdatabasename => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_databaseserver is a required attribute/)
@@ -166,6 +166,15 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

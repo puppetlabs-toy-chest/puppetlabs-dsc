@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_identity) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -71,6 +73,8 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_autodagdatabasesrootfolderpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -83,6 +87,8 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_autodagvolumesrootfolderpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -95,6 +101,8 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_disktodbmap, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -110,6 +118,8 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_sparevolumecount) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -125,6 +135,8 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_ensureexchangevolumemountpointislast) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -138,6 +150,8 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_createsubfolders) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -151,6 +165,8 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   # IsMandatory:  False
   # Values:       ["NTFS", "REFS"]
   newparam(:dsc_filesystem) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -166,6 +182,8 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_mindisksize) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -178,6 +196,8 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   # IsMandatory:  False
   # Values:       ["MBR", "GPT"]
   newparam(:dsc_partitioningscheme) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -193,6 +213,8 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_unitsize) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -205,6 +227,8 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_volumeprefix) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -58,6 +58,8 @@ Puppet::Type.newtype(:dsc_xdisk) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_driveletter) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -71,6 +73,8 @@ Puppet::Type.newtype(:dsc_xdisk) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_disknumber) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -86,6 +90,8 @@ Puppet::Type.newtype(:dsc_xdisk) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_size) do
+    def mof_type; 'uint64' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -101,6 +107,8 @@ Puppet::Type.newtype(:dsc_xdisk) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_fslabel) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

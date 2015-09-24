@@ -20,7 +20,7 @@ describe Puppet::Type.type(:dsc_xsqlserverrsconfig) do
       :name     => 'foo',
       :dsc_rssqlserver => 'foo',
       :dsc_rssqlinstancename => 'foo',
-      :dsc_sqladmincredential => 'foo',
+      :dsc_sqladmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_isinitialized => true,
     )}.to raise_error(Puppet::Error, /dsc_instancename is a required attribute/)
   end
@@ -167,6 +167,15 @@ describe Puppet::Type.type(:dsc_xsqlserverrsconfig) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

@@ -170,7 +170,7 @@ describe Puppet::Type.type(:dsc_xdatabase) do
     #dsc_xdatabase[:dsc_databasename]
     expect { Puppet::Type.type(:dsc_xdatabase).new(
       :name     => 'foo',
-      :dsc_credentials => 'foo',
+      :dsc_credentials => {"user"=>"user", "password"=>"password"},
       :dsc_ensure => 'Present',
       :dsc_sqlserver => 'foo',
       :dsc_sqlserverversion => '2008-R2',
@@ -320,6 +320,15 @@ describe Puppet::Type.type(:dsc_xdatabase) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

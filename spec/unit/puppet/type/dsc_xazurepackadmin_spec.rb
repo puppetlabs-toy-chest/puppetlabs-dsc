@@ -73,7 +73,7 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
     expect { Puppet::Type.type(:dsc_xazurepackadmin).new(
       :name     => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_azurepackadmincredential => 'foo',
+      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
       :dsc_sqlinstance => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_principal is a required attribute/)
@@ -218,6 +218,15 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

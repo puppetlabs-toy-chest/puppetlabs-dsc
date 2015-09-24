@@ -59,6 +59,8 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -88,6 +92,8 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_cachesizeinmb) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -103,6 +109,8 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_serviceaccount) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -111,14 +119,17 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
   end
 
   # Name:         InstallAccount
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_installaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
     end
   end
 
@@ -127,6 +138,8 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_createfirewallrules) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)

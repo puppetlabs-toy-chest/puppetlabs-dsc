@@ -90,7 +90,7 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
     expect { Puppet::Type.type(:dsc_xaddomaintrust).new(
       :name     => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_targetdomainadministratorcredential => 'foo',
+      :dsc_targetdomainadministratorcredential => {"user"=>"user", "password"=>"password"},
       :dsc_trusttype => 'External',
       :dsc_trustdirection => 'Bidirectional',
       :dsc_sourcedomainname => 'foo',
@@ -208,7 +208,7 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
     expect { Puppet::Type.type(:dsc_xaddomaintrust).new(
       :name     => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_targetdomainadministratorcredential => 'foo',
+      :dsc_targetdomainadministratorcredential => {"user"=>"user", "password"=>"password"},
       :dsc_targetdomainname => 'foo',
       :dsc_trusttype => 'External',
       :dsc_trustdirection => 'Bidirectional',
@@ -306,6 +306,15 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
       end
 
     end
+
+    describe "when dsc_resource has credentials" do
+
+      it "should convert credential hash to a pscredential object" do
+        expect(@provider.ps_script_content('test')).to match(/| new-pscredential'/)
+      end
+
+    end
+
 
   end
 end

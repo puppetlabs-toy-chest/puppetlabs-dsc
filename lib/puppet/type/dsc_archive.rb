@@ -56,6 +56,8 @@ Puppet::Type.newtype(:dsc_archive) do
   # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -72,6 +74,8 @@ Puppet::Type.newtype(:dsc_archive) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_path) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -85,6 +89,8 @@ Puppet::Type.newtype(:dsc_archive) do
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_destination) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -98,6 +104,8 @@ Puppet::Type.newtype(:dsc_archive) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_validate) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -111,6 +119,8 @@ Puppet::Type.newtype(:dsc_archive) do
   # IsMandatory:  False
   # Values:       ["SHA-1", "SHA-256", "SHA-512", "CreatedDate", "ModifiedDate"]
   newparam(:dsc_checksum) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -126,6 +136,8 @@ Puppet::Type.newtype(:dsc_archive) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_force) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
     validate do |value|
     end
     newvalues(true, false)
@@ -135,14 +147,17 @@ Puppet::Type.newtype(:dsc_archive) do
   end
 
   # Name:         Credential
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_credential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
   end
 
