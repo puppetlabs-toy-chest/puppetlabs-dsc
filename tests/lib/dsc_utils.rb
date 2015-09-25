@@ -107,7 +107,7 @@ end
 def _exec_dsc_script(hosts, ps_script, &block)
   #Init
   temp_script = 'temp.ps1'
-  utf8_bom = "\xEF\xBB\xBF"
+  utf8_ps_script = "\xEF\xBB\xBF".force_encoding('UTF-8') + ps_script.force_encoding('UTF-8')
   ps_launch = 'powershell.exe -ExecutionPolicy Bypass ' \
               '-NoLogo ' \
               '-NoProfile ' \
@@ -115,7 +115,7 @@ def _exec_dsc_script(hosts, ps_script, &block)
 
   block_on(hosts) do |host|
     #Create remote file with UTF-8 BOM
-    create_remote_file(host, "/cygdrive/c/#{temp_script}", utf8_bom + ps_script)
+    create_remote_file(host, "/cygdrive/c/#{temp_script}", utf8_ps_script)
 
     #Execute PowerShell script on host
     @result = on(host, ps_launch, :accept_all_exit_codes => true)
