@@ -1,19 +1,22 @@
 require 'erb'
 require 'dsc_utils'
-test_name 'MODULES-2523 - C68585 - Apply DSC Group Resource with Valid Unicode "GroupName" Specified'
+test_name 'MODULES-2537 - C68754 - Apply DSC User Resource with Valid Unicode "UserName" and "Password" Specified'
 
 confine(:to, :platform => 'windows')
 
 # Init
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 test_manifest_name = 'test_manifest.pp'
+username = "unicode"
+password = "\u11D4\u11D7\u11E8\u11F9\u118E\u1185\u118A\u11A0\u11A9\u11C5"
 
 # ERB Manifest
-dsc_type = 'group'
+dsc_type = 'user'
 dsc_module = 'PSDesiredStateConfiguration'
 dsc_props = {
-  :dsc_ensure    => 'Present',
-  :dsc_groupname => "\u1134\u1169\u1185\u1173\u112D\u1117\u1114\u1135\u114E"
+  :dsc_ensure   => 'Present',
+  :dsc_username => username,
+  :dsc_password => "{'user' => '#{username}', 'password' => '#{password}'}"
 }
 
 dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resources', 'dsc_single_resource.pp.erb')
@@ -26,8 +29,8 @@ teardown do
     agents,
     dsc_type,
     dsc_module,
-    :Ensure    => 'Absent',
-    :GroupName  => dsc_props[:dsc_groupname]
+    :Ensure   => 'Absent',
+    :UserName => username
   )
   on(agents, "rm -rf /cygdrive/c/#{test_manifest_name}")
 end
@@ -43,13 +46,16 @@ agents.each do |agent|
   end
 
   step 'Verify Results'
-  expect_failure('Expected to fail because of MODULES-2593') do
-    assert_dsc_resource(
+  expect_failure('Expected to fail because of MODULES-2588') do
+    assert_dsc_cred_resource(
       agent,
+      username,
+      password,
       dsc_type,
       dsc_module,
-      :Ensure    => dsc_props[:dsc_ensure],
-      :GroupName => dsc_props[:dsc_groupname]
+      :Password,
+      :Ensure   => dsc_props[:dsc_ensure],
+      :UserName => username
     )
   end
 end

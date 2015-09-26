@@ -55,29 +55,21 @@ end
 #                    :DestinationPath=>'C:\test.txt',
 #                    :Contents=>'catcat')
 def _build_dsc_command(dsc_method, dsc_resource_type, dsc_module, dsc_properties)
-  #Init
-  ps_launch = 'powershell.exe -ExecutionPolicy Bypass ' \
-              '-InputFormat Text ' \
-              '-OutputFormat Text ' \
-              '-NoLogo ' \
-              '-NoProfile ' \
-              '-NonInteractive'
-
   #Flatten hash into formatted string.
   dsc_prop_merge = '@{'
   dsc_properties.each do |k, v|
-    dsc_prop_merge << "\\\"#{k}\\\"="
+    dsc_prop_merge << "\"#{k}\"="
 
     if v =~ /^\$/
       dsc_prop_merge << "#{v};"
     elsif v =~ /^@/
-      dsc_prop_merge << "#{v.gsub(/\"/, '\\\"')};"
+      dsc_prop_merge << "#{v};"
     elsif v =~ /^(-|\[)?\d+$/
       dsc_prop_merge << "#{v};"
     elsif v =~ /^\[.+\].+$/     #This is for wacky type conversions
       dsc_prop_merge << "#{v};"
     else
-      dsc_prop_merge << "\\\"#{v}\\\";"
+      dsc_prop_merge << "\"#{v}\";"
     end
   end
 
@@ -91,21 +83,70 @@ def _build_dsc_command(dsc_method, dsc_resource_type, dsc_module, dsc_properties
                 "-Verbose " \
                 "-Property #{dsc_prop_merge}"
 
-  return "#{ps_launch} -Command \"if ( #{dsc_command} ) { exit 0 } else { exit 1 }\""
+  return "if ( #{dsc_command} ) { exit 0 } else { exit 1 }"
+end
+
+# Execute a PowerShell script on a remote machine.
+#
+# ==== Attributes
+#
+# * +hosts+ - A Windows Beaker host(s) running PowerShell.
+# * +ps_script+ - A PowerShell script to execute on the remote host.
+#
+# ==== Returns
+#
+# +Beaker::Result+
+#
+# ==== Raises
+#
+# +nil+
+#
+# ==== Examples
+#
+# _exec_dsc_script(master, 'Write-Host Hello')
+def _exec_dsc_script(hosts, ps_script, &block)
+  #Init
+  temp_script = 'temp.ps1'
+  utf8_ps_script = "\xEF\xBB\xBF".force_encoding('UTF-8') + ps_script.force_encoding('UTF-8')
+  ps_launch = 'powershell.exe -ExecutionPolicy Bypass ' \
+              '-NoLogo ' \
+              '-NoProfile ' \
+              "-File C:/#{temp_script}"
+
+  block_on(hosts) do |host|
+    #Create remote file with UTF-8 BOM
+    create_remote_file(host, "/cygdrive/c/#{temp_script}", utf8_ps_script)
+
+    #Execute PowerShell script on host
+    @result = on(host, ps_launch, :accept_all_exit_codes => true)
+
+    #Also, let additional checking be performed by the caller.
+    if block_given?
+      case block.arity
+        #block with arity of 0, just hand back yourself
+        when 0
+          yield self
+        #block with arity of 1 or greater, hand back the result object
+        else
+          yield @result
+      end
+    end
+    @result
+  end
 end
 
 # Set a DSC resource on a host machine.
 #
 # ==== Attributes
 #
-# * +host+ - The target Windows host for verification.
+# * +hosts+ - The target Windows host(s) for verification.
 # * +dsc_resource_type+ - The DSC resource type name to verify.
 # * +dsc_module+ - The DSC module for the specified resource type.
 # * +dsc_properties+ - DSC properties to set on resource.
 #
 # ==== Returns
 #
-# +Beaker::Result+
+# +nil+
 #
 # ==== Raises
 #
@@ -118,18 +159,14 @@ end
 #                  'PSDesiredStateConfiguration',
 #                  :DestinationPath=>'C:\test.txt',
 #                  :Contents=>'catcat')
-def set_dsc_resource(host, dsc_resource_type, dsc_module, dsc_properties)
+def set_dsc_resource(hosts, dsc_resource_type, dsc_module, dsc_properties)
   # Init
-  ps_command = _build_dsc_command('Set', dsc_resource_type, dsc_module, dsc_properties)
-  temp_script = 'temp.cmd'
+  ps_script = _build_dsc_command('Set', dsc_resource_type, dsc_module, dsc_properties)
 
-  create_remote_file(agents, "/cygdrive/c/#{temp_script}", ps_command)
-
-  # Execute Set Command
-  on(host, "cmd /c C:\\\\#{temp_script}", :acceptable_exit_codes => [0,1])
+  _exec_dsc_script(hosts, ps_script)
 
   # Verify State
-  assert_dsc_resource(host, dsc_resource_type, dsc_module, dsc_properties)
+  assert_dsc_resource(hosts, dsc_resource_type, dsc_module, dsc_properties)
 end
 
 module Beaker
@@ -139,7 +176,7 @@ module Beaker
       #
       # ==== Attributes
       #
-      # * +host+ - The target Windows host for verification.
+      # * +hosts+ - The target Windows host(s) for verification.
       # * +dsc_resource_type+ - The DSC resource type name to verify.
       # * +dsc_module+ - The DSC module for the specified resource type.
       # * +dsc_properties+ - DSC properties to verify on resource.
@@ -159,14 +196,63 @@ module Beaker
       #                     'PSDesiredStateConfiguration',
       #                     :DestinationPath=>'C:\test.txt',
       #                     :Contents=>'catcat')
-      def assert_dsc_resource(host, dsc_resource_type, dsc_module, dsc_properties)
+      def assert_dsc_resource(hosts, dsc_resource_type, dsc_module, dsc_properties)
         # Init
-        ps_command = _build_dsc_command('Test', dsc_resource_type, dsc_module, dsc_properties)
-        temp_script = 'temp.cmd'
+        ps_script = _build_dsc_command('Test', dsc_resource_type, dsc_module, dsc_properties)
 
-        create_remote_file(agents, "/cygdrive/c/#{temp_script}", ps_command)
+        _exec_dsc_script(hosts, ps_script) do |result|
+          assert(0 == result.exit_code, 'DSC resource not in desired state!')
+        end
+      end
 
-        on(host, "cmd /c C:\\\\#{temp_script}", :acceptable_exit_codes => [0,1]) do |result|
+      # Verify that the PowerShell script.
+      #
+      # ==== Attributes
+      #
+      # * +host+ - The target Windows host(s) for verification.
+      # * +user+ - A valid user account on target Windows host(s).
+      # * +password+ - The password for the associated user account.
+      # * +dsc_resource_type+ - The DSC resource type name to verify.
+      # * +dsc_module+ - The DSC module for the specified resource type.
+      # * +dsc_cred_param+ - The DSC resource parameter that requires a 'PSCredential' object.
+      # * +dsc_properties+ - DSC properties to verify on resource.
+      #
+      # ==== Returns
+      #
+      # +nil+
+      #
+      # ==== Raises
+      #
+      # +Minitest::Assertion+ - DSC resource not in desired state.
+      #
+      # ==== Examples
+      #
+      # assert_dsc_cred_resource(agents,
+      #                          'user1',
+      #                          'secret',
+      #                          'User',
+      #                          'PSDesiredStateConfiguration',
+      #                          'Password',
+      #                          :UserName=>'user1',
+      #                          :FullName=>'User One')
+      def assert_dsc_cred_resource(hosts,
+                                   user,
+                                   password,
+                                   dsc_resource_type,
+                                   dsc_module,
+                                   dsc_cred_param,
+                                   dsc_properties)
+        #Init
+        ps_script = <<-SCRIPT
+$secpasswd = ConvertTo-SecureString '#{password}' -AsPlainText -Force
+$credentials = New-Object System.Management.Automation.PSCredential ('#{user}', $secpasswd)\n
+SCRIPT
+
+        #Add credential to DSC properties
+        dsc_properties[dsc_cred_param] = '$credentials'
+        ps_script << _build_dsc_command('Test', dsc_resource_type, dsc_module, dsc_properties)
+
+        _exec_dsc_script(hosts, ps_script) do |result|
           assert(0 == result.exit_code, 'DSC resource not in desired state!')
         end
       end
