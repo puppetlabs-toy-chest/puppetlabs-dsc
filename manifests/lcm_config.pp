@@ -2,7 +2,7 @@ define dsc::lcm_config (
   $refresh_mode = 'Disabled'
 ) {
 
-  validate_re($refresh_mode, '^(Disabled|Pull|Push)$', 'refresh_mode must be one of \'Disabled\', \'Push\', \'Pull\'')
+  validate_re($refresh_mode, '^(Disabled|Push)$', 'refresh_mode must be one of \'Disabled\', \'Push\'')
 
   exec { "dsc_provider_set_lcm_refreshmode_${refresh_mode}":
     provider => 'powershell',

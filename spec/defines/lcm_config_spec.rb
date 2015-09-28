@@ -14,7 +14,7 @@ RSpec.describe 'dsc::lcm_config', :type => :define do
     }
   end
 
-  ['Disabled', 'Push', 'Pull'].each do |mode|
+  ['Disabled', 'Push'].each do |mode|
     context "when refresh_mode => #{mode}" do
       let (:title)  { "lcm_#{mode}" }
       let (:params) { {:refresh_mode => mode} }
@@ -31,7 +31,7 @@ RSpec.describe 'dsc::lcm_config', :type => :define do
     end
   end
 
-  ['disabled', 'push', 'pull', 'foo', 'bar'].each do |mode|
+  ['disabled', 'push', 'pull', 'Pull', 'foo', 'bar'].each do |mode|
     context "when refresh_mode => #{mode}" do
       let (:title)  { "lcm_#{mode}" }
       let (:params) { {:refresh_mode => mode} }
