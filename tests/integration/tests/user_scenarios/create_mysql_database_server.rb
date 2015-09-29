@@ -120,15 +120,15 @@ confine_block(:to, :platform => 'windows') do
     end
   end
 
-step 'Verify Results'
-assert_dsc_cred_resource(
-  agent,
-  user,
-  user_password,
-  'xMySqlDatabase',
-  'xMySql',
-  :ConnectionCredential,
-  :Ensure => 'Present',
-  :Name => database_name,
-)
+  step 'Verify Results'
+  assert_dsc_cred_resource(
+    agent,
+    user,
+    user_password,
+    'xMySqlDatabase',
+    'xMySql',
+    :ConnectionCredential,
+    :Ensure => 'Present',
+    :Name => database_name,
+  )
 end
