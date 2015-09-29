@@ -16,7 +16,7 @@ dsc_manifest_template_path = File.join(local_files_root_path, 'basic_functionali
 dsc_manifest = ERB.new(File.read(dsc_manifest_template_path)).result(binding)
 
 # Verify
-error_msg = /Could not evaluate: Command powershell is missing/
+error_msg = /Could not find a suitable provider for dsc_file/
 
 # Setup
 step 'Inject "site.pp" on Master'
