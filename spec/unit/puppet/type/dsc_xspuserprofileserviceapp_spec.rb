@@ -63,6 +63,10 @@ describe Puppet::Type.type(:dsc_xspuserprofileserviceapp) do
     expect{dsc_xspuserprofileserviceapp[:dsc_applicationpool] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_farmaccount" do
+    expect{dsc_xspuserprofileserviceapp[:dsc_farmaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_farmaccount' do
     expect{dsc_xspuserprofileserviceapp[:dsc_farmaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -77,6 +81,10 @@ describe Puppet::Type.type(:dsc_xspuserprofileserviceapp) do
 
   it 'should not accept uint for dsc_farmaccount' do
     expect{dsc_xspuserprofileserviceapp[:dsc_farmaccount] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_installaccount" do
+    expect{dsc_xspuserprofileserviceapp[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_installaccount' do

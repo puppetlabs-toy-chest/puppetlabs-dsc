@@ -42,6 +42,10 @@ describe Puppet::Type.type(:dsc_xaddomaincontroller) do
     expect{dsc_xaddomaincontroller[:dsc_domainname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_domainadministratorcredential" do
+    expect{dsc_xaddomaincontroller[:dsc_domainadministratorcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_domainadministratorcredential' do
     expect{dsc_xaddomaincontroller[:dsc_domainadministratorcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -56,6 +60,10 @@ describe Puppet::Type.type(:dsc_xaddomaincontroller) do
 
   it 'should not accept uint for dsc_domainadministratorcredential' do
     expect{dsc_xaddomaincontroller[:dsc_domainadministratorcredential] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_safemodeadministratorpassword" do
+    expect{dsc_xaddomaincontroller[:dsc_safemodeadministratorpassword] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_safemodeadministratorpassword' do

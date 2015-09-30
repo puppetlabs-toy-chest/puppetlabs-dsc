@@ -69,6 +69,10 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
     expect{dsc_xaddomaintrust[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_targetdomainadministratorcredential" do
+    expect{dsc_xaddomaintrust[:dsc_targetdomainadministratorcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_targetdomainadministratorcredential' do
     expect{dsc_xaddomaintrust[:dsc_targetdomainadministratorcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

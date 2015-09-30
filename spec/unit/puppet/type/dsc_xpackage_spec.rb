@@ -193,6 +193,10 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_arguments] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_credential" do
+    expect{dsc_xpackage[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_credential' do
     expect{dsc_xpackage[:dsc_credential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -386,6 +390,10 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept uint for dsc_installed' do
     expect{dsc_xpackage[:dsc_installed] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_runascredential" do
+    expect{dsc_xpackage[:dsc_runascredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_runascredential' do

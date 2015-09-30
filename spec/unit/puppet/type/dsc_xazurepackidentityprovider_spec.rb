@@ -117,6 +117,10 @@ describe Puppet::Type.type(:dsc_xazurepackidentityprovider) do
     expect(dsc_xazurepackidentityprovider[:dsc_port]).to eq(64)
   end
 
+  it "should not accept empty password for dsc_azurepackadmincredential" do
+    expect{dsc_xazurepackidentityprovider[:dsc_azurepackadmincredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_azurepackadmincredential' do
     expect{dsc_xazurepackidentityprovider[:dsc_azurepackadmincredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

@@ -42,6 +42,10 @@ describe Puppet::Type.type(:dsc_xspmanagedaccount) do
     expect{dsc_xspmanagedaccount[:dsc_accountname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_account" do
+    expect{dsc_xspmanagedaccount[:dsc_account] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_account' do
     expect{dsc_xspmanagedaccount[:dsc_account] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -56,6 +60,10 @@ describe Puppet::Type.type(:dsc_xspmanagedaccount) do
 
   it 'should not accept uint for dsc_account' do
     expect{dsc_xspmanagedaccount[:dsc_account] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_installaccount" do
+    expect{dsc_xspmanagedaccount[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_installaccount' do

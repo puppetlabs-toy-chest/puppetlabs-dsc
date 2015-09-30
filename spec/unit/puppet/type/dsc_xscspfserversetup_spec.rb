@@ -130,6 +130,10 @@ describe Puppet::Type.type(:dsc_xscspfserversetup) do
     expect{dsc_xscspfserversetup[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_setupcredential" do
+    expect{dsc_xscspfserversetup[:dsc_setupcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_setupcredential' do
     expect{dsc_xscspfserversetup[:dsc_setupcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -343,6 +347,10 @@ describe Puppet::Type.type(:dsc_xscspfserversetup) do
     expect(dsc_xscspfserversetup[:dsc_websiteportnumber]).to eq(64)
   end
 
+  it "should not accept empty password for dsc_scvmm" do
+    expect{dsc_xscspfserversetup[:dsc_scvmm] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_scvmm' do
     expect{dsc_xscspfserversetup[:dsc_scvmm] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -373,6 +381,10 @@ describe Puppet::Type.type(:dsc_xscspfserversetup) do
 
   it 'should not accept uint for dsc_scvmmusername' do
     expect{dsc_xscspfserversetup[:dsc_scvmmusername] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_scadmin" do
+    expect{dsc_xscspfserversetup[:dsc_scadmin] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_scadmin' do
@@ -407,6 +419,10 @@ describe Puppet::Type.type(:dsc_xscspfserversetup) do
     expect{dsc_xscspfserversetup[:dsc_scadminusername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_scprovider" do
+    expect{dsc_xscspfserversetup[:dsc_scprovider] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_scprovider' do
     expect{dsc_xscspfserversetup[:dsc_scprovider] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -437,6 +453,10 @@ describe Puppet::Type.type(:dsc_xscspfserversetup) do
 
   it 'should not accept uint for dsc_scproviderusername' do
     expect{dsc_xscspfserversetup[:dsc_scproviderusername] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_scusage" do
+    expect{dsc_xscspfserversetup[:dsc_scusage] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_scusage' do

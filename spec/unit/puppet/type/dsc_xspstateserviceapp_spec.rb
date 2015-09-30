@@ -41,6 +41,10 @@ describe Puppet::Type.type(:dsc_xspstateserviceapp) do
     expect{dsc_xspstateserviceapp[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_databasecredentials" do
+    expect{dsc_xspstateserviceapp[:dsc_databasecredentials] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_databasecredentials' do
     expect{dsc_xspstateserviceapp[:dsc_databasecredentials] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -87,6 +91,10 @@ describe Puppet::Type.type(:dsc_xspstateserviceapp) do
 
   it 'should not accept uint for dsc_databaseserver' do
     expect{dsc_xspstateserviceapp[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_installaccount" do
+    expect{dsc_xspstateserviceapp[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_installaccount' do

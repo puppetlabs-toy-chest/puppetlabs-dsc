@@ -61,6 +61,10 @@ describe Puppet::Type.type(:dsc_xsqlserverinstall) do
     expect{dsc_xsqlserverinstall[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_sourcepathcredential" do
+    expect{dsc_xsqlserverinstall[:dsc_sourcepathcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_sourcepathcredential' do
     expect{dsc_xsqlserverinstall[:dsc_sourcepathcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -91,6 +95,10 @@ describe Puppet::Type.type(:dsc_xsqlserverinstall) do
 
   it 'should not accept uint for dsc_features' do
     expect{dsc_xsqlserverinstall[:dsc_features] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_sqladministratorcredential" do
+    expect{dsc_xsqlserverinstall[:dsc_sqladministratorcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sqladministratorcredential' do

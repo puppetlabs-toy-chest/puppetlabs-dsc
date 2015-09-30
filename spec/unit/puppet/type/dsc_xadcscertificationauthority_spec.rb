@@ -106,6 +106,10 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_catype] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_credential" do
+    expect{dsc_xadcscertificationauthority[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_credential' do
     expect{dsc_xadcscertificationauthority[:dsc_credential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -218,6 +222,10 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
 
   it 'should not accept uint for dsc_certfile' do
     expect{dsc_xadcscertificationauthority[:dsc_certfile] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_certfilepassword" do
+    expect{dsc_xadcscertificationauthority[:dsc_certfilepassword] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_certfilepassword' do

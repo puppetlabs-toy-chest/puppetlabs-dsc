@@ -48,6 +48,10 @@ describe Puppet::Type.type(:dsc_xexchecpvirtualdirectory) do
     expect{dsc_xexchecpvirtualdirectory[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_credential" do
+    expect{dsc_xexchecpvirtualdirectory[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_credential' do
     expect{dsc_xexchecpvirtualdirectory[:dsc_credential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

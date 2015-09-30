@@ -166,6 +166,10 @@ describe Puppet::Type.type(:dsc_xazurepackupdate) do
     expect{dsc_xazurepackupdate[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_setupcredential" do
+    expect{dsc_xazurepackupdate[:dsc_setupcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_setupcredential' do
     expect{dsc_xazurepackupdate[:dsc_setupcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

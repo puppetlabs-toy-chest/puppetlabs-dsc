@@ -43,6 +43,10 @@ describe Puppet::Type.type(:dsc_xspserviceinstance) do
     expect{dsc_xspserviceinstance[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_installaccount" do
+    expect{dsc_xspserviceinstance[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_installaccount' do
     expect{dsc_xspserviceinstance[:dsc_installaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

@@ -168,6 +168,10 @@ describe Puppet::Type.type(:dsc_xdatabaselogin) do
     expect{dsc_xdatabaselogin[:dsc_sqlserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_sqlconnectioncredential" do
+    expect{dsc_xdatabaselogin[:dsc_sqlconnectioncredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_sqlconnectioncredential' do
     expect{dsc_xdatabaselogin[:dsc_sqlconnectioncredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

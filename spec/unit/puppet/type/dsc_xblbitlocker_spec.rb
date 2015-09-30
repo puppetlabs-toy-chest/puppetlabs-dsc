@@ -360,6 +360,10 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     expect{dsc_xblbitlocker[:dsc_hardwareencryption] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_password" do
+    expect{dsc_xblbitlocker[:dsc_password] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_password' do
     expect{dsc_xblbitlocker[:dsc_password] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -421,6 +425,10 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
 
   it 'should not accept uint for dsc_passwordprotector' do
     expect{dsc_xblbitlocker[:dsc_passwordprotector] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_pin" do
+    expect{dsc_xblbitlocker[:dsc_pin] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_pin' do

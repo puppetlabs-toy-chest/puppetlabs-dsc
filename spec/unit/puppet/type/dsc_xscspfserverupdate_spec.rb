@@ -111,6 +111,10 @@ describe Puppet::Type.type(:dsc_xscspfserverupdate) do
     expect{dsc_xscspfserverupdate[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_setupcredential" do
+    expect{dsc_xscspfserverupdate[:dsc_setupcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_setupcredential' do
     expect{dsc_xscspfserverupdate[:dsc_setupcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

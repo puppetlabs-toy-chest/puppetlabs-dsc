@@ -61,6 +61,10 @@ describe Puppet::Type.type(:dsc_xwordpresssite) do
     expect{dsc_xwordpresssite[:dsc_title] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_administratorcredential" do
+    expect{dsc_xwordpresssite[:dsc_administratorcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_administratorcredential' do
     expect{dsc_xwordpresssite[:dsc_administratorcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

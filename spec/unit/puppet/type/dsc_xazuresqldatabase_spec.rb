@@ -116,6 +116,10 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
     expect{dsc_xazuresqldatabase[:dsc_edition] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_servercredential" do
+    expect{dsc_xazuresqldatabase[:dsc_servercredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_servercredential' do
     expect{dsc_xazuresqldatabase[:dsc_servercredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

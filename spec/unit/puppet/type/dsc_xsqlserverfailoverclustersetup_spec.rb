@@ -137,6 +137,10 @@ describe Puppet::Type.type(:dsc_xsqlserverfailoverclustersetup) do
     expect{dsc_xsqlserverfailoverclustersetup[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_setupcredential" do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_setupcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_setupcredential' do
     expect{dsc_xsqlserverfailoverclustersetup[:dsc_setupcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -427,6 +431,10 @@ describe Puppet::Type.type(:dsc_xsqlserverfailoverclustersetup) do
     expect{dsc_xsqlserverfailoverclustersetup[:dsc_instancedir] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_sqlsvcaccount" do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_sqlsvcaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_sqlsvcaccount' do
     expect{dsc_xsqlserverfailoverclustersetup[:dsc_sqlsvcaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -457,6 +465,10 @@ describe Puppet::Type.type(:dsc_xsqlserverfailoverclustersetup) do
 
   it 'should not accept uint for dsc_sqlsvcaccountusername' do
     expect{dsc_xsqlserverfailoverclustersetup[:dsc_sqlsvcaccountusername] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_agtsvcaccount" do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_agtsvcaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_agtsvcaccount' do
@@ -538,6 +550,10 @@ describe Puppet::Type.type(:dsc_xsqlserverfailoverclustersetup) do
 
   it 'should not accept uint for dsc_securitymode' do
     expect{dsc_xsqlserverfailoverclustersetup[:dsc_securitymode] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_sapwd" do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_sapwd] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sapwd' do
@@ -650,6 +666,10 @@ describe Puppet::Type.type(:dsc_xsqlserverfailoverclustersetup) do
 
   it 'should not accept uint for dsc_sqlbackupdir' do
     expect{dsc_xsqlserverfailoverclustersetup[:dsc_sqlbackupdir] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_assvcaccount" do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_assvcaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_assvcaccount' do
@@ -795,6 +815,10 @@ describe Puppet::Type.type(:dsc_xsqlserverfailoverclustersetup) do
 
   it 'should not accept uint for dsc_asconfigdir' do
     expect{dsc_xsqlserverfailoverclustersetup[:dsc_asconfigdir] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_issvcaccount" do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_issvcaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_issvcaccount' do
