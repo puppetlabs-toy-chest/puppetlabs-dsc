@@ -58,6 +58,10 @@ module PuppetX
         unless extraneous.empty?
           fail "#{name} includes invalid keys: #{extraneous.join(',')}"
         end
+
+        if value.values.any?{|v| v.nil? || v.length == 0}
+          fail "Both User and Password must not be empty"
+        end
       end
 
       def self.validate_mof_type(mof_type, embeddedinstance_name, name, value)
