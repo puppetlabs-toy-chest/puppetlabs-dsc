@@ -52,6 +52,10 @@ Puppet::Type.newtype(:dsc_xrdsessiondeployment) do
     defaultto { :present }
   end
 
+if Puppet.version >= '4.0.0'
+  autonotify(:reboot) { ['dsc_reboot'] }
+end
+
   # Name:         SessionHost
   # Type:         string
   # IsMandatory:  True

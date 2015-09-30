@@ -57,8 +57,12 @@ EOT
     output = powershell(powershell_args, script_content)
     Puppet.debug "Create Dsc Resource returned: #{output}"
     data = JSON.parse(output)
+
     fail(data['errormessage']) if !data['errormessage'].empty?
-    true
+
+    notify_status if data['rebootrequired'] == true
+
+    data
   end
 
   def destroy
@@ -67,8 +71,56 @@ EOT
     output = powershell(powershell_args, script_content)
     Puppet.debug "Destroy Dsc Resource returned: #{output}"
     data = JSON.parse(output)
+
     fail(data['errormessage']) if !data['errormessage'].empty?
-    true
+
+    notify_status if data['rebootrequired'] == true
+
+    data
+  end
+
+  def notify_status
+    Puppet.info "A reboot is required to progress further. Notifying Puppet."
+
+    catalog_resource = resource.catalog.resources.find_all do |r|
+      r.is_a?(Puppet::Type.type(:reboot)) && r.name == 'dsc_reboot'
+    end
+
+    unless catalog_resource.any?
+      Puppet.warning "No reboot resource found in the graph that has 'dsc_reboot' as it's name. Cannot signal reboot to Puppet."
+      return
+    end
+
+    target_resource = resolve_resource(catalog_resource[0])
+
+    if target_resource.respond_to?(:reboot_required)
+      target_resource.reboot_required
+    else
+      Puppet.warning "Reboot resource does not have :reboot_required method implemented. Cannot signal reboot to Puppet."
+      return
+    end
+  end
+
+  def resolve_resource(reference)
+    if reference.is_a?(Puppet::Type)
+      # Probably from a unit test, use the resource as-is
+      return reference
+    end
+
+    if reference.is_a?(Puppet::Resource)
+      # Already part resolved - puppet apply?
+      # join it to the catalog where we live and ask it to resolve
+      reference.catalog = resource.catalog
+      return reference.resolve
+    end
+
+    if reference.is_a?(String)
+      # 3.3.0 catalogs you need to resolve like so
+      return resource.catalog.resource(reference)
+    end
+
+    # If we got here, panic
+    raise "Don't know how to convert '#{reference.inspect}' of class #{reference.class} into a resource"
   end
 
   def format_dsc_value(dsc_value)

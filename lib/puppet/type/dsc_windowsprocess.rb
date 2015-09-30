@@ -48,6 +48,10 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
     defaultto { :present }
   end
 
+if Puppet.version >= '4.0.0'
+  autonotify(:reboot) { ['dsc_reboot'] }
+end
+
   # Name:         Path
   # Type:         string
   # IsMandatory:  True

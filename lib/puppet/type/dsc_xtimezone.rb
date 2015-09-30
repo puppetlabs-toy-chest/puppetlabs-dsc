@@ -50,6 +50,10 @@ Puppet::Type.newtype(:dsc_xtimezone) do
     defaultto { :present }
   end
 
+if Puppet.version >= '4.0.0'
+  autonotify(:reboot) { ['dsc_reboot'] }
+end
+
   # Name:         IsSingleInstance
   # Type:         string
   # IsMandatory:  True

@@ -51,6 +51,10 @@ Puppet::Type.newtype(:dsc_xinternetexplorerhomepage) do
     defaultto { :present }
   end
 
+if Puppet.version >= '4.0.0'
+  autonotify(:reboot) { ['dsc_reboot'] }
+end
+
   # Name:         StartPage
   # Type:         string
   # IsMandatory:  True

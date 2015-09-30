@@ -51,6 +51,10 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
     defaultto { :present }
   end
 
+if Puppet.version >= '4.0.0'
+  autonotify(:reboot) { ['dsc_reboot'] }
+end
+
   # Name:         Ensure
   # Type:         string
   # IsMandatory:  True
