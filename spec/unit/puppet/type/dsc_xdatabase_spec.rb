@@ -18,6 +18,10 @@ describe Puppet::Type.type(:dsc_xdatabase) do
     expect(dsc_xdatabase[:ensure]).to eq :present
   end
 
+  it "should not accept empty password for dsc_credentials" do
+    expect{dsc_xdatabase[:dsc_credentials] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_credentials' do
     expect{dsc_xdatabase[:dsc_credentials] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

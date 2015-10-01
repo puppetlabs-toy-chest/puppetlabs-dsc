@@ -84,6 +84,10 @@ describe Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel) do
     expect(dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel]).to eq(64)
   end
 
+  it "should not accept empty password for dsc_sqladmincredential" do
+    expect{dsc_xsqlserverrssecureconnectionlevel[:dsc_sqladmincredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_sqladmincredential' do
     expect{dsc_xsqlserverrssecureconnectionlevel[:dsc_sqladmincredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

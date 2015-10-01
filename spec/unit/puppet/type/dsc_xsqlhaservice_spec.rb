@@ -39,6 +39,10 @@ describe Puppet::Type.type(:dsc_xsqlhaservice) do
     expect{dsc_xsqlhaservice[:dsc_instancename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_sqladministratorcredential" do
+    expect{dsc_xsqlhaservice[:dsc_sqladministratorcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_sqladministratorcredential' do
     expect{dsc_xsqlhaservice[:dsc_sqladministratorcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -53,6 +57,10 @@ describe Puppet::Type.type(:dsc_xsqlhaservice) do
 
   it 'should not accept uint for dsc_sqladministratorcredential' do
     expect{dsc_xsqlhaservice[:dsc_sqladministratorcredential] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_servicecredential" do
+    expect{dsc_xsqlhaservice[:dsc_servicecredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_servicecredential' do

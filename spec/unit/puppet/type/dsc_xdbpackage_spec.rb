@@ -14,6 +14,10 @@ describe Puppet::Type.type(:dsc_xdbpackage) do
     expect(dsc_xdbpackage.to_s).to eq("Dsc_xdbpackage[foo]")
   end
 
+  it "should not accept empty password for dsc_credentials" do
+    expect{dsc_xdbpackage[:dsc_credentials] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_credentials' do
     expect{dsc_xdbpackage[:dsc_credentials] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

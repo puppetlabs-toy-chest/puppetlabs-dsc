@@ -73,6 +73,10 @@ describe Puppet::Type.type(:dsc_xsqlserverrsconfig) do
     expect{dsc_xsqlserverrsconfig[:dsc_rssqlinstancename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_sqladmincredential" do
+    expect{dsc_xsqlserverrsconfig[:dsc_sqladmincredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_sqladmincredential' do
     expect{dsc_xsqlserverrsconfig[:dsc_sqladmincredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

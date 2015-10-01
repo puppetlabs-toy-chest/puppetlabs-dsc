@@ -120,6 +120,10 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_setupcredential" do
+    expect{dsc_xscsmarunbookworkerserversetup[:dsc_setupcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_setupcredential' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_setupcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -134,6 +138,10 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
 
   it 'should not accept uint for dsc_setupcredential' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_service" do
+    expect{dsc_xscsmarunbookworkerserversetup[:dsc_service] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_service' do

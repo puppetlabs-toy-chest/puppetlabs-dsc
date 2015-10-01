@@ -133,6 +133,10 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_setupcredential" do
+    expect{dsc_xscommanagementserversetup[:dsc_setupcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_setupcredential' do
     expect{dsc_xscommanagementserversetup[:dsc_setupcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -279,6 +283,10 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect(dsc_xscommanagementserversetup[:dsc_managementserviceport]).to eq(64)
   end
 
+  it "should not accept empty password for dsc_actionaccount" do
+    expect{dsc_xscommanagementserversetup[:dsc_actionaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_actionaccount' do
     expect{dsc_xscommanagementserversetup[:dsc_actionaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -309,6 +317,10 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
 
   it 'should not accept uint for dsc_actionaccountusername' do
     expect{dsc_xscommanagementserversetup[:dsc_actionaccountusername] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_dasaccount" do
+    expect{dsc_xscommanagementserversetup[:dsc_dasaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_dasaccount' do
@@ -343,6 +355,10 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_dasaccountusername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_datareader" do
+    expect{dsc_xscommanagementserversetup[:dsc_datareader] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_datareader' do
     expect{dsc_xscommanagementserversetup[:dsc_datareader] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -373,6 +389,10 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
 
   it 'should not accept uint for dsc_datareaderusername' do
     expect{dsc_xscommanagementserversetup[:dsc_datareaderusername] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_datawriter" do
+    expect{dsc_xscommanagementserversetup[:dsc_datawriter] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_datawriter' do

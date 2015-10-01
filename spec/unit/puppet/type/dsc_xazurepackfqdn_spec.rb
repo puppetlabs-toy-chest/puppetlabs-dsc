@@ -137,6 +137,10 @@ describe Puppet::Type.type(:dsc_xazurepackfqdn) do
     expect(dsc_xazurepackfqdn[:dsc_port]).to eq(64)
   end
 
+  it "should not accept empty password for dsc_azurepackadmincredential" do
+    expect{dsc_xazurepackfqdn[:dsc_azurepackadmincredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_azurepackadmincredential' do
     expect{dsc_xazurepackfqdn[:dsc_azurepackadmincredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

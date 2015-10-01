@@ -120,6 +120,10 @@ describe Puppet::Type.type(:dsc_xscdpmserversetup) do
     expect{dsc_xscdpmserversetup[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_setupcredential" do
+    expect{dsc_xscdpmserversetup[:dsc_setupcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_setupcredential' do
     expect{dsc_xscdpmserversetup[:dsc_setupcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -232,6 +236,10 @@ describe Puppet::Type.type(:dsc_xscdpmserversetup) do
     expect{dsc_xscdpmserversetup[:dsc_yukoninstancename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_yukonmachinecredential" do
+    expect{dsc_xscdpmserversetup[:dsc_yukonmachinecredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_yukonmachinecredential' do
     expect{dsc_xscdpmserversetup[:dsc_yukonmachinecredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -278,6 +286,10 @@ describe Puppet::Type.type(:dsc_xscdpmserversetup) do
 
   it 'should not accept uint for dsc_reportinginstancename' do
     expect{dsc_xscdpmserversetup[:dsc_reportinginstancename] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_reportingmachinecredential" do
+    expect{dsc_xscdpmserversetup[:dsc_reportingmachinecredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_reportingmachinecredential' do

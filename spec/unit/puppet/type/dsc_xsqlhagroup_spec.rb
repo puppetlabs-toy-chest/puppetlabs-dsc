@@ -125,6 +125,10 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
     expect{dsc_xsqlhagroup[:dsc_endpointname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_domaincredential" do
+    expect{dsc_xsqlhagroup[:dsc_domaincredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_domaincredential' do
     expect{dsc_xsqlhagroup[:dsc_domaincredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -139,6 +143,10 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
 
   it 'should not accept uint for dsc_domaincredential' do
     expect{dsc_xsqlhagroup[:dsc_domaincredential] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_sqladministratorcredential" do
+    expect{dsc_xsqlhagroup[:dsc_sqladministratorcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sqladministratorcredential' do

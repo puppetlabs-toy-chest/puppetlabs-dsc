@@ -147,6 +147,10 @@ describe Puppet::Type.type(:dsc_xspsecurestoreserviceapp) do
     expect(dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize]).to eq(64)
   end
 
+  it "should not accept empty password for dsc_databasecredentials" do
+    expect{dsc_xspsecurestoreserviceapp[:dsc_databasecredentials] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_databasecredentials' do
     expect{dsc_xspsecurestoreserviceapp[:dsc_databasecredentials] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -335,6 +339,10 @@ describe Puppet::Type.type(:dsc_xspsecurestoreserviceapp) do
 
   it 'should not accept uint for dsc_sharing' do
     expect{dsc_xspsecurestoreserviceapp[:dsc_sharing] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_installaccount" do
+    expect{dsc_xspsecurestoreserviceapp[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_installaccount' do

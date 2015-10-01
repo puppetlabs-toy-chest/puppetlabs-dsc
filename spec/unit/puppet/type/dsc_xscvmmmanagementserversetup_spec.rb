@@ -139,6 +139,10 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_setupcredential" do
+    expect{dsc_xscvmmmanagementserversetup[:dsc_setupcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_setupcredential' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_setupcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -153,6 +157,10 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
 
   it 'should not accept uint for dsc_setupcredential' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_vmmservice" do
+    expect{dsc_xscvmmmanagementserversetup[:dsc_vmmservice] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_vmmservice' do

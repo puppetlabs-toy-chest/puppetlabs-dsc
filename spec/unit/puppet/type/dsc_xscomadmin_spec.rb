@@ -121,6 +121,10 @@ describe Puppet::Type.type(:dsc_xscomadmin) do
     expect{dsc_xscomadmin[:dsc_userrole] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_scomadmincredential" do
+    expect{dsc_xscomadmin[:dsc_scomadmincredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_scomadmincredential' do
     expect{dsc_xscomadmin[:dsc_scomadmincredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

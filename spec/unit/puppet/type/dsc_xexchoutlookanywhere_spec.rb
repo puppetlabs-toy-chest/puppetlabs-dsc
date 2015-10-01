@@ -51,6 +51,10 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     expect{dsc_xexchoutlookanywhere[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_credential" do
+    expect{dsc_xexchoutlookanywhere[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_credential' do
     expect{dsc_xexchoutlookanywhere[:dsc_credential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

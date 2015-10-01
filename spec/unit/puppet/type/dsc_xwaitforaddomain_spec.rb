@@ -40,6 +40,10 @@ describe Puppet::Type.type(:dsc_xwaitforaddomain) do
     expect{dsc_xwaitforaddomain[:dsc_domainname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_domainusercredential" do
+    expect{dsc_xwaitforaddomain[:dsc_domainusercredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_domainusercredential' do
     expect{dsc_xwaitforaddomain[:dsc_domainusercredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

@@ -55,6 +55,10 @@ describe Puppet::Type.type(:dsc_xcluster) do
     expect{dsc_xcluster[:dsc_staticipaddress] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_domainadministratorcredential" do
+    expect{dsc_xcluster[:dsc_domainadministratorcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_domainadministratorcredential' do
     expect{dsc_xcluster[:dsc_domainadministratorcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

@@ -34,6 +34,12 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
   end
 <%  end # resource.ensurable? -%>
 <%  resource.properties.each do |property| -%>
+<%    if property.credential? -%>
+
+  it "should not accept empty password for dsc_<%= property.name.downcase %>" do
+    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+<%    end # if property.credential? -%>
 <%    if property.required? -%>
 
   it 'should require that dsc_<%= property.name.downcase %> is specified' do
