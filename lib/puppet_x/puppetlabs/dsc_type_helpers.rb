@@ -44,6 +44,7 @@ module PuppetX
         required.each do |key|
           if value[key]
             fail "#{key} for #{name} should be a String" unless value[key].is_a? String
+            fail "#{key} must not be empty" if value[key].empty?
           end
         end
 
@@ -57,10 +58,6 @@ module PuppetX
         extraneous = specified_keys - required
         unless extraneous.empty?
           fail "#{name} includes invalid keys: #{extraneous.join(',')}"
-        end
-
-        if value.values.any?{|v| v.nil? || v.length == 0}
-          fail "Both User and Password must not be empty"
         end
       end
 
