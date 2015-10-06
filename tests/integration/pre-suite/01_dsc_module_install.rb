@@ -8,9 +8,9 @@ on(master, puppet('module install puppetlabs-stdlib'))
 on(master, puppet('module install puppetlabs-powershell'))
 
 step 'Install DSC Module'
-proj_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+proj_root = File.expand_path(File.join(File.dirname(__FILE__), '../../../'))
 staging = { :module_name => 'puppetlabs-dsc' }
-local = { :module_name => 'dsc', :proj_root => proj_root, :target_module_path => master['distmoduledir'] }
+local = { :module_name => 'dsc', :source => proj_root, :target_module_path => master['distmoduledir'] }
 
 # in CI install from staging forge, otherwise from local
 install_dev_puppet_module_on(master, options[:forge_host] ? staging : local)
