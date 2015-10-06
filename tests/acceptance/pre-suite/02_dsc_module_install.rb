@@ -3,9 +3,10 @@ test_name 'FM-2626 - C68503 - Install Module via PMT on Agent with Prerequisites
 confine(:to, :platform => 'windows')
 
 # Init
-proj_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+proj_root = File.expand_path(File.join(File.dirname(__FILE__), '../../../'))
+puts(proj_root)
 staging = { :module_name => 'puppetlabs-dsc' }
-local = { :module_name => 'dsc', :proj_root => proj_root }
+local = { :module_name => 'dsc', :source => proj_root }
 
 agents.each do |agent|
   step 'Install DSC Module Dependencies'
