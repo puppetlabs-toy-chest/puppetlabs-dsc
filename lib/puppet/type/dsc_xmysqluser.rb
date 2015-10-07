@@ -4,10 +4,6 @@ Puppet::Type.newtype(:dsc_xmysqluser) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-  provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-    confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
-    defaultfor :operatingsystem => :windows
-  end
 
   @doc = %q{
     The DSC xMySqlUser resource type.
@@ -123,4 +119,11 @@ Puppet::Type.newtype(:dsc_xmysqluser) do
   end
 
 
+end
+
+Puppet::Type.type(:dsc_xmysqluser).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  defaultfor :operatingsystem => :windows
+
+  mk_resource_methods
 end
