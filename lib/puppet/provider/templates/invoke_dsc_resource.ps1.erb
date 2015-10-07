@@ -32,7 +32,7 @@ $invokeParams = @{
   Name          = '<%= resource.dscmeta_resource_friendly_name %>'
   Method        = '<%= dsc_invoke_method %>'
   Property      = @{
-<% dsc_parameters.each do |p| -%>
+<% dsc_parameters(resource).each do |p| -%>
     <%- name = p.name.to_s.gsub(/^dsc_/,'')
     if name == 'ensure' && dsc_invoke_method == 'test'
       value = "\'#{resource.parameters[:ensure].default.to_s}\'"

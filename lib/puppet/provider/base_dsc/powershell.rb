@@ -18,31 +18,82 @@ Puppet::Type.type(:base_dsc).provide(:powershell) do
 Applies DSC Resources by generating a configuration file and applying it.
 EOT
 
-  def vendored_modules_path
+  def self.instances
+    require 'pry'; binding.pry
+    return []
+  end
+
+  # Get resources from DSC
+  def self.prefetch(resources)
+
+    # standard prefetch
+    #   instances.each do |prov|
+    #     if resource = resources[prov.name]
+    #       resource.provider = prov
+    #     end
+    #   end
+
+    resources.each do |name, resource|
+      hash = {}
+
+      if result = retrieve(resource)
+        # naive property remap by prefixing with dsc_
+        result['instance'].each do |prop|
+          key = ("dsc_" + prop["Name"].downcase.strip).to_sym
+
+          # TODO: information is lossy here b/c DSC doesn' have props & params
+          # i.e. we don't care to compare something like dsc_force on the
+          # DSC file because it is not actually a part of the resource
+          # TODO: I think that we should always omit null values, but unsure if there's a difference b/w null and undef??
+          if resource.parameters.keys.include?(key) && prop['Value']
+            # TODO: when DSC value is nil, what happens? omit it from hash?
+            # TODO: is any special munging required to make is / should comparable
+            # i.e. with resource.parameters[key].mof_type
+            hash[key] = prop['Value']
+          end
+        end
+      end
+
+      # TODO: generally have to ignore anything with PsCredential for insync? checks
+      # TODO: absent isn't always right value to look at as it depends on the MOF definition in the valuemap
+      if hash.empty? || hash[:dsc_ensure].casecmp('absent') == 0
+        resource.provider = new(:ensure => :absent)
+      else
+        require 'pry'; binding.pry
+        hash[:ensure] = :present
+        hash[:name] = resource[:name]
+        hash[:provider] = :powershell
+        # TODO: is this just a hash... or an instance of the type??
+        resource.provider = new(hash)
+      end
+    end
+  end
+
+  def self.vendored_modules_path
     File.expand_path(Pathname.new(__FILE__).dirname + '../../../' + 'puppet_x/dsc_resources')
   end
 
-  def dsc_parameters
+  def self.dsc_parameters(resource)
     resource.parameters_with_value.select do |p|
       p.name.to_s =~ /dsc_/
     end
   end
 
-  def template_path
+  def self.template_path
     File.expand_path('../../templates', __FILE__)
   end
 
 
-  def powershell_args
+  def self.powershell_args
     ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command']
   end
 
   def exists?
     version = Facter.value(:powershell_version)
     Puppet.debug "PowerShell Version: #{version}"
-    script_content = ps_script_content('test')
+    script_content = self.class.ps_script_content('test', resource)
     Puppet.debug "\n" + script_content
-    output = powershell(powershell_args, script_content)
+    output = powershell(self.class.powershell_args, script_content)
     Puppet.debug "Dsc Resource returned: #{output}"
     data = JSON.parse(output)
     fail(data['errormessage']) if !data['errormessage'].empty?
@@ -54,9 +105,9 @@ EOT
   end
 
   def create
-    script_content = ps_script_content('set')
+    script_content = self.class.ps_script_content('set', resource)
     Puppet.debug "\n" + script_content
-    output = powershell(powershell_args, script_content)
+    output = powershell(self.class.powershell_args, script_content)
     Puppet.debug "Create Dsc Resource returned: #{output}"
     data = JSON.parse(output)
 
@@ -68,9 +119,9 @@ EOT
   end
 
   def destroy
-    script_content = ps_script_content('set')
+    script_content = self.class.ps_script_content('set', resource)
     Puppet.debug "\n" + script_content
-    output = powershell(powershell_args, script_content)
+    output = powershell(self.class.powershell_args, script_content)
     Puppet.debug "Destroy Dsc Resource returned: #{output}"
     data = JSON.parse(output)
 
@@ -99,18 +150,18 @@ EOT
     end
   end
 
-  def retrieve
-    script_content = ps_script_content('get')
+  def self.retrieve(resource)
+    script_content = ps_script_content('get', resource)
     Puppet.debug "\n" + script_content
     output = powershell(powershell_args, script_content)
     Puppet.debug "Get Dsc Resource returned: #{output}"
     data = JSON.parse(output)
     # TODO: parse this into something usable - good times!
     fail(data['errormessage']) if !data['errormessage'].empty?
-    true
+    data
   end
 
-  def format_dsc_value(dsc_value)
+  def self.format_dsc_value(dsc_value)
     case
     when dsc_value.class.name == 'String'
       "'#{escape_quotes(dsc_value)}'"
@@ -129,11 +180,11 @@ EOT
     end
   end
 
-  def escape_quotes(text)
+  def self.escape_quotes(text)
     text.gsub("'", "''")
   end
 
-  def ps_script_content(mode)
+  def self.ps_script_content(mode, resource)
     dsc_invoke_method = mode
     @param_hash = resource
     template = ERB.new(File.new(template_path + "/invoke_dsc_resource.ps1.erb").read, nil, '-')
