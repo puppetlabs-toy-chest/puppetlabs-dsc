@@ -51,7 +51,12 @@ eod
       dsc_resources_path_tmp = "#{dsc_resources_path}_tmp"
 
       puts "Downloading and Importing #{item_name}"
-      sh "git clone --depth 1 --recursive #{dsc_repo} #{dsc_resources_path_tmp}"
+      cmd = "git clone #{dsc_repo} #{dsc_resources_path_tmp} && " +
+        "cd #{dsc_resources_path_tmp} && "
+      cmd += "git checkout #{ENV['DSC_REF']} &&" if ENV['DSC_REF']
+      cmd += "git submodule update --init --recursive"
+
+      sh cmd
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git"])
 
       puts "Copying vendored resources from #{dsc_resources_path_tmp}/xDscResources to #{vendor_dsc_resources_path}"
