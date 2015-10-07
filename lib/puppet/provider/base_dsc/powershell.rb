@@ -99,6 +99,17 @@ EOT
     end
   end
 
+  def retrieve
+    script_content = ps_script_content('get')
+    Puppet.debug "\n" + script_content
+    output = powershell(powershell_args, script_content)
+    Puppet.debug "Get Dsc Resource returned: #{output}"
+    data = JSON.parse(output)
+    # TODO: parse this into something usable - good times!
+    fail(data['errormessage']) if !data['errormessage'].empty?
+    true
+  end
+
   def format_dsc_value(dsc_value)
     case
     when dsc_value.class.name == 'String'
