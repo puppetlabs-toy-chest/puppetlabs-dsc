@@ -1,0 +1,183 @@
+class MSFT_DSCConfiguration
+{
+[key] 
+string ConfigurationName;
+[ContentType("application/octet-stream"), EmbeddedInstance("Edm_Stream")] 
+string ConfigurationContent;
+};
+
+class MSFT_DSCModule
+{
+[key] 
+string ModuleName;
+[key] 
+string ModuleVersion;
+[ContentType("application/octet-stream"), EmbeddedInstance("Edm_Stream")] 
+string ModuleContent;
+};
+
+class MSFT_PSDSCAction
+{
+[key] 
+string ConfigurationId;
+[ContentType("application/octet-stream"), EmbeddedInstance("Edm_Stream")] 
+string ConfigurationContent;
+sint32 GetAction(string Checksum, string ChecksumAlgorithm, boolean NodeCompliant, sint32 StatusCode, string ConfigurationName, [out] string Status);
+};
+
+class MSFT_PSDSCModule
+{
+[Key] 
+string ConfigurationId;
+[key] 
+string ModuleName;
+[key] 
+string ModuleVersion;
+[ContentType("application/octet-stream"), EmbeddedInstance("Edm_Stream")] 
+string ModuleContent;
+};
+
+[ComplexType]
+class MSFT_PSDSCError
+{
+string ErrorSource;
+string ResourceId;
+sint32 ErrorCode;
+string ErrorMessage;
+string Locale;
+};
+
+[ComplexType]
+class MSFT_PSDSCStatus
+{
+string Locale;
+string NumberofResources;
+string ResourcesInDesiredState;
+string ResourcesNotInDesiredState;
+};
+
+[ComplexType]
+class MSFT_DSCNodeConfigurationStatus
+{
+string ConfigurationName;
+string Checksum;
+string ChecksumAlgorithm;
+};
+
+[ComplexType]
+class MSFT_DSCConfigurationStatus
+{
+string ConfigurationName;
+string Status;
+};
+
+[ComplexType]
+class MSFT_DSCNodeStatus
+{
+string NodeStatus;
+[EmbeddedInstance("MSFT_DSCConfigurationStatus")] string Details[];
+};
+
+
+class MSFT_DSCNode
+{
+[Key] 
+string AgentId;
+[EmbeddedInstance("MSFT_PSDSCAgentInformation")] string AgentInformation;
+string ConfigurationNames[];
+[EmbeddedInstance("MSFT_PSDSCRegistrationInformation")] string RegistrationInformation;
+sint32 SendReport(string JobId, string OperationType, string LCMVersion, string ReportFormatVersion, string ConfigurationVersion, string NodeName, string IpAddress, string StartTime, string EndTime, string Errors[], string StatusData[], [out] string Status);
+[AssociationClass("MSFT_MachineReport"),ToEnd("theReports")] 
+MSFT_DSCReport ref Reports[];
+[AssociationClass("MSFT_MachineConfigurations"),ToEnd("theConfigurations")]
+MSFT_DSCConfiguration ref Configurations[];
+sint32 GetDscAction([EmbeddedInstance("MSFT_DSCNodeConfigurationStatus")] String ClientStatus[], [out, EmbeddedInstance("MSFT_DSCNodeStatus")] String StatusReponse);
+};
+
+[ComplexType]
+class MSFT_PSDSCAgentInformation
+{
+    string LCMVersion;
+    string NodeName;
+    string IPAddress;
+};
+
+[ComplexType]
+class MSFT_PSDSCRegistrationInformation
+{
+    string RegistrationMessageType;
+    [EmbeddedInstance("MSFT_PSDSCCertificateInformation")] string CertificateInformation;
+};
+
+[ComplexType]
+class MSFT_PSDSCCertificateInformation
+{
+    string FriendlyName;
+    string Issuer;
+    string NotAfter;
+    string NotBefore;
+    string Subject;
+    string PublicKey;
+    string Thumbprint;
+    sint32 Version;
+};
+
+class MSFT_DSCReport
+{
+[Key] 
+string JobId;
+string OperationType;
+string ReportFormatVersion;
+string ConfigurationVersion;
+string StartTime;
+string EndTime;
+string Errors[];
+string StatusData[];
+[AssociationClass("MSFT_MachineReport"),ToEnd("theNodes")] 
+MSFT_DSCNode ref Nodes;
+};
+
+[Association]
+class MSFT_MachineReport{
+MSFT_DSCNode ref theNodes;
+MSFT_DSCReport ref theReports;
+};
+
+[Association]
+class MSFT_MachineConfigurations{
+MSFT_DSCNode ref theNodes;
+MSFT_DSCConfiguration ref theConfigurations;
+};
+
+class MSFT_PSDSCNode
+{
+[Key] 
+string ConfigurationId;
+string LCMVersion;
+string NodeName;
+string IpAddress;
+sint32 SendStatusReport(string JobId, string OperationType, string LCMVersion, string ReportFormatVersion, string ConfigurationVersion, string NodeName, string IpAddress, string StartTime, string EndTime, string Errors[], string StatusData[], [out] string Status);
+[AssociationClass("MSFT_MachineStatusReport"),ToEnd("theStatusReports")] 
+MSFT_PSDSCStatusReport ref StatusReports[];
+};
+
+class MSFT_PSDSCStatusReport
+{
+[Key] 
+string JobId;
+string OperationType;
+string ReportFormatVersion;
+string ConfigurationVersion;
+string StartTime;
+string EndTime;
+string Errors[];
+string StatusData[];
+[AssociationClass("MSFT_MachineStatusReport"),ToEnd("theNode")] 
+MSFT_PSDSCNode ref Node;
+};
+
+[Association]
+class MSFT_MachineStatusReport{
+MSFT_PSDSCNode ref theNode;
+MSFT_PSDSCStatusReport ref theStatusReports;
+};

@@ -142,6 +142,9 @@
                         <PropertyName>ActionAfterReboot</PropertyName>
                     </ListItem>
                     <ListItem>
+                        <PropertyName>AgentId</PropertyName>
+                    </ListItem>
+                    <ListItem>
                         <PropertyName>AllowModuleOverWrite</PropertyName>
                     </ListItem>
                     <ListItem>

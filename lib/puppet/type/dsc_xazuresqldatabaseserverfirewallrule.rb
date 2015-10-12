@@ -39,7 +39,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.1.3"
+    defaultto "0.2.0.0"
   end
 
   newparam(:name, :namevar => true ) do

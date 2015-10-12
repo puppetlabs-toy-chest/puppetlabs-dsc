@@ -179,6 +179,17 @@ function ConvertTo-MOFInstance
         $Properties
     )
 
+
+    # remove ModuleVersion, this will be handled during final validation.
+    if($properties.ContainsKey('ModuleName') -and  $properties['ModuleName'] -ieq 'PsDesiredStateConfiguration')
+    {
+        $script:PsDscModuleVersion = $properties['ModuleVersion']
+        $properties.Remove('ModuleVersion')
+    }
+    if($properties.ContainsKey('PsDscRunAsCredential'))
+    {
+        $script:PsDscCompatibleVersion = "2.0.0"
+    }
     # Look up the property definitions for this keyword.
     $PropertyTypes = [System.Management.Automation.Language.DynamicKeyword]::GetKeyword($Type).Properties
 
@@ -466,16 +477,6 @@ function ConvertTo-MOFInstance
     #special case psdesiredstateConfiguration module. Insert '0.0' as module if user hasn't explicilty asked for the version
     if( $Properties.ContainsKey("ModuleName") -and ($Properties["ModuleName"] -ieq 'PsDesiredStateConfiguration'))
     {
-        if( ($Script:ExplicitlyImportedModules.ContainsKey('PsDesiredStateConfiguration') -and $Script:ExplicitlyImportedModules['PsDesiredStateConfiguration'] -eq [string]::Empty )  -or
-            ( -not $Script:ExplicitlyImportedModules.ContainsKey('PsDesiredStateConfiguration') ) )
-        {
-            #change version number from whatever it has to '0.0'
-            if( $Properties.ContainsKey("ModuleVersion"))
-            {
-                $Properties["ModuleVersion"] = [string]"0.0"
-            }
-        }
-
         if(-not $Script:ExplicitlyImportedModules.ContainsKey('PsDesiredStateConfiguration'))
         {
             $script:ShowImportDscResourceWarning = $true
@@ -987,6 +988,10 @@ function Node
                 # Validate make sure all of the required resources are defined
                 # if so, add the DependsOn fields for all resources 
                 ValidateNodeResources
+                #
+                #  Fixup ModuleVersion
+                #
+                Update-ModuleVersion $Script:NodeResources $Script:NodeInstanceAliases[$Node] $Script:NodeResourceIdAliases[$Node]
 
                 # Validate make sure all of the referenced download managers are defined
                 ValidateNodeManager
@@ -1412,7 +1417,7 @@ function Test-ConflictingResources
             foreach($property in $properties.Keys)
             {
                 # If previously analyzed resource does not have property
-                if (-not $resource.containsKey($property))
+                if ((-not $resource.containsKey($property)) -and ($property -ne "ModuleVersion"))
                 {
                     $nonKeyPropertiesMatch = $false
                     $unmatchedNonKeyPropertiesNames += $property.ToString() + ';'
@@ -1484,6 +1489,12 @@ function Initialize-ConfigurationRuntimeState
 
     # The overall name of the configuration being processed
     [string] $Script:PSConfigurationName = $ConfigurationName
+
+    # The ModuleVersion used for PsDesiredStateConfiguration module.
+    [string] $Script:PsDscModuleVersion = "0.0"
+
+    # The compatibility version for the document..
+    [string] $Script:PsDscCompatibleVersion = "1.0.0"
 
     # The list of modules explicitly imported using import-dscresorce
     $Script:ExplicitlyImportedModules = New-Object -TypeName 'System.Collections.Generic.Dictionary[String,String]' -ArgumentList ([System.StringComparer]::OrdinalIgnoreCase) 
@@ -1750,8 +1761,9 @@ function Configuration
 {
     [CmdletBinding(HelpUri = 'http://go.microsoft.com/fwlink/?LinkId=517195')]
     param (
-        $ModuleDefinition,
-        $ResourceDefinition,
+        # there are extra [] around Tuple arguments
+        [System.Collections.Generic.List[System.Tuple[[string[]], [Microsoft.PowerShell.Commands.ModuleSpecification[]], [Version]]]]
+        $ResourceModuleTuplesToImport,
         $OutputPath = '.',
         $Name,
         [scriptblock]
@@ -1766,9 +1778,34 @@ function Configuration
         $InstanceName = ''
     )
 
+
+    function ConvertModuleDefnitionToModuleInfo
+    {
+        param(
+            [Microsoft.PowerShell.Commands.ModuleSpecification[]]$moduleToImport, 
+            [Version]$moduleVersion = $null
+        )
+
+        if (-not $moduleToImport) {
+            return $null
+        }
+        
+        $moduleToImport | % {
+            $versionToUse = $_.Version
+            if( [string]::IsNullOrEmpty($versionToUse))
+            {
+                $versionToUse = $_.RequiredVersion
+            }
+            $Script:ExplicitlyImportedModules[ $_.Name ] = $versionToUse
+        }
+        $moduleInfos = Get-Module -ListAvailable -FullyQualifiedName $moduleToImport | sort -Property Version -Descending
+
+        return $moduleInfos
+    }
+
     try
     {
-        Write-Debug -Message "BEGIN CONFIGURATION '$Name' PROCESSING: Additional Resource Modules: [$($ResourceDefinition -join ', ')] OutputPath: '$OutputPath'"
+        Write-Debug -Message "BEGIN CONFIGURATION '$Name' PROCESSING: OutputPath: '$OutputPath'"
 
         if ($Name -inotmatch  '^[a-z][a-z0-9_]*$')
         {
@@ -1908,51 +1945,35 @@ function Configuration
         #
         # Load all of the required resource definition modules
         #
-        $requiredResources = New-Object -TypeName System.Collections.ObjectModel.Collection[String]
-        foreach($res in $ResourceDefinition)
+
+        foreach ($tuple in $ResourceModuleTuplesToImport)
         {
-            $requiredResources.Add($res)
-        }
+            $res = $tuple.Item1
+            $modulesInfo = ConvertModuleDefnitionToModuleInfo -moduleToImport $tuple.Item2 -moduleVersion $tuple.Item3
 
-        $modules = New-Object -TypeName System.Collections.ObjectModel.Collection[System.Management.Automation.PSModuleInfo]
-        if($ModuleDefinition)
-        {
-            foreach ($moduleToImport in $ModuleDefinition)
-            {
-                # Cache information about explicitly loading module.
-                if( $moduleToImport -is [HashTable])
+            if (-not $modulesInfo) {
+                # Module name is not specified. Try to load resource from all available modules.
+                $modulesInfo = Get-Module -ListAvailable
+            }
+
+            foreach ($mod in $modulesInfo) {
+
+                $resourcesFound = ImportClassResourcesFromModule -Module $mod -Resources $res -functionsToDefine $functionsToDefine
+                $dscResourcesPath = Join-Path -Path $mod.ModuleBase -ChildPath 'DSCResources'
+                if(Test-Path $dscResourcesPath)
                 {
-                    if( $moduleToImport["moduleName"] -ne $null)
+                    foreach($requiredResource in $res)
                     {
-                        $moduleToImportversion= [string]::Empty
-                        if($moduleToImport["moduleVersion"] -ne $null) 
-                        {
-                            $moduleToImportversion = $moduleToImport["moduleVersion"]
-                        }
-                        elseif ($moduleToImport["requiredVersion"] -ne $null)
-                        {
-                            $moduleToImportversion = $moduleToImport["requiredVersion"]
-                        }
-                    }
-                    $Script:ExplicitlyImportedModules[ $($moduleToImport["moduleName"])  ] = $moduleToImportversion
-                }
-                elseif($moduleToImport -is [String] )
-                {
-                    $Script:ExplicitlyImportedModules[ $moduleToImport  ] = [string]::Empty
-                    
-                }
-
-                $moduleInfos = Get-Module -ListAvailable -FullyQualifiedName $moduleToImport
-
-                if ($moduleInfos -and ($moduleToImport.ModuleVersion -or $moduleToImport.Guid))
-                {
-                    foreach ($moduleInfo in $moduleInfos)
-                    {
-                        if (($moduleToImport.Guid -and $moduleToImport.Guid.Equals($moduleInfo.Guid.ToString())) -or
-                        ($moduleToImport.ModuleVersion -and $moduleToImport.ModuleVersion.Equals($moduleInfo.Version.ToString())))
-                        {
-                            $modules.Add($moduleInfo)
-                            break
+                        if ($requiredResource.Contains('*')) {
+                            # we historically resolve wildcards by Get-Item File System rules.
+                            # We don't support wildcards resolutions for Friendly names.
+                            foreach ($resource in Get-ChildItem -Path $dscResourcesPath -Directory -Name -Filter $requiredResource)
+                            {
+                                $foundResource = ImportCimAndScriptKeywordsFromModule -Module $mod -Resource $resource -functionsToDefine $functionsToDefine
+                            }
+                        } else {
+                            # ImportCimAndScriptKeywordsFromModule takes care about resolving $requiredResources names to ClassNames or FriendlyNames.
+                            $foundResource = ImportCimAndScriptKeywordsFromModule -Module $mod -Resource $requiredResource -functionsToDefine $functionsToDefine
                         }
                     }
                 }
@@ -1961,59 +1982,6 @@ function Configuration
                     $modules.Add($moduleInfos)
                 }
             }            
-        }
-        elseif ($requiredResources)
-        {
-            $modules = Get-Module -ListAvailable
-        }
-
-        # When only moduleName is specified we need to import all resources from the modules
-        # This wildcard is required in enumerating all sub-folders under <modulebase>\DscResources\ directory
-        if(!($requiredResources))
-        {
-            $requiredResources.Add('*')
-        }
-
-        foreach ($mod in $modules)
-        {
-            $resourcesFound = ImportClassResourcesFromModule -Module $mod -Resources $requiredResources -functionsToDefine $functionsToDefine
-
-            $dscResourcesPath = Join-Path -Path $mod.ModuleBase -ChildPath 'DSCResources'
-
-            if(Test-Path $dscResourcesPath)
-            {
-                foreach($requiredResource in $requiredResources)
-                {
-                    $foundResource = $false
-
-                    if ($requiredResource.Contains('*')) {
-                        # we historically resolve wildcards by Get-Item File System rules.
-                        # We don't support wildcards resolutions for Friendly names.
-                        foreach ($resource in Get-ChildItem -Path $dscResourcesPath -Directory -Name -Filter $requiredResource)
-                        {
-                            $foundResource = ImportCimAndScriptKeywordsFromModule -Module $mod -Resource $resource -functionsToDefine $functionsToDefine
-                        }
-                    } else {
-                        # ImportCimAndScriptKeywordsFromModule takes care about resolving $requiredResources names to ClassNames or FriendlyNames.
-                        $foundResource = ImportCimAndScriptKeywordsFromModule -Module $mod -Resource $requiredResource -functionsToDefine $functionsToDefine
-                    }
-
-                    if($foundResource -and !($requiredResource.Contains('*')))
-                    {
-                        $resourcesFound.Add($resource)
-                    }
-                }
-            }
-
-            foreach($foundResource in $resourcesFound)
-            {
-                [void]$requiredResources.Remove($foundResource)
-            }
-
-            if(!$requiredResources)
-            {
-                break
-            }
         }
 
         if (-not (Get-PSCurrentConfigurationNode))
@@ -2126,6 +2094,11 @@ function Configuration
                 Write-Debug -Message "  $Name : Evaluation completed, validating the generated resource set."
                 ValidateNodeResources
                 Write-Debug -Message "  $Name Validation completed."
+
+                #
+                #  Fixup ModuleVersion
+                #
+                Update-ModuleVersion $Script:NoNameNodesResources $Script:NoNameNodeInstanceAliases $Script:NoNameNodeResourceIdAliases
 
                 Write-Debug -Message "  $Name : Evaluation completed, validating the generated resource set has no circle."
                 ValidateNoCircleInNodeResources
@@ -2242,6 +2215,54 @@ function Configuration
     }
 }
 Export-ModuleMember -Function Configuration
+
+function Update-ModuleVersion
+{
+    [OutputType([void])]
+    param(
+        [Parameter(Mandatory)]
+        [System.Collections.Generic.Dictionary[String,String[]]] 
+        $NodeResources,
+
+        [Parameter(Mandatory)]
+        [System.Collections.Generic.Dictionary[string,string]]
+        $NodeInstanceAliases,
+
+        [Parameter(Mandatory)]
+        [System.Collections.Generic.Dictionary[string,string]]
+        $NodeResourceIdAliases
+    )
+
+    $moduleVersionValue = '0.0'
+    
+    # explicit import-dscresource with version for psdesiredstateconfiguration module was not done.
+    if( $Script:ExplicitlyImportedModules.ContainsKey('PsDesiredStateConfiguration') -and 
+        (-not [string]::IsNullOrEmpty($Script:ExplicitlyImportedModules['PsDesiredStateConfiguration'])))
+    {
+        $moduleVersionValue= $script:PsDscModuleVersion
+    }
+    # generating compatible document.
+    elseif($script:PsDscCompatibleVersion -eq '1.0.0')
+    {
+        $moduleVersionValue='1.0'
+    }
+
+    foreach($resourceId in $NodeResources.keys)
+    {
+        $alias = $NodeResourceIdAliases[$resourceId]
+        $instanceText = $NodeInstanceAliases[$alias]
+        $curlyPosition = $instanceText.LastIndexOf('}')
+        if(($curlyPosition -gt 0) -and ($instanceText -imatch 'ModuleName[\s]*=[\s]*["]PsDesiredStateConfiguration["]') -and
+          ($instanceText -inotmatch 'ModuleVersion[\s]*='))
+        {
+            $first = $instanceText.Substring(0, $curlyPosition)
+
+            $moduleVersionstring = "ModuleVersion = "
+            $moduleVersionstring += "`"$moduleVersionValue`"" + ";"   
+            $NodeInstanceAliases[$alias] = $first + $moduleVersionstring + "`r`n};"                 
+        }
+    }
+}
 
 function Update-DependsOn 
 {
@@ -3815,7 +3836,8 @@ function Get-DscResource
                 GetCompositeResource $patterns $_ $ignoreResourceParameters -modules $modules
             } |
             Where-Object -FilterScript {
-                $_ -ne $null -and (![bool]$ModuleString -or ($_.Module -like $ModuleString))
+                $_ -ne $null -and (![bool]$ModuleString -or ($_.Module -like $ModuleString)) -and
+                ($_.Path -and ((Split-Path -Leaf $_.Path) -eq "$($_.Name).schema.psm1"))
             }
 
             # check whether all resources are found

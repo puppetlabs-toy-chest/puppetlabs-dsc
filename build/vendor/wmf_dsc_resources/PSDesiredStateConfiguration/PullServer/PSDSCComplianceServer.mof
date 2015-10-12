@@ -1,0 +1,21 @@
+class MSFT_PSDSCDevices
+{
+[key]
+string TargetName;
+ 
+string ConfigurationId;
+
+string ServerCheckSum;
+
+string TargetCheckSum;
+
+boolean NodeCompliant;
+
+datetime LastComplianceTime;
+
+datetime LastHeartbeatTime;
+
+boolean Dirty;
+
+sint32 StatusCode;
+};

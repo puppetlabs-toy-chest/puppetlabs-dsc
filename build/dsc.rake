@@ -34,6 +34,7 @@ namespace :dsc do
 
     Rake::Task['dsc:types:clean'].invoke(dsc_module_path)
     Rake::Task['dsc:resources:clean'].invoke(default_dsc_resources_path)
+    FileUtils.rm_rf "#{default_dsc_module_path}/import"
   end
 
   namespace :resources do
@@ -59,11 +60,26 @@ eod
       sh cmd
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git"])
 
+      puts "Cleaning out temporary, test, and example files for #{item_name}"
+      FileUtils.rm_rf(["#{dsc_resources_path_tmp}/xDSCResources/xChrome",
+                       "#{dsc_resources_path_tmp}/xDSCResources/xDSCResourceDesigner",
+                       "#{dsc_resources_path_tmp}/xDSCResources/xDscDiagnostics",
+                       "#{dsc_resources_path_tmp}/xDSCResources/xFireFox",
+                       "#{dsc_resources_path_tmp}/xDSCResources/xSafeHarbor",
+                       "#{dsc_resources_path_tmp}/xDSCResources/xSystemSecurity"])
+
+      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git",
+                          "#{dsc_resources_path_tmp}/**/*Sample*",
+                          "#{dsc_resources_path_tmp}/**/*Example*",
+                          "#{dsc_resources_path_tmp}/**/*Test*"])
+
+      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/*.{pptx,docx,sln,gitattributes,gitignore,gitmodules,cmd,xml,pssproj,pfx,html,txt,xlsm,csv,png,git,yml,md}"])
+
       puts "Copying vendored resources from #{dsc_resources_path_tmp}/xDscResources to #{vendor_dsc_resources_path}"
       FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", vendor_dsc_resources_path, :remove_destination => true
       FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", dsc_resources_path
 
-      puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{vendor_dsc_resources_path}/dsc_resources"
+      puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{dsc_resources_path}"
       FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{dsc_resources_path}/"
 
       puts "Removing extra dir #{dsc_resources_path_tmp}"
@@ -80,7 +96,7 @@ eod
     task :clean, [:dsc_resources_path] do |t, args|
       dsc_resources_path = args[:dsc_resources_path] || default_dsc_resources_path
       puts "Cleaning #{item_name}"
-      FileUtils.rm_rf "#{default_dsc_resources_path}"
+      FileUtils.rm_rf "#{dsc_resources_path}"
     end
 
   end

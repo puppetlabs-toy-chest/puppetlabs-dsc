@@ -50,12 +50,13 @@ function Get-_InternalPSDscXMachineTR
     }
 }
 
-function IsConnectivityIssue
+function IsAccessDeniedIssue
 {
    param ( $er)
    
    $ci = $er.CategoryInfo
-   return ($ci.TargetName -ilike "*MSFT_DscProxy") -and ($er.Exception.HResult -eq 0x80131509 );
+   [xml]$xml = $er.Exception.Message
+   return ($ci.TargetName -ilike "*MSFT_DscProxy") -and ($er.Exception.HResult -eq 0x80131509 ) -and ( -not (($xml.ChildNodes.Count -gt 0) -and ($xml.ChildNodes[0].Code -eq 5)))
 }
 
 function Set-_InternalPSDscXMachineTR
@@ -117,7 +118,7 @@ function Set-_InternalPSDscXMachineTR
             }
             catch
             {
-                if (isConnectivityIssue -er $_) 
+                if (IsAccessDeniedIssue -er $_) 
                 {
                     Write-Debug -Message "Exception: $_"
                 }
@@ -176,8 +177,9 @@ function Test-_InternalPSDscXMachineTR
 
     $script:NodeInDesiredState = @()
     
-    $TestRetry = 1;
-    for ($retry = 0; $retry -lt $TestRetry; $retry++)   
+    $TotalRetryCount = 1
+    $MaxRetryCount = 5
+    for ($retry = 0; $retry -lt $TotalRetryCount; $retry++)   
     {
         if ($retry -gt 0) { Sleep -Milliseconds 200 }
 
@@ -191,15 +193,15 @@ function Test-_InternalPSDscXMachineTR
             }
             catch
             {
-                if (isConnectivityIssue -er $_) 
+                if (IsAccessDeniedIssue -er $_) 
                 {
                     Write-Debug -Message "Exception: $_"
-                    $TestRetry = 50
+                    $TotalRetryCount = $MaxRetryCount
                 }
                 else
                 {
                     Write-Verbose -Message "Exception: $_"
-                    $maxRetry = $retry   # stop TestRetry as non-connectivity issue.
+                    $TotalRetryCount = $retry   # stop TotalRetryCount as non-connectivity issue.
                 }
             }
 

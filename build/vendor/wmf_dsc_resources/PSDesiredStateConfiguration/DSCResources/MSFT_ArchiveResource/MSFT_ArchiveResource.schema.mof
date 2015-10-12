@@ -1,5 +1,5 @@
 
-[ClassVersion("1.1.0"),FriendlyName("Archive")]
+[ClassVersion("1.1.0"),FriendlyName("Archive")] 
 class MSFT_ArchiveResource : OMI_BaseResource
 {
   [write,ValueMap{"Present", "Absent"},Values{"Present", "Absent"}] string Ensure;
