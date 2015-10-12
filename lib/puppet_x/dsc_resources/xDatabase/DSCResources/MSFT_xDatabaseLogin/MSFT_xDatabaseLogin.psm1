@@ -179,9 +179,6 @@ function Test-TargetResource #Not yet working
         [System.String]
         $LoginPassword,
 
-        [System.String]
-        $DefaultDatabaseName,
-
         [System.Management.Automation.PSCredential]
         $SqlConnectionCredential,
 

@@ -24,7 +24,6 @@ function Get-TargetResource
         [System.String]
         $Ensure,
 
-        [parameter(Mandatory = $true)]
         [System.String]
         $SqlServer,
 

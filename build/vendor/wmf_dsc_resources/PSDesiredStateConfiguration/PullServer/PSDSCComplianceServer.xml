@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ResourceMetadata xmlns="http://schemas.microsoft.com/powershell-web-services/2010/09">
+  <SchemaNamespace>DSC</SchemaNamespace>
+  <ContainerName>PSWSEntityContainer</ContainerName>
+  <Resources>
+   <Resource>
+      <RelativeUrl>Status</RelativeUrl>
+      <Class>MSFT_PSDSCDevices</Class>
+    </Resource>
+ </Resources>
+</ResourceMetadata>
