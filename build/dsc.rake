@@ -59,6 +59,12 @@ eod
       sh cmd
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git"])
 
+      puts "Cleaning out test and example files for #{item_name}"
+      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git",
+                          "#{dsc_resources_path_tmp}/**/*Sample*",
+                          "#{dsc_resources_path_tmp}/**/*Example*",
+                          "#{dsc_resources_path_tmp}/**/*Test*"])
+
       puts "Copying vendored resources from #{dsc_resources_path_tmp}/xDscResources to #{vendor_dsc_resources_path}"
       FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", vendor_dsc_resources_path, :remove_destination => true
       FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", dsc_resources_path
@@ -81,6 +87,7 @@ eod
       dsc_resources_path = args[:dsc_resources_path] || default_dsc_resources_path
       puts "Cleaning #{item_name}"
       FileUtils.rm_rf "#{dsc_resources_path}"
+      FileUtils.rm_rf "#{vendor_dsc_resources_path}"
     end
 
   end
