@@ -88,6 +88,7 @@ eod
       puts "Cleaning #{item_name}"
       FileUtils.rm_rf "#{dsc_resources_path}"
       FileUtils.rm_rf "#{vendor_dsc_resources_path}"
+      FileUtils.rm_rf "#{default_dsc_module_path}/import"
     end
 
   end
