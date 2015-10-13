@@ -63,7 +63,7 @@ eod
       FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", vendor_dsc_resources_path, :remove_destination => true
       FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", dsc_resources_path
 
-      puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{vendor_dsc_resources_path}/dsc_resources"
+      puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{dsc_resources_path}"
       FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{dsc_resources_path}/"
 
       puts "Removing extra dir #{dsc_resources_path_tmp}"
@@ -80,7 +80,7 @@ eod
     task :clean, [:dsc_resources_path] do |t, args|
       dsc_resources_path = args[:dsc_resources_path] || default_dsc_resources_path
       puts "Cleaning #{item_name}"
-      FileUtils.rm_rf "#{default_dsc_resources_path}"
+      FileUtils.rm_rf "#{dsc_resources_path}"
     end
 
   end
