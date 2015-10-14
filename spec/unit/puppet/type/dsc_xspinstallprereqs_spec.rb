@@ -14,6 +14,10 @@ describe Puppet::Type.type(:dsc_xspinstallprereqs) do
     expect(dsc_xspinstallprereqs.to_s).to eq("Dsc_xspinstallprereqs[foo]")
   end
 
+  it 'should default to ensure => present' do
+    expect(dsc_xspinstallprereqs[:ensure]).to eq :present
+  end
+
   it 'should require that dsc_installerpath is specified' do
     #dsc_xspinstallprereqs[:dsc_installerpath]
     expect { Puppet::Type.type(:dsc_xspinstallprereqs).new(
@@ -30,6 +34,9 @@ describe Puppet::Type.type(:dsc_xspinstallprereqs) do
       :dsc_wcfdataservices => 'foo',
       :dsc_kb2671763 => 'foo',
       :dsc_wcfdataservices56 => 'foo',
+      :dsc_kb2898850 => 'foo',
+      :dsc_msvcrt12 => 'foo',
+      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_installerpath is a required attribute/)
   end
 
@@ -272,6 +279,88 @@ describe Puppet::Type.type(:dsc_xspinstallprereqs) do
     expect{dsc_xspinstallprereqs[:dsc_wcfdataservices56] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it 'should not accept array for dsc_kb2898850' do
+    expect{dsc_xspinstallprereqs[:dsc_kb2898850] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_kb2898850' do
+    expect{dsc_xspinstallprereqs[:dsc_kb2898850] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_kb2898850' do
+    expect{dsc_xspinstallprereqs[:dsc_kb2898850] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_kb2898850' do
+    expect{dsc_xspinstallprereqs[:dsc_kb2898850] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_msvcrt12' do
+    expect{dsc_xspinstallprereqs[:dsc_msvcrt12] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_msvcrt12' do
+    expect{dsc_xspinstallprereqs[:dsc_msvcrt12] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_msvcrt12' do
+    expect{dsc_xspinstallprereqs[:dsc_msvcrt12] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_msvcrt12' do
+    expect{dsc_xspinstallprereqs[:dsc_msvcrt12] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_ensure predefined value Present' do
+    dsc_xspinstallprereqs[:dsc_ensure] = 'Present'
+    expect(dsc_xspinstallprereqs[:dsc_ensure]).to eq('Present')
+  end
+
+  it 'should accept dsc_ensure predefined value present' do
+    dsc_xspinstallprereqs[:dsc_ensure] = 'present'
+    expect(dsc_xspinstallprereqs[:dsc_ensure]).to eq('present')
+  end
+
+  it 'should accept dsc_ensure predefined value present and update ensure with this value (ensure end value should be a symbol)' do
+    dsc_xspinstallprereqs[:dsc_ensure] = 'present'
+    expect(dsc_xspinstallprereqs[:ensure]).to eq(dsc_xspinstallprereqs[:dsc_ensure].downcase.to_sym)
+  end
+
+  it 'should accept dsc_ensure predefined value Absent' do
+    dsc_xspinstallprereqs[:dsc_ensure] = 'Absent'
+    expect(dsc_xspinstallprereqs[:dsc_ensure]).to eq('Absent')
+  end
+
+  it 'should accept dsc_ensure predefined value absent' do
+    dsc_xspinstallprereqs[:dsc_ensure] = 'absent'
+    expect(dsc_xspinstallprereqs[:dsc_ensure]).to eq('absent')
+  end
+
+  it 'should accept dsc_ensure predefined value absent and update ensure with this value (ensure end value should be a symbol)' do
+    dsc_xspinstallprereqs[:dsc_ensure] = 'absent'
+    expect(dsc_xspinstallprereqs[:ensure]).to eq(dsc_xspinstallprereqs[:dsc_ensure].downcase.to_sym)
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xspinstallprereqs[:dsc_ensure] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_ensure' do
+    expect{dsc_xspinstallprereqs[:dsc_ensure] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_ensure' do
+    expect{dsc_xspinstallprereqs[:dsc_ensure] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_ensure' do
+    expect{dsc_xspinstallprereqs[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_ensure' do
+    expect{dsc_xspinstallprereqs[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
   # Configuration PROVIDER TESTS
 
   describe "powershell provider tests" do
@@ -300,6 +389,50 @@ describe Puppet::Type.type(:dsc_xspinstallprereqs) do
 
       it "should compute powershell dsc test script with method Set" do
         expect(@provider.ps_script_content('set')).to match(/Method\s+=\s*'set'/)
+      end
+
+    end
+
+    describe "when dsc_ensure is 'present'" do
+
+      before(:each) do
+        dsc_xspinstallprereqs.original_parameters[:dsc_ensure] = 'present'
+        dsc_xspinstallprereqs[:dsc_ensure] = 'present'
+        @provider = described_class.provider(:powershell).new(dsc_xspinstallprereqs)
+      end
+
+      it "should update :ensure to :present" do
+        expect(dsc_xspinstallprereqs[:ensure]).to eq(:present)
+      end
+
+      it "should compute powershell dsc test script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
+      end
+
+      it "should compute powershell dsc set script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'present'/)
+      end
+
+    end
+
+    describe "when dsc_ensure is 'absent'" do
+
+      before(:each) do
+        dsc_xspinstallprereqs.original_parameters[:dsc_ensure] = 'absent'
+        dsc_xspinstallprereqs[:dsc_ensure] = 'absent'
+        @provider = described_class.provider(:powershell).new(dsc_xspinstallprereqs)
+      end
+
+      it "should update :ensure to :absent" do
+        expect(dsc_xspinstallprereqs[:ensure]).to eq(:absent)
+      end
+
+      it "should compute powershell dsc test script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
+      end
+
+      it "should compute powershell dsc set script in which ensure value is 'absent'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
       end
 
     end

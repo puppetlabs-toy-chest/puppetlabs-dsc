@@ -39,7 +39,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.2.0.0"
+    defaultto "2.3.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -74,20 +74,6 @@ Puppet::Type.newtype(:dsc_xipaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     isrequired
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         DefaultGateway
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_defaultgateway) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

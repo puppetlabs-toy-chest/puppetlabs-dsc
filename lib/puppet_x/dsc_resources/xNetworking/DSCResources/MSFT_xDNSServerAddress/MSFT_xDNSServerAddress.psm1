@@ -11,6 +11,7 @@
 ######################################################################################
 function Get-TargetResource
 {
+    [OutputType([System.Collections.Hashtable])]
     param
     (        
         [Parameter(Mandatory)]
@@ -21,8 +22,9 @@ function Get-TargetResource
         [ValidateNotNullOrEmpty()]
         [String]$InterfaceAlias,
 
+        [Parameter(Mandatory)]
         [ValidateSet("IPv4", "IPv6")]
-        [String]$AddressFamily = "IPv4"
+        [String]$AddressFamily
     )
     
     
@@ -52,11 +54,12 @@ function Set-TargetResource
         [ValidateNotNullOrEmpty()]
         [String]$InterfaceAlias,
 
+        [Parameter(Mandatory)]
         [ValidateSet("IPv4", "IPv6")]
-        [String]$AddressFamily = "IPv4"
+        [String]$AddressFamily
     )
 
-    ValidateProperties @PSBoundParameters -Apply
+    Test-Properties @PSBoundParameters -Apply
 }
 
 ######################################################################################
@@ -65,6 +68,7 @@ function Set-TargetResource
 ######################################################################################
 function Test-TargetResource
 {
+    [OutputType([System.Boolean])]
     param
     (        
         [Parameter(Mandatory)]
@@ -75,11 +79,12 @@ function Test-TargetResource
         [ValidateNotNullOrEmpty()]
         [String]$InterfaceAlias,
 
+        [Parameter(Mandatory)]
         [ValidateSet("IPv4", "IPv6")]
-        [String]$AddressFamily = "IPv4"
+        [String]$AddressFamily
     )
 
-    ValidateProperties @PSBoundParameters
+    Test-Properties @PSBoundParameters
 }
 
 
@@ -87,7 +92,7 @@ function Test-TargetResource
 #  Helper function that validates the Server Address properties. If the switch parameter
 # "Apply" is set, then it will set the properties after a test
 #######################################################################################
-function ValidateProperties
+function Test-Properties
 {
     param
     (
@@ -99,13 +104,14 @@ function ValidateProperties
         [ValidateNotNullOrEmpty()]
         [String]$InterfaceAlias,
 
+        [Parameter(Mandatory)]
         [ValidateSet("IPv4", "IPv6")]
         [String]$AddressFamily,
 
         [Switch]$Apply
     )
     $sa =$Address
-    $sa | %{
+    $sa | Foreach-Object {
              if(!([System.Net.Ipaddress]::TryParse($_, [ref]0)))
              {
                  throw "Server Address *$_* is not in the correct format. Please correct the Address in the configuration and try again"
@@ -114,14 +120,14 @@ function ValidateProperties
              {
                 if ($AddressFamily -ne "IPv4")
                 {
-                    throw "Server address $Address is in IPv4 format, which does not match server address family $AddressFamily. Please correct either of them in the configuration and try again"
+                    throw "Server address *$_* is in IPv4 format, which does not match server address family $AddressFamily. Please correct either of them in the configuration and try again"
                 }
              }
              else
              {
                 if ($AddressFamily -ne "IPv6")
                 {
-                    throw "Server address $Address is in IPv6 format, which does not match server address family $AddressFamily. Please correct either of them in the configuration and try again"
+                    throw "Server address *$_* is in IPv6 format, which does not match server address family $AddressFamily. Please correct either of them in the configuration and try again"
                 }
              }
          }

@@ -38,7 +38,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "3.4.0.0"
+    defaultto "3.5.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -202,6 +202,23 @@ Puppet::Type.newtype(:dsc_xservice) do
     end
     munge do |value|
       Array(value)
+    end
+  end
+
+  # Name:         StartupTimeout
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_startuptimeout) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      value.to_i
     end
   end
 

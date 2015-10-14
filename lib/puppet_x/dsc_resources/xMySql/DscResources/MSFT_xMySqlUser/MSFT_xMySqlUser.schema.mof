@@ -3,8 +3,8 @@
 class MSFT_xMySqlUser : OMI_BaseResource
 { 
   [Key, Description("Name of MySQL user to create or remove.")] String Name;
-  [Write, Description("Credential for MySql user."), EmbeddedInstance("MSFT_Credential")] String Credential;
-  [Write, Description("MySql connection credential used to create a user."), EmbeddedInstance("MSFT_Credential")] String ConnectionCredential;
+  [Required, Description("Credential for MySql user."), EmbeddedInstance("MSFT_Credential")] String Credential;
+  [Required, Description("MySql connection credential used to create a user."), EmbeddedInstance("MSFT_Credential")] String ConnectionCredential;
   [Write, Description("Ensure mysql user is present or absent."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
 
 };

@@ -38,7 +38,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.1.1"
+    defaultto "1.2.0.0"
   end
 
   newparam(:name, :namevar => true ) do

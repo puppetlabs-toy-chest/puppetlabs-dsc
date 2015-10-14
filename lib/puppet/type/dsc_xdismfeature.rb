@@ -86,6 +86,21 @@ Puppet::Type.newtype(:dsc_xdismfeature) do
     end
   end
 
+  # Name:         Source
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_source) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Optional location of Source."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
 
 end
 

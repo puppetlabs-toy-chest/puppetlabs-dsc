@@ -24,6 +24,7 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_passphrase => 'foo',
       :dsc_admincontentdatabasename => 'foo',
+      :dsc_centraladministrationport => 32,
     )}.to raise_error(Puppet::Error, /dsc_farmconfigdatabasename is a required attribute/)
   end
 
@@ -52,6 +53,7 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_passphrase => 'foo',
       :dsc_admincontentdatabasename => 'foo',
+      :dsc_centraladministrationport => 32,
     )}.to raise_error(Puppet::Error, /dsc_databaseserver is a required attribute/)
   end
 
@@ -141,6 +143,41 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
 
   it 'should not accept uint for dsc_admincontentdatabasename' do
     expect{dsc_xspcreatefarm[:dsc_admincontentdatabasename] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_centraladministrationport' do
+    expect{dsc_xspcreatefarm[:dsc_centraladministrationport] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_centraladministrationport' do
+    expect{dsc_xspcreatefarm[:dsc_centraladministrationport] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_centraladministrationport' do
+    expect{dsc_xspcreatefarm[:dsc_centraladministrationport] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept uint for dsc_centraladministrationport' do
+    dsc_xspcreatefarm[:dsc_centraladministrationport] = 32
+    expect(dsc_xspcreatefarm[:dsc_centraladministrationport]).to eq(32)
+  end
+
+
+  it 'should accept string-like int for dsc_centraladministrationport' do
+    dsc_xspcreatefarm[:dsc_centraladministrationport] = '16'
+    expect(dsc_xspcreatefarm[:dsc_centraladministrationport]).to eq(16)
+  end
+
+
+  it 'should accept string-like int for dsc_centraladministrationport' do
+    dsc_xspcreatefarm[:dsc_centraladministrationport] = '32'
+    expect(dsc_xspcreatefarm[:dsc_centraladministrationport]).to eq(32)
+  end
+
+
+  it 'should accept string-like int for dsc_centraladministrationport' do
+    dsc_xspcreatefarm[:dsc_centraladministrationport] = '64'
+    expect(dsc_xspcreatefarm[:dsc_centraladministrationport]).to eq(64)
   end
 
   # Configuration PROVIDER TESTS

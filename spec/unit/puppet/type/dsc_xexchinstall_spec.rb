@@ -7,6 +7,7 @@ describe Puppet::Type.type(:dsc_xexchinstall) do
     Puppet::Type.type(:dsc_xexchinstall).new(
       :name     => 'foo',
       :dsc_path => 'foo',
+      :dsc_arguments => 'foo',
     )
   end
 
@@ -37,6 +38,15 @@ describe Puppet::Type.type(:dsc_xexchinstall) do
 
   it 'should not accept uint for dsc_path' do
     expect{dsc_xexchinstall[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should require that dsc_arguments is specified' do
+    #dsc_xexchinstall[:dsc_arguments]
+    expect { Puppet::Type.type(:dsc_xexchinstall).new(
+      :name     => 'foo',
+      :dsc_path => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+    )}.to raise_error(Puppet::Error, /dsc_arguments is a required attribute/)
   end
 
   it 'should not accept array for dsc_arguments' do

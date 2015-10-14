@@ -38,7 +38,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "3.1.0.0"
+    defaultto "3.2.0.0"
   end
 
   newparam(:name, :namevar => true ) do

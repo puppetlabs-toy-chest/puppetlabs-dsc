@@ -1,7 +1,7 @@
 # Copyright © 2014, Microsoft Corporation. All rights reserved.
 @{
 # Version number of this module.
-ModuleVersion = '0.2.16.5'
+ModuleVersion = '0.3.0.0'
 
 # ID used to uniquely identify this module
 GUID = '1088cfb5-36e8-4e9f-b7e4-d49e8032dde6'

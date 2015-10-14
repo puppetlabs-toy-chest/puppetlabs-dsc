@@ -38,7 +38,7 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.2.16.5"
+    defaultto "0.3.0.0"
   end
 
   newparam(:name, :namevar => true ) do

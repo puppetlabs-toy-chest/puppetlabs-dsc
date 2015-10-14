@@ -2,8 +2,8 @@
 class MSFT_xMySqlDatabase : OMI_BaseResource
 {
     [Key, Description("Name of the database.")] String Name;
-    [Write, Description("Should the database be present or absent."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
-    [Write, Description("The root credential that is used to install MySql server."), EmbeddedInstance("MSFT_Credential")] String ConnectionCredential;
+    [Required, Description("Should the database be present or absent."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Required, Description("The root credential that is used to install MySql server."), EmbeddedInstance("MSFT_Credential")] String ConnectionCredential;
 };
 
 

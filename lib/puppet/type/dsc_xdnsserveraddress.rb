@@ -13,6 +13,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
 
   validate do
       fail('dsc_interfacealias is a required attribute') if self[:dsc_interfacealias].nil?
+      fail('dsc_addressfamily is a required attribute') if self[:dsc_addressfamily].nil?
     end
 
   newparam(:dscmeta_resource_friendly_name) do
@@ -38,7 +39,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.2.0.0"
+    defaultto "2.3.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -84,11 +85,12 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
 
   # Name:         AddressFamily
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       ["IPv4", "IPv6"]
   newparam(:dsc_addressfamily) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

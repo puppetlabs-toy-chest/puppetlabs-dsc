@@ -38,7 +38,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.2.0.0"
+    defaultto "2.3.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -116,11 +116,29 @@ Puppet::Type.newtype(:dsc_xfirewall) do
     end
   end
 
-  # Name:         Access
+  # Name:         Enabled
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["True", "False"]
+  newparam(:dsc_enabled) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Enable or disable the supplied configuration"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['True', 'true', 'False', 'false'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are True, False")
+      end
+    end
+  end
+
+  # Name:         Action
   # Type:         string
   # IsMandatory:  False
   # Values:       ["NotConfigured", "Allow", "Block"]
-  newparam(:dsc_access) do
+  newparam(:dsc_action) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "Permit or Block the supplied configuration"
@@ -130,24 +148,6 @@ Puppet::Type.newtype(:dsc_xfirewall) do
       end
       unless ['NotConfigured', 'notconfigured', 'Allow', 'allow', 'Block', 'block'].include?(value)
         fail("Invalid value '#{value}'. Valid values are NotConfigured, Allow, Block")
-      end
-    end
-  end
-
-  # Name:         State
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       ["Enabled", "Disabled"]
-  newparam(:dsc_state) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "Enable or disable the supplied configuration"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-      unless ['Enabled', 'enabled', 'Disabled', 'disabled'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Enabled, Disabled")
       end
     end
   end

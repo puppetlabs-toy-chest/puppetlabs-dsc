@@ -25,8 +25,8 @@ describe Puppet::Type.type(:dsc_xfirewall) do
       :dsc_displayname => 'foo',
       :dsc_displaygroup => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_access => 'NotConfigured',
-      :dsc_state => 'Enabled',
+      :dsc_enabled => 'True',
+      :dsc_action => 'NotConfigured',
       :dsc_profile => ["foo", "bar", "spec"],
       :dsc_direction => 'Inbound',
       :dsc_remoteport => ["foo", "bar", "spec"],
@@ -136,94 +136,94 @@ describe Puppet::Type.type(:dsc_xfirewall) do
     expect{dsc_xfirewall[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_access predefined value NotConfigured' do
-    dsc_xfirewall[:dsc_access] = 'NotConfigured'
-    expect(dsc_xfirewall[:dsc_access]).to eq('NotConfigured')
+  it 'should accept dsc_enabled predefined value True' do
+    dsc_xfirewall[:dsc_enabled] = 'True'
+    expect(dsc_xfirewall[:dsc_enabled]).to eq('True')
   end
 
-  it 'should accept dsc_access predefined value notconfigured' do
-    dsc_xfirewall[:dsc_access] = 'notconfigured'
-    expect(dsc_xfirewall[:dsc_access]).to eq('notconfigured')
+  it 'should accept dsc_enabled predefined value true' do
+    dsc_xfirewall[:dsc_enabled] = 'true'
+    expect(dsc_xfirewall[:dsc_enabled]).to eq('true')
   end
 
-  it 'should accept dsc_access predefined value Allow' do
-    dsc_xfirewall[:dsc_access] = 'Allow'
-    expect(dsc_xfirewall[:dsc_access]).to eq('Allow')
+  it 'should accept dsc_enabled predefined value False' do
+    dsc_xfirewall[:dsc_enabled] = 'False'
+    expect(dsc_xfirewall[:dsc_enabled]).to eq('False')
   end
 
-  it 'should accept dsc_access predefined value allow' do
-    dsc_xfirewall[:dsc_access] = 'allow'
-    expect(dsc_xfirewall[:dsc_access]).to eq('allow')
-  end
-
-  it 'should accept dsc_access predefined value Block' do
-    dsc_xfirewall[:dsc_access] = 'Block'
-    expect(dsc_xfirewall[:dsc_access]).to eq('Block')
-  end
-
-  it 'should accept dsc_access predefined value block' do
-    dsc_xfirewall[:dsc_access] = 'block'
-    expect(dsc_xfirewall[:dsc_access]).to eq('block')
+  it 'should accept dsc_enabled predefined value false' do
+    dsc_xfirewall[:dsc_enabled] = 'false'
+    expect(dsc_xfirewall[:dsc_enabled]).to eq('false')
   end
 
   it 'should not accept values not equal to predefined values' do
-    expect{dsc_xfirewall[:dsc_access] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+    expect{dsc_xfirewall[:dsc_enabled] = 'invalid value'}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_access' do
-    expect{dsc_xfirewall[:dsc_access] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should not accept array for dsc_enabled' do
+    expect{dsc_xfirewall[:dsc_enabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept boolean for dsc_access' do
-    expect{dsc_xfirewall[:dsc_access] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_enabled' do
+    expect{dsc_xfirewall[:dsc_enabled] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_access' do
-    expect{dsc_xfirewall[:dsc_access] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_enabled' do
+    expect{dsc_xfirewall[:dsc_enabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_access' do
-    expect{dsc_xfirewall[:dsc_access] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_enabled' do
+    expect{dsc_xfirewall[:dsc_enabled] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_state predefined value Enabled' do
-    dsc_xfirewall[:dsc_state] = 'Enabled'
-    expect(dsc_xfirewall[:dsc_state]).to eq('Enabled')
+  it 'should accept dsc_action predefined value NotConfigured' do
+    dsc_xfirewall[:dsc_action] = 'NotConfigured'
+    expect(dsc_xfirewall[:dsc_action]).to eq('NotConfigured')
   end
 
-  it 'should accept dsc_state predefined value enabled' do
-    dsc_xfirewall[:dsc_state] = 'enabled'
-    expect(dsc_xfirewall[:dsc_state]).to eq('enabled')
+  it 'should accept dsc_action predefined value notconfigured' do
+    dsc_xfirewall[:dsc_action] = 'notconfigured'
+    expect(dsc_xfirewall[:dsc_action]).to eq('notconfigured')
   end
 
-  it 'should accept dsc_state predefined value Disabled' do
-    dsc_xfirewall[:dsc_state] = 'Disabled'
-    expect(dsc_xfirewall[:dsc_state]).to eq('Disabled')
+  it 'should accept dsc_action predefined value Allow' do
+    dsc_xfirewall[:dsc_action] = 'Allow'
+    expect(dsc_xfirewall[:dsc_action]).to eq('Allow')
   end
 
-  it 'should accept dsc_state predefined value disabled' do
-    dsc_xfirewall[:dsc_state] = 'disabled'
-    expect(dsc_xfirewall[:dsc_state]).to eq('disabled')
+  it 'should accept dsc_action predefined value allow' do
+    dsc_xfirewall[:dsc_action] = 'allow'
+    expect(dsc_xfirewall[:dsc_action]).to eq('allow')
+  end
+
+  it 'should accept dsc_action predefined value Block' do
+    dsc_xfirewall[:dsc_action] = 'Block'
+    expect(dsc_xfirewall[:dsc_action]).to eq('Block')
+  end
+
+  it 'should accept dsc_action predefined value block' do
+    dsc_xfirewall[:dsc_action] = 'block'
+    expect(dsc_xfirewall[:dsc_action]).to eq('block')
   end
 
   it 'should not accept values not equal to predefined values' do
-    expect{dsc_xfirewall[:dsc_state] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+    expect{dsc_xfirewall[:dsc_action] = 'invalid value'}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_state' do
-    expect{dsc_xfirewall[:dsc_state] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should not accept array for dsc_action' do
+    expect{dsc_xfirewall[:dsc_action] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept boolean for dsc_state' do
-    expect{dsc_xfirewall[:dsc_state] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_action' do
+    expect{dsc_xfirewall[:dsc_action] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_state' do
-    expect{dsc_xfirewall[:dsc_state] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_action' do
+    expect{dsc_xfirewall[:dsc_action] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_state' do
-    expect{dsc_xfirewall[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_action' do
+    expect{dsc_xfirewall[:dsc_action] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_profile' do
