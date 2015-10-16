@@ -38,7 +38,7 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.0.0.0"
+    defaultto "2.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do

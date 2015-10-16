@@ -146,7 +146,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
     def mof_type; 'MSFT_xWebBindingInformation[]' end
     def mof_is_embedded?; true end
     def mof_type_map
-      {"port"=>{:type=>"uint16"}, "protocol"=>{:type=>"string", :values=>["http", "https"]}, "ipaddress"=>{:type=>"string"}, "hostname"=>{:type=>"string"}, "certificatethumbprint"=>{:type=>"string"}, "certificatestorename"=>{:type=>"string", :values=>["My", "WebHosting"]}, "sslflags"=>{:type=>"string"}}
+      {"port"=>{:type=>"uint16"}, "protocol"=>{:type=>"string", :values=>["http", "https"]}, "ipaddress"=>{:type=>"string"}, "hostname"=>{:type=>"string"}, "certificatethumbprint"=>{:type=>"string"}, "certificatestorename"=>{:type=>"string", :values=>["My", "WebHosting"]}, "sslflags"=>{:type=>"string", :values=>["0", "1", "2", "3"]}}
     end
     desc "Hashtable containing binding information (Port, Protocol, IPAddress, HostName, CertificateThumbPrint, CertificateStore)"
     validate do |value|

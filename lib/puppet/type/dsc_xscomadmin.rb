@@ -39,7 +39,7 @@ Puppet::Type.newtype(:dsc_xscomadmin) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.3.3.0"
+    defaultto "1.4.0.0"
   end
 
   newparam(:name, :namevar => true ) do

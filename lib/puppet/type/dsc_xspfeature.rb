@@ -39,7 +39,7 @@ Puppet::Type.newtype(:dsc_xspfeature) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.3.1.0"
+    defaultto "0.7.0.0"
   end
 
   newparam(:name, :namevar => true ) do

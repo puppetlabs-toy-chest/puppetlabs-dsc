@@ -20,11 +20,8 @@ describe Puppet::Type.type(:dsc_xspjoinfarm) do
     expect { Puppet::Type.type(:dsc_xspjoinfarm).new(
       :name     => 'foo',
       :dsc_databaseserver => 'foo',
-      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_passphrase => 'foo',
-      :dsc_waittime => 32,
-      :dsc_waitcount => 32,
     )}.to raise_error(Puppet::Error, /dsc_farmconfigdatabasename is a required attribute/)
   end
 
@@ -49,11 +46,8 @@ describe Puppet::Type.type(:dsc_xspjoinfarm) do
     expect { Puppet::Type.type(:dsc_xspjoinfarm).new(
       :name     => 'foo',
       :dsc_farmconfigdatabasename => 'foo',
-      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_passphrase => 'foo',
-      :dsc_waittime => 32,
-      :dsc_waitcount => 32,
     )}.to raise_error(Puppet::Error, /dsc_databaseserver is a required attribute/)
   end
 
@@ -71,26 +65,6 @@ describe Puppet::Type.type(:dsc_xspjoinfarm) do
 
   it 'should not accept uint for dsc_databaseserver' do
     expect{dsc_xspjoinfarm[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it "should not accept empty password for dsc_farmaccount" do
-    expect{dsc_xspjoinfarm[:dsc_farmaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_farmaccount' do
-    expect{dsc_xspjoinfarm[:dsc_farmaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_farmaccount' do
-    expect{dsc_xspjoinfarm[:dsc_farmaccount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_farmaccount' do
-    expect{dsc_xspjoinfarm[:dsc_farmaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_farmaccount' do
-    expect{dsc_xspjoinfarm[:dsc_farmaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -127,76 +101,6 @@ describe Puppet::Type.type(:dsc_xspjoinfarm) do
 
   it 'should not accept uint for dsc_passphrase' do
     expect{dsc_xspjoinfarm[:dsc_passphrase] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_waittime' do
-    expect{dsc_xspjoinfarm[:dsc_waittime] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_waittime' do
-    expect{dsc_xspjoinfarm[:dsc_waittime] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_waittime' do
-    expect{dsc_xspjoinfarm[:dsc_waittime] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_waittime' do
-    dsc_xspjoinfarm[:dsc_waittime] = 32
-    expect(dsc_xspjoinfarm[:dsc_waittime]).to eq(32)
-  end
-
-
-  it 'should accept string-like int for dsc_waittime' do
-    dsc_xspjoinfarm[:dsc_waittime] = '16'
-    expect(dsc_xspjoinfarm[:dsc_waittime]).to eq(16)
-  end
-
-
-  it 'should accept string-like int for dsc_waittime' do
-    dsc_xspjoinfarm[:dsc_waittime] = '32'
-    expect(dsc_xspjoinfarm[:dsc_waittime]).to eq(32)
-  end
-
-
-  it 'should accept string-like int for dsc_waittime' do
-    dsc_xspjoinfarm[:dsc_waittime] = '64'
-    expect(dsc_xspjoinfarm[:dsc_waittime]).to eq(64)
-  end
-
-  it 'should not accept array for dsc_waitcount' do
-    expect{dsc_xspjoinfarm[:dsc_waitcount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_waitcount' do
-    expect{dsc_xspjoinfarm[:dsc_waitcount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_waitcount' do
-    expect{dsc_xspjoinfarm[:dsc_waitcount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_waitcount' do
-    dsc_xspjoinfarm[:dsc_waitcount] = 32
-    expect(dsc_xspjoinfarm[:dsc_waitcount]).to eq(32)
-  end
-
-
-  it 'should accept string-like int for dsc_waitcount' do
-    dsc_xspjoinfarm[:dsc_waitcount] = '16'
-    expect(dsc_xspjoinfarm[:dsc_waitcount]).to eq(16)
-  end
-
-
-  it 'should accept string-like int for dsc_waitcount' do
-    dsc_xspjoinfarm[:dsc_waitcount] = '32'
-    expect(dsc_xspjoinfarm[:dsc_waitcount]).to eq(32)
-  end
-
-
-  it 'should accept string-like int for dsc_waitcount' do
-    dsc_xspjoinfarm[:dsc_waitcount] = '64'
-    expect(dsc_xspjoinfarm[:dsc_waitcount]).to eq(64)
   end
 
   # Configuration PROVIDER TESTS

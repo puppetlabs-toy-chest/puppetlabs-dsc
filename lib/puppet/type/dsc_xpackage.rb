@@ -39,7 +39,7 @@ Puppet::Type.newtype(:dsc_xpackage) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "3.4.0.0"
+    defaultto "3.5.0.0"
   end
 
   newparam(:name, :namevar => true ) do

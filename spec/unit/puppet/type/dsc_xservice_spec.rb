@@ -31,6 +31,7 @@ describe Puppet::Type.type(:dsc_xservice) do
       :dsc_description => 'foo',
       :dsc_path => 'foo',
       :dsc_dependencies => ["foo", "bar", "spec"],
+      :dsc_startuptimeout => 32,
       :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
@@ -290,6 +291,41 @@ describe Puppet::Type.type(:dsc_xservice) do
 
   it 'should not accept uint for dsc_dependencies' do
     expect{dsc_xservice[:dsc_dependencies] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_startuptimeout' do
+    expect{dsc_xservice[:dsc_startuptimeout] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_startuptimeout' do
+    expect{dsc_xservice[:dsc_startuptimeout] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_startuptimeout' do
+    expect{dsc_xservice[:dsc_startuptimeout] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept uint for dsc_startuptimeout' do
+    dsc_xservice[:dsc_startuptimeout] = 32
+    expect(dsc_xservice[:dsc_startuptimeout]).to eq(32)
+  end
+
+
+  it 'should accept string-like int for dsc_startuptimeout' do
+    dsc_xservice[:dsc_startuptimeout] = '16'
+    expect(dsc_xservice[:dsc_startuptimeout]).to eq(16)
+  end
+
+
+  it 'should accept string-like int for dsc_startuptimeout' do
+    dsc_xservice[:dsc_startuptimeout] = '32'
+    expect(dsc_xservice[:dsc_startuptimeout]).to eq(32)
+  end
+
+
+  it 'should accept string-like int for dsc_startuptimeout' do
+    dsc_xservice[:dsc_startuptimeout] = '64'
+    expect(dsc_xservice[:dsc_startuptimeout]).to eq(64)
   end
 
   it 'should accept dsc_ensure predefined value Present' do

@@ -46,14 +46,29 @@ function Set-TargetResource
 
         [parameter(Mandatory = $true)]
         [System.String]
-        $Name
+        $Name,
+
+        [parameter(Mandatory = $false)]
+        [System.String]
+        $Source = $null
     )
 
     switch($Ensure)
     {
         "Present"
         {
-            & dism.exe /Online /Enable-Feature /FeatureName:$Name /quiet /norestart
+            $dismParameters = @("/Online", "/Enable-Feature", "/FeatureName:$Name", "/Quiet", "/NoRestart")
+
+            # Include sources directory if present
+            if ($Source -ne $null)
+            {
+                Write-Verbose "Source location set: ${Source}"
+
+                $dismParameters += "/Source:${Source}"
+                $dismParameters += "/LimitAccess"
+            }
+
+            & dism.exe $dismParameters
         }
         "Absent"
         {
@@ -80,7 +95,11 @@ function Test-TargetResource
 
         [parameter(Mandatory = $true)]
         [System.String]
-        $Name
+        $Name,
+
+        [parameter(Mandatory = $false)]
+        [System.String]
+        $Source = $null
     )
 
     $result = ((Get-TargetResource -Name $Name).Ensure -eq $Ensure)

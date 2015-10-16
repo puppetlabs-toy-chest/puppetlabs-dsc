@@ -39,7 +39,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.5.0.0"
+    defaultto "2.6.0.0"
   end
 
   newparam(:name, :namevar => true ) do

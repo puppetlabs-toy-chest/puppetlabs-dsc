@@ -39,7 +39,7 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.0.0.0"
+    defaultto "1.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do

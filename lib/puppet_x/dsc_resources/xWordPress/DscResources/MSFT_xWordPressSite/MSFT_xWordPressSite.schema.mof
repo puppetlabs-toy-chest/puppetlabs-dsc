@@ -6,7 +6,7 @@ class MSFT_xWordPressSite : OMI_BaseResource
     [Required, Description("The WordPress Site Default page title.")] String Title;
     [Required, EmbeddedInstance("MSFT_Credential"), Description("The username and password of the WordPress administrator to create when creating the site.")] String AdministratorCredential;
     [Required, Description("The email address of the WordPress administrator to create.")] String AdministratorEmail;
-    [Write, Description("Should the module be present or absent."), ValueMap{"Present"}, Values{"Present"}] String Ensure;
+    [Write, Description("Should the module be present or absent."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
 };
 
 

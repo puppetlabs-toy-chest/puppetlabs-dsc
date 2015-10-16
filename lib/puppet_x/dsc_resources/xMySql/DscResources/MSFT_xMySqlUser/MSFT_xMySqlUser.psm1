@@ -54,6 +54,7 @@ function Get-TargetResource
         [ValidateSet("Present", "Absent")]
         [string] $Ensure = "Present",
        
+        [parameter(Mandatory = $true)]
         [pscredential] $Credential,
 
         [parameter(Mandatory = $true)]
@@ -111,6 +112,7 @@ function Test-TargetResource
         [ValidateSet("Present", "Absent")]
         [string] $Ensure = "Present",
        
+        [parameter(Mandatory = $true)]
         [pscredential] $Credential,
 
         [parameter(Mandatory = $true)]

@@ -38,7 +38,7 @@ Puppet::Type.newtype(:dsc_xexchwaitfordag) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
+    defaultto "1.3.0.0"
   end
 
   newparam(:name, :namevar => true ) do

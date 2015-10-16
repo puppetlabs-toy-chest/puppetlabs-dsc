@@ -20,7 +20,6 @@ describe Puppet::Type.type(:dsc_xipaddress) do
     expect { Puppet::Type.type(:dsc_xipaddress).new(
       :name     => 'foo',
       :dsc_interfacealias => 'foo',
-      :dsc_defaultgateway => 'foo',
       :dsc_subnetmask => 32,
       :dsc_addressfamily => 'IPv4',
     )}.to raise_error(Puppet::Error, /dsc_ipaddress is a required attribute/)
@@ -47,7 +46,6 @@ describe Puppet::Type.type(:dsc_xipaddress) do
     expect { Puppet::Type.type(:dsc_xipaddress).new(
       :name     => 'foo',
       :dsc_ipaddress => 'foo',
-      :dsc_defaultgateway => 'foo',
       :dsc_subnetmask => 32,
       :dsc_addressfamily => 'IPv4',
     )}.to raise_error(Puppet::Error, /dsc_interfacealias is a required attribute/)
@@ -67,22 +65,6 @@ describe Puppet::Type.type(:dsc_xipaddress) do
 
   it 'should not accept uint for dsc_interfacealias' do
     expect{dsc_xipaddress[:dsc_interfacealias] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_defaultgateway' do
-    expect{dsc_xipaddress[:dsc_defaultgateway] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_defaultgateway' do
-    expect{dsc_xipaddress[:dsc_defaultgateway] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_defaultgateway' do
-    expect{dsc_xipaddress[:dsc_defaultgateway] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_defaultgateway' do
-    expect{dsc_xipaddress[:dsc_defaultgateway] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_subnetmask' do

@@ -7,6 +7,7 @@ describe Puppet::Type.type(:dsc_xdnsserveraddress) do
     Puppet::Type.type(:dsc_xdnsserveraddress).new(
       :name     => 'foo',
       :dsc_interfacealias => 'foo',
+      :dsc_addressfamily => 'IPv4',
     )
   end
 
@@ -54,6 +55,15 @@ describe Puppet::Type.type(:dsc_xdnsserveraddress) do
 
   it 'should not accept uint for dsc_interfacealias' do
     expect{dsc_xdnsserveraddress[:dsc_interfacealias] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should require that dsc_addressfamily is specified' do
+    #dsc_xdnsserveraddress[:dsc_addressfamily]
+    expect { Puppet::Type.type(:dsc_xdnsserveraddress).new(
+      :name     => 'foo',
+      :dsc_address => ["foo", "bar", "spec"],
+      :dsc_interfacealias => 'foo',
+    )}.to raise_error(Puppet::Error, /dsc_addressfamily is a required attribute/)
   end
 
   it 'should accept dsc_addressfamily predefined value IPv4' do

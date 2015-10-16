@@ -13,6 +13,7 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
 
   validate do
       fail('dsc_path is a required attribute') if self[:dsc_path].nil?
+      fail('dsc_arguments is a required attribute') if self[:dsc_arguments].nil?
     end
 
   newparam(:dscmeta_resource_friendly_name) do
@@ -38,7 +39,7 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
+    defaultto "1.3.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -68,12 +69,13 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
 
   # Name:         Arguments
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_arguments) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "Command line arguments to pass to setup.exe"
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
