@@ -66,9 +66,9 @@ eod
 
       puts "Cleaning out test and example files for #{item_name}"
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git",
-                          "#{dsc_resources_path_tmp}/**/*Sample*",
-                          "#{dsc_resources_path_tmp}/**/*Example*",
-                          "#{dsc_resources_path_tmp}/**/*Test*"])
+                          "#{dsc_resources_path_tmp}/**/*[Ss]ample*",
+                          "#{dsc_resources_path_tmp}/**/*[Ee]xample*",
+                          "#{dsc_resources_path_tmp}/**/*[Tt]est*"])
 
       puts "Cleaning out extraneous files for #{item_name}"
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.{gitattributes,gitignore,gitmodules}"])
