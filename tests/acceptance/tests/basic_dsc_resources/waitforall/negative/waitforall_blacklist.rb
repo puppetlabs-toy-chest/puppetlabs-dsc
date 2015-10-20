@@ -23,9 +23,7 @@ error_msg = /Error:.*Invalid resource type dsc_waitforall/
 # Tests
 agents.each do |agent|
   step 'Attempt to Apply Manifest'
-  on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => 0) do |result|
-    expect_failure('Expected to fail because of MODULES-2504') do
-      assert_match(error_msg, result.stderr, 'Expected error was not detected!')
-    end
+  on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => 1) do |result|
+    assert_match(error_msg, result.stderr, 'Expected error was not detected!')
   end
 end
