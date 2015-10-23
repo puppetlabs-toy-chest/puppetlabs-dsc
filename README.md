@@ -19,7 +19,8 @@
   * [Known Issues](#known-issues)
   * [Running Puppet and DSC without Administrative Privileges](#running-puppet-and-dsc-without-administrative-privileges)
 6. [Notes](#notes)
-7. [License](#license)
+7. [Places to Learn More About DSC](#places-to-learn-more-about-dsc)
+8. [License](#license)
 
 ## Module Description
 
@@ -340,6 +341,25 @@ The Puppet agent on a Windows node can run DSC with a normal default install. If
 
 * The puppet types are built from the source code of each DSC Resources MOF schema files.
 * If you want the build Puppet types for your own custom DSC Resources, read the [README_BUILD](README_BUILD.md)
+
+## Places to Learn More About DSC
+
+You can learn more about PowerShell DSC from the following online resources:
+
+- [TechNet Microsoft PowerShell Desired State Configuration Overview](https://technet.microsoft.com/en-us/library/dn249912.aspx) - Starting point for DSC topics
+- [TechNet Microsoft PowerShell DSC Resources page](https://technet.microsoft.com/en-us/library/dn249921.aspx) - For more information about built-in DSC Resources
+- [Microsoft PowerShell xDSCResources Github Repo](https://github.com/PowerShell/DscResources) -  For more information about xDscResources
+- [Windows PowerShell Blog](http://blogs.msdn.com/b/powershell/archive/tags/dsc/) - DSC tagged posts from the Microsoft PowerShell Team
+- [Puppet Labs Windows DSC & WSUS Webinar 9-17-2015 webinar](https://puppetlabs.com/webinars/windows-dsc-wsus-webinar-09-17-2015) - How DSC works with Puppet
+- [Better Together: Managing Windows with Puppet, PowerShell and DSC - PuppetConf 10-2015 talk](https://www.youtube.com/watch?v=TP0zqe-yQto) and [slides](https://speakerdeck.com/iristyle/better-together-managing-windows-with-puppet-powershell-and-dsc)
+- [PowerShell.org](http://powershell.org/wp/tag/dsc/) - Community based DSC tagged posts
+- [PowerShell Magazine](http://www.powershellmagazine.com/tag/dsc/) - Community based DSC tagged posts
+
+There are several books available as well:
+
+- [Learning PowerShell DSC](http://bit.ly/learndsc) - James Pogran is a member of the team here at Puppet working on the DSC/Puppet integration
+- [The DSC Book](https://www.penflip.com/powershellorg/the-dsc-book) - Powershell.org community contributed content
+- [Windows PowerShell Desired State Configuration Revealed](http://www.apress.com/9781484200179) - Ravikanth Chaganti
 
 ## License
 
