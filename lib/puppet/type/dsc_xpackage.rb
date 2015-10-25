@@ -151,12 +151,13 @@ Puppet::Type.newtype(:dsc_xpackage) do
     def mof_type; 'uint32[]' end
     def mof_is_embedded?; false end
     validate do |value|
-      unless value.kind_of?(Array) || value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      unless value.kind_of?(Array) || (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+        fail("Invalid value '#{value}'. Should be an integer or an array of integers")
       end
     end
     munge do |value|
-      Array(value)
+      v = PuppetX::Dsc::TypeHelpers.munge_integer(value)
+      v.is_a?(Array) ? v : Array(v)
     end
   end
 
@@ -229,7 +230,7 @@ Puppet::Type.newtype(:dsc_xpackage) do
       end
     end
     munge do |value|
-      value.to_i
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 
