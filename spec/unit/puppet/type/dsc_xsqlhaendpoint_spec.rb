@@ -91,8 +91,9 @@ describe Puppet::Type.type(:dsc_xsqlhaendpoint) do
     expect{dsc_xsqlhaendpoint[:dsc_portnumber] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_portnumber' do
-    expect{dsc_xsqlhaendpoint[:dsc_portnumber] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_portnumber' do
+    dsc_xsqlhaendpoint[:dsc_portnumber] = 32
+    expect(dsc_xsqlhaendpoint[:dsc_portnumber]).to eq(32)
   end
 
   it 'should accept uint for dsc_portnumber' do

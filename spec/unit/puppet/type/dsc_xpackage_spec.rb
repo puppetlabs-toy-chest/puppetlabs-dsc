@@ -222,12 +222,14 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_returncode] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_returncode' do
-    expect{dsc_xpackage[:dsc_returncode] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_returncode' do
+    dsc_xpackage[:dsc_returncode] = [32, 64, 128]
+    expect(dsc_xpackage[:dsc_returncode]).to eq([32, 64, 128])
   end
 
-  it 'should not accept uint for dsc_returncode' do
-    expect{dsc_xpackage[:dsc_returncode] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should accept uint for dsc_returncode' do
+    dsc_xpackage[:dsc_returncode] = [32, 64, 128]
+    expect(dsc_xpackage[:dsc_returncode]).to eq([32, 64, 128])
   end
 
   it 'should not accept array for dsc_logpath' do
@@ -302,8 +304,9 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_size] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_size' do
-    expect{dsc_xpackage[:dsc_size] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_size' do
+    dsc_xpackage[:dsc_size] = 32
+    expect(dsc_xpackage[:dsc_size]).to eq(32)
   end
 
   it 'should accept uint for dsc_size' do

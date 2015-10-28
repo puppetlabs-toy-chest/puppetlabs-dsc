@@ -107,8 +107,9 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_retry] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_retry' do
-    expect{dsc_xrobocopy[:dsc_retry] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_retry' do
+    dsc_xrobocopy[:dsc_retry] = 32
+    expect(dsc_xrobocopy[:dsc_retry]).to eq(32)
   end
 
   it 'should accept uint for dsc_retry' do
@@ -142,8 +143,9 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_wait] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_wait' do
-    expect{dsc_xrobocopy[:dsc_wait] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_wait' do
+    dsc_xrobocopy[:dsc_wait] = 32
+    expect(dsc_xrobocopy[:dsc_wait]).to eq(32)
   end
 
   it 'should accept uint for dsc_wait' do

@@ -425,8 +425,9 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_indigotcpport' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_indigotcpport' do
+    dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = 16
+    expect(dsc_xscvmmmanagementserversetup[:dsc_indigotcpport]).to eq(16)
   end
 
   it 'should accept uint for dsc_indigotcpport' do
@@ -460,8 +461,9 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_indigohttpsport' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_indigohttpsport' do
+    dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = 16
+    expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport]).to eq(16)
   end
 
   it 'should accept uint for dsc_indigohttpsport' do
@@ -495,8 +497,9 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_indigonettcpport' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_indigonettcpport' do
+    dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = 16
+    expect(dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport]).to eq(16)
   end
 
   it 'should accept uint for dsc_indigonettcpport' do
@@ -530,8 +533,9 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_indigohttpport' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_indigohttpport' do
+    dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = 16
+    expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpport]).to eq(16)
   end
 
   it 'should accept uint for dsc_indigohttpport' do
@@ -565,8 +569,9 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_wsmantcpport' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_wsmantcpport' do
+    dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = 16
+    expect(dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport]).to eq(16)
   end
 
   it 'should accept uint for dsc_wsmantcpport' do
@@ -600,8 +605,9 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_bitstcpport' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_bitstcpport' do
+    dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = 16
+    expect(dsc_xscvmmmanagementserversetup[:dsc_bitstcpport]).to eq(16)
   end
 
   it 'should accept uint for dsc_bitstcpport' do
@@ -747,8 +753,9 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_retainsqldatabase' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_retainsqldatabase' do
+    dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = 1
+    expect(dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase]).to eq(1)
   end
 
   it 'should accept uint for dsc_retainsqldatabase' do
@@ -782,8 +789,9 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_forcehavmmuninstall' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_forcehavmmuninstall' do
+    dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = 1
+    expect(dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall]).to eq(1)
   end
 
   it 'should accept uint for dsc_forcehavmmuninstall' do
@@ -817,8 +825,9 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_sqmoptin' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_sqmoptin' do
+    dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = 1
+    expect(dsc_xscvmmmanagementserversetup[:dsc_sqmoptin]).to eq(1)
   end
 
   it 'should accept uint for dsc_sqmoptin' do
@@ -852,8 +861,9 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_muoptin] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_muoptin' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_muoptin] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_muoptin' do
+    dsc_xscvmmmanagementserversetup[:dsc_muoptin] = 1
+    expect(dsc_xscvmmmanagementserversetup[:dsc_muoptin]).to eq(1)
   end
 
   it 'should accept uint for dsc_muoptin' do

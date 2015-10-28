@@ -153,8 +153,9 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
     expect{dsc_xspcreatefarm[:dsc_centraladministrationport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_centraladministrationport' do
-    expect{dsc_xspcreatefarm[:dsc_centraladministrationport] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_centraladministrationport' do
+    dsc_xspcreatefarm[:dsc_centraladministrationport] = 32
+    expect(dsc_xspcreatefarm[:dsc_centraladministrationport]).to eq(32)
   end
 
   it 'should accept uint for dsc_centraladministrationport' do

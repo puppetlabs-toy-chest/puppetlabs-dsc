@@ -231,8 +231,9 @@ describe Puppet::Type.type(:dsc_xscomreportingserversetup) do
     expect{dsc_xscomreportingserversetup[:dsc_usemicrosoftupdate] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_usemicrosoftupdate' do
-    expect{dsc_xscomreportingserversetup[:dsc_usemicrosoftupdate] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_usemicrosoftupdate' do
+    dsc_xscomreportingserversetup[:dsc_usemicrosoftupdate] = 1
+    expect(dsc_xscomreportingserversetup[:dsc_usemicrosoftupdate]).to eq(1)
   end
 
   it 'should accept uint for dsc_usemicrosoftupdate' do
@@ -266,8 +267,9 @@ describe Puppet::Type.type(:dsc_xscomreportingserversetup) do
     expect{dsc_xscomreportingserversetup[:dsc_sendceipreports] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_sendceipreports' do
-    expect{dsc_xscomreportingserversetup[:dsc_sendceipreports] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_sendceipreports' do
+    dsc_xscomreportingserversetup[:dsc_sendceipreports] = 1
+    expect(dsc_xscomreportingserversetup[:dsc_sendceipreports]).to eq(1)
   end
 
   it 'should accept uint for dsc_sendceipreports' do
@@ -351,8 +353,9 @@ describe Puppet::Type.type(:dsc_xscomreportingserversetup) do
     expect{dsc_xscomreportingserversetup[:dsc_sendodrreports] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_sendodrreports' do
-    expect{dsc_xscomreportingserversetup[:dsc_sendodrreports] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_sendodrreports' do
+    dsc_xscomreportingserversetup[:dsc_sendodrreports] = 1
+    expect(dsc_xscomreportingserversetup[:dsc_sendodrreports]).to eq(1)
   end
 
   it 'should accept uint for dsc_sendodrreports' do

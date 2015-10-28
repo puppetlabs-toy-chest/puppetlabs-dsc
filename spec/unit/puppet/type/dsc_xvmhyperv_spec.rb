@@ -169,8 +169,9 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_generation] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_generation' do
-    expect{dsc_xvmhyperv[:dsc_generation] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_generation' do
+    dsc_xvmhyperv[:dsc_generation] = 32
+    expect(dsc_xvmhyperv[:dsc_generation]).to eq(32)
   end
 
   it 'should accept uint for dsc_generation' do
@@ -204,8 +205,9 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_startupmemory] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_startupmemory' do
-    expect{dsc_xvmhyperv[:dsc_startupmemory] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_startupmemory' do
+    dsc_xvmhyperv[:dsc_startupmemory] = 64
+    expect(dsc_xvmhyperv[:dsc_startupmemory]).to eq(64)
   end
 
   it 'should accept uint for dsc_startupmemory' do
@@ -239,8 +241,9 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_minimummemory] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_minimummemory' do
-    expect{dsc_xvmhyperv[:dsc_minimummemory] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_minimummemory' do
+    dsc_xvmhyperv[:dsc_minimummemory] = 64
+    expect(dsc_xvmhyperv[:dsc_minimummemory]).to eq(64)
   end
 
   it 'should accept uint for dsc_minimummemory' do
@@ -274,8 +277,9 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_maximummemory] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_maximummemory' do
-    expect{dsc_xvmhyperv[:dsc_maximummemory] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_maximummemory' do
+    dsc_xvmhyperv[:dsc_maximummemory] = 64
+    expect(dsc_xvmhyperv[:dsc_maximummemory]).to eq(64)
   end
 
   it 'should accept uint for dsc_maximummemory' do
@@ -325,8 +329,9 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_processorcount] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_processorcount' do
-    expect{dsc_xvmhyperv[:dsc_processorcount] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_processorcount' do
+    dsc_xvmhyperv[:dsc_processorcount] = 32
+    expect(dsc_xvmhyperv[:dsc_processorcount]).to eq(32)
   end
 
   it 'should accept uint for dsc_processorcount' do
@@ -552,8 +557,9 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_cpuusage] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_cpuusage' do
-    expect{dsc_xvmhyperv[:dsc_cpuusage] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_cpuusage' do
+    dsc_xvmhyperv[:dsc_cpuusage] = 32
+    expect(dsc_xvmhyperv[:dsc_cpuusage]).to eq(32)
   end
 
   it 'should accept uint for dsc_cpuusage' do
@@ -587,8 +593,9 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_memoryassigned] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_memoryassigned' do
-    expect{dsc_xvmhyperv[:dsc_memoryassigned] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_memoryassigned' do
+    dsc_xvmhyperv[:dsc_memoryassigned] = 64
+    expect(dsc_xvmhyperv[:dsc_memoryassigned]).to eq(64)
   end
 
   it 'should accept uint for dsc_memoryassigned' do

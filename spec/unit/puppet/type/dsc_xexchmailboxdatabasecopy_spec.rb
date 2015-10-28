@@ -153,8 +153,9 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_activationpreference' do
-    expect{dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_activationpreference' do
+    dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = 32
+    expect(dsc_xexchmailboxdatabasecopy[:dsc_activationpreference]).to eq(32)
   end
 
   it 'should accept uint for dsc_activationpreference' do

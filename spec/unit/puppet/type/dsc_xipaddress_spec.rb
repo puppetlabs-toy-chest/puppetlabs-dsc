@@ -75,8 +75,9 @@ describe Puppet::Type.type(:dsc_xipaddress) do
     expect{dsc_xipaddress[:dsc_subnetmask] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_subnetmask' do
-    expect{dsc_xipaddress[:dsc_subnetmask] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_subnetmask' do
+    dsc_xipaddress[:dsc_subnetmask] = 32
+    expect(dsc_xipaddress[:dsc_subnetmask]).to eq(32)
   end
 
   it 'should accept uint for dsc_subnetmask' do
