@@ -17,9 +17,10 @@ module PuppetX
             # particularly important to Puppet 3.x which parses numbers as strings
             when "uint8","uint16","uint32","uint64",
               "uint8[]","uint16[]","uint32[]","uint64[]",
-              "int16","int32","int64",
-              "sint16","sint32","sint64",
-              "int16[]","int32[]","int64[]"
+              "int8","int16","int32","int64",
+              "sint8","sint16","sint32","sint64",
+              "int8[]","int16[]","int32[]","int64[]",
+              "sint8[]","sint16[]","sint32[]","sint64[]"
 
               unless Array(value).all? { |v| v.is_a?(Numeric) || v =~ /^[-+]?\d+$/ }
                 fail "#{key} should only include numeric values: invalid value #{value}"
@@ -72,9 +73,10 @@ module PuppetX
           munge_boolean(value.to_s)
         when "uint8","uint16","uint32","uint64",
           "uint8[]","uint16[]","uint32[]","uint64[]",
-          "int16","int32","int64",
-          "sint16","sint32","sint64",
-          "int16[]","int32[]","int64[]"
+          "int8","int16","int32","int64",
+          "sint8","sint16","sint32","sint64",
+          "int8[]","int16[]","int32[]","int64[]",
+          "sint8[]","sint16[]","sint32[]","sint64[]"
 
           width = mof_type[:type].gsub(/[^\d]/, '').to_i
 
