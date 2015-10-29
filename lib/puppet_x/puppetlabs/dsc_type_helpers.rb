@@ -72,9 +72,10 @@ module PuppetX
           munge_boolean(value.to_s)
         when "uint8","uint16","uint32","uint64",
           "uint8[]","uint16[]","uint32[]","uint64[]",
-          "int16","int32","int64",
-          "sint16","sint32","sint64",
-          "int16[]","int32[]","int64[]"
+          "int8","int16","int32","int64",
+          "int8[]","int16[]","int32[]","int64[]",
+          "sint8","sint16","sint32","sint64",
+          "sint8[]","sint16[]","sint32[]","sint64[]"
 
           width = mof_type[:type].gsub(/[^\d]/, '').to_i
 
