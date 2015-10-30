@@ -20,7 +20,7 @@ Gemfile:
     ':system_tests':
       - gem: beaker
       - gem: master_manipulator
-        version: '~> 1.1'
+        version: '1.1.2'
     ':build':
       - gem: 'librarian-repo'
         git: 'https://github.com/msutter/librarian-repo.git'
