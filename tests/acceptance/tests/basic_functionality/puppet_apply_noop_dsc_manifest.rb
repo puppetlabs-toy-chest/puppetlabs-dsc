@@ -5,11 +5,10 @@ test_name 'FM-2623 - C68509 - Apply DSC Resource Manifest in "noop" Mode Using "
 confine(:to, :platform => 'windows')
 
 # Init
-test_dir_name = 'test'
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
 # ERB Manifest
-test_dir_path = "C:/#{test_dir_name}"
+test_dir_path = 'C:/test'
 test_file_path = "#{test_dir_path}/test.txt"
 test_file_contents = 'catcat'
 
@@ -30,7 +29,7 @@ agents.each do |agent|
       'File',
       'PSDesiredStateConfiguration',
       :DestinationPath => test_file_path,
-      :Contents => test_file_contents
+      :Contents        => test_file_contents
     )
   end
 end

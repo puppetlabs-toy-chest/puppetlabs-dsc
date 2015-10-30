@@ -6,7 +6,7 @@ confine(:to, :platform => 'windows')
 
 # Init
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
-output_file_name = 'ping.out'
+output_file_path = 'C:\ping.out'
 
 # ERB Manifest
 dsc_type = 'windowsprocess'
@@ -14,7 +14,7 @@ dsc_module = 'PSDesiredStateConfiguration'
 dsc_props = {
   :dsc_ensure    => 'Present',
   :dsc_path      => 'C:\Windows\System32\cmd.exe',
-  :dsc_arguments => "/c ping.exe -n 1 -4 localhost > C:\\#{output_file_name}",
+  :dsc_arguments => "/c ping.exe -n 1 -4 localhost > #{output_file_path}",
 }
 
 dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resources', 'dsc_single_resource.pp.erb')
@@ -28,7 +28,7 @@ teardown do
     'file',
     dsc_module,
     :Ensure          => 'Absent',
-    :DestinationPath => "C:\\#{output_file_name}"
+    :DestinationPath => output_file_path
   )
 end
 
@@ -43,7 +43,7 @@ agents.each do |agent|
   end
 
   step 'Verify Results'
-  on(agent, "cat /cygdrive/c/#{output_file_name}") do |result|
+  on(agent, powershell("Get-Content #{output_file_path}")) do |result|
     assert_match(output_file_regex, result.stdout, 'Expected contents not detected!')
   end
 end

@@ -103,22 +103,19 @@ end
 #
 # ==== Examples
 #
-# _exec_dsc_script(master, 'Write-Host Hello')
-def _exec_dsc_script(hosts, ps_script, &block)
+# exec_ps_script(master, 'Write-Host Hello')
+def exec_ps_script(hosts, ps_script, &block)
   #Init
   temp_script = 'temp.ps1'
   utf8_ps_script = "\xEF\xBB\xBF".force_encoding('UTF-8') + ps_script.force_encoding('UTF-8')
-  ps_launch = 'powershell.exe -ExecutionPolicy Bypass ' \
-              '-NoLogo ' \
-              '-NoProfile ' \
-              "-File C:/#{temp_script}"
 
   block_on(hosts) do |host|
     #Create remote file with UTF-8 BOM
-    create_remote_file(host, "/cygdrive/c/#{temp_script}", utf8_ps_script)
+    create_remote_file(host, "/#{temp_script}", utf8_ps_script)
 
     #Execute PowerShell script on host
-    @result = on(host, ps_launch, :accept_all_exit_codes => true)
+    #on(host, powershell('', {'File' => "C:/#{temp_script}"}), {:accept_all_exit_codes => true})
+    @result = on(host, powershell('', {'File' => "C:/#{temp_script}"}), {:accept_all_exit_codes => true})
 
     #Also, let additional checking be performed by the caller.
     if block_given?
@@ -161,9 +158,9 @@ end
 #                  :Contents=>'catcat')
 def set_dsc_resource(hosts, dsc_resource_type, dsc_module, dsc_properties)
   # Init
-  ps_script = _build_dsc_command('Set', dsc_resource_type, dsc_module, dsc_properties)
+  ps_command = _build_dsc_command('Set', dsc_resource_type, dsc_module, dsc_properties)
 
-  _exec_dsc_script(hosts, ps_script)
+  exec_ps_script(hosts, ps_command)
 
   # Verify State
   assert_dsc_resource(hosts, dsc_resource_type, dsc_module, dsc_properties)
@@ -207,16 +204,16 @@ def set_dsc_cred_resource(hosts,
                           dsc_cred_param,
                           dsc_properties)
   # Init
-  ps_script = <<-SCRIPT
+  ps_command = <<-SCRIPT
 $secpasswd = ConvertTo-SecureString '#{password}' -AsPlainText -Force
 $credentials = New-Object System.Management.Automation.PSCredential ('#{user}', $secpasswd)\n
 SCRIPT
 
   #Add credential to DSC properties
   dsc_properties[dsc_cred_param] = '$credentials'
-  ps_script << _build_dsc_command('Set', dsc_resource_type, dsc_module, dsc_properties)
+  ps_command << _build_dsc_command('Set', dsc_resource_type, dsc_module, dsc_properties)
 
-  _exec_dsc_script(hosts, ps_script)
+  exec_ps_script(hosts, ps_command)
 
   # Verify State
   assert_dsc_resource(hosts, dsc_resource_type, dsc_module, dsc_properties)
@@ -251,9 +248,13 @@ module Beaker
       #                     :Contents=>'catcat')
       def assert_dsc_resource(hosts, dsc_resource_type, dsc_module, dsc_properties)
         # Init
-        ps_script = _build_dsc_command('Test', dsc_resource_type, dsc_module, dsc_properties)
+        ps_command = _build_dsc_command('Test', dsc_resource_type, dsc_module, dsc_properties)
 
-        _exec_dsc_script(hosts, ps_script) do |result|
+        # on(hosts, powershell(ps_command, {'EncodedCommand' => true}), {:accept_all_exit_codes => true}) do |result|
+        #   assert(0 == result.exit_code, 'DSC resource not in desired state!')
+        # end
+
+        exec_ps_script(hosts, ps_command) do |result|
           assert(0 == result.exit_code, 'DSC resource not in desired state!')
         end
       end
@@ -296,16 +297,16 @@ module Beaker
                                    dsc_cred_param,
                                    dsc_properties)
         #Init
-        ps_script = <<-SCRIPT
+        ps_command = <<-SCRIPT
 $secpasswd = ConvertTo-SecureString '#{password}' -AsPlainText -Force
 $credentials = New-Object System.Management.Automation.PSCredential ('#{user}', $secpasswd)\n
 SCRIPT
 
         #Add credential to DSC properties
         dsc_properties[dsc_cred_param] = '$credentials'
-        ps_script << _build_dsc_command('Test', dsc_resource_type, dsc_module, dsc_properties)
+        ps_command << _build_dsc_command('Test', dsc_resource_type, dsc_module, dsc_properties)
 
-        _exec_dsc_script(hosts, ps_script) do |result|
+        exec_ps_script(hosts, ps_command) do |result|
           assert(0 == result.exit_code, 'DSC resource not in desired state!')
         end
       end

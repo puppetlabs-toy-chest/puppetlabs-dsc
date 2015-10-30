@@ -7,6 +7,8 @@ confine(:to, :platform => 'windows')
 test_dir_name = 'test'
 
 # In-line Manifest
+dsc_type = 'file'
+dsc_module = 'PSDesiredStateConfiguration'
 test_dir_path = "C:/#{test_dir_name}"
 test_file_path = "#{test_dir_path}/test.txt"
 test_file_contents = 'catcat'
@@ -27,7 +29,15 @@ MANIFEST
 # Teardown
 teardown do
   step 'Remove Test Artifacts'
-  on(agents, "rm -rf /cygdrive/c/#{test_dir_name}")
+  set_dsc_resource(
+    agents,
+    dsc_type,
+    dsc_module,
+    :Ensure          => 'Absent',
+    :Type            => 'Directory',
+    :Force           => '$true',
+    :DestinationPath => test_dir_path
+  )
 end
 
 # Tests
@@ -40,9 +50,9 @@ agents.each do |agent|
   step 'Verify Results'
   assert_dsc_resource(
     agent,
-    'File',
-    'PSDesiredStateConfiguration',
+    dsc_type,
+    dsc_module,
     :DestinationPath => test_file_path,
-    :Contents => test_file_contents
+    :Contents        => test_file_contents
   )
 end

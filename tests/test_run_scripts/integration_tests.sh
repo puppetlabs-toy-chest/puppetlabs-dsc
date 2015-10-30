@@ -10,7 +10,7 @@ declare -a ARGS
 # Argument Parsing
 if [ $# -eq 0 ]; then
   ARGS[0]='windows-2012r2-64mda'
-  ARGS[1]='http://neptune.puppetlabs.lan/2015.2/preview'
+  ARGS[1]='http://neptune.puppetlabs.lan/2015.2/ci-ready'
   ARGS[2]='forge'
 elif [ $# -ne 3 ]; then
   echo 'USAGE integration_tests.sh <CONFIG> <PE_DIST_DIR> <LOCAL_OR_FORGE>'
