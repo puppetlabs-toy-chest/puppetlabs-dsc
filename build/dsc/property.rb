@@ -99,11 +99,11 @@ module Dsc
     end
 
     def int?
-      ["int16","int32","int64","sint16","sint32","sint64"].include?(type)
+      ["int8","int16","int32","int64","sint8","sint16","sint32","sint64"].include?(type)
     end
 
     def int_array?
-      ["int16[]","int32[]","int64[]"].include?(type)
+      ["int8[]","int16[]","int32[]","int64[]","sint8[]","sint16[]","sint32[]","sint64[]"].include?(type)
     end
 
     def string?
