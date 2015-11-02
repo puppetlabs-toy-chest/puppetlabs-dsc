@@ -36,7 +36,7 @@ end
 
 group :system_tests do
   gem 'beaker', *location_for(ENV['BEAKER_VERSION'] || '~> 2.20')
-  gem 'master_manipulator', '~> 1.1',  :require => false
+  gem 'master_manipulator', '1.1.2',  :require => false
 end
 
 group :build do
