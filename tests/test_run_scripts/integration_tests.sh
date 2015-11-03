@@ -12,8 +12,8 @@ if [ $# -eq 0 ]; then
   ARGS[0]='windows-2012r2-64mda'
   ARGS[1]='http://neptune.puppetlabs.lan/2015.2/preview'
   ARGS[2]='forge'
-elif [ $# -ne 3 ]; then
-  echo 'USAGE integration_tests.sh <CONFIG> <PE_DIST_DIR> <LOCAL_OR_FORGE>'
+elif [[ $# -lt 3 || $# -gt 4 ]]; then
+  echo 'USAGE integration_tests.sh <CONFIG> <PE_DIST_DIR> <LOCAL_OR_FORGE> <MODULE_VERSION>'
   exit 1
 else
   ARGS=("$@")
@@ -32,9 +32,20 @@ elif [ ${ARGS[2]} == 'local' ]; then
   echo 'Testing Module Using Local Code'
 else
   echo 'You must specify "forge" or "local" for test type!'
-  echo 'USAGE acceptance_tests.sh <CONFIG> <PUPPET_AGENT_VER> <LOCAL_OR_FORGE>'
+  echo 'USAGE integration_tests.sh <CONFIG> <PE_DIST_DIR> <LOCAL_OR_FORGE> <MODULE_VERSION>'
   exit 1
 fi
+
+# Determine if a module version was specified.
+if [ -n "${ARGS[3]}" ]; then
+  echo "Using Module Version: ${ARGS[3]}"
+  export MODULE_VERSION=${ARGS[3]}
+elif [[ $# -eq 3 && ${ARGS[2]} == 'forge' ]]; then
+  echo 'WARNING: Running Integration Tests from Forge without Module Version!'
+fi
+
+# Sleep so the user has time to read script messages.
+sleep 2
 
 export pe_dist_dir=${ARGS[1]}
 export GEM_SOURCE=http://rubygems.delivery.puppetlabs.net
