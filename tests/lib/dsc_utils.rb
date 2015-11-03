@@ -166,7 +166,7 @@ def set_dsc_resource(hosts, dsc_resource_type, dsc_module, dsc_properties)
   assert_dsc_resource(hosts, dsc_resource_type, dsc_module, dsc_properties)
 end
 
-# Set a DSC resource on a host machine.
+# Set a DSC resource with credential on a host machine.
 #
 # ==== Attributes
 #
@@ -216,7 +216,13 @@ SCRIPT
   exec_ps_script(hosts, ps_command)
 
   # Verify State
-  assert_dsc_resource(hosts, dsc_resource_type, dsc_module, dsc_properties)
+  assert_dsc_cred_resource(hosts,
+                           user,
+                           password,
+                           dsc_resource_type,
+                           dsc_module,
+                           dsc_cred_param,
+                           dsc_properties)
 end
 
 module Beaker
@@ -259,7 +265,7 @@ module Beaker
         end
       end
 
-      # Verify that the PowerShell script.
+      # Verify the expected state of a DSC resource with credential on a given host.
       #
       # ==== Attributes
       #
