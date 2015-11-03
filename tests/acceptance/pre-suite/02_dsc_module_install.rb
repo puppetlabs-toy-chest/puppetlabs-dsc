@@ -4,9 +4,12 @@ confine(:to, :platform => 'windows')
 
 # Init
 proj_root = File.expand_path(File.join(File.dirname(__FILE__), '../../../'))
-puts(proj_root)
+
 staging = { :module_name => 'puppetlabs-dsc' }
 local = { :module_name => 'dsc', :source => proj_root }
+
+# Check to see if module version is specified.
+staging[:version] = ENV['MODULE_VERSION'] if ENV['MODULE_VERSION']
 
 agents.each do |agent|
   step 'Install DSC Module Dependencies'
