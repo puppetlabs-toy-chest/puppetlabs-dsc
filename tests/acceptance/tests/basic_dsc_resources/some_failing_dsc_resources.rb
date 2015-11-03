@@ -3,11 +3,8 @@ test_name 'FM-2624 - C68533 - Apply DSC Resource Manifest with Mix of Passing an
 
 confine(:to, :platform => 'windows')
 
-# Init
-test_dir_name = 'test'
-
 # In-line Manifest
-test_dir_good = "C:/#{test_dir_name}"
+test_dir_good = 'C:/test'
 test_dir_bad = "Q:/not/here"
 
 dsc_manifest = <<-MANIFEST
@@ -29,7 +26,15 @@ error_msg = /Error: The system cannot find the path specified. The related file\
 # Teardown
 teardown do
   step 'Remove Test Artifacts'
-  on(agents, "rm -rf /cygdrive/c/#{test_dir_name}")
+  set_dsc_resource(
+    agents,
+    'File',
+    'PSDesiredStateConfiguration',
+    :Ensure          => 'Absent',
+    :Type            => 'Directory',
+    :Force           => '$true',
+    :DestinationPath => test_dir_good
+  )
 end
 
 # Tests

@@ -27,7 +27,7 @@ dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(bin
 # Teardown
 teardown do
   step 'Remove Test Artifacts'
-  on(agents, "cmd /c \"#{install_path}\\uninstall.exe /S\"", :acceptable_exit_codes => 1)
+  on(agents, powershell("Start-Process \"#{install_path}\\uninstall.exe /S\" -Wait"), :acceptable_exit_codes => 1)
 
   set_dsc_resource(
     agents,

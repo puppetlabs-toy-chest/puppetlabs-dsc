@@ -1,12 +1,13 @@
 require 'erb'
 require 'dsc_utils'
-test_name 'MODULES-2537 - C68754 - Apply DSC User Resource with Valid Unicode "UserName" and "Password" Specified'
+test_name 'MODULES-2537 - C68754 - Apply DSC User Resource with Valid Unicode "Password" Specified'
 
 confine(:to, :platform => 'windows')
 
 # Init
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 test_manifest_name = 'test_manifest.pp'
+test_manifest_path = "C:\\#{test_manifest_name}"
 username = "unicode"
 password = "\u11D4\u11D7\u11E8\u11F9\u118E\u1185\u118A\u11A0\u11A9\u11C5"
 
@@ -32,16 +33,23 @@ teardown do
     :Ensure   => 'Absent',
     :UserName => username
   )
-  on(agents, "rm -rf /cygdrive/c/#{test_manifest_name}")
+  set_dsc_resource(
+    agents,
+    'File',
+    dsc_module,
+    :Ensure          => 'Absent',
+    :Type            => 'File',
+    :DestinationPath => test_manifest_path
+  )
 end
 
 # Setup
-create_remote_file(agents, "/cygdrive/c/#{test_manifest_name}", dsc_manifest)
+create_remote_file(agents, "/#{test_manifest_name}", dsc_manifest)
 
 # Tests
 agents.each do |agent|
   step 'Apply Manifest'
-  on(agent, puppet("apply C:\\\\#{test_manifest_name}"), :acceptable_exit_codes => [0,2]) do |result|
+  on(agent, puppet("apply #{test_manifest_path}"), :acceptable_exit_codes => [0,2]) do |result|
     assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
   end
 

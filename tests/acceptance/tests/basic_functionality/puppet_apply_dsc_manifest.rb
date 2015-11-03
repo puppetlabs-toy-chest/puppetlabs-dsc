@@ -5,11 +5,12 @@ test_name 'FM-2625 - C68511 - Apply DSC Resource Manifest via "puppet apply"'
 confine(:to, :platform => 'windows')
 
 # Init
-test_dir_name = 'test'
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
 # ERB Manifest
-test_dir_path = "C:/#{test_dir_name}"
+dsc_type = 'file'
+dsc_module = 'PSDesiredStateConfiguration'
+test_dir_path = 'C:/test'
 test_file_path = "#{test_dir_path}/test.txt"
 test_file_contents = 'catcat'
 
@@ -19,7 +20,15 @@ dsc_manifest = ERB.new(File.read(dsc_manifest_template_path)).result(binding)
 # Teardown
 teardown do
   step 'Remove Test Artifacts'
-  on(agents, "rm -rf /cygdrive/c/#{test_dir_name}")
+  set_dsc_resource(
+    agents,
+    dsc_type,
+    dsc_module,
+    :Ensure          => 'Absent',
+    :Type            => 'Directory',
+    :Force           => '$true',
+    :DestinationPath => test_dir_path
+  )
 end
 
 # Tests
@@ -32,9 +41,9 @@ agents.each do |agent|
   step 'Verify Results'
   assert_dsc_resource(
     agent,
-    'File',
-    'PSDesiredStateConfiguration',
+    dsc_type,
+    dsc_module,
     :DestinationPath => test_file_path,
-    :Contents => test_file_contents
+    :Contents        => test_file_contents
   )
 end

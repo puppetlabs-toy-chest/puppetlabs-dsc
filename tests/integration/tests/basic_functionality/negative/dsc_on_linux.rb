@@ -27,7 +27,7 @@ inject_site_pp(master, get_site_pp_path(master), site_pp)
 confine_block(:except, :platform => 'windows') do
   agents.each do |agent|
     step 'Run Puppet Agent'
-    on(agent, puppet('agent -t --environment production'), :acceptable_exit_codes => 4) do |result|
+    on(agent, puppet('agent -t --environment production'), :acceptable_exit_codes => [4,6]) do |result|
       assert_match(error_msg, result.stderr, 'Expected error was not detected!')
     end
   end
