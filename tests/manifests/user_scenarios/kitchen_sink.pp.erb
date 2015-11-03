@@ -51,7 +51,6 @@ dsc_package { 'install_7zip':
   dsc_productid => '',
   dsc_arguments => "/S /D=${seven_zip_install_path}"
 }
-->
 dsc_environment { 'add_env_var':
   dsc_ensure => 'Present',
   dsc_name   => $env_var_name,

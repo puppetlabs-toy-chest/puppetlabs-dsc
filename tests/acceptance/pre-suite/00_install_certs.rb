@@ -1,4 +1,3 @@
-#require 'pry-debugger'
 test_name "Install CA Certs"
 confine(:to, :platform => 'windows')
 
