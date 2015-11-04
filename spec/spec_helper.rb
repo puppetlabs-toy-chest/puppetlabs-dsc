@@ -21,6 +21,10 @@ RSpec.configure do |c|
   oldtmpdir = Dir.tmpdir()
   ENV['TMPDIR'] = tmpdir
 
+  c.expect_with :rspec do |e|
+    e.syntax = [:should, :expect]
+  end
+
   c.after :suite do
     # return to original tmpdir
     ENV['TMPDIR'] = oldtmpdir
@@ -29,7 +33,6 @@ RSpec.configure do |c|
       # and deletes there as well :/
       system("rmdir /s /q \"#{tmpdir}\"")
     end
-
   end
 end
 
