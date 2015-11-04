@@ -346,8 +346,8 @@ The Puppet agent on a Windows node can run DSC with a normal default install. If
 
 You can learn more about PowerShell DSC from the following online resources:
 
-- [TechNet Microsoft PowerShell Desired State Configuration Overview](https://technet.microsoft.com/en-us/library/dn249912.aspx) - Starting point for DSC topics
-- [TechNet Microsoft PowerShell DSC Resources page](https://technet.microsoft.com/en-us/library/dn249921.aspx) - For more information about built-in DSC Resources
+- [Microsoft PowerShell Desired State Configuration Overview](https://msdn.microsoft.com/en-us/PowerShell/dsc/overview) - Starting point for DSC topics
+- [Microsoft PowerShell DSC Resources page](https://msdn.microsoft.com/en-us/powershell/dsc/resources) - For more information about built-in DSC Resources
 - [Microsoft PowerShell xDSCResources Github Repo](https://github.com/PowerShell/DscResources) -  For more information about xDscResources
 - [Windows PowerShell Blog](http://blogs.msdn.com/b/powershell/archive/tags/dsc/) - DSC tagged posts from the Microsoft PowerShell Team
 - [Puppet Labs Windows DSC & WSUS Webinar 9-17-2015 webinar](https://puppetlabs.com/webinars/windows-dsc-wsus-webinar-09-17-2015) - How DSC works with Puppet
