@@ -776,8 +776,9 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect{dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_replicationport' do
-    expect{dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_replicationport' do
+    dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport] = 16
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport]).to eq(16)
   end
 
   it 'should accept uint for dsc_replicationport' do

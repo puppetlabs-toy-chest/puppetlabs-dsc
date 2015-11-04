@@ -315,8 +315,9 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_maxlatencytime] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_maxlatencytime' do
-    expect{dsc_xwefsubscription[:dsc_maxlatencytime] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_maxlatencytime' do
+    dsc_xwefsubscription[:dsc_maxlatencytime] = 64
+    expect(dsc_xwefsubscription[:dsc_maxlatencytime]).to eq(64)
   end
 
   it 'should accept uint for dsc_maxlatencytime' do
@@ -350,8 +351,9 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_heartbeatinterval] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_heartbeatinterval' do
-    expect{dsc_xwefsubscription[:dsc_heartbeatinterval] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_heartbeatinterval' do
+    dsc_xwefsubscription[:dsc_heartbeatinterval] = 64
+    expect(dsc_xwefsubscription[:dsc_heartbeatinterval]).to eq(64)
   end
 
   it 'should accept uint for dsc_heartbeatinterval' do

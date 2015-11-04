@@ -269,8 +269,9 @@ describe Puppet::Type.type(:dsc_xscspfserversetup) do
     expect{dsc_xscspfserversetup[:dsc_databaseportnumber] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_databaseportnumber' do
-    expect{dsc_xscspfserversetup[:dsc_databaseportnumber] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_databaseportnumber' do
+    dsc_xscspfserversetup[:dsc_databaseportnumber] = 16
+    expect(dsc_xscspfserversetup[:dsc_databaseportnumber]).to eq(16)
   end
 
   it 'should accept uint for dsc_databaseportnumber' do
@@ -320,8 +321,9 @@ describe Puppet::Type.type(:dsc_xscspfserversetup) do
     expect{dsc_xscspfserversetup[:dsc_websiteportnumber] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_websiteportnumber' do
-    expect{dsc_xscspfserversetup[:dsc_websiteportnumber] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_websiteportnumber' do
+    dsc_xscspfserversetup[:dsc_websiteportnumber] = 16
+    expect(dsc_xscspfserversetup[:dsc_websiteportnumber]).to eq(16)
   end
 
   it 'should accept uint for dsc_websiteportnumber' do

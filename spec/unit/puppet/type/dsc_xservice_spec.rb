@@ -301,8 +301,9 @@ describe Puppet::Type.type(:dsc_xservice) do
     expect{dsc_xservice[:dsc_startuptimeout] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_startuptimeout' do
-    expect{dsc_xservice[:dsc_startuptimeout] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_startuptimeout' do
+    dsc_xservice[:dsc_startuptimeout] = 32
+    expect(dsc_xservice[:dsc_startuptimeout]).to eq(32)
   end
 
   it 'should accept uint for dsc_startuptimeout' do

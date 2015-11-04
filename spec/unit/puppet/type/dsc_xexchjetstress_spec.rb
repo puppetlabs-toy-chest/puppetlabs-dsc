@@ -125,8 +125,9 @@ describe Puppet::Type.type(:dsc_xexchjetstress) do
     expect{dsc_xexchjetstress[:dsc_maxwaitminutes] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_maxwaitminutes' do
-    expect{dsc_xexchjetstress[:dsc_maxwaitminutes] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_maxwaitminutes' do
+    dsc_xexchjetstress[:dsc_maxwaitminutes] = 32
+    expect(dsc_xexchjetstress[:dsc_maxwaitminutes]).to eq(32)
   end
 
   it 'should accept uint for dsc_maxwaitminutes' do
@@ -160,8 +161,9 @@ describe Puppet::Type.type(:dsc_xexchjetstress) do
     expect{dsc_xexchjetstress[:dsc_minachievediops] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_minachievediops' do
-    expect{dsc_xexchjetstress[:dsc_minachievediops] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_minachievediops' do
+    dsc_xexchjetstress[:dsc_minachievediops] = 32
+    expect(dsc_xexchjetstress[:dsc_minachievediops]).to eq(32)
   end
 
   it 'should accept uint for dsc_minachievediops' do

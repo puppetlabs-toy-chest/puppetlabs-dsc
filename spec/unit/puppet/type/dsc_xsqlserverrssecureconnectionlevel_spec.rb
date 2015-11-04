@@ -57,8 +57,9 @@ describe Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel) do
     expect{dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_secureconnectionlevel' do
-    expect{dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_secureconnectionlevel' do
+    dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = 16
+    expect(dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel]).to eq(16)
   end
 
   it 'should accept uint for dsc_secureconnectionlevel' do

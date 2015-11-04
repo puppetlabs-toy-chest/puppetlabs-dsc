@@ -90,8 +90,9 @@ describe Puppet::Type.type(:dsc_xazurepackidentityprovider) do
     expect{dsc_xazurepackidentityprovider[:dsc_port] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_port' do
-    expect{dsc_xazurepackidentityprovider[:dsc_port] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_port' do
+    dsc_xazurepackidentityprovider[:dsc_port] = 16
+    expect(dsc_xazurepackidentityprovider[:dsc_port]).to eq(16)
   end
 
   it 'should accept uint for dsc_port' do

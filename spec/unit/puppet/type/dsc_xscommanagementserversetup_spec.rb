@@ -256,8 +256,9 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_managementserviceport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_managementserviceport' do
-    expect{dsc_xscommanagementserversetup[:dsc_managementserviceport] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_managementserviceport' do
+    dsc_xscommanagementserversetup[:dsc_managementserviceport] = 16
+    expect(dsc_xscommanagementserversetup[:dsc_managementserviceport]).to eq(16)
   end
 
   it 'should accept uint for dsc_managementserviceport' do
@@ -467,8 +468,9 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_databasesize] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_databasesize' do
-    expect{dsc_xscommanagementserversetup[:dsc_databasesize] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_databasesize' do
+    dsc_xscommanagementserversetup[:dsc_databasesize] = 16
+    expect(dsc_xscommanagementserversetup[:dsc_databasesize]).to eq(16)
   end
 
   it 'should accept uint for dsc_databasesize' do
@@ -534,8 +536,9 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_dwdatabasesize] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_dwdatabasesize' do
-    expect{dsc_xscommanagementserversetup[:dsc_dwdatabasesize] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_dwdatabasesize' do
+    dsc_xscommanagementserversetup[:dsc_dwdatabasesize] = 16
+    expect(dsc_xscommanagementserversetup[:dsc_dwdatabasesize]).to eq(16)
   end
 
   it 'should accept uint for dsc_dwdatabasesize' do
@@ -569,8 +572,9 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_usemicrosoftupdate' do
-    expect{dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_usemicrosoftupdate' do
+    dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate] = 1
+    expect(dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate]).to eq(1)
   end
 
   it 'should accept uint for dsc_usemicrosoftupdate' do
@@ -604,8 +608,9 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_sendceipreports] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_sendceipreports' do
-    expect{dsc_xscommanagementserversetup[:dsc_sendceipreports] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_sendceipreports' do
+    dsc_xscommanagementserversetup[:dsc_sendceipreports] = 1
+    expect(dsc_xscommanagementserversetup[:dsc_sendceipreports]).to eq(1)
   end
 
   it 'should accept uint for dsc_sendceipreports' do
@@ -689,8 +694,9 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_sendodrreports] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_sendodrreports' do
-    expect{dsc_xscommanagementserversetup[:dsc_sendodrreports] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_sendodrreports' do
+    dsc_xscommanagementserversetup[:dsc_sendodrreports] = 1
+    expect(dsc_xscommanagementserversetup[:dsc_sendodrreports]).to eq(1)
   end
 
   it 'should accept uint for dsc_sendodrreports' do

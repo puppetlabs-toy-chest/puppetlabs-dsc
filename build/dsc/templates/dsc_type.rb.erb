@@ -168,9 +168,19 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
       PuppetX::Dsc::TypeHelpers.validate_<%= property.embeddedinstance_class_name %>(<%= !property.credential? ? 'mof_type_map, ' : '' %>"<%= property.name %>", value)
 <%      end -%>
 <%    when property.array? -%>
+<%      if property.int_array? -%>
+      unless value.kind_of?(Array) || value.kind_of?(Numeric) || value.to_i.to_s == value
+        fail("Invalid value '#{value}'. Should be an integer or an array of integers")
+      end
+<%      elsif property.uint_array? -%>
+      unless value.kind_of?(Array) || (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+        fail("Invalid value '#{value}'. Should be an integer or an array of integers")
+      end
+<%      else -%>
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
+<%      end -%>
 <%    when property.bool? -%>
 <%    when property.int? -%>
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
@@ -215,6 +225,9 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
       value.kind_of?(Hash) ?
         [PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, value)] :
         value.map { |v| PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, v) }
+<%     elsif (property.int_array? || property.uint_array?) -%>
+      v = PuppetX::Dsc::TypeHelpers.munge_integer(value)
+      v.is_a?(Array) ? v : Array(v)
 <%      else -%>
       Array(value)
 <%      end -%>
@@ -229,7 +242,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     end
 <%    when (property.int? || property.uint?) -%>
     munge do |value|
-      value.to_i
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
 <%    else -%>
 <%    end -%>

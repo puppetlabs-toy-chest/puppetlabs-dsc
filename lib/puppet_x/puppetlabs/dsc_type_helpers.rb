@@ -8,6 +8,10 @@ module PuppetX
         raise ArgumentError.new "invalid value: #{value}"
       end
 
+      def self.munge_integer(value)
+        value.is_a?(Array) ? value.map { |v| v.to_i } : value.to_i
+      end
+
       def self.munge_embeddedinstance(mof_type, embeddedinstance_value)
         remapped_value = embeddedinstance_value.map do |key, value|
           if mof_type[key.downcase]

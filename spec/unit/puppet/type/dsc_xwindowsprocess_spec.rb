@@ -231,8 +231,9 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect{dsc_xwindowsprocess[:dsc_pagedmemorysize] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_pagedmemorysize' do
-    expect{dsc_xwindowsprocess[:dsc_pagedmemorysize] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_pagedmemorysize' do
+    dsc_xwindowsprocess[:dsc_pagedmemorysize] = 64
+    expect(dsc_xwindowsprocess[:dsc_pagedmemorysize]).to eq(64)
   end
 
   it 'should accept uint for dsc_pagedmemorysize' do
@@ -266,8 +267,9 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect{dsc_xwindowsprocess[:dsc_nonpagedmemorysize] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_nonpagedmemorysize' do
-    expect{dsc_xwindowsprocess[:dsc_nonpagedmemorysize] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_nonpagedmemorysize' do
+    dsc_xwindowsprocess[:dsc_nonpagedmemorysize] = 64
+    expect(dsc_xwindowsprocess[:dsc_nonpagedmemorysize]).to eq(64)
   end
 
   it 'should accept uint for dsc_nonpagedmemorysize' do
@@ -301,8 +303,9 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect{dsc_xwindowsprocess[:dsc_virtualmemorysize] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_virtualmemorysize' do
-    expect{dsc_xwindowsprocess[:dsc_virtualmemorysize] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept int for dsc_virtualmemorysize' do
+    dsc_xwindowsprocess[:dsc_virtualmemorysize] = 64
+    expect(dsc_xwindowsprocess[:dsc_virtualmemorysize]).to eq(64)
   end
 
   it 'should accept uint for dsc_virtualmemorysize' do
