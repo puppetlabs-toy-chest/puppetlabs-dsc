@@ -22,8 +22,6 @@ Gemfile:
       - gem: master_manipulator
         version: '1.1.2'
     ':build':
-      - gem: 'librarian-repo'
-        git: 'https://github.com/msutter/librarian-repo.git'
       - gem: cim
       - gem: mof
         git: 'https://github.com/puppetlabs/mof.git'
