@@ -292,19 +292,19 @@ describe Puppet::Type.type(:dsc_xscomwebconsoleserversetup) do
   end
 
 
-  it 'should accept string-like int for dsc_usemicrosoftupdate' do
+  it 'should accept string-like uint for dsc_usemicrosoftupdate' do
     dsc_xscomwebconsoleserversetup[:dsc_usemicrosoftupdate] = '16'
     expect(dsc_xscomwebconsoleserversetup[:dsc_usemicrosoftupdate]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_usemicrosoftupdate' do
+  it 'should accept string-like uint for dsc_usemicrosoftupdate' do
     dsc_xscomwebconsoleserversetup[:dsc_usemicrosoftupdate] = '32'
     expect(dsc_xscomwebconsoleserversetup[:dsc_usemicrosoftupdate]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_usemicrosoftupdate' do
+  it 'should accept string-like uint for dsc_usemicrosoftupdate' do
     dsc_xscomwebconsoleserversetup[:dsc_usemicrosoftupdate] = '64'
     expect(dsc_xscomwebconsoleserversetup[:dsc_usemicrosoftupdate]).to eq(64)
   end
@@ -327,19 +327,19 @@ describe Puppet::Type.type(:dsc_xscomwebconsoleserversetup) do
   end
 
 
-  it 'should accept string-like int for dsc_sendceipreports' do
+  it 'should accept string-like uint for dsc_sendceipreports' do
     dsc_xscomwebconsoleserversetup[:dsc_sendceipreports] = '16'
     expect(dsc_xscomwebconsoleserversetup[:dsc_sendceipreports]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_sendceipreports' do
+  it 'should accept string-like uint for dsc_sendceipreports' do
     dsc_xscomwebconsoleserversetup[:dsc_sendceipreports] = '32'
     expect(dsc_xscomwebconsoleserversetup[:dsc_sendceipreports]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_sendceipreports' do
+  it 'should accept string-like uint for dsc_sendceipreports' do
     dsc_xscomwebconsoleserversetup[:dsc_sendceipreports] = '64'
     expect(dsc_xscomwebconsoleserversetup[:dsc_sendceipreports]).to eq(64)
   end
@@ -412,19 +412,19 @@ describe Puppet::Type.type(:dsc_xscomwebconsoleserversetup) do
   end
 
 
-  it 'should accept string-like int for dsc_sendodrreports' do
+  it 'should accept string-like uint for dsc_sendodrreports' do
     dsc_xscomwebconsoleserversetup[:dsc_sendodrreports] = '16'
     expect(dsc_xscomwebconsoleserversetup[:dsc_sendodrreports]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_sendodrreports' do
+  it 'should accept string-like uint for dsc_sendodrreports' do
     dsc_xscomwebconsoleserversetup[:dsc_sendodrreports] = '32'
     expect(dsc_xscomwebconsoleserversetup[:dsc_sendodrreports]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_sendodrreports' do
+  it 'should accept string-like uint for dsc_sendodrreports' do
     dsc_xscomwebconsoleserversetup[:dsc_sendodrreports] = '64'
     expect(dsc_xscomwebconsoleserversetup[:dsc_sendodrreports]).to eq(64)
   end

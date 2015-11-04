@@ -357,19 +357,19 @@ describe Puppet::Type.type(:dsc_xexchoabvirtualdirectory) do
   end
 
 
-  it 'should accept string-like int for dsc_pollinterval' do
+  it 'should accept string-like uint for dsc_pollinterval' do
     dsc_xexchoabvirtualdirectory[:dsc_pollinterval] = '16'
     expect(dsc_xexchoabvirtualdirectory[:dsc_pollinterval]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_pollinterval' do
+  it 'should accept string-like uint for dsc_pollinterval' do
     dsc_xexchoabvirtualdirectory[:dsc_pollinterval] = '32'
     expect(dsc_xexchoabvirtualdirectory[:dsc_pollinterval]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_pollinterval' do
+  it 'should accept string-like uint for dsc_pollinterval' do
     dsc_xexchoabvirtualdirectory[:dsc_pollinterval] = '64'
     expect(dsc_xexchoabvirtualdirectory[:dsc_pollinterval]).to eq(64)
   end

@@ -114,19 +114,19 @@ describe Puppet::Type.type(:dsc_xspdistributedcacheservice) do
   end
 
 
-  it 'should accept string-like int for dsc_cachesizeinmb' do
+  it 'should accept string-like uint for dsc_cachesizeinmb' do
     dsc_xspdistributedcacheservice[:dsc_cachesizeinmb] = '16'
     expect(dsc_xspdistributedcacheservice[:dsc_cachesizeinmb]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_cachesizeinmb' do
+  it 'should accept string-like uint for dsc_cachesizeinmb' do
     dsc_xspdistributedcacheservice[:dsc_cachesizeinmb] = '32'
     expect(dsc_xspdistributedcacheservice[:dsc_cachesizeinmb]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_cachesizeinmb' do
+  it 'should accept string-like uint for dsc_cachesizeinmb' do
     dsc_xspdistributedcacheservice[:dsc_cachesizeinmb] = '64'
     expect(dsc_xspdistributedcacheservice[:dsc_cachesizeinmb]).to eq(64)
   end

@@ -85,19 +85,19 @@ describe Puppet::Type.type(:dsc_xipaddress) do
   end
 
 
-  it 'should accept string-like int for dsc_subnetmask' do
+  it 'should accept string-like uint for dsc_subnetmask' do
     dsc_xipaddress[:dsc_subnetmask] = '16'
     expect(dsc_xipaddress[:dsc_subnetmask]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_subnetmask' do
+  it 'should accept string-like uint for dsc_subnetmask' do
     dsc_xipaddress[:dsc_subnetmask] = '32'
     expect(dsc_xipaddress[:dsc_subnetmask]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_subnetmask' do
+  it 'should accept string-like uint for dsc_subnetmask' do
     dsc_xipaddress[:dsc_subnetmask] = '64'
     expect(dsc_xipaddress[:dsc_subnetmask]).to eq(64)
   end

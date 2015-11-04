@@ -135,19 +135,19 @@ describe Puppet::Type.type(:dsc_xexchjetstress) do
   end
 
 
-  it 'should accept string-like int for dsc_maxwaitminutes' do
+  it 'should accept string-like uint for dsc_maxwaitminutes' do
     dsc_xexchjetstress[:dsc_maxwaitminutes] = '16'
     expect(dsc_xexchjetstress[:dsc_maxwaitminutes]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_maxwaitminutes' do
+  it 'should accept string-like uint for dsc_maxwaitminutes' do
     dsc_xexchjetstress[:dsc_maxwaitminutes] = '32'
     expect(dsc_xexchjetstress[:dsc_maxwaitminutes]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_maxwaitminutes' do
+  it 'should accept string-like uint for dsc_maxwaitminutes' do
     dsc_xexchjetstress[:dsc_maxwaitminutes] = '64'
     expect(dsc_xexchjetstress[:dsc_maxwaitminutes]).to eq(64)
   end
@@ -170,19 +170,19 @@ describe Puppet::Type.type(:dsc_xexchjetstress) do
   end
 
 
-  it 'should accept string-like int for dsc_minachievediops' do
+  it 'should accept string-like uint for dsc_minachievediops' do
     dsc_xexchjetstress[:dsc_minachievediops] = '16'
     expect(dsc_xexchjetstress[:dsc_minachievediops]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_minachievediops' do
+  it 'should accept string-like uint for dsc_minachievediops' do
     dsc_xexchjetstress[:dsc_minachievediops] = '32'
     expect(dsc_xexchjetstress[:dsc_minachievediops]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_minachievediops' do
+  it 'should accept string-like uint for dsc_minachievediops' do
     dsc_xexchjetstress[:dsc_minachievediops] = '64'
     expect(dsc_xexchjetstress[:dsc_minachievediops]).to eq(64)
   end

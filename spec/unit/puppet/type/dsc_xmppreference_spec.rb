@@ -209,19 +209,19 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   end
 
 
-  it 'should accept string-like int for dsc_quarantinepurgeitemsafterdelay' do
+  it 'should accept string-like uint for dsc_quarantinepurgeitemsafterdelay' do
     dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay] = '16'
     expect(dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_quarantinepurgeitemsafterdelay' do
+  it 'should accept string-like uint for dsc_quarantinepurgeitemsafterdelay' do
     dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay] = '32'
     expect(dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_quarantinepurgeitemsafterdelay' do
+  it 'should accept string-like uint for dsc_quarantinepurgeitemsafterdelay' do
     dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay] = '64'
     expect(dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay]).to eq(64)
   end
@@ -370,19 +370,19 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   end
 
 
-  it 'should accept string-like int for dsc_reportingadditionalactiontimeout' do
+  it 'should accept string-like uint for dsc_reportingadditionalactiontimeout' do
     dsc_xmppreference[:dsc_reportingadditionalactiontimeout] = '16'
     expect(dsc_xmppreference[:dsc_reportingadditionalactiontimeout]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_reportingadditionalactiontimeout' do
+  it 'should accept string-like uint for dsc_reportingadditionalactiontimeout' do
     dsc_xmppreference[:dsc_reportingadditionalactiontimeout] = '32'
     expect(dsc_xmppreference[:dsc_reportingadditionalactiontimeout]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_reportingadditionalactiontimeout' do
+  it 'should accept string-like uint for dsc_reportingadditionalactiontimeout' do
     dsc_xmppreference[:dsc_reportingadditionalactiontimeout] = '64'
     expect(dsc_xmppreference[:dsc_reportingadditionalactiontimeout]).to eq(64)
   end
@@ -405,19 +405,19 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   end
 
 
-  it 'should accept string-like int for dsc_reportingnoncriticaltimeout' do
+  it 'should accept string-like uint for dsc_reportingnoncriticaltimeout' do
     dsc_xmppreference[:dsc_reportingnoncriticaltimeout] = '16'
     expect(dsc_xmppreference[:dsc_reportingnoncriticaltimeout]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_reportingnoncriticaltimeout' do
+  it 'should accept string-like uint for dsc_reportingnoncriticaltimeout' do
     dsc_xmppreference[:dsc_reportingnoncriticaltimeout] = '32'
     expect(dsc_xmppreference[:dsc_reportingnoncriticaltimeout]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_reportingnoncriticaltimeout' do
+  it 'should accept string-like uint for dsc_reportingnoncriticaltimeout' do
     dsc_xmppreference[:dsc_reportingnoncriticaltimeout] = '64'
     expect(dsc_xmppreference[:dsc_reportingnoncriticaltimeout]).to eq(64)
   end
@@ -440,19 +440,19 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   end
 
 
-  it 'should accept string-like int for dsc_reportingcriticalfailuretimeout' do
+  it 'should accept string-like uint for dsc_reportingcriticalfailuretimeout' do
     dsc_xmppreference[:dsc_reportingcriticalfailuretimeout] = '16'
     expect(dsc_xmppreference[:dsc_reportingcriticalfailuretimeout]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_reportingcriticalfailuretimeout' do
+  it 'should accept string-like uint for dsc_reportingcriticalfailuretimeout' do
     dsc_xmppreference[:dsc_reportingcriticalfailuretimeout] = '32'
     expect(dsc_xmppreference[:dsc_reportingcriticalfailuretimeout]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_reportingcriticalfailuretimeout' do
+  it 'should accept string-like uint for dsc_reportingcriticalfailuretimeout' do
     dsc_xmppreference[:dsc_reportingcriticalfailuretimeout] = '64'
     expect(dsc_xmppreference[:dsc_reportingcriticalfailuretimeout]).to eq(64)
   end
@@ -475,19 +475,19 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   end
 
 
-  it 'should accept string-like int for dsc_scanavgcpuloadfactor' do
+  it 'should accept string-like uint for dsc_scanavgcpuloadfactor' do
     dsc_xmppreference[:dsc_scanavgcpuloadfactor] = '16'
     expect(dsc_xmppreference[:dsc_scanavgcpuloadfactor]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_scanavgcpuloadfactor' do
+  it 'should accept string-like uint for dsc_scanavgcpuloadfactor' do
     dsc_xmppreference[:dsc_scanavgcpuloadfactor] = '32'
     expect(dsc_xmppreference[:dsc_scanavgcpuloadfactor]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_scanavgcpuloadfactor' do
+  it 'should accept string-like uint for dsc_scanavgcpuloadfactor' do
     dsc_xmppreference[:dsc_scanavgcpuloadfactor] = '64'
     expect(dsc_xmppreference[:dsc_scanavgcpuloadfactor]).to eq(64)
   end
@@ -557,19 +557,19 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   end
 
 
-  it 'should accept string-like int for dsc_scanpurgeitemsafterdelay' do
+  it 'should accept string-like uint for dsc_scanpurgeitemsafterdelay' do
     dsc_xmppreference[:dsc_scanpurgeitemsafterdelay] = '16'
     expect(dsc_xmppreference[:dsc_scanpurgeitemsafterdelay]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_scanpurgeitemsafterdelay' do
+  it 'should accept string-like uint for dsc_scanpurgeitemsafterdelay' do
     dsc_xmppreference[:dsc_scanpurgeitemsafterdelay] = '32'
     expect(dsc_xmppreference[:dsc_scanpurgeitemsafterdelay]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_scanpurgeitemsafterdelay' do
+  it 'should accept string-like uint for dsc_scanpurgeitemsafterdelay' do
     dsc_xmppreference[:dsc_scanpurgeitemsafterdelay] = '64'
     expect(dsc_xmppreference[:dsc_scanpurgeitemsafterdelay]).to eq(64)
   end
@@ -821,19 +821,19 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   end
 
 
-  it 'should accept string-like int for dsc_signaturefirstaugraceperiod' do
+  it 'should accept string-like uint for dsc_signaturefirstaugraceperiod' do
     dsc_xmppreference[:dsc_signaturefirstaugraceperiod] = '16'
     expect(dsc_xmppreference[:dsc_signaturefirstaugraceperiod]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_signaturefirstaugraceperiod' do
+  it 'should accept string-like uint for dsc_signaturefirstaugraceperiod' do
     dsc_xmppreference[:dsc_signaturefirstaugraceperiod] = '32'
     expect(dsc_xmppreference[:dsc_signaturefirstaugraceperiod]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_signaturefirstaugraceperiod' do
+  it 'should accept string-like uint for dsc_signaturefirstaugraceperiod' do
     dsc_xmppreference[:dsc_signaturefirstaugraceperiod] = '64'
     expect(dsc_xmppreference[:dsc_signaturefirstaugraceperiod]).to eq(64)
   end
@@ -856,19 +856,19 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   end
 
 
-  it 'should accept string-like int for dsc_signatureaugraceperiod' do
+  it 'should accept string-like uint for dsc_signatureaugraceperiod' do
     dsc_xmppreference[:dsc_signatureaugraceperiod] = '16'
     expect(dsc_xmppreference[:dsc_signatureaugraceperiod]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_signatureaugraceperiod' do
+  it 'should accept string-like uint for dsc_signatureaugraceperiod' do
     dsc_xmppreference[:dsc_signatureaugraceperiod] = '32'
     expect(dsc_xmppreference[:dsc_signatureaugraceperiod]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_signatureaugraceperiod' do
+  it 'should accept string-like uint for dsc_signatureaugraceperiod' do
     dsc_xmppreference[:dsc_signatureaugraceperiod] = '64'
     expect(dsc_xmppreference[:dsc_signatureaugraceperiod]).to eq(64)
   end
@@ -1096,19 +1096,19 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   end
 
 
-  it 'should accept string-like int for dsc_signatureupdatecatchupinterval' do
+  it 'should accept string-like uint for dsc_signatureupdatecatchupinterval' do
     dsc_xmppreference[:dsc_signatureupdatecatchupinterval] = '16'
     expect(dsc_xmppreference[:dsc_signatureupdatecatchupinterval]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_signatureupdatecatchupinterval' do
+  it 'should accept string-like uint for dsc_signatureupdatecatchupinterval' do
     dsc_xmppreference[:dsc_signatureupdatecatchupinterval] = '32'
     expect(dsc_xmppreference[:dsc_signatureupdatecatchupinterval]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_signatureupdatecatchupinterval' do
+  it 'should accept string-like uint for dsc_signatureupdatecatchupinterval' do
     dsc_xmppreference[:dsc_signatureupdatecatchupinterval] = '64'
     expect(dsc_xmppreference[:dsc_signatureupdatecatchupinterval]).to eq(64)
   end
@@ -1131,19 +1131,19 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   end
 
 
-  it 'should accept string-like int for dsc_signatureupdateinterval' do
+  it 'should accept string-like uint for dsc_signatureupdateinterval' do
     dsc_xmppreference[:dsc_signatureupdateinterval] = '16'
     expect(dsc_xmppreference[:dsc_signatureupdateinterval]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_signatureupdateinterval' do
+  it 'should accept string-like uint for dsc_signatureupdateinterval' do
     dsc_xmppreference[:dsc_signatureupdateinterval] = '32'
     expect(dsc_xmppreference[:dsc_signatureupdateinterval]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_signatureupdateinterval' do
+  it 'should accept string-like uint for dsc_signatureupdateinterval' do
     dsc_xmppreference[:dsc_signatureupdateinterval] = '64'
     expect(dsc_xmppreference[:dsc_signatureupdateinterval]).to eq(64)
   end
@@ -2015,19 +2015,19 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   end
 
 
-  it 'should accept string-like int for dsc_threatiddefaultaction_ids' do
+  it 'should accept string-like uint for dsc_threatiddefaultaction_ids' do
     dsc_xmppreference[:dsc_threatiddefaultaction_ids] = '16'
     expect(dsc_xmppreference[:dsc_threatiddefaultaction_ids]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_threatiddefaultaction_ids' do
+  it 'should accept string-like uint for dsc_threatiddefaultaction_ids' do
     dsc_xmppreference[:dsc_threatiddefaultaction_ids] = '32'
     expect(dsc_xmppreference[:dsc_threatiddefaultaction_ids]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_threatiddefaultaction_ids' do
+  it 'should accept string-like uint for dsc_threatiddefaultaction_ids' do
     dsc_xmppreference[:dsc_threatiddefaultaction_ids] = '64'
     expect(dsc_xmppreference[:dsc_threatiddefaultaction_ids]).to eq(64)
   end

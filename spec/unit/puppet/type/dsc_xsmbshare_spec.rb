@@ -122,19 +122,19 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
   end
 
 
-  it 'should accept string-like int for dsc_concurrentuserlimit' do
+  it 'should accept string-like uint for dsc_concurrentuserlimit' do
     dsc_xsmbshare[:dsc_concurrentuserlimit] = '16'
     expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_concurrentuserlimit' do
+  it 'should accept string-like uint for dsc_concurrentuserlimit' do
     dsc_xsmbshare[:dsc_concurrentuserlimit] = '32'
     expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_concurrentuserlimit' do
+  it 'should accept string-like uint for dsc_concurrentuserlimit' do
     dsc_xsmbshare[:dsc_concurrentuserlimit] = '64'
     expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(64)
   end

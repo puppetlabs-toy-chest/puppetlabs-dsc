@@ -165,19 +165,19 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
   end
 
 
-  it 'should accept string-like int for dsc_usagelogcuttime' do
+  it 'should accept string-like uint for dsc_usagelogcuttime' do
     dsc_xspusageapplication[:dsc_usagelogcuttime] = '16'
     expect(dsc_xspusageapplication[:dsc_usagelogcuttime]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_usagelogcuttime' do
+  it 'should accept string-like uint for dsc_usagelogcuttime' do
     dsc_xspusageapplication[:dsc_usagelogcuttime] = '32'
     expect(dsc_xspusageapplication[:dsc_usagelogcuttime]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_usagelogcuttime' do
+  it 'should accept string-like uint for dsc_usagelogcuttime' do
     dsc_xspusageapplication[:dsc_usagelogcuttime] = '64'
     expect(dsc_xspusageapplication[:dsc_usagelogcuttime]).to eq(64)
   end
@@ -216,19 +216,19 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
   end
 
 
-  it 'should accept string-like int for dsc_usagelogmaxfilesizekb' do
+  it 'should accept string-like uint for dsc_usagelogmaxfilesizekb' do
     dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb] = '16'
     expect(dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_usagelogmaxfilesizekb' do
+  it 'should accept string-like uint for dsc_usagelogmaxfilesizekb' do
     dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb] = '32'
     expect(dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_usagelogmaxfilesizekb' do
+  it 'should accept string-like uint for dsc_usagelogmaxfilesizekb' do
     dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb] = '64'
     expect(dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb]).to eq(64)
   end
@@ -251,19 +251,19 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
   end
 
 
-  it 'should accept string-like int for dsc_usagelogmaxspacegb' do
+  it 'should accept string-like uint for dsc_usagelogmaxspacegb' do
     dsc_xspusageapplication[:dsc_usagelogmaxspacegb] = '16'
     expect(dsc_xspusageapplication[:dsc_usagelogmaxspacegb]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_usagelogmaxspacegb' do
+  it 'should accept string-like uint for dsc_usagelogmaxspacegb' do
     dsc_xspusageapplication[:dsc_usagelogmaxspacegb] = '32'
     expect(dsc_xspusageapplication[:dsc_usagelogmaxspacegb]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_usagelogmaxspacegb' do
+  it 'should accept string-like uint for dsc_usagelogmaxspacegb' do
     dsc_xspusageapplication[:dsc_usagelogmaxspacegb] = '64'
     expect(dsc_xspusageapplication[:dsc_usagelogmaxspacegb]).to eq(64)
   end

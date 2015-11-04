@@ -117,19 +117,19 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
   end
 
 
-  it 'should accept string-like int for dsc_retry' do
+  it 'should accept string-like uint for dsc_retry' do
     dsc_xrobocopy[:dsc_retry] = '16'
     expect(dsc_xrobocopy[:dsc_retry]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_retry' do
+  it 'should accept string-like uint for dsc_retry' do
     dsc_xrobocopy[:dsc_retry] = '32'
     expect(dsc_xrobocopy[:dsc_retry]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_retry' do
+  it 'should accept string-like uint for dsc_retry' do
     dsc_xrobocopy[:dsc_retry] = '64'
     expect(dsc_xrobocopy[:dsc_retry]).to eq(64)
   end
@@ -152,19 +152,19 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
   end
 
 
-  it 'should accept string-like int for dsc_wait' do
+  it 'should accept string-like uint for dsc_wait' do
     dsc_xrobocopy[:dsc_wait] = '16'
     expect(dsc_xrobocopy[:dsc_wait]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_wait' do
+  it 'should accept string-like uint for dsc_wait' do
     dsc_xrobocopy[:dsc_wait] = '32'
     expect(dsc_xrobocopy[:dsc_wait]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_wait' do
+  it 'should accept string-like uint for dsc_wait' do
     dsc_xrobocopy[:dsc_wait] = '64'
     expect(dsc_xrobocopy[:dsc_wait]).to eq(64)
   end

@@ -163,19 +163,19 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
   end
 
 
-  it 'should accept string-like int for dsc_activationpreference' do
+  it 'should accept string-like uint for dsc_activationpreference' do
     dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = '16'
     expect(dsc_xexchmailboxdatabasecopy[:dsc_activationpreference]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_activationpreference' do
+  it 'should accept string-like uint for dsc_activationpreference' do
     dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = '32'
     expect(dsc_xexchmailboxdatabasecopy[:dsc_activationpreference]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_activationpreference' do
+  it 'should accept string-like uint for dsc_activationpreference' do
     dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = '64'
     expect(dsc_xexchmailboxdatabasecopy[:dsc_activationpreference]).to eq(64)
   end

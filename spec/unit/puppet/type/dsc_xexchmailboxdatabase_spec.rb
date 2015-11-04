@@ -104,19 +104,19 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
   end
 
 
-  it 'should accept string-like int for dsc_databasecopycount' do
+  it 'should accept string-like uint for dsc_databasecopycount' do
     dsc_xexchmailboxdatabase[:dsc_databasecopycount] = '16'
     expect(dsc_xexchmailboxdatabase[:dsc_databasecopycount]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_databasecopycount' do
+  it 'should accept string-like uint for dsc_databasecopycount' do
     dsc_xexchmailboxdatabase[:dsc_databasecopycount] = '32'
     expect(dsc_xexchmailboxdatabase[:dsc_databasecopycount]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_databasecopycount' do
+  it 'should accept string-like uint for dsc_databasecopycount' do
     dsc_xexchmailboxdatabase[:dsc_databasecopycount] = '64'
     expect(dsc_xexchmailboxdatabase[:dsc_databasecopycount]).to eq(64)
   end

@@ -67,19 +67,19 @@ describe Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel) do
   end
 
 
-  it 'should accept string-like int for dsc_secureconnectionlevel' do
+  it 'should accept string-like uint for dsc_secureconnectionlevel' do
     dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = '16'
     expect(dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_secureconnectionlevel' do
+  it 'should accept string-like uint for dsc_secureconnectionlevel' do
     dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = '32'
     expect(dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_secureconnectionlevel' do
+  it 'should accept string-like uint for dsc_secureconnectionlevel' do
     dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = '64'
     expect(dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel]).to eq(64)
   end

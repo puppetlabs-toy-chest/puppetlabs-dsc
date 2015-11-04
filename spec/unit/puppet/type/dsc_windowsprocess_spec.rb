@@ -241,19 +241,19 @@ describe Puppet::Type.type(:dsc_windowsprocess) do
   end
 
 
-  it 'should accept string-like int for dsc_pagedmemorysize' do
+  it 'should accept string-like uint for dsc_pagedmemorysize' do
     dsc_windowsprocess[:dsc_pagedmemorysize] = '16'
     expect(dsc_windowsprocess[:dsc_pagedmemorysize]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_pagedmemorysize' do
+  it 'should accept string-like uint for dsc_pagedmemorysize' do
     dsc_windowsprocess[:dsc_pagedmemorysize] = '32'
     expect(dsc_windowsprocess[:dsc_pagedmemorysize]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_pagedmemorysize' do
+  it 'should accept string-like uint for dsc_pagedmemorysize' do
     dsc_windowsprocess[:dsc_pagedmemorysize] = '64'
     expect(dsc_windowsprocess[:dsc_pagedmemorysize]).to eq(64)
   end
@@ -276,19 +276,19 @@ describe Puppet::Type.type(:dsc_windowsprocess) do
   end
 
 
-  it 'should accept string-like int for dsc_nonpagedmemorysize' do
+  it 'should accept string-like uint for dsc_nonpagedmemorysize' do
     dsc_windowsprocess[:dsc_nonpagedmemorysize] = '16'
     expect(dsc_windowsprocess[:dsc_nonpagedmemorysize]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_nonpagedmemorysize' do
+  it 'should accept string-like uint for dsc_nonpagedmemorysize' do
     dsc_windowsprocess[:dsc_nonpagedmemorysize] = '32'
     expect(dsc_windowsprocess[:dsc_nonpagedmemorysize]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_nonpagedmemorysize' do
+  it 'should accept string-like uint for dsc_nonpagedmemorysize' do
     dsc_windowsprocess[:dsc_nonpagedmemorysize] = '64'
     expect(dsc_windowsprocess[:dsc_nonpagedmemorysize]).to eq(64)
   end
@@ -311,19 +311,19 @@ describe Puppet::Type.type(:dsc_windowsprocess) do
   end
 
 
-  it 'should accept string-like int for dsc_virtualmemorysize' do
+  it 'should accept string-like uint for dsc_virtualmemorysize' do
     dsc_windowsprocess[:dsc_virtualmemorysize] = '16'
     expect(dsc_windowsprocess[:dsc_virtualmemorysize]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_virtualmemorysize' do
+  it 'should accept string-like uint for dsc_virtualmemorysize' do
     dsc_windowsprocess[:dsc_virtualmemorysize] = '32'
     expect(dsc_windowsprocess[:dsc_virtualmemorysize]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_virtualmemorysize' do
+  it 'should accept string-like uint for dsc_virtualmemorysize' do
     dsc_windowsprocess[:dsc_virtualmemorysize] = '64'
     expect(dsc_windowsprocess[:dsc_virtualmemorysize]).to eq(64)
   end
@@ -372,19 +372,19 @@ describe Puppet::Type.type(:dsc_windowsprocess) do
   end
 
 
-  it 'should accept string-like int for dsc_handlecount' do
+  it 'should accept string-like uint for dsc_handlecount' do
     dsc_windowsprocess[:dsc_handlecount] = '16'
     expect(dsc_windowsprocess[:dsc_handlecount]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_handlecount' do
+  it 'should accept string-like uint for dsc_handlecount' do
     dsc_windowsprocess[:dsc_handlecount] = '32'
     expect(dsc_windowsprocess[:dsc_handlecount]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_handlecount' do
+  it 'should accept string-like uint for dsc_handlecount' do
     dsc_windowsprocess[:dsc_handlecount] = '64'
     expect(dsc_windowsprocess[:dsc_handlecount]).to eq(64)
   end
@@ -433,19 +433,19 @@ describe Puppet::Type.type(:dsc_windowsprocess) do
   end
 
 
-  it 'should accept string-like int for dsc_processid' do
+  it 'should accept string-like uint for dsc_processid' do
     dsc_windowsprocess[:dsc_processid] = '16'
     expect(dsc_windowsprocess[:dsc_processid]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_processid' do
+  it 'should accept string-like uint for dsc_processid' do
     dsc_windowsprocess[:dsc_processid] = '32'
     expect(dsc_windowsprocess[:dsc_processid]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_processid' do
+  it 'should accept string-like uint for dsc_processid' do
     dsc_windowsprocess[:dsc_processid] = '64'
     expect(dsc_windowsprocess[:dsc_processid]).to eq(64)
   end

@@ -241,19 +241,19 @@ describe Puppet::Type.type(:dsc_xscomreportingserversetup) do
   end
 
 
-  it 'should accept string-like int for dsc_usemicrosoftupdate' do
+  it 'should accept string-like uint for dsc_usemicrosoftupdate' do
     dsc_xscomreportingserversetup[:dsc_usemicrosoftupdate] = '16'
     expect(dsc_xscomreportingserversetup[:dsc_usemicrosoftupdate]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_usemicrosoftupdate' do
+  it 'should accept string-like uint for dsc_usemicrosoftupdate' do
     dsc_xscomreportingserversetup[:dsc_usemicrosoftupdate] = '32'
     expect(dsc_xscomreportingserversetup[:dsc_usemicrosoftupdate]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_usemicrosoftupdate' do
+  it 'should accept string-like uint for dsc_usemicrosoftupdate' do
     dsc_xscomreportingserversetup[:dsc_usemicrosoftupdate] = '64'
     expect(dsc_xscomreportingserversetup[:dsc_usemicrosoftupdate]).to eq(64)
   end
@@ -276,19 +276,19 @@ describe Puppet::Type.type(:dsc_xscomreportingserversetup) do
   end
 
 
-  it 'should accept string-like int for dsc_sendceipreports' do
+  it 'should accept string-like uint for dsc_sendceipreports' do
     dsc_xscomreportingserversetup[:dsc_sendceipreports] = '16'
     expect(dsc_xscomreportingserversetup[:dsc_sendceipreports]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_sendceipreports' do
+  it 'should accept string-like uint for dsc_sendceipreports' do
     dsc_xscomreportingserversetup[:dsc_sendceipreports] = '32'
     expect(dsc_xscomreportingserversetup[:dsc_sendceipreports]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_sendceipreports' do
+  it 'should accept string-like uint for dsc_sendceipreports' do
     dsc_xscomreportingserversetup[:dsc_sendceipreports] = '64'
     expect(dsc_xscomreportingserversetup[:dsc_sendceipreports]).to eq(64)
   end
@@ -361,19 +361,19 @@ describe Puppet::Type.type(:dsc_xscomreportingserversetup) do
   end
 
 
-  it 'should accept string-like int for dsc_sendodrreports' do
+  it 'should accept string-like uint for dsc_sendodrreports' do
     dsc_xscomreportingserversetup[:dsc_sendodrreports] = '16'
     expect(dsc_xscomreportingserversetup[:dsc_sendodrreports]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_sendodrreports' do
+  it 'should accept string-like uint for dsc_sendodrreports' do
     dsc_xscomreportingserversetup[:dsc_sendodrreports] = '32'
     expect(dsc_xscomreportingserversetup[:dsc_sendodrreports]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_sendodrreports' do
+  it 'should accept string-like uint for dsc_sendodrreports' do
     dsc_xscomreportingserversetup[:dsc_sendodrreports] = '64'
     expect(dsc_xscomreportingserversetup[:dsc_sendodrreports]).to eq(64)
   end

@@ -78,19 +78,19 @@ describe Puppet::Type.type(:dsc_xwaitforaddomain) do
   end
 
 
-  it 'should accept string-like int for dsc_retryintervalsec' do
+  it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xwaitforaddomain[:dsc_retryintervalsec] = '16'
     expect(dsc_xwaitforaddomain[:dsc_retryintervalsec]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_retryintervalsec' do
+  it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xwaitforaddomain[:dsc_retryintervalsec] = '32'
     expect(dsc_xwaitforaddomain[:dsc_retryintervalsec]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_retryintervalsec' do
+  it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xwaitforaddomain[:dsc_retryintervalsec] = '64'
     expect(dsc_xwaitforaddomain[:dsc_retryintervalsec]).to eq(64)
   end
@@ -113,19 +113,19 @@ describe Puppet::Type.type(:dsc_xwaitforaddomain) do
   end
 
 
-  it 'should accept string-like int for dsc_retrycount' do
+  it 'should accept string-like uint for dsc_retrycount' do
     dsc_xwaitforaddomain[:dsc_retrycount] = '16'
     expect(dsc_xwaitforaddomain[:dsc_retrycount]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_retrycount' do
+  it 'should accept string-like uint for dsc_retrycount' do
     dsc_xwaitforaddomain[:dsc_retrycount] = '32'
     expect(dsc_xwaitforaddomain[:dsc_retrycount]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_retrycount' do
+  it 'should accept string-like uint for dsc_retrycount' do
     dsc_xwaitforaddomain[:dsc_retrycount] = '64'
     expect(dsc_xwaitforaddomain[:dsc_retrycount]).to eq(64)
   end

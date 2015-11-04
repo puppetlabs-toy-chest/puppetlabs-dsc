@@ -290,19 +290,19 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
   end
 
 
-  it 'should accept string-like int for dsc_maxitems' do
+  it 'should accept string-like uint for dsc_maxitems' do
     dsc_xwefsubscription[:dsc_maxitems] = '16'
     expect(dsc_xwefsubscription[:dsc_maxitems]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_maxitems' do
+  it 'should accept string-like uint for dsc_maxitems' do
     dsc_xwefsubscription[:dsc_maxitems] = '32'
     expect(dsc_xwefsubscription[:dsc_maxitems]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_maxitems' do
+  it 'should accept string-like uint for dsc_maxitems' do
     dsc_xwefsubscription[:dsc_maxitems] = '64'
     expect(dsc_xwefsubscription[:dsc_maxitems]).to eq(64)
   end
@@ -325,19 +325,19 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
   end
 
 
-  it 'should accept string-like int for dsc_maxlatencytime' do
+  it 'should accept string-like uint for dsc_maxlatencytime' do
     dsc_xwefsubscription[:dsc_maxlatencytime] = '16'
     expect(dsc_xwefsubscription[:dsc_maxlatencytime]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_maxlatencytime' do
+  it 'should accept string-like uint for dsc_maxlatencytime' do
     dsc_xwefsubscription[:dsc_maxlatencytime] = '32'
     expect(dsc_xwefsubscription[:dsc_maxlatencytime]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_maxlatencytime' do
+  it 'should accept string-like uint for dsc_maxlatencytime' do
     dsc_xwefsubscription[:dsc_maxlatencytime] = '64'
     expect(dsc_xwefsubscription[:dsc_maxlatencytime]).to eq(64)
   end
@@ -360,19 +360,19 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
   end
 
 
-  it 'should accept string-like int for dsc_heartbeatinterval' do
+  it 'should accept string-like uint for dsc_heartbeatinterval' do
     dsc_xwefsubscription[:dsc_heartbeatinterval] = '16'
     expect(dsc_xwefsubscription[:dsc_heartbeatinterval]).to eq(16)
   end
 
 
-  it 'should accept string-like int for dsc_heartbeatinterval' do
+  it 'should accept string-like uint for dsc_heartbeatinterval' do
     dsc_xwefsubscription[:dsc_heartbeatinterval] = '32'
     expect(dsc_xwefsubscription[:dsc_heartbeatinterval]).to eq(32)
   end
 
 
-  it 'should accept string-like int for dsc_heartbeatinterval' do
+  it 'should accept string-like uint for dsc_heartbeatinterval' do
     dsc_xwefsubscription[:dsc_heartbeatinterval] = '64'
     expect(dsc_xwefsubscription[:dsc_heartbeatinterval]).to eq(64)
   end

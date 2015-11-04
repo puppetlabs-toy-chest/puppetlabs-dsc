@@ -176,7 +176,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
   end
 <%      @spec_test_values['munged_uints'].each do |munged_uint| %>
 
-  it 'should accept string-like int for dsc_<%= property.name.downcase %>' do
+  it 'should accept string-like uint for dsc_<%= property.name.downcase %>' do
     dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(munged_uint) %>
     expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(munged_uint.to_i) %>)
   end
