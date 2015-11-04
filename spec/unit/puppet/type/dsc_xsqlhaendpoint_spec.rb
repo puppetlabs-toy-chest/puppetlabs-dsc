@@ -100,18 +100,15 @@ describe Puppet::Type.type(:dsc_xsqlhaendpoint) do
     expect(dsc_xsqlhaendpoint[:dsc_portnumber]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_portnumber' do
     dsc_xsqlhaendpoint[:dsc_portnumber] = '16'
     expect(dsc_xsqlhaendpoint[:dsc_portnumber]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_portnumber' do
     dsc_xsqlhaendpoint[:dsc_portnumber] = '32'
     expect(dsc_xsqlhaendpoint[:dsc_portnumber]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_portnumber' do
     dsc_xsqlhaendpoint[:dsc_portnumber] = '64'

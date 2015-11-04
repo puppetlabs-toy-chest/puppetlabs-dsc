@@ -310,18 +310,15 @@ describe Puppet::Type.type(:dsc_xservice) do
     expect(dsc_xservice[:dsc_startuptimeout]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_startuptimeout' do
     dsc_xservice[:dsc_startuptimeout] = '16'
     expect(dsc_xservice[:dsc_startuptimeout]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_startuptimeout' do
     dsc_xservice[:dsc_startuptimeout] = '32'
     expect(dsc_xservice[:dsc_startuptimeout]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_startuptimeout' do
     dsc_xservice[:dsc_startuptimeout] = '64'

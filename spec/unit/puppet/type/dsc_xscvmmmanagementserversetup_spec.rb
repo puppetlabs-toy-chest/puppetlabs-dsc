@@ -434,18 +434,15 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigotcpport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_indigotcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigotcpport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_indigotcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = '32'
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigotcpport]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_indigotcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = '64'
@@ -469,18 +466,15 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_indigohttpsport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_indigohttpsport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = '32'
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_indigohttpsport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = '64'
@@ -504,18 +498,15 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_indigonettcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_indigonettcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = '32'
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_indigonettcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = '64'
@@ -539,18 +530,15 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_indigohttpport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_indigohttpport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = '32'
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpport]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_indigohttpport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = '64'
@@ -574,18 +562,15 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_wsmantcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_wsmantcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = '32'
     expect(dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_wsmantcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = '64'
@@ -609,18 +594,15 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_bitstcpport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_bitstcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_bitstcpport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_bitstcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = '32'
     expect(dsc_xscvmmmanagementserversetup[:dsc_bitstcpport]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_bitstcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = '64'
@@ -756,18 +738,15 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase]).to eq(1)
   end
 
-
   it 'should accept string-like uint for dsc_retainsqldatabase' do
     dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_retainsqldatabase' do
     dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = '32'
     expect(dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_retainsqldatabase' do
     dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = '64'
@@ -791,18 +770,15 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall]).to eq(1)
   end
 
-
   it 'should accept string-like uint for dsc_forcehavmmuninstall' do
     dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_forcehavmmuninstall' do
     dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = '32'
     expect(dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_forcehavmmuninstall' do
     dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = '64'
@@ -826,18 +802,15 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_sqmoptin]).to eq(1)
   end
 
-
   it 'should accept string-like uint for dsc_sqmoptin' do
     dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_sqmoptin]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_sqmoptin' do
     dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = '32'
     expect(dsc_xscvmmmanagementserversetup[:dsc_sqmoptin]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_sqmoptin' do
     dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = '64'
@@ -861,18 +834,15 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_muoptin]).to eq(1)
   end
 
-
   it 'should accept string-like uint for dsc_muoptin' do
     dsc_xscvmmmanagementserversetup[:dsc_muoptin] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_muoptin]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_muoptin' do
     dsc_xscvmmmanagementserversetup[:dsc_muoptin] = '32'
     expect(dsc_xscvmmmanagementserversetup[:dsc_muoptin]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_muoptin' do
     dsc_xscvmmmanagementserversetup[:dsc_muoptin] = '64'

@@ -388,18 +388,15 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect(dsc_xadcscertificationauthority[:dsc_keylength]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_keylength' do
     dsc_xadcscertificationauthority[:dsc_keylength] = '16'
     expect(dsc_xadcscertificationauthority[:dsc_keylength]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_keylength' do
     dsc_xadcscertificationauthority[:dsc_keylength] = '32'
     expect(dsc_xadcscertificationauthority[:dsc_keylength]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_keylength' do
     dsc_xadcscertificationauthority[:dsc_keylength] = '64'
@@ -672,18 +669,15 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect(dsc_xadcscertificationauthority[:dsc_validityperiodunits]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_validityperiodunits' do
     dsc_xadcscertificationauthority[:dsc_validityperiodunits] = '16'
     expect(dsc_xadcscertificationauthority[:dsc_validityperiodunits]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_validityperiodunits' do
     dsc_xadcscertificationauthority[:dsc_validityperiodunits] = '32'
     expect(dsc_xadcscertificationauthority[:dsc_validityperiodunits]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_validityperiodunits' do
     dsc_xadcscertificationauthority[:dsc_validityperiodunits] = '64'

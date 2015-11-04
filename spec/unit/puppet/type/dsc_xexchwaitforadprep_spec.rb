@@ -77,24 +77,20 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     expect(dsc_xexchwaitforadprep[:dsc_schemaversion]).to eq(-32)
   end
 
-
   it 'should accept string-like int for dsc_schemaversion' do
     dsc_xexchwaitforadprep[:dsc_schemaversion] = '16'
     expect(dsc_xexchwaitforadprep[:dsc_schemaversion]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_schemaversion' do
     dsc_xexchwaitforadprep[:dsc_schemaversion] = '-16'
     expect(dsc_xexchwaitforadprep[:dsc_schemaversion]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_schemaversion' do
     dsc_xexchwaitforadprep[:dsc_schemaversion] = '32'
     expect(dsc_xexchwaitforadprep[:dsc_schemaversion]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_schemaversion' do
     dsc_xexchwaitforadprep[:dsc_schemaversion] = '-32'
@@ -107,18 +103,15 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     expect(dsc_xexchwaitforadprep[:dsc_schemaversion]).to eq(-32)
   end
 
-
   it 'should accept string-like uint for dsc_schemaversion' do
     dsc_xexchwaitforadprep[:dsc_schemaversion] = '16'
     expect(dsc_xexchwaitforadprep[:dsc_schemaversion]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_schemaversion' do
     dsc_xexchwaitforadprep[:dsc_schemaversion] = '32'
     expect(dsc_xexchwaitforadprep[:dsc_schemaversion]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_schemaversion' do
     dsc_xexchwaitforadprep[:dsc_schemaversion] = '64'
@@ -138,24 +131,20 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     expect(dsc_xexchwaitforadprep[:dsc_organizationversion]).to eq(-32)
   end
 
-
   it 'should accept string-like int for dsc_organizationversion' do
     dsc_xexchwaitforadprep[:dsc_organizationversion] = '16'
     expect(dsc_xexchwaitforadprep[:dsc_organizationversion]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_organizationversion' do
     dsc_xexchwaitforadprep[:dsc_organizationversion] = '-16'
     expect(dsc_xexchwaitforadprep[:dsc_organizationversion]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_organizationversion' do
     dsc_xexchwaitforadprep[:dsc_organizationversion] = '32'
     expect(dsc_xexchwaitforadprep[:dsc_organizationversion]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_organizationversion' do
     dsc_xexchwaitforadprep[:dsc_organizationversion] = '-32'
@@ -168,18 +157,15 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     expect(dsc_xexchwaitforadprep[:dsc_organizationversion]).to eq(-32)
   end
 
-
   it 'should accept string-like uint for dsc_organizationversion' do
     dsc_xexchwaitforadprep[:dsc_organizationversion] = '16'
     expect(dsc_xexchwaitforadprep[:dsc_organizationversion]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_organizationversion' do
     dsc_xexchwaitforadprep[:dsc_organizationversion] = '32'
     expect(dsc_xexchwaitforadprep[:dsc_organizationversion]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_organizationversion' do
     dsc_xexchwaitforadprep[:dsc_organizationversion] = '64'
@@ -199,24 +185,20 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     expect(dsc_xexchwaitforadprep[:dsc_domainversion]).to eq(-32)
   end
 
-
   it 'should accept string-like int for dsc_domainversion' do
     dsc_xexchwaitforadprep[:dsc_domainversion] = '16'
     expect(dsc_xexchwaitforadprep[:dsc_domainversion]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_domainversion' do
     dsc_xexchwaitforadprep[:dsc_domainversion] = '-16'
     expect(dsc_xexchwaitforadprep[:dsc_domainversion]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_domainversion' do
     dsc_xexchwaitforadprep[:dsc_domainversion] = '32'
     expect(dsc_xexchwaitforadprep[:dsc_domainversion]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_domainversion' do
     dsc_xexchwaitforadprep[:dsc_domainversion] = '-32'
@@ -229,18 +211,15 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     expect(dsc_xexchwaitforadprep[:dsc_domainversion]).to eq(-32)
   end
 
-
   it 'should accept string-like uint for dsc_domainversion' do
     dsc_xexchwaitforadprep[:dsc_domainversion] = '16'
     expect(dsc_xexchwaitforadprep[:dsc_domainversion]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_domainversion' do
     dsc_xexchwaitforadprep[:dsc_domainversion] = '32'
     expect(dsc_xexchwaitforadprep[:dsc_domainversion]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_domainversion' do
     dsc_xexchwaitforadprep[:dsc_domainversion] = '64'
@@ -281,18 +260,15 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     expect(dsc_xexchwaitforadprep[:dsc_retryintervalsec]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xexchwaitforadprep[:dsc_retryintervalsec] = '16'
     expect(dsc_xexchwaitforadprep[:dsc_retryintervalsec]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xexchwaitforadprep[:dsc_retryintervalsec] = '32'
     expect(dsc_xexchwaitforadprep[:dsc_retryintervalsec]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xexchwaitforadprep[:dsc_retryintervalsec] = '64'
@@ -316,18 +292,15 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     expect(dsc_xexchwaitforadprep[:dsc_retrycount]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_retrycount' do
     dsc_xexchwaitforadprep[:dsc_retrycount] = '16'
     expect(dsc_xexchwaitforadprep[:dsc_retrycount]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_retrycount' do
     dsc_xexchwaitforadprep[:dsc_retrycount] = '32'
     expect(dsc_xexchwaitforadprep[:dsc_retrycount]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_retrycount' do
     dsc_xexchwaitforadprep[:dsc_retrycount] = '64'

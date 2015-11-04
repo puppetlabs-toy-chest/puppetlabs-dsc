@@ -66,18 +66,15 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
     expect(dsc_xazuresqldatabase[:dsc_maximumsizeingb]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_maximumsizeingb' do
     dsc_xazuresqldatabase[:dsc_maximumsizeingb] = '16'
     expect(dsc_xazuresqldatabase[:dsc_maximumsizeingb]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_maximumsizeingb' do
     dsc_xazuresqldatabase[:dsc_maximumsizeingb] = '32'
     expect(dsc_xazuresqldatabase[:dsc_maximumsizeingb]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_maximumsizeingb' do
     dsc_xazuresqldatabase[:dsc_maximumsizeingb] = '64'

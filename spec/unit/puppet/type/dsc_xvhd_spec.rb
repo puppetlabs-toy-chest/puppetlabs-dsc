@@ -116,18 +116,15 @@ describe Puppet::Type.type(:dsc_xvhd) do
     expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(64)
   end
 
-
   it 'should accept string-like uint for dsc_maximumsizebytes' do
     dsc_xvhd[:dsc_maximumsizebytes] = '16'
     expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_maximumsizebytes' do
     dsc_xvhd[:dsc_maximumsizebytes] = '32'
     expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_maximumsizebytes' do
     dsc_xvhd[:dsc_maximumsizebytes] = '64'
@@ -273,18 +270,15 @@ describe Puppet::Type.type(:dsc_xvhd) do
     expect(dsc_xvhd[:dsc_filesizebytes]).to eq(64)
   end
 
-
   it 'should accept string-like uint for dsc_filesizebytes' do
     dsc_xvhd[:dsc_filesizebytes] = '16'
     expect(dsc_xvhd[:dsc_filesizebytes]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_filesizebytes' do
     dsc_xvhd[:dsc_filesizebytes] = '32'
     expect(dsc_xvhd[:dsc_filesizebytes]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_filesizebytes' do
     dsc_xvhd[:dsc_filesizebytes] = '64'

@@ -129,18 +129,15 @@ describe Puppet::Type.type(:dsc_xspsecurestoreserviceapp) do
     expect(dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_auditlogmaxsize' do
     dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize] = '16'
     expect(dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_auditlogmaxsize' do
     dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize] = '32'
     expect(dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_auditlogmaxsize' do
     dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize] = '64'

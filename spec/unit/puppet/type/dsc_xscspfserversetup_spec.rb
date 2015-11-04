@@ -278,18 +278,15 @@ describe Puppet::Type.type(:dsc_xscspfserversetup) do
     expect(dsc_xscspfserversetup[:dsc_databaseportnumber]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_databaseportnumber' do
     dsc_xscspfserversetup[:dsc_databaseportnumber] = '16'
     expect(dsc_xscspfserversetup[:dsc_databaseportnumber]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_databaseportnumber' do
     dsc_xscspfserversetup[:dsc_databaseportnumber] = '32'
     expect(dsc_xscspfserversetup[:dsc_databaseportnumber]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_databaseportnumber' do
     dsc_xscspfserversetup[:dsc_databaseportnumber] = '64'
@@ -329,18 +326,15 @@ describe Puppet::Type.type(:dsc_xscspfserversetup) do
     expect(dsc_xscspfserversetup[:dsc_websiteportnumber]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_websiteportnumber' do
     dsc_xscspfserversetup[:dsc_websiteportnumber] = '16'
     expect(dsc_xscspfserversetup[:dsc_websiteportnumber]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_websiteportnumber' do
     dsc_xscspfserversetup[:dsc_websiteportnumber] = '32'
     expect(dsc_xscspfserversetup[:dsc_websiteportnumber]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_websiteportnumber' do
     dsc_xscspfserversetup[:dsc_websiteportnumber] = '64'

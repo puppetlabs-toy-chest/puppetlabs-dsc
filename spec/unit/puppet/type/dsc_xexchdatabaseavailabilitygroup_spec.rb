@@ -92,24 +92,20 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers]).to eq(-32)
   end
 
-
   it 'should accept string-like int for dsc_autodagtotalnumberofservers' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers] = '16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_autodagtotalnumberofservers' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers] = '-16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_autodagtotalnumberofservers' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers] = '32'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_autodagtotalnumberofservers' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers] = '-32'
@@ -122,18 +118,15 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers]).to eq(-32)
   end
 
-
   it 'should accept string-like uint for dsc_autodagtotalnumberofservers' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers] = '16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_autodagtotalnumberofservers' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers] = '32'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_autodagtotalnumberofservers' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers] = '64'
@@ -232,24 +225,20 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase]).to eq(-32)
   end
 
-
   it 'should accept string-like int for dsc_autodagdatabasecopiesperdatabase' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase] = '16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_autodagdatabasecopiesperdatabase' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase] = '-16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_autodagdatabasecopiesperdatabase' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase] = '32'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_autodagdatabasecopiesperdatabase' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase] = '-32'
@@ -262,18 +251,15 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase]).to eq(-32)
   end
 
-
   it 'should accept string-like uint for dsc_autodagdatabasecopiesperdatabase' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase] = '16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_autodagdatabasecopiesperdatabase' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase] = '32'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_autodagdatabasecopiesperdatabase' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase] = '64'
@@ -293,24 +279,20 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume]).to eq(-32)
   end
 
-
   it 'should accept string-like int for dsc_autodagdatabasecopiespervolume' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume] = '16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_autodagdatabasecopiespervolume' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume] = '-16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_autodagdatabasecopiespervolume' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume] = '32'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_autodagdatabasecopiespervolume' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume] = '-32'
@@ -323,18 +305,15 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume]).to eq(-32)
   end
 
-
   it 'should accept string-like uint for dsc_autodagdatabasecopiespervolume' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume] = '16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_autodagdatabasecopiespervolume' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume] = '32'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_autodagdatabasecopiespervolume' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume] = '64'
@@ -417,24 +396,20 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases]).to eq(-32)
   end
 
-
   it 'should accept string-like int for dsc_autodagtotalnumberofdatabases' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases] = '16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_autodagtotalnumberofdatabases' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases] = '-16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_autodagtotalnumberofdatabases' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases] = '32'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_autodagtotalnumberofdatabases' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases] = '-32'
@@ -447,18 +422,15 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases]).to eq(-32)
   end
 
-
   it 'should accept string-like uint for dsc_autodagtotalnumberofdatabases' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases] = '16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_autodagtotalnumberofdatabases' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases] = '32'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_autodagtotalnumberofdatabases' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases] = '64'
@@ -785,18 +757,15 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_replicationport' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport] = '16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_replicationport' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport] = '32'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_replicationport' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport] = '64'

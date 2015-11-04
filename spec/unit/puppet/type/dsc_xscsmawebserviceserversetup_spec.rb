@@ -328,18 +328,15 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     expect(dsc_xscsmawebserviceserversetup[:dsc_webserviceport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_webserviceport' do
     dsc_xscsmawebserviceserversetup[:dsc_webserviceport] = '16'
     expect(dsc_xscsmawebserviceserversetup[:dsc_webserviceport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_webserviceport' do
     dsc_xscsmawebserviceserversetup[:dsc_webserviceport] = '32'
     expect(dsc_xscsmawebserviceserversetup[:dsc_webserviceport]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_webserviceport' do
     dsc_xscsmawebserviceserversetup[:dsc_webserviceport] = '64'

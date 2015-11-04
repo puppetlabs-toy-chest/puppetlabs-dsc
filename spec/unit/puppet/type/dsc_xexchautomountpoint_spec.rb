@@ -114,18 +114,15 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     expect(dsc_xexchautomountpoint[:dsc_sparevolumecount]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_sparevolumecount' do
     dsc_xexchautomountpoint[:dsc_sparevolumecount] = '16'
     expect(dsc_xexchautomountpoint[:dsc_sparevolumecount]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_sparevolumecount' do
     dsc_xexchautomountpoint[:dsc_sparevolumecount] = '32'
     expect(dsc_xexchautomountpoint[:dsc_sparevolumecount]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_sparevolumecount' do
     dsc_xexchautomountpoint[:dsc_sparevolumecount] = '64'

@@ -291,18 +291,15 @@ describe Puppet::Type.type(:dsc_package) do
     expect(dsc_package[:dsc_size]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_size' do
     dsc_package[:dsc_size] = '16'
     expect(dsc_package[:dsc_size]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_size' do
     dsc_package[:dsc_size] = '32'
     expect(dsc_package[:dsc_size]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_size' do
     dsc_package[:dsc_size] = '64'

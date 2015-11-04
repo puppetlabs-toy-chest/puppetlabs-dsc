@@ -55,24 +55,20 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
     expect(dsc_xwineventlog[:dsc_maximumsizeinbytes]).to eq(-64)
   end
 
-
   it 'should accept string-like int for dsc_maximumsizeinbytes' do
     dsc_xwineventlog[:dsc_maximumsizeinbytes] = '16'
     expect(dsc_xwineventlog[:dsc_maximumsizeinbytes]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_maximumsizeinbytes' do
     dsc_xwineventlog[:dsc_maximumsizeinbytes] = '-16'
     expect(dsc_xwineventlog[:dsc_maximumsizeinbytes]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_maximumsizeinbytes' do
     dsc_xwineventlog[:dsc_maximumsizeinbytes] = '32'
     expect(dsc_xwineventlog[:dsc_maximumsizeinbytes]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_maximumsizeinbytes' do
     dsc_xwineventlog[:dsc_maximumsizeinbytes] = '-32'
@@ -85,18 +81,15 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
     expect(dsc_xwineventlog[:dsc_maximumsizeinbytes]).to eq(-64)
   end
 
-
   it 'should accept string-like uint for dsc_maximumsizeinbytes' do
     dsc_xwineventlog[:dsc_maximumsizeinbytes] = '16'
     expect(dsc_xwineventlog[:dsc_maximumsizeinbytes]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_maximumsizeinbytes' do
     dsc_xwineventlog[:dsc_maximumsizeinbytes] = '32'
     expect(dsc_xwineventlog[:dsc_maximumsizeinbytes]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_maximumsizeinbytes' do
     dsc_xwineventlog[:dsc_maximumsizeinbytes] = '64'

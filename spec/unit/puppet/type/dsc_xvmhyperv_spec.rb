@@ -178,18 +178,15 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect(dsc_xvmhyperv[:dsc_generation]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_generation' do
     dsc_xvmhyperv[:dsc_generation] = '16'
     expect(dsc_xvmhyperv[:dsc_generation]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_generation' do
     dsc_xvmhyperv[:dsc_generation] = '32'
     expect(dsc_xvmhyperv[:dsc_generation]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_generation' do
     dsc_xvmhyperv[:dsc_generation] = '64'
@@ -213,18 +210,15 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect(dsc_xvmhyperv[:dsc_startupmemory]).to eq(64)
   end
 
-
   it 'should accept string-like uint for dsc_startupmemory' do
     dsc_xvmhyperv[:dsc_startupmemory] = '16'
     expect(dsc_xvmhyperv[:dsc_startupmemory]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_startupmemory' do
     dsc_xvmhyperv[:dsc_startupmemory] = '32'
     expect(dsc_xvmhyperv[:dsc_startupmemory]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_startupmemory' do
     dsc_xvmhyperv[:dsc_startupmemory] = '64'
@@ -248,18 +242,15 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect(dsc_xvmhyperv[:dsc_minimummemory]).to eq(64)
   end
 
-
   it 'should accept string-like uint for dsc_minimummemory' do
     dsc_xvmhyperv[:dsc_minimummemory] = '16'
     expect(dsc_xvmhyperv[:dsc_minimummemory]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_minimummemory' do
     dsc_xvmhyperv[:dsc_minimummemory] = '32'
     expect(dsc_xvmhyperv[:dsc_minimummemory]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_minimummemory' do
     dsc_xvmhyperv[:dsc_minimummemory] = '64'
@@ -283,18 +274,15 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect(dsc_xvmhyperv[:dsc_maximummemory]).to eq(64)
   end
 
-
   it 'should accept string-like uint for dsc_maximummemory' do
     dsc_xvmhyperv[:dsc_maximummemory] = '16'
     expect(dsc_xvmhyperv[:dsc_maximummemory]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_maximummemory' do
     dsc_xvmhyperv[:dsc_maximummemory] = '32'
     expect(dsc_xvmhyperv[:dsc_maximummemory]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_maximummemory' do
     dsc_xvmhyperv[:dsc_maximummemory] = '64'
@@ -334,18 +322,15 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect(dsc_xvmhyperv[:dsc_processorcount]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_processorcount' do
     dsc_xvmhyperv[:dsc_processorcount] = '16'
     expect(dsc_xvmhyperv[:dsc_processorcount]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_processorcount' do
     dsc_xvmhyperv[:dsc_processorcount] = '32'
     expect(dsc_xvmhyperv[:dsc_processorcount]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_processorcount' do
     dsc_xvmhyperv[:dsc_processorcount] = '64'
@@ -561,18 +546,15 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect(dsc_xvmhyperv[:dsc_cpuusage]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_cpuusage' do
     dsc_xvmhyperv[:dsc_cpuusage] = '16'
     expect(dsc_xvmhyperv[:dsc_cpuusage]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_cpuusage' do
     dsc_xvmhyperv[:dsc_cpuusage] = '32'
     expect(dsc_xvmhyperv[:dsc_cpuusage]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_cpuusage' do
     dsc_xvmhyperv[:dsc_cpuusage] = '64'
@@ -596,18 +578,15 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect(dsc_xvmhyperv[:dsc_memoryassigned]).to eq(64)
   end
 
-
   it 'should accept string-like uint for dsc_memoryassigned' do
     dsc_xvmhyperv[:dsc_memoryassigned] = '16'
     expect(dsc_xvmhyperv[:dsc_memoryassigned]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_memoryassigned' do
     dsc_xvmhyperv[:dsc_memoryassigned] = '32'
     expect(dsc_xvmhyperv[:dsc_memoryassigned]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_memoryassigned' do
     dsc_xvmhyperv[:dsc_memoryassigned] = '64'

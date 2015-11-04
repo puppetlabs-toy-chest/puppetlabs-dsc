@@ -72,18 +72,15 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     expect(dsc_xspdiagnosticloggingsettings[:dsc_logspaceingb]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_logspaceingb' do
     dsc_xspdiagnosticloggingsettings[:dsc_logspaceingb] = '16'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_logspaceingb]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_logspaceingb' do
     dsc_xspdiagnosticloggingsettings[:dsc_logspaceingb] = '32'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_logspaceingb]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_logspaceingb' do
     dsc_xspdiagnosticloggingsettings[:dsc_logspaceingb] = '64'
@@ -201,18 +198,15 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     expect(dsc_xspdiagnosticloggingsettings[:dsc_daystokeeplogs]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_daystokeeplogs' do
     dsc_xspdiagnosticloggingsettings[:dsc_daystokeeplogs] = '16'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_daystokeeplogs]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_daystokeeplogs' do
     dsc_xspdiagnosticloggingsettings[:dsc_daystokeeplogs] = '32'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_daystokeeplogs]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_daystokeeplogs' do
     dsc_xspdiagnosticloggingsettings[:dsc_daystokeeplogs] = '64'
@@ -424,18 +418,15 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_eventlogfloodprotectionnotifyinterval' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval] = '16'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_eventlogfloodprotectionnotifyinterval' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval] = '32'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_eventlogfloodprotectionnotifyinterval' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval] = '64'
@@ -459,18 +450,15 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_eventlogfloodprotectionquietperiod' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod] = '16'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_eventlogfloodprotectionquietperiod' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod] = '32'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_eventlogfloodprotectionquietperiod' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod] = '64'
@@ -494,18 +482,15 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_eventlogfloodprotectionthreshold' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold] = '16'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_eventlogfloodprotectionthreshold' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold] = '32'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_eventlogfloodprotectionthreshold' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold] = '64'
@@ -529,18 +514,15 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_eventlogfloodprotectiontriggerperiod' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod] = '16'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_eventlogfloodprotectiontriggerperiod' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod] = '32'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_eventlogfloodprotectiontriggerperiod' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod] = '64'
@@ -564,18 +546,15 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     expect(dsc_xspdiagnosticloggingsettings[:dsc_logcutinterval]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_logcutinterval' do
     dsc_xspdiagnosticloggingsettings[:dsc_logcutinterval] = '16'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_logcutinterval]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_logcutinterval' do
     dsc_xspdiagnosticloggingsettings[:dsc_logcutinterval] = '32'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_logcutinterval]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_logcutinterval' do
     dsc_xspdiagnosticloggingsettings[:dsc_logcutinterval] = '64'
@@ -646,18 +625,15 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     expect(dsc_xspdiagnosticloggingsettings[:dsc_scripterrorreportingdelay]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_scripterrorreportingdelay' do
     dsc_xspdiagnosticloggingsettings[:dsc_scripterrorreportingdelay] = '16'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_scripterrorreportingdelay]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_scripterrorreportingdelay' do
     dsc_xspdiagnosticloggingsettings[:dsc_scripterrorreportingdelay] = '32'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_scripterrorreportingdelay]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_scripterrorreportingdelay' do
     dsc_xspdiagnosticloggingsettings[:dsc_scripterrorreportingdelay] = '64'

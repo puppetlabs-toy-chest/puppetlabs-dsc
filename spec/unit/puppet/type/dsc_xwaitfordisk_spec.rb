@@ -40,18 +40,15 @@ describe Puppet::Type.type(:dsc_xwaitfordisk) do
     expect(dsc_xwaitfordisk[:dsc_disknumber]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_disknumber' do
     dsc_xwaitfordisk[:dsc_disknumber] = '16'
     expect(dsc_xwaitfordisk[:dsc_disknumber]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_disknumber' do
     dsc_xwaitfordisk[:dsc_disknumber] = '32'
     expect(dsc_xwaitfordisk[:dsc_disknumber]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_disknumber' do
     dsc_xwaitfordisk[:dsc_disknumber] = '64'
@@ -75,18 +72,15 @@ describe Puppet::Type.type(:dsc_xwaitfordisk) do
     expect(dsc_xwaitfordisk[:dsc_retryintervalsec]).to eq(64)
   end
 
-
   it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xwaitfordisk[:dsc_retryintervalsec] = '16'
     expect(dsc_xwaitfordisk[:dsc_retryintervalsec]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xwaitfordisk[:dsc_retryintervalsec] = '32'
     expect(dsc_xwaitfordisk[:dsc_retryintervalsec]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xwaitfordisk[:dsc_retryintervalsec] = '64'
@@ -110,18 +104,15 @@ describe Puppet::Type.type(:dsc_xwaitfordisk) do
     expect(dsc_xwaitfordisk[:dsc_retrycount]).to eq(32)
   end
 
-
   it 'should accept string-like uint for dsc_retrycount' do
     dsc_xwaitfordisk[:dsc_retrycount] = '16'
     expect(dsc_xwaitfordisk[:dsc_retrycount]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_retrycount' do
     dsc_xwaitfordisk[:dsc_retrycount] = '32'
     expect(dsc_xwaitfordisk[:dsc_retrycount]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_retrycount' do
     dsc_xwaitfordisk[:dsc_retrycount] = '64'

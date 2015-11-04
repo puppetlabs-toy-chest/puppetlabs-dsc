@@ -166,18 +166,15 @@ describe Puppet::Type.type(:dsc_xscvmmconsolesetup) do
     expect(dsc_xscvmmconsolesetup[:dsc_indigotcpport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_indigotcpport' do
     dsc_xscvmmconsolesetup[:dsc_indigotcpport] = '16'
     expect(dsc_xscvmmconsolesetup[:dsc_indigotcpport]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_indigotcpport' do
     dsc_xscvmmconsolesetup[:dsc_indigotcpport] = '32'
     expect(dsc_xscvmmconsolesetup[:dsc_indigotcpport]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_indigotcpport' do
     dsc_xscvmmconsolesetup[:dsc_indigotcpport] = '64'
@@ -201,18 +198,15 @@ describe Puppet::Type.type(:dsc_xscvmmconsolesetup) do
     expect(dsc_xscvmmconsolesetup[:dsc_muoptin]).to eq(1)
   end
 
-
   it 'should accept string-like uint for dsc_muoptin' do
     dsc_xscvmmconsolesetup[:dsc_muoptin] = '16'
     expect(dsc_xscvmmconsolesetup[:dsc_muoptin]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_muoptin' do
     dsc_xscvmmconsolesetup[:dsc_muoptin] = '32'
     expect(dsc_xscvmmconsolesetup[:dsc_muoptin]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_muoptin' do
     dsc_xscvmmconsolesetup[:dsc_muoptin] = '64'

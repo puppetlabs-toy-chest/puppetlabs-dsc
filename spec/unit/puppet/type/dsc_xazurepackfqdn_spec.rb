@@ -119,18 +119,15 @@ describe Puppet::Type.type(:dsc_xazurepackfqdn) do
     expect(dsc_xazurepackfqdn[:dsc_port]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_port' do
     dsc_xazurepackfqdn[:dsc_port] = '16'
     expect(dsc_xazurepackfqdn[:dsc_port]).to eq(16)
   end
 
-
   it 'should accept string-like uint for dsc_port' do
     dsc_xazurepackfqdn[:dsc_port] = '32'
     expect(dsc_xazurepackfqdn[:dsc_port]).to eq(32)
   end
-
 
   it 'should accept string-like uint for dsc_port' do
     dsc_xazurepackfqdn[:dsc_port] = '64'
