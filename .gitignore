@@ -1,6 +1,7 @@
 pkg/
 Gemfile.lock
 Gemfile.local
+vendor/
 spec/fixtures/
 log/
 junit/
