@@ -40,6 +40,7 @@ group :system_tests do
 end
 
 group :build do
+  gem 'librarian-repo',     :require => false, :git => 'https://github.com/msutter/librarian-repo.git'
   gem 'cim',                :require => false
   gem 'mof',                :require => false, :git => 'https://github.com/puppetlabs/mof.git'
   gem 'charlock_holmes',    :require => false
