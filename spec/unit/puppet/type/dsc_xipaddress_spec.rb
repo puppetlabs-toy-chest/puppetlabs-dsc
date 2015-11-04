@@ -80,6 +80,12 @@ describe Puppet::Type.type(:dsc_xipaddress) do
     expect(dsc_xipaddress[:dsc_subnetmask]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_subnetmask' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xipaddress[:dsc_subnetmask] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_subnetmask' do
     dsc_xipaddress[:dsc_subnetmask] = '16'
     expect(dsc_xipaddress[:dsc_subnetmask]).to eq(16)

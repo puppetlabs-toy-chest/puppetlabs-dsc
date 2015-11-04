@@ -158,6 +158,12 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
     expect(dsc_xexchmailboxdatabasecopy[:dsc_activationpreference]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_activationpreference' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_activationpreference' do
     dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = '16'
     expect(dsc_xexchmailboxdatabasecopy[:dsc_activationpreference]).to eq(16)

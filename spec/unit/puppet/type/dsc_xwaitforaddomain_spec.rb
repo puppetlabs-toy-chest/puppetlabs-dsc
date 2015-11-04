@@ -73,6 +73,12 @@ describe Puppet::Type.type(:dsc_xwaitforaddomain) do
     expect(dsc_xwaitforaddomain[:dsc_retryintervalsec]).to eq(64)
   end
 
+  it 'should not accept signed (negative) value for dsc_retryintervalsec' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xwaitforaddomain[:dsc_retryintervalsec] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xwaitforaddomain[:dsc_retryintervalsec] = '16'
     expect(dsc_xwaitforaddomain[:dsc_retryintervalsec]).to eq(16)
@@ -99,6 +105,12 @@ describe Puppet::Type.type(:dsc_xwaitforaddomain) do
   it 'should accept uint for dsc_retrycount' do
     dsc_xwaitforaddomain[:dsc_retrycount] = 32
     expect(dsc_xwaitforaddomain[:dsc_retrycount]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_retrycount' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xwaitforaddomain[:dsc_retrycount] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_retrycount' do

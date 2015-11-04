@@ -81,6 +81,12 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
     expect(dsc_xdscwebservice[:dsc_port]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_port' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xdscwebservice[:dsc_port] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_port' do
     dsc_xdscwebservice[:dsc_port] = '16'
     expect(dsc_xdscwebservice[:dsc_port]).to eq(16)

@@ -130,6 +130,12 @@ describe Puppet::Type.type(:dsc_xexchjetstress) do
     expect(dsc_xexchjetstress[:dsc_maxwaitminutes]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_maxwaitminutes' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xexchjetstress[:dsc_maxwaitminutes] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_maxwaitminutes' do
     dsc_xexchjetstress[:dsc_maxwaitminutes] = '16'
     expect(dsc_xexchjetstress[:dsc_maxwaitminutes]).to eq(16)
@@ -156,6 +162,12 @@ describe Puppet::Type.type(:dsc_xexchjetstress) do
   it 'should accept uint for dsc_minachievediops' do
     dsc_xexchjetstress[:dsc_minachievediops] = 32
     expect(dsc_xexchjetstress[:dsc_minachievediops]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_minachievediops' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xexchjetstress[:dsc_minachievediops] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_minachievediops' do

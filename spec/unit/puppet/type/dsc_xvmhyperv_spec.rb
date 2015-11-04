@@ -174,6 +174,12 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect(dsc_xvmhyperv[:dsc_generation]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_generation' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xvmhyperv[:dsc_generation] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_generation' do
     dsc_xvmhyperv[:dsc_generation] = '16'
     expect(dsc_xvmhyperv[:dsc_generation]).to eq(16)
@@ -200,6 +206,12 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
   it 'should accept uint for dsc_startupmemory' do
     dsc_xvmhyperv[:dsc_startupmemory] = 64
     expect(dsc_xvmhyperv[:dsc_startupmemory]).to eq(64)
+  end
+
+  it 'should not accept signed (negative) value for dsc_startupmemory' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xvmhyperv[:dsc_startupmemory] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_startupmemory' do
@@ -230,6 +242,12 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect(dsc_xvmhyperv[:dsc_minimummemory]).to eq(64)
   end
 
+  it 'should not accept signed (negative) value for dsc_minimummemory' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xvmhyperv[:dsc_minimummemory] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_minimummemory' do
     dsc_xvmhyperv[:dsc_minimummemory] = '16'
     expect(dsc_xvmhyperv[:dsc_minimummemory]).to eq(16)
@@ -256,6 +274,12 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
   it 'should accept uint for dsc_maximummemory' do
     dsc_xvmhyperv[:dsc_maximummemory] = 64
     expect(dsc_xvmhyperv[:dsc_maximummemory]).to eq(64)
+  end
+
+  it 'should not accept signed (negative) value for dsc_maximummemory' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xvmhyperv[:dsc_maximummemory] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_maximummemory' do
@@ -300,6 +324,12 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
   it 'should accept uint for dsc_processorcount' do
     dsc_xvmhyperv[:dsc_processorcount] = 32
     expect(dsc_xvmhyperv[:dsc_processorcount]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_processorcount' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xvmhyperv[:dsc_processorcount] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_processorcount' do
@@ -522,6 +552,12 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect(dsc_xvmhyperv[:dsc_cpuusage]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_cpuusage' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xvmhyperv[:dsc_cpuusage] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_cpuusage' do
     dsc_xvmhyperv[:dsc_cpuusage] = '16'
     expect(dsc_xvmhyperv[:dsc_cpuusage]).to eq(16)
@@ -548,6 +584,12 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
   it 'should accept uint for dsc_memoryassigned' do
     dsc_xvmhyperv[:dsc_memoryassigned] = 64
     expect(dsc_xvmhyperv[:dsc_memoryassigned]).to eq(64)
+  end
+
+  it 'should not accept signed (negative) value for dsc_memoryassigned' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xvmhyperv[:dsc_memoryassigned] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_memoryassigned' do

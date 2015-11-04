@@ -260,6 +260,12 @@ describe Puppet::Type.type(:dsc_xarchive) do
     expect(dsc_xarchive[:dsc_size]).to eq(64)
   end
 
+  it 'should not accept signed (negative) value for dsc_size' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xarchive[:dsc_size] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_size' do
     dsc_xarchive[:dsc_size] = '16'
     expect(dsc_xarchive[:dsc_size]).to eq(16)

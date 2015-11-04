@@ -287,6 +287,12 @@ describe Puppet::Type.type(:dsc_xscomwebconsoleserversetup) do
     expect(dsc_xscomwebconsoleserversetup[:dsc_usemicrosoftupdate]).to eq(1)
   end
 
+  it 'should not accept signed (negative) value for dsc_usemicrosoftupdate' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscomwebconsoleserversetup[:dsc_usemicrosoftupdate] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_usemicrosoftupdate' do
     dsc_xscomwebconsoleserversetup[:dsc_usemicrosoftupdate] = '16'
     expect(dsc_xscomwebconsoleserversetup[:dsc_usemicrosoftupdate]).to eq(16)
@@ -313,6 +319,12 @@ describe Puppet::Type.type(:dsc_xscomwebconsoleserversetup) do
   it 'should accept uint for dsc_sendceipreports' do
     dsc_xscomwebconsoleserversetup[:dsc_sendceipreports] = 1
     expect(dsc_xscomwebconsoleserversetup[:dsc_sendceipreports]).to eq(1)
+  end
+
+  it 'should not accept signed (negative) value for dsc_sendceipreports' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscomwebconsoleserversetup[:dsc_sendceipreports] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_sendceipreports' do
@@ -391,6 +403,12 @@ describe Puppet::Type.type(:dsc_xscomwebconsoleserversetup) do
   it 'should accept uint for dsc_sendodrreports' do
     dsc_xscomwebconsoleserversetup[:dsc_sendodrreports] = 1
     expect(dsc_xscomwebconsoleserversetup[:dsc_sendodrreports]).to eq(1)
+  end
+
+  it 'should not accept signed (negative) value for dsc_sendodrreports' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscomwebconsoleserversetup[:dsc_sendodrreports] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_sendodrreports' do

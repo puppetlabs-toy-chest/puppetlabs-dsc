@@ -160,6 +160,12 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
     expect(dsc_xspusageapplication[:dsc_usagelogcuttime]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_usagelogcuttime' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspusageapplication[:dsc_usagelogcuttime] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_usagelogcuttime' do
     dsc_xspusageapplication[:dsc_usagelogcuttime] = '16'
     expect(dsc_xspusageapplication[:dsc_usagelogcuttime]).to eq(16)
@@ -204,6 +210,12 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
     expect(dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_usagelogmaxfilesizekb' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_usagelogmaxfilesizekb' do
     dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb] = '16'
     expect(dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb]).to eq(16)
@@ -230,6 +242,12 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
   it 'should accept uint for dsc_usagelogmaxspacegb' do
     dsc_xspusageapplication[:dsc_usagelogmaxspacegb] = 32
     expect(dsc_xspusageapplication[:dsc_usagelogmaxspacegb]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_usagelogmaxspacegb' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspusageapplication[:dsc_usagelogmaxspacegb] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_usagelogmaxspacegb' do

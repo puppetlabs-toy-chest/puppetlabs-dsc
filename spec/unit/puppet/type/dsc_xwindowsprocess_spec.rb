@@ -236,6 +236,12 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect(dsc_xwindowsprocess[:dsc_pagedmemorysize]).to eq(64)
   end
 
+  it 'should not accept signed (negative) value for dsc_pagedmemorysize' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xwindowsprocess[:dsc_pagedmemorysize] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_pagedmemorysize' do
     dsc_xwindowsprocess[:dsc_pagedmemorysize] = '16'
     expect(dsc_xwindowsprocess[:dsc_pagedmemorysize]).to eq(16)
@@ -264,6 +270,12 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect(dsc_xwindowsprocess[:dsc_nonpagedmemorysize]).to eq(64)
   end
 
+  it 'should not accept signed (negative) value for dsc_nonpagedmemorysize' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xwindowsprocess[:dsc_nonpagedmemorysize] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_nonpagedmemorysize' do
     dsc_xwindowsprocess[:dsc_nonpagedmemorysize] = '16'
     expect(dsc_xwindowsprocess[:dsc_nonpagedmemorysize]).to eq(16)
@@ -290,6 +302,12 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
   it 'should accept uint for dsc_virtualmemorysize' do
     dsc_xwindowsprocess[:dsc_virtualmemorysize] = 64
     expect(dsc_xwindowsprocess[:dsc_virtualmemorysize]).to eq(64)
+  end
+
+  it 'should not accept signed (negative) value for dsc_virtualmemorysize' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xwindowsprocess[:dsc_virtualmemorysize] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_virtualmemorysize' do

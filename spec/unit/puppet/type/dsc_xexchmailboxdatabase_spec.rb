@@ -99,6 +99,12 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect(dsc_xexchmailboxdatabase[:dsc_databasecopycount]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_databasecopycount' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xexchmailboxdatabase[:dsc_databasecopycount] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_databasecopycount' do
     dsc_xexchmailboxdatabase[:dsc_databasecopycount] = '16'
     expect(dsc_xexchmailboxdatabase[:dsc_databasecopycount]).to eq(16)

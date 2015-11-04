@@ -299,6 +299,12 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect(dsc_xpackage[:dsc_size]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_size' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xpackage[:dsc_size] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_size' do
     dsc_xpackage[:dsc_size] = '16'
     expect(dsc_xpackage[:dsc_size]).to eq(16)

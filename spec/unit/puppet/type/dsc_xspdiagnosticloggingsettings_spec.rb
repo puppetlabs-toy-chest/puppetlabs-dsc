@@ -68,6 +68,12 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     expect(dsc_xspdiagnosticloggingsettings[:dsc_logspaceingb]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_logspaceingb' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspdiagnosticloggingsettings[:dsc_logspaceingb] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_logspaceingb' do
     dsc_xspdiagnosticloggingsettings[:dsc_logspaceingb] = '16'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_logspaceingb]).to eq(16)
@@ -188,6 +194,12 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
   it 'should accept uint for dsc_daystokeeplogs' do
     dsc_xspdiagnosticloggingsettings[:dsc_daystokeeplogs] = 32
     expect(dsc_xspdiagnosticloggingsettings[:dsc_daystokeeplogs]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_daystokeeplogs' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspdiagnosticloggingsettings[:dsc_daystokeeplogs] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_daystokeeplogs' do
@@ -406,6 +418,12 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_eventlogfloodprotectionnotifyinterval' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_eventlogfloodprotectionnotifyinterval' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval] = '16'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval]).to eq(16)
@@ -432,6 +450,12 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
   it 'should accept uint for dsc_eventlogfloodprotectionquietperiod' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod] = 32
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_eventlogfloodprotectionquietperiod' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_eventlogfloodprotectionquietperiod' do
@@ -462,6 +486,12 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_eventlogfloodprotectionthreshold' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_eventlogfloodprotectionthreshold' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold] = '16'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold]).to eq(16)
@@ -490,6 +520,12 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_eventlogfloodprotectiontriggerperiod' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_eventlogfloodprotectiontriggerperiod' do
     dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod] = '16'
     expect(dsc_xspdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod]).to eq(16)
@@ -516,6 +552,12 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
   it 'should accept uint for dsc_logcutinterval' do
     dsc_xspdiagnosticloggingsettings[:dsc_logcutinterval] = 32
     expect(dsc_xspdiagnosticloggingsettings[:dsc_logcutinterval]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_logcutinterval' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspdiagnosticloggingsettings[:dsc_logcutinterval] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_logcutinterval' do
@@ -591,6 +633,12 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
   it 'should accept uint for dsc_scripterrorreportingdelay' do
     dsc_xspdiagnosticloggingsettings[:dsc_scripterrorreportingdelay] = 32
     expect(dsc_xspdiagnosticloggingsettings[:dsc_scripterrorreportingdelay]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_scripterrorreportingdelay' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspdiagnosticloggingsettings[:dsc_scripterrorreportingdelay] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_scripterrorreportingdelay' do

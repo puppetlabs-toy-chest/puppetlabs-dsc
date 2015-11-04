@@ -117,6 +117,12 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_concurrentuserlimit' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xsmbshare[:dsc_concurrentuserlimit] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_concurrentuserlimit' do
     dsc_xsmbshare[:dsc_concurrentuserlimit] = '16'
     expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(16)

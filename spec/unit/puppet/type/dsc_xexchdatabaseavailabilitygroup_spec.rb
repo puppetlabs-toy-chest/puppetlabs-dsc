@@ -673,6 +673,12 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport]).to eq(16)
   end
 
+  it 'should not accept signed (negative) value for dsc_replicationport' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_replicationport' do
     dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport] = '16'
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport]).to eq(16)

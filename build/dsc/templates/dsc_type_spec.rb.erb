@@ -174,6 +174,13 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
     dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values[property.type]) %>
     expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(@spec_test_values[property.type]) %>)
   end
+
+  it 'should not accept signed (negative) value for dsc_<%= property.name.downcase %>' do
+<%-     signed_type = property.type.gsub(/u/,'')  -%>
+    value = <%= format_type_value(@spec_test_values[signed_type]) %>
+    expect(value).to be < 0
+    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = value}.to raise_error(Puppet::ResourceError)
+  end
 <%      @spec_test_values['munged_uints'].each do |munged_uint| -%>
 
   it 'should accept string-like uint for dsc_<%= property.name.downcase %>' do

@@ -196,6 +196,12 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     expect(dsc_xexchwaitforadprep[:dsc_retryintervalsec]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_retryintervalsec' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xexchwaitforadprep[:dsc_retryintervalsec] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xexchwaitforadprep[:dsc_retryintervalsec] = '16'
     expect(dsc_xexchwaitforadprep[:dsc_retryintervalsec]).to eq(16)
@@ -222,6 +228,12 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
   it 'should accept uint for dsc_retrycount' do
     dsc_xexchwaitforadprep[:dsc_retrycount] = 32
     expect(dsc_xexchwaitforadprep[:dsc_retrycount]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_retrycount' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xexchwaitforadprep[:dsc_retrycount] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_retrycount' do

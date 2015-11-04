@@ -430,6 +430,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigotcpport]).to eq(16)
   end
 
+  it 'should not accept signed (negative) value for dsc_indigotcpport' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_indigotcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigotcpport]).to eq(16)
@@ -456,6 +462,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
   it 'should accept uint for dsc_indigohttpsport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = 16
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport]).to eq(16)
+  end
+
+  it 'should not accept signed (negative) value for dsc_indigohttpsport' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_indigohttpsport' do
@@ -486,6 +498,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport]).to eq(16)
   end
 
+  it 'should not accept signed (negative) value for dsc_indigonettcpport' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_indigonettcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport]).to eq(16)
@@ -512,6 +530,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
   it 'should accept uint for dsc_indigohttpport' do
     dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = 16
     expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpport]).to eq(16)
+  end
+
+  it 'should not accept signed (negative) value for dsc_indigohttpport' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_indigohttpport' do
@@ -542,6 +566,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport]).to eq(16)
   end
 
+  it 'should not accept signed (negative) value for dsc_wsmantcpport' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_wsmantcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport]).to eq(16)
@@ -568,6 +598,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
   it 'should accept uint for dsc_bitstcpport' do
     dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = 16
     expect(dsc_xscvmmmanagementserversetup[:dsc_bitstcpport]).to eq(16)
+  end
+
+  it 'should not accept signed (negative) value for dsc_bitstcpport' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_bitstcpport' do
@@ -710,6 +746,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase]).to eq(1)
   end
 
+  it 'should not accept signed (negative) value for dsc_retainsqldatabase' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_retainsqldatabase' do
     dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase]).to eq(16)
@@ -736,6 +778,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
   it 'should accept uint for dsc_forcehavmmuninstall' do
     dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = 1
     expect(dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall]).to eq(1)
+  end
+
+  it 'should not accept signed (negative) value for dsc_forcehavmmuninstall' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_forcehavmmuninstall' do
@@ -766,6 +814,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect(dsc_xscvmmmanagementserversetup[:dsc_sqmoptin]).to eq(1)
   end
 
+  it 'should not accept signed (negative) value for dsc_sqmoptin' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_sqmoptin' do
     dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = '16'
     expect(dsc_xscvmmmanagementserversetup[:dsc_sqmoptin]).to eq(16)
@@ -792,6 +846,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
   it 'should accept uint for dsc_muoptin' do
     dsc_xscvmmmanagementserversetup[:dsc_muoptin] = 1
     expect(dsc_xscvmmmanagementserversetup[:dsc_muoptin]).to eq(1)
+  end
+
+  it 'should not accept signed (negative) value for dsc_muoptin' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscvmmmanagementserversetup[:dsc_muoptin] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_muoptin' do

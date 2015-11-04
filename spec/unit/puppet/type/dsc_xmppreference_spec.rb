@@ -204,6 +204,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect(dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_quarantinepurgeitemsafterdelay' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_quarantinepurgeitemsafterdelay' do
     dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay] = '16'
     expect(dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay]).to eq(16)
@@ -358,6 +364,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect(dsc_xmppreference[:dsc_reportingadditionalactiontimeout]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_reportingadditionalactiontimeout' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xmppreference[:dsc_reportingadditionalactiontimeout] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_reportingadditionalactiontimeout' do
     dsc_xmppreference[:dsc_reportingadditionalactiontimeout] = '16'
     expect(dsc_xmppreference[:dsc_reportingadditionalactiontimeout]).to eq(16)
@@ -384,6 +396,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   it 'should accept uint for dsc_reportingnoncriticaltimeout' do
     dsc_xmppreference[:dsc_reportingnoncriticaltimeout] = 32
     expect(dsc_xmppreference[:dsc_reportingnoncriticaltimeout]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_reportingnoncriticaltimeout' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xmppreference[:dsc_reportingnoncriticaltimeout] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_reportingnoncriticaltimeout' do
@@ -414,6 +432,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect(dsc_xmppreference[:dsc_reportingcriticalfailuretimeout]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_reportingcriticalfailuretimeout' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xmppreference[:dsc_reportingcriticalfailuretimeout] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_reportingcriticalfailuretimeout' do
     dsc_xmppreference[:dsc_reportingcriticalfailuretimeout] = '16'
     expect(dsc_xmppreference[:dsc_reportingcriticalfailuretimeout]).to eq(16)
@@ -440,6 +464,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   it 'should accept uint for dsc_scanavgcpuloadfactor' do
     dsc_xmppreference[:dsc_scanavgcpuloadfactor] = 32
     expect(dsc_xmppreference[:dsc_scanavgcpuloadfactor]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_scanavgcpuloadfactor' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xmppreference[:dsc_scanavgcpuloadfactor] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_scanavgcpuloadfactor' do
@@ -515,6 +545,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   it 'should accept uint for dsc_scanpurgeitemsafterdelay' do
     dsc_xmppreference[:dsc_scanpurgeitemsafterdelay] = 32
     expect(dsc_xmppreference[:dsc_scanpurgeitemsafterdelay]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_scanpurgeitemsafterdelay' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xmppreference[:dsc_scanpurgeitemsafterdelay] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_scanpurgeitemsafterdelay' do
@@ -774,6 +810,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect(dsc_xmppreference[:dsc_signaturefirstaugraceperiod]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_signaturefirstaugraceperiod' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xmppreference[:dsc_signaturefirstaugraceperiod] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_signaturefirstaugraceperiod' do
     dsc_xmppreference[:dsc_signaturefirstaugraceperiod] = '16'
     expect(dsc_xmppreference[:dsc_signaturefirstaugraceperiod]).to eq(16)
@@ -800,6 +842,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   it 'should accept uint for dsc_signatureaugraceperiod' do
     dsc_xmppreference[:dsc_signatureaugraceperiod] = 32
     expect(dsc_xmppreference[:dsc_signatureaugraceperiod]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_signatureaugraceperiod' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xmppreference[:dsc_signatureaugraceperiod] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_signatureaugraceperiod' do
@@ -1035,6 +1083,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect(dsc_xmppreference[:dsc_signatureupdatecatchupinterval]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_signatureupdatecatchupinterval' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xmppreference[:dsc_signatureupdatecatchupinterval] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_signatureupdatecatchupinterval' do
     dsc_xmppreference[:dsc_signatureupdatecatchupinterval] = '16'
     expect(dsc_xmppreference[:dsc_signatureupdatecatchupinterval]).to eq(16)
@@ -1061,6 +1115,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   it 'should accept uint for dsc_signatureupdateinterval' do
     dsc_xmppreference[:dsc_signatureupdateinterval] = 32
     expect(dsc_xmppreference[:dsc_signatureupdateinterval]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_signatureupdateinterval' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xmppreference[:dsc_signatureupdateinterval] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_signatureupdateinterval' do
@@ -1938,6 +1998,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
   it 'should accept uint for dsc_threatiddefaultaction_ids' do
     dsc_xmppreference[:dsc_threatiddefaultaction_ids] = 64
     expect(dsc_xmppreference[:dsc_threatiddefaultaction_ids]).to eq(64)
+  end
+
+  it 'should not accept signed (negative) value for dsc_threatiddefaultaction_ids' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xmppreference[:dsc_threatiddefaultaction_ids] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_threatiddefaultaction_ids' do

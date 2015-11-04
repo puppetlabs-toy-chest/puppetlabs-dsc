@@ -62,6 +62,12 @@ describe Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel) do
     expect(dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel]).to eq(16)
   end
 
+  it 'should not accept signed (negative) value for dsc_secureconnectionlevel' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_secureconnectionlevel' do
     dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = '16'
     expect(dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel]).to eq(16)

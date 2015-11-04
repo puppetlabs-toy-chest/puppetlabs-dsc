@@ -112,6 +112,12 @@ describe Puppet::Type.type(:dsc_xvhd) do
     expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(64)
   end
 
+  it 'should not accept signed (negative) value for dsc_maximumsizebytes' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xvhd[:dsc_maximumsizebytes] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_maximumsizebytes' do
     dsc_xvhd[:dsc_maximumsizebytes] = '16'
     expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(16)
@@ -260,6 +266,12 @@ describe Puppet::Type.type(:dsc_xvhd) do
   it 'should accept uint for dsc_filesizebytes' do
     dsc_xvhd[:dsc_filesizebytes] = 64
     expect(dsc_xvhd[:dsc_filesizebytes]).to eq(64)
+  end
+
+  it 'should not accept signed (negative) value for dsc_filesizebytes' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xvhd[:dsc_filesizebytes] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_filesizebytes' do

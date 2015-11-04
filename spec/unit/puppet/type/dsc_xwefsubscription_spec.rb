@@ -293,6 +293,12 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect(dsc_xwefsubscription[:dsc_maxlatencytime]).to eq(64)
   end
 
+  it 'should not accept signed (negative) value for dsc_maxlatencytime' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xwefsubscription[:dsc_maxlatencytime] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_maxlatencytime' do
     dsc_xwefsubscription[:dsc_maxlatencytime] = '16'
     expect(dsc_xwefsubscription[:dsc_maxlatencytime]).to eq(16)
@@ -319,6 +325,12 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
   it 'should accept uint for dsc_heartbeatinterval' do
     dsc_xwefsubscription[:dsc_heartbeatinterval] = 64
     expect(dsc_xwefsubscription[:dsc_heartbeatinterval]).to eq(64)
+  end
+
+  it 'should not accept signed (negative) value for dsc_heartbeatinterval' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xwefsubscription[:dsc_heartbeatinterval] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_heartbeatinterval' do

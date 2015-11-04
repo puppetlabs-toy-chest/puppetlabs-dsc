@@ -62,6 +62,12 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
     expect(dsc_xazuresqldatabase[:dsc_maximumsizeingb]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_maximumsizeingb' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xazuresqldatabase[:dsc_maximumsizeingb] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_maximumsizeingb' do
     dsc_xazuresqldatabase[:dsc_maximumsizeingb] = '16'
     expect(dsc_xazuresqldatabase[:dsc_maximumsizeingb]).to eq(16)

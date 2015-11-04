@@ -261,6 +261,12 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect(dsc_xscommanagementserversetup[:dsc_managementserviceport]).to eq(16)
   end
 
+  it 'should not accept signed (negative) value for dsc_managementserviceport' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscommanagementserversetup[:dsc_managementserviceport] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_managementserviceport' do
     dsc_xscommanagementserversetup[:dsc_managementserviceport] = '16'
     expect(dsc_xscommanagementserversetup[:dsc_managementserviceport]).to eq(16)
@@ -465,6 +471,12 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect(dsc_xscommanagementserversetup[:dsc_databasesize]).to eq(16)
   end
 
+  it 'should not accept signed (negative) value for dsc_databasesize' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscommanagementserversetup[:dsc_databasesize] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_databasesize' do
     dsc_xscommanagementserversetup[:dsc_databasesize] = '16'
     expect(dsc_xscommanagementserversetup[:dsc_databasesize]).to eq(16)
@@ -525,6 +537,12 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect(dsc_xscommanagementserversetup[:dsc_dwdatabasesize]).to eq(16)
   end
 
+  it 'should not accept signed (negative) value for dsc_dwdatabasesize' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscommanagementserversetup[:dsc_dwdatabasesize] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_dwdatabasesize' do
     dsc_xscommanagementserversetup[:dsc_dwdatabasesize] = '16'
     expect(dsc_xscommanagementserversetup[:dsc_dwdatabasesize]).to eq(16)
@@ -553,6 +571,12 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect(dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate]).to eq(1)
   end
 
+  it 'should not accept signed (negative) value for dsc_usemicrosoftupdate' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_usemicrosoftupdate' do
     dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate] = '16'
     expect(dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate]).to eq(16)
@@ -579,6 +603,12 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
   it 'should accept uint for dsc_sendceipreports' do
     dsc_xscommanagementserversetup[:dsc_sendceipreports] = 1
     expect(dsc_xscommanagementserversetup[:dsc_sendceipreports]).to eq(1)
+  end
+
+  it 'should not accept signed (negative) value for dsc_sendceipreports' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscommanagementserversetup[:dsc_sendceipreports] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_sendceipreports' do
@@ -657,6 +687,12 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
   it 'should accept uint for dsc_sendodrreports' do
     dsc_xscommanagementserversetup[:dsc_sendodrreports] = 1
     expect(dsc_xscommanagementserversetup[:dsc_sendodrreports]).to eq(1)
+  end
+
+  it 'should not accept signed (negative) value for dsc_sendodrreports' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscommanagementserversetup[:dsc_sendodrreports] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_sendodrreports' do

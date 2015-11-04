@@ -79,6 +79,12 @@ describe Puppet::Type.type(:dsc_xspsite) do
     expect(dsc_xspsite[:dsc_compatibilitylevel]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_compatibilitylevel' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspsite[:dsc_compatibilitylevel] = value}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept string-like uint for dsc_compatibilitylevel' do
     dsc_xspsite[:dsc_compatibilitylevel] = '16'
     expect(dsc_xspsite[:dsc_compatibilitylevel]).to eq(16)
@@ -153,6 +159,12 @@ describe Puppet::Type.type(:dsc_xspsite) do
   it 'should accept uint for dsc_language' do
     dsc_xspsite[:dsc_language] = 32
     expect(dsc_xspsite[:dsc_language]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_language' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspsite[:dsc_language] = value}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept string-like uint for dsc_language' do
