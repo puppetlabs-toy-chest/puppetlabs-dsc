@@ -379,29 +379,28 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_keylength] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_keylength' do
-    expect{dsc_xadcscertificationauthority[:dsc_keylength] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_keylength' do
     dsc_xadcscertificationauthority[:dsc_keylength] = 32
     expect(dsc_xadcscertificationauthority[:dsc_keylength]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_keylength' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xadcscertificationauthority[:dsc_keylength] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_keylength' do
+  it 'should accept string-like uint for dsc_keylength' do
     dsc_xadcscertificationauthority[:dsc_keylength] = '16'
     expect(dsc_xadcscertificationauthority[:dsc_keylength]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_keylength' do
+  it 'should accept string-like uint for dsc_keylength' do
     dsc_xadcscertificationauthority[:dsc_keylength] = '32'
     expect(dsc_xadcscertificationauthority[:dsc_keylength]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_keylength' do
+  it 'should accept string-like uint for dsc_keylength' do
     dsc_xadcscertificationauthority[:dsc_keylength] = '64'
     expect(dsc_xadcscertificationauthority[:dsc_keylength]).to eq(64)
   end
@@ -663,29 +662,28 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_validityperiodunits] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_validityperiodunits' do
-    expect{dsc_xadcscertificationauthority[:dsc_validityperiodunits] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_validityperiodunits' do
     dsc_xadcscertificationauthority[:dsc_validityperiodunits] = 32
     expect(dsc_xadcscertificationauthority[:dsc_validityperiodunits]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_validityperiodunits' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xadcscertificationauthority[:dsc_validityperiodunits] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_validityperiodunits' do
+  it 'should accept string-like uint for dsc_validityperiodunits' do
     dsc_xadcscertificationauthority[:dsc_validityperiodunits] = '16'
     expect(dsc_xadcscertificationauthority[:dsc_validityperiodunits]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_validityperiodunits' do
+  it 'should accept string-like uint for dsc_validityperiodunits' do
     dsc_xadcscertificationauthority[:dsc_validityperiodunits] = '32'
     expect(dsc_xadcscertificationauthority[:dsc_validityperiodunits]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_validityperiodunits' do
+  it 'should accept string-like uint for dsc_validityperiodunits' do
     dsc_xadcscertificationauthority[:dsc_validityperiodunits] = '64'
     expect(dsc_xadcscertificationauthority[:dsc_validityperiodunits]).to eq(64)
   end

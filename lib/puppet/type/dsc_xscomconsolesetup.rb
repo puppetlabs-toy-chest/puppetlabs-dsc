@@ -146,7 +146,7 @@ Puppet::Type.newtype(:dsc_xscomconsolesetup) do
       end
     end
     munge do |value|
-      value.to_i
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 
@@ -164,7 +164,7 @@ Puppet::Type.newtype(:dsc_xscomconsolesetup) do
       end
     end
     munge do |value|
-      value.to_i
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 
@@ -200,7 +200,7 @@ Puppet::Type.newtype(:dsc_xscomconsolesetup) do
       end
     end
     munge do |value|
-      value.to_i
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 

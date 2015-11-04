@@ -107,29 +107,28 @@ describe Puppet::Type.type(:dsc_xvhd) do
     expect{dsc_xvhd[:dsc_maximumsizebytes] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_maximumsizebytes' do
-    expect{dsc_xvhd[:dsc_maximumsizebytes] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_maximumsizebytes' do
     dsc_xvhd[:dsc_maximumsizebytes] = 64
     expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(64)
   end
 
+  it 'should not accept signed (negative) value for dsc_maximumsizebytes' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xvhd[:dsc_maximumsizebytes] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_maximumsizebytes' do
+  it 'should accept string-like uint for dsc_maximumsizebytes' do
     dsc_xvhd[:dsc_maximumsizebytes] = '16'
     expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_maximumsizebytes' do
+  it 'should accept string-like uint for dsc_maximumsizebytes' do
     dsc_xvhd[:dsc_maximumsizebytes] = '32'
     expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_maximumsizebytes' do
+  it 'should accept string-like uint for dsc_maximumsizebytes' do
     dsc_xvhd[:dsc_maximumsizebytes] = '64'
     expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(64)
   end
@@ -264,29 +263,28 @@ describe Puppet::Type.type(:dsc_xvhd) do
     expect{dsc_xvhd[:dsc_filesizebytes] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_filesizebytes' do
-    expect{dsc_xvhd[:dsc_filesizebytes] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_filesizebytes' do
     dsc_xvhd[:dsc_filesizebytes] = 64
     expect(dsc_xvhd[:dsc_filesizebytes]).to eq(64)
   end
 
+  it 'should not accept signed (negative) value for dsc_filesizebytes' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xvhd[:dsc_filesizebytes] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_filesizebytes' do
+  it 'should accept string-like uint for dsc_filesizebytes' do
     dsc_xvhd[:dsc_filesizebytes] = '16'
     expect(dsc_xvhd[:dsc_filesizebytes]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_filesizebytes' do
+  it 'should accept string-like uint for dsc_filesizebytes' do
     dsc_xvhd[:dsc_filesizebytes] = '32'
     expect(dsc_xvhd[:dsc_filesizebytes]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_filesizebytes' do
+  it 'should accept string-like uint for dsc_filesizebytes' do
     dsc_xvhd[:dsc_filesizebytes] = '64'
     expect(dsc_xvhd[:dsc_filesizebytes]).to eq(64)
   end

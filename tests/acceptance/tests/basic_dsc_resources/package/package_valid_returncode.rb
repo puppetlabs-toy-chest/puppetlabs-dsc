@@ -27,7 +27,7 @@ dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(bin
 # Teardown
 teardown do
   step 'Remove Test Artifacts'
-  on(agents, "cmd /c \"#{install_path}\\uninstall.exe /S\"", :acceptable_exit_codes => 1)
+  on(agents, "cmd /c \"#{install_path}\\uninstall.exe /S\"", :acceptable_exit_codes => 0)
 
   set_dsc_resource(
     agents,
@@ -54,22 +54,18 @@ set_dsc_resource(
 agents.each do |agent|
   step 'Apply Manifest'
   on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => 0) do |result|
-    expect_failure('Expected to fail because of MODULES-2562') do
-      assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
-    end
+    assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
   end
 
   step 'Verify Results'
-  expect_failure('Expected to fail because of MODULES-2562') do
-    assert_dsc_resource(
-      agent,
-      dsc_type,
-      dsc_module,
-      :Ensure     => dsc_props[:dsc_ensure],
-      :Path       => dsc_props[:dsc_path],
-      :Name       => dsc_props[:dsc_name],
-      :ProductId  => dsc_props[:dsc_productid],
-      :ReturnCode => "[uint32[]]@(#{dsc_props[:dsc_returncode]})"
-    )
-  end
+  assert_dsc_resource(
+    agent,
+    dsc_type,
+    dsc_module,
+    :Ensure     => dsc_props[:dsc_ensure],
+    :Path       => dsc_props[:dsc_path],
+    :Name       => dsc_props[:dsc_name],
+    :ProductId  => dsc_props[:dsc_productid],
+    :ReturnCode => "[uint32[]]@(#{dsc_props[:dsc_returncode]})"
+  )
 end

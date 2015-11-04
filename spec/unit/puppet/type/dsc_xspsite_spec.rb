@@ -74,29 +74,28 @@ describe Puppet::Type.type(:dsc_xspsite) do
     expect{dsc_xspsite[:dsc_compatibilitylevel] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_compatibilitylevel' do
-    expect{dsc_xspsite[:dsc_compatibilitylevel] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_compatibilitylevel' do
     dsc_xspsite[:dsc_compatibilitylevel] = 32
     expect(dsc_xspsite[:dsc_compatibilitylevel]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_compatibilitylevel' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspsite[:dsc_compatibilitylevel] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_compatibilitylevel' do
+  it 'should accept string-like uint for dsc_compatibilitylevel' do
     dsc_xspsite[:dsc_compatibilitylevel] = '16'
     expect(dsc_xspsite[:dsc_compatibilitylevel]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_compatibilitylevel' do
+  it 'should accept string-like uint for dsc_compatibilitylevel' do
     dsc_xspsite[:dsc_compatibilitylevel] = '32'
     expect(dsc_xspsite[:dsc_compatibilitylevel]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_compatibilitylevel' do
+  it 'should accept string-like uint for dsc_compatibilitylevel' do
     dsc_xspsite[:dsc_compatibilitylevel] = '64'
     expect(dsc_xspsite[:dsc_compatibilitylevel]).to eq(64)
   end
@@ -157,29 +156,28 @@ describe Puppet::Type.type(:dsc_xspsite) do
     expect{dsc_xspsite[:dsc_language] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_language' do
-    expect{dsc_xspsite[:dsc_language] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_language' do
     dsc_xspsite[:dsc_language] = 32
     expect(dsc_xspsite[:dsc_language]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_language' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspsite[:dsc_language] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_language' do
+  it 'should accept string-like uint for dsc_language' do
     dsc_xspsite[:dsc_language] = '16'
     expect(dsc_xspsite[:dsc_language]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_language' do
+  it 'should accept string-like uint for dsc_language' do
     dsc_xspsite[:dsc_language] = '32'
     expect(dsc_xspsite[:dsc_language]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_language' do
+  it 'should accept string-like uint for dsc_language' do
     dsc_xspsite[:dsc_language] = '64'
     expect(dsc_xspsite[:dsc_language]).to eq(64)
   end

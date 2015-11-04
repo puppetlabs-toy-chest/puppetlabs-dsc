@@ -48,29 +48,28 @@ describe Puppet::Type.type(:dsc_xdisk) do
     expect{dsc_xdisk[:dsc_disknumber] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_disknumber' do
-    expect{dsc_xdisk[:dsc_disknumber] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_disknumber' do
     dsc_xdisk[:dsc_disknumber] = 32
     expect(dsc_xdisk[:dsc_disknumber]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_disknumber' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xdisk[:dsc_disknumber] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_disknumber' do
+  it 'should accept string-like uint for dsc_disknumber' do
     dsc_xdisk[:dsc_disknumber] = '16'
     expect(dsc_xdisk[:dsc_disknumber]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_disknumber' do
+  it 'should accept string-like uint for dsc_disknumber' do
     dsc_xdisk[:dsc_disknumber] = '32'
     expect(dsc_xdisk[:dsc_disknumber]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_disknumber' do
+  it 'should accept string-like uint for dsc_disknumber' do
     dsc_xdisk[:dsc_disknumber] = '64'
     expect(dsc_xdisk[:dsc_disknumber]).to eq(64)
   end
@@ -83,29 +82,28 @@ describe Puppet::Type.type(:dsc_xdisk) do
     expect{dsc_xdisk[:dsc_size] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_size' do
-    expect{dsc_xdisk[:dsc_size] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_size' do
     dsc_xdisk[:dsc_size] = 64
     expect(dsc_xdisk[:dsc_size]).to eq(64)
   end
 
+  it 'should not accept signed (negative) value for dsc_size' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xdisk[:dsc_size] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_size' do
+  it 'should accept string-like uint for dsc_size' do
     dsc_xdisk[:dsc_size] = '16'
     expect(dsc_xdisk[:dsc_size]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_size' do
+  it 'should accept string-like uint for dsc_size' do
     dsc_xdisk[:dsc_size] = '32'
     expect(dsc_xdisk[:dsc_size]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_size' do
+  it 'should accept string-like uint for dsc_size' do
     dsc_xdisk[:dsc_size] = '64'
     expect(dsc_xdisk[:dsc_size]).to eq(64)
   end

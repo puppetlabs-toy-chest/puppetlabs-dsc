@@ -153,29 +153,28 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
     expect{dsc_xspcreatefarm[:dsc_centraladministrationport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_centraladministrationport' do
-    expect{dsc_xspcreatefarm[:dsc_centraladministrationport] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_centraladministrationport' do
     dsc_xspcreatefarm[:dsc_centraladministrationport] = 32
     expect(dsc_xspcreatefarm[:dsc_centraladministrationport]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_centraladministrationport' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspcreatefarm[:dsc_centraladministrationport] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_centraladministrationport' do
+  it 'should accept string-like uint for dsc_centraladministrationport' do
     dsc_xspcreatefarm[:dsc_centraladministrationport] = '16'
     expect(dsc_xspcreatefarm[:dsc_centraladministrationport]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_centraladministrationport' do
+  it 'should accept string-like uint for dsc_centraladministrationport' do
     dsc_xspcreatefarm[:dsc_centraladministrationport] = '32'
     expect(dsc_xspcreatefarm[:dsc_centraladministrationport]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_centraladministrationport' do
+  it 'should accept string-like uint for dsc_centraladministrationport' do
     dsc_xspcreatefarm[:dsc_centraladministrationport] = '64'
     expect(dsc_xspcreatefarm[:dsc_centraladministrationport]).to eq(64)
   end

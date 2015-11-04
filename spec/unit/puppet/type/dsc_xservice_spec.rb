@@ -301,29 +301,28 @@ describe Puppet::Type.type(:dsc_xservice) do
     expect{dsc_xservice[:dsc_startuptimeout] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_startuptimeout' do
-    expect{dsc_xservice[:dsc_startuptimeout] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_startuptimeout' do
     dsc_xservice[:dsc_startuptimeout] = 32
     expect(dsc_xservice[:dsc_startuptimeout]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_startuptimeout' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xservice[:dsc_startuptimeout] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_startuptimeout' do
+  it 'should accept string-like uint for dsc_startuptimeout' do
     dsc_xservice[:dsc_startuptimeout] = '16'
     expect(dsc_xservice[:dsc_startuptimeout]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_startuptimeout' do
+  it 'should accept string-like uint for dsc_startuptimeout' do
     dsc_xservice[:dsc_startuptimeout] = '32'
     expect(dsc_xservice[:dsc_startuptimeout]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_startuptimeout' do
+  it 'should accept string-like uint for dsc_startuptimeout' do
     dsc_xservice[:dsc_startuptimeout] = '64'
     expect(dsc_xservice[:dsc_startuptimeout]).to eq(64)
   end

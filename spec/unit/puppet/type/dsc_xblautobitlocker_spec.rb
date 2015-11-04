@@ -93,53 +93,26 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(-32)
   end
 
-
   it 'should accept string-like int for dsc_mindiskcapacitygb' do
     dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = '16'
     expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_mindiskcapacitygb' do
     dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = '-16'
     expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_mindiskcapacitygb' do
     dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = '32'
     expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_mindiskcapacitygb' do
     dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = '-32'
     expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(-32)
   end
 
-
-  it 'should accept uint for dsc_mindiskcapacitygb' do
-    dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = -32
-    expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(-32)
-  end
-
-
-  it 'should accept string-like int for dsc_mindiskcapacitygb' do
-    dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = '16'
-    expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(16)
-  end
-
-
-  it 'should accept string-like int for dsc_mindiskcapacitygb' do
-    dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = '32'
-    expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(32)
-  end
-
-
-  it 'should accept string-like int for dsc_mindiskcapacitygb' do
-    dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = '64'
-    expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(64)
-  end
 
   it 'should accept dsc_primaryprotector predefined value PasswordProtector' do
     dsc_xblautobitlocker[:dsc_primaryprotector] = 'PasswordProtector'

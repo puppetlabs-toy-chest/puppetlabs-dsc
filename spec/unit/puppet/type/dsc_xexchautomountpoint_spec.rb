@@ -105,29 +105,28 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     expect{dsc_xexchautomountpoint[:dsc_sparevolumecount] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_sparevolumecount' do
-    expect{dsc_xexchautomountpoint[:dsc_sparevolumecount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_sparevolumecount' do
     dsc_xexchautomountpoint[:dsc_sparevolumecount] = 32
     expect(dsc_xexchautomountpoint[:dsc_sparevolumecount]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_sparevolumecount' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xexchautomountpoint[:dsc_sparevolumecount] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_sparevolumecount' do
+  it 'should accept string-like uint for dsc_sparevolumecount' do
     dsc_xexchautomountpoint[:dsc_sparevolumecount] = '16'
     expect(dsc_xexchautomountpoint[:dsc_sparevolumecount]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_sparevolumecount' do
+  it 'should accept string-like uint for dsc_sparevolumecount' do
     dsc_xexchautomountpoint[:dsc_sparevolumecount] = '32'
     expect(dsc_xexchautomountpoint[:dsc_sparevolumecount]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_sparevolumecount' do
+  it 'should accept string-like uint for dsc_sparevolumecount' do
     dsc_xexchautomountpoint[:dsc_sparevolumecount] = '64'
     expect(dsc_xexchautomountpoint[:dsc_sparevolumecount]).to eq(64)
   end

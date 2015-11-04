@@ -920,53 +920,26 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(-32)
   end
 
-
   it 'should accept string-like int for dsc_maxhopcount' do
     dsc_xexchreceiveconnector[:dsc_maxhopcount] = '16'
     expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_maxhopcount' do
     dsc_xexchreceiveconnector[:dsc_maxhopcount] = '-16'
     expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_maxhopcount' do
     dsc_xexchreceiveconnector[:dsc_maxhopcount] = '32'
     expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_maxhopcount' do
     dsc_xexchreceiveconnector[:dsc_maxhopcount] = '-32'
     expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(-32)
   end
 
-
-  it 'should accept uint for dsc_maxhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxhopcount] = -32
-    expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(-32)
-  end
-
-
-  it 'should accept string-like int for dsc_maxhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxhopcount] = '16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(16)
-  end
-
-
-  it 'should accept string-like int for dsc_maxhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxhopcount] = '32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(32)
-  end
-
-
-  it 'should accept string-like int for dsc_maxhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxhopcount] = '64'
-    expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(64)
-  end
 
   it 'should not accept array for dsc_maxinboundconnection' do
     expect{dsc_xexchreceiveconnector[:dsc_maxinboundconnection] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -997,53 +970,26 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(-32)
   end
 
-
   it 'should accept string-like int for dsc_maxinboundconnectionpercentagepersource' do
     dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = '16'
     expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_maxinboundconnectionpercentagepersource' do
     dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = '-16'
     expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_maxinboundconnectionpercentagepersource' do
     dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = '32'
     expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_maxinboundconnectionpercentagepersource' do
     dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = '-32'
     expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(-32)
   end
 
-
-  it 'should accept uint for dsc_maxinboundconnectionpercentagepersource' do
-    dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = -32
-    expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(-32)
-  end
-
-
-  it 'should accept string-like int for dsc_maxinboundconnectionpercentagepersource' do
-    dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = '16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(16)
-  end
-
-
-  it 'should accept string-like int for dsc_maxinboundconnectionpercentagepersource' do
-    dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = '32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(32)
-  end
-
-
-  it 'should accept string-like int for dsc_maxinboundconnectionpercentagepersource' do
-    dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = '64'
-    expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(64)
-  end
 
   it 'should not accept array for dsc_maxinboundconnectionpersource' do
     expect{dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpersource] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -1074,53 +1020,26 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(-32)
   end
 
-
   it 'should accept string-like int for dsc_maxlocalhopcount' do
     dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = '16'
     expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_maxlocalhopcount' do
     dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = '-16'
     expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_maxlocalhopcount' do
     dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = '32'
     expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_maxlocalhopcount' do
     dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = '-32'
     expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(-32)
   end
 
-
-  it 'should accept uint for dsc_maxlocalhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = -32
-    expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(-32)
-  end
-
-
-  it 'should accept string-like int for dsc_maxlocalhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = '16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(16)
-  end
-
-
-  it 'should accept string-like int for dsc_maxlocalhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = '32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(32)
-  end
-
-
-  it 'should accept string-like int for dsc_maxlocalhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = '64'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(64)
-  end
 
   it 'should not accept array for dsc_maxlogonfailures' do
     expect{dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -1135,53 +1054,26 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(-32)
   end
 
-
   it 'should accept string-like int for dsc_maxlogonfailures' do
     dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = '16'
     expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_maxlogonfailures' do
     dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = '-16'
     expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_maxlogonfailures' do
     dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = '32'
     expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_maxlogonfailures' do
     dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = '-32'
     expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(-32)
   end
 
-
-  it 'should accept uint for dsc_maxlogonfailures' do
-    dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = -32
-    expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(-32)
-  end
-
-
-  it 'should accept string-like int for dsc_maxlogonfailures' do
-    dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = '16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(16)
-  end
-
-
-  it 'should accept string-like int for dsc_maxlogonfailures' do
-    dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = '32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(32)
-  end
-
-
-  it 'should accept string-like int for dsc_maxlogonfailures' do
-    dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = '64'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(64)
-  end
 
   it 'should not accept array for dsc_maxmessagesize' do
     expect{dsc_xexchreceiveconnector[:dsc_maxmessagesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -1228,53 +1120,26 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(-32)
   end
 
-
   it 'should accept string-like int for dsc_maxrecipientspermessage' do
     dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = '16'
     expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(16)
   end
-
 
   it 'should accept string-like int for dsc_maxrecipientspermessage' do
     dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = '-16'
     expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(-16)
   end
 
-
   it 'should accept string-like int for dsc_maxrecipientspermessage' do
     dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = '32'
     expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(32)
   end
-
 
   it 'should accept string-like int for dsc_maxrecipientspermessage' do
     dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = '-32'
     expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(-32)
   end
 
-
-  it 'should accept uint for dsc_maxrecipientspermessage' do
-    dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = -32
-    expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(-32)
-  end
-
-
-  it 'should accept string-like int for dsc_maxrecipientspermessage' do
-    dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = '16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(16)
-  end
-
-
-  it 'should accept string-like int for dsc_maxrecipientspermessage' do
-    dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = '32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(32)
-  end
-
-
-  it 'should accept string-like int for dsc_maxrecipientspermessage' do
-    dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = '64'
-    expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(64)
-  end
 
   it 'should not accept array for dsc_messageratelimit' do
     expect{dsc_xexchreceiveconnector[:dsc_messageratelimit] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)

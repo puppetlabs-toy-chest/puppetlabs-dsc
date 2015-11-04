@@ -63,29 +63,28 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_activesessionlimitmin' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_activesessionlimitmin' do
     dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = 32
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_activesessionlimitmin' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_activesessionlimitmin' do
+  it 'should accept string-like uint for dsc_activesessionlimitmin' do
     dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = '16'
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_activesessionlimitmin' do
+  it 'should accept string-like uint for dsc_activesessionlimitmin' do
     dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = '32'
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_activesessionlimitmin' do
+  it 'should accept string-like uint for dsc_activesessionlimitmin' do
     dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = '64'
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin]).to eq(64)
   end
@@ -366,29 +365,28 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_disconnectedsessionlimitmin' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_disconnectedsessionlimitmin' do
     dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = 32
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_disconnectedsessionlimitmin' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_disconnectedsessionlimitmin' do
+  it 'should accept string-like uint for dsc_disconnectedsessionlimitmin' do
     dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = '16'
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_disconnectedsessionlimitmin' do
+  it 'should accept string-like uint for dsc_disconnectedsessionlimitmin' do
     dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = '32'
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_disconnectedsessionlimitmin' do
+  it 'should accept string-like uint for dsc_disconnectedsessionlimitmin' do
     dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = '64'
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin]).to eq(64)
   end
@@ -417,29 +415,28 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_idlesessionlimitmin' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_idlesessionlimitmin' do
     dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = 32
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_idlesessionlimitmin' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_idlesessionlimitmin' do
+  it 'should accept string-like uint for dsc_idlesessionlimitmin' do
     dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = '16'
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_idlesessionlimitmin' do
+  it 'should accept string-like uint for dsc_idlesessionlimitmin' do
     dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = '32'
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_idlesessionlimitmin' do
+  it 'should accept string-like uint for dsc_idlesessionlimitmin' do
     dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = '64'
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin]).to eq(64)
   end
@@ -452,29 +449,28 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_maxredirectedmonitors' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_maxredirectedmonitors' do
     dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = 32
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_maxredirectedmonitors' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_maxredirectedmonitors' do
+  it 'should accept string-like uint for dsc_maxredirectedmonitors' do
     dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = '16'
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_maxredirectedmonitors' do
+  it 'should accept string-like uint for dsc_maxredirectedmonitors' do
     dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = '32'
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_maxredirectedmonitors' do
+  it 'should accept string-like uint for dsc_maxredirectedmonitors' do
     dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = '64'
     expect(dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors]).to eq(64)
   end

@@ -31,29 +31,28 @@ describe Puppet::Type.type(:dsc_xwaitfordisk) do
     expect{dsc_xwaitfordisk[:dsc_disknumber] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_disknumber' do
-    expect{dsc_xwaitfordisk[:dsc_disknumber] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_disknumber' do
     dsc_xwaitfordisk[:dsc_disknumber] = 32
     expect(dsc_xwaitfordisk[:dsc_disknumber]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_disknumber' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xwaitfordisk[:dsc_disknumber] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_disknumber' do
+  it 'should accept string-like uint for dsc_disknumber' do
     dsc_xwaitfordisk[:dsc_disknumber] = '16'
     expect(dsc_xwaitfordisk[:dsc_disknumber]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_disknumber' do
+  it 'should accept string-like uint for dsc_disknumber' do
     dsc_xwaitfordisk[:dsc_disknumber] = '32'
     expect(dsc_xwaitfordisk[:dsc_disknumber]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_disknumber' do
+  it 'should accept string-like uint for dsc_disknumber' do
     dsc_xwaitfordisk[:dsc_disknumber] = '64'
     expect(dsc_xwaitfordisk[:dsc_disknumber]).to eq(64)
   end
@@ -66,29 +65,28 @@ describe Puppet::Type.type(:dsc_xwaitfordisk) do
     expect{dsc_xwaitfordisk[:dsc_retryintervalsec] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_retryintervalsec' do
-    expect{dsc_xwaitfordisk[:dsc_retryintervalsec] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_retryintervalsec' do
     dsc_xwaitfordisk[:dsc_retryintervalsec] = 64
     expect(dsc_xwaitfordisk[:dsc_retryintervalsec]).to eq(64)
   end
 
+  it 'should not accept signed (negative) value for dsc_retryintervalsec' do
+    value = -64
+    expect(value).to be < 0
+    expect{dsc_xwaitfordisk[:dsc_retryintervalsec] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_retryintervalsec' do
+  it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xwaitfordisk[:dsc_retryintervalsec] = '16'
     expect(dsc_xwaitfordisk[:dsc_retryintervalsec]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_retryintervalsec' do
+  it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xwaitfordisk[:dsc_retryintervalsec] = '32'
     expect(dsc_xwaitfordisk[:dsc_retryintervalsec]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_retryintervalsec' do
+  it 'should accept string-like uint for dsc_retryintervalsec' do
     dsc_xwaitfordisk[:dsc_retryintervalsec] = '64'
     expect(dsc_xwaitfordisk[:dsc_retryintervalsec]).to eq(64)
   end
@@ -101,29 +99,28 @@ describe Puppet::Type.type(:dsc_xwaitfordisk) do
     expect{dsc_xwaitfordisk[:dsc_retrycount] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_retrycount' do
-    expect{dsc_xwaitfordisk[:dsc_retrycount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_retrycount' do
     dsc_xwaitfordisk[:dsc_retrycount] = 32
     expect(dsc_xwaitfordisk[:dsc_retrycount]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_retrycount' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xwaitfordisk[:dsc_retrycount] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_retrycount' do
+  it 'should accept string-like uint for dsc_retrycount' do
     dsc_xwaitfordisk[:dsc_retrycount] = '16'
     expect(dsc_xwaitfordisk[:dsc_retrycount]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_retrycount' do
+  it 'should accept string-like uint for dsc_retrycount' do
     dsc_xwaitfordisk[:dsc_retrycount] = '32'
     expect(dsc_xwaitfordisk[:dsc_retrycount]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_retrycount' do
+  it 'should accept string-like uint for dsc_retrycount' do
     dsc_xwaitfordisk[:dsc_retrycount] = '64'
     expect(dsc_xwaitfordisk[:dsc_retrycount]).to eq(64)
   end

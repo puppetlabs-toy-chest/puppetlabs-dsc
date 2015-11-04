@@ -157,29 +157,28 @@ describe Puppet::Type.type(:dsc_xscvmmconsolesetup) do
     expect{dsc_xscvmmconsolesetup[:dsc_indigotcpport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_indigotcpport' do
-    expect{dsc_xscvmmconsolesetup[:dsc_indigotcpport] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_indigotcpport' do
     dsc_xscvmmconsolesetup[:dsc_indigotcpport] = 16
     expect(dsc_xscvmmconsolesetup[:dsc_indigotcpport]).to eq(16)
   end
 
+  it 'should not accept signed (negative) value for dsc_indigotcpport' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscvmmconsolesetup[:dsc_indigotcpport] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_indigotcpport' do
+  it 'should accept string-like uint for dsc_indigotcpport' do
     dsc_xscvmmconsolesetup[:dsc_indigotcpport] = '16'
     expect(dsc_xscvmmconsolesetup[:dsc_indigotcpport]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_indigotcpport' do
+  it 'should accept string-like uint for dsc_indigotcpport' do
     dsc_xscvmmconsolesetup[:dsc_indigotcpport] = '32'
     expect(dsc_xscvmmconsolesetup[:dsc_indigotcpport]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_indigotcpport' do
+  it 'should accept string-like uint for dsc_indigotcpport' do
     dsc_xscvmmconsolesetup[:dsc_indigotcpport] = '64'
     expect(dsc_xscvmmconsolesetup[:dsc_indigotcpport]).to eq(64)
   end
@@ -192,29 +191,28 @@ describe Puppet::Type.type(:dsc_xscvmmconsolesetup) do
     expect{dsc_xscvmmconsolesetup[:dsc_muoptin] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_muoptin' do
-    expect{dsc_xscvmmconsolesetup[:dsc_muoptin] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_muoptin' do
     dsc_xscvmmconsolesetup[:dsc_muoptin] = 1
     expect(dsc_xscvmmconsolesetup[:dsc_muoptin]).to eq(1)
   end
 
+  it 'should not accept signed (negative) value for dsc_muoptin' do
+    value = -16
+    expect(value).to be < 0
+    expect{dsc_xscvmmconsolesetup[:dsc_muoptin] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_muoptin' do
+  it 'should accept string-like uint for dsc_muoptin' do
     dsc_xscvmmconsolesetup[:dsc_muoptin] = '16'
     expect(dsc_xscvmmconsolesetup[:dsc_muoptin]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_muoptin' do
+  it 'should accept string-like uint for dsc_muoptin' do
     dsc_xscvmmconsolesetup[:dsc_muoptin] = '32'
     expect(dsc_xscvmmconsolesetup[:dsc_muoptin]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_muoptin' do
+  it 'should accept string-like uint for dsc_muoptin' do
     dsc_xscvmmconsolesetup[:dsc_muoptin] = '64'
     expect(dsc_xscvmmconsolesetup[:dsc_muoptin]).to eq(64)
   end

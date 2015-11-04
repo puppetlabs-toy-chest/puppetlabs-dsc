@@ -104,29 +104,28 @@ describe Puppet::Type.type(:dsc_xspdistributedcacheservice) do
     expect{dsc_xspdistributedcacheservice[:dsc_cachesizeinmb] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_cachesizeinmb' do
-    expect{dsc_xspdistributedcacheservice[:dsc_cachesizeinmb] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_cachesizeinmb' do
     dsc_xspdistributedcacheservice[:dsc_cachesizeinmb] = 32
     expect(dsc_xspdistributedcacheservice[:dsc_cachesizeinmb]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_cachesizeinmb' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspdistributedcacheservice[:dsc_cachesizeinmb] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_cachesizeinmb' do
+  it 'should accept string-like uint for dsc_cachesizeinmb' do
     dsc_xspdistributedcacheservice[:dsc_cachesizeinmb] = '16'
     expect(dsc_xspdistributedcacheservice[:dsc_cachesizeinmb]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_cachesizeinmb' do
+  it 'should accept string-like uint for dsc_cachesizeinmb' do
     dsc_xspdistributedcacheservice[:dsc_cachesizeinmb] = '32'
     expect(dsc_xspdistributedcacheservice[:dsc_cachesizeinmb]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_cachesizeinmb' do
+  it 'should accept string-like uint for dsc_cachesizeinmb' do
     dsc_xspdistributedcacheservice[:dsc_cachesizeinmb] = '64'
     expect(dsc_xspdistributedcacheservice[:dsc_cachesizeinmb]).to eq(64)
   end

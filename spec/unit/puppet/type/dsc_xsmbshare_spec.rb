@@ -112,29 +112,28 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     expect{dsc_xsmbshare[:dsc_concurrentuserlimit] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_concurrentuserlimit' do
-    expect{dsc_xsmbshare[:dsc_concurrentuserlimit] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_concurrentuserlimit' do
     dsc_xsmbshare[:dsc_concurrentuserlimit] = 32
     expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_concurrentuserlimit' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xsmbshare[:dsc_concurrentuserlimit] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_concurrentuserlimit' do
+  it 'should accept string-like uint for dsc_concurrentuserlimit' do
     dsc_xsmbshare[:dsc_concurrentuserlimit] = '16'
     expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_concurrentuserlimit' do
+  it 'should accept string-like uint for dsc_concurrentuserlimit' do
     dsc_xsmbshare[:dsc_concurrentuserlimit] = '32'
     expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_concurrentuserlimit' do
+  it 'should accept string-like uint for dsc_concurrentuserlimit' do
     dsc_xsmbshare[:dsc_concurrentuserlimit] = '64'
     expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(64)
   end

@@ -120,29 +120,28 @@ describe Puppet::Type.type(:dsc_xspsecurestoreserviceapp) do
     expect{dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_auditlogmaxsize' do
-    expect{dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_auditlogmaxsize' do
     dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize] = 32
     expect(dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_auditlogmaxsize' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_auditlogmaxsize' do
+  it 'should accept string-like uint for dsc_auditlogmaxsize' do
     dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize] = '16'
     expect(dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_auditlogmaxsize' do
+  it 'should accept string-like uint for dsc_auditlogmaxsize' do
     dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize] = '32'
     expect(dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_auditlogmaxsize' do
+  it 'should accept string-like uint for dsc_auditlogmaxsize' do
     dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize] = '64'
     expect(dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize]).to eq(64)
   end

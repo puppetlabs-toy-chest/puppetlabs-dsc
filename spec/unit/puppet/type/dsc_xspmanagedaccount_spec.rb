@@ -90,29 +90,28 @@ describe Puppet::Type.type(:dsc_xspmanagedaccount) do
     expect{dsc_xspmanagedaccount[:dsc_emailnotification] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_emailnotification' do
-    expect{dsc_xspmanagedaccount[:dsc_emailnotification] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_emailnotification' do
     dsc_xspmanagedaccount[:dsc_emailnotification] = 32
     expect(dsc_xspmanagedaccount[:dsc_emailnotification]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_emailnotification' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspmanagedaccount[:dsc_emailnotification] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_emailnotification' do
+  it 'should accept string-like uint for dsc_emailnotification' do
     dsc_xspmanagedaccount[:dsc_emailnotification] = '16'
     expect(dsc_xspmanagedaccount[:dsc_emailnotification]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_emailnotification' do
+  it 'should accept string-like uint for dsc_emailnotification' do
     dsc_xspmanagedaccount[:dsc_emailnotification] = '32'
     expect(dsc_xspmanagedaccount[:dsc_emailnotification]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_emailnotification' do
+  it 'should accept string-like uint for dsc_emailnotification' do
     dsc_xspmanagedaccount[:dsc_emailnotification] = '64'
     expect(dsc_xspmanagedaccount[:dsc_emailnotification]).to eq(64)
   end
@@ -125,29 +124,28 @@ describe Puppet::Type.type(:dsc_xspmanagedaccount) do
     expect{dsc_xspmanagedaccount[:dsc_preexpiredays] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_preexpiredays' do
-    expect{dsc_xspmanagedaccount[:dsc_preexpiredays] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_preexpiredays' do
     dsc_xspmanagedaccount[:dsc_preexpiredays] = 32
     expect(dsc_xspmanagedaccount[:dsc_preexpiredays]).to eq(32)
   end
 
+  it 'should not accept signed (negative) value for dsc_preexpiredays' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspmanagedaccount[:dsc_preexpiredays] = value}.to raise_error(Puppet::ResourceError)
+  end
 
-  it 'should accept string-like int for dsc_preexpiredays' do
+  it 'should accept string-like uint for dsc_preexpiredays' do
     dsc_xspmanagedaccount[:dsc_preexpiredays] = '16'
     expect(dsc_xspmanagedaccount[:dsc_preexpiredays]).to eq(16)
   end
 
-
-  it 'should accept string-like int for dsc_preexpiredays' do
+  it 'should accept string-like uint for dsc_preexpiredays' do
     dsc_xspmanagedaccount[:dsc_preexpiredays] = '32'
     expect(dsc_xspmanagedaccount[:dsc_preexpiredays]).to eq(32)
   end
 
-
-  it 'should accept string-like int for dsc_preexpiredays' do
+  it 'should accept string-like uint for dsc_preexpiredays' do
     dsc_xspmanagedaccount[:dsc_preexpiredays] = '64'
     expect(dsc_xspmanagedaccount[:dsc_preexpiredays]).to eq(64)
   end
