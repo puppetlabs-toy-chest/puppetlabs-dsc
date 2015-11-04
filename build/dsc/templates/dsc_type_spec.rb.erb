@@ -167,7 +167,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
   it 'should not accept int for dsc_<%= property.name.downcase %>' do
     expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values['int_not_bool_mungeable']) %>}.to raise_error(Puppet::ResourceError)
   end
-<%    end # if property.uint? -%>
+<%    end # if property.int? -%>
 <%    if property.uint? or property.int? -%>
 
   it 'should accept uint for dsc_<%= property.name.downcase %>' do
