@@ -1,3 +1,4 @@
+require 'master_manipulator'
 test_name 'FM-2626 - C70297 - Configure LCM for "Disabled" Refresh Mode'
 
 #Init

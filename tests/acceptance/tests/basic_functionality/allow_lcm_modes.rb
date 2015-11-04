@@ -41,6 +41,6 @@ agents.each do |agent|
     'File',
     'PSDesiredStateConfiguration',
     :DestinationPath => 'C:\test.file',
-    :Contents => 'Cats go meow!'
+    :Contents        => 'Cats go meow!'
   )
 end

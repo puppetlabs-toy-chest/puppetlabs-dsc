@@ -3,6 +3,15 @@ require 'master_manipulator'
 require 'dsc_utils'
 test_name 'MODULES-2400 - C89536 - Apply DSC Basic Resource Kitchen Sink Manifest'
 
+step 'Check Windows Version Compatibility'
+confine_block(:to, :platform => 'windows') do
+  on(agents, powershell('[Environment]::OSVersion.Version.ToString(2)')) do |result|
+    if result.stdout.match(/\d{1,2}\.\d{1,2}/)[0].to_f < 6.3
+      skip_test('This test requires Windows Server 2012 R2 or greater. See MODULES-2762.')
+    end
+  end
+end
+
 # Init
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 dsc_module = 'PSDesiredStateConfiguration'
@@ -43,7 +52,7 @@ dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(bin
 teardown do
   confine_block(:to, :platform => 'windows') do
     step 'Uninstall 7-zip'
-    on(agents, "cmd /c \"#{seven_zip_install_path}\\Uninstall.exe /S\"")
+    on(agents, powershell("Start-Process \"#{seven_zip_install_path}\\Uninstall.exe /S\" -Wait"))
 
     step 'Unset Environment Variable'
     set_dsc_resource(

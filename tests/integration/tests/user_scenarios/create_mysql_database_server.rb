@@ -5,6 +5,8 @@ require 'master_manipulator'
 test_name 'MODULES-2538 - C89507 - Apply DSC Manifest for Creating a MySql Database Server'
 
 # Init
+dsc_type = 'file'
+dsc_module = 'PSDesiredStateConfiguration'
 mysql_msi_file = 'mysql-installer.msi'
 sqlserver_dl_url = 'http://int-resources.ops.puppetlabs.net/QA_resources/microsoft_sql/mysql-installer-community-5.6.17.0.msi'
 sqlserver_dl_path = "C:\\#{mysql_msi_file}"
@@ -27,8 +29,13 @@ teardown do
         :Ensure => 'Absent',
         :ServiceName => mysql_instance,
     )
-    on(agents, "rm -rf /cygdrive/c/#{mysql_msi_file}")
-    on(agents, "rm -rf /cygdrive/c/temp.ps1")
+    set_dsc_resource(
+      agents,
+      'File',
+      'PSDesiredStateConfiguration',
+      :Ensure          => 'Absent',
+      :DestinationPath => "C:/#{mysql_msi_file}"
+    )
   end
 end
 

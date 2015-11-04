@@ -3,8 +3,9 @@ HOSTS:
     roles:
       - agent
     platform: windows-2012r2-x86_64
-    template: Delivery/Quality Assurance/Templates/vCloud/win-2012r2-wmf5-x86_64
+    template: Delivery/Quality Assurance/Templates/vCloud/win-2012r2-wmf5-bv-x86_64
     hypervisor: vcloud
+    is_cygwin: false
 CONFIG:
   masterless: true
   nfs_server: none

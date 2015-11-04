@@ -4,11 +4,10 @@ require 'dsc_utils'
 test_name 'FM-2623 - C68510 - Apply DSC Resource Manifest in "noop" Mode Using "puppet agent"'
 
 # Init
-test_dir_name = 'test'
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
 # ERB Manifest
-test_dir_path = "C:/#{test_dir_name}"
+test_dir_path = 'C:/test'
 test_file_path = "#{test_dir_path}/test.txt"
 test_file_contents = 'catcat'
 
@@ -35,7 +34,7 @@ confine_block(:to, :platform => 'windows') do
         'File',
         'PSDesiredStateConfiguration',
         :DestinationPath => test_file_path,
-        :Contents => test_file_contents
+        :Contents        => test_file_contents
       )
     end
   end
