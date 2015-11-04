@@ -55,8 +55,17 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 
   @doc = %q{
     The DSC <%= resource.friendlyname%> resource type.
-    Originally generated from the following schema.mof file:
-      <%= resource.relative_mof_path %>
+    Automatically generated from
+    '<%= resource.relative_mof_path.gsub('import/dsc_resources/','') %>'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -65,15 +74,33 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   <%  end -%>
   end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "<%= resource.friendlyname %>"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('<%= resource.friendlyname %>')."
+
+    def retrieve
+      '<%= resource.friendlyname %>'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "<%= resource.name %>"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('<%= resource.name %>')."
+
+    def retrieve
+      '<%= resource.name %>'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -83,12 +110,31 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "<%= resource.ps_module.name %>"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('<%= resource.ps_module.name %>')."
+
+    def retrieve
+      '<%= resource.ps_module.name %>'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 <%  if resource.ps_module.name != 'PSDesiredStateConfiguration' %>
-  newparam(:dscmeta_module_version) do
-    defaultto "<%= resource.ps_module.version %>"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('<%= resource.ps_module.version %>').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '<%= resource.ps_module.version %>'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 <%  end %>
   newparam(:name, :namevar => true ) do
@@ -130,9 +176,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
       <%= type_map.to_s %>
     end
 <%    end -%>
-<%    if property.description -%>
-    desc "<%= property.description %>"
-<%    end -%>
+    desc "<%= property.name %><% if property.description -%> - <%= property.description %><% end %><% if property.values -%><% unless property.description -%> -<% end %> Valid values are <%= property.values.join(', ') %>.<% end -%>"
 <%    if property.required? -%>
     isrequired
 <%    end -%>
