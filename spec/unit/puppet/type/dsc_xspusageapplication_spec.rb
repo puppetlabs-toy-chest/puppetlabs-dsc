@@ -155,10 +155,6 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
     expect{dsc_xspusageapplication[:dsc_usagelogcuttime] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_usagelogcuttime' do
-    expect{dsc_xspusageapplication[:dsc_usagelogcuttime] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_usagelogcuttime' do
     dsc_xspusageapplication[:dsc_usagelogcuttime] = 32
     expect(dsc_xspusageapplication[:dsc_usagelogcuttime]).to eq(32)
@@ -203,10 +199,6 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
     expect{dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_usagelogmaxfilesizekb' do
-    expect{dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_usagelogmaxfilesizekb' do
     dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb] = 32
     expect(dsc_xspusageapplication[:dsc_usagelogmaxfilesizekb]).to eq(32)
@@ -233,10 +225,6 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
 
   it 'should not accept boolean for dsc_usagelogmaxspacegb' do
     expect{dsc_xspusageapplication[:dsc_usagelogmaxspacegb] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_usagelogmaxspacegb' do
-    expect{dsc_xspusageapplication[:dsc_usagelogmaxspacegb] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_usagelogmaxspacegb' do

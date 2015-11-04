@@ -379,10 +379,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_keylength] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_keylength' do
-    expect{dsc_xadcscertificationauthority[:dsc_keylength] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_keylength' do
     dsc_xadcscertificationauthority[:dsc_keylength] = 32
     expect(dsc_xadcscertificationauthority[:dsc_keylength]).to eq(32)
@@ -658,10 +654,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
 
   it 'should not accept boolean for dsc_validityperiodunits' do
     expect{dsc_xadcscertificationauthority[:dsc_validityperiodunits] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_validityperiodunits' do
-    expect{dsc_xadcscertificationauthority[:dsc_validityperiodunits] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_validityperiodunits' do

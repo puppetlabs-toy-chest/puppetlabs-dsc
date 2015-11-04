@@ -31,10 +31,6 @@ describe Puppet::Type.type(:dsc_xwaitfordisk) do
     expect{dsc_xwaitfordisk[:dsc_disknumber] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_disknumber' do
-    expect{dsc_xwaitfordisk[:dsc_disknumber] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_disknumber' do
     dsc_xwaitfordisk[:dsc_disknumber] = 32
     expect(dsc_xwaitfordisk[:dsc_disknumber]).to eq(32)
@@ -63,10 +59,6 @@ describe Puppet::Type.type(:dsc_xwaitfordisk) do
     expect{dsc_xwaitfordisk[:dsc_retryintervalsec] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_retryintervalsec' do
-    expect{dsc_xwaitfordisk[:dsc_retryintervalsec] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_retryintervalsec' do
     dsc_xwaitfordisk[:dsc_retryintervalsec] = 64
     expect(dsc_xwaitfordisk[:dsc_retryintervalsec]).to eq(64)
@@ -93,10 +85,6 @@ describe Puppet::Type.type(:dsc_xwaitfordisk) do
 
   it 'should not accept boolean for dsc_retrycount' do
     expect{dsc_xwaitfordisk[:dsc_retrycount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_retrycount' do
-    expect{dsc_xwaitfordisk[:dsc_retrycount] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_retrycount' do

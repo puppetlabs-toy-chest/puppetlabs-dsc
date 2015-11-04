@@ -67,10 +67,6 @@ describe Puppet::Type.type(:dsc_xwaitforsqlhagroup) do
     expect{dsc_xwaitforsqlhagroup[:dsc_retryintervalsec] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_retryintervalsec' do
-    expect{dsc_xwaitforsqlhagroup[:dsc_retryintervalsec] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_retryintervalsec' do
     dsc_xwaitforsqlhagroup[:dsc_retryintervalsec] = 64
     expect(dsc_xwaitforsqlhagroup[:dsc_retryintervalsec]).to eq(64)
@@ -97,10 +93,6 @@ describe Puppet::Type.type(:dsc_xwaitforsqlhagroup) do
 
   it 'should not accept boolean for dsc_retrycount' do
     expect{dsc_xwaitforsqlhagroup[:dsc_retrycount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_retrycount' do
-    expect{dsc_xwaitforsqlhagroup[:dsc_retrycount] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_retrycount' do

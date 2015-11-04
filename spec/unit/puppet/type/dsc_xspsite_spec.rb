@@ -74,10 +74,6 @@ describe Puppet::Type.type(:dsc_xspsite) do
     expect{dsc_xspsite[:dsc_compatibilitylevel] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_compatibilitylevel' do
-    expect{dsc_xspsite[:dsc_compatibilitylevel] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_compatibilitylevel' do
     dsc_xspsite[:dsc_compatibilitylevel] = 32
     expect(dsc_xspsite[:dsc_compatibilitylevel]).to eq(32)
@@ -152,10 +148,6 @@ describe Puppet::Type.type(:dsc_xspsite) do
 
   it 'should not accept boolean for dsc_language' do
     expect{dsc_xspsite[:dsc_language] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_language' do
-    expect{dsc_xspsite[:dsc_language] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_language' do

@@ -280,36 +280,12 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
   end
 
 
-  it 'should accept uint for dsc_maxitems' do
-    dsc_xwefsubscription[:dsc_maxitems] = -32
-    expect(dsc_xwefsubscription[:dsc_maxitems]).to eq(-32)
-  end
-
-  it 'should accept string-like uint for dsc_maxitems' do
-    dsc_xwefsubscription[:dsc_maxitems] = '16'
-    expect(dsc_xwefsubscription[:dsc_maxitems]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maxitems' do
-    dsc_xwefsubscription[:dsc_maxitems] = '32'
-    expect(dsc_xwefsubscription[:dsc_maxitems]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maxitems' do
-    dsc_xwefsubscription[:dsc_maxitems] = '64'
-    expect(dsc_xwefsubscription[:dsc_maxitems]).to eq(64)
-  end
-
   it 'should not accept array for dsc_maxlatencytime' do
     expect{dsc_xwefsubscription[:dsc_maxlatencytime] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_maxlatencytime' do
     expect{dsc_xwefsubscription[:dsc_maxlatencytime] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_maxlatencytime' do
-    expect{dsc_xwefsubscription[:dsc_maxlatencytime] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_maxlatencytime' do
@@ -338,10 +314,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
 
   it 'should not accept boolean for dsc_heartbeatinterval' do
     expect{dsc_xwefsubscription[:dsc_heartbeatinterval] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_heartbeatinterval' do
-    expect{dsc_xwefsubscription[:dsc_heartbeatinterval] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_heartbeatinterval' do

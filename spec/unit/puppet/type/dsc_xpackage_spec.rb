@@ -222,14 +222,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_returncode] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_returncode' do
-    expect{dsc_xpackage[:dsc_returncode] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_returncode' do
-    expect{dsc_xpackage[:dsc_returncode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_logpath' do
     expect{dsc_xpackage[:dsc_logpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -300,10 +292,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept boolean for dsc_size' do
     expect{dsc_xpackage[:dsc_size] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_size' do
-    expect{dsc_xpackage[:dsc_size] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_size' do

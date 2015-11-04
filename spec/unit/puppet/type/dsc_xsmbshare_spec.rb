@@ -112,10 +112,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     expect{dsc_xsmbshare[:dsc_concurrentuserlimit] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_concurrentuserlimit' do
-    expect{dsc_xsmbshare[:dsc_concurrentuserlimit] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_concurrentuserlimit' do
     dsc_xsmbshare[:dsc_concurrentuserlimit] = 32
     expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(32)

@@ -347,26 +347,6 @@ describe Puppet::Type.type(:dsc_xexchoabvirtualdirectory) do
   end
 
 
-  it 'should accept uint for dsc_pollinterval' do
-    dsc_xexchoabvirtualdirectory[:dsc_pollinterval] = -32
-    expect(dsc_xexchoabvirtualdirectory[:dsc_pollinterval]).to eq(-32)
-  end
-
-  it 'should accept string-like uint for dsc_pollinterval' do
-    dsc_xexchoabvirtualdirectory[:dsc_pollinterval] = '16'
-    expect(dsc_xexchoabvirtualdirectory[:dsc_pollinterval]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_pollinterval' do
-    dsc_xexchoabvirtualdirectory[:dsc_pollinterval] = '32'
-    expect(dsc_xexchoabvirtualdirectory[:dsc_pollinterval]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_pollinterval' do
-    dsc_xexchoabvirtualdirectory[:dsc_pollinterval] = '64'
-    expect(dsc_xexchoabvirtualdirectory[:dsc_pollinterval]).to eq(64)
-  end
-
   it 'should not accept array for dsc_requiressl' do
     expect{dsc_xexchoabvirtualdirectory[:dsc_requiressl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end

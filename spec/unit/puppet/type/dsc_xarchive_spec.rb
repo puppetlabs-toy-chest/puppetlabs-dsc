@@ -255,10 +255,6 @@ describe Puppet::Type.type(:dsc_xarchive) do
     expect{dsc_xarchive[:dsc_size] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_size' do
-    expect{dsc_xarchive[:dsc_size] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_size' do
     dsc_xarchive[:dsc_size] = 64
     expect(dsc_xarchive[:dsc_size]).to eq(64)

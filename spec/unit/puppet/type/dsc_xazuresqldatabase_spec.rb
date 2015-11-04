@@ -57,10 +57,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
     expect{dsc_xazuresqldatabase[:dsc_maximumsizeingb] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_maximumsizeingb' do
-    expect{dsc_xazuresqldatabase[:dsc_maximumsizeingb] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_maximumsizeingb' do
     dsc_xazuresqldatabase[:dsc_maximumsizeingb] = 32
     expect(dsc_xazuresqldatabase[:dsc_maximumsizeingb]).to eq(32)

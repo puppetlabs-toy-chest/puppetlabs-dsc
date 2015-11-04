@@ -113,26 +113,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
   end
 
 
-  it 'should accept uint for dsc_autodagtotalnumberofservers' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers] = -32
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers]).to eq(-32)
-  end
-
-  it 'should accept string-like uint for dsc_autodagtotalnumberofservers' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers] = '16'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_autodagtotalnumberofservers' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers] = '32'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_autodagtotalnumberofservers' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers] = '64'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofservers]).to eq(64)
-  end
-
   it 'should not accept array for dsc_alternatewitnessdirectory' do
     expect{dsc_xexchdatabaseavailabilitygroup[:dsc_alternatewitnessdirectory] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -246,26 +226,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
   end
 
 
-  it 'should accept uint for dsc_autodagdatabasecopiesperdatabase' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase] = -32
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase]).to eq(-32)
-  end
-
-  it 'should accept string-like uint for dsc_autodagdatabasecopiesperdatabase' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase] = '16'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_autodagdatabasecopiesperdatabase' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase] = '32'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_autodagdatabasecopiesperdatabase' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase] = '64'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiesperdatabase]).to eq(64)
-  end
-
   it 'should not accept array for dsc_autodagdatabasecopiespervolume' do
     expect{dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -299,26 +259,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume]).to eq(-32)
   end
 
-
-  it 'should accept uint for dsc_autodagdatabasecopiespervolume' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume] = -32
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume]).to eq(-32)
-  end
-
-  it 'should accept string-like uint for dsc_autodagdatabasecopiespervolume' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume] = '16'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_autodagdatabasecopiespervolume' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume] = '32'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_autodagdatabasecopiespervolume' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume] = '64'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasecopiespervolume]).to eq(64)
-  end
 
   it 'should not accept array for dsc_autodagdatabasesrootfolderpath' do
     expect{dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdatabasesrootfolderpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -416,26 +356,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases]).to eq(-32)
   end
 
-
-  it 'should accept uint for dsc_autodagtotalnumberofdatabases' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases] = -32
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases]).to eq(-32)
-  end
-
-  it 'should accept string-like uint for dsc_autodagtotalnumberofdatabases' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases] = '16'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_autodagtotalnumberofdatabases' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases] = '32'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_autodagtotalnumberofdatabases' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases] = '64'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagtotalnumberofdatabases]).to eq(64)
-  end
 
   it 'should not accept array for dsc_autodagvolumesrootfolderpath' do
     expect{dsc_xexchdatabaseavailabilitygroup[:dsc_autodagvolumesrootfolderpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -746,10 +666,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
 
   it 'should not accept boolean for dsc_replicationport' do
     expect{dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_replicationport' do
-    expect{dsc_xexchdatabaseavailabilitygroup[:dsc_replicationport] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_replicationport' do

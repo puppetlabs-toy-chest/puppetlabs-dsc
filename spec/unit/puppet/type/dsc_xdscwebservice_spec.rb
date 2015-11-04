@@ -76,10 +76,6 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
     expect{dsc_xdscwebservice[:dsc_port] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_port' do
-    expect{dsc_xdscwebservice[:dsc_port] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_port' do
     dsc_xdscwebservice[:dsc_port] = 32
     expect(dsc_xdscwebservice[:dsc_port]).to eq(32)

@@ -157,10 +157,6 @@ describe Puppet::Type.type(:dsc_xscvmmconsolesetup) do
     expect{dsc_xscvmmconsolesetup[:dsc_indigotcpport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_indigotcpport' do
-    expect{dsc_xscvmmconsolesetup[:dsc_indigotcpport] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_indigotcpport' do
     dsc_xscvmmconsolesetup[:dsc_indigotcpport] = 16
     expect(dsc_xscvmmconsolesetup[:dsc_indigotcpport]).to eq(16)
@@ -187,10 +183,6 @@ describe Puppet::Type.type(:dsc_xscvmmconsolesetup) do
 
   it 'should not accept boolean for dsc_muoptin' do
     expect{dsc_xscvmmconsolesetup[:dsc_muoptin] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_muoptin' do
-    expect{dsc_xscvmmconsolesetup[:dsc_muoptin] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_muoptin' do

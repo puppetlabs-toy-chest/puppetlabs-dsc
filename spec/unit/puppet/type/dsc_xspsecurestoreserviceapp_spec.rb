@@ -120,10 +120,6 @@ describe Puppet::Type.type(:dsc_xspsecurestoreserviceapp) do
     expect{dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_auditlogmaxsize' do
-    expect{dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_auditlogmaxsize' do
     dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize] = 32
     expect(dsc_xspsecurestoreserviceapp[:dsc_auditlogmaxsize]).to eq(32)

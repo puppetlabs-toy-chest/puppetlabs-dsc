@@ -94,10 +94,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_databasecopycount] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_databasecopycount' do
-    expect{dsc_xexchmailboxdatabase[:dsc_databasecopycount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_databasecopycount' do
     dsc_xexchmailboxdatabase[:dsc_databasecopycount] = 32
     expect(dsc_xexchmailboxdatabase[:dsc_databasecopycount]).to eq(32)

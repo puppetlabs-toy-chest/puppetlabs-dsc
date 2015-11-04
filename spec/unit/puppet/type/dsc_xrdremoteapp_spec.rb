@@ -225,10 +225,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
     expect{dsc_xrdremoteapp[:dsc_iconindex] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_iconindex' do
-    expect{dsc_xrdremoteapp[:dsc_iconindex] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_iconindex' do
     dsc_xrdremoteapp[:dsc_iconindex] = 32
     expect(dsc_xrdremoteapp[:dsc_iconindex]).to eq(32)

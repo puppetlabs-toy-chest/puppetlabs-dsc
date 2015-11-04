@@ -104,10 +104,6 @@ describe Puppet::Type.type(:dsc_xspdistributedcacheservice) do
     expect{dsc_xspdistributedcacheservice[:dsc_cachesizeinmb] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_cachesizeinmb' do
-    expect{dsc_xspdistributedcacheservice[:dsc_cachesizeinmb] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_cachesizeinmb' do
     dsc_xspdistributedcacheservice[:dsc_cachesizeinmb] = 32
     expect(dsc_xspdistributedcacheservice[:dsc_cachesizeinmb]).to eq(32)

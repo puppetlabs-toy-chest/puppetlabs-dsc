@@ -90,10 +90,6 @@ describe Puppet::Type.type(:dsc_xspmanagedaccount) do
     expect{dsc_xspmanagedaccount[:dsc_emailnotification] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_emailnotification' do
-    expect{dsc_xspmanagedaccount[:dsc_emailnotification] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_emailnotification' do
     dsc_xspmanagedaccount[:dsc_emailnotification] = 32
     expect(dsc_xspmanagedaccount[:dsc_emailnotification]).to eq(32)
@@ -120,10 +116,6 @@ describe Puppet::Type.type(:dsc_xspmanagedaccount) do
 
   it 'should not accept boolean for dsc_preexpiredays' do
     expect{dsc_xspmanagedaccount[:dsc_preexpiredays] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_preexpiredays' do
-    expect{dsc_xspmanagedaccount[:dsc_preexpiredays] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_preexpiredays' do

@@ -107,10 +107,6 @@ describe Puppet::Type.type(:dsc_xvhd) do
     expect{dsc_xvhd[:dsc_maximumsizebytes] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_maximumsizebytes' do
-    expect{dsc_xvhd[:dsc_maximumsizebytes] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_maximumsizebytes' do
     dsc_xvhd[:dsc_maximumsizebytes] = 64
     expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(64)
@@ -259,10 +255,6 @@ describe Puppet::Type.type(:dsc_xvhd) do
 
   it 'should not accept boolean for dsc_filesizebytes' do
     expect{dsc_xvhd[:dsc_filesizebytes] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_filesizebytes' do
-    expect{dsc_xvhd[:dsc_filesizebytes] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_filesizebytes' do

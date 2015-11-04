@@ -98,26 +98,6 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
   end
 
 
-  it 'should accept uint for dsc_schemaversion' do
-    dsc_xexchwaitforadprep[:dsc_schemaversion] = -32
-    expect(dsc_xexchwaitforadprep[:dsc_schemaversion]).to eq(-32)
-  end
-
-  it 'should accept string-like uint for dsc_schemaversion' do
-    dsc_xexchwaitforadprep[:dsc_schemaversion] = '16'
-    expect(dsc_xexchwaitforadprep[:dsc_schemaversion]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_schemaversion' do
-    dsc_xexchwaitforadprep[:dsc_schemaversion] = '32'
-    expect(dsc_xexchwaitforadprep[:dsc_schemaversion]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_schemaversion' do
-    dsc_xexchwaitforadprep[:dsc_schemaversion] = '64'
-    expect(dsc_xexchwaitforadprep[:dsc_schemaversion]).to eq(64)
-  end
-
   it 'should not accept array for dsc_organizationversion' do
     expect{dsc_xexchwaitforadprep[:dsc_organizationversion] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -151,26 +131,6 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     expect(dsc_xexchwaitforadprep[:dsc_organizationversion]).to eq(-32)
   end
 
-
-  it 'should accept uint for dsc_organizationversion' do
-    dsc_xexchwaitforadprep[:dsc_organizationversion] = -32
-    expect(dsc_xexchwaitforadprep[:dsc_organizationversion]).to eq(-32)
-  end
-
-  it 'should accept string-like uint for dsc_organizationversion' do
-    dsc_xexchwaitforadprep[:dsc_organizationversion] = '16'
-    expect(dsc_xexchwaitforadprep[:dsc_organizationversion]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_organizationversion' do
-    dsc_xexchwaitforadprep[:dsc_organizationversion] = '32'
-    expect(dsc_xexchwaitforadprep[:dsc_organizationversion]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_organizationversion' do
-    dsc_xexchwaitforadprep[:dsc_organizationversion] = '64'
-    expect(dsc_xexchwaitforadprep[:dsc_organizationversion]).to eq(64)
-  end
 
   it 'should not accept array for dsc_domainversion' do
     expect{dsc_xexchwaitforadprep[:dsc_domainversion] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -206,26 +166,6 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
   end
 
 
-  it 'should accept uint for dsc_domainversion' do
-    dsc_xexchwaitforadprep[:dsc_domainversion] = -32
-    expect(dsc_xexchwaitforadprep[:dsc_domainversion]).to eq(-32)
-  end
-
-  it 'should accept string-like uint for dsc_domainversion' do
-    dsc_xexchwaitforadprep[:dsc_domainversion] = '16'
-    expect(dsc_xexchwaitforadprep[:dsc_domainversion]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_domainversion' do
-    dsc_xexchwaitforadprep[:dsc_domainversion] = '32'
-    expect(dsc_xexchwaitforadprep[:dsc_domainversion]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_domainversion' do
-    dsc_xexchwaitforadprep[:dsc_domainversion] = '64'
-    expect(dsc_xexchwaitforadprep[:dsc_domainversion]).to eq(64)
-  end
-
   it 'should accept array for dsc_exchangedomains' do
     dsc_xexchwaitforadprep[:dsc_exchangedomains] = ["foo", "bar", "spec"]
     expect(dsc_xexchwaitforadprep[:dsc_exchangedomains]).to eq(["foo", "bar", "spec"])
@@ -249,10 +189,6 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
 
   it 'should not accept boolean for dsc_retryintervalsec' do
     expect{dsc_xexchwaitforadprep[:dsc_retryintervalsec] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_retryintervalsec' do
-    expect{dsc_xexchwaitforadprep[:dsc_retryintervalsec] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_retryintervalsec' do
@@ -281,10 +217,6 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
 
   it 'should not accept boolean for dsc_retrycount' do
     expect{dsc_xexchwaitforadprep[:dsc_retrycount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_retrycount' do
-    expect{dsc_xexchwaitforadprep[:dsc_retrycount] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_retrycount' do

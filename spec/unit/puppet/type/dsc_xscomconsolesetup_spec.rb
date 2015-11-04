@@ -159,10 +159,6 @@ describe Puppet::Type.type(:dsc_xscomconsolesetup) do
     expect{dsc_xscomconsolesetup[:dsc_usemicrosoftupdate] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_usemicrosoftupdate' do
-    expect{dsc_xscomconsolesetup[:dsc_usemicrosoftupdate] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept uint for dsc_usemicrosoftupdate' do
     dsc_xscomconsolesetup[:dsc_usemicrosoftupdate] = 1
     expect(dsc_xscomconsolesetup[:dsc_usemicrosoftupdate]).to eq(1)
@@ -189,10 +185,6 @@ describe Puppet::Type.type(:dsc_xscomconsolesetup) do
 
   it 'should not accept boolean for dsc_sendceipreports' do
     expect{dsc_xscomconsolesetup[:dsc_sendceipreports] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_sendceipreports' do
-    expect{dsc_xscomconsolesetup[:dsc_sendceipreports] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_sendceipreports' do
@@ -271,10 +263,6 @@ describe Puppet::Type.type(:dsc_xscomconsolesetup) do
 
   it 'should not accept boolean for dsc_sendodrreports' do
     expect{dsc_xscomconsolesetup[:dsc_sendodrreports] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_sendodrreports' do
-    expect{dsc_xscomconsolesetup[:dsc_sendodrreports] = -16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept uint for dsc_sendodrreports' do
