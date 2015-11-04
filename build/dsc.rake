@@ -26,6 +26,7 @@ namespace :dsc do
     Rake::Task['dsc:resources:import'].invoke unless File.exists?(default_dsc_resources_path)
     Rake::Task['dsc:types:clean'].invoke(dsc_module_path)
     Rake::Task['dsc:types:build'].invoke(dsc_module_path)
+    Rake::Task['dsc:types:document'].invoke(dsc_module_path)
   end
 
   desc "Cleanup all"
@@ -115,6 +116,15 @@ eod
       m.target_module_path = module_path
       msgs = m.build_dsc_types
       msgs.each{|m| puts "#{m}"}
+      dsc_types = m.get_dsc_types
+    end
+
+    desc "Document #{item_name}"
+    task :document, [:module_path] do |t, args|
+      module_path = args[:module_path] || default_dsc_module_path
+      m = Dsc::Manager.new
+      m.target_module_path = module_path
+      m.document_types("#{default_dsc_module_path}/Types.md",m.get_dsc_types)
     end
 
     desc "Cleanup #{item_name}"

@@ -153,6 +153,25 @@ module Dsc
       type_pathes
     end
 
+    def get_dsc_types
+      dsc_types = []
+      resources.each do |resource|
+        dsc_types << "dsc_#{resource.friendlyname.downcase}"
+      end
+      dsc_types
+    end
+
+    def document_types(markdown_file_path,dsc_types)
+      puts "Creating #{markdown_file_path}"
+      File.open("#{markdown_file_path}", 'w+') do |file|
+        file.write("## Resource Types included with dsc module\n")
+        file.write("For any system you have this installed on you can use\n`Puppet describe typename` for more information.\n\n")
+        dsc_types.each do |dsc_type|
+          file.write("* #{dsc_type}\n")
+        end
+      end
+    end
+
     def clean_dsc_types
       puppet_type_path = "#{@target_module_path}/#{@puppet_type_subpath}"
       clean_folder(["#{puppet_type_path}/dsc_*.rb"])
