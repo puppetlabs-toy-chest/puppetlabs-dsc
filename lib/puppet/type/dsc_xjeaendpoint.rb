@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
 
   @doc = %q{
     The DSC xJeaEndPoint resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xJea/DSCResources/MSFT_xJeaEndpoint/MSFT_xJeaEndpoint.schema.mof
+    Automatically generated from
+    'xJea/DSCResources/MSFT_xJeaEndpoint/MSFT_xJeaEndpoint.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xJeaEndPoint"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xJeaEndPoint')."
+
+    def retrieve
+      'xJeaEndPoint'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xJeaEndpoint"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xJeaEndpoint')."
+
+    def retrieve
+      'MSFT_xJeaEndpoint'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xJea"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xJea')."
+
+    def retrieve
+      'xJea'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "0.3.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('0.3.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '0.3.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +104,7 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the JEA toolkit to be generated"
+    desc "Name - Name of the JEA toolkit to be generated"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +120,7 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
   newparam(:dsc_toolkit, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "List of Jea Toolkits to make available via this endpoint"
+    desc "Toolkit - List of Jea Toolkits to make available via this endpoint"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -92,7 +138,7 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
   newparam(:dsc_securitydescriptorsddl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Sddl to define who can access this JeaEndpoint"
+    desc "SecurityDescriptorSddl - Sddl to define who can access this JeaEndpoint"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -107,7 +153,7 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
   newparam(:dsc_group, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "List of local groups that this Endpoints JeaSessionAccount should be a member of"
+    desc "Group - List of local groups that this Endpoints JeaSessionAccount should be a member of"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -125,6 +171,7 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -143,6 +190,7 @@ Puppet::Type.newtype(:dsc_xjeaendpoint) do
   newparam(:dsc_cleanall) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "CleanAll"
     validate do |value|
     end
     newvalues(true, false)

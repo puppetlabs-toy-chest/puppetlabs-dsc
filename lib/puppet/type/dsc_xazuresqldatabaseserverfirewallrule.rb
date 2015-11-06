@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
 
   @doc = %q{
     The DSC xAzureSqlDatabaseServerFirewallRule resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureSqlDatabaseServerFirewallRule/MSFT_xAzureSqlDatabaseServerFirewallRule.schema.mof
+    Automatically generated from
+    'xAzure/DSCResources/MSFT_xAzureSqlDatabaseServerFirewallRule/MSFT_xAzureSqlDatabaseServerFirewallRule.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,15 +25,33 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
       fail('dsc_servername is a required attribute') if self[:dsc_servername].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xAzureSqlDatabaseServerFirewallRule"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xAzureSqlDatabaseServerFirewallRule')."
+
+    def retrieve
+      'xAzureSqlDatabaseServerFirewallRule'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xAzureSqlDatabaseServerFirewallRule"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xAzureSqlDatabaseServerFirewallRule')."
+
+    def retrieve
+      'MSFT_xAzureSqlDatabaseServerFirewallRule'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,12 +61,31 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xAzure"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xAzure')."
+
+    def retrieve
+      'xAzure'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "0.2.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('0.2.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '0.2.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -59,7 +105,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   newparam(:dsc_rulename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the firewall rule"
+    desc "RuleName - Name of the firewall rule"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -75,7 +121,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   newparam(:dsc_servername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the database server for which firewall rule should be created"
+    desc "ServerName - Name of the database server for which firewall rule should be created"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -91,7 +137,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   newparam(:dsc_startipaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Start IP address of the firewall rule"
+    desc "StartIPAddress - Start IP address of the firewall rule"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -106,7 +152,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   newparam(:dsc_endipaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "End IP address of the firewall rule"
+    desc "EndIPAddress - End IP address of the firewall rule"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -121,7 +167,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   newparam(:dsc_azuresubscriptionname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the name of the Azure subscription that should be set to Current"
+    desc "AzureSubscriptionName - Specifies the name of the Azure subscription that should be set to Current"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -136,7 +182,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   newparam(:dsc_azurepublishsettingsfile) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the location of the Publish Settings file for the Azure Subscription"
+    desc "AzurePublishSettingsFile - Specifies the location of the Publish Settings file for the Azure Subscription"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -151,7 +197,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabaseserverfirewallrule) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure that firewall rule is present or absent"
+    desc "Ensure - Ensure that firewall rule is present or absent Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

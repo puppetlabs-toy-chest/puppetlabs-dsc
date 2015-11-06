@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xdnsserverzonetransfer) do
 
   @doc = %q{
     The DSC xDnsServerZoneTransfer resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerZoneTransfer/MSFT_xDnsServerZoneTransfer.schema.mof
+    Automatically generated from
+    'xDnsServer/DSCResources/MSFT_xDnsServerZoneTransfer/MSFT_xDnsServerZoneTransfer.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xDnsServerZoneTransfer"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xDnsServerZoneTransfer')."
+
+    def retrieve
+      'xDnsServerZoneTransfer'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xDnsServerZoneTransfer"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xDnsServerZoneTransfer')."
+
+    def retrieve
+      'MSFT_xDnsServerZoneTransfer'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xdnsserverzonetransfer) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xDnsServer"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xDnsServer')."
+
+    def retrieve
+      'xDnsServer'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.3.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.3.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,7 +103,7 @@ Puppet::Type.newtype(:dsc_xdnsserverzonetransfer) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the DNS zone"
+    desc "Name - Name of the DNS zone"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,7 +119,7 @@ Puppet::Type.newtype(:dsc_xdnsserverzonetransfer) do
   newparam(:dsc_type) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Type of transfer allowed"
+    desc "Type - Type of transfer allowed Valid values are None, Any, Named, Specific."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -91,7 +137,7 @@ Puppet::Type.newtype(:dsc_xdnsserverzonetransfer) do
   newparam(:dsc_secondaryserver, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "IP address or DNS name of DNS servers where zone information can be transfered"
+    desc "SecondaryServer - IP address or DNS name of DNS servers where zone information can be transfered"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

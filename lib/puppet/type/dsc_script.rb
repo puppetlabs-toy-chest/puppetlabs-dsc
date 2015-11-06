@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_script) do
 
   @doc = %q{
     The DSC Script resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_ScriptResource/MSFT_ScriptResource.schema.mof
+    Automatically generated from
+    'PSDesiredStateConfiguration/DSCResources/MSFT_ScriptResource/MSFT_ScriptResource.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -17,15 +26,33 @@ Puppet::Type.newtype(:dsc_script) do
       fail('dsc_testscript is a required attribute') if self[:dsc_testscript].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "Script"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('Script')."
+
+    def retrieve
+      'Script'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_ScriptResource"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_ScriptResource')."
+
+    def retrieve
+      'MSFT_ScriptResource'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -35,8 +62,16 @@ Puppet::Type.newtype(:dsc_script) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "PSDesiredStateConfiguration"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('PSDesiredStateConfiguration')."
+
+    def retrieve
+      'PSDesiredStateConfiguration'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -55,6 +90,7 @@ Puppet::Type.newtype(:dsc_script) do
   newparam(:dsc_getscript) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "GetScript"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -70,6 +106,7 @@ Puppet::Type.newtype(:dsc_script) do
   newparam(:dsc_setscript) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "SetScript"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -85,6 +122,7 @@ Puppet::Type.newtype(:dsc_script) do
   newparam(:dsc_testscript) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "TestScript"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -100,6 +138,7 @@ Puppet::Type.newtype(:dsc_script) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -115,6 +154,7 @@ Puppet::Type.newtype(:dsc_script) do
   newparam(:dsc_result) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Result"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

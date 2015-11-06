@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
 
   @doc = %q{
     The DSC xExchReceiveConnector resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xExchange/DSCResources/MSFT_xExchReceiveConnector/MSFT_xExchReceiveConnector.schema.mof
+    Automatically generated from
+    'xExchange/DSCResources/MSFT_xExchReceiveConnector/MSFT_xExchReceiveConnector.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_identity is a required attribute') if self[:dsc_identity].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xExchReceiveConnector"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xExchReceiveConnector')."
+
+    def retrieve
+      'xExchReceiveConnector'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xExchReceiveConnector"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xExchReceiveConnector')."
+
+    def retrieve
+      'MSFT_xExchReceiveConnector'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xExchange"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xExchange')."
+
+    def retrieve
+      'xExchange'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.4.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.4.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,6 +104,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_identity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Identity"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,6 +120,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -88,6 +136,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -106,6 +155,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_advertiseclientsettings) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "AdvertiseClientSettings"
     validate do |value|
     end
     newvalues(true, false)
@@ -121,6 +171,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_authmechanism, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "AuthMechanism"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -138,6 +189,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_banner) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Banner"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -152,6 +204,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_barelinefeedrejectionenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "BareLinefeedRejectionEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -167,6 +220,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_binarymimeenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "BinaryMimeEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -182,6 +236,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_bindings, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "Bindings"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -199,6 +254,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_chunkingenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "ChunkingEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -214,6 +270,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_comment) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Comment"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -228,6 +285,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_connectioninactivitytimeout) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ConnectionInactivityTimeout"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -242,6 +300,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_connectiontimeout) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ConnectionTimeout"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -256,6 +315,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_defaultdomain) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DefaultDomain"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -270,6 +330,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_deliverystatusnotificationenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "DeliveryStatusNotificationEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -285,6 +346,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_domaincontroller) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DomainController"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -299,6 +361,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_domainsecureenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "DomainSecureEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -314,6 +377,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_eightbitmimeenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "EightBitMimeEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -329,6 +393,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_enableauthgssapi) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "EnableAuthGSSAPI"
     validate do |value|
     end
     newvalues(true, false)
@@ -344,6 +409,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_enabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "Enabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -359,6 +425,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_enhancedstatuscodesenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "EnhancedStatusCodesEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -374,6 +441,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_extendedprotectionpolicy) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ExtendedProtectionPolicy - Valid values are None, Allow, Require."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -391,6 +459,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_fqdn) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Fqdn"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -405,6 +474,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_longaddressesenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "LongAddressesEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -420,6 +490,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_maxacknowledgementdelay) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "MaxAcknowledgementDelay"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -434,6 +505,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_maxheadersize) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "MaxHeaderSize"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -448,6 +520,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_maxhopcount) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
+    desc "MaxHopCount"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -465,6 +538,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_maxinboundconnection) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "MaxInboundConnection"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -479,6 +553,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_maxinboundconnectionpercentagepersource) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
+    desc "MaxInboundConnectionPercentagePerSource"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -496,6 +571,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_maxinboundconnectionpersource) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "MaxInboundConnectionPerSource"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -510,6 +586,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_maxlocalhopcount) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
+    desc "MaxLocalHopCount"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -527,6 +604,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_maxlogonfailures) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
+    desc "MaxLogonFailures"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -544,6 +622,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_maxmessagesize) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "MaxMessageSize"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -558,6 +637,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_maxprotocolerrors) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "MaxProtocolErrors"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -572,6 +652,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_maxrecipientspermessage) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
+    desc "MaxRecipientsPerMessage"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -589,6 +670,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_messageratelimit) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "MessageRateLimit"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -603,6 +685,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_messageratesource) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "MessageRateSource - Valid values are None, IPAddress, User, All."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -620,6 +703,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_orarenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "OrarEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -635,6 +719,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_permissiongroups, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "PermissionGroups"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -652,6 +737,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_pipeliningenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "PipeliningEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -667,6 +753,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_protocollogginglevel) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ProtocolLoggingLevel - Valid values are None, Verbose."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -684,6 +771,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_remoteipranges, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "RemoteIPRanges"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -701,6 +789,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_requireehlodomain) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "RequireEHLODomain"
     validate do |value|
     end
     newvalues(true, false)
@@ -716,6 +805,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_requiretls) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "RequireTLS"
     validate do |value|
     end
     newvalues(true, false)
@@ -731,6 +821,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_servicediscoveryfqdn) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ServiceDiscoveryFqdn"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -745,6 +836,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_sizeenabled) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "SizeEnabled - Valid values are Enabled, Disabled, EnabledWithoutValue."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -762,6 +854,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_suppressxanonymoustls) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "SuppressXAnonymousTls"
     validate do |value|
     end
     newvalues(true, false)
@@ -777,6 +870,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_tarpitinterval) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "TarpitInterval"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -791,6 +885,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_tlscertificatename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "TlsCertificateName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -805,6 +900,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_tlsdomaincapabilities, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "TlsDomainCapabilities"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -822,6 +918,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_transportrole) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "TransportRole - Valid values are FrontendTransport, HubTransport."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -839,6 +936,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   newparam(:dsc_usage) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Usage - Valid values are Client, Internal, Internet, Partner, Custom."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

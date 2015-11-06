@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
 
   @doc = %q{
     The DSC xMySqlServer resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xMySql/DscResources/MSFT_xMySqlServer/MSFT_xMySqlServer.schema.mof
+    Automatically generated from
+    'xMySql/DscResources/MSFT_xMySqlServer/MSFT_xMySqlServer.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_servicename is a required attribute') if self[:dsc_servicename].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xMySqlServer"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xMySqlServer')."
+
+    def retrieve
+      'xMySqlServer'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xMySqlServer"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xMySqlServer')."
+
+    def retrieve
+      'MSFT_xMySqlServer'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xMySql"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xMySql')."
+
+    def retrieve
+      'xMySql'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.1.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.1.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.1.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +104,7 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
   newparam(:dsc_servicename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Provides the service name to use during setup of MySQL"
+    desc "ServiceName - Provides the service name to use during setup of MySQL"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +120,7 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure resource is present or absent"
+    desc "Ensure - Ensure resource is present or absent Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -93,7 +139,7 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
   newparam(:dsc_rootpassword) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "The root credential that is used to install mySql server."
+    desc "RootPassword - The root credential that is used to install mySql server."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

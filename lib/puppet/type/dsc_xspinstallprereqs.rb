@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
 
   @doc = %q{
     The DSC xSPInstallPrereqs resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPInstallPrereqs/MSFT_xSPInstallPrereqs.schema.mof
+    Automatically generated from
+    'xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPInstallPrereqs/MSFT_xSPInstallPrereqs.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_installerpath is a required attribute') if self[:dsc_installerpath].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSPInstallPrereqs"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xSPInstallPrereqs')."
+
+    def retrieve
+      'xSPInstallPrereqs'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSPInstallPrereqs"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xSPInstallPrereqs')."
+
+    def retrieve
+      'MSFT_xSPInstallPrereqs'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xSharePoint"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xSharePoint')."
+
+    def retrieve
+      'xSharePoint'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "0.7.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('0.7.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '0.7.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,6 +104,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_installerpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "InstallerPath"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,6 +120,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_onlinemode) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "OnlineMode"
     validate do |value|
     end
     newvalues(true, false)
@@ -88,6 +136,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_sqlncli) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "SQLNCli"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -102,6 +151,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_powershell) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "PowerShell"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -116,6 +166,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_netfx) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "NETFX"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -130,6 +181,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_idfx) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "IDFX"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -144,6 +196,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_sync) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Sync"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -158,6 +211,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_appfabric) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "AppFabric"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -172,6 +226,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_idfx11) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "IDFX11"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -186,6 +241,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_msipcclient) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "MSIPCClient"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -200,6 +256,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_wcfdataservices) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "WCFDataServices"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -214,6 +271,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_kb2671763) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "KB2671763"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -228,6 +286,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_wcfdataservices56) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "WCFDataServices56"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -242,6 +301,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_kb2898850) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "KB2898850"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -256,6 +316,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_msvcrt12) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "MSVCRT12"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -270,6 +331,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

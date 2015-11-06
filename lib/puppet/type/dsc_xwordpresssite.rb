@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
 
   @doc = %q{
     The DSC xWordPressSite resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xWordPress/DscResources/MSFT_xWordPressSite/MSFT_xWordPressSite.schema.mof
+    Automatically generated from
+    'xWordPress/DscResources/MSFT_xWordPressSite/MSFT_xWordPressSite.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_uri is a required attribute') if self[:dsc_uri].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xWordPressSite"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xWordPressSite')."
+
+    def retrieve
+      'xWordPressSite'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xWordPressSite"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xWordPressSite')."
+
+    def retrieve
+      'MSFT_xWordPressSite'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xWordPress"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xWordPress')."
+
+    def retrieve
+      'xWordPress'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.1.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.1.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.1.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +104,7 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   newparam(:dsc_uri) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The WordPress Site URI."
+    desc "Uri - The WordPress Site URI."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +120,7 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   newparam(:dsc_title) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The WordPress Site Default page title."
+    desc "Title - The WordPress Site Default page title."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -89,7 +135,7 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   newparam(:dsc_administratorcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "The username and password of the WordPress administrator to create when creating the site."
+    desc "AdministratorCredential - The username and password of the WordPress administrator to create when creating the site."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -105,7 +151,7 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   newparam(:dsc_administratoremail) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The email address of the WordPress administrator to create."
+    desc "AdministratorEmail - The email address of the WordPress administrator to create."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -120,7 +166,7 @@ Puppet::Type.newtype(:dsc_xwordpresssite) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Should the module be present or absent."
+    desc "Ensure - Should the module be present or absent. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

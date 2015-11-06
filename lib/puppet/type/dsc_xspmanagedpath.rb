@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xspmanagedpath) do
 
   @doc = %q{
     The DSC xSPManagedPath resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPManagedPath/MSFT_xSPManagedPath.schema.mof
+    Automatically generated from
+    'xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPManagedPath/MSFT_xSPManagedPath.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,15 +25,33 @@ Puppet::Type.newtype(:dsc_xspmanagedpath) do
       fail('dsc_relativeurl is a required attribute') if self[:dsc_relativeurl].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSPManagedPath"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xSPManagedPath')."
+
+    def retrieve
+      'xSPManagedPath'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSPManagedPath"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xSPManagedPath')."
+
+    def retrieve
+      'MSFT_xSPManagedPath'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,12 +61,31 @@ Puppet::Type.newtype(:dsc_xspmanagedpath) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xSharePoint"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xSharePoint')."
+
+    def retrieve
+      'xSharePoint'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "0.7.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('0.7.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '0.7.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,6 +104,7 @@ Puppet::Type.newtype(:dsc_xspmanagedpath) do
   newparam(:dsc_webappurl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "WebAppUrl"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,6 +120,7 @@ Puppet::Type.newtype(:dsc_xspmanagedpath) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "InstallAccount"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -88,6 +136,7 @@ Puppet::Type.newtype(:dsc_xspmanagedpath) do
   newparam(:dsc_relativeurl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "RelativeUrl"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -103,6 +152,7 @@ Puppet::Type.newtype(:dsc_xspmanagedpath) do
   newparam(:dsc_explicit) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "Explicit"
     validate do |value|
     end
     newvalues(true, false)
@@ -118,6 +168,7 @@ Puppet::Type.newtype(:dsc_xspmanagedpath) do
   newparam(:dsc_hostheader) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "HostHeader"
     validate do |value|
     end
     newvalues(true, false)
