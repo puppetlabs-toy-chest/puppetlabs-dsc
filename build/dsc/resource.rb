@@ -27,7 +27,7 @@ module Dsc
     end
 
     def name
-      @ame ||= @resource_cim_class.name
+      @name ||= @resource_cim_class.name
     end
 
     def instance_name
