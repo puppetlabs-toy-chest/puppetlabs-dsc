@@ -103,10 +103,6 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     defaultto { :<%= begin resource.ensure_value rescue 'present' end %> }
   end
 
-if Puppet.version >= '4.0.0'
-  autonotify(:reboot) { ['dsc_reboot'] }
-end
-
 <%  resource.properties.each do |property| -%>
   # Name:         <%= property.name %>
   # Type:         <%= property.type %>

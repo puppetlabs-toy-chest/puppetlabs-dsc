@@ -47,10 +47,6 @@ Puppet::Type.newtype(:dsc_file) do
     defaultto { :present }
   end
 
-if Puppet.version >= '4.0.0'
-  autonotify(:reboot) { ['dsc_reboot'] }
-end
-
   # Name:         DestinationPath
   # Type:         string
   # IsMandatory:  True
