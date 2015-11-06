@@ -82,19 +82,30 @@ EOT
   def notify_status
     Puppet.info "A reboot is required to progress further. Notifying Puppet."
 
-    catalog_resource = resource.catalog.resources.find_all do |r|
-      r.is_a?(Puppet::Type.type(:reboot)) && r.name == 'dsc_reboot'
-    end
-
-    unless catalog_resource.any?
+    reboot_resource = resource.catalog.resource(:reboot, 'dsc_reboot')
+    unless reboot_resource
       Puppet.warning "No reboot resource found in the graph that has 'dsc_reboot' as it's name. Cannot signal reboot to Puppet."
       return
     end
 
-    target_resource = resolve_resource(catalog_resource[0])
+    edge = Puppet::Relationship.new(resource, reboot_resource)
 
-    if target_resource.respond_to?(:reboot_required)
-      target_resource.reboot_required
+    # if an edge already exists from Reboot[dsc_reboot] to this resource, we have problems
+    if resource.catalog.relationship_graph.edge?(edge.target, edge.source)
+      # TODO: should this be a hard fail? probably?
+      Puppet.warning "Reboot resource 'dsc_reboot' is already connected to #{resource}"
+      return
+    end
+
+    # prevent addition of the same edge in the graph if a manual one exists
+    if !resource.catalog.relationship_graph.edge?(edge.source, edge.target)
+      edge.callback = :refresh
+      edge.event = :ALL_EVENTS
+      resource.catalog.relationship_graph.add_edge(edge)
+    end
+
+    if reboot_resource.respond_to?(:reboot_required)
+      reboot_resource.reboot_required
     else
       Puppet.warning "Reboot resource does not have :reboot_required method implemented. Cannot signal reboot to Puppet."
       return
