@@ -15,12 +15,13 @@
   * [Adding or Removing Windows Features](#adding-or-removing-windows-features)
   * [Website Installation Example](#website-installation-example)
   * [Optionally Configure the DSC LCM RefreshMode](#optionally-configure-the-dsc-lcm-refreshmode)
-5. [Limitations](#limitations)
+5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+6. [Limitations](#limitations)
   * [Known Issues](#known-issues)
   * [Running Puppet and DSC without Administrative Privileges](#running-puppet-and-dsc-without-administrative-privileges)
-6. [Notes](#notes)
-7. [Places to Learn More About DSC](#places-to-learn-more-about-dsc)
-8. [License](#license)
+7. [Notes](#notes)
+8. [Places to Learn More About DSC](#places-to-learn-more-about-dsc)
+9. [License](#license)
 
 ## Module Description
 
@@ -296,6 +297,12 @@ dsc::lcm_config {'disable_lcm':
   refresh_mode => 'Disabled',
 }
 ~~~
+
+## Reference
+
+### Types
+
+A comprehensive listing of all types included in the dsc module is available in the [types document](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/types.md).
 
 ## Limitations
 
