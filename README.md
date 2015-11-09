@@ -15,7 +15,7 @@
   * [Adding or Removing Windows Features](#adding-or-removing-windows-features)
   * [Website Installation Example](#website-installation-example)
   * [Optionally Configure the DSC LCM RefreshMode](#optionally-configure-the-dsc-lcm-refreshmode)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+5. [Reference](#reference)
 6. [Limitations](#limitations)
   * [Known Issues](#known-issues)
   * [Running Puppet and DSC without Administrative Privileges](#running-puppet-and-dsc-without-administrative-privileges)
