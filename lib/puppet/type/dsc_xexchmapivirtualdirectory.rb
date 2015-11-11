@@ -50,6 +50,10 @@ Puppet::Type.newtype(:dsc_xexchmapivirtualdirectory) do
     defaultto { :present }
   end
 
+if Puppet.version >= '4.0.0'
+  autonotify(:reboot) { ['dsc_reboot'] }
+end
+
   # Name:         Identity
   # Type:         string
   # IsMandatory:  True

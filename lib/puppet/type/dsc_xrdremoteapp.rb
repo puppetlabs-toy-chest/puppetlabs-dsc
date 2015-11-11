@@ -53,6 +53,10 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
     defaultto { :present }
   end
 
+if Puppet.version >= '4.0.0'
+  autonotify(:reboot) { ['dsc_reboot'] }
+end
+
   # Name:         Alias
   # Type:         string
   # IsMandatory:  True

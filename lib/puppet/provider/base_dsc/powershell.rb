@@ -57,8 +57,12 @@ EOT
     output = powershell(powershell_args, script_content)
     Puppet.debug "Create Dsc Resource returned: #{output}"
     data = JSON.parse(output)
+
     fail(data['errormessage']) if !data['errormessage'].empty?
-    true
+
+    notify_status if data['rebootrequired'] == true
+
+    data
   end
 
   def destroy
@@ -67,8 +71,67 @@ EOT
     output = powershell(powershell_args, script_content)
     Puppet.debug "Destroy Dsc Resource returned: #{output}"
     data = JSON.parse(output)
+
     fail(data['errormessage']) if !data['errormessage'].empty?
-    true
+
+    notify_status if data['rebootrequired'] == true
+
+    data
+  end
+
+  def notify_status
+    Puppet.info "A reboot is required to progress further. Notifying Puppet."
+
+    reboot_resource = resource.catalog.resource(:reboot, 'dsc_reboot')
+    unless reboot_resource
+      Puppet.warning "No reboot resource found in the graph that has 'dsc_reboot' as it's name. Cannot signal reboot to Puppet."
+      return
+    end
+
+    edge = Puppet::Relationship.new(resource, reboot_resource)
+
+    # if an edge already exists from Reboot[dsc_reboot] to this resource, we have problems
+    if resource.catalog.relationship_graph.edge?(edge.target, edge.source)
+      # TODO: should this be a hard fail? probably?
+      Puppet.warning "Reboot resource 'dsc_reboot' is already connected to #{resource}"
+      return
+    end
+
+    # prevent addition of the same edge in the graph if a manual one exists
+    if !resource.catalog.relationship_graph.edge?(edge.source, edge.target)
+      edge.callback = :refresh
+      edge.event = :ALL_EVENTS
+      resource.catalog.relationship_graph.add_edge(edge)
+    end
+
+    if reboot_resource.respond_to?(:reboot_required)
+      reboot_resource.reboot_required
+    else
+      Puppet.warning "Reboot resource does not have :reboot_required method implemented. Cannot signal reboot to Puppet."
+      return
+    end
+  end
+
+  def resolve_resource(reference)
+    if reference.is_a?(Puppet::Type)
+      # Probably from a unit test, use the resource as-is
+      return reference
+    end
+
+    if reference.is_a?(Puppet::Resource)
+      # Already part resolved - puppet apply?
+      # join it to the catalog where we live and ask it to resolve
+      reference.catalog = resource.catalog
+      return reference.resolve
+    end
+
+    if reference.is_a?(String)
+      # 3.3.0 catalogs you need to resolve like so
+      return resource.catalog.resource(reference)
+    end
+
+    # If we got here, panic
+    raise "Don't know how to convert '#{reference.inspect}' of class #{reference.class} into a resource"
   end
 
   def format_dsc_value(dsc_value)
