@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xazuresubscription) do
 
   @doc = %q{
     The DSC xAzureSubscription resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureSubscription/MSFT_xAzureSubscription.schema.mof
+    Automatically generated from
+    'xAzure/DSCResources/MSFT_xAzureSubscription/MSFT_xAzureSubscription.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_azuresubscriptionname is a required attribute') if self[:dsc_azuresubscriptionname].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xAzureSubscription"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xAzureSubscription')."
+
+    def retrieve
+      'xAzureSubscription'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xAzureSubscription"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xAzureSubscription')."
+
+    def retrieve
+      'MSFT_xAzureSubscription'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xazuresubscription) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xAzure"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xAzure')."
+
+    def retrieve
+      'xAzure'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "0.2.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('0.2.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '0.2.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +104,7 @@ Puppet::Type.newtype(:dsc_xazuresubscription) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies whether the subscription should be present or absent."
+    desc "Ensure - Specifies whether the subscription should be present or absent. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -77,7 +123,7 @@ Puppet::Type.newtype(:dsc_xazuresubscription) do
   newparam(:dsc_azuresubscriptionname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the name of the Azure subscription that should be set to Current."
+    desc "AzureSubscriptionName - Specifies the name of the Azure subscription that should be set to Current."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -93,7 +139,7 @@ Puppet::Type.newtype(:dsc_xazuresubscription) do
   newparam(:dsc_azurepublishsettingsfile) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the location of the Publish Settings file for the Azure Subscription."
+    desc "AzurePublishSettingsFile - Specifies the location of the Publish Settings file for the Azure Subscription."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

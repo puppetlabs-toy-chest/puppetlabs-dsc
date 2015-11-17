@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
 
   @doc = %q{
     The DSC xSqlServerInstall resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSqlPs/DSCResources/MSFT_xSqlServerInstall/MSFT_xSqlServerInstall.schema.mof
+    Automatically generated from
+    'xSqlPs/DSCResources/MSFT_xSqlServerInstall/MSFT_xSqlServerInstall.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_instancename is a required attribute') if self[:dsc_instancename].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSqlServerInstall"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xSqlServerInstall')."
+
+    def retrieve
+      'xSqlServerInstall'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSqlServerInstall"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xSqlServerInstall')."
+
+    def retrieve
+      'MSFT_xSqlServerInstall'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xSqlPs"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xSqlPs')."
+
+    def retrieve
+      'xSqlPs'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.2.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.2.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,7 +103,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   newparam(:dsc_instancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The name of sql instance."
+    desc "InstanceName - The name of sql instance."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,7 +119,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The share path of sql server software."
+    desc "SourcePath - The share path of sql server software."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -88,7 +134,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   newparam(:dsc_sourcepathcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "The credential that vm could use to access net share of sql server software."
+    desc "SourcePathCredential - The credential that vm could use to access net share of sql server software."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -104,7 +150,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   newparam(:dsc_features) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "List of names of Sql Server features to install"
+    desc "Features - List of names of Sql Server features to install"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -119,7 +165,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   newparam(:dsc_sqladministratorcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Sql sa credential"
+    desc "SqlAdministratorCredential - Sql sa credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -135,7 +181,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   newparam(:dsc_updateenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Specify whether SQL server setup should discover and include product updates."
+    desc "UpdateEnabled - Specify whether SQL server setup should discover and include product updates."
     validate do |value|
     end
     newvalues(true, false)
@@ -151,7 +197,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   newparam(:dsc_svcaccount) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specify the startup account for the SQL server service."
+    desc "SvcAccount - Specify the startup account for the SQL server service."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -166,7 +212,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   newparam(:dsc_sysadminaccounts) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specify logins to be members of the sysadmin role."
+    desc "SysAdminAccounts - Specify logins to be members of the sysadmin role."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -181,7 +227,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   newparam(:dsc_agentsvcaccount) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specify the account for SQL server agent service."
+    desc "AgentSvcAccount - Specify the account for SQL server agent service."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

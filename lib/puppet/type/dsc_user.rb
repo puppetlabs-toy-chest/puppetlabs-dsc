@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_user) do
 
   @doc = %q{
     The DSC User resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_UserResource/MSFT_UserResource.schema.mof
+    Automatically generated from
+    'PSDesiredStateConfiguration/DSCResources/MSFT_UserResource/MSFT_UserResource.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_username is a required attribute') if self[:dsc_username].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "User"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('User')."
+
+    def retrieve
+      'User'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_UserResource"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_UserResource')."
+
+    def retrieve
+      'MSFT_UserResource'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,8 +60,16 @@ Puppet::Type.newtype(:dsc_user) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "PSDesiredStateConfiguration"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('PSDesiredStateConfiguration')."
+
+    def retrieve
+      'PSDesiredStateConfiguration'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -54,6 +89,7 @@ Puppet::Type.newtype(:dsc_user) do
   newparam(:dsc_username) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "UserName"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -69,6 +105,7 @@ Puppet::Type.newtype(:dsc_user) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -87,6 +124,7 @@ Puppet::Type.newtype(:dsc_user) do
   newparam(:dsc_fullname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "FullName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -101,6 +139,7 @@ Puppet::Type.newtype(:dsc_user) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Description"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -115,6 +154,7 @@ Puppet::Type.newtype(:dsc_user) do
   newparam(:dsc_password) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Password"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -130,6 +170,7 @@ Puppet::Type.newtype(:dsc_user) do
   newparam(:dsc_disabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "Disabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -145,6 +186,7 @@ Puppet::Type.newtype(:dsc_user) do
   newparam(:dsc_passwordneverexpires) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "PasswordNeverExpires"
     validate do |value|
     end
     newvalues(true, false)
@@ -160,6 +202,7 @@ Puppet::Type.newtype(:dsc_user) do
   newparam(:dsc_passwordchangerequired) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "PasswordChangeRequired"
     validate do |value|
     end
     newvalues(true, false)
@@ -175,6 +218,7 @@ Puppet::Type.newtype(:dsc_user) do
   newparam(:dsc_passwordchangenotallowed) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "PasswordChangeNotAllowed"
     validate do |value|
     end
     newvalues(true, false)

@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
 
   @doc = %q{
     The DSC xIisMimeTypeMapping resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xWebAdministration/DSCResources/MSFT_xIisMimeTypeMapping/MSFT_xIisMimeTypeMapping.schema.mof
+    Automatically generated from
+    'xWebAdministration/DSCResources/MSFT_xIisMimeTypeMapping/MSFT_xIisMimeTypeMapping.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,15 +25,33 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
       fail('dsc_mimetype is a required attribute') if self[:dsc_mimetype].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xIisMimeTypeMapping"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xIisMimeTypeMapping')."
+
+    def retrieve
+      'xIisMimeTypeMapping'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xIisMimeTypeMapping"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xIisMimeTypeMapping')."
+
+    def retrieve
+      'MSFT_xIisMimeTypeMapping'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,12 +61,31 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xWebAdministration"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xWebAdministration')."
+
+    def retrieve
+      'xWebAdministration'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.7.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.7.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.7.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -59,6 +105,7 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
   newparam(:dsc_extension) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Extension"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,6 +121,7 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
   newparam(:dsc_mimetype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "MimeType"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -89,6 +137,7 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

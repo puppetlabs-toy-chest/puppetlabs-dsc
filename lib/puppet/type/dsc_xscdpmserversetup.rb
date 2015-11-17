@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
 
   @doc = %q{
     The DSC xSCDPMServerSetup resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSCDPM/DSCResources/MSFT_xSCDPMServerSetup/MSFT_xSCDPMServerSetup.schema.mof
+    Automatically generated from
+    'xSCDPM/DSCResources/MSFT_xSCDPMServerSetup/MSFT_xSCDPMServerSetup.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_ensure is a required attribute') if self[:dsc_ensure].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSCDPMServerSetup"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xSCDPMServerSetup')."
+
+    def retrieve
+      'xSCDPMServerSetup'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSCDPMServerSetup"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xSCDPMServerSetup')."
+
+    def retrieve
+      'MSFT_xSCDPMServerSetup'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xSCDPM"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xSCDPM')."
+
+    def retrieve
+      'xSCDPM'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.2.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.2.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +104,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "An enumerated value that describes if the DPM server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"
+    desc "Ensure - An enumerated value that describes if the DPM server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
     isrequired
     validate do |value|
       resource[:ensure] = value.downcase
@@ -78,7 +124,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UNC path to the root of the source filesfor installation."
+    desc "SourcePath - UNC path to the root of the source filesfor installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -93,7 +139,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_sourcefolder) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Folder within the source path containing the source files for installation."
+    desc "SourceFolder - Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -108,7 +154,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_setupcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential to be used to perform the installation."
+    desc "SetupCredential - Credential to be used to perform the installation."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -124,7 +170,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_username) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "User name that the software will be registered to."
+    desc "UserName - User name that the software will be registered to."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -139,7 +185,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_companyname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Company name that the software will be registered to."
+    desc "CompanyName - Company name that the software will be registered to."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -154,7 +200,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_productkey) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Product key for licensed installations."
+    desc "ProductKey - Product key for licensed installations."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -169,7 +215,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_programfiles) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Installation path for the software."
+    desc "ProgramFiles - Installation path for the software."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -184,7 +230,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_yukonmachinename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the SQL server for the DPM database."
+    desc "YukonMachineName - Name of the SQL server for the DPM database."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -199,7 +245,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_yukoninstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQL instance for the DPM database."
+    desc "YukonInstanceName - SQL instance for the DPM database."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -214,7 +260,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_yukonmachinecredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential to be used to access the SQL instance for DPM at installation time."
+    desc "YukonMachineCredential - Credential to be used to access the SQL instance for DPM at installation time."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -230,7 +276,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_reportingmachinename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the SQL server for reporting."
+    desc "ReportingMachineName - Name of the SQL server for reporting."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -245,7 +291,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_reportinginstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQL instance for reporting."
+    desc "ReportingInstanceName - SQL instance for reporting."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -260,7 +306,7 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
   newparam(:dsc_reportingmachinecredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential to be used to access SQL reporting for DPM at installation time."
+    desc "ReportingMachineCredential - Credential to be used to access SQL reporting for DPM at installation time."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

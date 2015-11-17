@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xipaddress) do
 
   @doc = %q{
     The DSC xIPAddress resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xNetworking/DSCResources/MSFT_xIPAddress/MSFT_xIPAddress.schema.mof
+    Automatically generated from
+    'xNetworking/DSCResources/MSFT_xIPAddress/MSFT_xIPAddress.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,15 +25,33 @@ Puppet::Type.newtype(:dsc_xipaddress) do
       fail('dsc_interfacealias is a required attribute') if self[:dsc_interfacealias].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xIPAddress"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xIPAddress')."
+
+    def retrieve
+      'xIPAddress'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xIPAddress"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xIPAddress')."
+
+    def retrieve
+      'MSFT_xIPAddress'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,12 +61,31 @@ Puppet::Type.newtype(:dsc_xipaddress) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xNetworking"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xNetworking')."
+
+    def retrieve
+      'xNetworking'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "2.3.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('2.4.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '2.4.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,6 +104,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   newparam(:dsc_ipaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "IPAddress"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,6 +120,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   newparam(:dsc_interfacealias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "InterfaceAlias"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -88,6 +136,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   newparam(:dsc_subnetmask) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "SubnetMask"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -105,6 +154,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   newparam(:dsc_addressfamily) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "AddressFamily - Valid values are IPv4, IPv6."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

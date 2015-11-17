@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_registry) do
 
   @doc = %q{
     The DSC Registry resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_RegistryResource/MSFT_RegistryResource.schema.mof
+    Automatically generated from
+    'PSDesiredStateConfiguration/DSCResources/MSFT_RegistryResource/MSFT_RegistryResource.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,15 +25,33 @@ Puppet::Type.newtype(:dsc_registry) do
       fail('dsc_valuename is a required attribute') if self[:dsc_valuename].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "Registry"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('Registry')."
+
+    def retrieve
+      'Registry'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_RegistryResource"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_RegistryResource')."
+
+    def retrieve
+      'MSFT_RegistryResource'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,8 +61,16 @@ Puppet::Type.newtype(:dsc_registry) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "PSDesiredStateConfiguration"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('PSDesiredStateConfiguration')."
+
+    def retrieve
+      'PSDesiredStateConfiguration'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -55,6 +90,7 @@ Puppet::Type.newtype(:dsc_registry) do
   newparam(:dsc_key) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Key"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -70,6 +106,7 @@ Puppet::Type.newtype(:dsc_registry) do
   newparam(:dsc_valuename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ValueName"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -85,6 +122,7 @@ Puppet::Type.newtype(:dsc_registry) do
   newparam(:dsc_valuedata, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "ValueData"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -102,6 +140,7 @@ Puppet::Type.newtype(:dsc_registry) do
   newparam(:dsc_valuetype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ValueType - Valid values are String, Binary, Dword, Qword, MultiString, ExpandString."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -119,6 +158,7 @@ Puppet::Type.newtype(:dsc_registry) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -137,6 +177,7 @@ Puppet::Type.newtype(:dsc_registry) do
   newparam(:dsc_hex) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "Hex"
     validate do |value|
     end
     newvalues(true, false)
@@ -152,6 +193,7 @@ Puppet::Type.newtype(:dsc_registry) do
   newparam(:dsc_force) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "Force"
     validate do |value|
     end
     newvalues(true, false)

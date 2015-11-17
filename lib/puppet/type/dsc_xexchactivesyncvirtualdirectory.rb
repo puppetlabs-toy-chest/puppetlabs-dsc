@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
 
   @doc = %q{
     The DSC xExchActiveSyncVirtualDirectory resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xExchange/DSCResources/MSFT_xExchActiveSyncVirtualDirectory/MSFT_xExchActiveSyncVirtualDirectory.schema.mof
+    Automatically generated from
+    'xExchange/DSCResources/MSFT_xExchActiveSyncVirtualDirectory/MSFT_xExchActiveSyncVirtualDirectory.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_identity is a required attribute') if self[:dsc_identity].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xExchActiveSyncVirtualDirectory"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xExchActiveSyncVirtualDirectory')."
+
+    def retrieve
+      'xExchActiveSyncVirtualDirectory'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xExchActiveSyncVirtualdirectory"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xExchActiveSyncVirtualdirectory')."
+
+    def retrieve
+      'MSFT_xExchActiveSyncVirtualdirectory'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xExchange"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xExchange')."
+
+    def retrieve
+      'xExchange'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.4.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.4.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,6 +103,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_identity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Identity"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +119,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -87,6 +135,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_allowservicerestart) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "AllowServiceRestart"
     validate do |value|
     end
     newvalues(true, false)
@@ -102,6 +151,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_autocertbasedauth) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "AutoCertBasedAuth"
     validate do |value|
     end
     newvalues(true, false)
@@ -117,6 +167,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_autocertbasedauththumbprint) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "AutoCertBasedAuthThumbprint"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -131,6 +182,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_autocertbasedauthhttpsbindings, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "AutoCertBasedAuthHttpsBindings"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -148,6 +200,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_basicauthenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "BasicAuthEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -163,6 +216,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_clientcertauth) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ClientCertAuth - Valid values are Ignore, Allowed, Required."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -180,6 +234,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_compressionenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "CompressionEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -195,6 +250,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_domaincontroller) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DomainController"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -209,6 +265,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_externalauthenticationmethods, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "ExternalAuthenticationMethods"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -226,6 +283,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_externalurl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ExternalUrl"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -240,6 +298,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_internalauthenticationmethods, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "InternalAuthenticationMethods"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -257,6 +316,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_internalurl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "InternalUrl"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -271,6 +331,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   newparam(:dsc_windowsauthenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "WindowsAuthEnabled"
     validate do |value|
     end
     newvalues(true, false)
