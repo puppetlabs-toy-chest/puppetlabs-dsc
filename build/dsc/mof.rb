@@ -35,7 +35,6 @@ module Dsc
     end
 
     def all_result
-
       create_index_mof(@dsc_modules_mof, dsc_mof_file_pathes)
 
       # generate base mof import file
