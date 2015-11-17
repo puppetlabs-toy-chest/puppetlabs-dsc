@@ -49,15 +49,24 @@ eod
 
     task :import, [:dsc_resources_path] do |t, args|
       dsc_resources_path = args[:dsc_resources_path] || default_dsc_resources_path
+      dsc_resources_path = File.expand_path(dsc_resources_path)
       dsc_resources_path_tmp = "#{dsc_resources_path}_tmp"
+      is_custom_resource = (dsc_resources_path != default_dsc_resources_path)
 
-      puts "Downloading and Importing #{item_name}"
-      cmd = "git clone #{dsc_repo} #{dsc_resources_path_tmp} && " +
-        "cd #{dsc_resources_path_tmp} && "
-      cmd += "git checkout #{ENV['DSC_REF']} &&" if ENV['DSC_REF']
-      cmd += "git submodule update --init --recursive"
+      if !is_custom_resource
+        puts "Downloading and Importing #{item_name}"
+        cmd = "git clone #{dsc_repo} #{dsc_resources_path_tmp} && " +
+          "cd #{dsc_resources_path_tmp} && "
+        cmd += "git checkout #{ENV['DSC_REF']} &&" if ENV['DSC_REF']
+        cmd += "git submodule update --init --recursive"
 
-      sh cmd
+        sh cmd
+      else
+        puts "Importing custom types from '#{dsc_resources_path}'"
+        FileUtils.mkdir_p "#{dsc_resources_path_tmp}"
+        FileUtils.cp_r "#{dsc_resources_path}/.", "#{dsc_resources_path_tmp}/"
+      end
+
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git"])
 
       blacklist = ['xChrome', 'xDSCResourceDesigner', 'xDscDiagnostics',
@@ -75,12 +84,18 @@ eod
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.{gitattributes,gitignore,gitmodules}"])
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/*.{pptx,docx,sln,cmd,xml,pssproj,pfx,html,txt,xlsm,csv,png,git,yml,md}"])
 
-      puts "Copying vendored resources from #{dsc_resources_path_tmp}/xDscResources to #{vendor_dsc_resources_path}"
-      FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", vendor_dsc_resources_path, :remove_destination => true
-      FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", dsc_resources_path
+      vendor_subdir = is_custom_resource ? '' : '/xDSCResources'
+      puts "Copying vendored resources from #{dsc_resources_path_tmp}#{vendor_subdir} to #{vendor_dsc_resources_path}"
+      FileUtils.cp_r "#{dsc_resources_path_tmp}#{vendor_subdir}/.", vendor_dsc_resources_path, :remove_destination => true
+      FileUtils.cp_r "#{dsc_resources_path_tmp}#{vendor_subdir}/.", dsc_resources_path
 
-      puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{dsc_resources_path}"
-      FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{dsc_resources_path}/"
+      if !is_custom_resource
+        puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{dsc_resources_path}"
+        FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{dsc_resources_path}/"
+      else
+        puts "Adding custom types to '#{default_dsc_resources_path}'"
+        FileUtils.cp_r "#{dsc_resources_path_tmp}/.", "#{default_dsc_resources_path}/"
+      end
 
       puts "Removing extra dir #{dsc_resources_path_tmp}"
       FileUtils.rm_rf "#{dsc_resources_path_tmp}"
