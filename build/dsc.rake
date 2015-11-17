@@ -116,7 +116,6 @@ eod
       m.target_module_path = module_path
       msgs = m.build_dsc_types
       msgs.each{|m| puts "#{m}"}
-      dsc_types = m.get_dsc_types
     end
 
     desc "Document #{item_name}"
