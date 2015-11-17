@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
 
   @doc = %q{
     The DSC xSCOMReportingServerSetup resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSCOM/DSCResources/MSFT_xSCOMReportingServerSetup/MSFT_xSCOMReportingServerSetup.schema.mof
+    Automatically generated from
+    'xSCOM/DSCResources/MSFT_xSCOMReportingServerSetup/MSFT_xSCOMReportingServerSetup.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSCOMReportingServerSetup"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xSCOMReportingServerSetup')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xSCOMReportingServerSetup'
+    end
+
+    defaultto 'xSCOMReportingServerSetup'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSCOMReportingServerSetup"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xSCOMReportingServerSetup')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xSCOMReportingServerSetup'
+    end
+
+    defaultto 'MSFT_xSCOMReportingServerSetup'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xSCOM"
+    desc "A read-only value that is the DSC Module Name ('xSCOM')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xSCOM'
+    end
+
+    defaultto 'xSCOM'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.4.0.0"
+    desc "A read-only value for the DSC Module Version ('1.4.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.4.0.0'
+    end
+
+    defaultto '1.4.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +96,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "An enumerated value that describes if the OM Reporting server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"
+    desc "Ensure - An enumerated value that describes if the OM Reporting server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
     isrequired
     validate do |value|
       resource[:ensure] = value.downcase
@@ -78,7 +116,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UNC path to the root of the source files for installation."
+    desc "SourcePath - UNC path to the root of the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -93,7 +131,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   newparam(:dsc_sourcefolder) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Folder within the source path containing the source files for installation."
+    desc "SourceFolder - Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -108,7 +146,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   newparam(:dsc_setupcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential to be used to perform the installation."
+    desc "SetupCredential - Credential to be used to perform the installation."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -124,7 +162,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   newparam(:dsc_installpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Installation path for the software."
+    desc "InstallPath - Installation path for the software."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -139,7 +177,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   newparam(:dsc_managementserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The name of the management server associated with the Reporting server."
+    desc "ManagementServer - The name of the management server associated with the Reporting server."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -154,7 +192,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   newparam(:dsc_srsinstance) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The reporting server and instance."
+    desc "SRSInstance - The reporting server and instance."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -169,7 +207,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   newparam(:dsc_datareader) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "The domain and user name of the data reader account."
+    desc "DataReader - The domain and user name of the data reader account."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -185,7 +223,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   newparam(:dsc_datareaderusername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Output username of the data reader account."
+    desc "DataReaderUsername - Output username of the data reader account."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -200,7 +238,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   newparam(:dsc_usemicrosoftupdate) do
     def mof_type; 'uint8' end
     def mof_is_embedded?; false end
-    desc "0: Do not opt in to Microsoft Update. 1: Opt in to Microsoft Update."
+    desc "UseMicrosoftUpdate - 0: Do not opt in to Microsoft Update. 1: Opt in to Microsoft Update."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -218,7 +256,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   newparam(:dsc_sendceipreports) do
     def mof_type; 'uint8' end
     def mof_is_embedded?; false end
-    desc "0: Do not opt in to the Customer Experience Improvement Program (CEIP). 1: Opt in to CEIP."
+    desc "SendCEIPReports - 0: Do not opt in to the Customer Experience Improvement Program (CEIP). 1: Opt in to CEIP."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -236,7 +274,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   newparam(:dsc_enableerrorreporting) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Never: Do not opt in to sending automatic error reports. Queued: Opt in to sending error reports, but queue the reports for review before sending. Always: Opt in to automatically send error reports."
+    desc "EnableErrorReporting - Never: Do not opt in to sending automatic error reports. Queued: Opt in to sending error reports, but queue the reports for review before sending. Always: Opt in to automatically send error reports. Valid values are Never, Queued, Always."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -254,7 +292,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   newparam(:dsc_sendodrreports) do
     def mof_type; 'uint8' end
     def mof_is_embedded?; false end
-    desc "0: Do not opt in to sending operational data reports. 1: opt in to sending operational data reports."
+    desc "SendODRReports - 0: Do not opt in to sending operational data reports. 1: opt in to sending operational data reports."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

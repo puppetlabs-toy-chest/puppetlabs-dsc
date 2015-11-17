@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
 
   @doc = %q{
     The DSC xExchJetstressCleanup resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xExchange/DSCResources/MSFT_xExchJetstressCleanup/MSFT_xExchJetstressCleanup.schema.mof
+    Automatically generated from
+    'xExchange/DSCResources/MSFT_xExchJetstressCleanup/MSFT_xExchJetstressCleanup.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xExchJetstressCleanup"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xExchJetstressCleanup')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xExchJetstressCleanup'
+    end
+
+    defaultto 'xExchJetstressCleanup'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xExchJetstressCleanup"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xExchJetstressCleanup')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xExchJetstressCleanup'
+    end
+
+    defaultto 'MSFT_xExchJetstressCleanup'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xExchange"
+    desc "A read-only value that is the DSC Module Name ('xExchange')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xExchange'
+    end
+
+    defaultto 'xExchange'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
+    desc "A read-only value for the DSC Module Version ('1.4.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.4.0.0'
+    end
+
+    defaultto '1.4.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,7 +95,7 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   newparam(:dsc_jetstresspath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The path to the folder where Jetstress is installed, and which contains JetstressCmd.exe"
+    desc "JetstressPath - The path to the folder where Jetstress is installed, and which contains JetstressCmd.exe"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,7 +111,7 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   newparam(:dsc_configfilepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Either ConfigFilePath, or DatabasePaths AND LogPaths MUST be specified. ConfigFilePath takes precedence. This is the full path to the JetstressConfig.xml file. If ConfigFilePath is specified, the config file will be used to determine the database and log folders that need to be removed"
+    desc "ConfigFilePath - Either ConfigFilePath, or DatabasePaths AND LogPaths MUST be specified. ConfigFilePath takes precedence. This is the full path to the JetstressConfig.xml file. If ConfigFilePath is specified, the config file will be used to determine the database and log folders that need to be removed"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -88,7 +126,7 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   newparam(:dsc_databasepaths, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Either ConfigFilePath, or DatabasePaths AND LogPaths MUST be specified. DatabasePaths specifies the paths to database directories that should be cleaned up."
+    desc "DatabasePaths - Either ConfigFilePath, or DatabasePaths AND LogPaths MUST be specified. DatabasePaths specifies the paths to database directories that should be cleaned up."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -106,7 +144,7 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   newparam(:dsc_deleteassociatedmountpoints) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Defaults to $false. If specified, indicates that mount points associated with the Jetstress database and log paths should be removed"
+    desc "DeleteAssociatedMountPoints - Defaults to $false. If specified, indicates that mount points associated with the Jetstress database and log paths should be removed"
     validate do |value|
     end
     newvalues(true, false)
@@ -122,7 +160,7 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   newparam(:dsc_logpaths, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Either ConfigFilePath, or DatabasePaths AND LogPaths MUST be specified. LogPaths specifies the paths to log directories that should be cleaned up."
+    desc "LogPaths - Either ConfigFilePath, or DatabasePaths AND LogPaths MUST be specified. LogPaths specifies the paths to log directories that should be cleaned up."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -140,7 +178,7 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   newparam(:dsc_outputsavelocation) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "If RemoveBinaries is set to $true and Jetstress output was saved to the default location (the installation path of Jetstress), specifies the folder path to copy the Jetstress output files to."
+    desc "OutputSaveLocation - If RemoveBinaries is set to $true and Jetstress output was saved to the default location (the installation path of Jetstress), specifies the folder path to copy the Jetstress output files to."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -155,7 +193,7 @@ Puppet::Type.newtype(:dsc_xexchjetstresscleanup) do
   newparam(:dsc_removebinaries) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Specifies that the files in the Jetstress installation directory should be removed"
+    desc "RemoveBinaries - Specifies that the files in the Jetstress installation directory should be removed"
     validate do |value|
     end
     newvalues(true, false)

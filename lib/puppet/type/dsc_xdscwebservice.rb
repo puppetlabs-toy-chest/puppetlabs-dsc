@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
 
   @doc = %q{
     The DSC xDSCWebService resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xDSCWebService/MSFT_xDSCWebService.Schema.mof
+    Automatically generated from
+    'xPSDesiredStateConfiguration/DSCResources/MSFT_xDSCWebService/MSFT_xDSCWebService.Schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xDSCWebService"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xDSCWebService')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xDSCWebService'
+    end
+
+    defaultto 'xDSCWebService'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xDSCWebService"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xDSCWebService')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xDSCWebService'
+    end
+
+    defaultto 'MSFT_xDSCWebService'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xPSDesiredStateConfiguration"
+    desc "A read-only value that is the DSC Module Name ('xPSDesiredStateConfiguration')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xPSDesiredStateConfiguration'
+    end
+
+    defaultto 'xPSDesiredStateConfiguration'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "3.5.0.0"
+    desc "A read-only value for the DSC Module Version ('3.5.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '3.5.0.0'
+    end
+
+    defaultto '3.5.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,6 +96,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   newparam(:dsc_endpointname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "EndpointName"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,6 +112,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   newparam(:dsc_certificatethumbprint) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "CertificateThumbPrint"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -87,6 +127,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   newparam(:dsc_port) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "Port"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -104,6 +145,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   newparam(:dsc_physicalpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "PhysicalPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -118,6 +160,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -136,6 +179,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   newparam(:dsc_state) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "State - Valid values are Started, Stopped."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -153,6 +197,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   newparam(:dsc_modulepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ModulePath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -167,6 +212,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   newparam(:dsc_configurationpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ConfigurationPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -181,6 +227,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   newparam(:dsc_iscomplianceserver) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "IsComplianceServer"
     validate do |value|
     end
     newvalues(true, false)
@@ -196,6 +243,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   newparam(:dsc_dscserverurl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DSCServerUrl"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -210,6 +258,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   newparam(:dsc_registrationkeypath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "RegistrationKeyPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -224,6 +273,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   newparam(:dsc_acceptselfsignedcertificates) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "AcceptSelfSignedCertificates"
     validate do |value|
     end
     newvalues(true, false)

@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
 
   @doc = %q{
     The DSC xDNSServerAddress resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xNetworking/DSCResources/MSFT_xDNSServerAddress/MSFT_xDNSServerAddress.schema.mof
+    Automatically generated from
+    'xNetworking/DSCResources/MSFT_xDNSServerAddress/MSFT_xDNSServerAddress.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -17,14 +26,28 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xDNSServerAddress"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xDNSServerAddress')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xDNSServerAddress'
+    end
+
+    defaultto 'xDNSServerAddress'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xDNSServerAddress"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xDNSServerAddress')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xDNSServerAddress'
+    end
+
+    defaultto 'MSFT_xDNSServerAddress'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -35,11 +58,26 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xNetworking"
+    desc "A read-only value that is the DSC Module Name ('xNetworking')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xNetworking'
+    end
+
+    defaultto 'xNetworking'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.3.0.0"
+    desc "A read-only value for the DSC Module Version ('2.4.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '2.4.0.0'
+    end
+
+    defaultto '2.4.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,6 +96,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   newparam(:dsc_address, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "Address"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -75,6 +114,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   newparam(:dsc_interfacealias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "InterfaceAlias"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -90,6 +130,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   newparam(:dsc_addressfamily) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "AddressFamily - Valid values are IPv4, IPv6."
     isrequired
     validate do |value|
       unless value.kind_of?(String)

@@ -30,8 +30,17 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
 
   @doc = %q{
     The DSC xVhdFile resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xHyper-V/DSCResources/MSFT_xVhdFileDirectory/MSFT_xVhdFileDirectory.schema.mof
+    Automatically generated from
+    'xHyper-V/DSCResources/MSFT_xVhdFileDirectory/MSFT_xVhdFileDirectory.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -39,14 +48,28 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xVhdFile"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xVhdFile')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xVhdFile'
+    end
+
+    defaultto 'xVhdFile'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xVhdFileDirectory"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xVhdFileDirectory')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xVhdFileDirectory'
+    end
+
+    defaultto 'MSFT_xVhdFileDirectory'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -57,11 +80,26 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xHyper-V"
+    desc "A read-only value that is the DSC Module Name ('xHyper-V')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xHyper-V'
+    end
+
+    defaultto 'xHyper-V'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "3.2.0.0"
+    desc "A read-only value for the DSC Module Version ('3.2.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '3.2.0.0'
+    end
+
+    defaultto '3.2.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -80,7 +118,7 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
   newparam(:dsc_vhdpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Path to the VHD"
+    desc "VhdPath - Path to the VHD"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -99,7 +137,7 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
     def mof_type_map
       {"destinationpath"=>{:type=>"string"}, "sourcepath"=>{:type=>"string"}, "ensure"=>{:type=>"string", :values=>["Present", "Absent"]}, "type"=>{:type=>"string", :values=>["File", "Directory"]}, "recurse"=>{:type=>"boolean"}, "force"=>{:type=>"boolean"}, "content"=>{:type=>"string"}, "attributes"=>{:type=>"string[]", :values=>["ReadOnly", "Hidden", "System", "Archive"]}}
     end
-    desc "The FileDirectory objects to copy to the VHD"
+    desc "FileDirectory - The FileDirectory objects to copy to the VHD"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be an array of hashes or a hash")
@@ -124,6 +162,7 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
   newparam(:dsc_checksum) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "CheckSum - Valid values are ModifiedDate, SHA-1, SHA-256, SHA-512."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
 
   @doc = %q{
     The DSC xAzurePackUpdate resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xAzurePack/DSCResources/MSFT_xAzurePackUpdate/MSFT_xAzurePackUpdate.schema.mof
+    Automatically generated from
+    'xAzurePack/DSCResources/MSFT_xAzurePackUpdate/MSFT_xAzurePackUpdate.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xAzurePackUpdate"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xAzurePackUpdate')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xAzurePackUpdate'
+    end
+
+    defaultto 'xAzurePackUpdate'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xAzurePackUpdate"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xAzurePackUpdate')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xAzurePackUpdate'
+    end
+
+    defaultto 'MSFT_xAzurePackUpdate'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xAzurePack"
+    desc "A read-only value that is the DSC Module Name ('xAzurePack')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xAzurePack'
+    end
+
+    defaultto 'xAzurePack'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
+    desc "A read-only value for the DSC Module Version ('1.2.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.2.0.0'
+    end
+
+    defaultto '1.2.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,7 +95,7 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
   newparam(:dsc_role) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The Azure Pack role to be updated."
+    desc "Role - The Azure Pack role to be updated. Valid values are Admin API, Tenant API, Tenant Public API, SQL Server Extension, MySQL Extension, Admin Site, Admin Authentication Site, Tenant Site, Tenant Authentication Site."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -76,7 +114,7 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UNC path to the root of the source files for installation."
+    desc "SourcePath - UNC path to the root of the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -91,7 +129,7 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
   newparam(:dsc_sourcefolder) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Folder within the source path containing the source files for installation."
+    desc "SourceFolder - Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -106,7 +144,7 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
   newparam(:dsc_setupcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential to be used to perform the installation."
+    desc "SetupCredential - Credential to be used to perform the installation."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

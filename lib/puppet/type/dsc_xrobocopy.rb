@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
 
   @doc = %q{
     The DSC xRobocopy resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xRobocopy/DSCResources/MSFT_xRobocopy/MSFT_xRobocopy.schema.mof
+    Automatically generated from
+    'xRobocopy/DSCResources/MSFT_xRobocopy/MSFT_xRobocopy.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -17,14 +26,28 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xRobocopy"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xRobocopy')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xRobocopy'
+    end
+
+    defaultto 'xRobocopy'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xRobocopy"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xRobocopy')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xRobocopy'
+    end
+
+    defaultto 'MSFT_xRobocopy'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -35,11 +58,26 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xRobocopy"
+    desc "A read-only value that is the DSC Module Name ('xRobocopy')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xRobocopy'
+    end
+
+    defaultto 'xRobocopy'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.1.0.0"
+    desc "A read-only value for the DSC Module Version ('1.1.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.1.0.0'
+    end
+
+    defaultto '1.1.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +96,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   newparam(:dsc_source) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Source Directory, Drive or UNC path."
+    desc "Source - Source Directory, Drive or UNC path."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +112,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   newparam(:dsc_destination) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Destination Dir, Drive or UNC path."
+    desc "Destination - Destination Dir, Drive or UNC path."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -90,7 +128,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   newparam(:dsc_files) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "File(s) to copy  (names/wildcards: default is all files)."
+    desc "Files - File(s) to copy  (names/wildcards: default is all files)."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -105,7 +143,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   newparam(:dsc_retry) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "Number of Retries on failed copies: default 1 million."
+    desc "Retry - Number of Retries on failed copies: default 1 million."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -123,7 +161,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   newparam(:dsc_wait) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "Wait time between retries: default is 30 seconds."
+    desc "Wait - Wait time between retries: default is 30 seconds."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -141,7 +179,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   newparam(:dsc_subdirectoriesincludingempty) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Copy subdirectories, including Empty ones."
+    desc "SubdirectoriesIncludingEmpty - Copy subdirectories, including Empty ones."
     validate do |value|
     end
     newvalues(true, false)
@@ -157,7 +195,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   newparam(:dsc_restartable) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Copy files in restartable mode."
+    desc "Restartable - Copy files in restartable mode."
     validate do |value|
     end
     newvalues(true, false)
@@ -173,7 +211,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   newparam(:dsc_multithreaded) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Do multi-threaded copies with n threads (default 8). N must be at least 1 and not greater than 128. This option is incompatible with the /IPG and /EFSRAW options. Redirect output using /LOG option for better performance."
+    desc "MultiThreaded - Do multi-threaded copies with n threads (default 8). N must be at least 1 and not greater than 128. This option is incompatible with the /IPG and /EFSRAW options. Redirect output using /LOG option for better performance."
     validate do |value|
     end
     newvalues(true, false)
@@ -189,7 +227,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   newparam(:dsc_excludefiles) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Exclude Files matching given names/paths/wildcards."
+    desc "ExcludeFiles - Exclude Files matching given names/paths/wildcards."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -204,7 +242,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   newparam(:dsc_logoutput) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Output status to LOG file."
+    desc "LogOutput - Output status to LOG file."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -219,7 +257,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   newparam(:dsc_appendlog) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Determine whether to overwrite log file or append."
+    desc "AppendLog - Determine whether to overwrite log file or append."
     validate do |value|
     end
     newvalues(true, false)
@@ -235,7 +273,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   newparam(:dsc_additionalargs) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Robocopy has MANY configuration options.  Too many to present them all as DSC parameters effectively. Use this option to set additional parameters.  The string will be appended to the arguements list.  For a list of options run Robocopy /??? in a shell window."
+    desc "AdditionalArgs - Robocopy has MANY configuration options.  Too many to present them all as DSC parameters effectively. Use this option to set additional parameters.  The string will be appended to the arguements list.  For a list of options run Robocopy /??? in a shell window."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

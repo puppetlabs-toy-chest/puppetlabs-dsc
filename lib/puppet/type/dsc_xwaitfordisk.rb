@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
 
   @doc = %q{
     The DSC xWaitForDisk resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xStorage/DSCResources/MSFT_xWaitForDisk/MSFT_xWaitForDisk.schema.mof
+    Automatically generated from
+    'xStorage/DSCResources/MSFT_xWaitForDisk/MSFT_xWaitForDisk.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xWaitForDisk"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xWaitForDisk')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xWaitForDisk'
+    end
+
+    defaultto 'xWaitForDisk'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xWaitForDisk"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xWaitForDisk')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xWaitForDisk'
+    end
+
+    defaultto 'MSFT_xWaitForDisk'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xStorage"
+    desc "A read-only value that is the DSC Module Name ('xStorage')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xStorage'
+    end
+
+    defaultto 'xStorage'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "2.1.0.0"
+    desc "A read-only value for the DSC Module Version ('2.2.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '2.2.0.0'
+    end
+
+    defaultto '2.2.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,6 +95,7 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
   newparam(:dsc_disknumber) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "DiskNumber"
     isrequired
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
@@ -75,6 +114,7 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
   newparam(:dsc_retryintervalsec) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
+    desc "RetryIntervalSec"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -92,6 +132,7 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
   newparam(:dsc_retrycount) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "RetryCount"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

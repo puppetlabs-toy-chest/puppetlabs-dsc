@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xazurepackidentityprovider) do
 
   @doc = %q{
     The DSC xAzurePackIdentityProvider resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xAzurePack/DSCResources/MSFT_xAzurePackIdentityProvider/MSFT_xAzurePackIdentityProvider.schema.mof
+    Automatically generated from
+    'xAzurePack/DSCResources/MSFT_xAzurePackIdentityProvider/MSFT_xAzurePackIdentityProvider.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xazurepackidentityprovider) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xAzurePackIdentityProvider"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xAzurePackIdentityProvider')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xAzurePackIdentityProvider'
+    end
+
+    defaultto 'xAzurePackIdentityProvider'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xAzurePackIdentityProvider"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xAzurePackIdentityProvider')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xAzurePackIdentityProvider'
+    end
+
+    defaultto 'MSFT_xAzurePackIdentityProvider'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xazurepackidentityprovider) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xAzurePack"
+    desc "A read-only value that is the DSC Module Name ('xAzurePack')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xAzurePack'
+    end
+
+    defaultto 'xAzurePack'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
+    desc "A read-only value for the DSC Module Version ('1.2.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.2.0.0'
+    end
+
+    defaultto '1.2.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,7 +95,7 @@ Puppet::Type.newtype(:dsc_xazurepackidentityprovider) do
   newparam(:dsc_target) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the target site."
+    desc "Target - Specifies the target site. Valid values are Membership, Windows."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -76,7 +114,7 @@ Puppet::Type.newtype(:dsc_xazurepackidentityprovider) do
   newparam(:dsc_fullyqualifieddomainname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies a Fully Qualified Domain Name (FQDN)."
+    desc "FullyQualifiedDomainName - Specifies a Fully Qualified Domain Name (FQDN)."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -91,7 +129,7 @@ Puppet::Type.newtype(:dsc_xazurepackidentityprovider) do
   newparam(:dsc_port) do
     def mof_type; 'uint16' end
     def mof_is_embedded?; false end
-    desc "Specifies a port number."
+    desc "Port - Specifies a port number."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -109,7 +147,7 @@ Puppet::Type.newtype(:dsc_xazurepackidentityprovider) do
   newparam(:dsc_azurepackadmincredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential to be used to perform the installation."
+    desc "AzurePackAdminCredential - Credential to be used to perform the installation."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -125,7 +163,7 @@ Puppet::Type.newtype(:dsc_xazurepackidentityprovider) do
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Database server for the Azure Pack databases."
+    desc "SQLServer - Database server for the Azure Pack databases."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -140,7 +178,7 @@ Puppet::Type.newtype(:dsc_xazurepackidentityprovider) do
   newparam(:dsc_sqlinstance) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Database instance for the Azure Pack databases."
+    desc "SQLInstance - Database instance for the Azure Pack databases."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

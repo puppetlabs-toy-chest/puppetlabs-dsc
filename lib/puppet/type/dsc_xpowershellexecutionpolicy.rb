@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xpowershellexecutionpolicy) do
 
   @doc = %q{
     The DSC xPowerShellExecutionPolicy resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xPowerShellExecutionPolicy/DSCResources/xPowerShellExecutionPolicy/xPowerShellExecutionPolicy.schema.mof
+    Automatically generated from
+    'xPowerShellExecutionPolicy/DSCResources/xPowerShellExecutionPolicy/xPowerShellExecutionPolicy.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xpowershellexecutionpolicy) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xPowerShellExecutionPolicy"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xPowerShellExecutionPolicy')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xPowerShellExecutionPolicy'
+    end
+
+    defaultto 'xPowerShellExecutionPolicy'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "xPowerShellExecutionPolicy"
+    desc "A read-only value that is the DSC Resource Name ('xPowerShellExecutionPolicy')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'xPowerShellExecutionPolicy'
+    end
+
+    defaultto 'xPowerShellExecutionPolicy'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xpowershellexecutionpolicy) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xPowerShellExecutionPolicy"
+    desc "A read-only value that is the DSC Module Name ('xPowerShellExecutionPolicy')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xPowerShellExecutionPolicy'
+    end
+
+    defaultto 'xPowerShellExecutionPolicy'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.0.0"
+    desc "A read-only value for the DSC Module Version ('1.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.0.0'
+    end
+
+    defaultto '1.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,7 +95,7 @@ Puppet::Type.newtype(:dsc_xpowershellexecutionpolicy) do
   newparam(:dsc_executionpolicy) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Changes the user preference for the Windows PowerShell execution policy."
+    desc "ExecutionPolicy - Changes the user preference for the Windows PowerShell execution policy. Valid values are Bypass, Restricted, AllSigned, RemoteSigned, Unrestricted."
     isrequired
     validate do |value|
       unless value.kind_of?(String)

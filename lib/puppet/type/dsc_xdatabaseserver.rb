@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xdatabaseserver) do
 
   @doc = %q{
     The DSC xDatabaseServer resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xDatabase/DSCResources/MSFT_xDatabaseServer/MSFT_xDatabaseServer.schema.mof
+    Automatically generated from
+    'xDatabase/DSCResources/MSFT_xDatabaseServer/MSFT_xDatabaseServer.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xdatabaseserver) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xDatabaseServer"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xDatabaseServer')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xDatabaseServer'
+    end
+
+    defaultto 'xDatabaseServer'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xDatabaseServer"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xDatabaseServer')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xDatabaseServer'
+    end
+
+    defaultto 'MSFT_xDatabaseServer'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xdatabaseserver) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xDatabase"
+    desc "A read-only value that is the DSC Module Name ('xDatabase')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xDatabase'
+    end
+
+    defaultto 'xDatabase'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
+    desc "A read-only value for the DSC Module Version ('1.4.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.4.0.0'
+    end
+
+    defaultto '1.4.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,6 +95,7 @@ Puppet::Type.newtype(:dsc_xdatabaseserver) do
   newparam(:dsc_loginmode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "LoginMode - Valid values are Windows, Mixed."
     isrequired
     validate do |value|
       unless value.kind_of?(String)

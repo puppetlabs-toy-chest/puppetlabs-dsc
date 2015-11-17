@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xservice) do
 
   @doc = %q{
     The DSC xService resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xServiceResource/MSFT_xServiceResource.schema.mof
+    Automatically generated from
+    'xPSDesiredStateConfiguration/DSCResources/MSFT_xServiceResource/MSFT_xServiceResource.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xservice) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xService"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xService')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xService'
+    end
+
+    defaultto 'xService'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xServiceResource"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xServiceResource')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xServiceResource'
+    end
+
+    defaultto 'MSFT_xServiceResource'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xservice) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xPSDesiredStateConfiguration"
+    desc "A read-only value that is the DSC Module Name ('xPSDesiredStateConfiguration')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xPSDesiredStateConfiguration'
+    end
+
+    defaultto 'xPSDesiredStateConfiguration'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "3.5.0.0"
+    desc "A read-only value for the DSC Module Version ('3.5.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '3.5.0.0'
+    end
+
+    defaultto '3.5.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,6 +96,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Name"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,6 +112,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_state) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "State - Valid values are Running, Stopped."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -90,6 +130,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_startuptype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "StartupType - Valid values are Automatic, Manual, Disabled."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -107,6 +148,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_builtinaccount) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "BuiltInAccount - Valid values are LocalSystem, LocalService, NetworkService."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -124,6 +166,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -139,6 +182,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_status) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Status"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -153,6 +197,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_displayname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DisplayName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -167,6 +212,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Description"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -181,6 +227,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Path"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -195,6 +242,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_dependencies, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "Dependencies"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -212,6 +260,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_startuptimeout) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "StartupTimeout"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -229,6 +278,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

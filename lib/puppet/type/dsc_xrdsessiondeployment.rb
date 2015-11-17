@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xrdsessiondeployment) do
 
   @doc = %q{
     The DSC xRDSessionDeployment resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xRemoteDesktopSessionHost/DSCResources/MSFT_xRDSessionDeployment/MSFT_xRDSessionDeployment.schema.mof
+    Automatically generated from
+    'xRemoteDesktopSessionHost/DSCResources/MSFT_xRDSessionDeployment/MSFT_xRDSessionDeployment.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -18,14 +27,28 @@ Puppet::Type.newtype(:dsc_xrdsessiondeployment) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xRDSessionDeployment"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xRDSessionDeployment')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xRDSessionDeployment'
+    end
+
+    defaultto 'xRDSessionDeployment'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xRDSessionDeployment"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xRDSessionDeployment')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xRDSessionDeployment'
+    end
+
+    defaultto 'MSFT_xRDSessionDeployment'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -36,11 +59,26 @@ Puppet::Type.newtype(:dsc_xrdsessiondeployment) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xRemoteDesktopSessionHost"
+    desc "A read-only value that is the DSC Module Name ('xRemoteDesktopSessionHost')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xRemoteDesktopSessionHost'
+    end
+
+    defaultto 'xRemoteDesktopSessionHost'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.1.0.0"
+    desc "A read-only value for the DSC Module Version ('1.1.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.1.0.0'
+    end
+
+    defaultto '1.1.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -59,7 +97,7 @@ Puppet::Type.newtype(:dsc_xrdsessiondeployment) do
   newparam(:dsc_sessionhost) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the FQDN of a server to host the RD Session Host role service. "
+    desc "SessionHost - Specifies the FQDN of a server to host the RD Session Host role service. "
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -75,7 +113,7 @@ Puppet::Type.newtype(:dsc_xrdsessiondeployment) do
   newparam(:dsc_connectionbroker) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the FQDN of a server to host the RD Connection Broker role service."
+    desc "ConnectionBroker - Specifies the FQDN of a server to host the RD Connection Broker role service."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -91,7 +129,7 @@ Puppet::Type.newtype(:dsc_xrdsessiondeployment) do
   newparam(:dsc_webaccessserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the FQDN of a server to host the RD Web Access role service. "
+    desc "WebAccessServer - Specifies the FQDN of a server to host the RD Web Access role service. "
     isrequired
     validate do |value|
       unless value.kind_of?(String)

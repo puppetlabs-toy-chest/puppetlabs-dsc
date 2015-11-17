@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
 
   @doc = %q{
     The DSC xAzureStorageAccount resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureStorageAccount/MSFT_xAzureStorageAccount.schema.mof
+    Automatically generated from
+    'xAzure/DSCResources/MSFT_xAzureStorageAccount/MSFT_xAzureStorageAccount.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xAzureStorageAccount"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xAzureStorageAccount')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xAzureStorageAccount'
+    end
+
+    defaultto 'xAzureStorageAccount'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xAzureStorageAccount"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xAzureStorageAccount')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xAzureStorageAccount'
+    end
+
+    defaultto 'MSFT_xAzureStorageAccount'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xAzure"
+    desc "A read-only value that is the DSC Module Name ('xAzure')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xAzure'
+    end
+
+    defaultto 'xAzure'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.2.0.0"
+    desc "A read-only value for the DSC Module Version ('0.2.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '0.2.0.0'
+    end
+
+    defaultto '0.2.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +96,7 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   newparam(:dsc_storageaccountname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies a name for the storage account. The storage account name must be unique to Windows Azure and must be between 3 and 24 characters in length and use lowercase letters and numbers only."
+    desc "StorageAccountName - Specifies a name for the storage account. The storage account name must be unique to Windows Azure and must be between 3 and 24 characters in length and use lowercase letters and numbers only."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +112,7 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies whether the Azure Storage Account should be present or absent."
+    desc "Ensure - Specifies whether the Azure Storage Account should be present or absent. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -93,7 +131,7 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   newparam(:dsc_affinitygroup) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the name of an existing affinity group in the current subscription. You can specify either a Location or an AffinityGroup parameter, but not both. "
+    desc "AffinityGroup - Specifies the name of an existing affinity group in the current subscription. You can specify either a Location or an AffinityGroup parameter, but not both. "
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -108,7 +146,7 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   newparam(:dsc_container) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies a name for the Container that should be created in the Azure Storage Account."
+    desc "Container - Specifies a name for the Container that should be created in the Azure Storage Account."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -123,7 +161,7 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   newparam(:dsc_folder) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies a local folder.  All files in the root of the folder will be uploaded to the new container."
+    desc "Folder - Specifies a local folder.  All files in the root of the folder will be uploaded to the new container."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -138,7 +176,7 @@ Puppet::Type.newtype(:dsc_xazurestorageaccount) do
   newparam(:dsc_label) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies a label for the storage account. The label may be up to 100 characters in length."
+    desc "Label - Specifies a label for the storage account. The label may be up to 100 characters in length."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

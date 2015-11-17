@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xsystemrestore) do
 
   @doc = %q{
     The DSC xSystemRestore resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xWindowsRestore/DSCResources/xSystemRestore/xSystemRestore.schema.mof
+    Automatically generated from
+    'xWindowsRestore/DSCResources/xSystemRestore/xSystemRestore.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xsystemrestore) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSystemRestore"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xSystemRestore')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xSystemRestore'
+    end
+
+    defaultto 'xSystemRestore'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "xSystemRestore"
+    desc "A read-only value that is the DSC Resource Name ('xSystemRestore')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'xSystemRestore'
+    end
+
+    defaultto 'xSystemRestore'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xsystemrestore) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xWindowsRestore"
+    desc "A read-only value that is the DSC Module Name ('xWindowsRestore')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xWindowsRestore'
+    end
+
+    defaultto 'xWindowsRestore'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.0.0"
+    desc "A read-only value for the DSC Module Version ('1.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.0.0'
+    end
+
+    defaultto '1.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +96,7 @@ Puppet::Type.newtype(:dsc_xsystemrestore) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Indicates that the computer restore is enabled or is disabled."
+    desc "Ensure - Indicates that the computer restore is enabled or is disabled. Valid values are Present, Absent."
     isrequired
     validate do |value|
       resource[:ensure] = value.downcase
@@ -78,7 +116,7 @@ Puppet::Type.newtype(:dsc_xsystemrestore) do
   newparam(:dsc_drive, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Specifies the file system drives. Enter one or more file system drive letters, each followed by a colon and a backslash and enclosed in quotation marks, such as 'C:\' or 'D:\'."
+    desc "Drive - Specifies the file system drives. Enter one or more file system drive letters, each followed by a colon and a backslash and enclosed in quotation marks, such as 'C:\' or 'D:\'."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

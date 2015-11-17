@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
 
   @doc = %q{
     The DSC xSPDiagnosticLoggingSettings resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPDiagnosticLoggingSettings/MSFT_xSPDiagnosticLoggingSettings.schema.mof
+    Automatically generated from
+    'xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPDiagnosticLoggingSettings/MSFT_xSPDiagnosticLoggingSettings.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSPDiagnosticLoggingSettings"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xSPDiagnosticLoggingSettings')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xSPDiagnosticLoggingSettings'
+    end
+
+    defaultto 'xSPDiagnosticLoggingSettings'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSPDiagnosticLoggingSettings"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xSPDiagnosticLoggingSettings')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xSPDiagnosticLoggingSettings'
+    end
+
+    defaultto 'MSFT_xSPDiagnosticLoggingSettings'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xSharePoint"
+    desc "A read-only value that is the DSC Module Name ('xSharePoint')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xSharePoint'
+    end
+
+    defaultto 'xSharePoint'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.7.0.0"
+    desc "A read-only value for the DSC Module Version ('0.7.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '0.7.0.0'
+    end
+
+    defaultto '0.7.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,6 +95,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_logpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "LogPath"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +111,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_logspaceingb) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "LogSpaceInGB"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -89,6 +129,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_appanalyticsautomaticuploadenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "AppAnalyticsAutomaticUploadEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -104,6 +145,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_customerexperienceimprovementprogramenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "CustomerExperienceImprovementProgramEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -119,6 +161,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_daystokeeplogs) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "DaysToKeepLogs"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -136,6 +179,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_downloaderrorreportingupdatesenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "DownloadErrorReportingUpdatesEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -151,6 +195,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_errorreportingautomaticuploadenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "ErrorReportingAutomaticUploadEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -166,6 +211,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_errorreportingenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "ErrorReportingEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -181,6 +227,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_eventlogfloodprotectionenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "EventLogFloodProtectionEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -196,6 +243,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_eventlogfloodprotectionnotifyinterval) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "EventLogFloodProtectionNotifyInterval"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -213,6 +261,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_eventlogfloodprotectionquietperiod) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "EventLogFloodProtectionQuietPeriod"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -230,6 +279,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_eventlogfloodprotectionthreshold) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "EventLogFloodProtectionThreshold"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -247,6 +297,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_eventlogfloodprotectiontriggerperiod) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "EventLogFloodProtectionTriggerPeriod"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -264,6 +315,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_logcutinterval) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "LogCutInterval"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -281,6 +333,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_logmaxdiskspaceusageenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "LogMaxDiskSpaceUsageEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -296,6 +349,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_scripterrorreportingdelay) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "ScriptErrorReportingDelay"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -313,6 +367,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_scripterrorreportingenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "ScriptErrorReportingEnabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -328,6 +383,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_scripterrorreportingrequireauth) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "ScriptErrorReportingRequireAuth"
     validate do |value|
     end
     newvalues(true, false)
@@ -343,6 +399,7 @@ Puppet::Type.newtype(:dsc_xspdiagnosticloggingsettings) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "InstallAccount"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
