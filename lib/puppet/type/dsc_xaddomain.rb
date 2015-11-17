@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xaddomain) do
 
   @doc = %q{
     The DSC xADDomain resource type.
-    Automatically generated from
-    'xActiveDirectory/DSCResources/MSFT_xADDomain/MSFT_xADDomain.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADDomain/MSFT_xADDomain.schema.mof
   }
 
   validate do
       fail('dsc_domainname is a required attribute') if self[:dsc_domainname].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xADDomain')."
-
-    def retrieve
-      'xADDomain'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xADDomain"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xADDomain')."
-
-    def retrieve
-      'MSFT_xADDomain'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xADDomain"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xaddomain) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xActiveDirectory')."
-
-    def retrieve
-      'xActiveDirectory'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xActiveDirectory"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('2.7.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '2.7.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "2.6.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -103,7 +57,6 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_domainname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainName"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -119,7 +72,6 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_parentdomainname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ParentDomainName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -134,7 +86,6 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_domainnetbiosname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainNetbiosName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -149,7 +100,6 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_domainadministratorcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "DomainAdministratorCredential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -165,7 +115,6 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_safemodeadministratorpassword) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "SafemodeAdministratorPassword"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -181,7 +130,6 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_dnsdelegationcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "DnsDelegationCredential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -197,7 +145,6 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_databasepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DatabasePath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -212,7 +159,6 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_logpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "LogPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -227,7 +173,6 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_sysvolpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SysvolPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -54,12 +54,16 @@ function Set-TargetResource
 
     Write-Verbose -Message "Creating the managed path $RelativeUrl in $WebAppUrl"
 
-    $path = Get-TargetResource @PSBoundParameters
+    Invoke-xSharePointCommand -Credential $InstallAccount -Arguments $PSBoundParameters -ScriptBlock {
+        $params = $args[0]
+        
 
-    if ($null -eq $path) { 
-        Invoke-xSharePointCommand -Credential $InstallAccount -Arguments $PSBoundParameters -ScriptBlock {
-            $params = $args[0]
+        $path = Get-TargetResource @params -ErrorAction SilentlyContinue
 
+        if ($params.ContainsKey("InstallAccount")) { $params.Remove("InstallAccount") | Out-Null }
+
+        if ($null -eq $path) { 
+            
             $newParams = @{}
             if ($params.HostHeader) {
                 $newParams.Add("HostHeader", $params.HostHeader)

@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xwebpackagedeploy) do
 
   @doc = %q{
     The DSC xWebPackageDeploy resource type.
-    Automatically generated from
-    'xWebDeploy/DSCResources/xWebPackageDeploy/xWebPackageDeploy.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xWebDeploy/DSCResources/xWebPackageDeploy/xWebPackageDeploy.schema.mof
   }
 
   validate do
       fail('dsc_destination is a required attribute') if self[:dsc_destination].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xWebPackageDeploy')."
-
-    def retrieve
-      'xWebPackageDeploy'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xWebPackageDeploy"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('xWebPackageDeploy')."
-
-    def retrieve
-      'xWebPackageDeploy'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "xWebPackageDeploy"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xwebpackagedeploy) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xWebDeploy')."
-
-    def retrieve
-      'xWebDeploy'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xWebDeploy"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.1.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.1.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -104,7 +58,7 @@ Puppet::Type.newtype(:dsc_xwebpackagedeploy) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SourcePath - Full path to the zip package."
+    desc "Full path to the zip package."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -119,7 +73,7 @@ Puppet::Type.newtype(:dsc_xwebpackagedeploy) do
   newparam(:dsc_destination) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Destination - WebDeploy destination for content path or website name)."
+    desc "WebDeploy destination for content path or website name)."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -135,7 +89,7 @@ Puppet::Type.newtype(:dsc_xwebpackagedeploy) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Desired state of resource. Valid values are Present, Absent."
+    desc "Desired state of resource."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

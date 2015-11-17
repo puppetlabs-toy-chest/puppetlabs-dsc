@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xexchjetstress) do
 
   @doc = %q{
     The DSC xExchJetstress resource type.
-    Automatically generated from
-    'xExchange/DSCResources/MSFT_xExchJetstress/MSFT_xExchJetstress.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xExchange/DSCResources/MSFT_xExchJetstress/MSFT_xExchJetstress.schema.mof
   }
 
   validate do
       fail('dsc_type is a required attribute') if self[:dsc_type].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xExchJetstress')."
-
-    def retrieve
-      'xExchJetstress'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xExchJetstress"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xExchJetstress')."
-
-    def retrieve
-      'MSFT_xExchJetstress'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xExchJetstress"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xexchjetstress) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xExchange')."
-
-    def retrieve
-      'xExchange'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xExchange"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.4.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.4.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.3.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -103,7 +57,7 @@ Puppet::Type.newtype(:dsc_xexchjetstress) do
   newparam(:dsc_type) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Type - Specifies the Type which was defined in the JetstressConfig.xml file. Valid values are Performance, Stress, DatabaseBackup, or SoftRecovery. Defaults to Performance. Valid values are Performance, Stress, DatabaseBackup, SoftRecovery."
+    desc "Specifies the Type which was defined in the JetstressConfig.xml file. Valid values are Performance, Stress, DatabaseBackup, or SoftRecovery. Defaults to Performance."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -122,7 +76,7 @@ Puppet::Type.newtype(:dsc_xexchjetstress) do
   newparam(:dsc_jetstresspath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "JetstressPath - The path to the folder where Jetstress is installed, and which contains JetstressCmd.exe"
+    desc "The path to the folder where Jetstress is installed, and which contains JetstressCmd.exe"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -137,7 +91,7 @@ Puppet::Type.newtype(:dsc_xexchjetstress) do
   newparam(:dsc_jetstressparams) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "JetstressParams - Command line parameters to pass into JetstressCmd.exe"
+    desc "Command line parameters to pass into JetstressCmd.exe"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -152,7 +106,7 @@ Puppet::Type.newtype(:dsc_xexchjetstress) do
   newparam(:dsc_maxwaitminutes) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "MaxWaitMinutes - The maximum amount of time that the Scheduled Task which runs Jetstress can execute for. Defaults to 0, which means there is no time limit."
+    desc "The maximum amount of time that the Scheduled Task which runs Jetstress can execute for. Defaults to 0, which means there is no time limit."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -170,7 +124,7 @@ Puppet::Type.newtype(:dsc_xexchjetstress) do
   newparam(:dsc_minachievediops) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "MinAchievedIOPS - The minimum value reported in the Achieved Transactional I/O per Second section of the Jetstress report for the run to be considered successful. Defaults to 0."
+    desc "The minimum value reported in the Achieved Transactional I/O per Second section of the Jetstress report for the run to be considered successful. Defaults to 0."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

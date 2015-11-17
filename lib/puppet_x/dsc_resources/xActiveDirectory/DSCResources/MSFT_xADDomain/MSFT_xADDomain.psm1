@@ -47,7 +47,7 @@ function Get-TargetResource
             {
                 $dc = Get-ADDomainController -Identity $env:COMPUTERNAME -Credential $DomainAdministratorCredential
                 Write-Verbose -Message "Found domain controller '$($dc.Name)' in domain '$($dc.Domain)'."
-                Write-Verbose -Message "Found parent domain '$($domain.ParentDomain)', expected '$($ParentDomainName)'."
+                Write-Verbose -Message "Found parent domain '$($dc.ParentDomain)', expected '$($ParentDomainName)'."
                 if (($dc.Domain -eq $DomainName) -and ((!($dc.ParentDomain) -and !($ParentDomainName)) -or ($dc.ParentDomain -eq $ParentDomainName)))
                 {
                     Write-Verbose -Message "Current node '$($dc.Name)' is already a domain controller for domain '$($dc.Domain)'."
@@ -129,9 +129,9 @@ function Set-TargetResource
             NoRebootOnCompletion = $true
             Force = $true
         }
-        if ($DomainNetbiosName.length -gt 0)
+        if ($DomainNetbiosName -ne $null)
         {
-            $params.Add("NewDomainNetbiosName", $DomainNetbiosName)
+            $params.Add("DomainNetbiosName", $DomainNetbiosName)
         }
         if ($DnsDelegationCredential -ne $null)
         {
@@ -160,16 +160,16 @@ function Set-TargetResource
         $params = @{
             NewDomainName = $DomainName
             ParentDomainName = $ParentDomainName
-            DomainType = "ChildDomain"
+            DomainType = [Microsoft.DirectoryServices.Deployment.Types.DomainType]::ChildDomain
             SafeModeAdministratorPassword = $SafemodeAdministratorPassword.Password
             Credential = $DomainAdministratorCredential
             InstallDns = $true
             NoRebootOnCompletion = $true
             Force = $true
         }
-        if ($DomainNetbiosName.length -gt 0)
+        if ($DomainNetbiosName -ne $null)
         {
-            $params.Add("NewDomainNetbiosName", $DomainNetbiosName)
+            $params.Add("DomainNetbiosName", $DomainNetbiosName)
         }
         if ($DnsDelegationCredential -ne $null)
         {
@@ -230,13 +230,7 @@ function Test-TargetResource
     {
         $parameters = $PSBoundParameters.Remove("Debug");
         $existingResource = Get-TargetResource @PSBoundParameters
-        
-        $fullDomainName = $DomainName
-        if ($ParentDomainName)
-        {
-            $fullDomainName = $DomainName + "." + $ParentDomainName
-        }
-        $existingResource.DomainName -eq $fullDomainName
+        $existingResource.DomainName -eq $DomainName
     }
     catch
     {

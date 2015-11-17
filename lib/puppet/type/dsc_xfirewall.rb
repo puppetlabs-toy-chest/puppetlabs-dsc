@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xfirewall) do
 
   @doc = %q{
     The DSC xFirewall resource type.
-    Automatically generated from
-    'xNetworking/DSCResources/MSFT_xFirewall/MSFT_xFirewall.Schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xNetworking/DSCResources/MSFT_xFirewall/MSFT_xFirewall.Schema.mof
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xFirewall')."
-
-    def retrieve
-      'xFirewall'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xFirewall"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xFirewall')."
-
-    def retrieve
-      'MSFT_xFirewall'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xFirewall"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xfirewall) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xNetworking')."
-
-    def retrieve
-      'xNetworking'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xNetworking"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('2.4.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '2.4.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "2.3.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -104,7 +58,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - Name of the Firewall Rule"
+    desc "Name of the Firewall Rule"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -120,7 +74,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_displayname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DisplayName - Localized, user-facing name of the Firewall Rule being created"
+    desc "Localized, user-facing name of the Firewall Rule being created"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -135,7 +89,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_displaygroup) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DisplayGroup - Name of the Firewall Group where we want to put the Firewall Rules"
+    desc "Name of the Firewall Group where we want to put the Firewall Rules"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -150,7 +104,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Ensure the presence/absence of the resource Valid values are Present, Absent."
+    desc "Ensure the presence/absence of the resource"
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -169,7 +123,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_enabled) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Enabled - Enable or disable the supplied configuration Valid values are True, False."
+    desc "Enable or disable the supplied configuration"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -187,7 +141,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_action) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Action - Permit or Block the supplied configuration Valid values are NotConfigured, Allow, Block."
+    desc "Permit or Block the supplied configuration"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -205,7 +159,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_profile, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Profile - Specifies one or more profiles to which the rule is assigned"
+    desc "Specifies one or more profiles to which the rule is assigned"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -223,7 +177,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_direction) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Direction - Direction of the connection Valid values are Inbound, Outbound."
+    desc "Direction of the connection"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -241,7 +195,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_remoteport, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "RemotePort - Specific Port used for filter. Specified by port number, range, or keyword"
+    desc "Specific Port used for filter. Specified by port number, range, or keyword"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -259,7 +213,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_localport, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "LocalPort - Local Port used for the filter"
+    desc "Local Port used for the filter"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -277,7 +231,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_protocol) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Protocol - Specific Protocol for filter. Specified by name, number, or range"
+    desc "Specific Protocol for filter. Specified by name, number, or range"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -292,7 +246,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Description - Documentation for the Rule"
+    desc "Documentation for the Rule"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -307,7 +261,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_applicationpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ApplicationPath - Path and file name of the program for which the rule is applied"
+    desc "Path and file name of the program for which the rule is applied"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -322,7 +276,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_service) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Service - Specifies the short name of a Windows service to which the firewall rule applies"
+    desc "Specifies the short name of a Windows service to which the firewall rule applies"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

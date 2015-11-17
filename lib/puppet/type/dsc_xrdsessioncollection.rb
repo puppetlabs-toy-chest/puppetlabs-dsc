@@ -7,17 +7,8 @@ Puppet::Type.newtype(:dsc_xrdsessioncollection) do
 
   @doc = %q{
     The DSC xRDSessionCollection resource type.
-    Automatically generated from
-    'xRemoteDesktopSessionHost/DSCResources/MSFT_xRDSessionCollection/MSFT_xRDSessionCollection.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xRemoteDesktopSessionHost/DSCResources/MSFT_xRDSessionCollection/MSFT_xRDSessionCollection.schema.mof
   }
 
   validate do
@@ -25,33 +16,15 @@ Puppet::Type.newtype(:dsc_xrdsessioncollection) do
       fail('dsc_sessionhost is a required attribute') if self[:dsc_sessionhost].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xRDSessionCollection')."
-
-    def retrieve
-      'xRDSessionCollection'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xRDSessionCollection"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xRDSessionCollection')."
-
-    def retrieve
-      'MSFT_xRDSessionCollection'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xRDSessionCollection"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -61,31 +34,12 @@ Puppet::Type.newtype(:dsc_xrdsessioncollection) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xRemoteDesktopSessionHost')."
-
-    def retrieve
-      'xRemoteDesktopSessionHost'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xRemoteDesktopSessionHost"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.1.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.1.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -104,7 +58,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollection) do
   newparam(:dsc_collectionname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CollectionName - Specifies a name for the session collection. "
+    desc "Specifies a name for the session collection. "
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -120,7 +74,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollection) do
   newparam(:dsc_sessionhost) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SessionHost - Specifies an RD Session Host server to include in the session collection. "
+    desc "Specifies an RD Session Host server to include in the session collection. "
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -136,7 +90,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollection) do
   newparam(:dsc_collectiondescription) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CollectionDescription - Specifies a description for the collection."
+    desc "Specifies a description for the collection."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -151,7 +105,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollection) do
   newparam(:dsc_connectionbroker) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ConnectionBroker - Specifies the Remote Desktop Connection Broker (RD Connection Broker) server for a Remote Desktop deployment."
+    desc "Specifies the Remote Desktop Connection Broker (RD Connection Broker) server for a Remote Desktop deployment."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

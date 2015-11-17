@@ -7,17 +7,8 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
 
   @doc = %q{
     The DSC xVMSwitch resource type.
-    Automatically generated from
-    'xHyper-V/DSCResources/MSFT_xVMSwitch/MSFT_xVMSwitch.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xHyper-V/DSCResources/MSFT_xVMSwitch/MSFT_xVMSwitch.schema.mof
   }
 
   validate do
@@ -25,33 +16,15 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
       fail('dsc_type is a required attribute') if self[:dsc_type].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xVMSwitch')."
-
-    def retrieve
-      'xVMSwitch'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xVMSwitch"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xVMSwitch')."
-
-    def retrieve
-      'MSFT_xVMSwitch'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xVMSwitch"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -61,31 +34,12 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xHyper-V')."
-
-    def retrieve
-      'xHyper-V'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xHyper-V"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('3.2.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '3.2.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "3.2.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -105,7 +59,7 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - Name of the VM Switch"
+    desc "Name of the VM Switch"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -121,7 +75,7 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   newparam(:dsc_type) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Type - Type of switch Valid values are External, Internal, Private."
+    desc "Type of switch"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -140,7 +94,7 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   newparam(:dsc_netadaptername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "NetAdapterName - Network adapter name for external switch type"
+    desc "Network adapter name for external switch type"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -155,7 +109,7 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   newparam(:dsc_allowmanagementos) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllowManagementOS - Specify is the VM host has access to the physical NIC"
+    desc "Specify is the VM host has access to the physical NIC"
     validate do |value|
     end
     newvalues(true, false)
@@ -171,7 +125,7 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Whether switch should be present or absent Valid values are Present, Absent."
+    desc "Whether switch should be present or absent"
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -190,7 +144,7 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   newparam(:dsc_id) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Id - Unique ID for the switch"
+    desc "Unique ID for the switch"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -205,7 +159,7 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   newparam(:dsc_netadapterinterfacedescription) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "NetAdapterInterfaceDescription - Description of the network interface"
+    desc "Description of the network interface"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

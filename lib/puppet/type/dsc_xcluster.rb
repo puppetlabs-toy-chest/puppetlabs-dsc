@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xcluster) do
 
   @doc = %q{
     The DSC xCluster resource type.
-    Automatically generated from
-    'xFailOverCluster/DSCResources/MSFT_xCluster/MSFT_xCluster.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xFailOverCluster/DSCResources/MSFT_xCluster/MSFT_xCluster.schema.mof
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xCluster')."
-
-    def retrieve
-      'xCluster'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xCluster"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xCluster')."
-
-    def retrieve
-      'MSFT_xCluster'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xCluster"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xcluster) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xFailOverCluster')."
-
-    def retrieve
-      'xFailOverCluster'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xFailOverCluster"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.2.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.2.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.2.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -103,7 +57,7 @@ Puppet::Type.newtype(:dsc_xcluster) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - Name of the Cluster"
+    desc "Name of the Cluster"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -119,7 +73,7 @@ Puppet::Type.newtype(:dsc_xcluster) do
   newparam(:dsc_staticipaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "StaticIPAddress - StaticIPAddress of the Cluster"
+    desc "StaticIPAddress of the Cluster"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -134,7 +88,7 @@ Puppet::Type.newtype(:dsc_xcluster) do
   newparam(:dsc_domainadministratorcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "DomainAdministratorCredential - Credential to create the cluster"
+    desc "Credential to create the cluster"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
 
   @doc = %q{
     The DSC xAdcsWebEnrollment resource type.
-    Automatically generated from
-    'xAdcsDeployment/xCertificateServices/DSCResources/MSFT_xAdcsWebEnrollment/MSFT_xAdcsWebEnrollment.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xAdcsDeployment/xCertificateServices/DSCResources/MSFT_xAdcsWebEnrollment/MSFT_xAdcsWebEnrollment.schema.mof
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xAdcsWebEnrollment')."
-
-    def retrieve
-      'xAdcsWebEnrollment'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xAdcsWebEnrollment"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xAdcsWebEnrollment')."
-
-    def retrieve
-      'MSFT_xAdcsWebEnrollment'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xAdcsWebEnrollment"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xCertificateServices')."
-
-    def retrieve
-      'xCertificateServices'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xCertificateServices"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('0.1.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '0.1.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "0.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -104,7 +58,7 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
   newparam(:dsc_caconfig) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CAConfig - CAConfig parameter string. Do not specify this if there is a local CA installed."
+    desc "CAConfig parameter string. Do not specify this if there is a local CA installed."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -119,7 +73,7 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential - If the Web Enrollment service is configured to use Standalone certification authority, then an account that is a member of the local Administrators on the CA is required. If the Web Enrollment service is configured to use an Enterprise CA, then an account that is a member of Domain Admins is required."
+    desc "If the Web Enrollment service is configured to use Standalone certification authority, then an account that is a member of the local Administrators on the CA is required. If the Web Enrollment service is configured to use an Enterprise CA, then an account that is a member of Domain Admins is required."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -135,7 +89,7 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Specifies whether the Web Enrollment feature should be installed or uninstalled. Valid values are Present, Absent."
+    desc "Specifies whether the Web Enrollment feature should be installed or uninstalled."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -154,7 +108,6 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
     isrequired
     validate do |value|
       unless value.kind_of?(String)

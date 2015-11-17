@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xwefcollector) do
 
   @doc = %q{
     The DSC xWEFCollector resource type.
-    Automatically generated from
-    'xWindowsEventForwarding/DSCResources/MSFT_xWEFCollector/MSFT_xWEFCollector.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xWindowsEventForwarding/DSCResources/MSFT_xWEFCollector/MSFT_xWEFCollector.schema.mof
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xWEFCollector')."
-
-    def retrieve
-      'xWEFCollector'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xWEFCollector"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xWEFCollector')."
-
-    def retrieve
-      'MSFT_xWEFCollector'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xWEFCollector"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xwefcollector) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xWindowsEventForwarding')."
-
-    def retrieve
-      'xWindowsEventForwarding'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xWindowsEventForwarding"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.0.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.0.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.0.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -104,7 +58,7 @@ Puppet::Type.newtype(:dsc_xwefcollector) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Determines whether the Collector service should be enabled or disabled Valid values are Present, Absent."
+    desc "Determines whether the Collector service should be enabled or disabled"
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -123,7 +77,7 @@ Puppet::Type.newtype(:dsc_xwefcollector) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - Provide a unique name for the setting"
+    desc "Provide a unique name for the setting"
     isrequired
     validate do |value|
       unless value.kind_of?(String)

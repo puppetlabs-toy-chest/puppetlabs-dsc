@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xiismodule) do
 
   @doc = %q{
     The DSC xIisModule resource type.
-    Automatically generated from
-    'xWebAdministration/DSCResources/MSFT_xIisModule/MSFT_xIisModule.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xWebAdministration/DSCResources/MSFT_xIisModule/MSFT_xIisModule.schema.mof
   }
 
   validate do
       fail('dsc_path is a required attribute') if self[:dsc_path].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xIisModule')."
-
-    def retrieve
-      'xIisModule'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xIisModule"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xIisModule')."
-
-    def retrieve
-      'MSFT_xIisModule'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xIisModule"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xiismodule) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xWebAdministration')."
-
-    def retrieve
-      'xWebAdministration'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xWebAdministration"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.7.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.7.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.7.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -104,7 +58,7 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Path - The path to the module, usually a dll, to be added to IIS."
+    desc "The path to the module, usually a dll, to be added to IIS."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -120,7 +74,7 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - The logical name of the module to add to IIS."
+    desc "The logical name of the module to add to IIS."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -135,7 +89,7 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   newparam(:dsc_requestpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "RequestPath - The allowed request Path example: *.php"
+    desc "The allowed request Path example: *.php"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -150,7 +104,7 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   newparam(:dsc_verb, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Verb - The supported verbs for the module."
+    desc "The supported verbs for the module."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -168,7 +122,7 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   newparam(:dsc_sitename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SiteName - The IIS Site to register the module."
+    desc "The IIS Site to register the module."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -183,7 +137,7 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Should the module be present or absent. Valid values are Present, Absent."
+    desc "Should the module be present or absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -202,7 +156,7 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   newparam(:dsc_moduletype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ModuleType - The type of the module. Valid values are FastCgiModule."
+    desc "The type of the module."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -220,7 +174,7 @@ Puppet::Type.newtype(:dsc_xiismodule) do
   newparam(:dsc_endpointsetup) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "EndPointSetup - The End Point is setup.  Such as a Fast Cgi endpoint."
+    desc "The End Point is setup.  Such as a Fast Cgi endpoint."
     validate do |value|
     end
     newvalues(true, false)

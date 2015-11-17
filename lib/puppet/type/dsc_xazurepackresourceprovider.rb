@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
 
   @doc = %q{
     The DSC xAzurePackResourceProvider resource type.
-    Automatically generated from
-    'xAzurePack/DSCResources/MSFT_xAzurePackResourceProvider/MSFT_xAzurePackResourceProvider.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xAzurePack/DSCResources/MSFT_xAzurePackResourceProvider/MSFT_xAzurePackResourceProvider.schema.mof
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xAzurePackResourceProvider')."
-
-    def retrieve
-      'xAzurePackResourceProvider'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xAzurePackResourceProvider"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xAzurePackResourceProvider')."
-
-    def retrieve
-      'MSFT_xAzurePackResourceProvider'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xAzurePackResourceProvider"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xAzurePack')."
-
-    def retrieve
-      'xAzurePack'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xAzurePack"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.2.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.2.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.2.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -103,7 +57,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_authenticationsite) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AuthenticationSite - URL of the authentication site."
+    desc "URL of the authentication site."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -118,7 +72,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_adminuri) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AdminUri - Specifies the URI of the Windows Azure Pack administrator API."
+    desc "Specifies the URI of the Windows Azure Pack administrator API."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -133,7 +87,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - Specifies the name of a resource provider."
+    desc "Specifies the name of a resource provider."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -149,7 +103,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_azurepackadmincredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "AzurePackAdminCredential - Credential to be used to perform the installation."
+    desc "Credential to be used to perform the installation."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -165,7 +119,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_displayname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DisplayName - Specifies the display name of a resource provider."
+    desc "Specifies the display name of a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -180,7 +134,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_enabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Enabled - Enables the resource provider."
+    desc "Enables the resource provider."
     validate do |value|
     end
     newvalues(true, false)
@@ -196,7 +150,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_passthroughenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "PassthroughEnabled - Indicates whether the resource provider supports API pass-through."
+    desc "Indicates whether the resource provider supports API pass-through."
     validate do |value|
     end
     newvalues(true, false)
@@ -212,7 +166,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_allowanonymousaccess) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllowAnonymousAccess - Specifies the URI of the Windows Azure Pack administrator API."
+    desc "Specifies the URI of the Windows Azure Pack administrator API."
     validate do |value|
     end
     newvalues(true, false)
@@ -228,7 +182,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_allowmultipleinstances) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllowMultipleInstances - Indicates that the cmdlet allows multiple instances of the resource provider."
+    desc "Indicates that the cmdlet allows multiple instances of the resource provider."
     validate do |value|
     end
     newvalues(true, false)
@@ -244,7 +198,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_adminforwardingaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AdminForwardingAddress - Specifies an administrative forwarding address for a resource provider."
+    desc "Specifies an administrative forwarding address for a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -259,7 +213,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_adminauthenticationmode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AdminAuthenticationMode - Specifies the administrative authentication mode for a resource provider. Valid values are None, Basic, Windows."
+    desc "Specifies the administrative authentication mode for a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -277,7 +231,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_adminauthenticationuser) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "AdminAuthenticationUser - Specifies, as a PSCredential object, an administrative user name and password to connect to a resource provider."
+    desc "Specifies, as a PSCredential object, an administrative user name and password to connect to a resource provider."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -293,7 +247,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_adminauthenticationusername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AdminAuthenticationUsername - Output for the administrative user name."
+    desc "Output for the administrative user name."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -308,7 +262,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_tenantforwardingaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "TenantForwardingAddress - Specifies the tenant forwarding address of a resource provider."
+    desc "Specifies the tenant forwarding address of a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -323,7 +277,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_tenantauthenticationmode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "TenantAuthenticationMode - Specifies the tenant authentication mode for a resource provider. Valid values are None, Basic, Windows."
+    desc "Specifies the tenant authentication mode for a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -341,7 +295,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_tenantauthenticationuser) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "TenantAuthenticationUser - Specifies, as a PSCredential object, a tenant user name and password to connect to a resource provider."
+    desc "Specifies, as a PSCredential object, a tenant user name and password to connect to a resource provider."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -357,7 +311,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_tenantauthenticationusername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "TenantAuthenticationUsername - Output for the tenant user name."
+    desc "Output for the tenant user name."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -372,7 +326,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_tenantsourceuritemplate) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "TenantSourceUriTemplate - Specifies the tenant source URI template of a resource provider."
+    desc "Specifies the tenant source URI template of a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -387,7 +341,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_tenanttargeturitemplate) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "TenantTargetUriTemplate - Specifies the tenant target URI template of a resource provider."
+    desc "Specifies the tenant target URI template of a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -402,7 +356,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_usageforwardingaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UsageForwardingAddress - Specifies the tenant forwarding address of a resource provider."
+    desc "Specifies the tenant forwarding address of a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -417,7 +371,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_usageauthenticationmode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UsageAuthenticationMode - Specifies the usage authentication mode for a resource provider. Valid values are None, Basic, Windows."
+    desc "Specifies the usage authentication mode for a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -435,7 +389,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_usageauthenticationuser) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "UsageAuthenticationUser - Specifies, as a PSCredential object, a usage user name and password to connect to a resource provider."
+    desc "Specifies, as a PSCredential object, a usage user name and password to connect to a resource provider."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -451,7 +405,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_usageauthenticationusername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UsageAuthenticationUsername - Output for the usage user name."
+    desc "Output for the usage user name."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -466,7 +420,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_healthcheckforwardingaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "HealthCheckForwardingAddress - Specifies the health check forwarding address for a resource provider."
+    desc "Specifies the health check forwarding address for a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -481,7 +435,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_healthcheckauthenticationmode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "HealthCheckAuthenticationMode - Specifies the health check authentication mode for a resource provider. Valid values are None, Basic, Windows."
+    desc "Specifies the health check authentication mode for a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -499,7 +453,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_healthcheckauthenticationuser) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "HealthCheckAuthenticationUser - Specifies, as a PSCredential object, a health check user name and password to connect to a resource provider."
+    desc "Specifies, as a PSCredential object, a health check user name and password to connect to a resource provider."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -515,7 +469,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_healthcheckauthenticationusername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "HealthCheckAuthenticationUsername - Output for the health check user name."
+    desc "Output for the health check user name."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -530,7 +484,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_notificationforwardingaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "NotificationForwardingAddress - Specifies the notification forwarding address of a resource provider."
+    desc "Specifies the notification forwarding address of a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -545,7 +499,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_notificationauthenticationmode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "NotificationAuthenticationMode - Specifies the notification authentication mode for a resource provider. Valid values are None, Basic, Windows."
+    desc "Specifies the notification authentication mode for a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -563,7 +517,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_notificationauthenticationuser) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "NotificationAuthenticationUser - Specifies, as a PSCredential object, a notification user name and password to connect to a resource provider."
+    desc "Specifies, as a PSCredential object, a notification user name and password to connect to a resource provider."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -579,7 +533,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_notificationauthenticationusername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "NotificationAuthenticationUsername - Output for the notification user name."
+    desc "Output for the notification user name."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -594,7 +548,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_instanceid) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstanceId - Specifies an ID for an instance of a resource provider."
+    desc "Specifies an ID for an instance of a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -609,7 +563,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_instancedisplayname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstanceDisplayName - Specifies a display name for an instance of a resource provider."
+    desc "Specifies a display name for an instance of a resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -624,7 +578,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_maxquotaupdatebatchsize) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MaxQuotaUpdateBatchSize - Specifies the number of subscriptions that can be updated in a single request."
+    desc "Specifies the number of subscriptions that can be updated in a single request."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -639,7 +593,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_subscriptionstatuspollinginterval) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SubscriptionStatusPollingInterval - Specifies the time interval at which the management service polls the resource provider for subscription status updates."
+    desc "Specifies the time interval at which the management service polls the resource provider for subscription status updates."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -654,7 +608,7 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
   newparam(:dsc_type) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Type - Specifies the type of the resource provider. Valid values are Standard, UsageProvider, CloudServiceProvider."
+    desc "Specifies the type of the resource provider."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

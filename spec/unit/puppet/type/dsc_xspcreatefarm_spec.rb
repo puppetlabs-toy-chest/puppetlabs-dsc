@@ -25,7 +25,6 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
       :dsc_passphrase => 'foo',
       :dsc_admincontentdatabasename => 'foo',
       :dsc_centraladministrationport => 32,
-      :dsc_serverrole => 'Application',
     )}.to raise_error(Puppet::Error, /dsc_farmconfigdatabasename is a required attribute/)
   end
 
@@ -55,7 +54,6 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
       :dsc_passphrase => 'foo',
       :dsc_admincontentdatabasename => 'foo',
       :dsc_centraladministrationport => 32,
-      :dsc_serverrole => 'Application',
     )}.to raise_error(Puppet::Error, /dsc_databaseserver is a required attribute/)
   end
 
@@ -179,106 +177,6 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
   it 'should accept string-like uint for dsc_centraladministrationport' do
     dsc_xspcreatefarm[:dsc_centraladministrationport] = '64'
     expect(dsc_xspcreatefarm[:dsc_centraladministrationport]).to eq(64)
-  end
-
-  it 'should accept dsc_serverrole predefined value Application' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'Application'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('Application')
-  end
-
-  it 'should accept dsc_serverrole predefined value application' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'application'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('application')
-  end
-
-  it 'should accept dsc_serverrole predefined value Custom' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'Custom'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('Custom')
-  end
-
-  it 'should accept dsc_serverrole predefined value custom' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'custom'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('custom')
-  end
-
-  it 'should accept dsc_serverrole predefined value DistributedCache' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'DistributedCache'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('DistributedCache')
-  end
-
-  it 'should accept dsc_serverrole predefined value distributedcache' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'distributedcache'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('distributedcache')
-  end
-
-  it 'should accept dsc_serverrole predefined value Search' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'Search'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('Search')
-  end
-
-  it 'should accept dsc_serverrole predefined value search' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'search'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('search')
-  end
-
-  it 'should accept dsc_serverrole predefined value SingleServer' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'SingleServer'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('SingleServer')
-  end
-
-  it 'should accept dsc_serverrole predefined value singleserver' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'singleserver'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('singleserver')
-  end
-
-  it 'should accept dsc_serverrole predefined value SingleServerFarm' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'SingleServerFarm'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('SingleServerFarm')
-  end
-
-  it 'should accept dsc_serverrole predefined value singleserverfarm' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'singleserverfarm'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('singleserverfarm')
-  end
-
-  it 'should accept dsc_serverrole predefined value SpecialLoad' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'SpecialLoad'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('SpecialLoad')
-  end
-
-  it 'should accept dsc_serverrole predefined value specialload' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'specialload'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('specialload')
-  end
-
-  it 'should accept dsc_serverrole predefined value WebFrontEnd' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'WebFrontEnd'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('WebFrontEnd')
-  end
-
-  it 'should accept dsc_serverrole predefined value webfrontend' do
-    dsc_xspcreatefarm[:dsc_serverrole] = 'webfrontend'
-    expect(dsc_xspcreatefarm[:dsc_serverrole]).to eq('webfrontend')
-  end
-
-  it 'should not accept values not equal to predefined values' do
-    expect{dsc_xspcreatefarm[:dsc_serverrole] = 'invalid value'}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_serverrole' do
-    expect{dsc_xspcreatefarm[:dsc_serverrole] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_serverrole' do
-    expect{dsc_xspcreatefarm[:dsc_serverrole] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_serverrole' do
-    expect{dsc_xspcreatefarm[:dsc_serverrole] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_serverrole' do
-    expect{dsc_xspcreatefarm[:dsc_serverrole] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

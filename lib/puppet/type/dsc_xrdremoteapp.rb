@@ -7,17 +7,8 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
 
   @doc = %q{
     The DSC xRDRemoteApp resource type.
-    Automatically generated from
-    'xRemoteDesktopSessionHost/DSCResources/MSFT_xRDRemoteApp/MSFT_xRDRemoteApp.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xRemoteDesktopSessionHost/DSCResources/MSFT_xRDRemoteApp/MSFT_xRDRemoteApp.schema.mof
   }
 
   validate do
@@ -27,33 +18,15 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
       fail('dsc_filepath is a required attribute') if self[:dsc_filepath].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xRDRemoteApp')."
-
-    def retrieve
-      'xRDRemoteApp'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xRDRemoteApp"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xRDRemoteApp')."
-
-    def retrieve
-      'MSFT_xRDRemoteApp'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xRDRemoteApp"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -63,31 +36,12 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xRemoteDesktopSessionHost')."
-
-    def retrieve
-      'xRemoteDesktopSessionHost'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xRemoteDesktopSessionHost"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.1.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.1.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -106,7 +60,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   newparam(:dsc_alias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Alias - Specifies an alias for the RemoteApp program."
+    desc "Specifies an alias for the RemoteApp program."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -122,7 +76,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   newparam(:dsc_collectionname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CollectionName - Specifies the name of the personal virtual desktop collection or session collection. The cmdlet publishes the RemoteApp program to this collection. "
+    desc "Specifies the name of the personal virtual desktop collection or session collection. The cmdlet publishes the RemoteApp program to this collection. "
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -138,7 +92,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   newparam(:dsc_displayname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DisplayName - Specifies a name to display to users for the RemoteApp program."
+    desc "Specifies a name to display to users for the RemoteApp program."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -154,7 +108,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   newparam(:dsc_filepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "FilePath - Specifies a path for the executable file for the application. Do not include any environment variables."
+    desc "Specifies a path for the executable file for the application. Do not include any environment variables."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -170,7 +124,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   newparam(:dsc_filevirtualpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "FileVirtualPath - Specifies a path for the application executable file. This path resolves to the same location as the value of the FilePath parameter, but it can include environment variables. "
+    desc "Specifies a path for the application executable file. This path resolves to the same location as the value of the FilePath parameter, but it can include environment variables. "
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -185,7 +139,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   newparam(:dsc_foldername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "FolderName - Specifies the name of the folder that the RemoteApp program appears in on the Remote Desktop Web Access (RD Web Access) webpage and in the Start menu for subscribed RemoteApp and Desktop Connections. "
+    desc "Specifies the name of the folder that the RemoteApp program appears in on the Remote Desktop Web Access (RD Web Access) webpage and in the Start menu for subscribed RemoteApp and Desktop Connections. "
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -200,7 +154,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   newparam(:dsc_commandlinesetting) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CommandLineSetting - Specifies whether the RemoteApp program accepts command-line arguments from the client at connection time. The acceptable values for this parameter are:  Allow, DoNotAllow, Require"
+    desc "Specifies whether the RemoteApp program accepts command-line arguments from the client at connection time. The acceptable values for this parameter are:  Allow, DoNotAllow, Require"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -215,7 +169,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   newparam(:dsc_requiredcommandline) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "RequiredCommandLine - Specifies a string that contains command-line arguments that the client can use at connection time with the RemoteApp program. "
+    desc "Specifies a string that contains command-line arguments that the client can use at connection time with the RemoteApp program. "
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -230,7 +184,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   newparam(:dsc_iconindex) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "IconIndex - Specifies the index within the icon file (specified by the IconPath parameter) where the RemoteApp program's icon can be found."
+    desc "Specifies the index within the icon file (specified by the IconPath parameter) where the RemoteApp program's icon can be found."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -248,7 +202,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   newparam(:dsc_iconpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IconPath - Specifies the path to a file containing the icon to display for the RemoteApp program identified by the Alias parameter."
+    desc "Specifies the path to a file containing the icon to display for the RemoteApp program identified by the Alias parameter."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -263,7 +217,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   newparam(:dsc_usergroups) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UserGroups - Specifies a domain group that can view the RemoteApp in RD Web Access, and in RemoteApp and Desktop Connections. To allow all users to see a RemoteApp program, provide a value of Null."
+    desc "Specifies a domain group that can view the RemoteApp in RD Web Access, and in RemoteApp and Desktop Connections. To allow all users to see a RemoteApp program, provide a value of Null."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -278,7 +232,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   newparam(:dsc_showinwebaccess) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "ShowInWebAccess - Specifies whether to show the RemoteApp program in the RD Web Access server, and in RemoteApp and Desktop Connections that the user subscribes to. "
+    desc "Specifies whether to show the RemoteApp program in the RD Web Access server, and in RemoteApp and Desktop Connections that the user subscribes to. "
     validate do |value|
     end
     newvalues(true, false)

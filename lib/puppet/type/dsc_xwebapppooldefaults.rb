@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xwebapppooldefaults) do
 
   @doc = %q{
     The DSC xWebAppPoolDefaults resource type.
-    Automatically generated from
-    'xWebAdministration/DSCResources/MSFT_xWebAppPoolDefaults/MSFT_xWebAppPoolDefaults.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xWebAdministration/DSCResources/MSFT_xWebAppPoolDefaults/MSFT_xWebAppPoolDefaults.schema.mof
   }
 
   validate do
       fail('dsc_applyto is a required attribute') if self[:dsc_applyto].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xWebAppPoolDefaults')."
-
-    def retrieve
-      'xWebAppPoolDefaults'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xWebAppPoolDefaults"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xWebAppPoolDefaults')."
-
-    def retrieve
-      'MSFT_xWebAppPoolDefaults'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xWebAppPoolDefaults"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xwebapppooldefaults) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xWebAdministration')."
-
-    def retrieve
-      'xWebAdministration'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xWebAdministration"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.7.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.7.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.7.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -103,7 +57,7 @@ Puppet::Type.newtype(:dsc_xwebapppooldefaults) do
   newparam(:dsc_applyto) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ApplyTo - Dummy value because we need a key, always 'Machine' Valid values are Machine."
+    desc "Dummy value because we need a key, always 'Machine'"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -122,7 +76,7 @@ Puppet::Type.newtype(:dsc_xwebapppooldefaults) do
   newparam(:dsc_managedruntimeversion) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ManagedRuntimeVersion - applicationPools/applicationPoolDefaults/managedRuntimeVersion Valid values are , v2.0, v4.0."
+    desc "applicationPools/applicationPoolDefaults/managedRuntimeVersion"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -140,7 +94,7 @@ Puppet::Type.newtype(:dsc_xwebapppooldefaults) do
   newparam(:dsc_identitytype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IdentityType - applicationPools/applicationPoolDefaults/processModel/identityType Valid values are ApplicationPoolIdentity, LocalService, LocalSystem, NetworkService."
+    desc "applicationPools/applicationPoolDefaults/processModel/identityType"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

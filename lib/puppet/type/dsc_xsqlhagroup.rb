@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xsqlhagroup) do
 
   @doc = %q{
     The DSC xSqlHAGroup resource type.
-    Automatically generated from
-    'xSqlPs/DSCResources/MSFT_xSqlHAGroup/MSFT_xSqlHAGroup.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xSqlPs/DSCResources/MSFT_xSqlHAGroup/MSFT_xSqlHAGroup.schema.mof
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xSqlHAGroup')."
-
-    def retrieve
-      'xSqlHAGroup'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xSqlHAGroup"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xSqlHAGroup')."
-
-    def retrieve
-      'MSFT_xSqlHAGroup'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xSqlHAGroup"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xsqlhagroup) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xSqlPs')."
-
-    def retrieve
-      'xSqlPs'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xSqlPs"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.2.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.2.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.2.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -103,7 +57,7 @@ Puppet::Type.newtype(:dsc_xsqlhagroup) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - The name of sql availability group"
+    desc "The name of sql availability group"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -119,7 +73,7 @@ Puppet::Type.newtype(:dsc_xsqlhagroup) do
   newparam(:dsc_database, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Database - Array of databases on the local sql instance. Each database can belong to only one HA group."
+    desc "Array of databases on the local sql instance. Each database can belong to only one HA group."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -137,7 +91,7 @@ Puppet::Type.newtype(:dsc_xsqlhagroup) do
   newparam(:dsc_clustername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ClusterName - The name of windows failover cluster for the availability group"
+    desc "The name of windows failover cluster for the availability group"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -152,7 +106,7 @@ Puppet::Type.newtype(:dsc_xsqlhagroup) do
   newparam(:dsc_databasebackuppath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DatabaseBackupPath - The net share for Sql replication initialization"
+    desc "The net share for Sql replication initialization"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -167,7 +121,7 @@ Puppet::Type.newtype(:dsc_xsqlhagroup) do
   newparam(:dsc_instancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstanceName - Name of sql instance"
+    desc "Name of sql instance"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -182,7 +136,7 @@ Puppet::Type.newtype(:dsc_xsqlhagroup) do
   newparam(:dsc_endpointname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "EndPointName - Name of EndPoint to access High Availability sql instance."
+    desc "Name of EndPoint to access High Availability sql instance."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -197,7 +151,7 @@ Puppet::Type.newtype(:dsc_xsqlhagroup) do
   newparam(:dsc_domaincredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "DomainCredential - Domain credential could get list of cluster nodes."
+    desc "Domain credential could get list of cluster nodes."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -213,7 +167,7 @@ Puppet::Type.newtype(:dsc_xsqlhagroup) do
   newparam(:dsc_sqladministratorcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "SqlAdministratorCredential - Sql sa credential."
+    desc "Sql sa credential."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
