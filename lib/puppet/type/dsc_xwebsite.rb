@@ -30,23 +30,50 @@ Puppet::Type.newtype(:dsc_xwebsite) do
 
   @doc = %q{
     The DSC xWebsite resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xWebAdministration/DSCResources/MSFT_xWebsite/MSFT_xWebsite.schema.mof
+    Automatically generated from
+    'xWebAdministration/DSCResources/MSFT_xWebsite/MSFT_xWebsite.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xWebsite"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xWebsite')."
+
+    def retrieve
+      'xWebsite'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xWebsite"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xWebsite')."
+
+    def retrieve
+      'MSFT_xWebsite'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -56,12 +83,31 @@ Puppet::Type.newtype(:dsc_xwebsite) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xWebAdministration"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xWebAdministration')."
+
+    def retrieve
+      'xWebAdministration'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.7.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.7.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.7.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -81,6 +127,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Name"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -96,6 +143,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
   newparam(:dsc_physicalpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "PhysicalPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -110,6 +158,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -128,6 +177,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
   newparam(:dsc_state) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "State - Valid values are Started, Stopped."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -148,7 +198,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
     def mof_type_map
       {"port"=>{:type=>"uint16"}, "protocol"=>{:type=>"string", :values=>["http", "https"]}, "ipaddress"=>{:type=>"string"}, "hostname"=>{:type=>"string"}, "certificatethumbprint"=>{:type=>"string"}, "certificatestorename"=>{:type=>"string", :values=>["My", "WebHosting"]}, "sslflags"=>{:type=>"string", :values=>["0", "1", "2", "3"]}}
     end
-    desc "Hashtable containing binding information (Port, Protocol, IPAddress, HostName, CertificateThumbPrint, CertificateStore)"
+    desc "BindingInfo - Hashtable containing binding information (Port, Protocol, IPAddress, HostName, CertificateThumbPrint, CertificateStore)"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be an array of hashes or a hash")
@@ -173,6 +223,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
   newparam(:dsc_applicationpool) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ApplicationPool"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -187,6 +238,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
   newparam(:dsc_id) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Id"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -201,7 +253,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
   newparam(:dsc_defaultpage, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "The default pages for the website"
+    desc "DefaultPage - The default pages for the website"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

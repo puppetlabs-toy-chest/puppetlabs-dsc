@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
 
   @doc = %q{
     The DSC xWebApplication resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xWebAdministration/DSCResources/MSFT_xWebApplication/MSFT_xWebApplication.schema.mof
+    Automatically generated from
+    'xWebAdministration/DSCResources/MSFT_xWebApplication/MSFT_xWebApplication.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,15 +25,33 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xWebApplication"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xWebApplication')."
+
+    def retrieve
+      'xWebApplication'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xWebApplication"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xWebApplication')."
+
+    def retrieve
+      'MSFT_xWebApplication'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,12 +61,31 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xWebAdministration"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xWebAdministration')."
+
+    def retrieve
+      'xWebAdministration'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.7.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.7.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.7.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -59,7 +105,7 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
   newparam(:dsc_website) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of website with which web application is associated"
+    desc "Website - Name of website with which web application is associated"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -75,7 +121,7 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of web application"
+    desc "Name - Name of web application"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -91,7 +137,7 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
   newparam(:dsc_webapppool) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Web application pool for the web application"
+    desc "WebAppPool - Web application pool for the web application"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -106,7 +152,7 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
   newparam(:dsc_physicalpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Physical path for the web application directory"
+    desc "PhysicalPath - Physical path for the web application directory"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -121,7 +167,7 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Whether web application should be present or absent"
+    desc "Ensure - Whether web application should be present or absent Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

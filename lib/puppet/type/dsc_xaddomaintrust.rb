@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xaddomaintrust) do
 
   @doc = %q{
     The DSC xADDomainTrust resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADDomainTrust/MSFT_xADDomainTrust.schema.mof
+    Automatically generated from
+    'xActiveDirectory/DSCResources/MSFT_xADDomainTrust/MSFT_xADDomainTrust.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,15 +25,33 @@ Puppet::Type.newtype(:dsc_xaddomaintrust) do
       fail('dsc_sourcedomainname is a required attribute') if self[:dsc_sourcedomainname].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xADDomainTrust"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xADDomainTrust')."
+
+    def retrieve
+      'xADDomainTrust'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xADDomainTrust"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xADDomainTrust')."
+
+    def retrieve
+      'MSFT_xADDomainTrust'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,12 +61,31 @@ Puppet::Type.newtype(:dsc_xaddomaintrust) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xActiveDirectory"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xActiveDirectory')."
+
+    def retrieve
+      'xActiveDirectory'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "2.6.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('2.6.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '2.6.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -59,7 +105,7 @@ Puppet::Type.newtype(:dsc_xaddomaintrust) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Should this resource be present or absent"
+    desc "Ensure - Should this resource be present or absent Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -78,7 +124,7 @@ Puppet::Type.newtype(:dsc_xaddomaintrust) do
   newparam(:dsc_targetdomainadministratorcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credentials to authenticate to the target domain"
+    desc "TargetDomainAdministratorCredential - Credentials to authenticate to the target domain"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -94,7 +140,7 @@ Puppet::Type.newtype(:dsc_xaddomaintrust) do
   newparam(:dsc_targetdomainname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the AD domain that is being trusted"
+    desc "TargetDomainName - Name of the AD domain that is being trusted"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -110,7 +156,7 @@ Puppet::Type.newtype(:dsc_xaddomaintrust) do
   newparam(:dsc_trusttype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Type of trust"
+    desc "TrustType - Type of trust Valid values are External, Forest."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -128,7 +174,7 @@ Puppet::Type.newtype(:dsc_xaddomaintrust) do
   newparam(:dsc_trustdirection) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Direction of trust"
+    desc "TrustDirection - Direction of trust Valid values are Bidirectional, Inbound, Outbound."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -146,7 +192,7 @@ Puppet::Type.newtype(:dsc_xaddomaintrust) do
   newparam(:dsc_sourcedomainname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the AD domain that is requesting the trust"
+    desc "SourceDomainName - Name of the AD domain that is requesting the trust"
     isrequired
     validate do |value|
       unless value.kind_of?(String)

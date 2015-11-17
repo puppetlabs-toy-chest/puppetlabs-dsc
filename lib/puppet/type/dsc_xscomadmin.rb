@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xscomadmin) do
 
   @doc = %q{
     The DSC xSCOMAdmin resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSCOM/DSCResources/MSFT_xSCOMAdmin/MSFT_xSCOMAdmin.schema.mof
+    Automatically generated from
+    'xSCOM/DSCResources/MSFT_xSCOMAdmin/MSFT_xSCOMAdmin.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,15 +25,33 @@ Puppet::Type.newtype(:dsc_xscomadmin) do
       fail('dsc_userrole is a required attribute') if self[:dsc_userrole].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSCOMAdmin"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xSCOMAdmin')."
+
+    def retrieve
+      'xSCOMAdmin'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSCOMAdmin"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xSCOMAdmin')."
+
+    def retrieve
+      'MSFT_xSCOMAdmin'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,12 +61,31 @@ Puppet::Type.newtype(:dsc_xscomadmin) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xSCOM"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xSCOM')."
+
+    def retrieve
+      'xSCOM'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.4.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.4.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.4.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -59,7 +105,7 @@ Puppet::Type.newtype(:dsc_xscomadmin) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "An enumerated value that describes if the principal is an Operations Manager admin.\nPresent {default}  \nAbsent   \n"
+    desc "Ensure - An enumerated value that describes if the principal is an Operations Manager admin.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -78,7 +124,7 @@ Puppet::Type.newtype(:dsc_xscomadmin) do
   newparam(:dsc_principal) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The Operations Manager admin principal."
+    desc "Principal - The Operations Manager admin principal."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -94,7 +140,7 @@ Puppet::Type.newtype(:dsc_xscomadmin) do
   newparam(:dsc_userrole) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The Operations Manager user role."
+    desc "UserRole - The Operations Manager user role."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -110,7 +156,7 @@ Puppet::Type.newtype(:dsc_xscomadmin) do
   newparam(:dsc_scomadmincredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential to be used to perform the operations."
+    desc "SCOMAdminCredential - Credential to be used to perform the operations."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

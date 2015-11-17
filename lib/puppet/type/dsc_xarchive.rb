@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xarchive) do
 
   @doc = %q{
     The DSC xArchive resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xArchive/MSFT_xArchive.schema.mof
+    Automatically generated from
+    'xPSDesiredStateConfiguration/DSCResources/MSFT_xArchive/MSFT_xArchive.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_destination is a required attribute') if self[:dsc_destination].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xArchive"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xArchive')."
+
+    def retrieve
+      'xArchive'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xArchive"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xArchive')."
+
+    def retrieve
+      'MSFT_xArchive'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xarchive) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xPSDesiredStateConfiguration"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xPSDesiredStateConfiguration')."
+
+    def retrieve
+      'xPSDesiredStateConfiguration'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "3.5.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('3.5.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '3.5.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,6 +103,7 @@ Puppet::Type.newtype(:dsc_xarchive) do
   newparam(:dsc_destination) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Destination"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,7 +119,7 @@ Puppet::Type.newtype(:dsc_xarchive) do
   newparam(:dsc_path, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Represnts the source path to one or more files or directories.\n"
+    desc "Path - Represnts the source path to one or more files or directories.\n"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -90,7 +137,7 @@ Puppet::Type.newtype(:dsc_xarchive) do
   newparam(:dsc_compressionlevel) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies values that indicate whether a compression operation emphasizes speed or compression size.\nOptimal {default} \n"
+    desc "CompressionLevel - Specifies values that indicate whether a compression operation emphasizes speed or compression size.\nOptimal {default} \n Valid values are Optimal, NoCompression, Fastest."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -108,7 +155,7 @@ Puppet::Type.newtype(:dsc_xarchive) do
   newparam(:dsc_destinationtype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "An enumerated value that describes if the Destination path points to a File or Directory. If Directory is specified then the archive file contents would be expanded to the specified path on the other hand if File is specified, an archive file would be created at the specified destination path.\nDirectory {default} \n"
+    desc "DestinationType - An enumerated value that describes if the Destination path points to a File or Directory. If Directory is specified then the archive file contents would be expanded to the specified path on the other hand if File is specified, an archive file would be created at the specified destination path.\nDirectory {default} \n Valid values are File, Directory."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -126,7 +173,7 @@ Puppet::Type.newtype(:dsc_xarchive) do
   newparam(:dsc_matchsource) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "An boolean value to indicate if the destination contents have to be always kept in sync with the files or directories specified in the source path.\n"
+    desc "MatchSource - An boolean value to indicate if the destination contents have to be always kept in sync with the files or directories specified in the source path.\n"
     validate do |value|
     end
     newvalues(true, false)
@@ -142,7 +189,7 @@ Puppet::Type.newtype(:dsc_xarchive) do
   newparam(:dsc_creationtime) do
     def mof_type; 'datetime' end
     def mof_is_embedded?; false end
-    desc "Specifies the local time at which the file or directory was created in datetime format.\n"
+    desc "CreationTime - Specifies the local time at which the file or directory was created in datetime format.\n"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -157,7 +204,7 @@ Puppet::Type.newtype(:dsc_xarchive) do
   newparam(:dsc_attributes) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the attributes of the file or directory in string format.\n"
+    desc "Attributes - Specifies the attributes of the file or directory in string format.\n"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -172,7 +219,7 @@ Puppet::Type.newtype(:dsc_xarchive) do
   newparam(:dsc_mode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the mode of the file or directory.\n"
+    desc "Mode - Specifies the mode of the file or directory.\n"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -187,7 +234,7 @@ Puppet::Type.newtype(:dsc_xarchive) do
   newparam(:dsc_size) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
-    desc "Specifis the size of the file or directory in bytes.\n"
+    desc "Size - Specifis the size of the file or directory in bytes.\n"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

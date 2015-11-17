@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
 
   @doc = %q{
     The DSC WindowsProcess resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_ProcessResource/MSFT_ProcessResource.schema.mof
+    Automatically generated from
+    'PSDesiredStateConfiguration/DSCResources/MSFT_ProcessResource/MSFT_ProcessResource.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,15 +25,33 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
       fail('dsc_arguments is a required attribute') if self[:dsc_arguments].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "WindowsProcess"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('WindowsProcess')."
+
+    def retrieve
+      'WindowsProcess'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_ProcessResource"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_ProcessResource')."
+
+    def retrieve
+      'MSFT_ProcessResource'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,8 +61,16 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "PSDesiredStateConfiguration"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('PSDesiredStateConfiguration')."
+
+    def retrieve
+      'PSDesiredStateConfiguration'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -55,6 +90,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Path"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -70,6 +106,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   newparam(:dsc_arguments) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Arguments"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -85,6 +122,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -100,6 +138,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -118,6 +157,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   newparam(:dsc_standardoutputpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "StandardOutputPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -132,6 +172,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   newparam(:dsc_standarderrorpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "StandardErrorPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -146,6 +187,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   newparam(:dsc_standardinputpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "StandardInputPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -160,6 +202,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   newparam(:dsc_workingdirectory) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "WorkingDirectory"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -174,6 +217,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   newparam(:dsc_pagedmemorysize) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
+    desc "PagedMemorySize"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -191,6 +235,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   newparam(:dsc_nonpagedmemorysize) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
+    desc "NonPagedMemorySize"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -208,6 +253,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   newparam(:dsc_virtualmemorysize) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
+    desc "VirtualMemorySize"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -225,6 +271,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   newparam(:dsc_handlecount) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
+    desc "HandleCount"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -242,6 +289,7 @@ Puppet::Type.newtype(:dsc_windowsprocess) do
   newparam(:dsc_processid) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
+    desc "ProcessId"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")

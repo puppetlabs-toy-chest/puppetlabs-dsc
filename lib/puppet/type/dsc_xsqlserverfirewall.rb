@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
 
   @doc = %q{
     The DSC xSQLServerFirewall resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerFirewall/MSFT_xSQLServerFirewall.schema.mof
+    Automatically generated from
+    'xSQLServer/DSCResources/MSFT_xSQLServerFirewall/MSFT_xSQLServerFirewall.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,15 +25,33 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
       fail('dsc_instancename is a required attribute') if self[:dsc_instancename].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSQLServerFirewall"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xSQLServerFirewall')."
+
+    def retrieve
+      'xSQLServerFirewall'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSQLServerFirewall"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xSQLServerFirewall')."
+
+    def retrieve
+      'MSFT_xSQLServerFirewall'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,12 +61,31 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xSQLServer"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xSQLServer')."
+
+    def retrieve
+      'xSQLServer'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.3.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.3.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -59,7 +105,7 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "An enumerated value that describes if the SQL firewall rules are is expected to be enabled on the machine.\nPresent {default}  \nAbsent   \n"
+    desc "Ensure - An enumerated value that describes if the SQL firewall rules are is expected to be enabled on the machine.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -78,7 +124,7 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UNC path to the root of the source files for installation."
+    desc "SourcePath - UNC path to the root of the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -93,7 +139,7 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
   newparam(:dsc_sourcefolder) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Folder within the source path containing the source files for installation."
+    desc "SourceFolder - Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -108,7 +154,7 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
   newparam(:dsc_features) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQL features to enable firewall rules for."
+    desc "Features - SQL features to enable firewall rules for."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -124,7 +170,7 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
   newparam(:dsc_instancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQL instance to enable firewall rules for."
+    desc "InstanceName - SQL instance to enable firewall rules for."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -140,7 +186,7 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
   newparam(:dsc_databaseenginefirewall) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Is the firewall rule for the Database Engine enabled?"
+    desc "DatabaseEngineFirewall - Is the firewall rule for the Database Engine enabled?"
     validate do |value|
     end
     newvalues(true, false)
@@ -156,7 +202,7 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
   newparam(:dsc_browserfirewall) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Is the firewall rule for the Browser enabled?"
+    desc "BrowserFirewall - Is the firewall rule for the Browser enabled?"
     validate do |value|
     end
     newvalues(true, false)
@@ -172,7 +218,7 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
   newparam(:dsc_reportingservicesfirewall) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Is the firewall rule for Reporting Services enabled?"
+    desc "ReportingServicesFirewall - Is the firewall rule for Reporting Services enabled?"
     validate do |value|
     end
     newvalues(true, false)
@@ -188,7 +234,7 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
   newparam(:dsc_analysisservicesfirewall) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Is the firewall rule for Analysis Services enabled?"
+    desc "AnalysisServicesFirewall - Is the firewall rule for Analysis Services enabled?"
     validate do |value|
     end
     newvalues(true, false)
@@ -204,7 +250,7 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
   newparam(:dsc_integrationservicesfirewall) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Is the firewall rule for the Integration Services enabled?"
+    desc "IntegrationServicesFirewall - Is the firewall rule for the Integration Services enabled?"
     validate do |value|
     end
     newvalues(true, false)

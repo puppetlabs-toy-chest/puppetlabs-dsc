@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xdnsserversecondaryzone) do
 
   @doc = %q{
     The DSC xDnsServerSecondaryZone resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerSecondaryZone/MSFT_xDnsServerSecondaryZone.schema.mof
+    Automatically generated from
+    'xDnsServer/DSCResources/MSFT_xDnsServerSecondaryZone/MSFT_xDnsServerSecondaryZone.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xDnsServerSecondaryZone"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xDnsServerSecondaryZone')."
+
+    def retrieve
+      'xDnsServerSecondaryZone'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xDnsServerSecondaryZone"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xDnsServerSecondaryZone')."
+
+    def retrieve
+      'MSFT_xDnsServerSecondaryZone'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xdnsserversecondaryzone) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xDnsServer"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xDnsServer')."
+
+    def retrieve
+      'xDnsServer'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.2.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.2.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +104,7 @@ Puppet::Type.newtype(:dsc_xdnsserversecondaryzone) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the secondary zone"
+    desc "Name - Name of the secondary zone"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +120,7 @@ Puppet::Type.newtype(:dsc_xdnsserversecondaryzone) do
   newparam(:dsc_masterservers, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "IP address or DNS name of the secondary DNS servers"
+    desc "MasterServers - IP address or DNS name of the secondary DNS servers"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -92,7 +138,7 @@ Puppet::Type.newtype(:dsc_xdnsserversecondaryzone) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Should this resource be present or absent"
+    desc "Ensure - Should this resource be present or absent Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -111,7 +157,7 @@ Puppet::Type.newtype(:dsc_xdnsserversecondaryzone) do
   newparam(:dsc_type) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Type of the DNS server zone"
+    desc "Type - Type of the DNS server zone"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
 
   @doc = %q{
     The DSC xBLBitlocker resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xBitlocker/DSCResources/MSFT_xBLBitlocker/MSFT_xBLBitlocker.schema.mof
+    Automatically generated from
+    'xBitlocker/DSCResources/MSFT_xBLBitlocker/MSFT_xBLBitlocker.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_mountpoint is a required attribute') if self[:dsc_mountpoint].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xBLBitlocker"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xBLBitlocker')."
+
+    def retrieve
+      'xBLBitlocker'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xBLBitlocker"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xBLBitlocker')."
+
+    def retrieve
+      'MSFT_xBLBitlocker'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xBitlocker"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xBitlocker')."
+
+    def retrieve
+      'xBitlocker'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.1.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.1.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.1.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,6 +103,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_mountpoint) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "MountPoint"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +119,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_primaryprotector) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "PrimaryProtector - Valid values are PasswordProtector, RecoveryPasswordProtector, StartupKeyProtector, TpmProtector."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -89,6 +137,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_autounlock) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "AutoUnlock"
     validate do |value|
     end
     newvalues(true, false)
@@ -104,6 +153,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_allowimmediatereboot) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "AllowImmediateReboot"
     validate do |value|
     end
     newvalues(true, false)
@@ -119,6 +169,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_adaccountorgroup) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "AdAccountOrGroup"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -133,6 +184,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_adaccountorgroupprotector) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "AdAccountOrGroupProtector"
     validate do |value|
     end
     newvalues(true, false)
@@ -148,6 +200,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_encryptionmethod) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "EncryptionMethod - Valid values are Aes128, Aes256."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -165,6 +218,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_hardwareencryption) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "HardwareEncryption"
     validate do |value|
     end
     newvalues(true, false)
@@ -180,6 +234,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_password) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Password"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -195,6 +250,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_passwordprotector) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "PasswordProtector"
     validate do |value|
     end
     newvalues(true, false)
@@ -210,6 +266,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_pin) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Pin"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -225,6 +282,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_recoverykeypath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "RecoveryKeyPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -239,6 +297,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_recoverykeyprotector) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "RecoveryKeyProtector"
     validate do |value|
     end
     newvalues(true, false)
@@ -254,6 +313,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_recoverypasswordprotector) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "RecoveryPasswordProtector"
     validate do |value|
     end
     newvalues(true, false)
@@ -269,6 +329,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_service) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "Service"
     validate do |value|
     end
     newvalues(true, false)
@@ -284,6 +345,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_skiphardwaretest) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "SkipHardwareTest"
     validate do |value|
     end
     newvalues(true, false)
@@ -299,6 +361,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_startupkeypath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "StartupKeyPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -313,6 +376,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_startupkeyprotector) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "StartupKeyProtector"
     validate do |value|
     end
     newvalues(true, false)
@@ -328,6 +392,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_tpmprotector) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "TpmProtector"
     validate do |value|
     end
     newvalues(true, false)
@@ -343,6 +408,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_usedspaceonly) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "UsedSpaceOnly"
     validate do |value|
     end
     newvalues(true, false)
