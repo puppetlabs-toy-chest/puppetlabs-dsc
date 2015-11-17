@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
 
   @doc = %q{
     The DSC xPendingReboot resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xPendingReboot/DSCResources/MSFT_xPendingReboot/MSFT_xPendingReboot.schema.mof
+    Automatically generated from
+    'xPendingReboot/DSCResources/MSFT_xPendingReboot/MSFT_xPendingReboot.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xPendingReboot"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xPendingReboot')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xPendingReboot'
+    end
+
+    defaultto 'xPendingReboot'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xPendingReboot"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xPendingReboot')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xPendingReboot'
+    end
+
+    defaultto 'MSFT_xPendingReboot'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xPendingReboot"
+    desc "A read-only value that is the DSC Module Name ('xPendingReboot')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xPendingReboot'
+    end
+
+    defaultto 'xPendingReboot'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.1.0.2"
+    desc "A read-only value for the DSC Module Version ('0.1.0.2').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '0.1.0.2'
+    end
+
+    defaultto '0.1.0.2'
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,6 +95,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Name"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +111,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_componentbasedservicing) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "ComponentBasedServicing"
     validate do |value|
     end
     newvalues(true, false)
@@ -87,6 +127,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_windowsupdate) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "WindowsUpdate"
     validate do |value|
     end
     newvalues(true, false)
@@ -102,6 +143,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_pendingfilerename) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "PendingFileRename"
     validate do |value|
     end
     newvalues(true, false)
@@ -117,6 +159,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_pendingcomputerrename) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "PendingComputerRename"
     validate do |value|
     end
     newvalues(true, false)
@@ -132,6 +175,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_ccmclientsdk) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "CcmClientSDK"
     validate do |value|
     end
     newvalues(true, false)

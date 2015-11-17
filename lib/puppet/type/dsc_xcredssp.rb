@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xcredssp) do
 
   @doc = %q{
     The DSC xCredSSP resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xCredSSP/DSCResources/MSFT_xCredSSP/MSFT_xCredSSP.schema.mof
+    Automatically generated from
+    'xCredSSP/DSCResources/MSFT_xCredSSP/MSFT_xCredSSP.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xcredssp) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xCredSSP"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xCredSSP')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xCredSSP'
+    end
+
+    defaultto 'xCredSSP'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xCredSSP"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xCredSSP')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xCredSSP'
+    end
+
+    defaultto 'MSFT_xCredSSP'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xcredssp) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xCredSSP"
+    desc "A read-only value that is the DSC Module Name ('xCredSSP')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xCredSSP'
+    end
+
+    defaultto 'xCredSSP'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.1.0.0"
+    desc "A read-only value for the DSC Module Version ('1.1.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.1.0.0'
+    end
+
+    defaultto '1.1.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +96,7 @@ Puppet::Type.newtype(:dsc_xcredssp) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "An enumerated value that describes if the role is expected to be enabled on the machine.\nPresent {default}  \nAbsent   \n"
+    desc "Ensure - An enumerated value that describes if the role is expected to be enabled on the machine.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -77,7 +115,7 @@ Puppet::Type.newtype(:dsc_xcredssp) do
   newparam(:dsc_role) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the CredSSP role.\nServer   \nClient   \n"
+    desc "Role - Specifies the CredSSP role.\nServer   \nClient   \n Valid values are Server, Client."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -96,7 +134,7 @@ Puppet::Type.newtype(:dsc_xcredssp) do
   newparam(:dsc_delegatecomputers, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Specifies the array of computers that CredSSP client can delegate to."
+    desc "DelegateComputers - Specifies the array of computers that CredSSP client can delegate to."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

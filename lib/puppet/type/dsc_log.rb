@@ -7,22 +7,45 @@ Puppet::Type.newtype(:dsc_log) do
 
   @doc = %q{
     The DSC Log resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_LogResource/MSFT_LogResource.schema.mof
+    Automatically generated from
+    'PSDesiredStateConfiguration/DSCResources/MSFT_LogResource/MSFT_LogResource.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "Log"
+    desc "A read-only value that is the DSC Resource Friendly Name ('Log')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'Log'
+    end
+
+    defaultto 'Log'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_LogResource"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_LogResource')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_LogResource'
+    end
+
+    defaultto 'MSFT_LogResource'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,7 +56,13 @@ Puppet::Type.newtype(:dsc_log) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "PSDesiredStateConfiguration"
+    desc "A read-only value that is the DSC Module Name ('PSDesiredStateConfiguration')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'PSDesiredStateConfiguration'
+    end
+
+    defaultto 'PSDesiredStateConfiguration'
   end
 
   newparam(:name, :namevar => true ) do
@@ -52,6 +81,7 @@ Puppet::Type.newtype(:dsc_log) do
   newparam(:dsc_message) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Message"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
 
   @doc = %q{
     The DSC xExchAutodiscoverVirtualDirectory resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xExchange/DSCResources/MSFT_xExchAutodiscoverVirtualDirectory/MSFT_xExchAutodiscoverVirtualDirectory.schema.mof
+    Automatically generated from
+    'xExchange/DSCResources/MSFT_xExchAutodiscoverVirtualDirectory/MSFT_xExchAutodiscoverVirtualDirectory.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xExchAutodiscoverVirtualDirectory"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xExchAutodiscoverVirtualDirectory')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xExchAutodiscoverVirtualDirectory'
+    end
+
+    defaultto 'xExchAutodiscoverVirtualDirectory'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xExchAutodiscoverVirtualDirectory"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xExchAutodiscoverVirtualDirectory')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xExchAutodiscoverVirtualDirectory'
+    end
+
+    defaultto 'MSFT_xExchAutodiscoverVirtualDirectory'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xExchange"
+    desc "A read-only value that is the DSC Module Name ('xExchange')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xExchange'
+    end
+
+    defaultto 'xExchange'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
+    desc "A read-only value for the DSC Module Version ('1.4.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.4.0.0'
+    end
+
+    defaultto '1.4.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,6 +95,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_identity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Identity"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +111,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -87,6 +127,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_allowservicerestart) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "AllowServiceRestart"
     validate do |value|
     end
     newvalues(true, false)
@@ -102,6 +143,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_basicauthentication) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "BasicAuthentication"
     validate do |value|
     end
     newvalues(true, false)
@@ -117,6 +159,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_digestauthentication) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "DigestAuthentication"
     validate do |value|
     end
     newvalues(true, false)
@@ -132,6 +175,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_domaincontroller) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DomainController"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -146,6 +190,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_windowsauthentication) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "WindowsAuthentication"
     validate do |value|
     end
     newvalues(true, false)
@@ -161,6 +206,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_wssecurityauthentication) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "WSSecurityAuthentication"
     validate do |value|
     end
     newvalues(true, false)

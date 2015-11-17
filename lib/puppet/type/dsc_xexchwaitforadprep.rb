@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
 
   @doc = %q{
     The DSC xExchWaitForADPrep resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xExchange/DSCResources/MSFT_xExchWaitForADPrep/MSFT_xExchWaitForADPrep.schema.mof
+    Automatically generated from
+    'xExchange/DSCResources/MSFT_xExchWaitForADPrep/MSFT_xExchWaitForADPrep.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xExchWaitForADPrep"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xExchWaitForADPrep')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xExchWaitForADPrep'
+    end
+
+    defaultto 'xExchWaitForADPrep'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xExchWaitForADPrep"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xExchWaitForADPrep')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xExchWaitForADPrep'
+    end
+
+    defaultto 'MSFT_xExchWaitForADPrep'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xExchange"
+    desc "A read-only value that is the DSC Module Name ('xExchange')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xExchange'
+    end
+
+    defaultto 'xExchange'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
+    desc "A read-only value for the DSC Module Version ('1.4.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.4.0.0'
+    end
+
+    defaultto '1.4.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,7 +95,7 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   newparam(:dsc_identity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Not actually used. Enter anything, as long as it's not null"
+    desc "Identity - Not actually used. Enter anything, as long as it's not null"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,7 +111,7 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credentials used to perform Active Directory lookups against the Schema, Configuration, and Domain naming contexts"
+    desc "Credential - Credentials used to perform Active Directory lookups against the Schema, Configuration, and Domain naming contexts"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -89,7 +127,7 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   newparam(:dsc_schemaversion) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
-    desc "Specifies that the Active Directory schema should have been prepared using Exchange 2013 'setup /PrepareSchema', and should be at the specified version"
+    desc "SchemaVersion - Specifies that the Active Directory schema should have been prepared using Exchange 2013 'setup /PrepareSchema', and should be at the specified version"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -107,7 +145,7 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   newparam(:dsc_organizationversion) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
-    desc "Specifies that the Exchange Organization should have been prepared using Exchange 2013 'setup /PrepareAD', and should be at the specified version"
+    desc "OrganizationVersion - Specifies that the Exchange Organization should have been prepared using Exchange 2013 'setup /PrepareAD', and should be at the specified version"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -125,7 +163,7 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   newparam(:dsc_domainversion) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
-    desc "Specifies that the domain containing the target Exchange 2013 server was prepared using setup /PrepareAD, /PrepareDomain, or /PrepareAllDomains, and should be at the specified version"
+    desc "DomainVersion - Specifies that the domain containing the target Exchange 2013 server was prepared using setup /PrepareAD, /PrepareDomain, or /PrepareAllDomains, and should be at the specified version"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -143,7 +181,7 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   newparam(:dsc_exchangedomains, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "The FQDN's of domains that should be checked for DomainVersion in addition to the domain that this Exchange server belongs to"
+    desc "ExchangeDomains - The FQDN's of domains that should be checked for DomainVersion in addition to the domain that this Exchange server belongs to"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -161,7 +199,7 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   newparam(:dsc_retryintervalsec) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "How many seconds to wait between retries when checking whether AD has been prepped. Defaults to 60."
+    desc "RetryIntervalSec - How many seconds to wait between retries when checking whether AD has been prepped. Defaults to 60."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -179,7 +217,7 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
   newparam(:dsc_retrycount) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "How many retry attempts should be made to see if AD has been prepped before an exception is thrown. Defaults to 30."
+    desc "RetryCount - How many retry attempts should be made to see if AD has been prepped before an exception is thrown. Defaults to 30."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

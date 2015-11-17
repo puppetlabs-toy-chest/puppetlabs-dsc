@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xcertreq) do
 
   @doc = %q{
     The DSC xCertReq resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xCertificate/DSCResources/MSFT_xCertReq/MSFT_xCertReq.schema.mof
+    Automatically generated from
+    'xCertificate/DSCResources/MSFT_xCertReq/MSFT_xCertReq.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xcertreq) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xCertReq"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xCertReq')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xCertReq'
+    end
+
+    defaultto 'xCertReq'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xCertReq"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xCertReq')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xCertReq'
+    end
+
+    defaultto 'MSFT_xCertReq'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xCertificate"
+    desc "A read-only value that is the DSC Module Name ('xCertificate')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xCertificate'
+    end
+
+    defaultto 'xCertificate'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.1.0.0"
+    desc "A read-only value for the DSC Module Version ('1.1.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.1.0.0'
+    end
+
+    defaultto '1.1.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,7 +95,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_subject) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Provide the text string to use as the subject of the certificate"
+    desc "Subject - Provide the text string to use as the subject of the certificate"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,7 +111,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_caserverfqdn) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The FQDN of the Active Directory Certificate Authority on the local area network"
+    desc "CAServerFQDN - The FQDN of the Active Directory Certificate Authority on the local area network"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -88,7 +126,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_carootname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The name of the certificate authority, by default this will be in format domain-servername-ca"
+    desc "CARootName - The name of the certificate authority, by default this will be in format domain-servername-ca"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -103,7 +141,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "The credentials that will be used to access the template in the Certificate Authority"
+    desc "Credential - The credentials that will be used to access the template in the Certificate Authority"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -119,7 +157,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_autorenew) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Determines if the resource will also renew a certificate within 7 days of expiration"
+    desc "AutoRenew - Determines if the resource will also renew a certificate within 7 days of expiration"
     validate do |value|
     end
     newvalues(true, false)

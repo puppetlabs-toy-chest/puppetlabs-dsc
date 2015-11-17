@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xscvmmconsoleupdate) do
 
   @doc = %q{
     The DSC xSCVMMConsoleUpdate resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSCVMM/DSCResources/MSFT_xSCVMMConsoleUpdate/MSFT_xSCVMMConsoleUpdate.schema.mof
+    Automatically generated from
+    'xSCVMM/DSCResources/MSFT_xSCVMMConsoleUpdate/MSFT_xSCVMMConsoleUpdate.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xscvmmconsoleupdate) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSCVMMConsoleUpdate"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xSCVMMConsoleUpdate')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xSCVMMConsoleUpdate'
+    end
+
+    defaultto 'xSCVMMConsoleUpdate'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSCVMMConsoleUpdate"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xSCVMMConsoleUpdate')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xSCVMMConsoleUpdate'
+    end
+
+    defaultto 'MSFT_xSCVMMConsoleUpdate'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xscvmmconsoleupdate) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xSCVMM"
+    desc "A read-only value that is the DSC Module Name ('xSCVMM')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xSCVMM'
+    end
+
+    defaultto 'xSCVMM'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
+    desc "A read-only value for the DSC Module Version ('1.3.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.3.0.0'
+    end
+
+    defaultto '1.3.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +96,7 @@ Puppet::Type.newtype(:dsc_xscvmmconsoleupdate) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "An enumerated value that describes if the update is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"
+    desc "Ensure - An enumerated value that describes if the update is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
     isrequired
     validate do |value|
       resource[:ensure] = value.downcase
@@ -78,7 +116,7 @@ Puppet::Type.newtype(:dsc_xscvmmconsoleupdate) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UNC path to the root of the source files for installation."
+    desc "SourcePath - UNC path to the root of the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -93,7 +131,7 @@ Puppet::Type.newtype(:dsc_xscvmmconsoleupdate) do
   newparam(:dsc_sourcefolder) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Folder within the source path containing the source files for installation."
+    desc "SourceFolder - Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -108,7 +146,7 @@ Puppet::Type.newtype(:dsc_xscvmmconsoleupdate) do
   newparam(:dsc_setupcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential to be used to perform the installation."
+    desc "SetupCredential - Credential to be used to perform the installation."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -124,7 +162,7 @@ Puppet::Type.newtype(:dsc_xscvmmconsoleupdate) do
   newparam(:dsc_update) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Display name of the update."
+    desc "Update - Display name of the update."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

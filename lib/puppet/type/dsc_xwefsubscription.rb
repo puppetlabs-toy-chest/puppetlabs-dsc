@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
 
   @doc = %q{
     The DSC xWEFSubscription resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xWindowsEventForwarding/DSCResources/MSFT_xWEFSubscription/MSFT_xWEFSubscription.schema.mof
+    Automatically generated from
+    'xWindowsEventForwarding/DSCResources/MSFT_xWEFSubscription/MSFT_xWEFSubscription.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xWEFSubscription"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xWEFSubscription')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xWEFSubscription'
+    end
+
+    defaultto 'xWEFSubscription'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xWEFSubscription"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xWEFSubscription')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xWEFSubscription'
+    end
+
+    defaultto 'MSFT_xWEFSubscription'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xWindowsEventForwarding"
+    desc "A read-only value that is the DSC Module Name ('xWindowsEventForwarding')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xWindowsEventForwarding'
+    end
+
+    defaultto 'xWindowsEventForwarding'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.0.0.0"
+    desc "A read-only value for the DSC Module Version ('1.0.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.0.0.0'
+    end
+
+    defaultto '1.0.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +96,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_subscriptionid) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the Subscription"
+    desc "SubscriptionID - Name of the Subscription"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +112,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Determines whether to validate or remove the scubscription"
+    desc "Ensure - Determines whether to validate or remove the scubscription Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -93,7 +131,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_subscriptiontype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Type of Subscription to create"
+    desc "SubscriptionType - Type of Subscription to create Valid values are CollectorInitiated, SourceInitiated."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -111,7 +149,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Description of the Collector subscription"
+    desc "Description - Description of the Collector subscription"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -126,7 +164,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_enabled) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Sets whether the subscription will be enabled, default true"
+    desc "Enabled - Sets whether the subscription will be enabled, default true Valid values are true, false."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -144,7 +182,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_deliverymode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Configures whether the collector will pull events from source nodes or if the source nodes will push events to the collector, default push"
+    desc "DeliveryMode - Configures whether the collector will pull events from source nodes or if the source nodes will push events to the collector, default push Valid values are Push, Pull."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -162,7 +200,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_maxitems) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
-    desc "The number of events that can occur on the source before they are submitted to the collector, default 1"
+    desc "MaxItems - The number of events that can occur on the source before they are submitted to the collector, default 1"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -180,7 +218,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_maxlatencytime) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
-    desc "The maximum amount of time that can pass before events are submitted to the collector, default 20000"
+    desc "MaxLatencyTime - The maximum amount of time that can pass before events are submitted to the collector, default 20000"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -198,7 +236,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_heartbeatinterval) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
-    desc "Frequency to verify connectivity, default 20000"
+    desc "HeartBeatInterval - Frequency to verify connectivity, default 20000"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -216,7 +254,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_readexistingevents) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Should the collector read existing or only new events, default false"
+    desc "ReadExistingEvents - Should the collector read existing or only new events, default false Valid values are true, false."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -234,7 +272,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_transportname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Determines whether to require SSL, default HTTP"
+    desc "TransportName - Determines whether to require SSL, default HTTP Valid values are HTTP, HTTPS."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -252,7 +290,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_transportport) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Set the port number that WinRM should use to make a connection, default 5985"
+    desc "TransportPort - Set the port number that WinRM should use to make a connection, default 5985"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -267,7 +305,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_contentformat) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Format that event logs will be submitted in, default RenderedText"
+    desc "ContentFormat - Format that event logs will be submitted in, default RenderedText"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -282,7 +320,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_locale) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Sets the subscription Locale, default en-US"
+    desc "Locale - Sets the subscription Locale, default en-US"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -297,7 +335,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_logfile) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Sets the event log that the collected events will be written to, default ForwardedEvents"
+    desc "LogFile - Sets the event log that the collected events will be written to, default ForwardedEvents"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -312,7 +350,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_credentialstype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Sets the credential type used for authenticating to WinRM, default Default"
+    desc "CredentialsType - Sets the credential type used for authenticating to WinRM, default Default Valid values are Default, Basic, Negotiate, Digest."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -330,7 +368,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_allowedsourcenondomaincomputers, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "This parameter has not been fully implemented, only required for source initiated scenarios, provide XML to set IssuerCAList, AllowedSubjectList, or DeniedSubjectList if this will be used, default empty string"
+    desc "AllowedSourceNonDomainComputers - This parameter has not been fully implemented, only required for source initiated scenarios, provide XML to set IssuerCAList, AllowedSubjectList, or DeniedSubjectList if this will be used, default empty string"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -348,7 +386,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_allowedsourcedomaincomputers) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "In Source Initiated scenario this SDDL determines who can push events, default O:NSG:NSD:(A;;GA;;;DC)(A;;GA;;;NS) which equates to Domain Computers and Network Service"
+    desc "AllowedSourceDomainComputers - In Source Initiated scenario this SDDL determines who can push events, default O:NSG:NSD:(A;;GA;;;DC)(A;;GA;;;NS) which equates to Domain Computers and Network Service"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -363,7 +401,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_query, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Expects an array of hashtables that set which events should be collected, default is all application and system logs"
+    desc "Query - Expects an array of hashtables that set which events should be collected, default is all application and system logs"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -381,7 +419,7 @@ Puppet::Type.newtype(:dsc_xwefsubscription) do
   newparam(:dsc_address, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Expects an array of source node FQDNs, default source.wef.test to prevent errors when only staging test subscription"
+    desc "Address - Expects an array of source node FQDNs, default source.wef.test to prevent errors when only staging test subscription"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xazurevmdscconfiguration) do
 
   @doc = %q{
     The DSC xAzureVMDscConfiguration resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureVMDscConfiguration/MSFT_xAzureVMDscConfiguration.schema.mof
+    Automatically generated from
+    'xAzure/DSCResources/MSFT_xAzureVMDscConfiguration/MSFT_xAzureVMDscConfiguration.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xazurevmdscconfiguration) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xAzureVMDscConfiguration"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xAzureVMDscConfiguration')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xAzureVMDscConfiguration'
+    end
+
+    defaultto 'xAzureVMDscConfiguration'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xAzureVMDscConfiguration"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xAzureVMDscConfiguration')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xAzureVMDscConfiguration'
+    end
+
+    defaultto 'MSFT_xAzureVMDscConfiguration'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xazurevmdscconfiguration) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xAzure"
+    desc "A read-only value that is the DSC Module Name ('xAzure')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xAzure'
+    end
+
+    defaultto 'xAzure'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "0.2.0.0"
+    desc "A read-only value for the DSC Module Version ('0.2.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '0.2.0.0'
+    end
+
+    defaultto '0.2.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +96,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscconfiguration) do
   newparam(:dsc_storageaccountname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies name of the existing storage account."
+    desc "StorageAccountName - Specifies name of the existing storage account."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +112,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscconfiguration) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies whether the supplied Configuration is Present or Absent in Azure Storage"
+    desc "Ensure - Specifies whether the supplied Configuration is Present or Absent in Azure Storage Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -93,7 +131,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscconfiguration) do
   newparam(:dsc_containername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the name of the Container in the Azure Storage Account."
+    desc "ContainerName - Specifies the name of the Container in the Azure Storage Account."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -108,7 +146,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscconfiguration) do
   newparam(:dsc_configurationpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies location of the Dsc Configuration document"
+    desc "ConfigurationPath - Specifies location of the Dsc Configuration document"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -123,7 +161,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscconfiguration) do
   newparam(:dsc_azuresubscriptionname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the name of the Azure subscription that should be set to Current."
+    desc "AzureSubscriptionName - Specifies the name of the Azure subscription that should be set to Current."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -138,7 +176,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscconfiguration) do
   newparam(:dsc_azurepublishsettingspath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the location of the Publish Settings file for the Azure Subscription."
+    desc "AzurePublishSettingsPath - Specifies the location of the Publish Settings file for the Azure Subscription."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -153,7 +191,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscconfiguration) do
   newparam(:dsc_bloburi) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Absolute Uri of the Blob"
+    desc "BlobUri - Absolute Uri of the Blob"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

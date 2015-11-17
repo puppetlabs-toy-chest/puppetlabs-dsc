@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
 
   @doc = %q{
     The DSC xWaitForSqlHAGroup resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSqlPs/DSCResources/MSFT_xWaitForSqlHAGroup/MSFT_xWaitForSqlHAGroup.schema.mof
+    Automatically generated from
+    'xSqlPs/DSCResources/MSFT_xWaitForSqlHAGroup/MSFT_xWaitForSqlHAGroup.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xWaitForSqlHAGroup"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xWaitForSqlHAGroup')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xWaitForSqlHAGroup'
+    end
+
+    defaultto 'xWaitForSqlHAGroup'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xWaitForSqlHAGroup"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xWaitForSqlHAGroup')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xWaitForSqlHAGroup'
+    end
+
+    defaultto 'MSFT_xWaitForSqlHAGroup'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xSqlPs"
+    desc "A read-only value that is the DSC Module Name ('xSqlPs')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xSqlPs'
+    end
+
+    defaultto 'xSqlPs'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
+    desc "A read-only value for the DSC Module Version ('1.2.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.2.0.0'
+    end
+
+    defaultto '1.2.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,7 +95,7 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The name of Sql High Availability group"
+    desc "Name - The name of Sql High Availability group"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,7 +111,7 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   newparam(:dsc_clustername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The name of windows failover cluster for the availability group."
+    desc "ClusterName - The name of windows failover cluster for the availability group."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -88,7 +126,7 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   newparam(:dsc_retryintervalsec) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
-    desc "Interval to check the HA group existency"
+    desc "RetryIntervalSec - Interval to check the HA group existency"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -106,7 +144,7 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   newparam(:dsc_retrycount) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "Maximum number of retries to check HA group existency"
+    desc "RetryCount - Maximum number of retries to check HA group existency"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -124,7 +162,7 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   newparam(:dsc_instancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The name of sql instance."
+    desc "InstanceName - The name of sql instance."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -139,7 +177,7 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   newparam(:dsc_domaincredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Domain credential could get list of cluster nodes."
+    desc "DomainCredential - Domain credential could get list of cluster nodes."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -155,7 +193,7 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   newparam(:dsc_sqladministratorcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Sql sa credential"
+    desc "SqlAdministratorCredential - Sql sa credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

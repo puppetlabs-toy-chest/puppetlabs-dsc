@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
 
   @doc = %q{
     The DSC xWaitForCluster resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xFailOverCluster/DSCResources/MSFT_xWaitForCluster/MSFT_xWaitForCluster.schema.mof
+    Automatically generated from
+    'xFailOverCluster/DSCResources/MSFT_xWaitForCluster/MSFT_xWaitForCluster.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,14 +25,28 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
     end
 
   newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xWaitForCluster"
+    desc "A read-only value that is the DSC Resource Friendly Name ('xWaitForCluster')."
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != 'xWaitForCluster'
+    end
+
+    defaultto 'xWaitForCluster'
   end
 
   newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xWaitForCluster"
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xWaitForCluster')."
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != 'MSFT_xWaitForCluster'
+    end
+
+    defaultto 'MSFT_xWaitForCluster'
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,11 +57,26 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   end
 
   newparam(:dscmeta_module_name) do
-    defaultto "xFailOverCluster"
+    desc "A read-only value that is the DSC Module Name ('xFailOverCluster')."
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != 'xFailOverCluster'
+    end
+
+    defaultto 'xFailOverCluster'
   end
 
   newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
+    desc "A read-only value for the DSC Module Version ('1.2.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '1.2.0.0'
+    end
+
+    defaultto '1.2.0.0'
   end
 
   newparam(:name, :namevar => true ) do
@@ -57,7 +95,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the cluster"
+    desc "Name - Name of the cluster"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,7 +111,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   newparam(:dsc_retryintervalsec) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
-    desc "Interval to check the cluster existency"
+    desc "RetryIntervalSec - Interval to check the cluster existency"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -91,7 +129,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   newparam(:dsc_retrycount) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "Maximum number of retries to check cluster existency"
+    desc "RetryCount - Maximum number of retries to check cluster existency"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

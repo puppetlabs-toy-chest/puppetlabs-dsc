@@ -74,28 +74,24 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
   <%  end -%>
   end
 
-  newproperty(:dscmeta_resource_friendly_name) do
+  newparam(:dscmeta_resource_friendly_name) do
     desc "A read-only value that is the DSC Resource Friendly Name ('<%= resource.friendlyname %>')."
 
-    def retrieve
-      '<%= resource.friendlyname %>'
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only' if value != '<%= resource.friendlyname %>'
     end
 
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+    defaultto '<%= resource.friendlyname %>'
   end
 
-  newproperty(:dscmeta_resource_name) do
+  newparam(:dscmeta_resource_name) do
     desc "A read-only value that is the DSC Resource Name ('<%= resource.name %>')."
 
-    def retrieve
-      '<%= resource.name %>'
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only' if value != '<%= resource.name %>'
     end
 
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+    defaultto '<%= resource.name %>'
   end
 
   newparam(:dscmeta_import_resource) do
@@ -110,31 +106,27 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
+  newparam(:dscmeta_module_name) do
     desc "A read-only value that is the DSC Module Name ('<%= resource.ps_module.name %>')."
 
-    def retrieve
-      '<%= resource.ps_module.name %>'
+    validate do |value|
+      fail 'dscmeta_module_name is read-only' if value != '<%= resource.ps_module.name %>'
     end
 
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+    defaultto '<%= resource.ps_module.name %>'
   end
 <%  if resource.ps_module.name != 'PSDesiredStateConfiguration' %>
-  newproperty(:dscmeta_module_version) do
+  newparam(:dscmeta_module_version) do
     desc "A read-only value for the DSC Module Version ('<%= resource.ps_module.version %>').
       This is the supported version of the PowerShell module that this
       type was built on. When Puppet runs this resource, it will explicitly
       use this version."
 
-    def retrieve
-      '<%= resource.ps_module.version %>'
+    validate do |value|
+      fail 'dscmeta_module_version is read-only' if value != '<%= resource.ps_module.version %>'
     end
 
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+    defaultto '<%= resource.ps_module.version %>'
   end
 <%  end %>
   newparam(:name, :namevar => true ) do
