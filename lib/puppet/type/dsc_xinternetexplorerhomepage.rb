@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xinternetexplorerhomepage) do
 
   @doc = %q{
     The DSC xInternetExplorerHomePage resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xInternetExplorerHomePage/DSCResources/xInternetExplorerHomePage/xInternetExplorerHomePage.schema.mof
+    Automatically generated from
+    'xInternetExplorerHomePage/DSCResources/xInternetExplorerHomePage/xInternetExplorerHomePage.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_startpage is a required attribute') if self[:dsc_startpage].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xInternetExplorerHomePage"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xInternetExplorerHomePage')."
+
+    def retrieve
+      'xInternetExplorerHomePage'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "xInternetExplorerHomePage"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('xInternetExplorerHomePage')."
+
+    def retrieve
+      'xInternetExplorerHomePage'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xinternetexplorerhomepage) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xInternetExplorerHomePage"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xInternetExplorerHomePage')."
+
+    def retrieve
+      'xInternetExplorerHomePage'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "1.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('1.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '1.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +104,7 @@ Puppet::Type.newtype(:dsc_xinternetexplorerhomepage) do
   newparam(:dsc_startpage) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the URL for the home page of Internet Explorer."
+    desc "StartPage - Specifies the URL for the home page of Internet Explorer."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +120,7 @@ Puppet::Type.newtype(:dsc_xinternetexplorerhomepage) do
   newparam(:dsc_secondarystartpages) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the URL for the secondary home pages of Internet Explorer."
+    desc "SecondaryStartPages - Specifies the URL for the secondary home pages of Internet Explorer."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -89,7 +135,7 @@ Puppet::Type.newtype(:dsc_xinternetexplorerhomepage) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Should the IE home page is configured or unconfigured."
+    desc "Ensure - Should the IE home page is configured or unconfigured. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

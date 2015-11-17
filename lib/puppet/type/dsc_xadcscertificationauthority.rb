@@ -7,23 +7,50 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
 
   @doc = %q{
     The DSC xAdcsCertificationAuthority resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xAdcsDeployment/xCertificateServices/DSCResources/MSFT_xAdcsCertificationAuthority/MSFT_xAdcsCertificationAuthority.schema.mof
+    Automatically generated from
+    'xAdcsDeployment/xCertificateServices/DSCResources/MSFT_xAdcsCertificationAuthority/MSFT_xAdcsCertificationAuthority.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_catype is a required attribute') if self[:dsc_catype].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xAdcsCertificationAuthority"
+  newproperty(:dscmeta_resource_friendly_name) do
+    desc "A read-only value that is the DSC Resource Friendly Name ('xAdcsCertificationAuthority')."
+
+    def retrieve
+      'xAdcsCertificationAuthority'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_friendly_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xAdcsCertificationAuthority"
+  newproperty(:dscmeta_resource_name) do
+    desc "A read-only value that is the DSC Resource Name ('MSFT_xAdcsCertificationAuthority')."
+
+    def retrieve
+      'MSFT_xAdcsCertificationAuthority'
+    end
+
+    validate do |value|
+      fail 'dscmeta_resource_name is read-only'
+    end
   end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,12 +60,31 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xCertificateServices"
+  newproperty(:dscmeta_module_name) do
+    desc "A read-only value that is the DSC Module Name ('xCertificateServices')."
+
+    def retrieve
+      'xCertificateServices'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_name is read-only'
+    end
   end
 
-  newparam(:dscmeta_module_version) do
-    defaultto "0.1.0.0"
+  newproperty(:dscmeta_module_version) do
+    desc "A read-only value for the DSC Module Version ('0.1.0.0').
+      This is the supported version of the PowerShell module that this
+      type was built on. When Puppet runs this resource, it will explicitly
+      use this version."
+
+    def retrieve
+      '0.1.0.0'
+    end
+
+    validate do |value|
+      fail 'dscmeta_module_version is read-only'
+    end
   end
 
   newparam(:name, :namevar => true ) do
@@ -58,7 +104,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_catype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the type of certification authority to install. The possible values are EnterpriseRootCA, EnterpriseSubordinateCA, StandaloneRootCA, or StandaloneSubordinateCA."
+    desc "CAType - Specifies the type of certification authority to install. The possible values are EnterpriseRootCA, EnterpriseSubordinateCA, StandaloneRootCA, or StandaloneSubordinateCA. Valid values are EnterpriseRootCA, EnterpriseSubordinateCA, StandaloneRootCA, StandaloneSubordinateCA."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -77,7 +123,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "To install an enterprise certification authority, the computer must be joined to an Active Directory Domain Services domain and a user account that is a member of the Enterprise Admin group is required. To install a standalone certification authority, the computer can be in a workgroup or AD DS domain. If the computer is in a workgroup, a user account that is a member of Administrators is required. If the computer is in an AD DS domain, a user account that is a member of Domain Admins is required."
+    desc "Credential - To install an enterprise certification authority, the computer must be joined to an Active Directory Domain Services domain and a user account that is a member of the Enterprise Admin group is required. To install a standalone certification authority, the computer can be in a workgroup or AD DS domain. If the computer is in a workgroup, a user account that is a member of Administrators is required. If the computer is in an AD DS domain, a user account that is a member of Domain Admins is required."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -93,7 +139,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies whether the Certificate Authority should be installed or uninstalled."
+    desc "Ensure - Specifies whether the Certificate Authority should be installed or uninstalled. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -112,7 +158,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_cacommonname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the certification authority common name."
+    desc "CACommonName - Specifies the certification authority common name."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -127,7 +173,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_cadistinguishednamesuffix) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the certification authority distinguished name suffix."
+    desc "CADistinguishedNameSuffix - Specifies the certification authority distinguished name suffix."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -142,7 +188,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_certfile) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the file name of certification authority PKCS 12 formatted certificate file."
+    desc "CertFile - Specifies the file name of certification authority PKCS 12 formatted certificate file."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -157,7 +203,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_certfilepassword) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Specifies the password for certification authority certificate file."
+    desc "CertFilePassword - Specifies the password for certification authority certificate file."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -173,7 +219,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_certificateid) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the thumbprint or serial number of certification authority certificate."
+    desc "CertificateID - Specifies the thumbprint or serial number of certification authority certificate."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -188,7 +234,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_cryptoprovidername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The name of the cryptographic service provider  or key storage provider that is used to generate or store the private key for the CA."
+    desc "CryptoProviderName - The name of the cryptographic service provider  or key storage provider that is used to generate or store the private key for the CA."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -203,7 +249,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_databasedirectory) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the folder location of the certification authority database."
+    desc "DatabaseDirectory - Specifies the folder location of the certification authority database."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -218,7 +264,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_hashalgorithmname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the signature hash algorithm used by the certification authority."
+    desc "HashAlgorithmName - Specifies the signature hash algorithm used by the certification authority."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -233,7 +279,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_ignoreunicode) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Specifies that Unicode characters are allowed in certification authority name string."
+    desc "IgnoreUnicode - Specifies that Unicode characters are allowed in certification authority name string."
     validate do |value|
     end
     newvalues(true, false)
@@ -249,7 +295,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_keycontainername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the name of an existing private key container."
+    desc "KeyContainerName - Specifies the name of an existing private key container."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -264,7 +310,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_keylength) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "Specifies the name of an existing private key container."
+    desc "KeyLength - Specifies the name of an existing private key container."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -282,7 +328,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_logdirectory) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the folder location of the certification authority database log."
+    desc "LogDirectory - Specifies the folder location of the certification authority database log."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -297,7 +343,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_outputcertrequestfile) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the folder location for certificate request file."
+    desc "OutputCertRequestFile - Specifies the folder location for certificate request file."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -312,7 +358,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_overwriteexistingcainds) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Specifies that the computer object in the Active Directory Domain Service domain should be overwritten with the same computer name."
+    desc "OverwriteExistingCAinDS - Specifies that the computer object in the Active Directory Domain Service domain should be overwritten with the same computer name."
     validate do |value|
     end
     newvalues(true, false)
@@ -328,7 +374,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_overwriteexistingdatabase) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Specifies that the existing certification authority database should be overwritten."
+    desc "OverwriteExistingDatabase - Specifies that the existing certification authority database should be overwritten."
     validate do |value|
     end
     newvalues(true, false)
@@ -344,7 +390,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_overwriteexistingkey) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Overwrite existing key container with the same name"
+    desc "OverwriteExistingKey - Overwrite existing key container with the same name"
     validate do |value|
     end
     newvalues(true, false)
@@ -360,7 +406,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_parentca) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the configuration string of the parent certification authority that will certify this CA."
+    desc "ParentCA - Specifies the configuration string of the parent certification authority that will certify this CA."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -375,7 +421,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_validityperiod) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the validity period of the certification authority certificate in hours, days, weeks, months or years. If this is a subordinate CA, do not use this parameter, because the validity period is determined by the parent CA."
+    desc "ValidityPeriod - Specifies the validity period of the certification authority certificate in hours, days, weeks, months or years. If this is a subordinate CA, do not use this parameter, because the validity period is determined by the parent CA. Valid values are Hours, Days, Months, Years."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -393,7 +439,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_validityperiodunits) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "Validity period of the certification authority certificate. If this is a subordinate CA, do not specify this parameter because the validity period is determined by the parent CA."
+    desc "ValidityPeriodUnits - Validity period of the certification authority certificate. If this is a subordinate CA, do not specify this parameter because the validity period is determined by the parent CA."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
