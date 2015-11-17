@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
 
   @doc = %q{
     The DSC xSCVMMManagementServerSetup resource type.
-    Automatically generated from
-    'xSCVMM/DSCResources/MSFT_xSCVMMManagementServerSetup/MSFT_xSCVMMManagementServerSetup.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xSCVMM/DSCResources/MSFT_xSCVMMManagementServerSetup/MSFT_xSCVMMManagementServerSetup.schema.mof
   }
 
   validate do
       fail('dsc_ensure is a required attribute') if self[:dsc_ensure].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xSCVMMManagementServerSetup')."
-
-    def retrieve
-      'xSCVMMManagementServerSetup'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xSCVMMManagementServerSetup"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xSCVMMManagementServerSetup')."
-
-    def retrieve
-      'MSFT_xSCVMMManagementServerSetup'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xSCVMMManagementServerSetup"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xSCVMM')."
-
-    def retrieve
-      'xSCVMM'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xSCVMM"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.3.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.3.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.3.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -104,7 +58,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - An enumerated value that describes if the DPM server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
+    desc "An enumerated value that describes if the DPM server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"
     isrequired
     validate do |value|
       resource[:ensure] = value.downcase
@@ -124,7 +78,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SourcePath - UNC path to the root of the source files for installation."
+    desc "UNC path to the root of the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -139,7 +93,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_sourcefolder) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SourceFolder - Folder within the source path containing the source files for installation."
+    desc "Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -154,7 +108,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_setupcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "SetupCredential - Credential to be used to perform the installation."
+    desc "Credential to be used to perform the installation."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -170,7 +124,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_vmmservice) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "vmmService - Domain account for the VMM service."
+    desc "Domain account for the VMM service."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -186,7 +140,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_vmmserviceusername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "vmmServiceUsername - Output username of the VMM service."
+    desc "Output username of the VMM service."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -201,7 +155,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_productkey) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ProductKey - Product key for licensed installations."
+    desc "Product key for licensed installations."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -216,7 +170,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_username) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UserName - Display name for the user."
+    desc "Display name for the user."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -231,7 +185,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_companyname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CompanyName - Display name for the organization."
+    desc "Display name for the organization."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -246,7 +200,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_programfiles) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ProgramFiles - Installation path for the software."
+    desc "Installation path for the software."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -261,7 +215,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_clustermanagementserver) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "ClusterManagementServer - Is this a clustered Management Server?"
+    desc "Is this a clustered Management Server?"
     validate do |value|
     end
     newvalues(true, false)
@@ -277,7 +231,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_firstmanagementserver) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "FirstManagementServer - Is this the first Management Server?"
+    desc "Is this the first Management Server?"
     validate do |value|
     end
     newvalues(true, false)
@@ -293,7 +247,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_createnewsqldatabase) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CreateNewSqlDatabase - 0: Use an existing Microsoft SQL Server database. 1: Create a new SQL Server database."
+    desc "0: Use an existing Microsoft SQL Server database. 1: Create a new SQL Server database."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -308,7 +262,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_sqlmachinename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SqlMachineName - Name of the server that is hosting SQL Server."
+    desc "Name of the server that is hosting SQL Server."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -323,7 +277,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SqlInstanceName - Name of the new or existing instance of SQL Server."
+    desc "Name of the new or existing instance of SQL Server."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -338,7 +292,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_sqldatabasename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SqlDatabaseName - Name of the new or existing SQL Server database."
+    desc "Name of the new or existing SQL Server database."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -353,7 +307,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_indigotcpport) do
     def mof_type; 'uint16' end
     def mof_is_embedded?; false end
-    desc "IndigoTcpPort - Port for communication with the VMM console."
+    desc "Port for communication with the VMM console."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -371,7 +325,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_indigohttpsport) do
     def mof_type; 'uint16' end
     def mof_is_embedded?; false end
-    desc "IndigoHTTPSPort - Port for communication with the Windows Preinstallation Environment agents."
+    desc "Port for communication with the Windows Preinstallation Environment agents."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -389,7 +343,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_indigonettcpport) do
     def mof_type; 'uint16' end
     def mof_is_embedded?; false end
-    desc "IndigoNETTCPPort - Port for communication with Windows Deployment Services."
+    desc "Port for communication with Windows Deployment Services."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -407,7 +361,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_indigohttpport) do
     def mof_type; 'uint16' end
     def mof_is_embedded?; false end
-    desc "IndigoHTTPPort - Port for communication with Windows PE agent for time synchronization."
+    desc "Port for communication with Windows PE agent for time synchronization."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -425,7 +379,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_wsmantcpport) do
     def mof_type; 'uint16' end
     def mof_is_embedded?; false end
-    desc "WSManTcpPort - Port for communication with agents on hosts and library servers."
+    desc "Port for communication with agents on hosts and library servers."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -443,7 +397,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_bitstcpport) do
     def mof_type; 'uint16' end
     def mof_is_embedded?; false end
-    desc "BitsTcpPort - Port for file transfers to agents on hosts and library servers."
+    desc "Port for file transfers to agents on hosts and library servers."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -461,7 +415,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_createnewlibraryshare) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CreateNewLibraryShare - 0: Use an existing library share. 1: Create a new library share."
+    desc "0: Use an existing library share. 1: Create a new library share."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -476,7 +430,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_librarysharename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "LibraryShareName - Name of the file share to be used or created."
+    desc "Name of the file share to be used or created."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -491,7 +445,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_librarysharepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "LibrarySharePath - Location of the existing file share or the new file share to be created."
+    desc "Location of the existing file share or the new file share to be created."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -506,7 +460,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_librarysharedescription) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "LibraryShareDescription - Description of the share."
+    desc "Description of the share."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -521,7 +475,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_topcontainername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "TopContainerName - Container for Distributed Key Management."
+    desc "Container for Distributed Key Management."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -536,7 +490,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_vmmservername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "VmmServerName - Clustered service name for a highly available VMM management server."
+    desc "Clustered service name for a highly available VMM management server."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -551,7 +505,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_vmmstaticipaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "VMMStaticIPAddress - IP address for the clustered service name for a highly available VMM management server, if you are not using Dynamic Host Configuration Protocol (DHCP)."
+    desc "IP address for the clustered service name for a highly available VMM management server, if you are not using Dynamic Host Configuration Protocol (DHCP)."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -566,7 +520,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_retainsqldatabase) do
     def mof_type; 'uint8' end
     def mof_is_embedded?; false end
-    desc "RetainSqlDatabase - 0: Remove the SQL Server database. 1: Do not remove the SQL Server database."
+    desc "0: Remove the SQL Server database. 1: Do not remove the SQL Server database."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -584,7 +538,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_forcehavmmuninstall) do
     def mof_type; 'uint8' end
     def mof_is_embedded?; false end
-    desc "ForceHAVMMUninstall - 0: Do not force uninstallation if setup.exe cannot verify whether this node is the final node of the highly available installation. 1: Force the uninstallation."
+    desc "0: Do not force uninstallation if setup.exe cannot verify whether this node is the final node of the highly available installation. 1: Force the uninstallation."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -602,7 +556,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_sqmoptin) do
     def mof_type; 'uint8' end
     def mof_is_embedded?; false end
-    desc "SQMOptIn - 0: Do not opt in to the Customer Experience Improvement Program (CEIP). 1: Opt in to CEIP."
+    desc "0: Do not opt in to the Customer Experience Improvement Program (CEIP). 1: Opt in to CEIP."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -620,7 +574,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
   newparam(:dsc_muoptin) do
     def mof_type; 'uint8' end
     def mof_is_embedded?; false end
-    desc "MUOptIn - 0: Do not opt in to Microsoft Update. 1: Opt in to Microsoft Update."
+    desc "0: Do not opt in to Microsoft Update. 1: Opt in to Microsoft Update."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

@@ -7,17 +7,8 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
 
   @doc = %q{
     The DSC xWebConfigKeyValue resource type.
-    Automatically generated from
-    'xWebAdministration/DSCResources/MSFT_xWebConfigKeyValue/MSFT_xWebConfigKeyValue.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xWebAdministration/DSCResources/MSFT_xWebConfigKeyValue/MSFT_xWebConfigKeyValue.schema.mof
   }
 
   validate do
@@ -26,33 +17,15 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
       fail('dsc_key is a required attribute') if self[:dsc_key].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xWebConfigKeyValue')."
-
-    def retrieve
-      'xWebConfigKeyValue'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xWebConfigKeyValue"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xWebConfigKeyValue')."
-
-    def retrieve
-      'MSFT_xWebConfigKeyValue'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xWebConfigKeyValue"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -62,31 +35,12 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xWebAdministration')."
-
-    def retrieve
-      'xWebAdministration'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xWebAdministration"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.7.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.7.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.7.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -106,7 +60,7 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
   newparam(:dsc_websitepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "WebsitePath - Path to website location(IIS or WebAdministration format)"
+    desc "Path to website location(IIS or WebAdministration format)"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -122,7 +76,7 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
   newparam(:dsc_configsection) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ConfigSection - Config Section to be update Valid values are AppSettings."
+    desc "Config Section to be update"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -141,7 +95,6 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -160,7 +113,7 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
   newparam(:dsc_key) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Key - Key for AppSettings"
+    desc "Key for AppSettings"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -176,7 +129,7 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
   newparam(:dsc_value) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Value - Value for AppSettings"
+    desc "Value for AppSettings"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -191,7 +144,7 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
   newparam(:dsc_isattribute) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "IsAttribute - If the given key value pair is for attribute, default is element"
+    desc "If the given key value pair is for attribute, default is element"
     validate do |value|
     end
     newvalues(true, false)

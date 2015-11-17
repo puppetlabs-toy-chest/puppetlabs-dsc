@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
 
   @doc = %q{
     The DSC xAzureQuickVM resource type.
-    Automatically generated from
-    'xAzure/DSCResources/MSFT_xAzureQuickVM/MSFT_xAzureQuickVM.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureQuickVM/MSFT_xAzureQuickVM.schema.mof
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xAzureQuickVM')."
-
-    def retrieve
-      'xAzureQuickVM'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xAzureQuickVM"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xAzureQuickVM')."
-
-    def retrieve
-      'MSFT_xAzureQuickVM'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xAzureQuickVM"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xAzure')."
-
-    def retrieve
-      'xAzure'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xAzure"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('0.2.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '0.2.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "0.2.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -104,7 +58,7 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - Specifies the name of the virtual machine."
+    desc "Specifies the name of the virtual machine."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -120,7 +74,7 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Specifies whether the Azure VM should be present or absent. Valid values are Present, Absent."
+    desc "Specifies whether the Azure VM should be present or absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -139,7 +93,7 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
   newparam(:dsc_imagename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ImageName - Specifies the name of the operating system image to use to create the operating system disk."
+    desc "Specifies the name of the operating system image to use to create the operating system disk."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -154,7 +108,7 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
   newparam(:dsc_servicename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ServiceName - Specifies the new or existing service name. "
+    desc "Specifies the new or existing service name. "
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -169,7 +123,7 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
   newparam(:dsc_linux) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Linux - Creates a Linux virtual machine."
+    desc "Creates a Linux virtual machine."
     validate do |value|
     end
     newvalues(true, false)
@@ -185,7 +139,7 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
   newparam(:dsc_linuxuser) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "LinuxUser - Specifies the Linux administrative account name to create."
+    desc "Specifies the Linux administrative account name to create."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -200,7 +154,7 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
   newparam(:dsc_windows) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Windows - Creates a Windows virtual machine."
+    desc "Creates a Windows virtual machine."
     validate do |value|
     end
     newvalues(true, false)
@@ -216,7 +170,7 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
   newparam(:dsc_adminusername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AdminUsername - Specifies the name for the administrative account to create."
+    desc "Specifies the name for the administrative account to create."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -231,7 +185,7 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
   newparam(:dsc_password) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Password - Specifies the password for the administrative account."
+    desc "Specifies the password for the administrative account."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -246,7 +200,7 @@ Puppet::Type.newtype(:dsc_xazurequickvm) do
   newparam(:dsc_instancesize) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstanceSize - Specifies the size of the instance.   For a list of virtual machine sizes, see http://msdn.microsoft.com/library/azure/dn197896.aspx"
+    desc "Specifies the size of the instance.   For a list of virtual machine sizes, see http://msdn.microsoft.com/library/azure/dn197896.aspx"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -27,7 +27,7 @@
     return @{
         Name = $record.HostName
         Zone = $Zone
-        Target = $record.RecordData.IPv4Address.ToString()
+        Target = $record.RecordData
     }
 }
 

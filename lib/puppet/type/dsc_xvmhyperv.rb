@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
 
   @doc = %q{
     The DSC xVMHyperV resource type.
-    Automatically generated from
-    'xHyper-V/DSCResources/MSFT_xVMHyperV/MSFT_xVMHyperV.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xHyper-V/DSCResources/MSFT_xVMHyperV/MSFT_xVMHyperV.schema.mof
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xVMHyperV')."
-
-    def retrieve
-      'xVMHyperV'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xVMHyperV"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xVMHyperV')."
-
-    def retrieve
-      'MSFT_xVMHyperV'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xVMHyperV"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xHyper-V')."
-
-    def retrieve
-      'xHyper-V'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xHyper-V"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('3.2.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '3.2.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "3.2.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -104,7 +58,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - Name of the VM"
+    desc "Name of the VM"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -120,7 +74,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_vhdpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "VhdPath - VHD associated with the VM"
+    desc "VHD associated with the VM"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -135,7 +89,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_switchname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SwitchName - Virtual switch associated with the VM"
+    desc "Virtual switch associated with the VM"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -150,7 +104,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_state) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "State - State of the VM. Valid values are Running, Paused, Off."
+    desc "State of the VM."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -168,7 +122,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Path - Folder where the VM data will be stored"
+    desc "Folder where the VM data will be stored"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -183,7 +137,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_generation) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "Generation - Virtual machine generation"
+    desc "Virtual machine generation"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -201,7 +155,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_startupmemory) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
-    desc "StartupMemory - Startup RAM for the VM."
+    desc "Startup RAM for the VM."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -219,7 +173,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_minimummemory) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
-    desc "MinimumMemory - Minimum RAM for the VM. This enables dynamic memory."
+    desc "Minimum RAM for the VM. This enables dynamic memory."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -237,7 +191,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_maximummemory) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
-    desc "MaximumMemory - Maximum RAM for the VM. This enable dynamic memory."
+    desc "Maximum RAM for the VM. This enable dynamic memory."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -255,7 +209,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_macaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MACAddress - MAC address of the VM."
+    desc "MAC address of the VM."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -270,7 +224,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_processorcount) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "ProcessorCount - Processor count for the VM"
+    desc "Processor count for the VM"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -288,7 +242,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_waitforip) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "WaitForIP - Waits for VM to get valid IP address."
+    desc "Waits for VM to get valid IP address."
     validate do |value|
     end
     newvalues(true, false)
@@ -304,7 +258,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_restartifneeded) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "RestartIfNeeded - If specified, shutdowns and restarts the VM as needed for property changes"
+    desc "If specified, shutdowns and restarts the VM as needed for property changes"
     validate do |value|
     end
     newvalues(true, false)
@@ -320,7 +274,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Should the VM be created or deleted Valid values are Present, Absent."
+    desc "Should the VM be created or deleted"
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -339,7 +293,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_notes) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Notes - Notes about the VM."
+    desc "Notes about the VM."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -354,7 +308,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_id) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ID - VM unique ID"
+    desc "VM unique ID"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -369,7 +323,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_status) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Status - Status of the VM"
+    desc "Status of the VM"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -384,7 +338,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_cpuusage) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "CPUUsage - CPU Usage of the VM"
+    desc "CPU Usage of the VM"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -402,7 +356,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_memoryassigned) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
-    desc "MemoryAssigned - Memory assigned to the VM"
+    desc "Memory assigned to the VM"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -420,7 +374,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_uptime) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Uptime - Uptime of the VM"
+    desc "Uptime of the VM"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -435,7 +389,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_creationtime) do
     def mof_type; 'datetime' end
     def mof_is_embedded?; false end
-    desc "CreationTime - Creation time of the VM"
+    desc "Creation time of the VM"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -450,7 +404,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_hasdynamicmemory) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "HasDynamicMemory - Does VM has dynamic memory enabled"
+    desc "Does VM has dynamic memory enabled"
     validate do |value|
     end
     newvalues(true, false)
@@ -466,7 +420,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_networkadapters, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "NetworkAdapters - Network adapters of the VM"
+    desc "Network adapters of the VM"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

@@ -57,7 +57,6 @@ function Set-TargetResource
         {
             Write-Verbose -Message "Domain $DomainName not found. Will retry again after $RetryIntervalSec sec"
             Start-Sleep -Seconds $RetryIntervalSec
-            Clear-DnsClientCache
         }
     }
 

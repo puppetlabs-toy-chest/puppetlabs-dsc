@@ -7,17 +7,8 @@ Puppet::Type.newtype(:dsc_xscvmmadmin) do
 
   @doc = %q{
     The DSC xSCVMMAdmin resource type.
-    Automatically generated from
-    'xSCVMM/DSCResources/MSFT_xSCVMMAdmin/MSFT_xSCVMMAdmin.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xSCVMM/DSCResources/MSFT_xSCVMMAdmin/MSFT_xSCVMMAdmin.schema.mof
   }
 
   validate do
@@ -25,33 +16,15 @@ Puppet::Type.newtype(:dsc_xscvmmadmin) do
       fail('dsc_userrole is a required attribute') if self[:dsc_userrole].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xSCVMMAdmin')."
-
-    def retrieve
-      'xSCVMMAdmin'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xSCVMMAdmin"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xSCVMMAdmin')."
-
-    def retrieve
-      'MSFT_xSCVMMAdmin'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xSCVMMAdmin"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -61,31 +34,12 @@ Puppet::Type.newtype(:dsc_xscvmmadmin) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xSCVMM')."
-
-    def retrieve
-      'xSCVMM'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xSCVMM"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.3.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.3.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.3.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -105,7 +59,7 @@ Puppet::Type.newtype(:dsc_xscvmmadmin) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - An enumerated value that describes if the principal is an Virtual Machine Manager admin.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
+    desc "An enumerated value that describes if the principal is an Virtual Machine Manager admin.\nPresent {default}  \nAbsent   \n"
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -124,7 +78,7 @@ Puppet::Type.newtype(:dsc_xscvmmadmin) do
   newparam(:dsc_principal) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Principal - The Virtual Machine Manager admin principal."
+    desc "The Virtual Machine Manager admin principal."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -140,7 +94,7 @@ Puppet::Type.newtype(:dsc_xscvmmadmin) do
   newparam(:dsc_userrole) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UserRole - The Virtual Machine Manager user role."
+    desc "The Virtual Machine Manager user role."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -156,7 +110,7 @@ Puppet::Type.newtype(:dsc_xscvmmadmin) do
   newparam(:dsc_scvmmadmincredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "SCVMMAdminCredential - Credential to be used to perform the operations."
+    desc "Credential to be used to perform the operations."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

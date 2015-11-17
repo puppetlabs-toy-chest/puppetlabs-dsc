@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
 
   @doc = %q{
     The DSC xSmbShare resource type.
-    Automatically generated from
-    'xSmbShare/DscResources/MSFT_xSmbShare/MSFT_xSmbShare.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xSmbShare/DscResources/MSFT_xSmbShare/MSFT_xSmbShare.schema.mof
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xSmbShare')."
-
-    def retrieve
-      'xSmbShare'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xSmbShare"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xSmbShare')."
-
-    def retrieve
-      'MSFT_xSmbShare'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xSmbShare"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xSmbShare')."
-
-    def retrieve
-      'xSmbShare'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xSmbShare"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.1.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.1.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -104,7 +58,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - Name of the SMB Share"
+    desc "Name of the SMB Share"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -120,7 +74,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Path - Path to the share"
+    desc "Path to the share"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -135,7 +89,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Description - Description of the share"
+    desc "Description of the share"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -150,7 +104,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_changeaccess, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "ChangeAccess - Specifies which user will be granted modify permission to access the share"
+    desc "Specifies which user will be granted modify permission to access the share"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -168,7 +122,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_concurrentuserlimit) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "ConcurrentUserLimit - Specifies the maximum number of concurrently connected users that the new SMB share may accommodate. If this parameter is set to zero (0), then the number of users is unlimited. The default value is zero (0)."
+    desc "Specifies the maximum number of concurrently connected users that the new SMB share may accommodate. If this parameter is set to zero (0), then the number of users is unlimited. The default value is zero (0)."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -186,7 +140,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_encryptdata) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "EncryptData - Indicates that the share is encrypted."
+    desc "Indicates that the share is encrypted."
     validate do |value|
     end
     newvalues(true, false)
@@ -202,7 +156,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_folderenumerationmode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "FolderEnumerationMode - Specifies which files and folders in the new SMB share are visible to users. Valid values are AccessBased, Unrestricted."
+    desc "Specifies which files and folders in the new SMB share are visible to users."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -220,7 +174,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_fullaccess, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "FullAccess - Specifies which accounts are granted full permission to access the share."
+    desc "Specifies which accounts are granted full permission to access the share."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -238,7 +192,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_noaccess, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "NoAccess - Specifies which accounts are denied access to the share."
+    desc "Specifies which accounts are denied access to the share."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -256,7 +210,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_readaccess, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "ReadAccess - Specifies which user is granted read permission to access the share."
+    desc "Specifies which user is granted read permission to access the share."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -274,7 +228,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Specifies if the share should be added or removed Valid values are Present, Absent."
+    desc "Specifies if the share should be added or removed"
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -293,7 +247,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_sharestate) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ShareState - Specfies the state of the share"
+    desc "Specfies the state of the share"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -308,7 +262,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_sharetype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ShareType - Specfies the type of the share"
+    desc "Specfies the type of the share"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -323,7 +277,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_shadowcopy) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ShadowCopy - Specifies if this share is a ShadowCopy"
+    desc "Specifies if this share is a ShadowCopy"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -338,7 +292,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_special) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Special - Specifies if this share is a Special Share. Admin share, default shares, IPC$ share are examples."
+    desc "Specifies if this share is a Special Share. Admin share, default shares, IPC$ share are examples."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

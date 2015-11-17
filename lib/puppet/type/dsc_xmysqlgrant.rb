@@ -7,17 +7,8 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
 
   @doc = %q{
     The DSC xMySqlGrant resource type.
-    Automatically generated from
-    'xMySql/DscResources/MSFT_xMySqlGrant/MSFT_xMySqlGrant.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xMySql/DscResources/MSFT_xMySqlGrant/MSFT_xMySqlGrant.schema.mof
   }
 
   validate do
@@ -25,33 +16,15 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
       fail('dsc_databasename is a required attribute') if self[:dsc_databasename].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xMySqlGrant')."
-
-    def retrieve
-      'xMySqlGrant'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xMySqlGrant"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xMySqlGrant')."
-
-    def retrieve
-      'MSFT_xMySqlGrant'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xMySqlGrant"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -61,31 +34,12 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xMySql')."
-
-    def retrieve
-      'xMySql'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xMySql"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.1.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.1.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -105,7 +59,7 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   newparam(:dsc_username) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UserName - Name of MySQL user."
+    desc "Name of MySQL user."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -121,7 +75,7 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   newparam(:dsc_databasename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DatabaseName - MySql database name to grant permissions."
+    desc "MySql database name to grant permissions."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -137,7 +91,7 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   newparam(:dsc_connectioncredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "ConnectionCredential - MySql connection credential used for the root."
+    desc "MySql connection credential used for the root."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -153,7 +107,7 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   newparam(:dsc_permissiontype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "PermissionType - MySql user permission type. Valid values are ALL PRIVILEGES, CREATE, DROP, DELETE, INSERT, SELECT, UPDATE, EXECUTE."
+    desc "MySql user permission type."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -171,7 +125,7 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Ensure given grant to mySql database present or absent. Valid values are Present, Absent."
+    desc "Ensure given grant to mySql database present or absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

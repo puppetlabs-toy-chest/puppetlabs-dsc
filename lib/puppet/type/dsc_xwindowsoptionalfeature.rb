@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xwindowsoptionalfeature) do
 
   @doc = %q{
     The DSC xWindowsOptionalFeature resource type.
-    Automatically generated from
-    'xPSDesiredStateConfiguration/DSCResources/MSFT_xWindowsOptionalFeature/MSFT_xWindowsOptionalFeature.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xWindowsOptionalFeature/MSFT_xWindowsOptionalFeature.schema.mof
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xWindowsOptionalFeature')."
-
-    def retrieve
-      'xWindowsOptionalFeature'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xWindowsOptionalFeature"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xWindowsOptionalFeature')."
-
-    def retrieve
-      'MSFT_xWindowsOptionalFeature'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xWindowsOptionalFeature"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xwindowsoptionalfeature) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xPSDesiredStateConfiguration')."
-
-    def retrieve
-      'xPSDesiredStateConfiguration'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xPSDesiredStateConfiguration"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('3.5.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '3.5.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "3.5.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -104,7 +58,6 @@ Puppet::Type.newtype(:dsc_xwindowsoptionalfeature) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -120,7 +73,6 @@ Puppet::Type.newtype(:dsc_xwindowsoptionalfeature) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -139,7 +91,6 @@ Puppet::Type.newtype(:dsc_xwindowsoptionalfeature) do
   newparam(:dsc_source, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Source"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -157,7 +108,6 @@ Puppet::Type.newtype(:dsc_xwindowsoptionalfeature) do
   newparam(:dsc_nowindowsupdatecheck) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "NoWindowsUpdateCheck"
     validate do |value|
     end
     newvalues(true, false)
@@ -173,7 +123,6 @@ Puppet::Type.newtype(:dsc_xwindowsoptionalfeature) do
   newparam(:dsc_removefilesondisable) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "RemoveFilesOnDisable"
     validate do |value|
     end
     newvalues(true, false)
@@ -189,7 +138,6 @@ Puppet::Type.newtype(:dsc_xwindowsoptionalfeature) do
   newparam(:dsc_loglevel) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "LogLevel - Valid values are ErrorsOnly, ErrorsAndWarning, ErrorsAndWarningAndInformation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -207,7 +155,6 @@ Puppet::Type.newtype(:dsc_xwindowsoptionalfeature) do
   newparam(:dsc_logpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "LogPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -222,7 +169,6 @@ Puppet::Type.newtype(:dsc_xwindowsoptionalfeature) do
   newparam(:dsc_customproperties, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "CustomProperties"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -240,7 +186,6 @@ Puppet::Type.newtype(:dsc_xwindowsoptionalfeature) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Description"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -255,7 +200,6 @@ Puppet::Type.newtype(:dsc_xwindowsoptionalfeature) do
   newparam(:dsc_displayname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DisplayName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

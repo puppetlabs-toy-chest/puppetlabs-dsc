@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xmountimage) do
 
   @doc = %q{
     The DSC xMountImage resource type.
-    Automatically generated from
-    'xStorage/DSCResources/MSFT_xMountImage/MSFT_xMountImage.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xStorage/DSCResources/MSFT_xMountImage/MSFT_xMountImage.schema.mof
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xMountImage')."
-
-    def retrieve
-      'xMountImage'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xMountImage"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xMountImage')."
-
-    def retrieve
-      'MSFT_xMountImage'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xMountImage"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xmountimage) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xStorage')."
-
-    def retrieve
-      'xStorage'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xStorage"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('2.2.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '2.2.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "2.1.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -104,7 +58,7 @@ Puppet::Type.newtype(:dsc_xmountimage) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - This setting provides a unique name for the configuration"
+    desc "This setting provides a unique name for the configuration"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -120,7 +74,7 @@ Puppet::Type.newtype(:dsc_xmountimage) do
   newparam(:dsc_imagepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ImagePath - Specifies the path of the VHD or ISO file"
+    desc "Specifies the path of the VHD or ISO file"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -135,7 +89,7 @@ Puppet::Type.newtype(:dsc_xmountimage) do
   newparam(:dsc_driveletter) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DriveLetter - Specifies the drive letter after the ISO is mounted"
+    desc "Specifies the drive letter after the ISO is mounted"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -150,7 +104,7 @@ Puppet::Type.newtype(:dsc_xmountimage) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Determines whether the setting should be applied or removed Valid values are Present, Absent."
+    desc "Determines whether the setting should be applied or removed"
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

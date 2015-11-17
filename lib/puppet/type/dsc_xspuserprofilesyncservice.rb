@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xspuserprofilesyncservice) do
 
   @doc = %q{
     The DSC xSPUserProfileSyncService resource type.
-    Automatically generated from
-    'xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPUserProfileSyncService/MSFT_xSPUserProfileSyncService.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPUserProfileSyncService/MSFT_xSPUserProfileSyncService.schema.mof
   }
 
   validate do
       fail('dsc_userprofileserviceappname is a required attribute') if self[:dsc_userprofileserviceappname].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xSPUserProfileSyncService')."
-
-    def retrieve
-      'xSPUserProfileSyncService'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xSPUserProfileSyncService"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xSPUserProfileSyncService')."
-
-    def retrieve
-      'MSFT_xSPUserProfileSyncService'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xSPUserProfileSyncService"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xspuserprofilesyncservice) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xSharePoint')."
-
-    def retrieve
-      'xSharePoint'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xSharePoint"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('0.7.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '0.7.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "0.7.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -104,7 +58,6 @@ Puppet::Type.newtype(:dsc_xspuserprofilesyncservice) do
   newparam(:dsc_userprofileserviceappname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UserProfileServiceAppName"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -120,7 +73,6 @@ Puppet::Type.newtype(:dsc_xspuserprofilesyncservice) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -139,7 +91,6 @@ Puppet::Type.newtype(:dsc_xspuserprofilesyncservice) do
   newparam(:dsc_farmaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "FarmAccount"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -155,7 +106,6 @@ Puppet::Type.newtype(:dsc_xspuserprofilesyncservice) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "InstallAccount"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

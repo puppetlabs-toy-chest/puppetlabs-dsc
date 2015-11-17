@@ -7,50 +7,23 @@ Puppet::Type.newtype(:dsc_xscommanagementpack) do
 
   @doc = %q{
     The DSC xSCOMManagementPack resource type.
-    Automatically generated from
-    'xSCOM/DSCResources/MSFT_xSCOMManagementPack/MSFT_xSCOMManagementPack.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xSCOM/DSCResources/MSFT_xSCOMManagementPack/MSFT_xSCOMManagementPack.schema.mof
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xSCOMManagementPack')."
-
-    def retrieve
-      'xSCOMManagementPack'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xSCOMManagementPack"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xSCOMManagementPack')."
-
-    def retrieve
-      'MSFT_xSCOMManagementPack'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xSCOMManagementPack"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -60,31 +33,12 @@ Puppet::Type.newtype(:dsc_xscommanagementpack) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xSCOM')."
-
-    def retrieve
-      'xSCOM'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xSCOM"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('1.4.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '1.4.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "1.4.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -103,7 +57,7 @@ Puppet::Type.newtype(:dsc_xscommanagementpack) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - Name of the Management Pack."
+    desc "Name of the Management Pack."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -119,7 +73,7 @@ Puppet::Type.newtype(:dsc_xscommanagementpack) do
   newparam(:dsc_version) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Version - Specific version of the Management Pack, overrides MinVersion if both set."
+    desc "Specific version of the Management Pack, overrides MinVersion if both set."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -134,7 +88,7 @@ Puppet::Type.newtype(:dsc_xscommanagementpack) do
   newparam(:dsc_minversion) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MinVersion - Minimum version of the Management Pack, overridden by Version if both set."
+    desc "Minimum version of the Management Pack, overridden by Version if both set."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -149,7 +103,7 @@ Puppet::Type.newtype(:dsc_xscommanagementpack) do
   newparam(:dsc_scomadmincredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "SCOMAdminCredential - Credential with admin permissions to Operations Manager."
+    desc "Credential with admin permissions to Operations Manager."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -165,7 +119,7 @@ Puppet::Type.newtype(:dsc_xscommanagementpack) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SourcePath - UNC path to the root of the source files for installation, if omitted the Operations Manager installation folder will be used."
+    desc "UNC path to the root of the source files for installation, if omitted the Operations Manager installation folder will be used."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -180,7 +134,7 @@ Puppet::Type.newtype(:dsc_xscommanagementpack) do
   newparam(:dsc_sourcefolder) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SourceFolder - Folder within the source path containing the source files for installation."
+    desc "Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -195,7 +149,7 @@ Puppet::Type.newtype(:dsc_xscommanagementpack) do
   newparam(:dsc_sourcefile) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SourceFile - Name of the file in the source folder for the Management Pack."
+    desc "Name of the file in the source folder for the Management Pack."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

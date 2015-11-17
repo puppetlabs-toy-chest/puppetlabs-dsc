@@ -7,17 +7,8 @@ Puppet::Type.newtype(:dsc_xpackage) do
 
   @doc = %q{
     The DSC xPackage resource type.
-    Automatically generated from
-    'xPSDesiredStateConfiguration/DSCResources/MSFT_xPackageResource/MSFT_xPackageResource.schema.mof'
-
-    To learn more about PowerShell Desired State Configuration, please
-    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
-
-    For more information about built-in DSC Resources, please visit
-    https://technet.microsoft.com/en-us/library/dn249921.aspx.
-
-    For more information about xDsc Resources, please visit
-    https://github.com/PowerShell/DscResources.
+    Originally generated from the following schema.mof file:
+      import/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xPackageResource/MSFT_xPackageResource.schema.mof
   }
 
   validate do
@@ -25,33 +16,15 @@ Puppet::Type.newtype(:dsc_xpackage) do
       fail('dsc_productid is a required attribute') if self[:dsc_productid].nil?
     end
 
-  newproperty(:dscmeta_resource_friendly_name) do
-    desc "A read-only value that is the DSC Resource Friendly Name ('xPackage')."
-
-    def retrieve
-      'xPackage'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_friendly_name is read-only'
-    end
+  newparam(:dscmeta_resource_friendly_name) do
+    defaultto "xPackage"
   end
 
-  newproperty(:dscmeta_resource_name) do
-    desc "A read-only value that is the DSC Resource Name ('MSFT_xPackageResource')."
-
-    def retrieve
-      'MSFT_xPackageResource'
-    end
-
-    validate do |value|
-      fail 'dscmeta_resource_name is read-only'
-    end
+  newparam(:dscmeta_resource_name) do
+    defaultto "MSFT_xPackageResource"
   end
 
   newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -61,31 +34,12 @@ Puppet::Type.newtype(:dsc_xpackage) do
     defaultto true
   end
 
-  newproperty(:dscmeta_module_name) do
-    desc "A read-only value that is the DSC Module Name ('xPSDesiredStateConfiguration')."
-
-    def retrieve
-      'xPSDesiredStateConfiguration'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_name is read-only'
-    end
+  newparam(:dscmeta_module_name) do
+    defaultto "xPSDesiredStateConfiguration"
   end
 
-  newproperty(:dscmeta_module_version) do
-    desc "A read-only value for the DSC Module Version ('3.5.0.0').
-      This is the supported version of the PowerShell module that this
-      type was built on. When Puppet runs this resource, it will explicitly
-      use this version."
-
-    def retrieve
-      '3.5.0.0'
-    end
-
-    validate do |value|
-      fail 'dscmeta_module_version is read-only'
-    end
+  newparam(:dscmeta_module_version) do
+    defaultto "3.5.0.0"
   end
 
   newparam(:name, :namevar => true ) do
@@ -105,7 +59,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -124,7 +77,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -140,7 +92,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Path"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -155,7 +106,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_productid) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ProductId"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -171,7 +121,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_arguments) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Arguments"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -186,7 +135,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -202,7 +150,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_returncode, :array_matching => :all) do
     def mof_type; 'uint32[]' end
     def mof_is_embedded?; false end
-    desc "ReturnCode"
     validate do |value|
       unless value.kind_of?(Array) || (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
         fail("Invalid value '#{value}'. Should be an integer or an array of integers")
@@ -221,7 +168,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_logpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "LogPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -236,7 +182,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_packagedescription) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "PackageDescription"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -251,7 +196,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_publisher) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Publisher"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -266,7 +210,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_installedon) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstalledOn"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -281,7 +224,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_size) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "Size"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -299,7 +241,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_version) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Version"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -314,7 +255,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_installed) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Installed"
     validate do |value|
     end
     newvalues(true, false)
@@ -330,7 +270,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_runascredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "RunAsCredential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -346,7 +285,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_filehash) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "FileHash"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -361,7 +299,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_hashalgorithm) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "HashAlgorithm - Valid values are SHA1, SHA256, SHA384, SHA512, MD5, RIPEMD160."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -379,7 +316,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_signersubject) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SignerSubject"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -394,7 +330,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_signerthumbprint) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SignerThumbprint"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -409,7 +344,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_servercertificatevalidationcallback) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ServerCertificateValidationCallback"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -424,7 +358,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_installedcheckreghive) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstalledCheckRegHive - Valid values are LocalMachine, CurrentUser."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -442,7 +375,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_installedcheckregkey) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstalledCheckRegKey"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -457,7 +389,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_installedcheckregvaluename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstalledCheckRegValueName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -472,7 +403,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   newparam(:dsc_installedcheckregvaluedata) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstalledCheckRegValueData"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
