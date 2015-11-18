@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xipaddress) do
 
   @doc = %q{
     The DSC xIPAddress resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xNetworking/DSCResources/MSFT_xIPAddress/MSFT_xIPAddress.schema.mof
+    Automatically generated from
+    'xNetworking/DSCResources/MSFT_xIPAddress/MSFT_xIPAddress.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,31 +25,10 @@ Puppet::Type.newtype(:dsc_xipaddress) do
       fail('dsc_interfacealias is a required attribute') if self[:dsc_interfacealias].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xIPAddress"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xIPAddress"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xNetworking"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "2.3.0.0"
-  end
+  def dscmeta_resource_friendly_name; 'xIPAddress' end
+  def dscmeta_resource_name; 'MSFT_xIPAddress' end
+  def dscmeta_module_name; 'xNetworking' end
+  def dscmeta_module_version; '2.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,6 +46,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   newparam(:dsc_ipaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "IPAddress"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,6 +62,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   newparam(:dsc_interfacealias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "InterfaceAlias"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -88,6 +78,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   newparam(:dsc_subnetmask) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "SubnetMask"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -105,6 +96,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   newparam(:dsc_addressfamily) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "AddressFamily - Valid values are IPv4, IPv6."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

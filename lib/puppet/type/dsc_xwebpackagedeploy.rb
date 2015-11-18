@@ -7,39 +7,27 @@ Puppet::Type.newtype(:dsc_xwebpackagedeploy) do
 
   @doc = %q{
     The DSC xWebPackageDeploy resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xWebDeploy/DSCResources/xWebPackageDeploy/xWebPackageDeploy.schema.mof
+    Automatically generated from
+    'xWebDeploy/DSCResources/xWebPackageDeploy/xWebPackageDeploy.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_destination is a required attribute') if self[:dsc_destination].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xWebPackageDeploy"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "xWebPackageDeploy"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xWebDeploy"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.1.0.0"
-  end
+  def dscmeta_resource_friendly_name; 'xWebPackageDeploy' end
+  def dscmeta_resource_name; 'xWebPackageDeploy' end
+  def dscmeta_module_name; 'xWebDeploy' end
+  def dscmeta_module_version; '1.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +46,7 @@ Puppet::Type.newtype(:dsc_xwebpackagedeploy) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Full path to the zip package."
+    desc "SourcePath - Full path to the zip package."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -73,7 +61,7 @@ Puppet::Type.newtype(:dsc_xwebpackagedeploy) do
   newparam(:dsc_destination) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "WebDeploy destination for content path or website name)."
+    desc "Destination - WebDeploy destination for content path or website name)."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -89,7 +77,7 @@ Puppet::Type.newtype(:dsc_xwebpackagedeploy) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Desired state of resource."
+    desc "Ensure - Desired state of resource. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

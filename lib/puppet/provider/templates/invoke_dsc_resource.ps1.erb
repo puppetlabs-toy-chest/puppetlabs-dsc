@@ -28,7 +28,7 @@ $response = @{
 }
 
 $invokeParams = @{
-  Name          = '<%= resource[:dscmeta_resource_friendly_name] %>'
+  Name          = '<%= resource.dscmeta_resource_friendly_name %>'
   Method        = '<%= dsc_invoke_method %>'
   Property      = @{
 <% dsc_parameters.each do |p| -%>
@@ -49,13 +49,13 @@ $invokeParams = @{
     -%>
     <%= name %> = <%= value %>
 <% end -%>
-  }<% if resource.parameters[:dscmeta_module_version] %>
+  }<% if resource.respond_to?(:dscmeta_module_version) %>
   ModuleName = @{
-    ModuleName      = <%= "\"#{resource[:dscmeta_module_name]}\"" %>
-    RequiredVersion = <%= "\"#{resource[:dscmeta_module_version]}\"" %>
+    ModuleName      = <%= "\"#{resource.dscmeta_module_name}\"" %>
+    RequiredVersion = <%= "\"#{resource.dscmeta_module_version}\"" %>
   }
 <% else %>
-  ModuleName = <%= "\"#{resource[:dscmeta_module_name]}\"" %>
+  ModuleName = <%= "\"#{resource.dscmeta_module_name}\"" %>
 <% end -%>
 }
 

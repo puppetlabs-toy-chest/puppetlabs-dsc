@@ -7,39 +7,27 @@ Puppet::Type.newtype(:dsc_xdbpackage) do
 
   @doc = %q{
     The DSC xDBPackage resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xDatabase/DSCResources/MSFT_xDBPackage/MSFT_xDBPackage.schema.mof
+    Automatically generated from
+    'xDatabase/DSCResources/MSFT_xDBPackage/MSFT_xDBPackage.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_databasename is a required attribute') if self[:dsc_databasename].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xDBPackage"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xDBPackage"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xDatabase"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
-  end
+  def dscmeta_resource_friendly_name; 'xDBPackage' end
+  def dscmeta_resource_name; 'MSFT_xDBPackage' end
+  def dscmeta_module_name; 'xDatabase' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,7 +45,7 @@ Puppet::Type.newtype(:dsc_xdbpackage) do
   newparam(:dsc_credentials) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credentials to Connect to the sql server"
+    desc "Credentials - Credentials to Connect to the sql server"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -73,7 +61,7 @@ Puppet::Type.newtype(:dsc_xdbpackage) do
   newparam(:dsc_databasename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the Database"
+    desc "DatabaseName - Name of the Database"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -89,7 +77,7 @@ Puppet::Type.newtype(:dsc_xdbpackage) do
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Sql Server Name"
+    desc "SqlServer - Sql Server Name"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -104,7 +92,7 @@ Puppet::Type.newtype(:dsc_xdbpackage) do
   newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Path to BacPac/DacPac"
+    desc "Path - Path to BacPac/DacPac"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -119,7 +107,7 @@ Puppet::Type.newtype(:dsc_xdbpackage) do
   newparam(:dsc_type) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Type for backup(Extract id done for DACPAC and Import for BACPAC)"
+    desc "Type - Type for backup(Extract id done for DACPAC and Import for BACPAC) Valid values are DACPAC, BACPAC."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -137,7 +125,7 @@ Puppet::Type.newtype(:dsc_xdbpackage) do
   newparam(:dsc_sqlserverversion) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Sql Server Version For DacFx"
+    desc "SqlServerVersion - Sql Server Version For DacFx Valid values are 2008-R2, 2012, 2014."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

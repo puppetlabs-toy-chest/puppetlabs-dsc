@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xiisfeaturedelegation) do
 
   @doc = %q{
     The DSC xIisFeatureDelegation resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xWebAdministration/DSCResources/MSFT_xIisFeatureDelegation/MSFT_xIisFeatureDelegation.schema.mof
+    Automatically generated from
+    'xWebAdministration/DSCResources/MSFT_xIisFeatureDelegation/MSFT_xIisFeatureDelegation.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,31 +25,10 @@ Puppet::Type.newtype(:dsc_xiisfeaturedelegation) do
       fail('dsc_overridemode is a required attribute') if self[:dsc_overridemode].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xIisFeatureDelegation"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xIisFeatureDelegation"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xWebAdministration"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.7.0.0"
-  end
+  def dscmeta_resource_friendly_name; 'xIisFeatureDelegation' end
+  def dscmeta_resource_name; 'MSFT_xIisFeatureDelegation' end
+  def dscmeta_module_name; 'xWebAdministration' end
+  def dscmeta_module_version; '1.7.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,6 +46,7 @@ Puppet::Type.newtype(:dsc_xiisfeaturedelegation) do
   newparam(:dsc_sectionname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "SectionName"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,6 +62,7 @@ Puppet::Type.newtype(:dsc_xiisfeaturedelegation) do
   newparam(:dsc_overridemode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "OverrideMode - Valid values are Allow, Deny."
     isrequired
     validate do |value|
       unless value.kind_of?(String)

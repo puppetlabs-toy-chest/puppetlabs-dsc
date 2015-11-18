@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
 
   @doc = %q{
     The DSC xDNSServerAddress resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xNetworking/DSCResources/MSFT_xDNSServerAddress/MSFT_xDNSServerAddress.schema.mof
+    Automatically generated from
+    'xNetworking/DSCResources/MSFT_xDNSServerAddress/MSFT_xDNSServerAddress.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,31 +25,10 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
       fail('dsc_addressfamily is a required attribute') if self[:dsc_addressfamily].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xDNSServerAddress"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xDNSServerAddress"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xNetworking"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "2.3.0.0"
-  end
+  def dscmeta_resource_friendly_name; 'xDNSServerAddress' end
+  def dscmeta_resource_name; 'MSFT_xDNSServerAddress' end
+  def dscmeta_module_name; 'xNetworking' end
+  def dscmeta_module_version; '2.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,6 +46,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   newparam(:dsc_address, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "Address"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -75,6 +64,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   newparam(:dsc_interfacealias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "InterfaceAlias"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -90,6 +80,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   newparam(:dsc_addressfamily) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "AddressFamily - Valid values are IPv4, IPv6."
     isrequired
     validate do |value|
       unless value.kind_of?(String)

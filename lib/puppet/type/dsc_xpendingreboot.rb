@@ -7,39 +7,27 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
 
   @doc = %q{
     The DSC xPendingReboot resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xPendingReboot/DSCResources/MSFT_xPendingReboot/MSFT_xPendingReboot.schema.mof
+    Automatically generated from
+    'xPendingReboot/DSCResources/MSFT_xPendingReboot/MSFT_xPendingReboot.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xPendingReboot"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xPendingReboot"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xPendingReboot"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "0.1.0.2"
-  end
+  def dscmeta_resource_friendly_name; 'xPendingReboot' end
+  def dscmeta_resource_name; 'MSFT_xPendingReboot' end
+  def dscmeta_module_name; 'xPendingReboot' end
+  def dscmeta_module_version; '0.1.0.2' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,6 +45,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Name"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +61,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_componentbasedservicing) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "ComponentBasedServicing"
     validate do |value|
     end
     newvalues(true, false)
@@ -87,6 +77,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_windowsupdate) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "WindowsUpdate"
     validate do |value|
     end
     newvalues(true, false)
@@ -102,6 +93,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_pendingfilerename) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "PendingFileRename"
     validate do |value|
     end
     newvalues(true, false)
@@ -117,6 +109,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_pendingcomputerrename) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "PendingComputerRename"
     validate do |value|
     end
     newvalues(true, false)
@@ -132,6 +125,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_ccmclientsdk) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "CcmClientSDK"
     validate do |value|
     end
     newvalues(true, false)

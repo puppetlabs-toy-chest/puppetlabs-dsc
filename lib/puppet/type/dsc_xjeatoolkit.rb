@@ -7,39 +7,27 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
 
   @doc = %q{
     The DSC xJeaToolKit resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xJea/DSCResources/MSFT_xJeaToolkit/MSFT_xJeaToolkit.schema.mof
+    Automatically generated from
+    'xJea/DSCResources/MSFT_xJeaToolkit/MSFT_xJeaToolkit.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xJeaToolKit"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xJeaToolkit"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xJea"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "0.3.0.0"
-  end
+  def dscmeta_resource_friendly_name; 'xJeaToolKit' end
+  def dscmeta_resource_name; 'MSFT_xJeaToolkit' end
+  def dscmeta_module_name; 'xJea' end
+  def dscmeta_module_version; '0.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +46,7 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the JEA toolkit to be generated"
+    desc "Name - Name of the JEA toolkit to be generated"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +62,7 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
   newparam(:dsc_commandspecs) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CSV formated list of command specifications"
+    desc "CommandSpecs - CSV formated list of command specifications"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -89,7 +77,7 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
   newparam(:dsc_scriptdirectory, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "array of script directories that can be run"
+    desc "ScriptDirectory - array of script directories that can be run"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -107,7 +95,7 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
   newparam(:dsc_applications, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Array of executables that are allowed to run"
+    desc "Applications - Array of executables that are allowed to run"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -125,6 +113,7 @@ Puppet::Type.newtype(:dsc_xjeatoolkit) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

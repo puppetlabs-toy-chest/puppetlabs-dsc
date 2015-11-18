@@ -7,34 +7,25 @@ Puppet::Type.newtype(:dsc_log) do
 
   @doc = %q{
     The DSC Log resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_LogResource/MSFT_LogResource.schema.mof
+    Automatically generated from
+    'PSDesiredStateConfiguration/DSCResources/MSFT_LogResource/MSFT_LogResource.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "Log"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_LogResource"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "PSDesiredStateConfiguration"
-  end
+  def dscmeta_resource_friendly_name; 'Log' end
+  def dscmeta_resource_name; 'MSFT_LogResource' end
+  def dscmeta_module_name; 'PSDesiredStateConfiguration' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -52,6 +43,7 @@ Puppet::Type.newtype(:dsc_log) do
   newparam(:dsc_message) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Message"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

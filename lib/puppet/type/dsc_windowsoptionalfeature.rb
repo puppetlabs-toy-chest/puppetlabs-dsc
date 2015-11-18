@@ -7,35 +7,26 @@ Puppet::Type.newtype(:dsc_windowsoptionalfeature) do
 
   @doc = %q{
     The DSC WindowsOptionalFeature resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_WindowsOptionalFeature/MSFT_WindowsOptionalFeature.schema.mof
+    Automatically generated from
+    'PSDesiredStateConfiguration/DSCResources/MSFT_WindowsOptionalFeature/MSFT_WindowsOptionalFeature.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "WindowsOptionalFeature"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_WindowsOptionalFeature"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "PSDesiredStateConfiguration"
-  end
+  def dscmeta_resource_friendly_name; 'WindowsOptionalFeature' end
+  def dscmeta_resource_name; 'MSFT_WindowsOptionalFeature' end
+  def dscmeta_module_name; 'PSDesiredStateConfiguration' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -54,6 +45,7 @@ Puppet::Type.newtype(:dsc_windowsoptionalfeature) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Name"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -69,6 +61,7 @@ Puppet::Type.newtype(:dsc_windowsoptionalfeature) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Enable, Disable."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -87,6 +80,7 @@ Puppet::Type.newtype(:dsc_windowsoptionalfeature) do
   newparam(:dsc_source, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "Source"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -104,6 +98,7 @@ Puppet::Type.newtype(:dsc_windowsoptionalfeature) do
   newparam(:dsc_nowindowsupdatecheck) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "NoWindowsUpdateCheck"
     validate do |value|
     end
     newvalues(true, false)
@@ -119,6 +114,7 @@ Puppet::Type.newtype(:dsc_windowsoptionalfeature) do
   newparam(:dsc_removefilesondisable) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "RemoveFilesOnDisable"
     validate do |value|
     end
     newvalues(true, false)
@@ -134,6 +130,7 @@ Puppet::Type.newtype(:dsc_windowsoptionalfeature) do
   newparam(:dsc_loglevel) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "LogLevel - Valid values are ErrorsOnly, ErrorsAndWarning, ErrorsAndWarningAndInformation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -151,6 +148,7 @@ Puppet::Type.newtype(:dsc_windowsoptionalfeature) do
   newparam(:dsc_logpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "LogPath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -165,6 +163,7 @@ Puppet::Type.newtype(:dsc_windowsoptionalfeature) do
   newparam(:dsc_customproperties, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "CustomProperties"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -182,6 +181,7 @@ Puppet::Type.newtype(:dsc_windowsoptionalfeature) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Description"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -196,6 +196,7 @@ Puppet::Type.newtype(:dsc_windowsoptionalfeature) do
   newparam(:dsc_displayname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DisplayName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

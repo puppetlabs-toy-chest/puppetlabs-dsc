@@ -7,39 +7,27 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
 
   @doc = %q{
     The DSC xAzurePackUpdate resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xAzurePack/DSCResources/MSFT_xAzurePackUpdate/MSFT_xAzurePackUpdate.schema.mof
+    Automatically generated from
+    'xAzurePack/DSCResources/MSFT_xAzurePackUpdate/MSFT_xAzurePackUpdate.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_role is a required attribute') if self[:dsc_role].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xAzurePackUpdate"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xAzurePackUpdate"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xAzurePack"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
-  end
+  def dscmeta_resource_friendly_name; 'xAzurePackUpdate' end
+  def dscmeta_resource_name; 'MSFT_xAzurePackUpdate' end
+  def dscmeta_module_name; 'xAzurePack' end
+  def dscmeta_module_version; '1.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,7 +45,7 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
   newparam(:dsc_role) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The Azure Pack role to be updated."
+    desc "Role - The Azure Pack role to be updated. Valid values are Admin API, Tenant API, Tenant Public API, SQL Server Extension, MySQL Extension, Admin Site, Admin Authentication Site, Tenant Site, Tenant Authentication Site."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -76,7 +64,7 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UNC path to the root of the source files for installation."
+    desc "SourcePath - UNC path to the root of the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -91,7 +79,7 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
   newparam(:dsc_sourcefolder) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Folder within the source path containing the source files for installation."
+    desc "SourceFolder - Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -106,7 +94,7 @@ Puppet::Type.newtype(:dsc_xazurepackupdate) do
   newparam(:dsc_setupcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential to be used to perform the installation."
+    desc "SetupCredential - Credential to be used to perform the installation."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

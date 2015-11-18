@@ -7,39 +7,27 @@ Puppet::Type.newtype(:dsc_xspwebapplication) do
 
   @doc = %q{
     The DSC xSPWebApplication resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPWebApplication/MSFT_xSPWebApplication.schema.mof
+    Automatically generated from
+    'xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPWebApplication/MSFT_xSPWebApplication.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSPWebApplication"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSPWebApplication"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xSharePoint"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "0.7.0.0"
-  end
+  def dscmeta_resource_friendly_name; 'xSPWebApplication' end
+  def dscmeta_resource_name; 'MSFT_xSPWebApplication' end
+  def dscmeta_module_name; 'xSharePoint' end
+  def dscmeta_module_version; '0.7.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,6 +45,7 @@ Puppet::Type.newtype(:dsc_xspwebapplication) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Name"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +61,7 @@ Puppet::Type.newtype(:dsc_xspwebapplication) do
   newparam(:dsc_applicationpool) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ApplicationPool"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -86,6 +76,7 @@ Puppet::Type.newtype(:dsc_xspwebapplication) do
   newparam(:dsc_applicationpoolaccount) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "ApplicationPoolAccount"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -100,6 +91,7 @@ Puppet::Type.newtype(:dsc_xspwebapplication) do
   newparam(:dsc_url) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Url"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -114,6 +106,7 @@ Puppet::Type.newtype(:dsc_xspwebapplication) do
   newparam(:dsc_allowanonymous) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "AllowAnonymous"
     validate do |value|
     end
     newvalues(true, false)
@@ -129,6 +122,7 @@ Puppet::Type.newtype(:dsc_xspwebapplication) do
   newparam(:dsc_authenticationmethod) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "AuthenticationMethod - Valid values are NTLM, Kerberos."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -146,6 +140,7 @@ Puppet::Type.newtype(:dsc_xspwebapplication) do
   newparam(:dsc_databasename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DatabaseName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -160,6 +155,7 @@ Puppet::Type.newtype(:dsc_xspwebapplication) do
   newparam(:dsc_databaseserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DatabaseServer"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -174,6 +170,7 @@ Puppet::Type.newtype(:dsc_xspwebapplication) do
   newparam(:dsc_hostheader) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "HostHeader"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -188,6 +185,7 @@ Puppet::Type.newtype(:dsc_xspwebapplication) do
   newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Path"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -202,6 +200,7 @@ Puppet::Type.newtype(:dsc_xspwebapplication) do
   newparam(:dsc_port) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Port"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -216,6 +215,7 @@ Puppet::Type.newtype(:dsc_xspwebapplication) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "InstallAccount"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

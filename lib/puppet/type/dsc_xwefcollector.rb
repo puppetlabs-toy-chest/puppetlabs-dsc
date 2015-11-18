@@ -7,39 +7,27 @@ Puppet::Type.newtype(:dsc_xwefcollector) do
 
   @doc = %q{
     The DSC xWEFCollector resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xWindowsEventForwarding/DSCResources/MSFT_xWEFCollector/MSFT_xWEFCollector.schema.mof
+    Automatically generated from
+    'xWindowsEventForwarding/DSCResources/MSFT_xWEFCollector/MSFT_xWEFCollector.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xWEFCollector"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xWEFCollector"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xWindowsEventForwarding"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.0.0.0"
-  end
+  def dscmeta_resource_friendly_name; 'xWEFCollector' end
+  def dscmeta_resource_name; 'MSFT_xWEFCollector' end
+  def dscmeta_module_name; 'xWindowsEventForwarding' end
+  def dscmeta_module_version; '1.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +46,7 @@ Puppet::Type.newtype(:dsc_xwefcollector) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Determines whether the Collector service should be enabled or disabled"
+    desc "Ensure - Determines whether the Collector service should be enabled or disabled Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -77,7 +65,7 @@ Puppet::Type.newtype(:dsc_xwefcollector) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Provide a unique name for the setting"
+    desc "Name - Provide a unique name for the setting"
     isrequired
     validate do |value|
       unless value.kind_of?(String)

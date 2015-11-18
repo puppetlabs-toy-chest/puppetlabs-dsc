@@ -7,35 +7,26 @@ Puppet::Type.newtype(:dsc_file) do
 
   @doc = %q{
     The DSC File resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_FileDirectoryConfiguration/MSFT_FileDirectoryConfiguration.schema.mof
+    Automatically generated from
+    'PSDesiredStateConfiguration/DSCResources/MSFT_FileDirectoryConfiguration/MSFT_FileDirectoryConfiguration.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_destinationpath is a required attribute') if self[:dsc_destinationpath].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "File"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_FileDirectoryConfiguration"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "PSDesiredStateConfiguration"
-  end
+  def dscmeta_resource_friendly_name; 'File' end
+  def dscmeta_resource_name; 'MSFT_FileDirectoryConfiguration' end
+  def dscmeta_module_name; 'PSDesiredStateConfiguration' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -54,6 +45,7 @@ Puppet::Type.newtype(:dsc_file) do
   newparam(:dsc_destinationpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DestinationPath"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -69,6 +61,7 @@ Puppet::Type.newtype(:dsc_file) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -87,6 +80,7 @@ Puppet::Type.newtype(:dsc_file) do
   newparam(:dsc_type) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Type - Valid values are File, Directory."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -104,6 +98,7 @@ Puppet::Type.newtype(:dsc_file) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "SourcePath"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -118,6 +113,7 @@ Puppet::Type.newtype(:dsc_file) do
   newparam(:dsc_contents) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Contents"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -132,6 +128,7 @@ Puppet::Type.newtype(:dsc_file) do
   newparam(:dsc_checksum) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Checksum - Valid values are SHA-1, SHA-256, SHA-512, CreatedDate, ModifiedDate."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -149,6 +146,7 @@ Puppet::Type.newtype(:dsc_file) do
   newparam(:dsc_recurse) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "Recurse"
     validate do |value|
     end
     newvalues(true, false)
@@ -164,6 +162,7 @@ Puppet::Type.newtype(:dsc_file) do
   newparam(:dsc_force) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "Force"
     validate do |value|
     end
     newvalues(true, false)
@@ -179,6 +178,7 @@ Puppet::Type.newtype(:dsc_file) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -194,6 +194,7 @@ Puppet::Type.newtype(:dsc_file) do
   newparam(:dsc_attributes, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "Attributes - Valid values are ReadOnly, Hidden, System, Archive."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -221,6 +222,7 @@ Puppet::Type.newtype(:dsc_file) do
   newparam(:dsc_dependson, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "DependsOn"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -238,6 +240,7 @@ Puppet::Type.newtype(:dsc_file) do
   newparam(:dsc_matchsource) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "MatchSource"
     validate do |value|
     end
     newvalues(true, false)
@@ -253,6 +256,7 @@ Puppet::Type.newtype(:dsc_file) do
   newparam(:dsc_psdscrunascredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "PsDscRunAsCredential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

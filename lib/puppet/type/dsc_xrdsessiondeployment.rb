@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xrdsessiondeployment) do
 
   @doc = %q{
     The DSC xRDSessionDeployment resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xRemoteDesktopSessionHost/DSCResources/MSFT_xRDSessionDeployment/MSFT_xRDSessionDeployment.schema.mof
+    Automatically generated from
+    'xRemoteDesktopSessionHost/DSCResources/MSFT_xRDSessionDeployment/MSFT_xRDSessionDeployment.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -17,31 +26,10 @@ Puppet::Type.newtype(:dsc_xrdsessiondeployment) do
       fail('dsc_webaccessserver is a required attribute') if self[:dsc_webaccessserver].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xRDSessionDeployment"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xRDSessionDeployment"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xRemoteDesktopSessionHost"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.1.0.0"
-  end
+  def dscmeta_resource_friendly_name; 'xRDSessionDeployment' end
+  def dscmeta_resource_name; 'MSFT_xRDSessionDeployment' end
+  def dscmeta_module_name; 'xRemoteDesktopSessionHost' end
+  def dscmeta_module_version; '1.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -59,7 +47,7 @@ Puppet::Type.newtype(:dsc_xrdsessiondeployment) do
   newparam(:dsc_sessionhost) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the FQDN of a server to host the RD Session Host role service. "
+    desc "SessionHost - Specifies the FQDN of a server to host the RD Session Host role service. "
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -75,7 +63,7 @@ Puppet::Type.newtype(:dsc_xrdsessiondeployment) do
   newparam(:dsc_connectionbroker) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the FQDN of a server to host the RD Connection Broker role service."
+    desc "ConnectionBroker - Specifies the FQDN of a server to host the RD Connection Broker role service."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -91,7 +79,7 @@ Puppet::Type.newtype(:dsc_xrdsessiondeployment) do
   newparam(:dsc_webaccessserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the FQDN of a server to host the RD Web Access role service. "
+    desc "WebAccessServer - Specifies the FQDN of a server to host the RD Web Access role service. "
     isrequired
     validate do |value|
       unless value.kind_of?(String)

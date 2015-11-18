@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
 
   @doc = %q{
     The DSC xSPCreateFarm resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPCreateFarm/MSFT_xSPCreateFarm.schema.mof
+    Automatically generated from
+    'xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPCreateFarm/MSFT_xSPCreateFarm.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,31 +25,10 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
       fail('dsc_databaseserver is a required attribute') if self[:dsc_databaseserver].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSPCreateFarm"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSPCreateFarm"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xSharePoint"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "0.7.0.0"
-  end
+  def dscmeta_resource_friendly_name; 'xSPCreateFarm' end
+  def dscmeta_resource_name; 'MSFT_xSPCreateFarm' end
+  def dscmeta_module_name; 'xSharePoint' end
+  def dscmeta_module_version; '0.7.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,6 +46,7 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
   newparam(:dsc_farmconfigdatabasename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "FarmConfigDatabaseName"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,6 +62,7 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
   newparam(:dsc_databaseserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DatabaseServer"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -88,6 +78,7 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
   newparam(:dsc_farmaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "FarmAccount"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -103,6 +94,7 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "InstallAccount"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -118,6 +110,7 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
   newparam(:dsc_passphrase) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Passphrase"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -132,6 +125,7 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
   newparam(:dsc_admincontentdatabasename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "AdminContentDatabaseName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -146,6 +140,7 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
   newparam(:dsc_centraladministrationport) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "CentralAdministrationPort"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

@@ -7,39 +7,27 @@ Puppet::Type.newtype(:dsc_xdismfeature) do
 
   @doc = %q{
     The DSC xDismFeature resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xDismFeature/DSCResources/MSFT_xDismFeature/MSFT_xDismFeature.schema.mof
+    Automatically generated from
+    'xDismFeature/DSCResources/MSFT_xDismFeature/MSFT_xDismFeature.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xDismFeature"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xDismFeature"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xDismFeature"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.0.0"
-  end
+  def dscmeta_resource_friendly_name; 'xDismFeature' end
+  def dscmeta_resource_name; 'MSFT_xDismFeature' end
+  def dscmeta_module_name; 'xDismFeature' end
+  def dscmeta_module_version; '1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +46,7 @@ Puppet::Type.newtype(:dsc_xdismfeature) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "An enumerated value that describes if the feature is expected to be enabled on the machine.\nPresent {default}  \nAbsent   \n"
+    desc "Ensure - An enumerated value that describes if the feature is expected to be enabled on the machine.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -77,7 +65,7 @@ Puppet::Type.newtype(:dsc_xdismfeature) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the feature."
+    desc "Name - Name of the feature."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -93,7 +81,7 @@ Puppet::Type.newtype(:dsc_xdismfeature) do
   newparam(:dsc_source) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Optional location of Source."
+    desc "Source - Optional location of Source."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

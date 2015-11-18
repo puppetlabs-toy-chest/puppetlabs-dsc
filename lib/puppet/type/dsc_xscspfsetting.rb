@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xscspfsetting) do
 
   @doc = %q{
     The DSC xSCSPFSetting resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSCSPF/DSCResources/MSFT_xSCSPFSetting/MSFT_xSCSPFSetting.schema.mof
+    Automatically generated from
+    'xSCSPF/DSCResources/MSFT_xSCSPFSetting/MSFT_xSCSPFSetting.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,31 +25,10 @@ Puppet::Type.newtype(:dsc_xscspfsetting) do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSCSPFSetting"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSCSPFSetting"
-  end
-
-  newparam(:dscmeta_import_resource) do
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
-  newparam(:dscmeta_module_name) do
-    defaultto "xSCSPF"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.4.0.0"
-  end
+  def dscmeta_resource_friendly_name; 'xSCSPFSetting' end
+  def dscmeta_resource_name; 'MSFT_xSCSPFSetting' end
+  def dscmeta_module_name; 'xSCSPF' end
+  def dscmeta_module_version; '1.4.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -59,7 +47,7 @@ Puppet::Type.newtype(:dsc_xscspfsetting) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "An enumerated value that describes if the SPF setting exists.\nPresent {default}  \nAbsent   \n"
+    desc "Ensure - An enumerated value that describes if the SPF setting exists.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -78,7 +66,7 @@ Puppet::Type.newtype(:dsc_xscspfsetting) do
   newparam(:dsc_servername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the name of the server the setting is associated with."
+    desc "ServerName - Specifies the name of the server the setting is associated with."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -94,7 +82,7 @@ Puppet::Type.newtype(:dsc_xscspfsetting) do
   newparam(:dsc_settingtype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies either DatabaseConnectionString or EndPointConnectionString."
+    desc "SettingType - Specifies either DatabaseConnectionString or EndPointConnectionString. Valid values are DatabaseConnectionString, EndPointConnectionString."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -112,7 +100,7 @@ Puppet::Type.newtype(:dsc_xscspfsetting) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies a friendly name for the setting."
+    desc "Name - Specifies a friendly name for the setting."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -128,7 +116,7 @@ Puppet::Type.newtype(:dsc_xscspfsetting) do
   newparam(:dsc_value) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the value for the setting."
+    desc "Value - Specifies the value for the setting."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -143,7 +131,7 @@ Puppet::Type.newtype(:dsc_xscspfsetting) do
   newparam(:dsc_scspfadmincredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential with admin permissions to Service Provider Foundation."
+    desc "SCSPFAdminCredential - Credential with admin permissions to Service Provider Foundation."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
