@@ -26,19 +26,6 @@ Puppet::Type.newtype(:dsc_xpowershellexecutionpolicy) do
 
   def dscmeta_resource_friendly_name; 'xPowerShellExecutionPolicy' end
   def dscmeta_resource_name; 'xPowerShellExecutionPolicy' end
-
-  newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
   def dscmeta_module_name; 'xPowerShellExecutionPolicy' end
   def dscmeta_module_version; '1.0.0' end
 

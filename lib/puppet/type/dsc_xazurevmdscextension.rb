@@ -26,19 +26,6 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
 
   def dscmeta_resource_friendly_name; 'xAzureVMDscExtension' end
   def dscmeta_resource_name; 'MSFT_xAzureVMDscExtension' end
-
-  newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
   def dscmeta_module_name; 'xAzure' end
   def dscmeta_module_version; '0.2.0.0' end
 

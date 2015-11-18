@@ -26,19 +26,6 @@ Puppet::Type.newtype(:dsc_xhotfix) do
 
   def dscmeta_resource_friendly_name; 'xHotfix' end
   def dscmeta_resource_name; 'MSFT_xWindowsUpdate' end
-
-  newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
   def dscmeta_module_name; 'xWindowsUpdate' end
   def dscmeta_module_version; '2.2.0.0' end
 

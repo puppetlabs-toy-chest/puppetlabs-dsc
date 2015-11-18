@@ -27,19 +27,6 @@ Puppet::Type.newtype(:dsc_xdhcpserverscope) do
 
   def dscmeta_resource_friendly_name; 'xDhcpServerScope' end
   def dscmeta_resource_name; 'MSFT_xDhcpServerScope' end
-
-  newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
   def dscmeta_module_name; 'xDhcpServer' end
   def dscmeta_module_version; '1.2' end
 

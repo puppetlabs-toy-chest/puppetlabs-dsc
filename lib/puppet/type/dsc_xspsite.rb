@@ -26,19 +26,6 @@ Puppet::Type.newtype(:dsc_xspsite) do
 
   def dscmeta_resource_friendly_name; 'xSPSite' end
   def dscmeta_resource_name; 'MSFT_xSPSite' end
-
-  newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
   def dscmeta_module_name; 'xSharePoint' end
   def dscmeta_module_version; '0.7.0.0' end
 

@@ -27,19 +27,6 @@ Puppet::Type.newtype(:dsc_archive) do
 
   def dscmeta_resource_friendly_name; 'Archive' end
   def dscmeta_resource_name; 'MSFT_ArchiveResource' end
-
-  newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
   def dscmeta_module_name; 'PSDesiredStateConfiguration' end
 
   newparam(:name, :namevar => true ) do

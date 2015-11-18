@@ -26,19 +26,6 @@ Puppet::Type.newtype(:dsc_xmountimage) do
 
   def dscmeta_resource_friendly_name; 'xMountImage' end
   def dscmeta_resource_name; 'MSFT_xMountImage' end
-
-  newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
   def dscmeta_module_name; 'xStorage' end
   def dscmeta_module_version; '2.1.0.0' end
 

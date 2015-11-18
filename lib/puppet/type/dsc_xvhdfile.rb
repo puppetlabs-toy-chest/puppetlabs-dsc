@@ -49,19 +49,6 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
 
   def dscmeta_resource_friendly_name; 'xVhdFile' end
   def dscmeta_resource_name; 'MSFT_xVhdFileDirectory' end
-
-  newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
   def dscmeta_module_name; 'xHyper-V' end
   def dscmeta_module_version; '3.2.0.0' end
 

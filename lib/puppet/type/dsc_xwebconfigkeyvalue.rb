@@ -28,19 +28,6 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
 
   def dscmeta_resource_friendly_name; 'xWebConfigKeyValue' end
   def dscmeta_resource_name; 'MSFT_xWebConfigKeyValue' end
-
-  newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
   def dscmeta_module_name; 'xWebAdministration' end
   def dscmeta_module_version; '1.7.0.0' end
 

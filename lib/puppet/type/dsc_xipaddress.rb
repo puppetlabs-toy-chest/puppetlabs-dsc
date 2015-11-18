@@ -27,19 +27,6 @@ Puppet::Type.newtype(:dsc_xipaddress) do
 
   def dscmeta_resource_friendly_name; 'xIPAddress' end
   def dscmeta_resource_name; 'MSFT_xIPAddress' end
-
-  newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
   def dscmeta_module_name; 'xNetworking' end
   def dscmeta_module_version; '2.3.0.0' end
 

@@ -405,7 +405,7 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
       @provider = described_class.provider(:powershell).new(dsc_xwindowsprocess)
     end
 
-    describe "when dscmeta_import_resource is true (default) and dscmeta_module_name existing/is defined " do
+    describe "when dscmeta_module_name existing/is defined " do
 
       it "should compute powershell dsc test script with Invoke-DscResource" do
         expect(@provider.ps_script_content('test')).to match(/Invoke-DscResource/)

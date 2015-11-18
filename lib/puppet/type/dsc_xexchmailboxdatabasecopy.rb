@@ -26,19 +26,6 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabasecopy) do
 
   def dscmeta_resource_friendly_name; 'xExchMailboxDatabaseCopy' end
   def dscmeta_resource_name; 'MSFT_xExchMailboxDatabaseCopy' end
-
-  newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
   def dscmeta_module_name; 'xExchange' end
   def dscmeta_module_version; '1.3.0.0' end
 

@@ -26,19 +26,6 @@ Puppet::Type.newtype(:dsc_xscdpmconsolesetup) do
 
   def dscmeta_resource_friendly_name; 'xSCDPMConsoleSetup' end
   def dscmeta_resource_name; 'MSFT_xSCDPMConsoleSetup' end
-
-  newparam(:dscmeta_import_resource) do
-    desc "Please ignore this parameter.
-      Defaults to `true`."
-    newvalues(true, false)
-
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-
-    defaultto true
-  end
-
   def dscmeta_module_name; 'xSCDPM' end
   def dscmeta_module_version; '1.2.0.0' end
 
