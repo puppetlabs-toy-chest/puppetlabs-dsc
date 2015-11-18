@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
 
   @doc = %q{
     The DSC xSCSMAWebServiceServerSetup resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSCSMA/DSCResources/MSFT_xSCSMAWebServiceServerSetup/MSFT_xSCSMAWebServiceServerSetup.schema.mof
+    Automatically generated from
+    'xSCSMA/DSCResources/MSFT_xSCSMAWebServiceServerSetup/MSFT_xSCSMAWebServiceServerSetup.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_ensure is a required attribute') if self[:dsc_ensure].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSCSMAWebServiceServerSetup"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSCSMAWebServiceServerSetup"
-  end
+  def dscmeta_resource_friendly_name; 'xSCSMAWebServiceServerSetup' end
+  def dscmeta_resource_name; 'MSFT_xSCSMAWebServiceServerSetup' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xSCSMA"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
-  end
+  def dscmeta_module_name; 'xSCSMA' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +59,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "An enumerated value that describes if the SMA Web Service server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n"
+    desc "Ensure - An enumerated value that describes if the SMA Web Service server is expected to be installed on the machine.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
     isrequired
     validate do |value|
       resource[:ensure] = value.downcase
@@ -78,7 +79,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UNC path to the root of the source files for installation."
+    desc "SourcePath - UNC path to the root of the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -93,7 +94,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_sourcefolder) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Folder within the source path containing the source files for installation."
+    desc "SourceFolder - Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -108,7 +109,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_setupcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential to be used to perform the installation."
+    desc "SetupCredential - Credential to be used to perform the installation."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -124,7 +125,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_firstwebserviceserver) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Is this the first Management Server?"
+    desc "FirstWebServiceServer - Is this the first Management Server?"
     validate do |value|
     end
     newvalues(true, false)
@@ -140,7 +141,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_appool) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Service account of the web service application pool."
+    desc "ApPool - Service account of the web service application pool."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -156,7 +157,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_appoolusername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Output username of the web service application pool."
+    desc "ApPoolUsername - Output username of the web service application pool."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -171,7 +172,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_admingroupmembers) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "A comma-separated list of users to add to the IIS Administrators group."
+    desc "AdminGroupMembers - A comma-separated list of users to add to the IIS Administrators group."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -186,7 +187,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the SQL Server for the SMA database."
+    desc "SqlServer - Name of the SQL Server for the SMA database."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -201,7 +202,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_sqlinstance) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the SQL Instance for the SMA database."
+    desc "SqlInstance - Name of the SQL Instance for the SMA database."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -216,7 +217,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_sqldatabase) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the SMA database."
+    desc "SqlDatabase - Name of the SMA database."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -231,7 +232,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_sitename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the SMA web site."
+    desc "SiteName - Name of the SMA web site."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -246,7 +247,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_webserviceport) do
     def mof_type; 'uint16' end
     def mof_is_embedded?; false end
-    desc "Port of the SMA web site."
+    desc "WebServicePort - Port of the SMA web site."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -264,7 +265,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_installfolder) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Installation folder for SMA."
+    desc "InstallFolder - Installation folder for SMA."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -279,7 +280,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_usessl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Use SSL?"
+    desc "UseSSL - Use SSL?"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -294,7 +295,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_specifycertificate) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specify an existing certificate for the SMA web site."
+    desc "SpecifyCertificate - Specify an existing certificate for the SMA web site."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -309,7 +310,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_certificatename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the existing certificate to use."
+    desc "CertificateName - Name of the existing certificate to use."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -324,7 +325,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_etwmanifest) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Log to ETW."
+    desc "ETWManifest - Log to ETW."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -339,7 +340,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_sendceipreports) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Send Customer Experience Improvement Program."
+    desc "SendCEIPReports - Send Customer Experience Improvement Program."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -354,7 +355,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_msupdate) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Use Microsoft Update."
+    desc "MSUpdate - Use Microsoft Update."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -369,7 +370,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_productkey) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Product key for licensed installations."
+    desc "ProductKey - Product key for licensed installations."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -384,7 +385,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   newparam(:dsc_runbookworkerservers, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Array of Runbook Worker servers in this deployment."
+    desc "RunbookWorkerServers - Array of Runbook Worker servers in this deployment."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xazurevm) do
 
   @doc = %q{
     The DSC xAzureVM resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureVM/MSFT_xAzureVM.schema.mof
+    Automatically generated from
+    'xAzure/DSCResources/MSFT_xAzureVM/MSFT_xAzureVM.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xAzureVM"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xAzureVM"
-  end
+  def dscmeta_resource_friendly_name; 'xAzureVM' end
+  def dscmeta_resource_name; 'MSFT_xAzureVM' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xazurevm) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xAzure"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "0.2.0.0"
-  end
+  def dscmeta_module_name; 'xAzure' end
+  def dscmeta_module_version; '0.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +59,7 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the name of the virtual machine."
+    desc "Name - Specifies the name of the virtual machine."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +75,7 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies whether the Azure VM should be present or absent."
+    desc "Ensure - Specifies whether the Azure VM should be present or absent. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -93,7 +94,7 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   newparam(:dsc_imagename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the name of the operating system image to use to create the operating system disk."
+    desc "ImageName - Specifies the name of the operating system image to use to create the operating system disk."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -108,7 +109,7 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   newparam(:dsc_servicename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the new or existing service name."
+    desc "ServiceName - Specifies the new or existing service name."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -123,7 +124,7 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   newparam(:dsc_storageaccountname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the name of the storage account for the VM."
+    desc "StorageAccountName - Specifies the name of the storage account for the VM."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -138,7 +139,7 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   newparam(:dsc_instancesize) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the size of the instance.   For a list of virtual machine sizes, see http://msdn.microsoft.com/library/azure/dn197896.aspx"
+    desc "InstanceSize - Specifies the size of the instance.   For a list of virtual machine sizes, see http://msdn.microsoft.com/library/azure/dn197896.aspx"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -153,7 +154,7 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   newparam(:dsc_linux) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Creates a Linux virtual machine."
+    desc "Linux - Creates a Linux virtual machine."
     validate do |value|
     end
     newvalues(true, false)
@@ -169,7 +170,7 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   newparam(:dsc_windows) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Creates a Windows virtual machine."
+    desc "Windows - Creates a Windows virtual machine."
     validate do |value|
     end
     newvalues(true, false)
@@ -185,6 +186,7 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -200,7 +202,7 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   newparam(:dsc_extensioncontainername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The name of the Container in Azure Blob storage where the script files will reside.  Case sensitive."
+    desc "ExtensionContainerName - The name of the Container in Azure Blob storage where the script files will reside.  Case sensitive."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -215,7 +217,7 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   newparam(:dsc_extensionfilelist) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "List of files in Azure Blob container that should be copied in to the VM.  Case sensitive."
+    desc "ExtensionFileList - List of files in Azure Blob container that should be copied in to the VM.  Case sensitive."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -230,7 +232,7 @@ Puppet::Type.newtype(:dsc_xazurevm) do
   newparam(:dsc_extensionscriptname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of one of the files in the container that will be exectued at startup.  Case sensitive."
+    desc "ExtensionScriptName - Name of one of the files in the container that will be exectued at startup.  Case sensitive."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

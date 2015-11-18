@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xsqlserverrssecureconnectionlevel) do
 
   @doc = %q{
     The DSC xSQLServerRSSecureConnectionLevel resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerRSSecureConnectionLevel/MSFT_xSQLServerRSSecureConnectionLevel.schema.mof
+    Automatically generated from
+    'xSQLServer/DSCResources/MSFT_xSQLServerRSSecureConnectionLevel/MSFT_xSQLServerRSSecureConnectionLevel.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,15 +25,12 @@ Puppet::Type.newtype(:dsc_xsqlserverrssecureconnectionlevel) do
       fail('dsc_secureconnectionlevel is a required attribute') if self[:dsc_secureconnectionlevel].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSQLServerRSSecureConnectionLevel"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSQLServerRSSecureConnectionLevel"
-  end
+  def dscmeta_resource_friendly_name; 'xSQLServerRSSecureConnectionLevel' end
+  def dscmeta_resource_name; 'MSFT_xSQLServerRSSecureConnectionLevel' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,13 +40,8 @@ Puppet::Type.newtype(:dsc_xsqlserverrssecureconnectionlevel) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xSQLServer"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
-  end
+  def dscmeta_module_name; 'xSQLServer' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +59,7 @@ Puppet::Type.newtype(:dsc_xsqlserverrssecureconnectionlevel) do
   newparam(:dsc_instancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQL instance to set secure connection level for."
+    desc "InstanceName - SQL instance to set secure connection level for."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +75,7 @@ Puppet::Type.newtype(:dsc_xsqlserverrssecureconnectionlevel) do
   newparam(:dsc_secureconnectionlevel) do
     def mof_type; 'uint16' end
     def mof_is_embedded?; false end
-    desc "SQL Server Reporting Service secure connection level."
+    desc "SecureConnectionLevel - SQL Server Reporting Service secure connection level."
     isrequired
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
@@ -93,7 +94,7 @@ Puppet::Type.newtype(:dsc_xsqlserverrssecureconnectionlevel) do
   newparam(:dsc_sqladmincredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential with administrative permissions to the SQL instance."
+    desc "SQLAdminCredential - Credential with administrative permissions to the SQL instance."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

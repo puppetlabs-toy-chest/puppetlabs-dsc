@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
 
   @doc = %q{
     The DSC xWaitForCluster resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xFailOverCluster/DSCResources/MSFT_xWaitForCluster/MSFT_xWaitForCluster.schema.mof
+    Automatically generated from
+    'xFailOverCluster/DSCResources/MSFT_xWaitForCluster/MSFT_xWaitForCluster.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xWaitForCluster"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xWaitForCluster"
-  end
+  def dscmeta_resource_friendly_name; 'xWaitForCluster' end
+  def dscmeta_resource_name; 'MSFT_xWaitForCluster' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xFailOverCluster"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
-  end
+  def dscmeta_module_name; 'xFailOverCluster' end
+  def dscmeta_module_version; '1.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,7 +58,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the cluster"
+    desc "Name - Name of the cluster"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,7 +74,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   newparam(:dsc_retryintervalsec) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
-    desc "Interval to check the cluster existency"
+    desc "RetryIntervalSec - Interval to check the cluster existency"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -91,7 +92,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   newparam(:dsc_retrycount) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "Maximum number of retries to check cluster existency"
+    desc "RetryCount - Maximum number of retries to check cluster existency"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

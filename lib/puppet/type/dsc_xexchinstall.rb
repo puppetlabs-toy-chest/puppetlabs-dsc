@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
 
   @doc = %q{
     The DSC xExchInstall resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xExchange/DSCResources/MSFT_xExchInstall/MSFT_xExchInstall.schema.mof
+    Automatically generated from
+    'xExchange/DSCResources/MSFT_xExchInstall/MSFT_xExchInstall.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,15 +25,12 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
       fail('dsc_arguments is a required attribute') if self[:dsc_arguments].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xExchInstall"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xExchInstall"
-  end
+  def dscmeta_resource_friendly_name; 'xExchInstall' end
+  def dscmeta_resource_name; 'MSFT_xExchInstall' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,13 +40,8 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xExchange"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
-  end
+  def dscmeta_module_name; 'xExchange' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +59,7 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
   newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Full path to setup.exe in the Exchange 2013 setup directory"
+    desc "Path - Full path to setup.exe in the Exchange 2013 setup directory"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +75,7 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
   newparam(:dsc_arguments) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Command line arguments to pass to setup.exe"
+    desc "Arguments - Command line arguments to pass to setup.exe"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -90,7 +91,7 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "The credentials to use to perform the installation"
+    desc "Credential - The credentials to use to perform the installation"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

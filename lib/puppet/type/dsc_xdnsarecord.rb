@@ -7,8 +7,17 @@ Puppet::Type.newtype(:dsc_xdnsarecord) do
 
   @doc = %q{
     The DSC xDnsARecord resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsARecord/MSFT_xDnsARecord.schema.mof
+    Automatically generated from
+    'xDnsServer/DSCResources/MSFT_xDnsARecord/MSFT_xDnsARecord.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
@@ -16,15 +25,12 @@ Puppet::Type.newtype(:dsc_xdnsarecord) do
       fail('dsc_zone is a required attribute') if self[:dsc_zone].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xDnsARecord"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xDnsARecord"
-  end
+  def dscmeta_resource_friendly_name; 'xDnsARecord' end
+  def dscmeta_resource_name; 'MSFT_xDnsARecord' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -34,13 +40,8 @@ Puppet::Type.newtype(:dsc_xdnsarecord) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xDnsServer"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
-  end
+  def dscmeta_module_name; 'xDnsServer' end
+  def dscmeta_module_version; '1.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,6 +59,7 @@ Puppet::Type.newtype(:dsc_xdnsarecord) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Name"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,6 +75,7 @@ Puppet::Type.newtype(:dsc_xdnsarecord) do
   newparam(:dsc_zone) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Zone"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -88,6 +91,7 @@ Puppet::Type.newtype(:dsc_xdnsarecord) do
   newparam(:dsc_target) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Target"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xpowershellexecutionpolicy) do
 
   @doc = %q{
     The DSC xPowerShellExecutionPolicy resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xPowerShellExecutionPolicy/DSCResources/xPowerShellExecutionPolicy/xPowerShellExecutionPolicy.schema.mof
+    Automatically generated from
+    'xPowerShellExecutionPolicy/DSCResources/xPowerShellExecutionPolicy/xPowerShellExecutionPolicy.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_executionpolicy is a required attribute') if self[:dsc_executionpolicy].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xPowerShellExecutionPolicy"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "xPowerShellExecutionPolicy"
-  end
+  def dscmeta_resource_friendly_name; 'xPowerShellExecutionPolicy' end
+  def dscmeta_resource_name; 'xPowerShellExecutionPolicy' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xpowershellexecutionpolicy) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xPowerShellExecutionPolicy"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.0.0"
-  end
+  def dscmeta_module_name; 'xPowerShellExecutionPolicy' end
+  def dscmeta_module_version; '1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,7 +58,7 @@ Puppet::Type.newtype(:dsc_xpowershellexecutionpolicy) do
   newparam(:dsc_executionpolicy) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Changes the user preference for the Windows PowerShell execution policy."
+    desc "ExecutionPolicy - Changes the user preference for the Windows PowerShell execution policy. Valid values are Bypass, Restricted, AllSigned, RemoteSigned, Unrestricted."
     isrequired
     validate do |value|
       unless value.kind_of?(String)

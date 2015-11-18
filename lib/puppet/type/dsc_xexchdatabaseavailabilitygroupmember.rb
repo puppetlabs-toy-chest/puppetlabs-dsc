@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupmember) do
 
   @doc = %q{
     The DSC xExchDatabaseAvailabilityGroupMember resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xExchange/DSCResources/MSFT_xExchDatabaseAvailabilityGroupMember/MSFT_xExchDatabaseAvailabilityGroupMember.schema.mof
+    Automatically generated from
+    'xExchange/DSCResources/MSFT_xExchDatabaseAvailabilityGroupMember/MSFT_xExchDatabaseAvailabilityGroupMember.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_mailboxserver is a required attribute') if self[:dsc_mailboxserver].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xExchDatabaseAvailabilityGroupMember"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xExchDatabaseAvailabilityGroupMember"
-  end
+  def dscmeta_resource_friendly_name; 'xExchDatabaseAvailabilityGroupMember' end
+  def dscmeta_resource_name; 'MSFT_xExchDatabaseAvailabilityGroupMember' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupmember) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xExchange"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
-  end
+  def dscmeta_module_name; 'xExchange' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,6 +58,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupmember) do
   newparam(:dsc_mailboxserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "MailboxServer"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +74,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupmember) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -87,6 +90,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupmember) do
   newparam(:dsc_dagname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DAGName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -101,6 +105,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupmember) do
   newparam(:dsc_domaincontroller) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DomainController"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -115,6 +120,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupmember) do
   newparam(:dsc_skipdagvalidation) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "SkipDagValidation"
     validate do |value|
     end
     newvalues(true, false)

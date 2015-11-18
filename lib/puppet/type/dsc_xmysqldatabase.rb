@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xmysqldatabase) do
 
   @doc = %q{
     The DSC xMySqlDatabase resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xMySql/DscResources/MSFT_xMySqlDatabase/MSFT_xMySqlDatabase.schema.mof
+    Automatically generated from
+    'xMySql/DscResources/MSFT_xMySqlDatabase/MSFT_xMySqlDatabase.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xMySqlDatabase"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xMySqlDatabase"
-  end
+  def dscmeta_resource_friendly_name; 'xMySqlDatabase' end
+  def dscmeta_resource_name; 'MSFT_xMySqlDatabase' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xmysqldatabase) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xMySql"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.1.0.0"
-  end
+  def dscmeta_module_name; 'xMySql' end
+  def dscmeta_module_version; '1.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +59,7 @@ Puppet::Type.newtype(:dsc_xmysqldatabase) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the database."
+    desc "Name - Name of the database."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +75,7 @@ Puppet::Type.newtype(:dsc_xmysqldatabase) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Should the database be present or absent."
+    desc "Ensure - Should the database be present or absent. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -93,7 +94,7 @@ Puppet::Type.newtype(:dsc_xmysqldatabase) do
   newparam(:dsc_connectioncredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "The root credential that is used to install MySql server."
+    desc "ConnectionCredential - The root credential that is used to install MySql server."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

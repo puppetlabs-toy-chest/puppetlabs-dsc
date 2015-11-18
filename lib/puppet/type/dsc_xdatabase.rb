@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xdatabase) do
 
   @doc = %q{
     The DSC xDatabase resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xDatabase/DSCResources/MSFT_xDatabase/MSFT_xDatabase.schema.mof
+    Automatically generated from
+    'xDatabase/DSCResources/MSFT_xDatabase/MSFT_xDatabase.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_databasename is a required attribute') if self[:dsc_databasename].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xDatabase"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xDatabase"
-  end
+  def dscmeta_resource_friendly_name; 'xDatabase' end
+  def dscmeta_resource_name; 'MSFT_xDatabase' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xdatabase) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xDatabase"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
-  end
+  def dscmeta_module_name; 'xDatabase' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +59,7 @@ Puppet::Type.newtype(:dsc_xdatabase) do
   newparam(:dsc_credentials) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credentials to Connect to the sql server"
+    desc "Credentials - Credentials to Connect to the sql server"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -74,6 +75,7 @@ Puppet::Type.newtype(:dsc_xdatabase) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -92,7 +94,7 @@ Puppet::Type.newtype(:dsc_xdatabase) do
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Sql Server Name"
+    desc "SqlServer - Sql Server Name"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -107,7 +109,7 @@ Puppet::Type.newtype(:dsc_xdatabase) do
   newparam(:dsc_sqlserverversion) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Sql Server Version For DacFx"
+    desc "SqlServerVersion - Sql Server Version For DacFx Valid values are 2008-R2, 2012, 2014."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -125,7 +127,7 @@ Puppet::Type.newtype(:dsc_xdatabase) do
   newparam(:dsc_bacpacpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Path to BacPac, if this is specified resore is performed"
+    desc "BacPacPath - Path to BacPac, if this is specified resore is performed"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -140,7 +142,7 @@ Puppet::Type.newtype(:dsc_xdatabase) do
   newparam(:dsc_databasename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the Database"
+    desc "DatabaseName - Name of the Database"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -156,7 +158,7 @@ Puppet::Type.newtype(:dsc_xdatabase) do
   newparam(:dsc_dacpacpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Path to DacPac, if this is specified dacpac deployment is performed"
+    desc "DacPacPath - Path to DacPac, if this is specified dacpac deployment is performed"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -171,7 +173,7 @@ Puppet::Type.newtype(:dsc_xdatabase) do
   newparam(:dsc_dacpacapplicationname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DacPac Application Name for Registration"
+    desc "DacPacApplicationName - DacPac Application Name for Registration"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -186,7 +188,7 @@ Puppet::Type.newtype(:dsc_xdatabase) do
   newparam(:dsc_dacpacapplicationversion) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DacPac Application Version for Registration"
+    desc "DacPacApplicationVersion - DacPac Application Version for Registration"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

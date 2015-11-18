@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
 
   @doc = %q{
     The DSC xAzureVMDscExtension resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureVMDscExtension/MSFT_xAzureVMDscExtension.schema.mof
+    Automatically generated from
+    'xAzure/DSCResources/MSFT_xAzureVMDscExtension/MSFT_xAzureVMDscExtension.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_vmname is a required attribute') if self[:dsc_vmname].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xAzureVMDscExtension"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xAzureVMDscExtension"
-  end
+  def dscmeta_resource_friendly_name; 'xAzureVMDscExtension' end
+  def dscmeta_resource_name; 'MSFT_xAzureVMDscExtension' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xAzure"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "0.2.0.0"
-  end
+  def dscmeta_module_name; 'xAzure' end
+  def dscmeta_module_version; '0.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,7 +58,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_vmname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies name of the VM.  This is used together with ServiceName to construct a persistent vm object."
+    desc "VMName - Specifies name of the VM.  This is used together with ServiceName to construct a persistent vm object."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,7 +74,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_servicename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies name of the Service where the VM is deployed."
+    desc "ServiceName - Specifies name of the Service where the VM is deployed."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -88,7 +89,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_configurationarchive) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The name of the configuration package .zip file that was previously uploaded by Publish-AzureVMDscConfiguration. This parameter must specify only the name of the file, without any path."
+    desc "ConfigurationArchive - The name of the configuration package .zip file that was previously uploaded by Publish-AzureVMDscConfiguration. This parameter must specify only the name of the file, without any path."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -103,7 +104,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_storageaccountname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the name of the Storage Account used to create the Storage Context.  The Azure Storage Context provides the security settings used to access the configuration script. This context should provide read access to the container specified by ContainerName."
+    desc "StorageAccountName - Specifies the name of the Storage Account used to create the Storage Context.  The Azure Storage Context provides the security settings used to access the configuration script. This context should provide read access to the container specified by ContainerName."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -118,7 +119,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_configurationargument) do
     def mof_type; 'MSFT_KeyValuePair' end
     def mof_is_embedded?; true end
-    desc "A hashtable specifying the arguments to the configuration function. The keys correspond to the parameter names and the values to the parameter values."
+    desc "ConfigurationArgument - A hashtable specifying the arguments to the configuration function. The keys correspond to the parameter names and the values to the parameter values."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -134,7 +135,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_configurationdatapath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The path to a .psd1 file that specifies the data for the configuration function."
+    desc "ConfigurationDataPath - The path to a .psd1 file that specifies the data for the configuration function."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -149,7 +150,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_configuration) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the configuration script or module that will be invoked by the DSC Extension."
+    desc "Configuration - Name of the configuration script or module that will be invoked by the DSC Extension."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -164,7 +165,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_containername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the Azure Storage Container where the ConfigurationArchive is located."
+    desc "ContainerName - Name of the Azure Storage Container where the ConfigurationArchive is located."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -179,7 +180,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_force) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "By default Set-AzureVMDscExtension will not overwrite any existing blobs. Use -Force to overwrite them."
+    desc "Force - By default Set-AzureVMDscExtension will not overwrite any existing blobs. Use -Force to overwrite them."
     validate do |value|
     end
     newvalues(true, false)
@@ -195,7 +196,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_referencename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The Extension Reference Name"
+    desc "ReferenceName - The Extension Reference Name"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -210,7 +211,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_storageendpointsuffix) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The DNS endpoint suffix for all storage services, e.g. core.windows.net"
+    desc "StorageEndpointSuffix - The DNS endpoint suffix for all storage services, e.g. core.windows.net"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -225,7 +226,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_version) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The specific version of the DSC Extension to use. If not given, it will default to 1.*"
+    desc "Version - The specific version of the DSC Extension to use. If not given, it will default to 1.*"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -240,7 +241,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_timestamp) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Returns the timestamp of the last DSC Extension execution."
+    desc "TimeStamp - Returns the timestamp of the last DSC Extension execution."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -255,7 +256,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_code) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Returns the message code for the latest oepration by the DSC Extension."
+    desc "Code - Returns the message code for the latest oepration by the DSC Extension."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -270,7 +271,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_message) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Returns the formatted message string for the latest operation by the DSC Extension."
+    desc "Message - Returns the formatted message string for the latest operation by the DSC Extension."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -285,7 +286,7 @@ Puppet::Type.newtype(:dsc_xazurevmdscextension) do
   newparam(:dsc_status) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Returns the state of the DSC Extension from Azure."
+    desc "Status - Returns the state of the DSC Extension from Azure."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

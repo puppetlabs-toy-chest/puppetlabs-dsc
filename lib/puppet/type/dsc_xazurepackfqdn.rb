@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xazurepackfqdn) do
 
   @doc = %q{
     The DSC xAzurePackFQDN resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xAzurePack/DSCResources/MSFT_xAzurePackFQDN/MSFT_xAzurePackFQDN.schema.mof
+    Automatically generated from
+    'xAzurePack/DSCResources/MSFT_xAzurePackFQDN/MSFT_xAzurePackFQDN.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_namespace is a required attribute') if self[:dsc_namespace].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xAzurePackFQDN"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xAzurePackFQDN"
-  end
+  def dscmeta_resource_friendly_name; 'xAzurePackFQDN' end
+  def dscmeta_resource_name; 'MSFT_xAzurePackFQDN' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xazurepackfqdn) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xAzurePack"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
-  end
+  def dscmeta_module_name; 'xAzurePack' end
+  def dscmeta_module_version; '1.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,7 +58,7 @@ Puppet::Type.newtype(:dsc_xazurepackfqdn) do
   newparam(:dsc_namespace) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies a namespace."
+    desc "Namespace - Specifies a namespace. Valid values are AdminSite, AuthSite, TenantSite, WindowsAuthSite."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -76,7 +77,7 @@ Puppet::Type.newtype(:dsc_xazurepackfqdn) do
   newparam(:dsc_fullyqualifieddomainname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies a Fully Qualified Domain Name (FQDN)."
+    desc "FullyQualifiedDomainName - Specifies a Fully Qualified Domain Name (FQDN)."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -91,7 +92,7 @@ Puppet::Type.newtype(:dsc_xazurepackfqdn) do
   newparam(:dsc_port) do
     def mof_type; 'uint16' end
     def mof_is_embedded?; false end
-    desc "Specifies a port number."
+    desc "Port - Specifies a port number."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -109,7 +110,7 @@ Puppet::Type.newtype(:dsc_xazurepackfqdn) do
   newparam(:dsc_azurepackadmincredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential to be used to perform the installation."
+    desc "AzurePackAdminCredential - Credential to be used to perform the installation."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -125,7 +126,7 @@ Puppet::Type.newtype(:dsc_xazurepackfqdn) do
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Database server for the Azure Pack databases."
+    desc "SQLServer - Database server for the Azure Pack databases."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -140,7 +141,7 @@ Puppet::Type.newtype(:dsc_xazurepackfqdn) do
   newparam(:dsc_sqlinstance) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Database instance for the Azure Pack databases."
+    desc "SQLInstance - Database instance for the Azure Pack databases."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

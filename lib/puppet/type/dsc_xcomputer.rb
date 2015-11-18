@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xcomputer) do
 
   @doc = %q{
     The DSC xComputer resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xComputerManagement/DSCResources/MSFT_xComputer/MSFT_xComputer.schema.mof
+    Automatically generated from
+    'xComputerManagement/DSCResources/MSFT_xComputer/MSFT_xComputer.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xComputer"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xComputer"
-  end
+  def dscmeta_resource_friendly_name; 'xComputer' end
+  def dscmeta_resource_name; 'MSFT_xComputer' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xcomputer) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xComputerManagement"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.3.0"
-  end
+  def dscmeta_module_name; 'xComputerManagement' end
+  def dscmeta_module_version; '1.3.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,6 +58,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Name"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +74,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   newparam(:dsc_domainname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "DomainName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -86,6 +89,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -101,6 +105,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   newparam(:dsc_unjoincredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "UnjoinCredential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -116,6 +121,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   newparam(:dsc_workgroupname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "WorkGroupName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xdatabaseserver) do
 
   @doc = %q{
     The DSC xDatabaseServer resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xDatabase/DSCResources/MSFT_xDatabaseServer/MSFT_xDatabaseServer.schema.mof
+    Automatically generated from
+    'xDatabase/DSCResources/MSFT_xDatabaseServer/MSFT_xDatabaseServer.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_loginmode is a required attribute') if self[:dsc_loginmode].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xDatabaseServer"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xDatabaseServer"
-  end
+  def dscmeta_resource_friendly_name; 'xDatabaseServer' end
+  def dscmeta_resource_name; 'MSFT_xDatabaseServer' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xdatabaseserver) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xDatabase"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.3.0.0"
-  end
+  def dscmeta_module_name; 'xDatabase' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,6 +58,7 @@ Puppet::Type.newtype(:dsc_xdatabaseserver) do
   newparam(:dsc_loginmode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "LoginMode - Valid values are Windows, Mixed."
     isrequired
     validate do |value|
       unless value.kind_of?(String)

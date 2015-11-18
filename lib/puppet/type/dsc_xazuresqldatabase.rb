@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
 
   @doc = %q{
     The DSC xAzureSqlDatabase resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureSqlDatabase/MSFT_xAzureSqlDatabase.schema.mof
+    Automatically generated from
+    'xAzure/DSCResources/MSFT_xAzureSqlDatabase/MSFT_xAzureSqlDatabase.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xAzureSqlDatabase"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xAzureSqlDatabase"
-  end
+  def dscmeta_resource_friendly_name; 'xAzureSqlDatabase' end
+  def dscmeta_resource_name; 'MSFT_xAzureSqlDatabase' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xAzure"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "0.2.0.0"
-  end
+  def dscmeta_module_name; 'xAzure' end
+  def dscmeta_module_version; '0.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +59,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the database"
+    desc "Name - Name of the database"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +75,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   newparam(:dsc_maximumsizeingb) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "Maximum size of the database in GB"
+    desc "MaximumSizeInGB - Maximum size of the database in GB"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -92,7 +93,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   newparam(:dsc_collation) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Collation of the database"
+    desc "Collation - Collation of the database"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -107,7 +108,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   newparam(:dsc_edition) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Edition of the database"
+    desc "Edition - Edition of the database"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -122,7 +123,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   newparam(:dsc_servercredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential to the database server"
+    desc "ServerCredential - Credential to the database server"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -138,7 +139,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   newparam(:dsc_servername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name of the database server"
+    desc "ServerName - Name of the database server"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -153,7 +154,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   newparam(:dsc_azuresubscriptionname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the name of the Azure subscription that should be set to Current"
+    desc "AzureSubscriptionName - Specifies the name of the Azure subscription that should be set to Current"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -168,7 +169,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   newparam(:dsc_azurepublishsettingsfile) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the location of the Publish Settings file for the Azure Subscription"
+    desc "AzurePublishSettingsFile - Specifies the location of the Publish Settings file for the Azure Subscription"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -183,7 +184,7 @@ Puppet::Type.newtype(:dsc_xazuresqldatabase) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure that database is present or absent"
+    desc "Ensure - Ensure that database is present or absent Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

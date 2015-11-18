@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_group) do
 
   @doc = %q{
     The DSC Group resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_GroupResource/MSFT_GroupResource.schema.mof
+    Automatically generated from
+    'PSDesiredStateConfiguration/DSCResources/MSFT_GroupResource/MSFT_GroupResource.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_groupname is a required attribute') if self[:dsc_groupname].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "Group"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_GroupResource"
-  end
+  def dscmeta_resource_friendly_name; 'Group' end
+  def dscmeta_resource_name; 'MSFT_GroupResource' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,9 +39,7 @@ Puppet::Type.newtype(:dsc_group) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "PSDesiredStateConfiguration"
-  end
+  def dscmeta_module_name; 'PSDesiredStateConfiguration' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -54,6 +58,7 @@ Puppet::Type.newtype(:dsc_group) do
   newparam(:dsc_groupname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "GroupName"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -69,6 +74,7 @@ Puppet::Type.newtype(:dsc_group) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -87,6 +93,7 @@ Puppet::Type.newtype(:dsc_group) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Description"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -101,6 +108,7 @@ Puppet::Type.newtype(:dsc_group) do
   newparam(:dsc_members, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "Members"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -118,6 +126,7 @@ Puppet::Type.newtype(:dsc_group) do
   newparam(:dsc_memberstoinclude, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "MembersToInclude"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -135,6 +144,7 @@ Puppet::Type.newtype(:dsc_group) do
   newparam(:dsc_memberstoexclude, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
+    desc "MembersToExclude"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -152,6 +162,7 @@ Puppet::Type.newtype(:dsc_group) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
+    desc "Credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

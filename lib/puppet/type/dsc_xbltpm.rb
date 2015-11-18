@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xbltpm) do
 
   @doc = %q{
     The DSC xBLTpm resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xBitlocker/DSCResources/MSFT_xBLTpm/MSFT_xBLTpm.schema.mof
+    Automatically generated from
+    'xBitlocker/DSCResources/MSFT_xBLTpm/MSFT_xBLTpm.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_identity is a required attribute') if self[:dsc_identity].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xBLTpm"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xBLTpm"
-  end
+  def dscmeta_resource_friendly_name; 'xBLTpm' end
+  def dscmeta_resource_name; 'MSFT_xBLTpm' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xbltpm) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xBitlocker"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.1.0.0"
-  end
+  def dscmeta_module_name; 'xBitlocker' end
+  def dscmeta_module_version; '1.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,6 +58,7 @@ Puppet::Type.newtype(:dsc_xbltpm) do
   newparam(:dsc_identity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
+    desc "Identity"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +74,7 @@ Puppet::Type.newtype(:dsc_xbltpm) do
   newparam(:dsc_allowclear) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "AllowClear"
     validate do |value|
     end
     newvalues(true, false)
@@ -87,6 +90,7 @@ Puppet::Type.newtype(:dsc_xbltpm) do
   newparam(:dsc_allowphysicalpresence) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "AllowPhysicalPresence"
     validate do |value|
     end
     newvalues(true, false)
@@ -102,6 +106,7 @@ Puppet::Type.newtype(:dsc_xbltpm) do
   newparam(:dsc_allowimmediatereboot) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
+    desc "AllowImmediateReboot"
     validate do |value|
     end
     newvalues(true, false)

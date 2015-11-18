@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
 
   @doc = %q{
     The DSC xWaitForDisk resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xStorage/DSCResources/MSFT_xWaitForDisk/MSFT_xWaitForDisk.schema.mof
+    Automatically generated from
+    'xStorage/DSCResources/MSFT_xWaitForDisk/MSFT_xWaitForDisk.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_disknumber is a required attribute') if self[:dsc_disknumber].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xWaitForDisk"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xWaitForDisk"
-  end
+  def dscmeta_resource_friendly_name; 'xWaitForDisk' end
+  def dscmeta_resource_name; 'MSFT_xWaitForDisk' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xStorage"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "2.1.0.0"
-  end
+  def dscmeta_module_name; 'xStorage' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,6 +58,7 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
   newparam(:dsc_disknumber) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "DiskNumber"
     isrequired
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
@@ -75,6 +77,7 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
   newparam(:dsc_retryintervalsec) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
+    desc "RetryIntervalSec"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -92,6 +95,7 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
   newparam(:dsc_retrycount) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
+    desc "RetryCount"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

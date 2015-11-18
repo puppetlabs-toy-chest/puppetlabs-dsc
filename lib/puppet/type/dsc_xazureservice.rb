@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xazureservice) do
 
   @doc = %q{
     The DSC xAzureService resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xAzure/DSCResources/MSFT_xAzureService/MSFT_xAzureService.schema.mof
+    Automatically generated from
+    'xAzure/DSCResources/MSFT_xAzureService/MSFT_xAzureService.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_servicename is a required attribute') if self[:dsc_servicename].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xAzureService"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xAzureService"
-  end
+  def dscmeta_resource_friendly_name; 'xAzureService' end
+  def dscmeta_resource_name; 'MSFT_xAzureService' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xazureservice) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xAzure"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "0.2.0.0"
-  end
+  def dscmeta_module_name; 'xAzure' end
+  def dscmeta_module_version; '0.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +59,7 @@ Puppet::Type.newtype(:dsc_xazureservice) do
   newparam(:dsc_servicename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies a name for the new cloud service that is unique to the subscription."
+    desc "ServiceName - Specifies a name for the new cloud service that is unique to the subscription."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +75,7 @@ Puppet::Type.newtype(:dsc_xazureservice) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies whether the service should be present or absent."
+    desc "Ensure - Specifies whether the service should be present or absent. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -93,7 +94,7 @@ Puppet::Type.newtype(:dsc_xazureservice) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the Azure Affinity Group for the service."
+    desc "Description - Specifies the Azure Affinity Group for the service."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -108,7 +109,7 @@ Puppet::Type.newtype(:dsc_xazureservice) do
   newparam(:dsc_affinitygroup) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies a description for the service."
+    desc "AffinityGroup - Specifies a description for the service."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -123,7 +124,7 @@ Puppet::Type.newtype(:dsc_xazureservice) do
   newparam(:dsc_label) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies a label for the service."
+    desc "Label - Specifies a label for the service."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

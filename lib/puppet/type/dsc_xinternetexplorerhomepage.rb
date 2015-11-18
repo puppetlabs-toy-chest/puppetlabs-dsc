@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xinternetexplorerhomepage) do
 
   @doc = %q{
     The DSC xInternetExplorerHomePage resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xInternetExplorerHomePage/DSCResources/xInternetExplorerHomePage/xInternetExplorerHomePage.schema.mof
+    Automatically generated from
+    'xInternetExplorerHomePage/DSCResources/xInternetExplorerHomePage/xInternetExplorerHomePage.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_startpage is a required attribute') if self[:dsc_startpage].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xInternetExplorerHomePage"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "xInternetExplorerHomePage"
-  end
+  def dscmeta_resource_friendly_name; 'xInternetExplorerHomePage' end
+  def dscmeta_resource_name; 'xInternetExplorerHomePage' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xinternetexplorerhomepage) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xInternetExplorerHomePage"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.0.0"
-  end
+  def dscmeta_module_name; 'xInternetExplorerHomePage' end
+  def dscmeta_module_version; '1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +59,7 @@ Puppet::Type.newtype(:dsc_xinternetexplorerhomepage) do
   newparam(:dsc_startpage) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the URL for the home page of Internet Explorer."
+    desc "StartPage - Specifies the URL for the home page of Internet Explorer."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +75,7 @@ Puppet::Type.newtype(:dsc_xinternetexplorerhomepage) do
   newparam(:dsc_secondarystartpages) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the URL for the secondary home pages of Internet Explorer."
+    desc "SecondaryStartPages - Specifies the URL for the secondary home pages of Internet Explorer."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -89,7 +90,7 @@ Puppet::Type.newtype(:dsc_xinternetexplorerhomepage) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Should the IE home page is configured or unconfigured."
+    desc "Ensure - Should the IE home page is configured or unconfigured. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

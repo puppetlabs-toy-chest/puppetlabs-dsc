@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xsystemrestorepoint) do
 
   @doc = %q{
     The DSC xSystemRestorePoint resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xWindowsRestore/DSCResources/xSystemRestorePoint/xSystemRestorePoint.schema.mof
+    Automatically generated from
+    'xWindowsRestore/DSCResources/xSystemRestorePoint/xSystemRestorePoint.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_description is a required attribute') if self[:dsc_description].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSystemRestorePoint"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "xSystemRestorePoint"
-  end
+  def dscmeta_resource_friendly_name; 'xSystemRestorePoint' end
+  def dscmeta_resource_name; 'xSystemRestorePoint' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xsystemrestorepoint) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xWindowsRestore"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.0.0"
-  end
+  def dscmeta_module_name; 'xWindowsRestore' end
+  def dscmeta_module_version; '1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +59,7 @@ Puppet::Type.newtype(:dsc_xsystemrestorepoint) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies a descriptive name for the restore point."
+    desc "Description - Specifies a descriptive name for the restore point."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +75,7 @@ Puppet::Type.newtype(:dsc_xsystemrestorepoint) do
   newparam(:dsc_restorepointtype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the type of restore point. The default is APPLICATION_INSTALL."
+    desc "RestorePointType - Specifies the type of restore point. The default is APPLICATION_INSTALL. Valid values are APPLICATION_INSTALL, APPLICATION_UNINSTALL, DEVICE_DRIVER_INSTALL, MODIFY_SETTINGS, CANCELLED_OPERATION."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -92,7 +93,7 @@ Puppet::Type.newtype(:dsc_xsystemrestorepoint) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Indicates if the specified restore point created. Set this property to 'Absent' to ensure that the restore point does not exist. Set it to 'Present' to ensure that the restore point does exist. The default is 'Present'."
+    desc "Ensure - Indicates if the specified restore point created. Set this property to 'Absent' to ensure that the restore point does not exist. Set it to 'Present' to ensure that the restore point does exist. The default is 'Present'. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

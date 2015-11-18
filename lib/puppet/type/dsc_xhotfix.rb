@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xhotfix) do
 
   @doc = %q{
     The DSC xHotfix resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xWindowsUpdate/DscResources/MSFT_xWindowsUpdate/MSFT_xWindowsUpdate.schema.mof
+    Automatically generated from
+    'xWindowsUpdate/DscResources/MSFT_xWindowsUpdate/MSFT_xWindowsUpdate.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_path is a required attribute') if self[:dsc_path].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xHotfix"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xWindowsUpdate"
-  end
+  def dscmeta_resource_friendly_name; 'xHotfix' end
+  def dscmeta_resource_name; 'MSFT_xWindowsUpdate' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xhotfix) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xWindowsUpdate"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "2.2.0.0"
-  end
+  def dscmeta_module_name; 'xWindowsUpdate' end
+  def dscmeta_module_version; '2.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,7 +59,7 @@ Puppet::Type.newtype(:dsc_xhotfix) do
   newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the path that contains the msu file for the hotfix installation."
+    desc "Path - Specifies the path that contains the msu file for the hotfix installation."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,7 +75,7 @@ Puppet::Type.newtype(:dsc_xhotfix) do
   newparam(:dsc_id) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the Hotfix ID."
+    desc "Id - Specifies the Hotfix ID."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -89,7 +90,7 @@ Puppet::Type.newtype(:dsc_xhotfix) do
   newparam(:dsc_log) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies the location of the log that contains information from the installation."
+    desc "Log - Specifies the location of the log that contains information from the installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -104,7 +105,7 @@ Puppet::Type.newtype(:dsc_xhotfix) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Specifies whether the hotfix needs to be installed or uninstalled."
+    desc "Ensure - Specifies whether the hotfix needs to be installed or uninstalled. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -123,7 +124,7 @@ Puppet::Type.newtype(:dsc_xhotfix) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Specifies the credential to use to authenticate to a UNC share if the path is on a UNC share."
+    desc "Credential - Specifies the credential to use to authenticate to a UNC share if the path is on a UNC share."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

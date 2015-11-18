@@ -7,23 +7,29 @@ Puppet::Type.newtype(:dsc_xsqlhaservice) do
 
   @doc = %q{
     The DSC xSqlHAService resource type.
-    Originally generated from the following schema.mof file:
-      import/dsc_resources/xSqlPs/DSCResources/MSFT_xSqlHAService/MSFT_xSqlHAService.schema.mof
+    Automatically generated from
+    'xSqlPs/DSCResources/MSFT_xSqlHAService/MSFT_xSqlHAService.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
   }
 
   validate do
       fail('dsc_instancename is a required attribute') if self[:dsc_instancename].nil?
     end
 
-  newparam(:dscmeta_resource_friendly_name) do
-    defaultto "xSqlHAService"
-  end
-
-  newparam(:dscmeta_resource_name) do
-    defaultto "MSFT_xSqlHAService"
-  end
+  def dscmeta_resource_friendly_name; 'xSqlHAService' end
+  def dscmeta_resource_name; 'MSFT_xSqlHAService' end
 
   newparam(:dscmeta_import_resource) do
+    desc "Please ignore this parameter.
+      Defaults to `true`."
     newvalues(true, false)
 
     munge do |value|
@@ -33,13 +39,8 @@ Puppet::Type.newtype(:dsc_xsqlhaservice) do
     defaultto true
   end
 
-  newparam(:dscmeta_module_name) do
-    defaultto "xSqlPs"
-  end
-
-  newparam(:dscmeta_module_version) do
-    defaultto "1.2.0.0"
-  end
+  def dscmeta_module_name; 'xSqlPs' end
+  def dscmeta_module_version; '1.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,7 +58,7 @@ Puppet::Type.newtype(:dsc_xsqlhaservice) do
   newparam(:dsc_instancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "The name of Sql instance."
+    desc "InstanceName - The name of Sql instance."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,7 +74,7 @@ Puppet::Type.newtype(:dsc_xsqlhaservice) do
   newparam(:dsc_sqladministratorcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Sql sa credential"
+    desc "SqlAdministratorCredential - Sql sa credential"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -89,7 +90,7 @@ Puppet::Type.newtype(:dsc_xsqlhaservice) do
   newparam(:dsc_servicecredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Domain credential to run sql service"
+    desc "ServiceCredential - Domain credential to run sql service"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
