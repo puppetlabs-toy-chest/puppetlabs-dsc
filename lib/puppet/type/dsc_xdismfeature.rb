@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdismfeature) do
   def dscmeta_resource_friendly_name; 'xDismFeature' end
   def dscmeta_resource_name; 'MSFT_xDismFeature' end
   def dscmeta_module_name; 'xDismFeature' end
-  def dscmeta_module_version; '1.0.0' end
+  def dscmeta_module_version; '1.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
