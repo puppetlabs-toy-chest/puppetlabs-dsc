@@ -151,6 +151,24 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
     end
   end
 
+  # Name:         ServerRole
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Application", "Custom", "DistributedCache", "Search", "SingleServer", "SingleServerFarm", "SpecialLoad", "WebFrontEnd"]
+  newparam(:dsc_serverrole) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ServerRole - Valid values are Application, Custom, DistributedCache, Search, SingleServer, SingleServerFarm, SpecialLoad, WebFrontEnd."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Application', 'application', 'Custom', 'custom', 'DistributedCache', 'distributedcache', 'Search', 'search', 'SingleServer', 'singleserver', 'SingleServerFarm', 'singleserverfarm', 'SpecialLoad', 'specialload', 'WebFrontEnd', 'webfrontend'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Application, Custom, DistributedCache, Search, SingleServer, SingleServerFarm, SpecialLoad, WebFrontEnd")
+      end
+    end
+  end
+
 
 end
 
