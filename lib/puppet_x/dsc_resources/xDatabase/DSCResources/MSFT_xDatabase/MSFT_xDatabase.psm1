@@ -58,7 +58,6 @@ function Get-TargetResource
     return $result
 }
 
-
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -235,6 +234,7 @@ function CheckIfDbExists([string]$connectionString, [string]$databaseName)
     }
     catch
     {
+        Write-Verbose "Unable to open connection: $_"
         return $false
     }
 
@@ -252,14 +252,7 @@ function DeployDac([string] $databaseName, [string]$connectionString, [string]$s
         $defaultDacPacApplicationVersion = $defaultDacPacApplicationVersion
     }
 
-    try
-    {
-        Load-DacFx -sqlserverVersion $sqlserverVersion
-    }
-    catch
-    {
-        Throw "$LocalizedData.DacFxInstallationError"
-    }
+    Load-DacFx -sqlserverVersion $sqlserverVersion
 
     $dacServicesObject = new-object Microsoft.SqlServer.Dac.DacServices ($connectionString)
 
@@ -358,7 +351,7 @@ function Perform-Restore([string]$DbName, [string]$connectionString, [string]$sq
     }
     catch
     {
-        Throw "Restore Failed"
+        Throw "Restore Failed. Exception: $_"
     }
 }
 
