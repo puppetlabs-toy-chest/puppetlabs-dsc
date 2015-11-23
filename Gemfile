@@ -32,6 +32,7 @@ group :development do
   gem 'puppet_facts',                        :require => false
   gem 'mocha', '~>0.10.5',                   :require => false
   gem 'puppet-blacksmith',                   :require => false
+  gem 'mime-types', '~>2.99',                :require => false
 end
 
 group :system_tests do

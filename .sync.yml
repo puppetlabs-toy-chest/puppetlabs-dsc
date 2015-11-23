@@ -17,6 +17,8 @@ Gemfile:
       - gem: mocha
         version: '~>0.10.5'
       - gem: puppet-blacksmith
+      - gem: mime-types
+        version: '~>2.99'
     ':system_tests':
       - gem: beaker
       - gem: master_manipulator
