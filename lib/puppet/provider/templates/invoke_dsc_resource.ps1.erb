@@ -51,7 +51,7 @@ $invokeParams = @{
 <% end -%>
   }<% if resource.respond_to?(:dscmeta_module_version) %>
   ModuleName = @{
-    ModuleName      = <%= "\"#{resource.dscmeta_module_name}\"" %>
+    ModuleName      = <%= "\"#{vendored_modules_path}/#{resource.dscmeta_module_name}/#{resource.dscmeta_module_name}.psd1\"" %>
     RequiredVersion = <%= "\"#{resource.dscmeta_module_version}\"" %>
   }
 <% else %>

@@ -1,11 +1,9 @@
 require 'pathname'
-require Pathname.new(__FILE__).dirname + '../../../' + 'puppet/feature/vendors_dsc'
 require 'json'
 
 Puppet::Type.type(:base_dsc).provide(:powershell) do
   confine :operatingsystem => :windows
   defaultfor :operatingsystem => :windows
-  has_features :vendors_dsc
 
   commands :powershell =>
     if File.exists?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
@@ -19,6 +17,10 @@ Puppet::Type.type(:base_dsc).provide(:powershell) do
   desc <<-EOT
 Applies DSC Resources by generating a configuration file and applying it.
 EOT
+
+  def vendored_modules_path
+    File.expand_path(Pathname.new(__FILE__).dirname + '../../../' + 'puppet_x/dsc_resources')
+  end
 
   def dsc_parameters
     resource.parameters_with_value.select do |p|
