@@ -6,7 +6,7 @@ test_name 'MODULES-2743 - C94804 - Apply DSC Manifest that Uses a Resource from 
 # Init
 local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
 
-dsc_source_module_path = 'C:\ProgramData\PuppetLabs\puppet\cache\lib\puppet_x\dsc_resources\xPSDesiredStateConfiguration'
+dsc_partial_source_module_path = 'dsc_resources\xPSDesiredStateConfiguration'
 dsc_target_parent_path = 'C:\Users\Administrator\Documents\WindowsPowerShell'
 dsc_target_module_path = "#{dsc_target_parent_path}\\Modules\\Test\\xPSDesiredStateConfiguration"
 dsc_target_module_psd1_path = "#{dsc_target_module_path}\\xPSDesiredStateConfiguration.psd1"
@@ -58,30 +58,33 @@ teardown do
 end
 
 # Setup
-step 'Copy Vendored Resource to Different Location on $PSModulePath'
 confine_block(:to, :platform => 'windows') do
-  set_dsc_resource(
-    agents,
-    'file',
-    'PSDesiredStateConfiguration',
-    :Ensure          => 'Present',
-    :Type            => 'Directory',
-    :Recurse         => '$true',
-    :SourcePath      => dsc_source_module_path,
-    :DestinationPath => dsc_target_module_path
-  )
-end
+  agents.each do |agent|
+    step 'Determine Correct Source Module Path'
+    puppet_agent_cache_path = agent.puppet['vardir'].gsub('/', '\\') + '\\lib\\puppet_x'
+    dsc_source_module_path = "#{puppet_agent_cache_path}\\#{dsc_partial_source_module_path}"
 
-step 'Change Version Number of Copied Vendor Module'
-confine_block(:to, :platform => 'windows') do
-  on(agents, powershell(ps_replace_version, {'EncodedCommand' => true}))
-end
+    step 'Copy Vendored Resource to Different Location on $PSModulePath'
+    set_dsc_resource(
+      agent,
+      'file',
+      'PSDesiredStateConfiguration',
+      :Ensure          => 'Present',
+      :Type            => 'Directory',
+      :Recurse         => '$true',
+      :Force           => '$true',
+      :SourcePath      => dsc_source_module_path,
+      :DestinationPath => dsc_target_module_path
+    )
 
-step 'Poison Copied Vendor Module'
-# This guarantees that the DSC module will blow up if loads the wrong
-# version of the module.
-confine_block(:to, :platform => 'windows') do
-  on(agents, powershell(ps_poison_mof, {'EncodedCommand' => true}))
+    step 'Change Version Number of Copied Vendor Module'
+    on(agent, powershell(ps_replace_version, {'EncodedCommand' => true}))
+
+    step 'Poison Copied Vendor Module'
+    # This guarantees that the DSC module will blow up if loads the wrong
+    # version of the module.
+    on(agent, powershell(ps_poison_mof, {'EncodedCommand' => true}))
+  end
 end
 
 step 'Inject "site.pp" on Master'
