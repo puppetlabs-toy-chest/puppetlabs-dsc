@@ -77,24 +77,20 @@ inject_site_pp(master, get_site_pp_path(master), site_pp)
 confine_block(:to, :platform => 'windows') do
   agents.each do |agent|
     step 'Run Puppet Agent'
-    on(agent, puppet('agent -t --environment production'), :acceptable_exit_codes => 4) do |result|
-      expect_failure('Expected to fail because of MODULES-2818') do
-        assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
-      end
+    on(agent, puppet('agent -t --environment production'), :acceptable_exit_codes => [0,2]) do |result|
+      assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
     end
 
     step 'Verify Results'
     # After copying the module this breaks invocation for xService resource.
     # Fall back to using the packaged Service resource for verification.
-    expect_failure('Expected to fail because of MODULES-2818') do
-      assert_dsc_resource(
-        agent,
-        'Service',
-        'PSDesiredStateConfiguration',
-        :Name        => dsc_props[:dsc_name],
-        :State       => dsc_props[:dsc_state],
-        :StartupType => dsc_props[:dsc_startuptype]
-      )
-    end
+    assert_dsc_resource(
+      agent,
+      'Service',
+      'PSDesiredStateConfiguration',
+      :Name        => dsc_props[:dsc_name],
+      :State       => dsc_props[:dsc_state],
+      :StartupType => dsc_props[:dsc_startuptype]
+    )
   end
 end
