@@ -233,6 +233,10 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   end
 
 
+  def builddepends
+    pending_relations = super()
+    PuppetX::Dsc::TypeHelpers.ensure_reboot_relationship(self, pending_relations)
+  end
 end
 
 Puppet::Type.type(:dsc_xdscwebservice).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do

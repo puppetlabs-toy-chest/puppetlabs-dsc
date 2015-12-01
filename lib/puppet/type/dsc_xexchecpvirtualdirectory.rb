@@ -230,6 +230,10 @@ Puppet::Type.newtype(:dsc_xexchecpvirtualdirectory) do
   end
 
 
+  def builddepends
+    pending_relations = super()
+    PuppetX::Dsc::TypeHelpers.ensure_reboot_relationship(self, pending_relations)
+  end
 end
 
 Puppet::Type.type(:dsc_xexchecpvirtualdirectory).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do

@@ -59,8 +59,12 @@ EOT
     output = powershell(powershell_args, script_content)
     Puppet.debug "Create Dsc Resource returned: #{output}"
     data = JSON.parse(output)
+
     fail(data['errormessage']) if !data['errormessage'].empty?
-    true
+
+    notify_reboot_pending if data['rebootrequired'] == true
+
+    data
   end
 
   def destroy
@@ -69,8 +73,30 @@ EOT
     output = powershell(powershell_args, script_content)
     Puppet.debug "Destroy Dsc Resource returned: #{output}"
     data = JSON.parse(output)
+
     fail(data['errormessage']) if !data['errormessage'].empty?
-    true
+
+    notify_reboot_pending if data['rebootrequired'] == true
+
+    data
+  end
+
+  def notify_reboot_pending
+    Puppet.info "A reboot is required to progress further. Notifying Puppet."
+
+    reboot_resource = resource.catalog.resource(:reboot, 'dsc_reboot')
+    unless reboot_resource
+      Puppet.warning "No reboot resource found in the graph that has 'dsc_reboot' as its name. Cannot signal reboot to Puppet."
+      return
+    end
+
+    if reboot_resource.provider.respond_to?(:reboot_required)
+      # internal API used to let reboot resource knows a reboot is pending
+      reboot_resource.provider.reboot_required = true
+    else
+      Puppet.warning "Reboot module must be updated, since resource does not have :reboot_required method implemented. Cannot signal reboot to Puppet."
+      return
+    end
   end
 
   def format_dsc_value(dsc_value)

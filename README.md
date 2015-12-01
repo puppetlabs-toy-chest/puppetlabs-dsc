@@ -60,6 +60,17 @@ dsc_windowsfeature {'IIS':
 
 All DSC Resource names and parameters have to be in lowercase, e.g: `dsc_windowsfeature` or `dsc_name`.
 
+### Handling Reboots with DSC
+
+You will need to add the following `reboot` resource to your manifest. It must have the name `dsc_reboot` for the `dsc` module to find and use it.
+
+~~~puppet
+reboot { 'dsc_reboot' :
+    message => 'DSC has requested a reboot',
+    when => 'pending'
+}
+~~~
+
 ### Installing Packages with DSC
 
 You can install MSIs or EXEs with DSC using the Puppet type `dsc_package` which maps to the `Package` DSC Resource.
