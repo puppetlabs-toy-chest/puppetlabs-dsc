@@ -3,6 +3,7 @@ test_name 'FM-2626 - C68506 - Plug-in Sync Module from Master with Prerequisites
 step 'Install DSC Module Dependencies'
 on(master, puppet('module install puppetlabs-stdlib'))
 on(master, puppet('module install puppetlabs-powershell'))
+on(master, puppet('module install puppetlabs-reboot'))
 
 step 'Install DSC Module'
 proj_root = File.expand_path(File.join(File.dirname(__FILE__), '../../../'))
