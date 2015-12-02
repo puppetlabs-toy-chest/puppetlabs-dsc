@@ -15,6 +15,7 @@ agents.each do |agent|
   step 'Install DSC Module Dependencies'
   on(agent, puppet('module install puppetlabs-stdlib'))
   on(agent, puppet('module install puppetlabs-powershell'))
+  on(agent, puppet('module install puppetlabs-reboot'))
 
   step 'Install DSC Module'
   local[:target_module_path] = agent['distmoduledir']
