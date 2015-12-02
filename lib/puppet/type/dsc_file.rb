@@ -32,7 +32,7 @@ Puppet::Type.newtype(:dsc_file) do
   end
 
   ensurable do
-    newvalue(:exists?) { provider.exists? }
+    newvalue(:exists?) { @property_hash[:ensure] != :absent }
     newvalue(:present) { provider.create }
     newvalue(:absent)  { provider.destroy }
     defaultto { :present }

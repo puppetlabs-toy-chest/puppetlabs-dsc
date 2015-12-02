@@ -22,6 +22,7 @@ function new-pscredential
 }
 
 $response = @{
+  instance = $null
   indesiredstate = $false
   rebootrequired = $false
   errormessage   = ''
@@ -31,7 +32,7 @@ $invokeParams = @{
   Name          = '<%= resource.dscmeta_resource_friendly_name %>'
   Method        = '<%= dsc_invoke_method %>'
   Property      = @{
-<% dsc_parameters.each do |p| -%>
+<% dsc_parameters(resource).each do |p| -%>
     <%- name = p.name.to_s.gsub(/^dsc_/,'')
     if name == 'ensure' && dsc_invoke_method == 'test'
       value = "\'#{resource.parameters[:ensure].default.to_s}\'"
@@ -46,9 +47,13 @@ $invokeParams = @{
     else
       value = format_dsc_value(p.value)
     end
-    -%>
+    is_get = dsc_invoke_method.casecmp('get') == 0
+    if !is_get || (is_get && p.required?)
+-%>
     <%= name %> = <%= value %>
-<% end -%>
+<%  end
+  end
+-%>
   }<% if resource.respond_to?(:dscmeta_module_version) %>
   ModuleName = @{
     ModuleName      = <%= "\"#{vendored_modules_path}/#{resource.dscmeta_module_name}/#{resource.dscmeta_module_name}.psd1\"" %>
@@ -71,6 +76,10 @@ switch ($invokeParams.Method) {
   'Test' {
     $response.indesiredstate = $result.InDesiredState
     return ($response | ConvertTo-Json -Compress)
+  }
+  'Get' {
+    $response.instance = $result.CimInstanceProperties
+    return ($response | ConvertTo-Json -Compress -Depth 20)
   }
   'Set' {
     $response.indesiredstate = $true
