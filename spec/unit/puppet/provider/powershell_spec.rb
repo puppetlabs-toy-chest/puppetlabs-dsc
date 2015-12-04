@@ -20,19 +20,19 @@ describe Puppet::Type.type(:dsc_file).provider(:powershell) do
   describe "when quotes are present" do
 
     it "should handle single quotes" do
-      expect(subject.format_dsc_value("The 'Cats' go 'meow'!")).to match(/'The ''Cats'' go ''meow''!'/)
+      expect(subject.class.format_dsc_value("The 'Cats' go 'meow'!")).to match(/'The ''Cats'' go ''meow''!'/)
     end
 
     it "should handle double single quotes" do
-      expect(subject.format_dsc_value("The ''Cats'' go 'meow'!")).to match(/'The ''''Cats'''' go ''meow''!'/)
+      expect(subject.class.format_dsc_value("The ''Cats'' go 'meow'!")).to match(/'The ''''Cats'''' go ''meow''!'/)
     end
 
     it "should handle double quotes" do
-      expect(subject.format_dsc_value("The 'Cats' go \"meow\"!")).to match(/'The ''Cats'' go "meow"!'/)
+      expect(subject.class.format_dsc_value("The 'Cats' go \"meow\"!")).to match(/'The ''Cats'' go "meow"!'/)
     end
 
     it "should handle dollar signs" do
-      expect(subject.format_dsc_value("This should show \$foo variable")).to match(/'This should show \$foo variable'/)
+      expect(subject.class.format_dsc_value("This should show \$foo variable")).to match(/'This should show \$foo variable'/)
     end
   end
 end

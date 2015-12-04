@@ -18,7 +18,7 @@ Puppet::Type.type(:base_dsc).provide(:powershell) do
 Applies DSC Resources by generating a configuration file and applying it.
 EOT
 
-  def vendored_modules_path
+  def self.vendored_modules_path
     File.expand_path(Pathname.new(__FILE__).dirname + '../../../' + 'puppet_x/dsc_resources')
   end
 
@@ -28,12 +28,12 @@ EOT
     end
   end
 
-  def template_path
+  def self.template_path
     File.expand_path('../../templates', __FILE__)
   end
 
 
-  def powershell_args
+  def self.powershell_args
     ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command']
   end
 
@@ -42,7 +42,7 @@ EOT
     Puppet.debug "PowerShell Version: #{version}"
     script_content = ps_script_content('test')
     Puppet.debug "\n" + script_content
-    output = powershell(powershell_args, script_content)
+    output = powershell(self.class.powershell_args, script_content)
     Puppet.debug "Dsc Resource returned: #{output}"
     data = JSON.parse(output)
     fail(data['errormessage']) if !data['errormessage'].empty?
@@ -56,7 +56,7 @@ EOT
   def create
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
-    output = powershell(powershell_args, script_content)
+    output = powershell(self.class.powershell_args, script_content)
     Puppet.debug "Create Dsc Resource returned: #{output}"
     data = JSON.parse(output)
 
@@ -70,7 +70,7 @@ EOT
   def destroy
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
-    output = powershell(powershell_args, script_content)
+    output = powershell(self.class.powershell_args, script_content)
     Puppet.debug "Destroy Dsc Resource returned: #{output}"
     data = JSON.parse(output)
 
@@ -99,7 +99,7 @@ EOT
     end
   end
 
-  def format_dsc_value(dsc_value)
+  def self.format_dsc_value(dsc_value)
     case
     when dsc_value.class.name == 'String'
       "'#{escape_quotes(dsc_value)}'"
@@ -118,11 +118,15 @@ EOT
     end
   end
 
-  def escape_quotes(text)
+  def self.escape_quotes(text)
     text.gsub("'", "''")
   end
 
   def ps_script_content(mode)
+    self.class.ps_script_content(mode, resource, self)
+  end
+
+  def self.ps_script_content(mode, resource, provider)
     dsc_invoke_method = mode
     @param_hash = resource
     template = ERB.new(File.new(template_path + "/invoke_dsc_resource.ps1.erb").read, nil, '-')
