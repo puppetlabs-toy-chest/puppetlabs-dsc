@@ -9,6 +9,7 @@
 3. [Setup](#setup)
 4. [Usage](#usage)
   * [Using DSC Resources with Puppet](#using-dsc-resources-with-puppet)
+  * [Handling Reboots with DSC](#handling-reboots-with-dsc)
   * [Installing Packages with DSC](#installing-packages-with-dsc)
   * [Using Credentials](#using-credentials)
   * [Setting Registry Values](#setting-registry-values)
@@ -19,7 +20,7 @@
 6. [Limitations](#limitations)
   * [Known Issues](#known-issues)
   * [Running Puppet and DSC without Administrative Privileges](#running-puppet-and-dsc-without-administrative-privileges)
-7. [Notes](#notes)
+7. [Development - Guide for contributing to the module](#development)
 8. [Places to Learn More About DSC](#places-to-learn-more-about-dsc)
 9. [License](#license)
 
@@ -357,10 +358,22 @@ While there are avenues for using Puppet with a non-administrative account, DSC 
 
 The Puppet agent on a Windows node can run DSC with a normal default install. If the Puppet agent was configured to use an alternate user account, that account must have administrative privileges on the system in order to run DSC.
 
-## Notes
 
-* The puppet types are built from the source code of each DSC Resources MOF schema files.
-* If you want the build Puppet types for your own custom DSC Resources, read the [README_BUILD](README_BUILD.md)
+## Development
+
+Puppet Labs modules on the Puppet Forge are open projects, and community contributions are essential for keeping them great. We can’t access the huge number of platforms and myriad of hardware, software, and deployment configurations that Puppet is intended to serve.
+
+We want to keep it as easy as possible to contribute changes so that our modules work in your environment. There are a few guidelines that we need contributors to follow so that we can have a chance of keeping on top of things.
+
+For more information, see our [module contribution guide.](https://docs.puppetlabs.com/forge/contributing.html)
+
+* The Puppet types are built from the source code of each DSC Resources MOF schema files. If you want to build the types, read the [Quick-start and Building](README_BUILD.md#quick-start).
+* If you want the build Puppet types for your own custom DSC Resources, read [Build Custom DSC Resource Types](README_BUILD.md#build-custom-dsc-resource-types).
+
+
+### Contributors
+
+To see who's already involved, see the [list of contributors.](https://github.com/puppetlabs/puppetlabs-dsc/graphs/contributors)
 
 ## Places to Learn More About DSC
 
@@ -375,14 +388,14 @@ You can learn more about PowerShell DSC from the following online resources:
 - [PowerShell.org](http://powershell.org/wp/tag/dsc/) - Community based DSC tagged posts
 - [PowerShell Magazine](http://www.powershellmagazine.com/tag/dsc/) - Community based DSC tagged posts
 
-There are several books available as well:
+There are several books available as well. Here are some selected books for reference:
 
-- [Learning PowerShell DSC](http://bit.ly/learndsc) - James Pogran is a member of the team here at Puppet working on the DSC/Puppet integration
+- [Learning PowerShell DSC](http://bit.ly/learndsc) - James Pogran is a member of the team here at Puppet Labs working on the DSC/Puppet integration
 - [The DSC Book](https://www.penflip.com/powershellorg/the-dsc-book) - Powershell.org community contributed content
 - [Windows PowerShell Desired State Configuration Revealed](http://www.apress.com/9781484200179) - Ravikanth Chaganti
 
 ## License
 
 * Copyright (c) 2014 Marc Sutter, original author
-* Copyright (c) 2015 Puppet Labs
+* Copyright (c) 2015 - Present Puppet Labs
 * License: [Apache License, Version 2.0](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/LICENSE)
