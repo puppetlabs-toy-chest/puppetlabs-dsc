@@ -1,3 +1,126 @@
+# Discover the path to the DSC module on a host.
+#
+# ==== Attributes
+#
+# * +host+ - A host with the DSC module installed.
+#
+# ==== Returns
+#
+# +string+ - The fully qualified path to the DSC module on the host. Empty string if
+#   the DSC module is not installed on the host.
+#
+# ==== Raises
+#
+# +nil+
+#
+# ==== Examples
+#
+# locate_dsc_module(agent)
+def locate_dsc_module(host)
+  # Init
+  module_paths = host.puppet['modulepath'].split(':')
+
+  # Search the available module paths.
+  module_paths.each do |module_path|
+    dsc_module_path = "#{module_path}/dsc".gsub('\\', '/')
+    ps_command = "Test-Path -Type Container -Path #{dsc_module_path}"
+
+    if host.is_powershell?
+      on(host, powershell("if ( #{ps_command} ) { exit 0 } else { exit 1 }"), :accept_all_exit_codes => true) do |result|
+        if result.exit_code == 0
+          return dsc_module_path
+        end
+      end
+    else
+      on(host, "test -d #{dsc_module_path}", :accept_all_exit_codes => true) do |result|
+        if result.exit_code == 0
+          return dsc_module_path
+        end
+      end
+    end
+  end
+
+  # Return nothing if module is not installed.
+  return ''
+end
+
+# Copy the "PuppetFakeResource" module to target host. This resource is used for invoking
+# a reboot event from DSC and consumed by the "reboot" module.
+#
+# ==== Attributes
+#
+# * +host+ - A Beaker host with the DSC module already installed.
+# * +fake_reboot_path+ - The path on the test runner that contains the "PuppetFakeResource".
+#
+# ==== Returns
+#
+# +nil+
+#
+# ==== Raises
+#
+# +nil+
+#
+# ==== Examples
+#
+# install_fake_reboot_resource(agent, '/dsc/tests/files/reboot')
+def install_fake_reboot_resource(host, fake_reboot_path)
+  # Init
+  fake_reboot_resource_source_path = "#{fake_reboot_path}/PuppetFakeResource"
+  fake_reboot_type_source_path = "#{fake_reboot_path}/dsc_puppetfakeresource.rb"
+
+  dsc_resource_target_path = 'lib/puppet_x/dsc_resources'
+  puppet_type_target_path = 'lib/puppet/type'
+
+  step 'Determine Correct DSC Module Path'
+  dsc_module_path = locate_dsc_module(host)
+  dsc_resource_path = "#{dsc_module_path}/#{dsc_resource_target_path}"
+  dsc_type_path = "#{dsc_module_path}/#{puppet_type_target_path}"
+
+  step 'Copy DSC Fake Reboot Resource to Host'
+  scp_to(host, fake_reboot_resource_source_path, dsc_resource_path)
+  scp_to(host, fake_reboot_type_source_path, dsc_type_path)
+end
+
+# Remove the "PuppetFakeResource" module on target host.
+#
+# ==== Attributes
+#
+# * +host+ - A Beaker host with the DSC module already installed.
+#
+# ==== Returns
+#
+# +nil+
+#
+# ==== Raises
+#
+# +nil+
+#
+# ==== Examples
+#
+# uninstall_fake_reboot_resource(agent)
+def uninstall_fake_reboot_resource(host)
+  # Init
+  dsc_resource_target_path = 'lib/puppet_x/dsc_resources'
+  puppet_type_target_path = 'lib/puppet/type'
+
+  step 'Determine Correct DSC Module Path'
+  dsc_module_path = locate_dsc_module(host)
+  dsc_resource_path = "#{dsc_module_path}/#{dsc_resource_target_path}/PuppetFakeResource"
+  dsc_type_path = "#{dsc_module_path}/#{puppet_type_target_path}/dsc_puppetfakeresource.rb"
+
+  step 'Remove DSC Fake Reboot Resource from Host'
+  if host.is_powershell?
+    ps_rm_dsc_resource = "Remove-Item -Recurse -Path #{dsc_resource_path}/PuppetFakeResource"
+    ps_rm_dsc_type = "Remove-Item -Path #{dsc_type_path}/dsc_puppetfakeresource.rb"
+
+    on(host, powershell("if ( #{ps_rm_dsc_resource} ) { exit 0 } else { exit 1 }"))
+    on(host, powershell("if ( #{ps_rm_dsc_type} ) { exit 0 } else { exit 1 }"))
+  else
+    on(host, "rm -rf #{dsc_resource_path}")
+    on(host, "rm -rf #{dsc_type_path}")
+  end
+end
+
 # Configure the DSC LCM on a host.
 #
 # ==== Attributes
@@ -307,6 +430,29 @@ SCRIPT
 
         _exec_dsc_script(hosts, ps_script) do |result|
           assert(0 == result.exit_code, 'DSC resource not in desired state!')
+        end
+      end
+
+      # Verify that a reboot is pending on the system.
+      #
+      # ==== Attributes
+      #
+      # * +hosts+ - The target Windows hosts for verification.
+      #
+      # ==== Returns
+      #
+      # +nil+
+      #
+      # ==== Raises
+      #
+      # +Minitest::Assertion+ - Reboot is not pending.
+      #
+      # ==== Examples
+      #
+      # assert_reboot_pending(agents)
+      def assert_reboot_pending(host)
+        on(host, 'shutdown /a', :accept_all_exit_codes => true) do |result|
+          assert(0 == result.exit_code, 'Expected reboot is not pending!')
         end
       end
     end
