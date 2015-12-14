@@ -11,8 +11,8 @@ declare -a ARGS
 # Argument Parsing
 if [ $# -eq 0 ]; then
   ARGS[0]='windows-2012r2-64a'
-  ARGS[1]='1.2.7'
-  ARGS[2]='forge'
+  ARGS[1]='1.3.2'
+  ARGS[2]='local'
 elif [[ $# -lt 3 || $# -gt 4 ]]; then
   echo 'USAGE acceptance_tests.sh <CONFIG> <PUPPET_AGENT_VER> <LOCAL_OR_FORGE> <MODULE_VERSION>'
   exit 1
