@@ -18,7 +18,7 @@ dsc_puppetfakeresource { 'reboot_test':
 MANIFEST
 
 # Verify
-error_message = /Error: Failed to apply catalog: Found 1 dependency cycle/
+error_message = /Error:.*Found 1 dependency cycle/
 
 # Teardown
 teardown do
@@ -36,7 +36,7 @@ inject_site_pp(master, get_site_pp_path(master), site_pp)
 confine_block(:to, :platform => 'windows') do
   agents.each do |agent|
     step 'Run Puppet Agent'
-    on(agent, puppet('agent -t --environment production'), :acceptable_exit_codes => 1) do |result|
+    on(agent, puppet('agent -t --environment production'), :acceptable_exit_codes => [0,1]) do |result|
       assert_match(error_message, result.stderr, 'Expected error was not detected!')
     end
 
