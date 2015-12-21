@@ -14,7 +14,7 @@ dsc_module = 'PSDesiredStateConfiguration'
 dsc_props = {
   :dsc_ensure    => 'Present',
   :dsc_path      => 'C:\Windows\System32\cmd.exe',
-  :dsc_arguments => "/c ping.exe -n 1 -4 localhost > C:\\#{output_file_name}",
+  :dsc_arguments => "/c ping.exe -n 2 -4 localhost > C:\\#{output_file_name}",
 }
 
 dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resources', 'dsc_single_resource.pp.erb')
