@@ -334,7 +334,39 @@ information, see about_Execution_Policies at http://go.microsoft.com/fwlink/?Lin
 
 - The `dsc_log` resource may not appear to work. The ["Log" resource](https://technet.microsoft.com/en-us/library/Dn282117.aspx) writes events to the 'Microsoft-Windows-Desired State Configuration/Analytic' event log, which is [disabled by default](https://technet.microsoft.com/en-us/library/Cc749492.aspx).
 
-- You may have issues attempting to use `dsc_ensure => absent` on `dsc_service`. See [MODULES-2512](https://tickets.puppetlabs.com/browse/MODULES-2512) for details.
+- You may have issues attempting to use `dsc_ensure => absent` with `dsc_service` with services that are not running. 
+
+When setting resources to absent, it is common to specify a minimal statement like so:
+
+~~~
+dsc_service{'disable_foo':
+  dsc_ensure => absent,
+  dsc_name => 'foo'
+}
+~~~
+
+Due to the way the Service DSC Resource sets its defaults, the above minimal statement will report the service as already absent erroneously if the service is currently not running. In order to work around this, you must specify that `State => 'Stopped'` as well as `Ensure => absent'`. The following example will work:
+
+~~~
+dsc_service{'disable_foo':
+  dsc_ensure => absent,
+  dsc_name => 'foo',
+  dsc_state => 'stopped'
+}
+~~~
+
+[MODULES-2512](https://tickets.puppetlabs.com/browse/MODULES-2512) has more details.
+
+ - You may have issues attempting to use `dsc_ensure => absent` with `dsc_xservice` with services that are already not present. To work around this problem, always specify the path to the executable for the service when specifying `absent`. [MODULES-2512](https://tickets.puppetlabs.com/browse/MODULES-2512) has more details. The following example works:
+ 
+~~~
+dsc_xservice{'disable_foo':
+  dsc_ensure => absent,
+  dsc_name => 'foo',
+  dsc_path => 'c:\\Program Files\\Foo\\bin\\foo.exe'
+}
+~~~
+
 
 - When installing the module on Windows you may run into an issue regarding long file names (LFN) due to the long paths of the generated schema files. If you install your module on a Linux master and then use plugin sync you will likely not see this issue. If you are attempting to install the module on a Windows machine using `puppet module install puppetlabs-dsc` you may run into an error that looks similar to the following:
 
