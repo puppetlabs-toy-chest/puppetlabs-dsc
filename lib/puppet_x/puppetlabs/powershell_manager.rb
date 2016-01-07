@@ -22,7 +22,7 @@ module PuppetX
         at_exit { exit }
       end
 
-      def execute(powershell_code)
+      def execute(powershell_code, timeout_ms = 300 * 1000)
         output_ready_event_name =  "Global\\#{SecureRandom.uuid}"
         output_ready_event = self.class.create_event(output_ready_event_name)
 
@@ -40,7 +40,7 @@ module PuppetX
 
         CODE
 
-        out = exec_read_result(code, output_ready_event)
+        out = exec_read_result(code, output_ready_event, timeout_ms)
 
         { :stdout => out }
       ensure
@@ -163,9 +163,9 @@ module PuppetX
         raise Puppet::Util::Windows::Error.new(msg)
       end
 
-      def exec_read_result(powershell_code, output_ready_event)
+      def exec_read_result(powershell_code, output_ready_event, timeout_ms = 300 * 1000)
         write_stdin(powershell_code)
-        read_stdout(output_ready_event)
+        read_stdout(output_ready_event, timeout_ms)
       end
 
       ffi_convention :stdcall
