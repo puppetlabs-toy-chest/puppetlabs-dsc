@@ -94,7 +94,7 @@ module PuppetX
       WAIT_TIMEOUT = 0x00000102
       WAIT_FAILED = 0xFFFFFFFF
 
-      def self.wait_on(wait_object, timeout = 20 * 1000, wait_interval = 50)
+      def self.wait_on(wait_object, timeout = 120 * 1000, wait_interval = 50)
         waited = 0
         while true
           wait_result = Puppet::Util::Windows::Process::WaitForSingleObject(wait_object, wait_interval)
