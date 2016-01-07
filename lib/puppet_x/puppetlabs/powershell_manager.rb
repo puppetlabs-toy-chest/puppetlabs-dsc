@@ -1,12 +1,14 @@
 require 'securerandom'
 require 'open3'
-require 'ffi'
+require 'ffi' if Puppet::Util::Platform.windows?
 
 module PuppetX
   module Dsc
     class PowerShellManager
-      extend Puppet::Util::Windows::String
-      extend FFI::Library
+      if Puppet::Util::Platform.windows?
+        extend Puppet::Util::Windows::String
+        extend FFI::Library
+      end
 
       @@instances = {}
 
@@ -51,7 +53,9 @@ module PuppetX
         @stdin.close
         @stdout.close
 
-        FFI::WIN32.CloseHandle(@output_ready_event) if @output_ready_event
+        if Puppet::Util::Platform.windows?
+          FFI::WIN32.CloseHandle(@output_ready_event) if @output_ready_event
+        end
 
         exit_msg = "PowerShell process did not terminate in reasonable time"
         Timeout.timeout(3) do
@@ -72,17 +76,19 @@ module PuppetX
       end
 
       def self.create_event(name, manual_reset = false, initial_state = false)
-        handle = FFI::Pointer::NULL_HANDLE
+        if Puppet::Util::Platform.windows?
+          handle = FFI::Pointer::NULL_HANDLE
 
-        FFI::Pointer.from_string_to_wide_string(name) do |name_ptr|
-          handle = CreateEventW(FFI::Pointer::NULL,
-            manual_reset ? 1 : FFI::WIN32_FALSE,
-            initial_state ? 1 : FFI::WIN32_FALSE,
-            name_ptr)
+          FFI::Pointer.from_string_to_wide_string(name) do |name_ptr|
+            handle = CreateEventW(FFI::Pointer::NULL,
+              manual_reset ? 1 : FFI::WIN32_FALSE,
+              initial_state ? 1 : FFI::WIN32_FALSE,
+              name_ptr)
 
-          if handle == FFI::Pointer::NULL_HANDLE
-            msg = "Failed to create new event #{name}"
-            raise Puppet::Util::Windows::Error.new(msg)
+            if handle == FFI::Pointer::NULL_HANDLE
+              msg = "Failed to create new event #{name}"
+              raise Puppet::Util::Windows::Error.new(msg)
+            end
           end
         end
 
@@ -152,18 +158,20 @@ module PuppetX
         write_stdin(powershell_code)
         read_stdout
       end
+      
+      if Puppet::Util::Platform.windows?
+        ffi_convention :stdcall
 
-      ffi_convention :stdcall
-
-      # https://msdn.microsoft.com/en-us/library/windows/desktop/ms682396(v=vs.85).aspx
-      # HANDLE WINAPI CreateEvent(
-      #   _In_opt_ LPSECURITY_ATTRIBUTES lpEventAttributes,
-      #   _In_     BOOL                  bManualReset,
-      #   _In_     BOOL                  bInitialState,
-      #   _In_opt_ LPCTSTR               lpName
-      # );
-      ffi_lib :kernel32
-      attach_function_private :CreateEventW, [:pointer, :win32_bool, :win32_bool, :lpcwstr], :handle
+        # https://msdn.microsoft.com/en-us/library/windows/desktop/ms682396(v=vs.85).aspx
+        # HANDLE WINAPI CreateEvent(
+        #   _In_opt_ LPSECURITY_ATTRIBUTES lpEventAttributes,
+        #   _In_     BOOL                  bManualReset,
+        #   _In_     BOOL                  bInitialState,
+        #   _In_opt_ LPCTSTR               lpName
+        # );
+        ffi_lib :kernel32
+        attach_function_private :CreateEventW, [:pointer, :win32_bool, :win32_bool, :lpcwstr], :handle
+      end
     end
   end
 end
