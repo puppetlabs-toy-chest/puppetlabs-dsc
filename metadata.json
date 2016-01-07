@@ -37,15 +37,15 @@
   ],
   "dependencies": [
     {
-      "name": "puppetlabs-stdlib",
+      "name": "puppetlabs/stdlib",
       "version_requirement": ">= 2.3.0 < 5.0.0"
     },
     {
-      "name": "puppetlabs-powershell",
+      "name": "puppetlabs/powershell",
       "version_requirement": ">= 1.0.1 < 2.0.0"
     },
     {
-      "name": "puppetlabs-reboot",
+      "name": "puppetlabs/reboot",
       "version_requirement": ">= 1.2.1 < 2.0.0"
     }
   ]
