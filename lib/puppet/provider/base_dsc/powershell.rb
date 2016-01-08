@@ -1,5 +1,6 @@
 require 'pathname'
 require 'json'
+require_relative '../../../puppet_x/puppetlabs/powershell_manager'
 
 Puppet::Type.type(:base_dsc).provide(:powershell) do
   confine :operatingsystem => :windows
@@ -34,7 +35,11 @@ EOT
 
 
   def self.powershell_args
-    ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command']
+    ['-NoProfile', '-NonInteractive', '-Sta', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command', '-']
+  end
+
+  def ps_manager
+    PuppetX::Dsc::PowerShellManager.instance("#{command(:powershell)} #{self.class.powershell_args.join(' ')}")
   end
 
   def exists?
@@ -42,7 +47,7 @@ EOT
     Puppet.debug "PowerShell Version: #{version}"
     script_content = ps_script_content('test')
     Puppet.debug "\n" + script_content
-    output = powershell(self.class.powershell_args, script_content)
+    output = ps_manager.execute(script_content)[:stdout]
     Puppet.debug "Dsc Resource returned: #{output}"
     data = JSON.parse(output)
     fail(data['errormessage']) if !data['errormessage'].empty?
@@ -56,7 +61,7 @@ EOT
   def create
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
-    output = powershell(self.class.powershell_args, script_content)
+    output = ps_manager.execute(script_content)[:stdout]
     Puppet.debug "Create Dsc Resource returned: #{output}"
     data = JSON.parse(output)
 
@@ -70,7 +75,7 @@ EOT
   def destroy
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
-    output = powershell(self.class.powershell_args, script_content)
+    output = ps_manager.execute(script_content)[:stdout]
     Puppet.debug "Destroy Dsc Resource returned: #{output}"
     data = JSON.parse(output)
 
