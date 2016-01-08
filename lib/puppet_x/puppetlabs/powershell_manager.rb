@@ -21,28 +21,39 @@ module PuppetX
         @output_ready_event = self.class.create_event(@output_ready_event_name)
 
         @stdin, @stdout, @ps_process = Open3.popen2(cmd)
-        @stdin.sync = true
-        @stdout.sync = true
 
         Puppet.debug "#{Time.now} #{cmd} is running as pid: #{@ps_process[:pid]}"
 
         at_exit { exit }
       end
 
-      def execute(powershell_code)
+      def execute(powershell_code, timeout = 120 * 1000)
         # always need a trailing newline to ensure PowerShell parses code
-        out = exec_read_result(<<-CODE
+        ps_code = <<-CODE
         $event = [Threading.EventWaitHandle]::OpenExisting("#{@output_ready_event_name}")
 
-        $Error.Clear()
-        $LASTEXITCODE = 0
+        $response = @{
+          indesiredstate = $false
+          rebootrequired = $false
+          errormessage   = ''
+        }
+
+        $dsc_call = @'
 
         #{powershell_code}
 
-        [Void]$event.Set()
+'@
+        try{
+          [ScriptBlock]::Create($dsc_call).Invoke()
+        }catch{
+          $response.errormessage = $_.Exception.Message
+          ($response | ConvertTo-Json -Compress)
+        }finally{
+          [Void]$event.Set()
+        }
 
         CODE
-        )
+        out = exec_read_result(ps_code, timeout)
 
         { :stdout => out }
       end
@@ -100,7 +111,7 @@ module PuppetX
       WAIT_TIMEOUT = 0x00000102
       WAIT_FAILED = 0xFFFFFFFF
 
-      def self.wait_on(wait_object, timeout = 120 * 1000, wait_interval = 50)
+      def self.wait_on(wait_object, timeout, wait_interval = 50)
         waited = 0
         while true
           wait_result = Puppet::Util::Windows::Process::WaitForSingleObject(wait_object, wait_interval)
@@ -133,9 +144,9 @@ module PuppetX
         raise Puppet::Util::Windows::Error.new(msg)
       end
 
-      def read_stdout
+      def read_stdout(timeout)
         output = []
-        self.class.wait_on(@output_ready_event)
+        self.class.wait_on(@output_ready_event, timeout)
 
         initially_readable = false
         while self.class.is_readable?(@stdout, 0.1) do
@@ -154,11 +165,11 @@ module PuppetX
         raise Puppet::Util::Windows::Error.new(msg)
       end
 
-      def exec_read_result(powershell_code)
+      def exec_read_result(powershell_code, timeout)
         write_stdin(powershell_code)
-        read_stdout
+        read_stdout(timeout)
       end
-      
+
       if Puppet::Util::Platform.windows?
         ffi_convention :stdcall
 
