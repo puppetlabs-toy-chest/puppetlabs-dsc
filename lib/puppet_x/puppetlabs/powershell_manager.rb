@@ -30,13 +30,26 @@ module PuppetX
         code = <<-CODE
         $event = [Threading.EventWaitHandle]::OpenExisting("#{output_ready_event_name}")
 
-        $Error.Clear()
-        $LASTEXITCODE = 0
-
-        #{powershell_code}
-
-        [Void]$event.Set()
-        [Void]$event.Dispose()
+        $powershell_code = @'
+#{powershell_code}
+'@
+        try
+        {
+          [ScriptBlock]::Create($powershell_code).Invoke()
+        }
+        catch
+        {
+          @{
+            indesiredstate = $false
+            rebootrequired = $false
+            errormessage = $_.Exception.Message
+          } | ConvertTo-Json -Compress
+        }
+        finally
+        {
+          [Void]$event.Set()
+          [Void]$event.Dispose()
+        }
 
         CODE
 

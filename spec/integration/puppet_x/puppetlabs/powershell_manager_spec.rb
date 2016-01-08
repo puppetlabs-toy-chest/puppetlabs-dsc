@@ -63,6 +63,17 @@ $bytes_in_k = (1024 * 64) + 1
       msg = /Catastrophic failure\: wait object timeout #{timeout_ms} exceeded/
       expect { manager.execute('sleep 1', timeout_ms)[:stdout] }.to raise_error(Puppet::Util::Windows::Error, msg)
     end
+
+    it "should not deadlock and return a valid JSON response given invalid unparseable PowerShell code" do
+      result = manager.execute(<<-CODE
+        {
+
+        CODE
+        )
+
+      response = JSON.parse(result[:stdout])
+      expect(response["errormessage"]).not_to be_empty
+    end
   end
 
 end
