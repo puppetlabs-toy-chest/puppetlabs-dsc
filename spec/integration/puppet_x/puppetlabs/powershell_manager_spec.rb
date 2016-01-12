@@ -8,7 +8,8 @@ module PuppetX
   end
 end
 
-describe PuppetX::Dsc::PowerShellManager, :if => Puppet::Util::Platform.windows? do
+describe PuppetX::Dsc::PowerShellManager,
+  :if => Puppet::Util::Platform.windows? && !Facter.value(:uses_win32console) do
 
   let (:manager) {
     powershell = Puppet::Type.type(:base_dsc).defaultprovider.command(:powershell)
