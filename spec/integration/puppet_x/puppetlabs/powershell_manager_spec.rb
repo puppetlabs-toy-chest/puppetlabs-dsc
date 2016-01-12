@@ -41,6 +41,28 @@ $count
       )[:stdout]
       expect(result).not_to eq(nil)
     end
+
+    it "should reuse the same PowerShell process for multiple calls" do
+      first_pid = manager.execute('[Diagnostics.Process]::GetCurrentProcess().Id')[:stdout]
+      second_pid = manager.execute('[Diagnostics.Process]::GetCurrentProcess().Id')[:stdout]
+
+      expect(first_pid).to eq(second_pid)
+    end
+
+    it "should be able to write more than the 64k default buffer size to child process stdout without deadlocking the Ruby parent process" do
+      result = manager.execute(<<-CODE
+$bytes_in_k = (1024 * 64) + 1
+[Text.Encoding]::UTF8.GetString((New-Object Byte[] ($bytes_in_k))) | Write-Output
+        CODE
+        )[:stdout]
+      expect(result).not_to eq(nil)
+    end
+
+    it "should return an error if the execution timeout is exceeded" do
+      timeout_ms = 100
+      msg = /Catastrophic failure\: wait object timeout #{timeout_ms} exceeded/
+      expect { manager.execute('sleep 1', timeout_ms)[:stdout] }.to raise_error(Puppet::Util::Windows::Error, msg)
+    end
   end
 
 end
