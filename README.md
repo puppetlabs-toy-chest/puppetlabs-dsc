@@ -61,6 +61,8 @@ dsc_windowsfeature {'IIS':
 
 All DSC Resource names and parameters have to be in lowercase, e.g: `dsc_windowsfeature` or `dsc_name`.
 
+When it comes to `ensure =>` (Puppet's `ensure`) versus `dsc_ensure =>` (DSC's `Ensure`), you can use one or the other with the exception of a known issue - `ensure => absent` will report success and do nothing - see [MODULES-2966](https://tickets.puppetlabs.com/browse/MODULES-2966) for details. **Until this issue is resolved, we recommend using `dsc_ensure` exclusively.** Once that issue is resolved you can use one or the other in your manifests for Puppet DSC resource types. If you use both in a Puppet DSC resource, `dsc_ensure` will override the value in `ensure`, so the value for `ensure` will essentially be ignored. It is recommended that `dsc_ensure` is used as it is a closer match for converting from the DSC properties to Puppet DSC resources and it overrides `ensure` so there is less confusion if both are accidentally included.
+
 ### Handling Reboots with DSC
 
 You will need to add the following `reboot` resource to your manifest. It must have the name `dsc_reboot` for the `dsc` module to find and use it.
@@ -329,12 +331,13 @@ esource\MSFT_xGroupResource.psm1 cannot be loaded because running scripts is dis
 information, see about_Execution_Policies at http://go.microsoft.com/fwlink/?LinkID=135170.
 ~~~
 - You cannot use forward slashes for the MSI `Path` property for the `Package` DSC Resource. The underlying implementation does not handle forward slashes instead of backward slashes in paths and throws a misleading error that it could not find a Package with the Name and ProductId provided. [MODULES-2486](https://tickets.puppetlabs.com/browse/MODULES-2486) has more examples and information on this subject.
+- `dsc_ensure` will override and ignore the value in `ensure` if both are present in a Puppet DSC resource. See [Using DSC Resources with Puppet](#using-dsc-resources-with-puppet).
 
 ### Known Issues
 
 - The `dsc_log` resource may not appear to work. The ["Log" resource](https://technet.microsoft.com/en-us/library/Dn282117.aspx) writes events to the 'Microsoft-Windows-Desired State Configuration/Analytic' event log, which is [disabled by default](https://technet.microsoft.com/en-us/library/Cc749492.aspx).
 
-- You may have issues attempting to use `dsc_ensure => absent` with `dsc_service` with services that are not running. 
+- You may have issues attempting to use `dsc_ensure => absent` with `dsc_service` with services that are not running.
 
 When setting resources to absent, it is common to specify a minimal statement like so:
 
@@ -358,7 +361,7 @@ dsc_service{'disable_foo':
 [MODULES-2512](https://tickets.puppetlabs.com/browse/MODULES-2512) has more details.
 
  - You may have issues attempting to use `dsc_ensure => absent` with `dsc_xservice` with services that are already not present. To work around this problem, always specify the path to the executable for the service when specifying `absent`. [MODULES-2512](https://tickets.puppetlabs.com/browse/MODULES-2512) has more details. The following example works:
- 
+
 ~~~
 dsc_xservice{'disable_foo':
   dsc_ensure => absent,
@@ -367,6 +370,7 @@ dsc_xservice{'disable_foo':
 }
 ~~~
 
+- Use `ensure` instead of `dsc_ensure` - `ensure => absent` will report success while doing nothing - see [MODULES-2966](https://tickets.puppetlabs.com/browse/MODULES-2966) for details. Also see [Using DSC Resources with Puppet](#using-dsc-resources-with-puppet).
 
 - When installing the module on Windows you may run into an issue regarding long file names (LFN) due to the long paths of the generated schema files. If you install your module on a Linux master and then use plugin sync you will likely not see this issue. If you are attempting to install the module on a Windows machine using `puppet module install puppetlabs-dsc` you may run into an error that looks similar to the following:
 
