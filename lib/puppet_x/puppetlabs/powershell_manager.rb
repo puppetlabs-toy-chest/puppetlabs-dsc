@@ -29,16 +29,44 @@ module PuppetX
         # always need a trailing newline to ensure PowerShell parses code
         code = <<-CODE
         $event = [Threading.EventWaitHandle]::OpenExisting("#{output_ready_event_name}")
+        if ($runspace -eq $null)
+        {
+          $runspace = [RunspaceFactory]::CreateRunspace()
+          $runspace.Open()
+        }
 
         $powershell_code = @'
 #{powershell_code}
 '@
+        $ps = $null
+
         try
         {
-          [ScriptBlock]::Create($powershell_code).Invoke()
+          # http://learn-powershell.net/2012/05/13/using-background-runspaces-instead-of-psjobs-for-better-performance/
+          $ps = [powershell]::create()
+          $ps.Runspace = $runspace
+          [Void]$ps.AddScript($powershell_code)
+
+          $asyncResult = $ps.BeginInvoke()
+
+          if (!$asyncResult.AsyncWaitHandle.WaitOne(#{timeout_ms}, $false))
+          {
+            throw "Catastrophic failure: PowerShell DSC resource timeout (#{timeout_ms} ms) exceeded while executing"
+          }
+
+          $output = $ps.EndInvoke($asyncResult)
+          Write-Output $output
         }
         catch
         {
+          try
+          {
+            if ($runspace) { $runspace.Dispose() }
+          }
+          finally
+          {
+            $runspace = $null
+          }
           @{
             indesiredstate = $false
             rebootrequired = $false
@@ -49,11 +77,12 @@ module PuppetX
         {
           [Void]$event.Set()
           [Void]$event.Dispose()
+          if ($ps -ne $null) { [Void]$ps.Dispose() }
         }
 
         CODE
 
-        out = exec_read_result(code, output_ready_event, timeout_ms)
+        out = exec_read_result(code, output_ready_event)
 
         { :stdout => out }
       ensure
@@ -151,7 +180,7 @@ module PuppetX
         output
       end
 
-      def read_stdout(output_ready_event, timeout_ms = 20 * 1000, wait_interval_ms = 50)
+      def read_stdout(output_ready_event, wait_interval_ms = 50)
         output = []
         waited = 0
 
@@ -159,10 +188,6 @@ module PuppetX
         while WAIT_TIMEOUT == self.class.wait_on(output_ready_event, wait_interval_ms)
           output << drain_stdout
           waited += wait_interval_ms
-          if (waited > timeout_ms)
-            msg = "Catastrophic failure: wait object timeout #{timeout_ms} exceeded"
-            raise Puppet::Util::Windows::Error.new(msg, WAIT_TIMEOUT)
-          end
         end
 
         Puppet.debug "Waited #{waited} total milliseconds."
@@ -176,9 +201,9 @@ module PuppetX
         raise Puppet::Util::Windows::Error.new(msg)
       end
 
-      def exec_read_result(powershell_code, output_ready_event, timeout_ms = 300 * 1000)
+      def exec_read_result(powershell_code, output_ready_event)
         write_stdin(powershell_code)
-        read_stdout(output_ready_event, timeout_ms)
+        read_stdout(output_ready_event)
       end
 
       ffi_convention :stdcall
