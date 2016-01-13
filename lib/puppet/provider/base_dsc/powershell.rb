@@ -1,5 +1,8 @@
 require 'pathname'
 require 'json'
+if Puppet::Util::Platform.windows?
+  require_relative '../../../puppet_x/puppetlabs/powershell_manager'
+end
 
 Puppet::Type.type(:base_dsc).provide(:powershell) do
   confine :operatingsystem => :windows
@@ -18,6 +21,25 @@ Puppet::Type.type(:base_dsc).provide(:powershell) do
 Applies DSC Resources by generating a configuration file and applying it.
 EOT
 
+  def self.upgrade_message
+    Puppet.warning <<-UPGRADE
+The current Puppet version is outdated and uses a library that was
+previously necessary on the current Ruby verison to support a colored console.
+
+Unfortunately this library prevents the DSC module from using a shared
+PowerShell process to dramatically improve the performance of resource
+application.
+
+To enable these improvements, it is suggested to upgrade to any x64 version of
+Puppet (including 3.x), or to a Puppet version newer than 3.x.
+    UPGRADE
+  end
+
+
+  if Facter.value(:uses_win32console)
+    upgrade_message
+  end
+
   def self.vendored_modules_path
     File.expand_path(Pathname.new(__FILE__).dirname + '../../../' + 'puppet_x/dsc_resources')
   end
@@ -32,17 +54,27 @@ EOT
     File.expand_path('../../templates', __FILE__)
   end
 
-
   def self.powershell_args
-    ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command']
+    ps_args = ['-NoProfile', '-NonInteractive', '-Sta', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command']
+    ps_args << '-' if !Facter.value(:uses_win32console)
+    ps_args
+  end
+
+  def ps_manager
+    PuppetX::Dsc::PowerShellManager.instance("#{command(:powershell)} #{self.class.powershell_args.join(' ')}")
   end
 
   def exists?
     version = Facter.value(:powershell_version)
+    uses_win32console = Facter.value(:uses_win32console)
     Puppet.debug "PowerShell Version: #{version}"
     script_content = ps_script_content('test')
     Puppet.debug "\n" + script_content
-    output = powershell(self.class.powershell_args, script_content)
+    if uses_win32console
+      output = powershell(self.class.powershell_args, script_content)
+    else
+      output = ps_manager.execute(script_content)[:stdout]
+    end
     Puppet.debug "Dsc Resource returned: #{output}"
     data = JSON.parse(output)
     fail(data['errormessage']) if !data['errormessage'].empty?
@@ -54,9 +86,14 @@ EOT
   end
 
   def create
+    uses_win32console = Facter.value(:uses_win32console)
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
-    output = powershell(self.class.powershell_args, script_content)
+    if uses_win32console
+      output = powershell(self.class.powershell_args, script_content)
+    else
+      output = ps_manager.execute(script_content)[:stdout]
+    end
     Puppet.debug "Create Dsc Resource returned: #{output}"
     data = JSON.parse(output)
 
@@ -68,9 +105,14 @@ EOT
   end
 
   def destroy
+    uses_win32console = Facter.value(:uses_win32console)
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
-    output = powershell(self.class.powershell_args, script_content)
+    if uses_win32console
+      output = powershell(self.class.powershell_args, script_content)
+    else
+      output = ps_manager.execute(script_content)[:stdout]
+    end
     Puppet.debug "Destroy Dsc Resource returned: #{output}"
     data = JSON.parse(output)
 
