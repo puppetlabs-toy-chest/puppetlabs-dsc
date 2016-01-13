@@ -59,10 +59,12 @@ $bytes_in_k = (1024 * 64) + 1
       expect(result).not_to eq(nil)
     end
 
-    it "should return an error if the execution timeout is exceeded" do
+    it "should return a JSON response with a timeout error if the execution timeout is exceeded" do
       timeout_ms = 100
-      msg = /Catastrophic failure\: wait object timeout #{timeout_ms} exceeded/
-      expect { manager.execute('sleep 1', timeout_ms)[:stdout] }.to raise_error(Puppet::Util::Windows::Error, msg)
+      result = manager.execute('sleep 1', timeout_ms)
+      response = JSON.parse(result[:stdout])
+      msg = /Catastrophic failure\: PowerShell DSC resource timeout \(#{timeout_ms} ms\) exceeded while executing/
+      expect(response['errormessage']).to match(msg)
     end
 
     it "should not deadlock and return a valid JSON response given invalid unparseable PowerShell code" do
