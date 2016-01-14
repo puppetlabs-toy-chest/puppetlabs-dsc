@@ -321,6 +321,7 @@ A comprehensive listing of all types included in the dsc module is available in 
 ## Limitations
 
 - DSC Composite Resources are not supported.
+
 - DSC requires PowerShell `Execution Policy` for the `LocalMachine` scope to be set to a less restrictive setting than `Restricted`. If you see the error below, see [MODULES-2500](https://tickets.puppetlabs.com/browse/MODULES-2500) for more information.
 
 ~~~
@@ -330,8 +331,12 @@ Files\WindowsPowerShell\Modules\PuppetVendoredModules\xPSDesiredStateConfigurati
 esource\MSFT_xGroupResource.psm1 cannot be loaded because running scripts is disabled on this system. For more
 information, see about_Execution_Policies at http://go.microsoft.com/fwlink/?LinkID=135170.
 ~~~
+
 - You cannot use forward slashes for the MSI `Path` property for the `Package` DSC Resource. The underlying implementation does not handle forward slashes instead of backward slashes in paths and throws a misleading error that it could not find a Package with the Name and ProductId provided. [MODULES-2486](https://tickets.puppetlabs.com/browse/MODULES-2486) has more examples and information on this subject.
+
 - `dsc_ensure` will override and ignore the value in `ensure` if both are present in a Puppet DSC resource. See [Using DSC Resources with Puppet](#using-dsc-resources-with-puppet).
+
+- Use of this module with the 3.8.x x86 version of Puppet is highly discouraged, though supported.  Normally, this module employs a technique to dramatically improve performance by reusing a PowerShell process to execute DSC related commands.  However, due to the Ruby 1.9.3 runtime used with the 3.8.x x86 version of Puppet, this technique must be disabled, resulting in at least a 2x slowdown.
 
 ### Known Issues
 
