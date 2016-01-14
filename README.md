@@ -390,6 +390,8 @@ If you are affected by this issue, a known workaround is to download the `.tar.g
 
 - Windows 2003 is not supported.  Further, when installing the module on a Puppet master to the default `production` environment, this module ***will*** cause pluginsync to fail on Windows 2003 agents due to an issue with [LFN (long file names)](https://tickets.puppetlabs.com/browse/PUP-4866).  To workaround this, use [Puppet environments](https://docs.puppetlabs.com/puppet/latest/reference/environments.html) to create an environment separate from `production`, without the DSC module installed, to host Windows 2003 nodes.
 
+- `--noop` mode, `puppet resource` and property change notifications are currently not implemented - see [MODULES-2270](https://tickets.puppetlabs.com/browse/MODULES-2270) for details.
+
 ### Running Puppet and DSC without Administrative Privileges
 
 While there are avenues for using Puppet with a non-administrative account, DSC is limited to only accounts with administrative privileges. The underlying CIM implementation DSC uses for DSC Resource invocation requires administrative credentials to function.
