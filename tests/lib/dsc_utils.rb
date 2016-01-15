@@ -2,7 +2,8 @@
 #
 # ==== Attributes
 #
-# * +host+ - A host with the DSC module installed.
+# * +host+ - A host with the DSC module installed. If an array of hosts is provided then
+#   then only the first host will be used to determine the DSC module path.
 #
 # ==== Returns
 #
@@ -18,7 +19,8 @@
 # locate_dsc_module(agent)
 def locate_dsc_module(host)
   # Init
-  module_paths = host.puppet['modulepath'].split(':')
+  host = host.kind_of?(Array) ? host[0] : host
+  module_paths = host.puppet['modulepath'].split(host[:pathseparator])
 
   # Search the available module paths.
   module_paths.each do |module_path|
@@ -42,6 +44,106 @@ def locate_dsc_module(host)
 
   # Return nothing if module is not installed.
   return ''
+end
+
+# Discover the path to the DSC module's vendored resources.
+#
+# ==== Attributes
+#
+# * +host+ - A host with the DSC module installed. If an array of hosts is provided then
+#   then only the first host will be used to determine the DSC module path.
+#
+# ==== Returns
+#
+# +string+ - The fully qualified path to the DSC module on the host. Empty string if
+#   the DSC module is not installed on the host.
+#
+# ==== Raises
+#
+# +nil+
+#
+# ==== Examples
+#
+# locate_dsc_vendor_resources(agent)
+def locate_dsc_vendor_resources(host)
+  # Init
+  host = host.kind_of?(Array) ? host[0] : host
+  libdir_path = on(host, puppet('config print libdir')).stdout.rstrip.gsub('\\', '/')
+  dsc_module_path = locate_dsc_module(host)
+
+  vendor_resource_path = 'puppet_x/dsc_resources'
+  dsc_vendor_paths = ["#{libdir_path}/#{vendor_resource_path}",
+                      "#{dsc_module_path}/lib/#{vendor_resource_path}"]
+
+  # Search the available vendor paths.
+  dsc_vendor_paths.each do |dsc_vendor_path|
+    ps_command = "Test-Path -Type Container -Path #{dsc_vendor_path}"
+
+    if host.is_powershell?
+      on(host, powershell("if ( #{ps_command} ) { exit 0 } else { exit 1 }"), :accept_all_exit_codes => true) do |result|
+        if result.exit_code == 0
+          return dsc_vendor_path
+        end
+      end
+    else
+      on(host, "test -d #{dsc_vendor_path}", :accept_all_exit_codes => true) do |result|
+        if result.exit_code == 0
+          return dsc_vendor_path
+        end
+      end
+    end
+  end
+
+  # Return nothing if module is not installed.
+  return ''
+end
+
+# Get the absolute path to a vendored module's "pds1" file. If the module requested is
+#   not found or has not been vendored then the requested DSC module name will be
+#   returned.
+#
+# ==== Attributes
+#
+# * +host+ - A host with the DSC module installed. If an array of hosts is provided then
+#     then only the first host will be used to determine the DSC module path.
+# * +dsc_module+ - The DSC module for the specified resource type.
+#
+# ==== Returns
+#
+# +string+ - The fully qualified path to the DSC module on the host. Empty string if
+#   the DSC module is not installed on the host.
+#
+# ==== Raises
+#
+# +nil+
+#
+# ==== Examples
+#
+# get_dsc_vendor_resource_abs_path(agent, dsc_module)
+def get_dsc_vendor_resource_abs_path(host, dsc_module)
+  # Init
+  host = host.kind_of?(Array) ? host[0] : host
+  dsc_vendor_path = locate_dsc_vendor_resources(host)
+  dsc_vendor_module_path = "#{dsc_vendor_path}/#{dsc_module}/#{dsc_module}.psd1"
+
+  ps_command = "Test-Path -Type Leaf -Path #{dsc_vendor_module_path}"
+
+  if host.is_powershell?
+    on(host, powershell("if ( #{ps_command} ) { exit 0 } else { exit 1 }"), :accept_all_exit_codes => true) do |result|
+      if result.exit_code == 0
+        return dsc_vendor_module_path
+      end
+    end
+  else
+    on(host, "test -f #{dsc_vendor_module_path}", :accept_all_exit_codes => true) do |result|
+      if result.exit_code == 0
+        return dsc_vendor_module_path
+      end
+    end
+  end
+
+  # If the vendored module is not found just return the DSC module name.
+  return dsc_module
 end
 
 # Copy the "PuppetFakeResource" module to target host. This resource is used for invoking
@@ -206,7 +308,7 @@ def _build_dsc_command(dsc_method, dsc_resource_type, dsc_module, dsc_properties
                 "-Verbose " \
                 "-Property #{dsc_prop_merge}"
 
-  return "if ( #{dsc_command} ) { exit 0 } else { exit 1 }"
+  return "try { if ( #{dsc_command} ) { exit 0 } else { exit 1 } } catch { Write-Host $_.Exception.Message; exit 1 }"
 end
 
 # Execute a PowerShell script on a remote machine.
@@ -284,7 +386,8 @@ end
 #                  :Contents=>'catcat')
 def set_dsc_resource(hosts, dsc_resource_type, dsc_module, dsc_properties)
   # Init
-  ps_script = _build_dsc_command('Set', dsc_resource_type, dsc_module, dsc_properties)
+  dsc_full_module_path = get_dsc_vendor_resource_abs_path(hosts, dsc_module)
+  ps_script = _build_dsc_command('Set', dsc_resource_type, dsc_full_module_path, dsc_properties)
 
   _exec_dsc_script(hosts, ps_script)
 
@@ -330,6 +433,7 @@ def set_dsc_cred_resource(hosts,
                           dsc_cred_param,
                           dsc_properties)
   # Init
+  dsc_full_module_path = get_dsc_vendor_resource_abs_path(hosts, dsc_module)
   ps_script = <<-SCRIPT
 $secpasswd = ConvertTo-SecureString '#{password}' -AsPlainText -Force
 $credentials = New-Object System.Management.Automation.PSCredential ('#{user}', $secpasswd)\n
@@ -337,12 +441,18 @@ SCRIPT
 
   #Add credential to DSC properties
   dsc_properties[dsc_cred_param] = '$credentials'
-  ps_script << _build_dsc_command('Set', dsc_resource_type, dsc_module, dsc_properties)
+  ps_script << _build_dsc_command('Set', dsc_resource_type, dsc_full_module_path, dsc_properties)
 
   _exec_dsc_script(hosts, ps_script)
 
   # Verify State
-  assert_dsc_resource(hosts, dsc_resource_type, dsc_module, dsc_properties)
+  assert_dsc_cred_resource(hosts,
+                           user,
+                           password,
+                           dsc_resource_type,
+                           dsc_module,
+                           dsc_cred_param,
+                           dsc_properties)
 end
 
 module Beaker
@@ -374,7 +484,8 @@ module Beaker
       #                     :Contents=>'catcat')
       def assert_dsc_resource(hosts, dsc_resource_type, dsc_module, dsc_properties)
         # Init
-        ps_script = _build_dsc_command('Test', dsc_resource_type, dsc_module, dsc_properties)
+        dsc_full_module_path = get_dsc_vendor_resource_abs_path(hosts, dsc_module)
+        ps_script = _build_dsc_command('Test', dsc_resource_type, dsc_full_module_path, dsc_properties)
 
         _exec_dsc_script(hosts, ps_script) do |result|
           assert(0 == result.exit_code, 'DSC resource not in desired state!')
@@ -419,6 +530,7 @@ module Beaker
                                    dsc_cred_param,
                                    dsc_properties)
         #Init
+        dsc_full_module_path = get_dsc_vendor_resource_abs_path(hosts, dsc_module)
         ps_script = <<-SCRIPT
 $secpasswd = ConvertTo-SecureString '#{password}' -AsPlainText -Force
 $credentials = New-Object System.Management.Automation.PSCredential ('#{user}', $secpasswd)\n
@@ -426,8 +538,7 @@ SCRIPT
 
         #Add credential to DSC properties
         dsc_properties[dsc_cred_param] = '$credentials'
-        ps_script << _build_dsc_command('Test', dsc_resource_type, dsc_module, dsc_properties)
-
+        ps_script << _build_dsc_command('Test', dsc_resource_type, dsc_full_module_path, dsc_properties)
         _exec_dsc_script(hosts, ps_script) do |result|
           assert(0 == result.exit_code, 'DSC resource not in desired state!')
         end
