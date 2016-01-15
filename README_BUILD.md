@@ -49,11 +49,13 @@ When importing or creating custom types, the following considerations will allow
 build your types.
 
 * See the notes in Building above.
-* The builder will import your custom types into the vendored resources. They are required to be there for the module to successfully find them during a Puppet catalog application.
+* Do not try to include your module in the import folder by default. When building the first time or during a clean, the builder will delete all files and folders in this directory. It is preferred that you keep those custom modules in a separate location. A suggested location a separate repository where you can use source control on those items. You could also keep those files in `build/vendor/custom` within this repository.
+* The builder will import your custom types into the vendored resources directory. They are required to be there for the module to successfully find them during a Puppet catalog application. The dsc module requires the PowerShell files to be there ***even*** if you have already installed them elsewhere on the machine due to how it points to the location of the resource to avoid issues with duplicate resources.
 * The builder requires that there is no versioned subfolder. This means that you should not have a subfolder with a version (like you get when installing existing modules from the PowerShell Gallery).
   * You can use existing modules from the Gallery if you install them, then copy the files from the versioned subfolder up to the top level folder and delete the versioned subfolder.
-* The builder requires that the PSD1 file be named the same as the parent folder. If your module is named `MyModule`, the folder structure should be `MyModule/MyModule.psd1` and not `MyModule/SomethingElse.psd1`.
-* Do not try to include your module in the import folder by default. When building the first time or during a clean, the builder will delete all files and folders in this directory. It is preferred that you keep those custom modules in a separate location. A suggested location is `build/vendor/custom` within this repository.
+* The builder requires that the PSD1 file be named the same as the parent folder. If your module is named `MyModule`, the folder structure should be `MyModule/MyModule.psd1` and not `MyModule/SomethingElse.psd1`. See the image below:
+
+![File in Subdirectory with name match](https://cloud.githubusercontent.com/assets/63502/12311007/c9e646f8-ba19-11e5-9f57-cbf360fee0df.png)
 
 
 ### Steps to Build
