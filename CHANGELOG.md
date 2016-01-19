@@ -1,4 +1,4 @@
-## 2016-01-14 - Supported Release 1.0.0
+## 2016-01-19 - Supported Release 1.0.0
 ### Summary
 
 First supported release! Performance is increased (more than 2 times in most instances) by reusing PowerShell instance! Support PSCredentials, KeyValuePair and other Embedded Instance Classes. Update DSC Modules to latest available. Notify on Reboot required (and handle it with a known named Puppet reboot resource).
