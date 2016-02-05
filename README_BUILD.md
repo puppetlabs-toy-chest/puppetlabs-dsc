@@ -53,17 +53,18 @@ build your types.
 * The builder will import your custom types into the vendored resources directory. They are required to be there for the module to successfully find them during a Puppet catalog application. The dsc module requires the PowerShell files to be there ***even*** if you have already installed them elsewhere on the machine due to how it points to the location of the resource to avoid issues with duplicate resources.
 * The builder requires that there is no versioned subfolder. This means that you should not have a subfolder with a version (like you get when installing existing modules from the PowerShell Gallery).
   * You can use existing modules from the Gallery if you install them, then copy the files from the versioned subfolder up to the top level folder and delete the versioned subfolder.
-* The builder requires that the PSD1 file be named the same as the parent folder. If your module is named `MyModule`, the folder structure should be `MyModule/MyModule.psd1` and not `MyModule/SomethingElse.psd1`. See the image below:
-
-![File in Subdirectory with name match](https://cloud.githubusercontent.com/assets/63502/12311007/c9e646f8-ba19-11e5-9f57-cbf360fee0df.png)
-
+* The builder requires that the PSD1 file be named the same as the parent folder. If your module is named `MyModule`,
+the folder structure should be `MyModule/MyModule.psd1` and not `MyModule/SomethingElse.psd1`. The builder also requires a subdirectory called `DSCRsources`. See the image below:
+  ![Module Layout - PSD1 file](docs/images/dir_struct_psdname.png)
 
 ### Steps to Build
 
 When importing or creating custom types, follow these steps:
 
 1. Build the module with `DSC_REF=84a467c bundle exec rake dsc:build`, where `84a467c` is the SHA of the repository https://github.com/PowerShell/DscResources that the current Puppet types are based on.
-2. Now take your own modules path and import your types: `bundle exec rake dsc:resources:import["path/to/your/types"]`. This should be the parent path that contains a folder (or folders) of DSC Resources. e.g. in the example above, the MyModule could be a folder called MyDscResources - you would run `bundle exec rake dsc:resources:import["build/vendor/custom/MyDscResources"]`.
+2. Now take your own modules path and import your types: `bundle exec rake dsc:resources:import["path/to/your/types"]`. This should be the parent path that contains a folder (or folders) of DSC Resources.
+   e.g. run `bundle exec rake dsc:resources:import["build/vendor/custom"]`.  
+   ![Module Layout - Import the Parent Directory](docs/images/dir_struct_import.png)
 3. For each of your own modules you want to import that may be in different parent paths, you can repeat the above step.
 4. Rebuild the module with `bundle exec rake dsc:types:build`
 5. The rake task will produce new Puppet types based on the MOFs in `lib/puppet/type` and their spec tests in `spec/unit/puppet/type`. These files should never be modified.

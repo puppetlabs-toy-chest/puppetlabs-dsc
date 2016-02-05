@@ -120,9 +120,13 @@ module Dsc
         revert_array = path_array.reverse
         downcased_array = revert_array.collect{|p| p.downcase}
         index = downcased_array.index('dscresources')
-        raise "module for #{self.name} not found" if index == nil
+        raise "module for #{self.name} not found (Missing DSCResources directory in path #{@resource_mof_path})" if index == nil
 
         module_name = revert_array[index + 1 ] rescue nil
+        if (module_name == "dsc_resources") 
+          warn("The name of the module in directory #{@resource_mof_path} was detected as #{module_name}.  This may indicate that the wrong directory was used to import the resource")
+        end
+        
         module_dir = path_array[0..(path_array.count - (index + 2))].join('/')
         module_manifest_path = "#{module_dir}/#{module_name}.psd1"
         raise "module manifest #{module_manifest_path} not found" unless File.exists?(module_manifest_path)
