@@ -1,8 +1,11 @@
 # dsc
 
-[wmf-5.0]: https://www.microsoft.com/en-us/download/details.aspx?id=48729
+[wmf-5.0]: https://www.microsoft.com/en-us/download/details.aspx?id=50395
 [DSCResources]: https://github.com/powershell/DSCResources
-[wmf5-blog-post]: http://blogs.msdn.com/b/powershell/archive/2015/08/31/windows-management-framework-5-0-production-preview-is-now-available.aspx
+[wmf5-blog-post]: https://msdn.microsoft.com/en-us/powershell/wmf/releasenotes
+[wmf5-blog-requirements]: https://msdn.microsoft.com/en-us/powershell/wmf/requirements
+[wmf5-blog-incompatibilites]: https://msdn.microsoft.com/en-us/powershell/wmf/productincompat
+
 
 #### Table of Contents
 1. [Description - What is the dsc module and what does it do](#module-description)
@@ -36,11 +39,13 @@ In this version, the following DSC Resources are already built and ready for use
 - All base DSC resources found in PowerShell 5 ([WMF 5.0][wmf-5.0]).
 - All DSC resources found in the [Microsoft PowerShell DSC Resource Kit][DSCResources]
 
-## Windows System Prerequisites
+## [Windows System Prerequisites][wmf5-blog-requirements]
 
- - PowerShell 5, which is included in [Windows Management Framework 5.0][wmf-5.0]. PowerShell v5 is currently in [production preview][wmf5-blog-post], so the above link may change after official release.
- 
+ - PowerShell 5, which is included in [Windows Management Framework 5.0][wmf-5.0].
+ - Windows Server 2008 R2 SP1 - [WMF 4.0 and .NET Framework 4.5 or above are installed][wmf5-blog-requirements]
+ - Windows 7 SP1 - [WMF 4.0 and .NET Framework 4.5 or above are installed][wmf5-blog-requirements]
  - [Windows 2003 is not supported](#known-issues).
+ - [Windows 2008 is not supported](#known-issues).
 
 ## Setup
 
@@ -332,7 +337,7 @@ dsc::lcm_config {'disable_lcm':
 
 ### Types
 
-A comprehensive list of all types included in the dsc module is available in the [types document](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/types.md). This list maps each Puppet resource (for example, `dsc_xcertreq`) to the corresponding DSC resource. 
+A comprehensive list of all types included in the dsc module is available in the [types document](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/types.md). This list maps each Puppet resource (for example, `dsc_xcertreq`) to the corresponding DSC resource.
 
 Because types are built from the source code of each DSC Resources MOF schema files, the name of the DSC resource in the types document links to a local copy of that resource code (in this case, `xCertReq`), so that you can see how the code is applied to your system.
 
@@ -384,7 +389,7 @@ dsc_service{'disable_foo':
   [MODULES-2512](https://tickets.puppetlabs.com/browse/MODULES-2512) has more details.
 
 - You might have issues attempting to use `dsc_ensure => absent` with `dsc_xservice` with services that are already not present. To work around this problem, always specify the path to the executable for the service when specifying `absent`. [MODULES-2512](https://tickets.puppetlabs.com/browse/MODULES-2512) has more details. The following example works:
-  
+
   ~~~puppet
 dsc_xservice{'disable_foo':
   dsc_ensure => absent,
@@ -405,11 +410,21 @@ Error: Try 'puppet help module install' for usage
 For Puppet 4.2.2+ (and 3.8.2) we've decreased the possibility of the issue occurring based on the fixes in [PUP-4854](https://tickets.puppetlabs.com/browse/PUP-4854). A complete fix will become available in a future version of Puppet that incorporates [PUP-4866](https://tickets.puppetlabs.com/browse/PUP-4866).
 If you are affected by this issue, you can work around this by downloading the `.tar.gz` from the Forge and use `puppet module install` using the file rather than directly from the Forge.
 
-- Windows 2003 is not supported. **If this module is present on the master, it breaks Windows 2003 agents.** 
+- Windows 2003 is not supported. **If this module is present on the master, it breaks Windows 2003 agents.**
 
   When installed on a Puppet master to the default `production` environment, this module causes pluginsync to **fail** on Windows 2003 agents because of an issue with [LFN (long file names)](https://tickets.puppetlabs.com/browse/PUP-4866). To work around this issue, host your Windows 2003 nodes on a [Puppet environment](https://docs.puppetlabs.com/puppet/latest/reference/environments.html) that is separate from `production` and that does **not** have the DSC module installed.  
-  
+ - Windows 2008 is not supported. Microsoft didn't publish WMF 5.0 RTM at 2016-02-24.
+
 - `--noop` mode, `puppet resource` and property change notifications are currently not implemented - see [MODULES-2270](https://tickets.puppetlabs.com/browse/MODULES-2270) for details.
+
+- [Known WMF 5.0 Product Incompatibilites][wmf5-blog-incompatibilites]
+
+  Systems that are running the following server applications should not run Windows Management Framework 5.0 at this time:
+   - Microsoft Exchange Server 2013
+   - Microsoft Exchange Server 2010 SP3
+   - Microsoft SharePoint Server 2013
+   - Microsoft SharePoint Server 2010
+   - System Center 2012 Virtual Machine Manager
 
 ### Running Puppet and DSC without Administrative Privileges
 
