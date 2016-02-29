@@ -3,7 +3,6 @@
 [wmf-5.0]: https://www.microsoft.com/en-us/download/details.aspx?id=50395
 [DSCResources]: https://github.com/powershell/DSCResources
 [wmf5-blog-post]: https://msdn.microsoft.com/en-us/powershell/wmf/releasenotes
-[wmf5-blog-requirements]: https://msdn.microsoft.com/en-us/powershell/wmf/requirements
 [wmf5-blog-incompatibilites]: https://msdn.microsoft.com/en-us/powershell/wmf/productincompat
 
 
@@ -39,14 +38,11 @@ In this version, the following DSC Resources are already built and ready for use
 - All base DSC resources found in PowerShell 5 ([WMF 5.0][wmf-5.0]).
 - All DSC resources found in the [Microsoft PowerShell DSC Resource Kit][DSCResources]
 
-## [Windows System Prerequisites][wmf5-blog-requirements]
+## Windows System Prerequisites
 
  - PowerShell 5, which is included in [Windows Management Framework 5.0][wmf-5.0].
- - Windows Server 2008 R2 SP1 - [WMF 4.0 and .NET Framework 4.5 or above are installed][wmf5-blog-requirements]
- - Windows 7 SP1 - [WMF 4.0 and .NET Framework 4.5 or above are installed][wmf5-blog-requirements]
  - [Windows 2003 is not supported](#known-issues).
- - [Windows 2008 is not supported](#known-issues).
-
+ 
 ## Setup
 
 ~~~
@@ -410,10 +406,9 @@ Error: Try 'puppet help module install' for usage
 For Puppet 4.2.2+ (and 3.8.2) we've decreased the possibility of the issue occurring based on the fixes in [PUP-4854](https://tickets.puppetlabs.com/browse/PUP-4854). A complete fix will become available in a future version of Puppet that incorporates [PUP-4866](https://tickets.puppetlabs.com/browse/PUP-4866).
 If you are affected by this issue, you can work around this by downloading the `.tar.gz` from the Forge and use `puppet module install` using the file rather than directly from the Forge.
 
-- Windows 2003 is not supported. **If this module is present on the master, it breaks Windows 2003 agents.**
+- Windows Server 2003 is not supported. **If this module is present on the master, it breaks Windows 2003 agents.**
 
   When installed on a Puppet master to the default `production` environment, this module causes pluginsync to **fail** on Windows 2003 agents because of an issue with [LFN (long file names)](https://tickets.puppetlabs.com/browse/PUP-4866). To work around this issue, host your Windows 2003 nodes on a [Puppet environment](https://docs.puppetlabs.com/puppet/latest/reference/environments.html) that is separate from `production` and that does **not** have the DSC module installed.  
- - Windows 2008 is not supported. Microsoft didn't publish WMF 5.0 RTM at 2016-02-24.
 
 - `--noop` mode, `puppet resource` and property change notifications are currently not implemented - see [MODULES-2270](https://tickets.puppetlabs.com/browse/MODULES-2270) for details.
 
