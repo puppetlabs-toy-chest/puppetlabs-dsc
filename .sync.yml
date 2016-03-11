@@ -8,14 +8,17 @@ Gemfile:
   supports_windows: true
   required:
     ':development':
+      - gem: rake
+        version: '~>10.1'
       - gem: rspec
-        version: '~>2.14.1'
+        version: '~>3.0'
       - gem: puppet-lint
       - gem: puppetlabs_spec_helper
         version: '~>0.10.3'
       - gem: puppet_facts
       - gem: mocha
         version: '~>0.10.5'
+      - gem: pry
       - gem: puppet-blacksmith
       - gem: mime-types
         version: '~>2.99'
@@ -43,6 +46,7 @@ spec/spec_helper.rb:
   - '.rbenv-gemsets'
   - '.ruby-version'
   - '*.lock'
+  - 'vendor/'
 appveyor.yml:
   matrix_extras:
     - PUPPET_GEM_VERSION: 3.7.0
