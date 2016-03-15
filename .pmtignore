@@ -2,5 +2,14 @@ import/
 /spec/fixtures/
 .tmp
 *.lock
+*.local
 .rbenv-gemsets
 .ruby-version
+build/
+docs/
+tests/
+
+# Normally the spec directory is included in module distribution, however due to large number of 
+# files generated, they are ignored when packaging the module.  The spec tests are not required
+# for the module to operate
+spec/
