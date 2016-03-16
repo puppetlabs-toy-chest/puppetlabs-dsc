@@ -24,9 +24,72 @@ namespace :dsc do
     end
 
     Rake::Task['dsc:resources:import'].invoke unless File.exists?(default_dsc_resources_path)
+    raise "The MOF files are not sanitized" unless sanitize_mof_files("#{default_dsc_resources_path}/**/*.mof", false)    
     Rake::Task['dsc:types:clean'].invoke(dsc_module_path)
     Rake::Task['dsc:types:build'].invoke(dsc_module_path)
     Rake::Task['dsc:types:document'].invoke(dsc_module_path)
+  end
+
+  def sanitize_mof_files(path_spec, remediate = false)
+    issanitized = true
+    detector = CharlockHolmes::EncodingDetector.new
+    Dir[path_spec].each do |original|
+      if !File.directory?(original)
+        content = File.read(original)
+        detection = detector.detect(content)
+        if detection[:encoding] != 'ISO-8859-1'
+          # Check if a BOM is present
+          bomtype = nil
+          bombytes = IO.binread(original,4)
+          case bombytes[0..3]
+            when "\x00\x00\xFE\xFF"
+              bomtype = bomtype || 'BOM_UTF_32_1'
+            when "\xFF\xFE\x00\x00"
+              bomtype = bomtype || 'BOM_UTF_32_2'
+            when "\xDD\x73\x66\x73"
+              bomtype = bomtype || 'BOM_UTF_EBCDIC'
+            when "\x84\x31\x95\x33"
+              bomtype = bomtype || 'BOM_GB_18030'
+          end
+          case bombytes[0..2]
+            when "\xEF\xBB\xBF"
+              bomtype = bomtype || 'BOM_UTF_8'
+            when "\xF7\x64\x4C"
+              bomtype = bomtype || 'BOM_UTF_1'
+            when "\x0E\xFE\xFF"
+              bomtype = bomtype || 'BOM_SCSU'
+            when "\xFB\xEE\x28"
+              bomtype = bomtype || 'BOM_BOCU'
+          end
+          case bombytes[0..1]
+            when "\xFE\xFF"
+              bomtype = bomtype || 'BOM_UTF_16_1'
+            when "\xFF\xFE"
+              bomtype = bomtype || 'BOM_UTF_16_2'
+          end
+
+          puts "Unexpected encoding: #{detection[:encoding]} - #{original}"
+          
+          if (!bomtype.nil?)
+            if remediate
+              puts "Detected and removed BOM header of type #{bomtype} - #{original}"
+              utf8_encoded_content = CharlockHolmes::Converter.convert content, detection[:encoding], 'ISO-8859-1'
+              File.open(original, "w+") do |f|
+                f.write utf8_encoded_content
+              end
+            else
+              puts "FATAL Detected a BOM header of type #{bomtype} - #{original}"
+              issanitized = false
+            end
+          end
+        end
+      end
+    end
+    issanitized
+  end    
+  
+  task :sanitize do |t, args|
+    raise "Error while sanitizing the mof files" unless sanitize_mof_files("#{default_dsc_resources_path}/**/*.mof", true)    
   end
 
   desc "Cleanup all"
