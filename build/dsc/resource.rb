@@ -77,29 +77,36 @@ module Dsc
     end
 
     def ensurable?
-      properties.detect{|p|p.is_ensure?} ? true : false
+      ensure_property ? true : false
+    end
+
+    def ensure_property
+      @ensure_property ||= properties.find{|p| p.is_ensure?}
     end
 
     def absentable?
-      properties.detect do |p|
-        p.is_ensure? && p.values.any? { |v| v.casecmp('absent') == 0 || v.casecmp('disable') == 0 }
-      end
+      ensurable? &&
+      ensure_property.values.any? { |v| v.casecmp('absent') == 0 || v.casecmp('disable') == 0 }
     end
 
     def absent_value
-      properties.detect do |p|
-        return 'absent' if p.is_ensure? && p.values.any? { |v| v.casecmp('absent') == 0 }
-        return 'disable' if p.is_ensure? && p.values.any? { |v| v.casecmp('disable') == 0 }
+      if ensure_property.values.any? { |v| v.casecmp('absent') == 0 }
+        'absent'
+      elsif ensure_property.values.any? { |v| v.casecmp('disable') == 0 }
+        'disable'
+      else
+        throw 'Error processing MOF schema - could not determine equivalent \'absent\' value for ensure'
       end
-      throw 'Error processing MOF schema - could not determine equivalent \'absent\' value for ensure'
     end
 
     def ensure_value
-      properties.detect do |p|
-        return 'present' if p.is_ensure? && p.values.any? { |v| v.casecmp('present') == 0 }
-        return 'enable' if p.is_ensure? && p.values.any? { |v| v.casecmp('enable') == 0 }
+      if ensure_property.values.any? { |v| v.casecmp('present') == 0 }
+        'present'
+      elsif ensure_property.values.any? { |v| v.casecmp('enable') == 0 }
+        'enable'
+      else
+        throw 'Error processing MOF schema - could not determine equivalent \'present\' value for ensure'
       end
-      throw 'Error processing MOF schema - could not determine equivalent \'present\' value for ensure'
     end
 
     def has_name?
