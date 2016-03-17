@@ -3,8 +3,9 @@ module Dsc
 
     attr_reader :property_hash
 
-    def initialize(cim_feature)
+    def initialize(cim_feature, resource_mof_path)
       @cim_feature = cim_feature
+      @resource_mof_path = resource_mof_path
       @name          = nil
       @description   = nil
       @type          = nil
@@ -63,7 +64,13 @@ module Dsc
     end
 
     def values
-      @values ||= @cim_feature.values
+      @values ||=
+        if is_ensure? && ! @cim_feature.values
+          $stderr.puts "WARNING: Processing #{@resource_mof_path}\nEnsurable property '#{name}' is missing a values specification - using default 'present'\n"
+          ['Present']
+        else
+          @cim_feature.values
+        end
     end
 
     def is_ensure?

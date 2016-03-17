@@ -108,7 +108,7 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
           .select { |c| c[:klass].name == property.embeddedinstance_class_name }
           .first[:klass]
           .features
-          .map { |p| Dsc::Property.new(p) }
+          .map { |p| Dsc::Property.new(p, resource.relative_mof_path) }
           .each do |dsc_prop|
 
           name = dsc_prop.name.downcase.gsub("'", "\\\\'")
