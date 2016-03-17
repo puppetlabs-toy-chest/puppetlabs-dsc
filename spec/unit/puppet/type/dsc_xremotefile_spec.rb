@@ -26,6 +26,7 @@ describe Puppet::Type.type(:dsc_xremotefile) do
       :dsc_useragent => 'foo',
       :dsc_headers => {"somekey"=>"somevalue", "somekey2"=>"somevalue2"},
       :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_matchsource => true,
       :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_destinationpath is a required attribute/)
   end
@@ -113,6 +114,53 @@ describe Puppet::Type.type(:dsc_xremotefile) do
 
   it 'should not accept uint for dsc_credential' do
     expect{dsc_xremotefile[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_matchsource' do
+    expect{dsc_xremotefile[:dsc_matchsource] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_matchsource' do
+    dsc_xremotefile[:dsc_matchsource] = true
+    expect(dsc_xremotefile[:dsc_matchsource]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_matchsource" do
+    dsc_xremotefile[:dsc_matchsource] = 'true'
+    expect(dsc_xremotefile[:dsc_matchsource]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_matchsource" do
+    dsc_xremotefile[:dsc_matchsource] = 'false'
+    expect(dsc_xremotefile[:dsc_matchsource]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_matchsource" do
+    dsc_xremotefile[:dsc_matchsource] = 'True'
+    expect(dsc_xremotefile[:dsc_matchsource]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_matchsource" do
+    dsc_xremotefile[:dsc_matchsource] = 'False'
+    expect(dsc_xremotefile[:dsc_matchsource]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_matchsource" do
+    dsc_xremotefile[:dsc_matchsource] = :true
+    expect(dsc_xremotefile[:dsc_matchsource]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_matchsource" do
+    dsc_xremotefile[:dsc_matchsource] = :false
+    expect(dsc_xremotefile[:dsc_matchsource]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_matchsource' do
+    expect{dsc_xremotefile[:dsc_matchsource] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_matchsource' do
+    expect{dsc_xremotefile[:dsc_matchsource] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do

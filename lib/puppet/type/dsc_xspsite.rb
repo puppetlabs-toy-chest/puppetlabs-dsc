@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   def dscmeta_resource_friendly_name; 'xSPSite' end
   def dscmeta_resource_name; 'MSFT_xSPSite' end
   def dscmeta_module_name; 'xSharePoint' end
-  def dscmeta_module_version; '0.7.0.0' end
+  def dscmeta_module_version; '0.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -45,7 +45,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_url) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Url"
+    desc "Url - The URL of the site collection"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_owneralias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "OwnerAlias"
+    desc "OwnerAlias - The username of the site collection administrator"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -76,7 +76,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_compatibilitylevel) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "CompatibilityLevel"
+    desc "CompatibilityLevel - The compatibility level of the site"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -94,7 +94,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_contentdatabase) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ContentDatabase"
+    desc "ContentDatabase - The name of the content database to create the site in"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -109,7 +109,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Description"
+    desc "Description - The description to apply to the site collection"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -124,7 +124,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_hostheaderwebapplication) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "HostHeaderWebApplication"
+    desc "HostHeaderWebApplication - The URL of the host header web application to create this site in"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -139,7 +139,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_language) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "Language"
+    desc "Language - The language code of the site"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -157,7 +157,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - The display name of the site collection"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -172,7 +172,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_owneremail) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "OwnerEmail"
+    desc "OwnerEmail - The email address of the site collection administrator"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -187,7 +187,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_quotatemplate) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "QuotaTemplate"
+    desc "QuotaTemplate - The quota template to apply to the site collection"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -202,7 +202,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_secondaryemail) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SecondaryEmail"
+    desc "SecondaryEmail - The secondary site collection admin email address"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -217,7 +217,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_secondaryowneralias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SecondaryOwnerAlias"
+    desc "SecondaryOwnerAlias - The secondary site collection admin username"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -232,7 +232,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_template) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Template"
+    desc "Template - The template to apply to the site collection"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -247,7 +247,7 @@ Puppet::Type.newtype(:dsc_xspsite) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "InstallAccount"
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

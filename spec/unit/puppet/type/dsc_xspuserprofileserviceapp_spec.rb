@@ -20,7 +20,6 @@ describe Puppet::Type.type(:dsc_xspuserprofileserviceapp) do
       :name     => 'foo',
       :dsc_applicationpool => 'foo',
       :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_mysitehostlocation => 'foo',
       :dsc_profiledbname => 'foo',
       :dsc_profiledbserver => 'foo',
@@ -28,6 +27,7 @@ describe Puppet::Type.type(:dsc_xspuserprofileserviceapp) do
       :dsc_socialdbserver => 'foo',
       :dsc_syncdbname => 'foo',
       :dsc_syncdbserver => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -81,26 +81,6 @@ describe Puppet::Type.type(:dsc_xspuserprofileserviceapp) do
 
   it 'should not accept uint for dsc_farmaccount' do
     expect{dsc_xspuserprofileserviceapp[:dsc_farmaccount] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it "should not accept empty password for dsc_installaccount" do
-    expect{dsc_xspuserprofileserviceapp[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_installaccount' do
-    expect{dsc_xspuserprofileserviceapp[:dsc_installaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_installaccount' do
-    expect{dsc_xspuserprofileserviceapp[:dsc_installaccount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_installaccount' do
-    expect{dsc_xspuserprofileserviceapp[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_xspuserprofileserviceapp[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_mysitehostlocation' do
@@ -213,6 +193,26 @@ describe Puppet::Type.type(:dsc_xspuserprofileserviceapp) do
 
   it 'should not accept uint for dsc_syncdbserver' do
     expect{dsc_xspuserprofileserviceapp[:dsc_syncdbserver] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_installaccount" do
+    expect{dsc_xspuserprofileserviceapp[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_installaccount' do
+    expect{dsc_xspuserprofileserviceapp[:dsc_installaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_installaccount' do
+    expect{dsc_xspuserprofileserviceapp[:dsc_installaccount] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_installaccount' do
+    expect{dsc_xspuserprofileserviceapp[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_installaccount' do
+    expect{dsc_xspuserprofileserviceapp[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

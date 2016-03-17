@@ -66,6 +66,120 @@ describe Puppet::Type.type(:dsc_xsqlserversetup) do
     expect{dsc_xsqlserversetup[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_sourcecredential" do
+    expect{dsc_xsqlserversetup[:dsc_sourcecredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_sourcecredential' do
+    expect{dsc_xsqlserversetup[:dsc_sourcecredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_sourcecredential' do
+    expect{dsc_xsqlserversetup[:dsc_sourcecredential] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_sourcecredential' do
+    expect{dsc_xsqlserversetup[:dsc_sourcecredential] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_sourcecredential' do
+    expect{dsc_xsqlserversetup[:dsc_sourcecredential] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_suppressreboot' do
+    expect{dsc_xsqlserversetup[:dsc_suppressreboot] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_suppressreboot' do
+    dsc_xsqlserversetup[:dsc_suppressreboot] = true
+    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_suppressreboot" do
+    dsc_xsqlserversetup[:dsc_suppressreboot] = 'true'
+    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_suppressreboot" do
+    dsc_xsqlserversetup[:dsc_suppressreboot] = 'false'
+    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_suppressreboot" do
+    dsc_xsqlserversetup[:dsc_suppressreboot] = 'True'
+    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_suppressreboot" do
+    dsc_xsqlserversetup[:dsc_suppressreboot] = 'False'
+    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_suppressreboot" do
+    dsc_xsqlserversetup[:dsc_suppressreboot] = :true
+    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_suppressreboot" do
+    dsc_xsqlserversetup[:dsc_suppressreboot] = :false
+    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_suppressreboot' do
+    expect{dsc_xsqlserversetup[:dsc_suppressreboot] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_suppressreboot' do
+    expect{dsc_xsqlserversetup[:dsc_suppressreboot] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_forcereboot' do
+    expect{dsc_xsqlserversetup[:dsc_forcereboot] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_forcereboot' do
+    dsc_xsqlserversetup[:dsc_forcereboot] = true
+    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_forcereboot" do
+    dsc_xsqlserversetup[:dsc_forcereboot] = 'true'
+    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_forcereboot" do
+    dsc_xsqlserversetup[:dsc_forcereboot] = 'false'
+    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_forcereboot" do
+    dsc_xsqlserversetup[:dsc_forcereboot] = 'True'
+    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_forcereboot" do
+    dsc_xsqlserversetup[:dsc_forcereboot] = 'False'
+    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_forcereboot" do
+    dsc_xsqlserversetup[:dsc_forcereboot] = :true
+    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_forcereboot" do
+    dsc_xsqlserversetup[:dsc_forcereboot] = :false
+    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_forcereboot' do
+    expect{dsc_xsqlserversetup[:dsc_forcereboot] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_forcereboot' do
+    expect{dsc_xsqlserversetup[:dsc_forcereboot] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_features' do
     expect{dsc_xsqlserversetup[:dsc_features] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -89,6 +203,9 @@ describe Puppet::Type.type(:dsc_xsqlserversetup) do
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
       :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sourcecredential => {"user"=>"user", "password"=>"password"},
+      :dsc_suppressreboot => true,
+      :dsc_forcereboot => true,
       :dsc_features => 'foo',
       :dsc_instanceid => 'foo',
       :dsc_pid => 'foo',
@@ -128,6 +245,7 @@ describe Puppet::Type.type(:dsc_xsqlserversetup) do
       :dsc_asconfigdir => 'foo',
       :dsc_issvcaccount => {"user"=>"user", "password"=>"password"},
       :dsc_issvcaccountusername => 'foo',
+      :dsc_browsersvcstartuptype => 'Automatic',
     )}.to raise_error(Puppet::Error, /dsc_instancename is a required attribute/)
   end
 
@@ -783,6 +901,56 @@ describe Puppet::Type.type(:dsc_xsqlserversetup) do
 
   it 'should not accept uint for dsc_issvcaccountusername' do
     expect{dsc_xsqlserversetup[:dsc_issvcaccountusername] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_browsersvcstartuptype predefined value Automatic' do
+    dsc_xsqlserversetup[:dsc_browsersvcstartuptype] = 'Automatic'
+    expect(dsc_xsqlserversetup[:dsc_browsersvcstartuptype]).to eq('Automatic')
+  end
+
+  it 'should accept dsc_browsersvcstartuptype predefined value automatic' do
+    dsc_xsqlserversetup[:dsc_browsersvcstartuptype] = 'automatic'
+    expect(dsc_xsqlserversetup[:dsc_browsersvcstartuptype]).to eq('automatic')
+  end
+
+  it 'should accept dsc_browsersvcstartuptype predefined value Disabled' do
+    dsc_xsqlserversetup[:dsc_browsersvcstartuptype] = 'Disabled'
+    expect(dsc_xsqlserversetup[:dsc_browsersvcstartuptype]).to eq('Disabled')
+  end
+
+  it 'should accept dsc_browsersvcstartuptype predefined value disabled' do
+    dsc_xsqlserversetup[:dsc_browsersvcstartuptype] = 'disabled'
+    expect(dsc_xsqlserversetup[:dsc_browsersvcstartuptype]).to eq('disabled')
+  end
+
+  it 'should accept dsc_browsersvcstartuptype predefined value Manual' do
+    dsc_xsqlserversetup[:dsc_browsersvcstartuptype] = 'Manual'
+    expect(dsc_xsqlserversetup[:dsc_browsersvcstartuptype]).to eq('Manual')
+  end
+
+  it 'should accept dsc_browsersvcstartuptype predefined value manual' do
+    dsc_xsqlserversetup[:dsc_browsersvcstartuptype] = 'manual'
+    expect(dsc_xsqlserversetup[:dsc_browsersvcstartuptype]).to eq('manual')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xsqlserversetup[:dsc_browsersvcstartuptype] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_browsersvcstartuptype' do
+    expect{dsc_xsqlserversetup[:dsc_browsersvcstartuptype] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_browsersvcstartuptype' do
+    expect{dsc_xsqlserversetup[:dsc_browsersvcstartuptype] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_browsersvcstartuptype' do
+    expect{dsc_xsqlserversetup[:dsc_browsersvcstartuptype] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_browsersvcstartuptype' do
+    expect{dsc_xsqlserversetup[:dsc_browsersvcstartuptype] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -23,19 +23,21 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect { Puppet::Type.type(:dsc_xvmhyperv).new(
       :name     => 'foo',
       :dsc_vhdpath => 'foo',
-      :dsc_switchname => 'foo',
+      :dsc_switchname => ["foo", "bar", "spec"],
       :dsc_state => 'Running',
       :dsc_path => 'foo',
       :dsc_generation => 32,
       :dsc_startupmemory => 64,
       :dsc_minimummemory => 64,
       :dsc_maximummemory => 64,
-      :dsc_macaddress => 'foo',
+      :dsc_macaddress => ["foo", "bar", "spec"],
       :dsc_processorcount => 32,
       :dsc_waitforip => true,
       :dsc_restartifneeded => true,
       :dsc_ensure => 'Present',
       :dsc_notes => 'foo',
+      :dsc_secureboot => true,
+      :dsc_enableguestservice => true,
       :dsc_id => 'foo',
       :dsc_status => 'foo',
       :dsc_cpuusage => 32,
@@ -79,8 +81,9 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_vhdpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_switchname' do
-    expect{dsc_xvmhyperv[:dsc_switchname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should accept array for dsc_switchname' do
+    dsc_xvmhyperv[:dsc_switchname] = ["foo", "bar", "spec"]
+    expect(dsc_xvmhyperv[:dsc_switchname]).to eq(["foo", "bar", "spec"])
   end
 
   it 'should not accept boolean for dsc_switchname' do
@@ -297,8 +300,9 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect(dsc_xvmhyperv[:dsc_maximummemory]).to eq(64)
   end
 
-  it 'should not accept array for dsc_macaddress' do
-    expect{dsc_xvmhyperv[:dsc_macaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should accept array for dsc_macaddress' do
+    dsc_xvmhyperv[:dsc_macaddress] = ["foo", "bar", "spec"]
+    expect(dsc_xvmhyperv[:dsc_macaddress]).to eq(["foo", "bar", "spec"])
   end
 
   it 'should not accept boolean for dsc_macaddress' do
@@ -505,6 +509,100 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
 
   it 'should not accept uint for dsc_notes' do
     expect{dsc_xvmhyperv[:dsc_notes] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_secureboot' do
+    expect{dsc_xvmhyperv[:dsc_secureboot] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_secureboot' do
+    dsc_xvmhyperv[:dsc_secureboot] = true
+    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_secureboot" do
+    dsc_xvmhyperv[:dsc_secureboot] = 'true'
+    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_secureboot" do
+    dsc_xvmhyperv[:dsc_secureboot] = 'false'
+    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_secureboot" do
+    dsc_xvmhyperv[:dsc_secureboot] = 'True'
+    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_secureboot" do
+    dsc_xvmhyperv[:dsc_secureboot] = 'False'
+    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_secureboot" do
+    dsc_xvmhyperv[:dsc_secureboot] = :true
+    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_secureboot" do
+    dsc_xvmhyperv[:dsc_secureboot] = :false
+    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_secureboot' do
+    expect{dsc_xvmhyperv[:dsc_secureboot] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_secureboot' do
+    expect{dsc_xvmhyperv[:dsc_secureboot] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_enableguestservice' do
+    expect{dsc_xvmhyperv[:dsc_enableguestservice] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_enableguestservice' do
+    dsc_xvmhyperv[:dsc_enableguestservice] = true
+    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enableguestservice" do
+    dsc_xvmhyperv[:dsc_enableguestservice] = 'true'
+    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enableguestservice" do
+    dsc_xvmhyperv[:dsc_enableguestservice] = 'false'
+    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enableguestservice" do
+    dsc_xvmhyperv[:dsc_enableguestservice] = 'True'
+    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enableguestservice" do
+    dsc_xvmhyperv[:dsc_enableguestservice] = 'False'
+    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_enableguestservice" do
+    dsc_xvmhyperv[:dsc_enableguestservice] = :true
+    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_enableguestservice" do
+    dsc_xvmhyperv[:dsc_enableguestservice] = :false
+    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_enableguestservice' do
+    expect{dsc_xvmhyperv[:dsc_enableguestservice] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_enableguestservice' do
+    expect{dsc_xvmhyperv[:dsc_enableguestservice] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_id' do

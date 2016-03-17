@@ -28,6 +28,7 @@ describe Puppet::Type.type(:dsc_xspwebapplication) do
       :dsc_hostheader => 'foo',
       :dsc_path => 'foo',
       :dsc_port => 'foo',
+      :dsc_usessl => true,
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
@@ -261,6 +262,53 @@ describe Puppet::Type.type(:dsc_xspwebapplication) do
 
   it 'should not accept uint for dsc_port' do
     expect{dsc_xspwebapplication[:dsc_port] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_usessl' do
+    expect{dsc_xspwebapplication[:dsc_usessl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_usessl' do
+    dsc_xspwebapplication[:dsc_usessl] = true
+    expect(dsc_xspwebapplication[:dsc_usessl]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_usessl" do
+    dsc_xspwebapplication[:dsc_usessl] = 'true'
+    expect(dsc_xspwebapplication[:dsc_usessl]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_usessl" do
+    dsc_xspwebapplication[:dsc_usessl] = 'false'
+    expect(dsc_xspwebapplication[:dsc_usessl]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_usessl" do
+    dsc_xspwebapplication[:dsc_usessl] = 'True'
+    expect(dsc_xspwebapplication[:dsc_usessl]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_usessl" do
+    dsc_xspwebapplication[:dsc_usessl] = 'False'
+    expect(dsc_xspwebapplication[:dsc_usessl]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_usessl" do
+    dsc_xspwebapplication[:dsc_usessl] = :true
+    expect(dsc_xspwebapplication[:dsc_usessl]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_usessl" do
+    dsc_xspwebapplication[:dsc_usessl] = :false
+    expect(dsc_xspwebapplication[:dsc_usessl]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_usessl' do
+    expect{dsc_xspwebapplication[:dsc_usessl] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_usessl' do
+    expect{dsc_xspwebapplication[:dsc_usessl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do

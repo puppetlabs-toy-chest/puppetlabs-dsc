@@ -36,6 +36,7 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
       :dsc_eventhistoryretentionperiod => 'foo',
       :dsc_indexenabled => true,
       :dsc_isexcludedfromprovisioning => true,
+      :dsc_isexcludedfromprovisioningreason => 'foo',
       :dsc_issuewarningquota => 'foo',
       :dsc_issuspendedfromprovisioning => true,
       :dsc_journalrecipient => 'foo',
@@ -645,6 +646,22 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept uint for dsc_isexcludedfromprovisioning' do
     expect{dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_isexcludedfromprovisioningreason' do
+    expect{dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioningreason] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_isexcludedfromprovisioningreason' do
+    expect{dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioningreason] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_isexcludedfromprovisioningreason' do
+    expect{dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioningreason] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_isexcludedfromprovisioningreason' do
+    expect{dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioningreason] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_issuewarningquota' do

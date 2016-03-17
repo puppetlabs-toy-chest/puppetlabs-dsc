@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchecpvirtualdirectory) do
   def dscmeta_resource_friendly_name; 'xExchEcpVirtualDirectory' end
   def dscmeta_resource_name; 'MSFT_xExchEcpVirtualDirectory' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

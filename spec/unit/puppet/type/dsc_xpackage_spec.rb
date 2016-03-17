@@ -96,6 +96,7 @@ describe Puppet::Type.type(:dsc_xpackage) do
       :dsc_installedcheckregkey => 'foo',
       :dsc_installedcheckregvaluename => 'foo',
       :dsc_installedcheckregvaluedata => 'foo',
+      :dsc_createcheckregvalue => true,
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -158,6 +159,7 @@ describe Puppet::Type.type(:dsc_xpackage) do
       :dsc_installedcheckregkey => 'foo',
       :dsc_installedcheckregvaluename => 'foo',
       :dsc_installedcheckregvaluedata => 'foo',
+      :dsc_createcheckregvalue => true,
     )}.to raise_error(Puppet::Error, /dsc_productid is a required attribute/)
   end
 
@@ -669,6 +671,53 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept uint for dsc_installedcheckregvaluedata' do
     expect{dsc_xpackage[:dsc_installedcheckregvaluedata] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_createcheckregvalue' do
+    expect{dsc_xpackage[:dsc_createcheckregvalue] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_createcheckregvalue' do
+    dsc_xpackage[:dsc_createcheckregvalue] = true
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_createcheckregvalue" do
+    dsc_xpackage[:dsc_createcheckregvalue] = 'true'
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_createcheckregvalue" do
+    dsc_xpackage[:dsc_createcheckregvalue] = 'false'
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_createcheckregvalue" do
+    dsc_xpackage[:dsc_createcheckregvalue] = 'True'
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_createcheckregvalue" do
+    dsc_xpackage[:dsc_createcheckregvalue] = 'False'
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_createcheckregvalue" do
+    dsc_xpackage[:dsc_createcheckregvalue] = :true
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_createcheckregvalue" do
+    dsc_xpackage[:dsc_createcheckregvalue] = :false
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_createcheckregvalue' do
+    expect{dsc_xpackage[:dsc_createcheckregvalue] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_createcheckregvalue' do
+    expect{dsc_xpackage[:dsc_createcheckregvalue] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

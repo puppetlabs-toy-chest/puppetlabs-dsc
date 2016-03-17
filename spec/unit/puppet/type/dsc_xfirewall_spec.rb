@@ -23,6 +23,7 @@ describe Puppet::Type.type(:dsc_xfirewall) do
     expect { Puppet::Type.type(:dsc_xfirewall).new(
       :name     => 'foo',
       :dsc_displayname => 'foo',
+      :dsc_group => 'foo',
       :dsc_displaygroup => 'foo',
       :dsc_ensure => 'Present',
       :dsc_enabled => 'True',
@@ -33,8 +34,26 @@ describe Puppet::Type.type(:dsc_xfirewall) do
       :dsc_localport => ["foo", "bar", "spec"],
       :dsc_protocol => 'foo',
       :dsc_description => 'foo',
-      :dsc_applicationpath => 'foo',
+      :dsc_program => 'foo',
       :dsc_service => 'foo',
+      :dsc_authentication => 'NotRequired',
+      :dsc_encryption => 'NotRequired',
+      :dsc_interfacealias => ["foo", "bar", "spec"],
+      :dsc_interfacetype => 'Any',
+      :dsc_localaddress => ["foo", "bar", "spec"],
+      :dsc_localuser => 'foo',
+      :dsc_package => 'foo',
+      :dsc_platform => ["foo", "bar", "spec"],
+      :dsc_remoteaddress => ["foo", "bar", "spec"],
+      :dsc_remotemachine => 'foo',
+      :dsc_remoteuser => 'foo',
+      :dsc_dynamictransport => 'Any',
+      :dsc_edgetraversalpolicy => 'Block',
+      :dsc_icmptype => ["foo", "bar", "spec"],
+      :dsc_localonlymapping => true,
+      :dsc_loosesourcemapping => true,
+      :dsc_overrideblockrules => true,
+      :dsc_owner => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -68,6 +87,22 @@ describe Puppet::Type.type(:dsc_xfirewall) do
 
   it 'should not accept uint for dsc_displayname' do
     expect{dsc_xfirewall[:dsc_displayname] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_group' do
+    expect{dsc_xfirewall[:dsc_group] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_group' do
+    expect{dsc_xfirewall[:dsc_group] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_group' do
+    expect{dsc_xfirewall[:dsc_group] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_group' do
+    expect{dsc_xfirewall[:dsc_group] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_displaygroup' do
@@ -349,20 +384,20 @@ describe Puppet::Type.type(:dsc_xfirewall) do
     expect{dsc_xfirewall[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_applicationpath' do
-    expect{dsc_xfirewall[:dsc_applicationpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should not accept array for dsc_program' do
+    expect{dsc_xfirewall[:dsc_program] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept boolean for dsc_applicationpath' do
-    expect{dsc_xfirewall[:dsc_applicationpath] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_program' do
+    expect{dsc_xfirewall[:dsc_program] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_applicationpath' do
-    expect{dsc_xfirewall[:dsc_applicationpath] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_program' do
+    expect{dsc_xfirewall[:dsc_program] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_applicationpath' do
-    expect{dsc_xfirewall[:dsc_applicationpath] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_program' do
+    expect{dsc_xfirewall[:dsc_program] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_service' do
@@ -379,6 +414,612 @@ describe Puppet::Type.type(:dsc_xfirewall) do
 
   it 'should not accept uint for dsc_service' do
     expect{dsc_xfirewall[:dsc_service] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_authentication predefined value NotRequired' do
+    dsc_xfirewall[:dsc_authentication] = 'NotRequired'
+    expect(dsc_xfirewall[:dsc_authentication]).to eq('NotRequired')
+  end
+
+  it 'should accept dsc_authentication predefined value notrequired' do
+    dsc_xfirewall[:dsc_authentication] = 'notrequired'
+    expect(dsc_xfirewall[:dsc_authentication]).to eq('notrequired')
+  end
+
+  it 'should accept dsc_authentication predefined value Required' do
+    dsc_xfirewall[:dsc_authentication] = 'Required'
+    expect(dsc_xfirewall[:dsc_authentication]).to eq('Required')
+  end
+
+  it 'should accept dsc_authentication predefined value required' do
+    dsc_xfirewall[:dsc_authentication] = 'required'
+    expect(dsc_xfirewall[:dsc_authentication]).to eq('required')
+  end
+
+  it 'should accept dsc_authentication predefined value NoEncap' do
+    dsc_xfirewall[:dsc_authentication] = 'NoEncap'
+    expect(dsc_xfirewall[:dsc_authentication]).to eq('NoEncap')
+  end
+
+  it 'should accept dsc_authentication predefined value noencap' do
+    dsc_xfirewall[:dsc_authentication] = 'noencap'
+    expect(dsc_xfirewall[:dsc_authentication]).to eq('noencap')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xfirewall[:dsc_authentication] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_authentication' do
+    expect{dsc_xfirewall[:dsc_authentication] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_authentication' do
+    expect{dsc_xfirewall[:dsc_authentication] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_authentication' do
+    expect{dsc_xfirewall[:dsc_authentication] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_authentication' do
+    expect{dsc_xfirewall[:dsc_authentication] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_encryption predefined value NotRequired' do
+    dsc_xfirewall[:dsc_encryption] = 'NotRequired'
+    expect(dsc_xfirewall[:dsc_encryption]).to eq('NotRequired')
+  end
+
+  it 'should accept dsc_encryption predefined value notrequired' do
+    dsc_xfirewall[:dsc_encryption] = 'notrequired'
+    expect(dsc_xfirewall[:dsc_encryption]).to eq('notrequired')
+  end
+
+  it 'should accept dsc_encryption predefined value Required' do
+    dsc_xfirewall[:dsc_encryption] = 'Required'
+    expect(dsc_xfirewall[:dsc_encryption]).to eq('Required')
+  end
+
+  it 'should accept dsc_encryption predefined value required' do
+    dsc_xfirewall[:dsc_encryption] = 'required'
+    expect(dsc_xfirewall[:dsc_encryption]).to eq('required')
+  end
+
+  it 'should accept dsc_encryption predefined value Dynamic' do
+    dsc_xfirewall[:dsc_encryption] = 'Dynamic'
+    expect(dsc_xfirewall[:dsc_encryption]).to eq('Dynamic')
+  end
+
+  it 'should accept dsc_encryption predefined value dynamic' do
+    dsc_xfirewall[:dsc_encryption] = 'dynamic'
+    expect(dsc_xfirewall[:dsc_encryption]).to eq('dynamic')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xfirewall[:dsc_encryption] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_encryption' do
+    expect{dsc_xfirewall[:dsc_encryption] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_encryption' do
+    expect{dsc_xfirewall[:dsc_encryption] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_encryption' do
+    expect{dsc_xfirewall[:dsc_encryption] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_encryption' do
+    expect{dsc_xfirewall[:dsc_encryption] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept array for dsc_interfacealias' do
+    dsc_xfirewall[:dsc_interfacealias] = ["foo", "bar", "spec"]
+    expect(dsc_xfirewall[:dsc_interfacealias]).to eq(["foo", "bar", "spec"])
+  end
+
+  it 'should not accept boolean for dsc_interfacealias' do
+    expect{dsc_xfirewall[:dsc_interfacealias] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_interfacealias' do
+    expect{dsc_xfirewall[:dsc_interfacealias] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_interfacealias' do
+    expect{dsc_xfirewall[:dsc_interfacealias] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_interfacetype predefined value Any' do
+    dsc_xfirewall[:dsc_interfacetype] = 'Any'
+    expect(dsc_xfirewall[:dsc_interfacetype]).to eq('Any')
+  end
+
+  it 'should accept dsc_interfacetype predefined value any' do
+    dsc_xfirewall[:dsc_interfacetype] = 'any'
+    expect(dsc_xfirewall[:dsc_interfacetype]).to eq('any')
+  end
+
+  it 'should accept dsc_interfacetype predefined value Wired' do
+    dsc_xfirewall[:dsc_interfacetype] = 'Wired'
+    expect(dsc_xfirewall[:dsc_interfacetype]).to eq('Wired')
+  end
+
+  it 'should accept dsc_interfacetype predefined value wired' do
+    dsc_xfirewall[:dsc_interfacetype] = 'wired'
+    expect(dsc_xfirewall[:dsc_interfacetype]).to eq('wired')
+  end
+
+  it 'should accept dsc_interfacetype predefined value Wireless' do
+    dsc_xfirewall[:dsc_interfacetype] = 'Wireless'
+    expect(dsc_xfirewall[:dsc_interfacetype]).to eq('Wireless')
+  end
+
+  it 'should accept dsc_interfacetype predefined value wireless' do
+    dsc_xfirewall[:dsc_interfacetype] = 'wireless'
+    expect(dsc_xfirewall[:dsc_interfacetype]).to eq('wireless')
+  end
+
+  it 'should accept dsc_interfacetype predefined value RemoteAccess' do
+    dsc_xfirewall[:dsc_interfacetype] = 'RemoteAccess'
+    expect(dsc_xfirewall[:dsc_interfacetype]).to eq('RemoteAccess')
+  end
+
+  it 'should accept dsc_interfacetype predefined value remoteaccess' do
+    dsc_xfirewall[:dsc_interfacetype] = 'remoteaccess'
+    expect(dsc_xfirewall[:dsc_interfacetype]).to eq('remoteaccess')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xfirewall[:dsc_interfacetype] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_interfacetype' do
+    expect{dsc_xfirewall[:dsc_interfacetype] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_interfacetype' do
+    expect{dsc_xfirewall[:dsc_interfacetype] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_interfacetype' do
+    expect{dsc_xfirewall[:dsc_interfacetype] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_interfacetype' do
+    expect{dsc_xfirewall[:dsc_interfacetype] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept array for dsc_localaddress' do
+    dsc_xfirewall[:dsc_localaddress] = ["foo", "bar", "spec"]
+    expect(dsc_xfirewall[:dsc_localaddress]).to eq(["foo", "bar", "spec"])
+  end
+
+  it 'should not accept boolean for dsc_localaddress' do
+    expect{dsc_xfirewall[:dsc_localaddress] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_localaddress' do
+    expect{dsc_xfirewall[:dsc_localaddress] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_localaddress' do
+    expect{dsc_xfirewall[:dsc_localaddress] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_localuser' do
+    expect{dsc_xfirewall[:dsc_localuser] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_localuser' do
+    expect{dsc_xfirewall[:dsc_localuser] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_localuser' do
+    expect{dsc_xfirewall[:dsc_localuser] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_localuser' do
+    expect{dsc_xfirewall[:dsc_localuser] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_package' do
+    expect{dsc_xfirewall[:dsc_package] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_package' do
+    expect{dsc_xfirewall[:dsc_package] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_package' do
+    expect{dsc_xfirewall[:dsc_package] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_package' do
+    expect{dsc_xfirewall[:dsc_package] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept array for dsc_platform' do
+    dsc_xfirewall[:dsc_platform] = ["foo", "bar", "spec"]
+    expect(dsc_xfirewall[:dsc_platform]).to eq(["foo", "bar", "spec"])
+  end
+
+  it 'should not accept boolean for dsc_platform' do
+    expect{dsc_xfirewall[:dsc_platform] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_platform' do
+    expect{dsc_xfirewall[:dsc_platform] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_platform' do
+    expect{dsc_xfirewall[:dsc_platform] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept array for dsc_remoteaddress' do
+    dsc_xfirewall[:dsc_remoteaddress] = ["foo", "bar", "spec"]
+    expect(dsc_xfirewall[:dsc_remoteaddress]).to eq(["foo", "bar", "spec"])
+  end
+
+  it 'should not accept boolean for dsc_remoteaddress' do
+    expect{dsc_xfirewall[:dsc_remoteaddress] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_remoteaddress' do
+    expect{dsc_xfirewall[:dsc_remoteaddress] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_remoteaddress' do
+    expect{dsc_xfirewall[:dsc_remoteaddress] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_remotemachine' do
+    expect{dsc_xfirewall[:dsc_remotemachine] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_remotemachine' do
+    expect{dsc_xfirewall[:dsc_remotemachine] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_remotemachine' do
+    expect{dsc_xfirewall[:dsc_remotemachine] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_remotemachine' do
+    expect{dsc_xfirewall[:dsc_remotemachine] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_remoteuser' do
+    expect{dsc_xfirewall[:dsc_remoteuser] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_remoteuser' do
+    expect{dsc_xfirewall[:dsc_remoteuser] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_remoteuser' do
+    expect{dsc_xfirewall[:dsc_remoteuser] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_remoteuser' do
+    expect{dsc_xfirewall[:dsc_remoteuser] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_dynamictransport predefined value Any' do
+    dsc_xfirewall[:dsc_dynamictransport] = 'Any'
+    expect(dsc_xfirewall[:dsc_dynamictransport]).to eq('Any')
+  end
+
+  it 'should accept dsc_dynamictransport predefined value any' do
+    dsc_xfirewall[:dsc_dynamictransport] = 'any'
+    expect(dsc_xfirewall[:dsc_dynamictransport]).to eq('any')
+  end
+
+  it 'should accept dsc_dynamictransport predefined value ProximityApps' do
+    dsc_xfirewall[:dsc_dynamictransport] = 'ProximityApps'
+    expect(dsc_xfirewall[:dsc_dynamictransport]).to eq('ProximityApps')
+  end
+
+  it 'should accept dsc_dynamictransport predefined value proximityapps' do
+    dsc_xfirewall[:dsc_dynamictransport] = 'proximityapps'
+    expect(dsc_xfirewall[:dsc_dynamictransport]).to eq('proximityapps')
+  end
+
+  it 'should accept dsc_dynamictransport predefined value ProximitySharing' do
+    dsc_xfirewall[:dsc_dynamictransport] = 'ProximitySharing'
+    expect(dsc_xfirewall[:dsc_dynamictransport]).to eq('ProximitySharing')
+  end
+
+  it 'should accept dsc_dynamictransport predefined value proximitysharing' do
+    dsc_xfirewall[:dsc_dynamictransport] = 'proximitysharing'
+    expect(dsc_xfirewall[:dsc_dynamictransport]).to eq('proximitysharing')
+  end
+
+  it 'should accept dsc_dynamictransport predefined value WifiDirectPrinting' do
+    dsc_xfirewall[:dsc_dynamictransport] = 'WifiDirectPrinting'
+    expect(dsc_xfirewall[:dsc_dynamictransport]).to eq('WifiDirectPrinting')
+  end
+
+  it 'should accept dsc_dynamictransport predefined value wifidirectprinting' do
+    dsc_xfirewall[:dsc_dynamictransport] = 'wifidirectprinting'
+    expect(dsc_xfirewall[:dsc_dynamictransport]).to eq('wifidirectprinting')
+  end
+
+  it 'should accept dsc_dynamictransport predefined value WifiDirectDisplay' do
+    dsc_xfirewall[:dsc_dynamictransport] = 'WifiDirectDisplay'
+    expect(dsc_xfirewall[:dsc_dynamictransport]).to eq('WifiDirectDisplay')
+  end
+
+  it 'should accept dsc_dynamictransport predefined value wifidirectdisplay' do
+    dsc_xfirewall[:dsc_dynamictransport] = 'wifidirectdisplay'
+    expect(dsc_xfirewall[:dsc_dynamictransport]).to eq('wifidirectdisplay')
+  end
+
+  it 'should accept dsc_dynamictransport predefined value WifiDirectDevices' do
+    dsc_xfirewall[:dsc_dynamictransport] = 'WifiDirectDevices'
+    expect(dsc_xfirewall[:dsc_dynamictransport]).to eq('WifiDirectDevices')
+  end
+
+  it 'should accept dsc_dynamictransport predefined value wifidirectdevices' do
+    dsc_xfirewall[:dsc_dynamictransport] = 'wifidirectdevices'
+    expect(dsc_xfirewall[:dsc_dynamictransport]).to eq('wifidirectdevices')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xfirewall[:dsc_dynamictransport] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_dynamictransport' do
+    expect{dsc_xfirewall[:dsc_dynamictransport] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_dynamictransport' do
+    expect{dsc_xfirewall[:dsc_dynamictransport] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_dynamictransport' do
+    expect{dsc_xfirewall[:dsc_dynamictransport] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_dynamictransport' do
+    expect{dsc_xfirewall[:dsc_dynamictransport] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_edgetraversalpolicy predefined value Block' do
+    dsc_xfirewall[:dsc_edgetraversalpolicy] = 'Block'
+    expect(dsc_xfirewall[:dsc_edgetraversalpolicy]).to eq('Block')
+  end
+
+  it 'should accept dsc_edgetraversalpolicy predefined value block' do
+    dsc_xfirewall[:dsc_edgetraversalpolicy] = 'block'
+    expect(dsc_xfirewall[:dsc_edgetraversalpolicy]).to eq('block')
+  end
+
+  it 'should accept dsc_edgetraversalpolicy predefined value Allow' do
+    dsc_xfirewall[:dsc_edgetraversalpolicy] = 'Allow'
+    expect(dsc_xfirewall[:dsc_edgetraversalpolicy]).to eq('Allow')
+  end
+
+  it 'should accept dsc_edgetraversalpolicy predefined value allow' do
+    dsc_xfirewall[:dsc_edgetraversalpolicy] = 'allow'
+    expect(dsc_xfirewall[:dsc_edgetraversalpolicy]).to eq('allow')
+  end
+
+  it 'should accept dsc_edgetraversalpolicy predefined value DeferToUser' do
+    dsc_xfirewall[:dsc_edgetraversalpolicy] = 'DeferToUser'
+    expect(dsc_xfirewall[:dsc_edgetraversalpolicy]).to eq('DeferToUser')
+  end
+
+  it 'should accept dsc_edgetraversalpolicy predefined value defertouser' do
+    dsc_xfirewall[:dsc_edgetraversalpolicy] = 'defertouser'
+    expect(dsc_xfirewall[:dsc_edgetraversalpolicy]).to eq('defertouser')
+  end
+
+  it 'should accept dsc_edgetraversalpolicy predefined value DeferToApp' do
+    dsc_xfirewall[:dsc_edgetraversalpolicy] = 'DeferToApp'
+    expect(dsc_xfirewall[:dsc_edgetraversalpolicy]).to eq('DeferToApp')
+  end
+
+  it 'should accept dsc_edgetraversalpolicy predefined value defertoapp' do
+    dsc_xfirewall[:dsc_edgetraversalpolicy] = 'defertoapp'
+    expect(dsc_xfirewall[:dsc_edgetraversalpolicy]).to eq('defertoapp')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xfirewall[:dsc_edgetraversalpolicy] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_edgetraversalpolicy' do
+    expect{dsc_xfirewall[:dsc_edgetraversalpolicy] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_edgetraversalpolicy' do
+    expect{dsc_xfirewall[:dsc_edgetraversalpolicy] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_edgetraversalpolicy' do
+    expect{dsc_xfirewall[:dsc_edgetraversalpolicy] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_edgetraversalpolicy' do
+    expect{dsc_xfirewall[:dsc_edgetraversalpolicy] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept array for dsc_icmptype' do
+    dsc_xfirewall[:dsc_icmptype] = ["foo", "bar", "spec"]
+    expect(dsc_xfirewall[:dsc_icmptype]).to eq(["foo", "bar", "spec"])
+  end
+
+  it 'should not accept boolean for dsc_icmptype' do
+    expect{dsc_xfirewall[:dsc_icmptype] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_icmptype' do
+    expect{dsc_xfirewall[:dsc_icmptype] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_icmptype' do
+    expect{dsc_xfirewall[:dsc_icmptype] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_localonlymapping' do
+    expect{dsc_xfirewall[:dsc_localonlymapping] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_localonlymapping' do
+    dsc_xfirewall[:dsc_localonlymapping] = true
+    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_localonlymapping" do
+    dsc_xfirewall[:dsc_localonlymapping] = 'true'
+    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_localonlymapping" do
+    dsc_xfirewall[:dsc_localonlymapping] = 'false'
+    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_localonlymapping" do
+    dsc_xfirewall[:dsc_localonlymapping] = 'True'
+    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_localonlymapping" do
+    dsc_xfirewall[:dsc_localonlymapping] = 'False'
+    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_localonlymapping" do
+    dsc_xfirewall[:dsc_localonlymapping] = :true
+    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_localonlymapping" do
+    dsc_xfirewall[:dsc_localonlymapping] = :false
+    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_localonlymapping' do
+    expect{dsc_xfirewall[:dsc_localonlymapping] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_localonlymapping' do
+    expect{dsc_xfirewall[:dsc_localonlymapping] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_loosesourcemapping' do
+    expect{dsc_xfirewall[:dsc_loosesourcemapping] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_loosesourcemapping' do
+    dsc_xfirewall[:dsc_loosesourcemapping] = true
+    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_loosesourcemapping" do
+    dsc_xfirewall[:dsc_loosesourcemapping] = 'true'
+    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_loosesourcemapping" do
+    dsc_xfirewall[:dsc_loosesourcemapping] = 'false'
+    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_loosesourcemapping" do
+    dsc_xfirewall[:dsc_loosesourcemapping] = 'True'
+    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_loosesourcemapping" do
+    dsc_xfirewall[:dsc_loosesourcemapping] = 'False'
+    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_loosesourcemapping" do
+    dsc_xfirewall[:dsc_loosesourcemapping] = :true
+    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_loosesourcemapping" do
+    dsc_xfirewall[:dsc_loosesourcemapping] = :false
+    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_loosesourcemapping' do
+    expect{dsc_xfirewall[:dsc_loosesourcemapping] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_loosesourcemapping' do
+    expect{dsc_xfirewall[:dsc_loosesourcemapping] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_overrideblockrules' do
+    expect{dsc_xfirewall[:dsc_overrideblockrules] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_overrideblockrules' do
+    dsc_xfirewall[:dsc_overrideblockrules] = true
+    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_overrideblockrules" do
+    dsc_xfirewall[:dsc_overrideblockrules] = 'true'
+    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_overrideblockrules" do
+    dsc_xfirewall[:dsc_overrideblockrules] = 'false'
+    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_overrideblockrules" do
+    dsc_xfirewall[:dsc_overrideblockrules] = 'True'
+    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_overrideblockrules" do
+    dsc_xfirewall[:dsc_overrideblockrules] = 'False'
+    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_overrideblockrules" do
+    dsc_xfirewall[:dsc_overrideblockrules] = :true
+    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_overrideblockrules" do
+    dsc_xfirewall[:dsc_overrideblockrules] = :false
+    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_overrideblockrules' do
+    expect{dsc_xfirewall[:dsc_overrideblockrules] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_overrideblockrules' do
+    expect{dsc_xfirewall[:dsc_overrideblockrules] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_owner' do
+    expect{dsc_xfirewall[:dsc_owner] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_owner' do
+    expect{dsc_xfirewall[:dsc_owner] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_owner' do
+    expect{dsc_xfirewall[:dsc_owner] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_owner' do
+    expect{dsc_xfirewall[:dsc_owner] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

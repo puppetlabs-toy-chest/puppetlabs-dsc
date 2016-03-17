@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
   def dscmeta_resource_friendly_name; 'xExchReceiveConnector' end
   def dscmeta_resource_name; 'MSFT_xExchReceiveConnector' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -373,6 +373,36 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         ExtendedRightAllowEntries
+  # Type:         MSFT_KeyValuePair[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_extendedrightallowentries) do
+    def mof_type; 'MSFT_KeyValuePair[]' end
+    def mof_is_embedded?; true end
+    desc "ExtendedRightAllowEntries"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+    end
+  end
+
+  # Name:         ExtendedRightDenyEntries
+  # Type:         MSFT_KeyValuePair[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_extendedrightdenyentries) do
+    def mof_type; 'MSFT_KeyValuePair[]' end
+    def mof_is_embedded?; true end
+    desc "ExtendedRightDenyEntries"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
     end
   end
 

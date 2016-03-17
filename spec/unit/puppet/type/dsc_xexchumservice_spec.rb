@@ -20,6 +20,7 @@ describe Puppet::Type.type(:dsc_xexchumservice) do
       :name     => 'foo',
       :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_umstartupmode => 'TCP',
+      :dsc_dialplans => ["foo", "bar", "spec"],
       :dsc_domaincontroller => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
@@ -108,6 +109,23 @@ describe Puppet::Type.type(:dsc_xexchumservice) do
 
   it 'should not accept uint for dsc_umstartupmode' do
     expect{dsc_xexchumservice[:dsc_umstartupmode] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept array for dsc_dialplans' do
+    dsc_xexchumservice[:dsc_dialplans] = ["foo", "bar", "spec"]
+    expect(dsc_xexchumservice[:dsc_dialplans]).to eq(["foo", "bar", "spec"])
+  end
+
+  it 'should not accept boolean for dsc_dialplans' do
+    expect{dsc_xexchumservice[:dsc_dialplans] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_dialplans' do
+    expect{dsc_xexchumservice[:dsc_dialplans] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_dialplans' do
+    expect{dsc_xexchumservice[:dsc_dialplans] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_domaincontroller' do

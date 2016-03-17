@@ -25,23 +25,22 @@ function Get-TargetResource
         $SQLServer,
 
         [System.String]
-        $SQLInstance = "MSSQLSERVER"
+        $SQLInstance = "MSSQLSERVER",
+
+        [System.Management.Automation.PSCredential]
+        $dbUser
     )
 
     if($SQLInstance -eq "MSSQLSERVER")
     {
-        $ConnectionString = "Data Source=$SQLServer;Initial Catalog=Microsoft.MgmtSvc.Store;Integrated Security=True"
+        $ConnectionString = "Data Source=$SQLServer;Initial Catalog=Microsoft.MgmtSvc.Store;User ID=$($dbUser.UserName);Password=$($dbUser.GetNetworkCredential().password)";
     }
     else
     {
-        $ConnectionString = "Data Source=$SQLServer\$SQLInstance;Initial Catalog=Microsoft.MgmtSvc.Store;Integrated Security=True"
+        $ConnectionString = "Data Source=$SQLServer\$SQLInstance;Initial Catalog=Microsoft.MgmtSvc.Store;User ID=$($dbUser.UserName);Password=$($dbUser.GetNetworkCredential().password)";
     }
 
-    $FQDN = Invoke-Command -ComputerName . -Credential $AzurePackAdminCredential -Authentication Credssp {
-        $Namespace = $args[0]
-        $ConnectionString = $args[1]
-        Get-MgmtSvcFQDN -Namespace $Namespace -ConnectionString $ConnectionString
-    } -ArgumentList @($Namespace,$ConnectionString)
+    $FQDN = Get-MgmtSvcFQDN -Namespace $Namespace -ConnectionString $ConnectionString
 
     $returnValue = @{
         Namespace = $Namespace
@@ -81,7 +80,10 @@ function Set-TargetResource
         $SQLServer,
 
         [System.String]
-        $SQLInstance = "MSSQLSERVER"
+        $SQLInstance = "MSSQLSERVER",
+
+        [System.Management.Automation.PSCredential]
+        $dbUser
     )
 
     if($Port -eq 0)
@@ -109,20 +111,14 @@ function Set-TargetResource
     
     if($SQLInstance -eq "MSSQLSERVER")
     {
-        $ConnectionString = "Data Source=$SQLServer;Initial Catalog=Microsoft.MgmtSvc.Store;Integrated Security=True"
+        $ConnectionString = "Data Source=$SQLServer;Initial Catalog=Microsoft.MgmtSvc.Store;User ID=$($dbUser.UserName);Password=$($dbUser.GetNetworkCredential().password)";
     }
     else
     {
-        $ConnectionString = "Data Source=$SQLServer\$SQLInstance;Initial Catalog=Microsoft.MgmtSvc.Store;Integrated Security=True"
+        $ConnectionString = "Data Source=$SQLServer\$SQLInstance;Initial Catalog=Microsoft.MgmtSvc.Store;User ID=$($dbUser.UserName);Password=$($dbUser.GetNetworkCredential().password)";
     }
 
-    Invoke-Command -ComputerName . -Credential $AzurePackAdminCredential -Authentication Credssp {
-        $Namespace = $args[0]
-        $FullyQualifiedDomainName = $args[1]
-        $Port = $args[2]
-        $ConnectionString = $args[3]
-        Set-MgmtSvcFQDN -Namespace $Namespace -FullyQualifiedDomainName $FullyQualifiedDomainName -Port $Port -ConnectionString $ConnectionString
-    } -ArgumentList @($Namespace,$FullyQualifiedDomainName,$Port,$ConnectionString)
+    Set-MgmtSvcFQDN -Namespace $Namespace -FullyQualifiedDomainName $FullyQualifiedDomainName -Port $Port -ConnectionString $ConnectionString
 
     if(!(Test-TargetResource @PSBoundParameters))
     {
@@ -158,7 +154,10 @@ function Test-TargetResource
         $SQLServer,
 
         [System.String]
-        $SQLInstance = "MSSQLSERVER"
+        $SQLInstance = "MSSQLSERVER",
+
+        [System.Management.Automation.PSCredential]
+        $dbUser
     )
 
     if($Port -eq 0)

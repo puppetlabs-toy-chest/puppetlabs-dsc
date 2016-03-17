@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xazurepackidentityprovider) do
   def dscmeta_resource_friendly_name; 'xAzurePackIdentityProvider' end
   def dscmeta_resource_name; 'MSFT_xAzurePackIdentityProvider' end
   def dscmeta_module_name; 'xAzurePack' end
-  def dscmeta_module_version; '1.2.0.0' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -133,6 +133,22 @@ Puppet::Type.newtype(:dsc_xazurepackidentityprovider) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         dbUser
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_dbuser) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "dbUser - SQL user to be used to create the database if the SetupCredential cannot be used."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("dbUser", value)
     end
   end
 

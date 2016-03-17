@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xiisfeaturedelegation) do
   def dscmeta_resource_friendly_name; 'xIisFeatureDelegation' end
   def dscmeta_resource_name; 'MSFT_xIisFeatureDelegation' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '1.9.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

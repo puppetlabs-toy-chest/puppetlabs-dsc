@@ -23,9 +23,8 @@ describe Puppet::Type.type(:dsc_xspsecurestoreserviceapp) do
       :dsc_auditlogmaxsize => 32,
       :dsc_databasecredentials => {"user"=>"user", "password"=>"password"},
       :dsc_databasename => 'foo',
-      :dsc_databasepassword => 'foo',
       :dsc_databaseserver => 'foo',
-      :dsc_databaseusername => 'foo',
+      :dsc_databaseauthenticationtype => 'Windows',
       :dsc_failoverdatabaseserver => 'foo',
       :dsc_partitionmode => true,
       :dsc_sharing => true,
@@ -182,22 +181,6 @@ describe Puppet::Type.type(:dsc_xspsecurestoreserviceapp) do
     expect{dsc_xspsecurestoreserviceapp[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_databasepassword' do
-    expect{dsc_xspsecurestoreserviceapp[:dsc_databasepassword] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_databasepassword' do
-    expect{dsc_xspsecurestoreserviceapp[:dsc_databasepassword] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_databasepassword' do
-    expect{dsc_xspsecurestoreserviceapp[:dsc_databasepassword] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_databasepassword' do
-    expect{dsc_xspsecurestoreserviceapp[:dsc_databasepassword] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databaseserver' do
     expect{dsc_xspsecurestoreserviceapp[:dsc_databaseserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -214,20 +197,44 @@ describe Puppet::Type.type(:dsc_xspsecurestoreserviceapp) do
     expect{dsc_xspsecurestoreserviceapp[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_databaseusername' do
-    expect{dsc_xspsecurestoreserviceapp[:dsc_databaseusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should accept dsc_databaseauthenticationtype predefined value Windows' do
+    dsc_xspsecurestoreserviceapp[:dsc_databaseauthenticationtype] = 'Windows'
+    expect(dsc_xspsecurestoreserviceapp[:dsc_databaseauthenticationtype]).to eq('Windows')
   end
 
-  it 'should not accept boolean for dsc_databaseusername' do
-    expect{dsc_xspsecurestoreserviceapp[:dsc_databaseusername] = true}.to raise_error(Puppet::ResourceError)
+  it 'should accept dsc_databaseauthenticationtype predefined value windows' do
+    dsc_xspsecurestoreserviceapp[:dsc_databaseauthenticationtype] = 'windows'
+    expect(dsc_xspsecurestoreserviceapp[:dsc_databaseauthenticationtype]).to eq('windows')
   end
 
-  it 'should not accept int for dsc_databaseusername' do
-    expect{dsc_xspsecurestoreserviceapp[:dsc_databaseusername] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept dsc_databaseauthenticationtype predefined value SQL' do
+    dsc_xspsecurestoreserviceapp[:dsc_databaseauthenticationtype] = 'SQL'
+    expect(dsc_xspsecurestoreserviceapp[:dsc_databaseauthenticationtype]).to eq('SQL')
   end
 
-  it 'should not accept uint for dsc_databaseusername' do
-    expect{dsc_xspsecurestoreserviceapp[:dsc_databaseusername] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should accept dsc_databaseauthenticationtype predefined value sql' do
+    dsc_xspsecurestoreserviceapp[:dsc_databaseauthenticationtype] = 'sql'
+    expect(dsc_xspsecurestoreserviceapp[:dsc_databaseauthenticationtype]).to eq('sql')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xspsecurestoreserviceapp[:dsc_databaseauthenticationtype] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_databaseauthenticationtype' do
+    expect{dsc_xspsecurestoreserviceapp[:dsc_databaseauthenticationtype] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_databaseauthenticationtype' do
+    expect{dsc_xspsecurestoreserviceapp[:dsc_databaseauthenticationtype] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_databaseauthenticationtype' do
+    expect{dsc_xspsecurestoreserviceapp[:dsc_databaseauthenticationtype] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_databaseauthenticationtype' do
+    expect{dsc_xspsecurestoreserviceapp[:dsc_databaseauthenticationtype] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_failoverdatabaseserver' do

@@ -2,6 +2,8 @@
 # xSQLServerInstall: DSC resource to install Sql Server Enterprise version.
 #
 
+# Controls the default version identifier in paramters.
+$DefaultVersionID = "120";
 
 #
 # The Get-TargetResource cmdlet.
@@ -18,6 +20,8 @@ function Get-TargetResource
         [string] $SourcePath,
 
         [PSCredential] $SourcePathCredential,
+        
+        [string]$VersionID=$DefaultVersionID,
 
         [string] $Features="SQLEngine,SSMS",
 
@@ -26,12 +30,18 @@ function Get-TargetResource
         [bool] $UpdateEnabled = $false,
         [string] $SvcAccount = $NULL,
         [string] $SysAdminAccounts = $NULL,
-        [string] $AgentSvcAccount = $NULL
+        [string] $AgentSvcAccount = $NULL,
+        [string] $SqlCollation = $NULL,
+        [string] $InstallSqlDataDir = $NULL,
+        [string] $SqlTempDBDir = $NULL,
+        [string] $SqlUserDBDir = $NULL,
+        [string] $SqlUserDBLogDir = $NULL, 
+        [string] $SqlBackupDir = $NULL
     )
-
+    
     $list = Get-Service -Name MSSQL*
     $retInstanceName = $null
-
+    
     if ($InstanceName -eq "MSSQLSERVER")
     {
         if ($list.Name -contains "MSSQLSERVER")
@@ -69,7 +79,9 @@ function Set-TargetResource
         [string] $SourcePath,
 
         [PSCredential] $SourcePathCredential,
-
+        
+        [string]$VersionID=$DefaultVersionID,
+        
         [string] $Features="SQLEngine,SSMS",
 
         [PSCredential] $SqlAdministratorCredential,
@@ -77,7 +89,13 @@ function Set-TargetResource
         [bool] $UpdateEnabled = $false,
         [string] $SvcAccount = $NULL,
         [string] $SysAdminAccounts = $NULL,
-        [string] $AgentSvcAccount = $NULL
+        [string] $AgentSvcAccount = $NULL,
+        [string] $SqlCollation = $NULL,
+        [string] $InstallSqlDataDir = $NULL,
+        [string] $SqlTempDBDir = $NULL,
+        [string] $SqlUserDBDir = $NULL,
+        [string] $SqlUserDBLogDir = $NULL, 
+        [string] $SqlBackupDir = $NULL
     )
     $LogPath = Join-Path $env:SystemDrive -ChildPath "Logs"
 
@@ -86,7 +104,7 @@ function Set-TargetResource
         New-Item $LogPath -ItemType Directory
     }
     # SQL log from setup cmdline run output
-    $logFile = Join-Path $LogPath -ChildPath "sqlInstall-log.txt"
+    $logFile = Join-Path $LogPath -ChildPath "sqlInstall-log-$($InstanceName).txt"
     
     # SQL installer path       
     $cmd = Join-Path $SourcePath -ChildPath "Setup.exe"
@@ -122,7 +140,7 @@ function Set-TargetResource
     }
     else
     {
-        $cmd += " /SQLSYSADMINACCOUNTS='builtin\administrators' "
+        $cmd += " /SQLSYSADMINACCOUNTS=`"builtin\administrators`" "
     }
     
     if ($SvcAccount)
@@ -135,9 +153,54 @@ function Set-TargetResource
         $cmd += " /AGTSVCACCOUNT=$AgentSvcAccount "
     }
     
+    if ($SqlCollation)
+    {
+        $cmd += " /SQLCOLLATION=$SqlCollation "
+    }
+
+    if ($InstallSqlDataDir)
+    {
+        $cmd += " /INSTALLSQLDATADIR=`"$InstallSqlDataDir`" "
+    }
+
+    if ($SqlTempDBDir)
+    {
+        $cmd += " /SQLTEMPDBDIR=`"$SqlTempDBDir`" /SQLTEMPDBLOGDIR=`"$SqlTempDBDir`" "
+    }
+
+    if ($SqlUserDBDir)
+    {
+        $cmd += " /SQLUSERDBDIR=`"$SqlUserDBDir`" "
+    }
+
+    if ($SqlUserDBLogDir)
+    {
+        $cmd += " /SQLUSERDBLOGDIR=`"$SqlUserDBLogDir`" "
+    }
+
+    if ($SqlBackupDir)
+    {
+        $cmd += " /SQLBACKUPDIR=`"$SqlBackupDir`" "
+    }
+    
+    Write-Verbose "SQL install cmdline: $cmd";
     $cmd += " > $logFile 2>&1 "
 
-    NetUse -SharePath $SourcePath -SharePathCredential $SourcePathCredential -Ensure "Present"
+    NetUse -SharePath $SourcePath -SharePathCredential $SourcePathCredential -Ensure "Present";
+    
+    # check that the sourcepath exists
+    Write-Verbose "Validating access to $SourcePath";
+    if (!(Test-Path $SourcePath))
+    {
+        # Throw an error message indicating SQL Server install media is not valid
+        $errorId = "InstallMediaNotFound";
+        $exceptionStr = "SQL Server install media path was not found.";
+        $errorCategory = [System.Management.Automation.ErrorCategory]::ObjectNotFound;
+        $exception = New-Object System.InvalidOperationException $exceptionStr; 
+        $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null;
+
+        $PSCmdlet.ThrowTerminatingError($errorRecord);
+    }
     try
     {
         Invoke-Expression $cmd
@@ -151,7 +214,7 @@ function Set-TargetResource
     try
     {        
         # SQL Server log folder
-        $LogPath = Join-Path $env:ProgramFiles "Microsoft SQL Server\110\Setup Bootstrap\Log"        
+        $LogPath = Join-Path $env:ProgramFiles "Microsoft SQL Server\$VersionID\Setup Bootstrap\Log"
         $sqlLog = Get-Content "$LogPath\summary.txt"
         if($sqlLog -ne $null)
         {
@@ -208,6 +271,8 @@ function Test-TargetResource
         [string] $SourcePath,
 
         [PSCredential] $SourcePathCredential,
+        
+        [string]$VersionID=$DefaultVersionID,
 
         [string] $Features="SQLEngine,SSMS",
 
@@ -216,7 +281,13 @@ function Test-TargetResource
         [bool] $UpdateEnabled = $false,
         [string] $SvcAccount = $NULL,
         [string] $SysAdminAccounts = $NULL,
-        [string] $AgentSvcAccount = $NULL
+        [string] $AgentSvcAccount = $NULL,
+        [string] $SqlCollation = $NULL,
+        [string] $InstallSqlDataDir = $NULL,
+        [string] $SqlTempDBDir = $NULL,
+        [string] $SqlUserDBDir = $NULL,
+        [string] $SqlUserDBLogDir = $NULL, 
+        [string] $SqlBackupDir = $NULL
     )
 
     $info = Get-TargetResource -InstanceName $InstanceName -SourcePath $SourcePath -SqlAdministratorCredential $SqlAdministratorCredential
@@ -231,6 +302,7 @@ function NetUse
     param
     (   
         [parameter(Mandatory)] 
+        [ValidateNotNullOrEmpty()]
         [string] $SharePath,
         
         [PSCredential]$SharePathCredential,
@@ -261,4 +333,5 @@ function NetUse
 }
 
 Export-ModuleMember -Function *-TargetResource
+
 

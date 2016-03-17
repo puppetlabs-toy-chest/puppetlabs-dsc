@@ -23,6 +23,7 @@ describe Puppet::Type.type(:dsc_xazurepackidentityprovider) do
       :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
       :dsc_sqlinstance => 'foo',
+      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_target is a required attribute/)
   end
 
@@ -166,6 +167,26 @@ describe Puppet::Type.type(:dsc_xazurepackidentityprovider) do
 
   it 'should not accept uint for dsc_sqlinstance' do
     expect{dsc_xazurepackidentityprovider[:dsc_sqlinstance] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_dbuser" do
+    expect{dsc_xazurepackidentityprovider[:dsc_dbuser] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_dbuser' do
+    expect{dsc_xazurepackidentityprovider[:dsc_dbuser] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_dbuser' do
+    expect{dsc_xazurepackidentityprovider[:dsc_dbuser] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_dbuser' do
+    expect{dsc_xazurepackidentityprovider[:dsc_dbuser] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_dbuser' do
+    expect{dsc_xazurepackidentityprovider[:dsc_dbuser] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

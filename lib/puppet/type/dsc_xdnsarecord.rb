@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xdnsarecord) do
   def dscmeta_resource_friendly_name; 'xDnsARecord' end
   def dscmeta_resource_name; 'MSFT_xDnsARecord' end
   def dscmeta_module_name; 'xDnsServer' end
-  def dscmeta_module_version; '1.3.0.0' end
+  def dscmeta_module_version; '1.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -36,6 +36,7 @@ Puppet::Type.newtype(:dsc_xdnsarecord) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto { :present }
   end
 
@@ -82,6 +83,25 @@ Puppet::Type.newtype(:dsc_xdnsarecord) do
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Ensure - Should this DNS resource record be present or absent Valid values are Present, Absent."
+    validate do |value|
+      resource[:ensure] = value.downcase
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
       end
     end
   end

@@ -18,10 +18,15 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     #dsc_xpendingreboot[:dsc_name]
     expect { Puppet::Type.type(:dsc_xpendingreboot).new(
       :name     => 'foo',
+      :dsc_skipcomponentbasedservicing => true,
       :dsc_componentbasedservicing => true,
+      :dsc_skipwindowsupdate => true,
       :dsc_windowsupdate => true,
+      :dsc_skippendingfilerename => true,
       :dsc_pendingfilerename => true,
+      :dsc_skippendingcomputerrename => true,
       :dsc_pendingcomputerrename => true,
+      :dsc_skipccmclientsdk => true,
       :dsc_ccmclientsdk => true,
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
@@ -40,6 +45,53 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
 
   it 'should not accept uint for dsc_name' do
     expect{dsc_xpendingreboot[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_skipcomponentbasedservicing' do
+    expect{dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_skipcomponentbasedservicing' do
+    dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = true
+    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_skipcomponentbasedservicing" do
+    dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = 'true'
+    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_skipcomponentbasedservicing" do
+    dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = 'false'
+    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_skipcomponentbasedservicing" do
+    dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = 'True'
+    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_skipcomponentbasedservicing" do
+    dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = 'False'
+    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_skipcomponentbasedservicing" do
+    dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = :true
+    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_skipcomponentbasedservicing" do
+    dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = :false
+    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_skipcomponentbasedservicing' do
+    expect{dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_skipcomponentbasedservicing' do
+    expect{dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_componentbasedservicing' do
@@ -89,6 +141,53 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_componentbasedservicing] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it 'should not accept array for dsc_skipwindowsupdate' do
+    expect{dsc_xpendingreboot[:dsc_skipwindowsupdate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_skipwindowsupdate' do
+    dsc_xpendingreboot[:dsc_skipwindowsupdate] = true
+    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_skipwindowsupdate" do
+    dsc_xpendingreboot[:dsc_skipwindowsupdate] = 'true'
+    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_skipwindowsupdate" do
+    dsc_xpendingreboot[:dsc_skipwindowsupdate] = 'false'
+    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_skipwindowsupdate" do
+    dsc_xpendingreboot[:dsc_skipwindowsupdate] = 'True'
+    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_skipwindowsupdate" do
+    dsc_xpendingreboot[:dsc_skipwindowsupdate] = 'False'
+    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_skipwindowsupdate" do
+    dsc_xpendingreboot[:dsc_skipwindowsupdate] = :true
+    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_skipwindowsupdate" do
+    dsc_xpendingreboot[:dsc_skipwindowsupdate] = :false
+    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_skipwindowsupdate' do
+    expect{dsc_xpendingreboot[:dsc_skipwindowsupdate] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_skipwindowsupdate' do
+    expect{dsc_xpendingreboot[:dsc_skipwindowsupdate] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_windowsupdate' do
     expect{dsc_xpendingreboot[:dsc_windowsupdate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -134,6 +233,53 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
 
   it 'should not accept uint for dsc_windowsupdate' do
     expect{dsc_xpendingreboot[:dsc_windowsupdate] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_skippendingfilerename' do
+    expect{dsc_xpendingreboot[:dsc_skippendingfilerename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_skippendingfilerename' do
+    dsc_xpendingreboot[:dsc_skippendingfilerename] = true
+    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_skippendingfilerename" do
+    dsc_xpendingreboot[:dsc_skippendingfilerename] = 'true'
+    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_skippendingfilerename" do
+    dsc_xpendingreboot[:dsc_skippendingfilerename] = 'false'
+    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_skippendingfilerename" do
+    dsc_xpendingreboot[:dsc_skippendingfilerename] = 'True'
+    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_skippendingfilerename" do
+    dsc_xpendingreboot[:dsc_skippendingfilerename] = 'False'
+    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_skippendingfilerename" do
+    dsc_xpendingreboot[:dsc_skippendingfilerename] = :true
+    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_skippendingfilerename" do
+    dsc_xpendingreboot[:dsc_skippendingfilerename] = :false
+    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_skippendingfilerename' do
+    expect{dsc_xpendingreboot[:dsc_skippendingfilerename] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_skippendingfilerename' do
+    expect{dsc_xpendingreboot[:dsc_skippendingfilerename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_pendingfilerename' do
@@ -183,6 +329,53 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_pendingfilerename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it 'should not accept array for dsc_skippendingcomputerrename' do
+    expect{dsc_xpendingreboot[:dsc_skippendingcomputerrename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_skippendingcomputerrename' do
+    dsc_xpendingreboot[:dsc_skippendingcomputerrename] = true
+    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_skippendingcomputerrename" do
+    dsc_xpendingreboot[:dsc_skippendingcomputerrename] = 'true'
+    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_skippendingcomputerrename" do
+    dsc_xpendingreboot[:dsc_skippendingcomputerrename] = 'false'
+    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_skippendingcomputerrename" do
+    dsc_xpendingreboot[:dsc_skippendingcomputerrename] = 'True'
+    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_skippendingcomputerrename" do
+    dsc_xpendingreboot[:dsc_skippendingcomputerrename] = 'False'
+    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_skippendingcomputerrename" do
+    dsc_xpendingreboot[:dsc_skippendingcomputerrename] = :true
+    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_skippendingcomputerrename" do
+    dsc_xpendingreboot[:dsc_skippendingcomputerrename] = :false
+    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_skippendingcomputerrename' do
+    expect{dsc_xpendingreboot[:dsc_skippendingcomputerrename] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_skippendingcomputerrename' do
+    expect{dsc_xpendingreboot[:dsc_skippendingcomputerrename] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_pendingcomputerrename' do
     expect{dsc_xpendingreboot[:dsc_pendingcomputerrename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -228,6 +421,53 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
 
   it 'should not accept uint for dsc_pendingcomputerrename' do
     expect{dsc_xpendingreboot[:dsc_pendingcomputerrename] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_skipccmclientsdk' do
+    expect{dsc_xpendingreboot[:dsc_skipccmclientsdk] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_skipccmclientsdk' do
+    dsc_xpendingreboot[:dsc_skipccmclientsdk] = true
+    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_skipccmclientsdk" do
+    dsc_xpendingreboot[:dsc_skipccmclientsdk] = 'true'
+    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_skipccmclientsdk" do
+    dsc_xpendingreboot[:dsc_skipccmclientsdk] = 'false'
+    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_skipccmclientsdk" do
+    dsc_xpendingreboot[:dsc_skipccmclientsdk] = 'True'
+    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_skipccmclientsdk" do
+    dsc_xpendingreboot[:dsc_skipccmclientsdk] = 'False'
+    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_skipccmclientsdk" do
+    dsc_xpendingreboot[:dsc_skipccmclientsdk] = :true
+    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_skipccmclientsdk" do
+    dsc_xpendingreboot[:dsc_skipccmclientsdk] = :false
+    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_skipccmclientsdk' do
+    expect{dsc_xpendingreboot[:dsc_skipccmclientsdk] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_skipccmclientsdk' do
+    expect{dsc_xpendingreboot[:dsc_skipccmclientsdk] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_ccmclientsdk' do

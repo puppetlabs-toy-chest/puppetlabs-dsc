@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xspfeature) do
   def dscmeta_resource_friendly_name; 'xSPFeature' end
   def dscmeta_resource_name; 'MSFT_xSPFeature' end
   def dscmeta_module_name; 'xSharePoint' end
-  def dscmeta_module_version; '0.7.0.0' end
+  def dscmeta_module_version; '0.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -47,7 +47,7 @@ Puppet::Type.newtype(:dsc_xspfeature) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - The name of the feature"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -63,7 +63,7 @@ Puppet::Type.newtype(:dsc_xspfeature) do
   newparam(:dsc_featurescope) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "FeatureScope - Valid values are Farm, WebApplication, Site, Web."
+    desc "FeatureScope - The scope to change the feature at - Farm, WebApplication, SiteCollection or Site Valid values are Farm, WebApplication, Site, Web."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -81,8 +81,42 @@ Puppet::Type.newtype(:dsc_xspfeature) do
   newparam(:dsc_url) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Url"
+    desc "Url - The URL to change the feature at"
     isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Ensure - Present if the feature is to be enabled, Absent if it is to be disabled Valid values are Present, Absent."
+    validate do |value|
+      resource[:ensure] = value.downcase
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      end
+    end
+  end
+
+  # Name:         Version
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_version) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Version - The version of the feature to check against"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -97,31 +131,12 @@ Puppet::Type.newtype(:dsc_xspfeature) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "InstallAccount"
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
-    end
-  end
-
-  # Name:         Ensure
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       ["Present", "Absent"]
-  newparam(:dsc_ensure) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
-    validate do |value|
-      resource[:ensure] = value.downcase
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Present, Absent")
-      end
     end
   end
 

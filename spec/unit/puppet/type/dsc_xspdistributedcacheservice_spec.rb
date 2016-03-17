@@ -25,8 +25,9 @@ describe Puppet::Type.type(:dsc_xspdistributedcacheservice) do
       :dsc_ensure => 'Present',
       :dsc_cachesizeinmb => 32,
       :dsc_serviceaccount => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_serverprovisionorder => ["foo", "bar", "spec"],
       :dsc_createfirewallrules => true,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -146,24 +147,21 @@ describe Puppet::Type.type(:dsc_xspdistributedcacheservice) do
     expect{dsc_xspdistributedcacheservice[:dsc_serviceaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it "should not accept empty password for dsc_installaccount" do
-    expect{dsc_xspdistributedcacheservice[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  it 'should accept array for dsc_serverprovisionorder' do
+    dsc_xspdistributedcacheservice[:dsc_serverprovisionorder] = ["foo", "bar", "spec"]
+    expect(dsc_xspdistributedcacheservice[:dsc_serverprovisionorder]).to eq(["foo", "bar", "spec"])
   end
 
-  it 'should not accept array for dsc_installaccount' do
-    expect{dsc_xspdistributedcacheservice[:dsc_installaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_serverprovisionorder' do
+    expect{dsc_xspdistributedcacheservice[:dsc_serverprovisionorder] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept boolean for dsc_installaccount' do
-    expect{dsc_xspdistributedcacheservice[:dsc_installaccount] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_serverprovisionorder' do
+    expect{dsc_xspdistributedcacheservice[:dsc_serverprovisionorder] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_installaccount' do
-    expect{dsc_xspdistributedcacheservice[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_xspdistributedcacheservice[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_serverprovisionorder' do
+    expect{dsc_xspdistributedcacheservice[:dsc_serverprovisionorder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_createfirewallrules' do
@@ -211,6 +209,26 @@ describe Puppet::Type.type(:dsc_xspdistributedcacheservice) do
 
   it 'should not accept uint for dsc_createfirewallrules' do
     expect{dsc_xspdistributedcacheservice[:dsc_createfirewallrules] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_installaccount" do
+    expect{dsc_xspdistributedcacheservice[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_installaccount' do
+    expect{dsc_xspdistributedcacheservice[:dsc_installaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_installaccount' do
+    expect{dsc_xspdistributedcacheservice[:dsc_installaccount] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_installaccount' do
+    expect{dsc_xspdistributedcacheservice[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_installaccount' do
+    expect{dsc_xspdistributedcacheservice[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

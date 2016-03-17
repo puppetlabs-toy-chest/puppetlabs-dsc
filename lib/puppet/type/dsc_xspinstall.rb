@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xspinstall) do
   def dscmeta_resource_friendly_name; 'xSPInstall' end
   def dscmeta_resource_name; 'MSFT_xSPInstall' end
   def dscmeta_module_name; 'xSharePoint' end
-  def dscmeta_module_version; '0.7.0.0' end
+  def dscmeta_module_version; '0.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -46,7 +46,7 @@ Puppet::Type.newtype(:dsc_xspinstall) do
   newparam(:dsc_binarydir) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "BinaryDir"
+    desc "BinaryDir - The directory that contains all of the SharePoint binaries"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xspinstall) do
   newparam(:dsc_productkey) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ProductKey"
+    desc "ProductKey - The product key to use during the installation"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -77,7 +77,7 @@ Puppet::Type.newtype(:dsc_xspinstall) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Present to install SharePoint. Absent is currently not supported Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

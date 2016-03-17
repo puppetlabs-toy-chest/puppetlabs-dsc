@@ -25,8 +25,9 @@ describe Puppet::Type.type(:dsc_xspfeature) do
       :name     => 'foo',
       :dsc_featurescope => 'Farm',
       :dsc_url => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_ensure => 'Present',
+      :dsc_version => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -112,8 +113,9 @@ describe Puppet::Type.type(:dsc_xspfeature) do
       :name     => 'foo',
       :dsc_name => 'foo',
       :dsc_featurescope => 'Farm',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_ensure => 'Present',
+      :dsc_version => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_url is a required attribute/)
   end
 
@@ -131,26 +133,6 @@ describe Puppet::Type.type(:dsc_xspfeature) do
 
   it 'should not accept uint for dsc_url' do
     expect{dsc_xspfeature[:dsc_url] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it "should not accept empty password for dsc_installaccount" do
-    expect{dsc_xspfeature[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_installaccount' do
-    expect{dsc_xspfeature[:dsc_installaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_installaccount' do
-    expect{dsc_xspfeature[:dsc_installaccount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_installaccount' do
-    expect{dsc_xspfeature[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_xspfeature[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -201,6 +183,42 @@ describe Puppet::Type.type(:dsc_xspfeature) do
 
   it 'should not accept uint for dsc_ensure' do
     expect{dsc_xspfeature[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_version' do
+    expect{dsc_xspfeature[:dsc_version] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_version' do
+    expect{dsc_xspfeature[:dsc_version] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_version' do
+    expect{dsc_xspfeature[:dsc_version] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_version' do
+    expect{dsc_xspfeature[:dsc_version] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_installaccount" do
+    expect{dsc_xspfeature[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_installaccount' do
+    expect{dsc_xspfeature[:dsc_installaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_installaccount' do
+    expect{dsc_xspfeature[:dsc_installaccount] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_installaccount' do
+    expect{dsc_xspfeature[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_installaccount' do
+    expect{dsc_xspfeature[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

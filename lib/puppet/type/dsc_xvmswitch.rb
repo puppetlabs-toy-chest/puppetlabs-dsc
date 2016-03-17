@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   def dscmeta_resource_friendly_name; 'xVMSwitch' end
   def dscmeta_resource_name; 'MSFT_xVMSwitch' end
   def dscmeta_module_name; 'xHyper-V' end
-  def dscmeta_module_version; '3.2.0.0' end
+  def dscmeta_module_version; '3.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -97,12 +97,30 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   newparam(:dsc_allowmanagementos) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllowManagementOS - Specify is the VM host has access to the physical NIC"
+    desc "AllowManagementOS - Specify if the VM host has access to the physical NIC"
     validate do |value|
     end
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         BandwidthReservationMode
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Default", "Weight", "Absolute", "None", "NA"]
+  newparam(:dsc_bandwidthreservationmode) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "BandwidthReservationMode - Type of Bandwidth Reservation Mode to use for the switch Valid values are Default, Weight, Absolute, None, NA."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Default', 'default', 'Weight', 'weight', 'Absolute', 'absolute', 'None', 'none', 'NA', 'na'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Default, Weight, Absolute, None, NA")
+      end
     end
   end
 

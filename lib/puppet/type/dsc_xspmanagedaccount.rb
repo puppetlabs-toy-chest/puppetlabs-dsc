@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xspmanagedaccount) do
   def dscmeta_resource_friendly_name; 'xSPManagedAccount' end
   def dscmeta_resource_name; 'MSFT_xSPManagedAccount' end
   def dscmeta_module_name; 'xSharePoint' end
-  def dscmeta_module_version; '0.7.0.0' end
+  def dscmeta_module_version; '0.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -45,7 +45,7 @@ Puppet::Type.newtype(:dsc_xspmanagedaccount) do
   newparam(:dsc_accountname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AccountName"
+    desc "AccountName - The username of the account"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -61,28 +61,12 @@ Puppet::Type.newtype(:dsc_xspmanagedaccount) do
   newparam(:dsc_account) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Account"
+    desc "Account - The credential with password of the account"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Account", value)
-    end
-  end
-
-  # Name:         InstallAccount
-  # Type:         MSFT_Credential
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_installaccount) do
-    def mof_type; 'MSFT_Credential' end
-    def mof_is_embedded?; true end
-    desc "InstallAccount"
-    validate do |value|
-      unless value.kind_of?(Hash)
-        fail("Invalid value '#{value}'. Should be a hash")
-      end
-      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
     end
   end
 
@@ -93,7 +77,7 @@ Puppet::Type.newtype(:dsc_xspmanagedaccount) do
   newparam(:dsc_emailnotification) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "EmailNotification"
+    desc "EmailNotification - How many days before a password change should an email be sent"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -111,7 +95,7 @@ Puppet::Type.newtype(:dsc_xspmanagedaccount) do
   newparam(:dsc_preexpiredays) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "PreExpireDays"
+    desc "PreExpireDays - How many days before a password expires should it be changed"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -129,11 +113,27 @@ Puppet::Type.newtype(:dsc_xspmanagedaccount) do
   newparam(:dsc_schedule) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Schedule"
+    desc "Schedule - What is the schedule for the password reset"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         InstallAccount
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_installaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
     end
   end
 

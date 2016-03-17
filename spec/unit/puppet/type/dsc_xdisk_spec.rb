@@ -21,6 +21,7 @@ describe Puppet::Type.type(:dsc_xdisk) do
       :dsc_disknumber => 32,
       :dsc_size => 64,
       :dsc_fslabel => 'foo',
+      :dsc_allocationunitsize => 32,
     )}.to raise_error(Puppet::Error, /dsc_driveletter is a required attribute/)
   end
 
@@ -122,6 +123,40 @@ describe Puppet::Type.type(:dsc_xdisk) do
 
   it 'should not accept uint for dsc_fslabel' do
     expect{dsc_xdisk[:dsc_fslabel] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_allocationunitsize' do
+    expect{dsc_xdisk[:dsc_allocationunitsize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_allocationunitsize' do
+    expect{dsc_xdisk[:dsc_allocationunitsize] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept uint for dsc_allocationunitsize' do
+    dsc_xdisk[:dsc_allocationunitsize] = 32
+    expect(dsc_xdisk[:dsc_allocationunitsize]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_allocationunitsize' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xdisk[:dsc_allocationunitsize] = value}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept string-like uint for dsc_allocationunitsize' do
+    dsc_xdisk[:dsc_allocationunitsize] = '16'
+    expect(dsc_xdisk[:dsc_allocationunitsize]).to eq(16)
+  end
+
+  it 'should accept string-like uint for dsc_allocationunitsize' do
+    dsc_xdisk[:dsc_allocationunitsize] = '32'
+    expect(dsc_xdisk[:dsc_allocationunitsize]).to eq(32)
+  end
+
+  it 'should accept string-like uint for dsc_allocationunitsize' do
+    dsc_xdisk[:dsc_allocationunitsize] = '64'
+    expect(dsc_xdisk[:dsc_allocationunitsize]).to eq(64)
   end
 
   # Configuration PROVIDER TESTS

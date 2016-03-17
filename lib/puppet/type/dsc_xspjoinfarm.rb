@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xspjoinfarm) do
   def dscmeta_resource_friendly_name; 'xSPJoinFarm' end
   def dscmeta_resource_name; 'MSFT_xSPJoinFarm' end
   def dscmeta_module_name; 'xSharePoint' end
-  def dscmeta_module_version; '0.7.0.0' end
+  def dscmeta_module_version; '0.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -46,7 +46,7 @@ Puppet::Type.newtype(:dsc_xspjoinfarm) do
   newparam(:dsc_farmconfigdatabasename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "FarmConfigDatabaseName"
+    desc "FarmConfigDatabaseName - The name of the config database to connect to"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -62,28 +62,12 @@ Puppet::Type.newtype(:dsc_xspjoinfarm) do
   newparam(:dsc_databaseserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DatabaseServer"
+    desc "DatabaseServer - The server that hosts the config database"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-    end
-  end
-
-  # Name:         InstallAccount
-  # Type:         MSFT_Credential
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_installaccount) do
-    def mof_type; 'MSFT_Credential' end
-    def mof_is_embedded?; true end
-    desc "InstallAccount"
-    validate do |value|
-      unless value.kind_of?(Hash)
-        fail("Invalid value '#{value}'. Should be a hash")
-      end
-      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
     end
   end
 
@@ -94,7 +78,7 @@ Puppet::Type.newtype(:dsc_xspjoinfarm) do
   newparam(:dsc_passphrase) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Passphrase"
+    desc "Passphrase - The passphrase that should be used to join the farm"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -109,7 +93,7 @@ Puppet::Type.newtype(:dsc_xspjoinfarm) do
   newparam(:dsc_serverrole) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ServerRole - Valid values are Application, Custom, DistributedCache, Search, SingleServer, SingleServerFarm, SpecialLoad, WebFrontEnd."
+    desc "ServerRole - SharePoint 2016 only - the MinRole role to enroll this server as Valid values are Application, Custom, DistributedCache, Search, SingleServer, SingleServerFarm, SpecialLoad, WebFrontEnd."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -117,6 +101,22 @@ Puppet::Type.newtype(:dsc_xspjoinfarm) do
       unless ['Application', 'application', 'Custom', 'custom', 'DistributedCache', 'distributedcache', 'Search', 'search', 'SingleServer', 'singleserver', 'SingleServerFarm', 'singleserverfarm', 'SpecialLoad', 'specialload', 'WebFrontEnd', 'webfrontend'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Application, Custom, DistributedCache, Search, SingleServer, SingleServerFarm, SpecialLoad, WebFrontEnd")
       end
+    end
+  end
+
+  # Name:         InstallAccount
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_installaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
     end
   end
 

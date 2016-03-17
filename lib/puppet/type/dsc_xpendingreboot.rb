@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   def dscmeta_resource_friendly_name; 'xPendingReboot' end
   def dscmeta_resource_name; 'MSFT_xPendingReboot' end
   def dscmeta_module_name; 'xPendingReboot' end
-  def dscmeta_module_version; '0.1.0.2' end
+  def dscmeta_module_version; '0.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -45,12 +45,28 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - Name of this pending reboot check"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         SkipComponentBasedServicing
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_skipcomponentbasedservicing) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SkipComponentBasedServicing - Specifies whether to skip reboots triggered by the Component-Based Servicing component"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
@@ -61,7 +77,23 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_componentbasedservicing) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "ComponentBasedServicing"
+    desc "ComponentBasedServicing - A value indicating whether the Component-Based Servicing component requested a reboot"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SkipWindowsUpdate
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_skipwindowsupdate) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SkipWindowsUpdate - Specifies whether to skip reboots triggered by Windows Update"
     validate do |value|
     end
     newvalues(true, false)
@@ -77,7 +109,23 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_windowsupdate) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "WindowsUpdate"
+    desc "WindowsUpdate - A value indicating whether Windows Update requested a reboot"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SkipPendingFileRename
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_skippendingfilerename) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SkipPendingFileRename - Specifies whether to skip pending file rename reboots"
     validate do |value|
     end
     newvalues(true, false)
@@ -93,7 +141,23 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_pendingfilerename) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "PendingFileRename"
+    desc "PendingFileRename - A value indicating whether a pending file rename triggered a reboot"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SkipPendingComputerRename
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_skippendingcomputerrename) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SkipPendingComputerRename - Specifies whether to skip reboots triggered by a pending computer rename"
     validate do |value|
     end
     newvalues(true, false)
@@ -109,7 +173,23 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_pendingcomputerrename) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "PendingComputerRename"
+    desc "PendingComputerRename - A value indicating whether a pending computer rename triggered a reboot"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SkipCcmClientSDK
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_skipccmclientsdk) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SkipCcmClientSDK - Specifies whether to skip reboots triggered by the ConfigMgr client"
     validate do |value|
     end
     newvalues(true, false)
@@ -125,7 +205,7 @@ Puppet::Type.newtype(:dsc_xpendingreboot) do
   newparam(:dsc_ccmclientsdk) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "CcmClientSDK"
+    desc "CcmClientSDK - A value indicating whether the ConfigMgr client triggered a reboot"
     validate do |value|
     end
     newvalues(true, false)

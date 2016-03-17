@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xspuserprofileserviceapp) do
   def dscmeta_resource_friendly_name; 'xSPUserProfileServiceApp' end
   def dscmeta_resource_name; 'MSFT_xSPUserProfileServiceApp' end
   def dscmeta_module_name; 'xSharePoint' end
-  def dscmeta_module_version; '0.7.0.0' end
+  def dscmeta_module_version; '0.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -45,7 +45,7 @@ Puppet::Type.newtype(:dsc_xspuserprofileserviceapp) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - The name of the user profile service"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xspuserprofileserviceapp) do
   newparam(:dsc_applicationpool) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ApplicationPool"
+    desc "ApplicationPool - The name of the application pool to run the service app in"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -76,28 +76,12 @@ Puppet::Type.newtype(:dsc_xspuserprofileserviceapp) do
   newparam(:dsc_farmaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "FarmAccount"
+    desc "FarmAccount - The farm account to use when provisioning the app"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("FarmAccount", value)
-    end
-  end
-
-  # Name:         InstallAccount
-  # Type:         MSFT_Credential
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_installaccount) do
-    def mof_type; 'MSFT_Credential' end
-    def mof_is_embedded?; true end
-    desc "InstallAccount"
-    validate do |value|
-      unless value.kind_of?(Hash)
-        fail("Invalid value '#{value}'. Should be a hash")
-      end
-      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
     end
   end
 
@@ -108,7 +92,7 @@ Puppet::Type.newtype(:dsc_xspuserprofileserviceapp) do
   newparam(:dsc_mysitehostlocation) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MySiteHostLocation"
+    desc "MySiteHostLocation - The URL of the my site host collection"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -123,7 +107,7 @@ Puppet::Type.newtype(:dsc_xspuserprofileserviceapp) do
   newparam(:dsc_profiledbname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ProfileDBName"
+    desc "ProfileDBName - The name of the profile database"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -138,7 +122,7 @@ Puppet::Type.newtype(:dsc_xspuserprofileserviceapp) do
   newparam(:dsc_profiledbserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ProfileDBServer"
+    desc "ProfileDBServer - The name of the server to host the profile database"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -153,7 +137,7 @@ Puppet::Type.newtype(:dsc_xspuserprofileserviceapp) do
   newparam(:dsc_socialdbname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SocialDBName"
+    desc "SocialDBName - The name of the social database"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -168,7 +152,7 @@ Puppet::Type.newtype(:dsc_xspuserprofileserviceapp) do
   newparam(:dsc_socialdbserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SocialDBServer"
+    desc "SocialDBServer - The name of the database server to host the social database"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -183,7 +167,7 @@ Puppet::Type.newtype(:dsc_xspuserprofileserviceapp) do
   newparam(:dsc_syncdbname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SyncDBName"
+    desc "SyncDBName - The name of the sync database"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -198,11 +182,27 @@ Puppet::Type.newtype(:dsc_xspuserprofileserviceapp) do
   newparam(:dsc_syncdbserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SyncDBServer"
+    desc "SyncDBServer - The name of the database server to host the sync database"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         InstallAccount
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_installaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
     end
   end
 

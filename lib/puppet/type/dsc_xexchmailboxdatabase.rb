@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
   def dscmeta_resource_friendly_name; 'xExchMailboxDatabase' end
   def dscmeta_resource_name; 'MSFT_xExchMailboxDatabase' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -335,6 +335,21 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabase) do
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         IsExcludedFromProvisioningReason
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_isexcludedfromprovisioningreason) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "IsExcludedFromProvisioningReason"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
     end
   end
 

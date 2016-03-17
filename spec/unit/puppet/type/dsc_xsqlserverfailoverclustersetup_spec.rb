@@ -22,6 +22,9 @@ describe Puppet::Type.type(:dsc_xsqlserverfailoverclustersetup) do
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
       :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sourcecredential => {"user"=>"user", "password"=>"password"},
+      :dsc_suppressreboot => true,
+      :dsc_forcereboot => true,
       :dsc_features => 'foo',
       :dsc_instancename => 'foo',
       :dsc_instanceid => 'foo',
@@ -157,6 +160,120 @@ describe Puppet::Type.type(:dsc_xsqlserverfailoverclustersetup) do
     expect{dsc_xsqlserverfailoverclustersetup[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_sourcecredential" do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_sourcecredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_sourcecredential' do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_sourcecredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_sourcecredential' do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_sourcecredential] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_sourcecredential' do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_sourcecredential] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_sourcecredential' do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_sourcecredential] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_suppressreboot' do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_suppressreboot' do
+    dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot] = true
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_suppressreboot" do
+    dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot] = 'true'
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_suppressreboot" do
+    dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot] = 'false'
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_suppressreboot" do
+    dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot] = 'True'
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_suppressreboot" do
+    dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot] = 'False'
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_suppressreboot" do
+    dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot] = :true
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_suppressreboot" do
+    dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot] = :false
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_suppressreboot' do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_suppressreboot' do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_suppressreboot] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_forcereboot' do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_forcereboot' do
+    dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot] = true
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_forcereboot" do
+    dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot] = 'true'
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_forcereboot" do
+    dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot] = 'false'
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_forcereboot" do
+    dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot] = 'True'
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_forcereboot" do
+    dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot] = 'False'
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_forcereboot" do
+    dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot] = :true
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_forcereboot" do
+    dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot] = :false
+    expect(dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_forcereboot' do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_forcereboot' do
+    expect{dsc_xsqlserverfailoverclustersetup[:dsc_forcereboot] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_features' do
     expect{dsc_xsqlserverfailoverclustersetup[:dsc_features] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -181,6 +298,9 @@ describe Puppet::Type.type(:dsc_xsqlserverfailoverclustersetup) do
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
       :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sourcecredential => {"user"=>"user", "password"=>"password"},
+      :dsc_suppressreboot => true,
+      :dsc_forcereboot => true,
       :dsc_features => 'foo',
       :dsc_instanceid => 'foo',
       :dsc_pid => 'foo',

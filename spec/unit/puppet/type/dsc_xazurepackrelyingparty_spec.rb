@@ -7,6 +7,7 @@ describe Puppet::Type.type(:dsc_xazurepackrelyingparty) do
     Puppet::Type.type(:dsc_xazurepackrelyingparty).new(
       :name     => 'foo',
       :dsc_target => 'Admin',
+      :dsc_fullyqualifieddomainname => 'foo',
     )
   end
 
@@ -23,6 +24,7 @@ describe Puppet::Type.type(:dsc_xazurepackrelyingparty) do
       :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
       :dsc_sqlinstance => 'foo',
+      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_target is a required attribute/)
   end
 
@@ -64,6 +66,19 @@ describe Puppet::Type.type(:dsc_xazurepackrelyingparty) do
 
   it 'should not accept uint for dsc_target' do
     expect{dsc_xazurepackrelyingparty[:dsc_target] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should require that dsc_fullyqualifieddomainname is specified' do
+    #dsc_xazurepackrelyingparty[:dsc_fullyqualifieddomainname]
+    expect { Puppet::Type.type(:dsc_xazurepackrelyingparty).new(
+      :name     => 'foo',
+      :dsc_target => 'Admin',
+      :dsc_port => 16,
+      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sqlserver => 'foo',
+      :dsc_sqlinstance => 'foo',
+      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
+    )}.to raise_error(Puppet::Error, /dsc_fullyqualifieddomainname is a required attribute/)
   end
 
   it 'should not accept array for dsc_fullyqualifieddomainname' do
@@ -166,6 +181,26 @@ describe Puppet::Type.type(:dsc_xazurepackrelyingparty) do
 
   it 'should not accept uint for dsc_sqlinstance' do
     expect{dsc_xazurepackrelyingparty[:dsc_sqlinstance] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_dbuser" do
+    expect{dsc_xazurepackrelyingparty[:dsc_dbuser] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_dbuser' do
+    expect{dsc_xazurepackrelyingparty[:dsc_dbuser] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_dbuser' do
+    expect{dsc_xazurepackrelyingparty[:dsc_dbuser] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_dbuser' do
+    expect{dsc_xazurepackrelyingparty[:dsc_dbuser] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_dbuser' do
+    expect{dsc_xazurepackrelyingparty[:dsc_dbuser] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

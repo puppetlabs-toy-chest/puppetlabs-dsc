@@ -42,6 +42,8 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
       :dsc_enableauthgssapi => true,
       :dsc_enabled => true,
       :dsc_enhancedstatuscodesenabled => true,
+      :dsc_extendedrightallowentries => {"somekey"=>"somevalue", "somekey2"=>"somevalue2"},
+      :dsc_extendedrightdenyentries => {"somekey"=>"somevalue", "somekey2"=>"somevalue2"},
       :dsc_extendedprotectionpolicy => 'None',
       :dsc_fqdn => 'foo',
       :dsc_longaddressesenabled => true,
@@ -760,6 +762,40 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept uint for dsc_enhancedstatuscodesenabled' do
     expect{dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept a hash for dsc_extendedrightallowentries' do
+    dsc_xexchreceiveconnector[:dsc_extendedrightallowentries] = {"somekey"=>"somevalue", "somekey2"=>"somevalue2"}
+    expect(dsc_xexchreceiveconnector[:dsc_extendedrightallowentries]).to eq({"somekey"=>"somevalue", "somekey2"=>"somevalue2"})
+  end
+
+  it 'should not accept boolean for dsc_extendedrightallowentries' do
+    expect{dsc_xexchreceiveconnector[:dsc_extendedrightallowentries] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_extendedrightallowentries' do
+    expect{dsc_xexchreceiveconnector[:dsc_extendedrightallowentries] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_extendedrightallowentries' do
+    expect{dsc_xexchreceiveconnector[:dsc_extendedrightallowentries] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept a hash for dsc_extendedrightdenyentries' do
+    dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries] = {"somekey"=>"somevalue", "somekey2"=>"somevalue2"}
+    expect(dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries]).to eq({"somekey"=>"somevalue", "somekey2"=>"somevalue2"})
+  end
+
+  it 'should not accept boolean for dsc_extendedrightdenyentries' do
+    expect{dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_extendedrightdenyentries' do
+    expect{dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_extendedrightdenyentries' do
+    expect{dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_extendedprotectionpolicy predefined value None' do

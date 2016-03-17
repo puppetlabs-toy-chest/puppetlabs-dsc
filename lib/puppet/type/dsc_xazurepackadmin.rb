@@ -22,12 +22,13 @@ Puppet::Type.newtype(:dsc_xazurepackadmin) do
 
   validate do
       fail('dsc_principal is a required attribute') if self[:dsc_principal].nil?
+      fail('dsc_sqlserver is a required attribute') if self[:dsc_sqlserver].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xAzurePackAdmin' end
   def dscmeta_resource_name; 'MSFT_xAzurePackAdmin' end
   def dscmeta_module_name; 'xAzurePack' end
-  def dscmeta_module_version; '1.2.0.0' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -92,12 +93,13 @@ Puppet::Type.newtype(:dsc_xazurepackadmin) do
 
   # Name:         SQLServer
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "SQLServer - Database server for the Azure Pack databases."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -117,6 +119,22 @@ Puppet::Type.newtype(:dsc_xazurepackadmin) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         dbUser
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_dbuser) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "dbUser - SQL user to be used to create the database if the SetupCredential cannot be used."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("dbUser", value)
     end
   end
 

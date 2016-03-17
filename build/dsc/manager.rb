@@ -35,6 +35,9 @@ module Dsc
         # these hashes will be automatically wrapped in tests
         'MSFT_xFileDirectory[]' => { 'DestinationPath' => 'c:/foo/bar', 'Recurse' => true },
         'MSFT_xWebBindingInformation[]' => { 'Port' => 8080, 'Protocol' => 'https' },
+        'MSFT_xSPSearchCrawlSchedule' => { 'ScheduleType' => 'Daily' },
+        'MSFT_xSPContentDatabasePermissions[]' => { 'Name' => 'foo' },
+        'MSFT_xSPWebApplicationHappyHour' => { 'Hour' => 12 },
         'bool'     => true,
         'boolean'  => true,
         'munged_bools' => ['true','false','True', 'False', :true, :false],

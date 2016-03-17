@@ -35,7 +35,11 @@ describe Puppet::Type.type(:dsc_xspinstallprereqs) do
       :dsc_kb2671763 => 'foo',
       :dsc_wcfdataservices56 => 'foo',
       :dsc_kb2898850 => 'foo',
-      :dsc_msvcrt12 => 'foo',
+      :dsc_msvcrt11 => 'foo',
+      :dsc_msvcrt14 => 'foo',
+      :dsc_kb3092423 => 'foo',
+      :dsc_odbc => 'foo',
+      :dsc_dotnet452 => 'foo',
       :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_installerpath is a required attribute/)
   end
@@ -295,20 +299,84 @@ describe Puppet::Type.type(:dsc_xspinstallprereqs) do
     expect{dsc_xspinstallprereqs[:dsc_kb2898850] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_msvcrt12' do
-    expect{dsc_xspinstallprereqs[:dsc_msvcrt12] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should not accept array for dsc_msvcrt11' do
+    expect{dsc_xspinstallprereqs[:dsc_msvcrt11] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept boolean for dsc_msvcrt12' do
-    expect{dsc_xspinstallprereqs[:dsc_msvcrt12] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_msvcrt11' do
+    expect{dsc_xspinstallprereqs[:dsc_msvcrt11] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_msvcrt12' do
-    expect{dsc_xspinstallprereqs[:dsc_msvcrt12] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_msvcrt11' do
+    expect{dsc_xspinstallprereqs[:dsc_msvcrt11] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_msvcrt12' do
-    expect{dsc_xspinstallprereqs[:dsc_msvcrt12] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_msvcrt11' do
+    expect{dsc_xspinstallprereqs[:dsc_msvcrt11] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_msvcrt14' do
+    expect{dsc_xspinstallprereqs[:dsc_msvcrt14] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_msvcrt14' do
+    expect{dsc_xspinstallprereqs[:dsc_msvcrt14] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_msvcrt14' do
+    expect{dsc_xspinstallprereqs[:dsc_msvcrt14] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_msvcrt14' do
+    expect{dsc_xspinstallprereqs[:dsc_msvcrt14] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_kb3092423' do
+    expect{dsc_xspinstallprereqs[:dsc_kb3092423] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_kb3092423' do
+    expect{dsc_xspinstallprereqs[:dsc_kb3092423] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_kb3092423' do
+    expect{dsc_xspinstallprereqs[:dsc_kb3092423] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_kb3092423' do
+    expect{dsc_xspinstallprereqs[:dsc_kb3092423] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_odbc' do
+    expect{dsc_xspinstallprereqs[:dsc_odbc] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_odbc' do
+    expect{dsc_xspinstallprereqs[:dsc_odbc] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_odbc' do
+    expect{dsc_xspinstallprereqs[:dsc_odbc] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_odbc' do
+    expect{dsc_xspinstallprereqs[:dsc_odbc] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_dotnet452' do
+    expect{dsc_xspinstallprereqs[:dsc_dotnet452] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_dotnet452' do
+    expect{dsc_xspinstallprereqs[:dsc_dotnet452] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_dotnet452' do
+    expect{dsc_xspinstallprereqs[:dsc_dotnet452] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_dotnet452' do
+    expect{dsc_xspinstallprereqs[:dsc_dotnet452] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do

@@ -18,16 +18,15 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
     #dsc_xspusageapplication[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspusageapplication).new(
       :name     => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
       :dsc_databasename => 'foo',
-      :dsc_databasepassword => 'foo',
       :dsc_databaseserver => 'foo',
-      :dsc_databaseusername => 'foo',
+      :dsc_databasecredentials => {"user"=>"user", "password"=>"password"},
       :dsc_failoverdatabaseserver => 'foo',
       :dsc_usagelogcuttime => 32,
       :dsc_usageloglocation => 'foo',
       :dsc_usagelogmaxfilesizekb => 32,
       :dsc_usagelogmaxspacegb => 32,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -47,26 +46,6 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
     expect{dsc_xspusageapplication[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it "should not accept empty password for dsc_installaccount" do
-    expect{dsc_xspusageapplication[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_installaccount' do
-    expect{dsc_xspusageapplication[:dsc_installaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_installaccount' do
-    expect{dsc_xspusageapplication[:dsc_installaccount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_installaccount' do
-    expect{dsc_xspusageapplication[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_xspusageapplication[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databasename' do
     expect{dsc_xspusageapplication[:dsc_databasename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -81,22 +60,6 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
 
   it 'should not accept uint for dsc_databasename' do
     expect{dsc_xspusageapplication[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_databasepassword' do
-    expect{dsc_xspusageapplication[:dsc_databasepassword] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_databasepassword' do
-    expect{dsc_xspusageapplication[:dsc_databasepassword] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_databasepassword' do
-    expect{dsc_xspusageapplication[:dsc_databasepassword] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_databasepassword' do
-    expect{dsc_xspusageapplication[:dsc_databasepassword] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_databaseserver' do
@@ -115,20 +78,24 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
     expect{dsc_xspusageapplication[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_databaseusername' do
-    expect{dsc_xspusageapplication[:dsc_databaseusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it "should not accept empty password for dsc_databasecredentials" do
+    expect{dsc_xspusageapplication[:dsc_databasecredentials] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept boolean for dsc_databaseusername' do
-    expect{dsc_xspusageapplication[:dsc_databaseusername] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept array for dsc_databasecredentials' do
+    expect{dsc_xspusageapplication[:dsc_databasecredentials] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_databaseusername' do
-    expect{dsc_xspusageapplication[:dsc_databaseusername] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_databasecredentials' do
+    expect{dsc_xspusageapplication[:dsc_databasecredentials] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databaseusername' do
-    expect{dsc_xspusageapplication[:dsc_databaseusername] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_databasecredentials' do
+    expect{dsc_xspusageapplication[:dsc_databasecredentials] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_databasecredentials' do
+    expect{dsc_xspusageapplication[:dsc_databasecredentials] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_failoverdatabaseserver' do
@@ -263,6 +230,26 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
   it 'should accept string-like uint for dsc_usagelogmaxspacegb' do
     dsc_xspusageapplication[:dsc_usagelogmaxspacegb] = '64'
     expect(dsc_xspusageapplication[:dsc_usagelogmaxspacegb]).to eq(64)
+  end
+
+  it "should not accept empty password for dsc_installaccount" do
+    expect{dsc_xspusageapplication[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_installaccount' do
+    expect{dsc_xspusageapplication[:dsc_installaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_installaccount' do
+    expect{dsc_xspusageapplication[:dsc_installaccount] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_installaccount' do
+    expect{dsc_xspusageapplication[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_installaccount' do
+    expect{dsc_xspusageapplication[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

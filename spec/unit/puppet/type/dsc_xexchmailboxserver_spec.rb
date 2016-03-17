@@ -22,6 +22,8 @@ describe Puppet::Type.type(:dsc_xexchmailboxserver) do
       :dsc_domaincontroller => 'foo',
       :dsc_databasecopyactivationdisabledandmovenow => true,
       :dsc_databasecopyautoactivationpolicy => 'Blocked',
+      :dsc_maximumactivedatabases => 'foo',
+      :dsc_maximumpreferredactivedatabases => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 
@@ -172,6 +174,38 @@ describe Puppet::Type.type(:dsc_xexchmailboxserver) do
 
   it 'should not accept uint for dsc_databasecopyautoactivationpolicy' do
     expect{dsc_xexchmailboxserver[:dsc_databasecopyautoactivationpolicy] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_maximumactivedatabases' do
+    expect{dsc_xexchmailboxserver[:dsc_maximumactivedatabases] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_maximumactivedatabases' do
+    expect{dsc_xexchmailboxserver[:dsc_maximumactivedatabases] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_maximumactivedatabases' do
+    expect{dsc_xexchmailboxserver[:dsc_maximumactivedatabases] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_maximumactivedatabases' do
+    expect{dsc_xexchmailboxserver[:dsc_maximumactivedatabases] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_maximumpreferredactivedatabases' do
+    expect{dsc_xexchmailboxserver[:dsc_maximumpreferredactivedatabases] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_maximumpreferredactivedatabases' do
+    expect{dsc_xexchmailboxserver[:dsc_maximumpreferredactivedatabases] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_maximumpreferredactivedatabases' do
+    expect{dsc_xexchmailboxserver[:dsc_maximumpreferredactivedatabases] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_maximumpreferredactivedatabases' do
+    expect{dsc_xexchmailboxserver[:dsc_maximumpreferredactivedatabases] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

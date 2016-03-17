@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   def dscmeta_resource_friendly_name; 'xVMHyperV' end
   def dscmeta_resource_name; 'MSFT_xVMHyperV' end
   def dscmeta_module_name; 'xHyper-V' end
-  def dscmeta_module_version; '3.2.0.0' end
+  def dscmeta_module_version; '3.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -71,17 +71,20 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   end
 
   # Name:         SwitchName
-  # Type:         string
+  # Type:         string[]
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_switchname) do
-    def mof_type; 'string' end
+  newparam(:dsc_switchname, :array_matching => :all) do
+    def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "SwitchName - Virtual switch associated with the VM"
+    desc "SwitchName - Virtual switch(es) associated with the VM"
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 
@@ -191,17 +194,20 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   end
 
   # Name:         MACAddress
-  # Type:         string
+  # Type:         string[]
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_macaddress) do
-    def mof_type; 'string' end
+  newparam(:dsc_macaddress, :array_matching => :all) do
+    def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "MACAddress - MAC address of the VM."
+    desc "MACAddress - MAC address(es) of the VM NICs."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 
@@ -286,6 +292,38 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         SecureBoot
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_secureboot) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SecureBoot - Enable secure boot for Generation 2 VMs."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         EnableGuestService
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_enableguestservice) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "EnableGuestService - Enable Guest Service Interface for the VM."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
@@ -408,7 +446,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   newparam(:dsc_networkadapters, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "NetworkAdapters - Network adapters of the VM"
+    desc "NetworkAdapters - Network adapters' IP addresses of the VM"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

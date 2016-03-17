@@ -39,7 +39,14 @@ function Set-TargetResource
         }
         Catch
         {
-            $ErrorMsg = $_.Exception.Message            Write-Verbose $ErrorMsg
+            if($_.toString() -like "Windows PowerShell updated your execution policy successfully*")    # trap this error, it set correctlly.
+            {
+                Write-Verbose "$_"
+            }
+            else
+            {
+                throw
+            }
         }
     }
 }

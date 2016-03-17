@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xspuserprofilesyncservice) do
   def dscmeta_resource_friendly_name; 'xSPUserProfileSyncService' end
   def dscmeta_resource_name; 'MSFT_xSPUserProfileSyncService' end
   def dscmeta_module_name; 'xSharePoint' end
-  def dscmeta_module_version; '0.7.0.0' end
+  def dscmeta_module_version; '0.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -46,7 +46,7 @@ Puppet::Type.newtype(:dsc_xspuserprofilesyncservice) do
   newparam(:dsc_userprofileserviceappname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UserProfileServiceAppName"
+    desc "UserProfileServiceAppName - The name of the user profile service for this sync instance"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xspuserprofilesyncservice) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Present to ensure the service is running, absent to ensure it is not Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -81,7 +81,7 @@ Puppet::Type.newtype(:dsc_xspuserprofilesyncservice) do
   newparam(:dsc_farmaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "FarmAccount"
+    desc "FarmAccount - The farm account, which is needed to provision the service app"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -97,7 +97,7 @@ Puppet::Type.newtype(:dsc_xspuserprofilesyncservice) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "InstallAccount"
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

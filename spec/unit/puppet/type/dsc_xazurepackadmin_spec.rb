@@ -7,6 +7,7 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
     Puppet::Type.type(:dsc_xazurepackadmin).new(
       :name     => 'foo',
       :dsc_principal => 'foo',
+      :dsc_sqlserver => 'foo',
     )
   end
 
@@ -76,6 +77,7 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
       :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
       :dsc_sqlinstance => 'foo',
+      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_principal is a required attribute/)
   end
 
@@ -115,6 +117,18 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
     expect{dsc_xazurepackadmin[:dsc_azurepackadmincredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it 'should require that dsc_sqlserver is specified' do
+    #dsc_xazurepackadmin[:dsc_sqlserver]
+    expect { Puppet::Type.type(:dsc_xazurepackadmin).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_principal => 'foo',
+      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sqlinstance => 'foo',
+      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
+    )}.to raise_error(Puppet::Error, /dsc_sqlserver is a required attribute/)
+  end
+
   it 'should not accept array for dsc_sqlserver' do
     expect{dsc_xazurepackadmin[:dsc_sqlserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -145,6 +159,26 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
 
   it 'should not accept uint for dsc_sqlinstance' do
     expect{dsc_xazurepackadmin[:dsc_sqlinstance] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_dbuser" do
+    expect{dsc_xazurepackadmin[:dsc_dbuser] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_dbuser' do
+    expect{dsc_xazurepackadmin[:dsc_dbuser] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_dbuser' do
+    expect{dsc_xazurepackadmin[:dsc_dbuser] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_dbuser' do
+    expect{dsc_xazurepackadmin[:dsc_dbuser] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_dbuser' do
+    expect{dsc_xazurepackadmin[:dsc_dbuser] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

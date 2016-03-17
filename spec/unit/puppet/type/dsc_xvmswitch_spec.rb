@@ -26,6 +26,7 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
       :dsc_type => 'External',
       :dsc_netadaptername => 'foo',
       :dsc_allowmanagementos => true,
+      :dsc_bandwidthreservationmode => 'Default',
       :dsc_ensure => 'Present',
       :dsc_id => 'foo',
       :dsc_netadapterinterfacedescription => 'foo',
@@ -55,6 +56,7 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
       :dsc_name => 'foo',
       :dsc_netadaptername => 'foo',
       :dsc_allowmanagementos => true,
+      :dsc_bandwidthreservationmode => 'Default',
       :dsc_ensure => 'Present',
       :dsc_id => 'foo',
       :dsc_netadapterinterfacedescription => 'foo',
@@ -172,6 +174,76 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
 
   it 'should not accept uint for dsc_allowmanagementos' do
     expect{dsc_xvmswitch[:dsc_allowmanagementos] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_bandwidthreservationmode predefined value Default' do
+    dsc_xvmswitch[:dsc_bandwidthreservationmode] = 'Default'
+    expect(dsc_xvmswitch[:dsc_bandwidthreservationmode]).to eq('Default')
+  end
+
+  it 'should accept dsc_bandwidthreservationmode predefined value default' do
+    dsc_xvmswitch[:dsc_bandwidthreservationmode] = 'default'
+    expect(dsc_xvmswitch[:dsc_bandwidthreservationmode]).to eq('default')
+  end
+
+  it 'should accept dsc_bandwidthreservationmode predefined value Weight' do
+    dsc_xvmswitch[:dsc_bandwidthreservationmode] = 'Weight'
+    expect(dsc_xvmswitch[:dsc_bandwidthreservationmode]).to eq('Weight')
+  end
+
+  it 'should accept dsc_bandwidthreservationmode predefined value weight' do
+    dsc_xvmswitch[:dsc_bandwidthreservationmode] = 'weight'
+    expect(dsc_xvmswitch[:dsc_bandwidthreservationmode]).to eq('weight')
+  end
+
+  it 'should accept dsc_bandwidthreservationmode predefined value Absolute' do
+    dsc_xvmswitch[:dsc_bandwidthreservationmode] = 'Absolute'
+    expect(dsc_xvmswitch[:dsc_bandwidthreservationmode]).to eq('Absolute')
+  end
+
+  it 'should accept dsc_bandwidthreservationmode predefined value absolute' do
+    dsc_xvmswitch[:dsc_bandwidthreservationmode] = 'absolute'
+    expect(dsc_xvmswitch[:dsc_bandwidthreservationmode]).to eq('absolute')
+  end
+
+  it 'should accept dsc_bandwidthreservationmode predefined value None' do
+    dsc_xvmswitch[:dsc_bandwidthreservationmode] = 'None'
+    expect(dsc_xvmswitch[:dsc_bandwidthreservationmode]).to eq('None')
+  end
+
+  it 'should accept dsc_bandwidthreservationmode predefined value none' do
+    dsc_xvmswitch[:dsc_bandwidthreservationmode] = 'none'
+    expect(dsc_xvmswitch[:dsc_bandwidthreservationmode]).to eq('none')
+  end
+
+  it 'should accept dsc_bandwidthreservationmode predefined value NA' do
+    dsc_xvmswitch[:dsc_bandwidthreservationmode] = 'NA'
+    expect(dsc_xvmswitch[:dsc_bandwidthreservationmode]).to eq('NA')
+  end
+
+  it 'should accept dsc_bandwidthreservationmode predefined value na' do
+    dsc_xvmswitch[:dsc_bandwidthreservationmode] = 'na'
+    expect(dsc_xvmswitch[:dsc_bandwidthreservationmode]).to eq('na')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xvmswitch[:dsc_bandwidthreservationmode] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_bandwidthreservationmode' do
+    expect{dsc_xvmswitch[:dsc_bandwidthreservationmode] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_bandwidthreservationmode' do
+    expect{dsc_xvmswitch[:dsc_bandwidthreservationmode] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_bandwidthreservationmode' do
+    expect{dsc_xvmswitch[:dsc_bandwidthreservationmode] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_bandwidthreservationmode' do
+    expect{dsc_xvmswitch[:dsc_bandwidthreservationmode] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do

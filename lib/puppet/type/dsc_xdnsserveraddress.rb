@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   def dscmeta_resource_friendly_name; 'xDNSServerAddress' end
   def dscmeta_resource_name; 'MSFT_xDNSServerAddress' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '2.4.0.0' end
+  def dscmeta_module_version; '2.7.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -89,6 +89,22 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
       unless ['IPv4', 'ipv4', 'IPv6', 'ipv6'].include?(value)
         fail("Invalid value '#{value}'. Valid values are IPv4, IPv6")
       end
+    end
+  end
+
+  # Name:         Validate
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_validate) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "Validate"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

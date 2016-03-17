@@ -21,6 +21,7 @@ describe Puppet::Type.type(:dsc_xspsearchserviceapp) do
       :dsc_applicationpool => 'foo',
       :dsc_databasename => 'foo',
       :dsc_databaseserver => 'foo',
+      :dsc_defaultcontentaccessaccount => {"user"=>"user", "password"=>"password"},
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
@@ -87,6 +88,26 @@ describe Puppet::Type.type(:dsc_xspsearchserviceapp) do
 
   it 'should not accept uint for dsc_databaseserver' do
     expect{dsc_xspsearchserviceapp[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_defaultcontentaccessaccount" do
+    expect{dsc_xspsearchserviceapp[:dsc_defaultcontentaccessaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_defaultcontentaccessaccount' do
+    expect{dsc_xspsearchserviceapp[:dsc_defaultcontentaccessaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_defaultcontentaccessaccount' do
+    expect{dsc_xspsearchserviceapp[:dsc_defaultcontentaccessaccount] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_defaultcontentaccessaccount' do
+    expect{dsc_xspsearchserviceapp[:dsc_defaultcontentaccessaccount] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_defaultcontentaccessaccount' do
+    expect{dsc_xspsearchserviceapp[:dsc_defaultcontentaccessaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do

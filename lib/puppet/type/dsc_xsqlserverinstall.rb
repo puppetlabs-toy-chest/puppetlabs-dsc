@@ -69,6 +69,21 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
     end
   end
 
+  # Name:         VersionID
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_versionid) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "VersionID - The numeric version identifier for the instance to be installed"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
   # Name:         SourcePathCredential
   # Type:         MSFT_Credential
   # IsMandatory:  False
@@ -170,6 +185,96 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "AgentSvcAccount - Specify the account for SQL server agent service."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SqlCollation
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqlcollation) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SqlCollation - Specify the default collation for SQL server"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         InstallSqlDataDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_installsqldatadir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "InstallSqlDataDir - Specify the directory for SQL server system db files"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SqlTempDBDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqltempdbdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SqlTempDBDir - Specify the directory for TempDB files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SqlUserDBDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqluserdbdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SqlUserDBDir - Specify the directory for UserDB data files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SqlUserDBLogDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqluserdblogdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SqlUserDBLogDir - Specify the directory for UserDB log files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SqlBackupDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqlbackupdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SqlBackupDir - Specify the directory for backup files."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

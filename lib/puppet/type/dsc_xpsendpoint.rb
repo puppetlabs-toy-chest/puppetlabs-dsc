@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xpsendpoint) do
   def dscmeta_resource_friendly_name; 'xPSEndpoint' end
   def dscmeta_resource_name; 'MSFT_xPSSessionConfiguration' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '3.5.0.0' end
+  def dscmeta_module_version; '3.7.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

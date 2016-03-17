@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdisk) do
   def dscmeta_resource_friendly_name; 'xDisk' end
   def dscmeta_resource_name; 'MSFT_xDisk' end
   def dscmeta_module_name; 'xStorage' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '2.4.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -102,6 +102,24 @@ Puppet::Type.newtype(:dsc_xdisk) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         AllocationUnitSize
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_allocationunitsize) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "AllocationUnitSize"
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 

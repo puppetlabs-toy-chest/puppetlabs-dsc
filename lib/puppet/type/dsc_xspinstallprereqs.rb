@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   def dscmeta_resource_friendly_name; 'xSPInstallPrereqs' end
   def dscmeta_resource_name; 'MSFT_xSPInstallPrereqs' end
   def dscmeta_module_name; 'xSharePoint' end
-  def dscmeta_module_version; '0.7.0.0' end
+  def dscmeta_module_version; '0.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -46,7 +46,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_installerpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstallerPath"
+    desc "InstallerPath - The full path to prerequisiteinstaller.exe"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_onlinemode) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "OnlineMode"
+    desc "OnlineMode - Should the installer download prerequisites from the internet or not"
     validate do |value|
     end
     newvalues(true, false)
@@ -78,7 +78,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_sqlncli) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLNCli"
+    desc "SQLNCli - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -93,7 +93,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_powershell) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "PowerShell"
+    desc "PowerShell - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -108,7 +108,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_netfx) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "NETFX"
+    desc "NETFX - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -123,7 +123,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_idfx) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IDFX"
+    desc "IDFX - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -138,7 +138,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_sync) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Sync"
+    desc "Sync - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -153,7 +153,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_appfabric) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AppFabric"
+    desc "AppFabric - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -168,7 +168,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_idfx11) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IDFX11"
+    desc "IDFX11 - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -183,7 +183,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_msipcclient) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MSIPCClient"
+    desc "MSIPCClient - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -198,7 +198,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_wcfdataservices) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "WCFDataServices"
+    desc "WCFDataServices - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -213,7 +213,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_kb2671763) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "KB2671763"
+    desc "KB2671763 - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -228,7 +228,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_wcfdataservices56) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "WCFDataServices56"
+    desc "WCFDataServices56 - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -243,7 +243,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_kb2898850) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "KB2898850"
+    desc "KB2898850 - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -251,14 +251,74 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
     end
   end
 
-  # Name:         MSVCRT12
+  # Name:         MSVCRT11
   # Type:         string
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_msvcrt12) do
+  newparam(:dsc_msvcrt11) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MSVCRT12"
+    desc "MSVCRT11 - The path to the installer for this prerequisite"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         MSVCRT14
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_msvcrt14) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "MSVCRT14 - The path to the installer for this prerequisite"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         KB3092423
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_kb3092423) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "KB3092423 - The path to the installer for this prerequisite"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ODBC
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_odbc) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ODBC - The path to the installer for this prerequisite"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         DotNet452
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_dotnet452) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DotNet452 - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -273,7 +333,7 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Present to install the prerequisites. Absent is currently not supported Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
