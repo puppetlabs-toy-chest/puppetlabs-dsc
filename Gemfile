@@ -54,7 +54,7 @@ end
 
 group :build do
   gem 'cim',                :require => false
-  gem 'mof',                :require => false, :git => 'https://github.com/puppetlabs/mof.git', :ref => '4ffd51b'
+  gem 'mof',                :require => false, :git => 'https://github.com/puppetlabs/mof.git', :ref => 'f50581901c53ff6a40c54b72ef5f4fcaed9679a1'
 
   gem 'charlock_holmes',    :require => false
   gem 'iconv', '~> 1.0.4',  :require => false if RUBY_VERSION >= '2.0'
