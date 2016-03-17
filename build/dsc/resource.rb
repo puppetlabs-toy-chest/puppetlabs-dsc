@@ -16,6 +16,7 @@ module Dsc
       @embedded_properties = nil
       @dsc_module          = nil
       @ps_module           = nil
+      @absentable          = nil
     end
 
     def relative_mof_path
@@ -85,28 +86,33 @@ module Dsc
     end
 
     def absentable?
-      ensurable? &&
-      ensure_property.values.any? { |v| v.casecmp('absent') == 0 || v.casecmp('disable') == 0 }
+      if @absentable.nil?
+        @absentable ||= ensurable? &&
+          ensure_property.values.any? { |v| v.casecmp('absent') == 0 || v.casecmp('disable') == 0 }
+      end
+      @absentable
     end
 
     def absent_value
-      if ensure_property.values.any? { |v| v.casecmp('absent') == 0 }
-        'absent'
-      elsif ensure_property.values.any? { |v| v.casecmp('disable') == 0 }
-        'disable'
-      else
-        throw 'Error processing MOF schema - could not determine equivalent \'absent\' value for ensure'
-      end
+      @absent_value ||=
+        if ensure_property.values.any? { |v| v.casecmp('absent') == 0 }
+          'absent'
+        elsif ensure_property.values.any? { |v| v.casecmp('disable') == 0 }
+          'disable'
+        else
+          throw 'Error processing MOF schema - could not determine equivalent \'absent\' value for ensure'
+        end
     end
 
     def ensure_value
-      if ensure_property.values.any? { |v| v.casecmp('present') == 0 }
-        'present'
-      elsif ensure_property.values.any? { |v| v.casecmp('enable') == 0 }
-        'enable'
-      else
-        throw 'Error processing MOF schema - could not determine equivalent \'present\' value for ensure'
-      end
+      @ensure_value ||=
+        if ensure_property.values.any? { |v| v.casecmp('present') == 0 }
+          'present'
+        elsif ensure_property.values.any? { |v| v.casecmp('enable') == 0 }
+          'enable'
+        else
+          throw 'Error processing MOF schema - could not determine equivalent \'present\' value for ensure'
+        end
     end
 
     def has_name?
