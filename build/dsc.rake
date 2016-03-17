@@ -61,6 +61,9 @@ eod
         cmd += "git submodule update --init --recursive"
 
         sh cmd
+        
+        saved_git_ref = (`git rev-parse --short HEAD`).strip
+        puts "Using Powershell DSC git reference #{saved_git_ref}"
       else
         puts "Importing custom types from '#{dsc_resources_path}'"
         FileUtils.mkdir_p "#{dsc_resources_path_tmp}"
@@ -92,6 +95,9 @@ eod
       if !is_custom_resource
         puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{dsc_resources_path}"
         FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{dsc_resources_path}/"
+        
+        m = Dsc::Manager.new
+        m.save_powershell_dsc_git_reference(saved_git_ref)        
       else
         puts "Adding custom types to '#{default_dsc_resources_path}'"
         FileUtils.cp_r "#{dsc_resources_path_tmp}/.", "#{default_dsc_resources_path}/"
