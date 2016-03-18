@@ -18,7 +18,7 @@ describe Puppet::Type.type(:dsc_xwebsite) do
       :dsc_physicalpath => 'foo',
       :dsc_state => 'Started',
       :dsc_applicationpool => 'foo',
-      :dsc_bindinginfo => {"Port"=>8080, "Protocol"=>"https"},
+      :dsc_bindinginfo => {"Protocol"=>"http", "BindingInformation"=>"foo", "IPAddress"=>"foo", "Port"=>16, "HostName"=>"foo", "CertificateThumbprint"=>"foo", "CertificateStoreName"=>"My", "SslFlags"=>"0"},
       :dsc_defaultpage => ["foo", "bar", "spec"],
       :dsc_enabledprotocols => 'foo',
     )}.to_not raise_error
@@ -178,13 +178,13 @@ describe Puppet::Type.type(:dsc_xwebsite) do
   end
 
   it 'should accept a hash for dsc_bindinginfo' do
-    dsc_xwebsite[:dsc_bindinginfo] = {"Port"=>8080, "Protocol"=>"https"}
-    expect(dsc_xwebsite[:dsc_bindinginfo]).to eq([{"Port"=>8080, "Protocol"=>"https"}])
+    dsc_xwebsite[:dsc_bindinginfo] = {"Protocol"=>"http", "BindingInformation"=>"foo", "IPAddress"=>"foo", "Port"=>16, "HostName"=>"foo", "CertificateThumbprint"=>"foo", "CertificateStoreName"=>"My", "SslFlags"=>"0"}
+    expect(dsc_xwebsite[:dsc_bindinginfo]).to eq([{"Protocol"=>"http", "BindingInformation"=>"foo", "IPAddress"=>"foo", "Port"=>16, "HostName"=>"foo", "CertificateThumbprint"=>"foo", "CertificateStoreName"=>"My", "SslFlags"=>"0"}])
   end
 
   it 'should accept a an array of hashes for dsc_bindinginfo' do
-    dsc_xwebsite[:dsc_bindinginfo] = [{"Port"=>8080, "Protocol"=>"https"}]
-    expect(dsc_xwebsite[:dsc_bindinginfo]).to eq([{"Port"=>8080, "Protocol"=>"https"}])
+    dsc_xwebsite[:dsc_bindinginfo] = [{"Protocol"=>"http", "BindingInformation"=>"foo", "IPAddress"=>"foo", "Port"=>16, "HostName"=>"foo", "CertificateThumbprint"=>"foo", "CertificateStoreName"=>"My", "SslFlags"=>"0"}]
+    expect(dsc_xwebsite[:dsc_bindinginfo]).to eq([{"Protocol"=>"http", "BindingInformation"=>"foo", "IPAddress"=>"foo", "Port"=>16, "HostName"=>"foo", "CertificateThumbprint"=>"foo", "CertificateStoreName"=>"My", "SslFlags"=>"0"}])
   end
 
   it 'should not accept boolean for dsc_bindinginfo' do

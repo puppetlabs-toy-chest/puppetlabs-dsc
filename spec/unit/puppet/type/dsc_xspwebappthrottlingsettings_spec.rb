@@ -19,7 +19,7 @@ describe Puppet::Type.type(:dsc_xspwebappthrottlingsettings) do
       :dsc_adminthreshold => 32,
       :dsc_listviewlookupthreshold => 32,
       :dsc_happyhourenabled => true,
-      :dsc_happyhour => {"Hour"=>12},
+      :dsc_happyhour => {"Hour"=>32, "Minute"=>32, "Duration"=>32},
       :dsc_uniquepermissionthreshold => 32,
       :dsc_requestthrottling => true,
       :dsc_changelogenabled => true,

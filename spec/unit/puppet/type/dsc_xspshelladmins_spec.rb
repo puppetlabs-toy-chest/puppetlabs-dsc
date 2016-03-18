@@ -17,7 +17,7 @@ describe Puppet::Type.type(:dsc_xspshelladmins) do
       :dsc_members => ["foo", "bar", "spec"],
       :dsc_memberstoinclude => ["foo", "bar", "spec"],
       :dsc_memberstoexclude => ["foo", "bar", "spec"],
-      :dsc_contentdatabases => {"Name"=>"foo"},
+      :dsc_contentdatabases => {"Name"=>"foo", "Members"=>["foo", "bar", "spec"], "MembersToInclude"=>["foo", "bar", "spec"], "MembersToExclude"=>["foo", "bar", "spec"]},
       :dsc_allcontentdatabases => true,
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to_not raise_error
@@ -102,13 +102,13 @@ describe Puppet::Type.type(:dsc_xspshelladmins) do
   end
 
   it 'should accept a hash for dsc_contentdatabases' do
-    dsc_xspshelladmins[:dsc_contentdatabases] = {"Name"=>"foo"}
-    expect(dsc_xspshelladmins[:dsc_contentdatabases]).to eq([{"Name"=>"foo"}])
+    dsc_xspshelladmins[:dsc_contentdatabases] = {"Name"=>"foo", "Members"=>["foo", "bar", "spec"], "MembersToInclude"=>["foo", "bar", "spec"], "MembersToExclude"=>["foo", "bar", "spec"]}
+    expect(dsc_xspshelladmins[:dsc_contentdatabases]).to eq([{"Name"=>"foo", "Members"=>["foo", "bar", "spec"], "MembersToInclude"=>["foo", "bar", "spec"], "MembersToExclude"=>["foo", "bar", "spec"]}])
   end
 
   it 'should accept a an array of hashes for dsc_contentdatabases' do
-    dsc_xspshelladmins[:dsc_contentdatabases] = [{"Name"=>"foo"}]
-    expect(dsc_xspshelladmins[:dsc_contentdatabases]).to eq([{"Name"=>"foo"}])
+    dsc_xspshelladmins[:dsc_contentdatabases] = [{"Name"=>"foo", "Members"=>["foo", "bar", "spec"], "MembersToInclude"=>["foo", "bar", "spec"], "MembersToExclude"=>["foo", "bar", "spec"]}]
+    expect(dsc_xspshelladmins[:dsc_contentdatabases]).to eq([{"Name"=>"foo", "Members"=>["foo", "bar", "spec"], "MembersToInclude"=>["foo", "bar", "spec"], "MembersToExclude"=>["foo", "bar", "spec"]}])
   end
 
   it 'should not accept boolean for dsc_contentdatabases' do

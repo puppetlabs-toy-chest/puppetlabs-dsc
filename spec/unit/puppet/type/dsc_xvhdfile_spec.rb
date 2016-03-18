@@ -14,7 +14,7 @@ describe Puppet::Type.type(:dsc_xvhdfile) do
     expect { Puppet::Type.type(:dsc_xvhdfile).new(
       :name     => 'foo',
       :dsc_vhdpath => 'foo',
-      :dsc_filedirectory => {"DestinationPath"=>"c:/foo/bar", "Recurse"=>true},
+      :dsc_filedirectory => {"DestinationPath"=>"foo", "SourcePath"=>"foo", "Ensure"=>"Present", "Type"=>"File", "Recurse"=>true, "Force"=>true, "Content"=>"foo", "Attributes"=>"ReadOnly"},
       :dsc_checksum => 'ModifiedDate',
     )}.to_not raise_error
   end
@@ -47,13 +47,13 @@ describe Puppet::Type.type(:dsc_xvhdfile) do
   end
 
   it 'should accept a hash for dsc_filedirectory' do
-    dsc_xvhdfile[:dsc_filedirectory] = {"DestinationPath"=>"c:/foo/bar", "Recurse"=>true}
-    expect(dsc_xvhdfile[:dsc_filedirectory]).to eq([{"DestinationPath"=>"c:/foo/bar", "Recurse"=>true}])
+    dsc_xvhdfile[:dsc_filedirectory] = {"DestinationPath"=>"foo", "SourcePath"=>"foo", "Ensure"=>"Present", "Type"=>"File", "Recurse"=>true, "Force"=>true, "Content"=>"foo", "Attributes"=>"ReadOnly"}
+    expect(dsc_xvhdfile[:dsc_filedirectory]).to eq([{"DestinationPath"=>"foo", "SourcePath"=>"foo", "Ensure"=>"Present", "Type"=>"File", "Recurse"=>true, "Force"=>true, "Content"=>"foo", "Attributes"=>"ReadOnly"}])
   end
 
   it 'should accept a an array of hashes for dsc_filedirectory' do
-    dsc_xvhdfile[:dsc_filedirectory] = [{"DestinationPath"=>"c:/foo/bar", "Recurse"=>true}]
-    expect(dsc_xvhdfile[:dsc_filedirectory]).to eq([{"DestinationPath"=>"c:/foo/bar", "Recurse"=>true}])
+    dsc_xvhdfile[:dsc_filedirectory] = [{"DestinationPath"=>"foo", "SourcePath"=>"foo", "Ensure"=>"Present", "Type"=>"File", "Recurse"=>true, "Force"=>true, "Content"=>"foo", "Attributes"=>"ReadOnly"}]
+    expect(dsc_xvhdfile[:dsc_filedirectory]).to eq([{"DestinationPath"=>"foo", "SourcePath"=>"foo", "Ensure"=>"Present", "Type"=>"File", "Recurse"=>true, "Force"=>true, "Content"=>"foo", "Attributes"=>"ReadOnly"}])
   end
 
   it 'should not accept boolean for dsc_filedirectory' do
