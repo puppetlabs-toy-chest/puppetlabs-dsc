@@ -22,12 +22,6 @@ describe Puppet::Type.type(:dsc_group) do
     #dsc_group[:dsc_groupname]
     expect { Puppet::Type.type(:dsc_group).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_description => 'foo',
-      :dsc_members => ["foo", "bar", "spec"],
-      :dsc_memberstoinclude => ["foo", "bar", "spec"],
-      :dsc_memberstoexclude => ["foo", "bar", "spec"],
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_groupname is a required attribute/)
   end
 

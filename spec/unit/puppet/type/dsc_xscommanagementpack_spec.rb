@@ -18,12 +18,6 @@ describe Puppet::Type.type(:dsc_xscommanagementpack) do
     #dsc_xscommanagementpack[:dsc_name]
     expect { Puppet::Type.type(:dsc_xscommanagementpack).new(
       :name     => 'foo',
-      :dsc_version => 'foo',
-      :dsc_minversion => 'foo',
-      :dsc_scomadmincredential => {"user"=>"user", "password"=>"password"},
-      :dsc_sourcepath => 'foo',
-      :dsc_sourcefolder => 'foo',
-      :dsc_sourcefile => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

@@ -73,11 +73,7 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
     #dsc_xazurepackadmin[:dsc_principal]
     expect { Puppet::Type.type(:dsc_xazurepackadmin).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
-      :dsc_sqlinstance => 'foo',
-      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_principal is a required attribute/)
   end
 
@@ -121,11 +117,7 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
     #dsc_xazurepackadmin[:dsc_sqlserver]
     expect { Puppet::Type.type(:dsc_xazurepackadmin).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
       :dsc_principal => 'foo',
-      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
-      :dsc_sqlinstance => 'foo',
-      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_sqlserver is a required attribute/)
   end
 

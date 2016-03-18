@@ -22,25 +22,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     #dsc_xwefsubscription[:dsc_subscriptionid]
     expect { Puppet::Type.type(:dsc_xwefsubscription).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_subscriptiontype => 'CollectorInitiated',
-      :dsc_description => 'foo',
-      :dsc_enabled => 'true',
-      :dsc_deliverymode => 'Push',
-      :dsc_maxitems => -32,
-      :dsc_maxlatencytime => 64,
-      :dsc_heartbeatinterval => 64,
-      :dsc_readexistingevents => 'true',
-      :dsc_transportname => 'HTTP',
-      :dsc_transportport => 'foo',
-      :dsc_contentformat => 'foo',
-      :dsc_locale => 'foo',
-      :dsc_logfile => 'foo',
-      :dsc_credentialstype => 'Default',
-      :dsc_allowedsourcenondomaincomputers => ["foo", "bar", "spec"],
-      :dsc_allowedsourcedomaincomputers => 'foo',
-      :dsc_query => ["foo", "bar", "spec"],
-      :dsc_address => ["foo", "bar", "spec"],
     )}.to raise_error(Puppet::Error, /dsc_subscriptionid is a required attribute/)
   end
 

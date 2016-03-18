@@ -24,8 +24,6 @@ describe Puppet::Type.type(:dsc_xdnsarecord) do
     expect { Puppet::Type.type(:dsc_xdnsarecord).new(
       :name     => 'foo',
       :dsc_zone => 'foo',
-      :dsc_target => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -50,8 +48,6 @@ describe Puppet::Type.type(:dsc_xdnsarecord) do
     expect { Puppet::Type.type(:dsc_xdnsarecord).new(
       :name     => 'foo',
       :dsc_name => 'foo',
-      :dsc_target => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_zone is a required attribute/)
   end
 

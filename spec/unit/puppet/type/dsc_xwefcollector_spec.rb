@@ -72,7 +72,6 @@ describe Puppet::Type.type(:dsc_xwefcollector) do
     #dsc_xwefcollector[:dsc_name]
     expect { Puppet::Type.type(:dsc_xwefcollector).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

@@ -36,9 +36,7 @@ describe Puppet::Type.type(:dsc_xdnsserveraddress) do
     #dsc_xdnsserveraddress[:dsc_interfacealias]
     expect { Puppet::Type.type(:dsc_xdnsserveraddress).new(
       :name     => 'foo',
-      :dsc_address => ["foo", "bar", "spec"],
       :dsc_addressfamily => 'IPv4',
-      :dsc_validate => true,
     )}.to raise_error(Puppet::Error, /dsc_interfacealias is a required attribute/)
   end
 
@@ -62,9 +60,7 @@ describe Puppet::Type.type(:dsc_xdnsserveraddress) do
     #dsc_xdnsserveraddress[:dsc_addressfamily]
     expect { Puppet::Type.type(:dsc_xdnsserveraddress).new(
       :name     => 'foo',
-      :dsc_address => ["foo", "bar", "spec"],
       :dsc_interfacealias => 'foo',
-      :dsc_validate => true,
     )}.to raise_error(Puppet::Error, /dsc_addressfamily is a required attribute/)
   end
 

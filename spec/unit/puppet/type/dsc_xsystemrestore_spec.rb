@@ -22,7 +22,6 @@ describe Puppet::Type.type(:dsc_xsystemrestore) do
     #dsc_xsystemrestore[:dsc_ensure]
     expect { Puppet::Type.type(:dsc_xsystemrestore).new(
       :name     => 'foo',
-      :dsc_drive => ["foo", "bar", "spec"],
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

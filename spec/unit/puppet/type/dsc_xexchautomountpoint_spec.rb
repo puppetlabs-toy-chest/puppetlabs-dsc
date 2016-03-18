@@ -18,17 +18,6 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     #dsc_xexchautomountpoint[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchautomountpoint).new(
       :name     => 'foo',
-      :dsc_autodagdatabasesrootfolderpath => 'foo',
-      :dsc_autodagvolumesrootfolderpath => 'foo',
-      :dsc_disktodbmap => ["foo", "bar", "spec"],
-      :dsc_sparevolumecount => 32,
-      :dsc_ensureexchangevolumemountpointislast => true,
-      :dsc_createsubfolders => true,
-      :dsc_filesystem => 'NTFS',
-      :dsc_mindisksize => 'foo',
-      :dsc_partitioningscheme => 'MBR',
-      :dsc_unitsize => 'foo',
-      :dsc_volumeprefix => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

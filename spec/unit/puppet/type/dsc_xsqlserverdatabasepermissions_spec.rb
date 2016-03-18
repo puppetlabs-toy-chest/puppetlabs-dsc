@@ -18,10 +18,6 @@ describe Puppet::Type.type(:dsc_xsqlserverdatabasepermissions) do
     #dsc_xsqlserverdatabasepermissions[:dsc_database]
     expect { Puppet::Type.type(:dsc_xsqlserverdatabasepermissions).new(
       :name     => 'foo',
-      :dsc_name => 'foo',
-      :dsc_permissions => ["foo", "bar", "spec"],
-      :dsc_sqlserver => 'foo',
-      :dsc_sqlinstancename => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_database is a required attribute/)
   end
 

@@ -22,10 +22,6 @@ describe Puppet::Type.type(:dsc_xdnsconnectionsuffix) do
     #dsc_xdnsconnectionsuffix[:dsc_interfacealias]
     expect { Puppet::Type.type(:dsc_xdnsconnectionsuffix).new(
       :name     => 'foo',
-      :dsc_connectionspecificsuffix => 'foo',
-      :dsc_registerthisconnectionsaddress => true,
-      :dsc_usesuffixwhenregistering => true,
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_interfacealias is a required attribute/)
   end
 

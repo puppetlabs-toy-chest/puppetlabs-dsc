@@ -18,8 +18,6 @@ describe Puppet::Type.type(:dsc_xvhdfile) do
     #dsc_xvhdfile[:dsc_vhdpath]
     expect { Puppet::Type.type(:dsc_xvhdfile).new(
       :name     => 'foo',
-      :dsc_filedirectory => {"DestinationPath"=>"c:/foo/bar", "Recurse"=>true},
-      :dsc_checksum => 'ModifiedDate',
     )}.to raise_error(Puppet::Error, /dsc_vhdpath is a required attribute/)
   end
 

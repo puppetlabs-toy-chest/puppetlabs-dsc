@@ -22,11 +22,6 @@ describe Puppet::Type.type(:dsc_xjeaendpoint) do
     #dsc_xjeaendpoint[:dsc_name]
     expect { Puppet::Type.type(:dsc_xjeaendpoint).new(
       :name     => 'foo',
-      :dsc_toolkit => ["foo", "bar", "spec"],
-      :dsc_securitydescriptorsddl => 'foo',
-      :dsc_group => ["foo", "bar", "spec"],
-      :dsc_ensure => 'Present',
-      :dsc_cleanall => true,
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

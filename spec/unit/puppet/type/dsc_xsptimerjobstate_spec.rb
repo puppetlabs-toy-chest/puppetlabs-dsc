@@ -18,10 +18,6 @@ describe Puppet::Type.type(:dsc_xsptimerjobstate) do
     #dsc_xsptimerjobstate[:dsc_name]
     expect { Puppet::Type.type(:dsc_xsptimerjobstate).new(
       :name     => 'foo',
-      :dsc_webapplication => 'foo',
-      :dsc_enabled => true,
-      :dsc_schedule => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

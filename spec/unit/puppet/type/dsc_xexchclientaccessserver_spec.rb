@@ -18,10 +18,6 @@ describe Puppet::Type.type(:dsc_xexchclientaccessserver) do
     #dsc_xexchclientaccessserver[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchclientaccessserver).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_autodiscoverserviceinternaluri => 'foo',
-      :dsc_autodiscoversitescope => ["foo", "bar", "spec"],
-      :dsc_domaincontroller => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

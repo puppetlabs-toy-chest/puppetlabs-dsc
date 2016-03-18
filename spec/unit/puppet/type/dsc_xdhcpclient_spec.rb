@@ -59,7 +59,6 @@ describe Puppet::Type.type(:dsc_xdhcpclient) do
     #dsc_xdhcpclient[:dsc_interfacealias]
     expect { Puppet::Type.type(:dsc_xdhcpclient).new(
       :name     => 'foo',
-      :dsc_state => 'Enabled',
       :dsc_addressfamily => 'IPv4',
     )}.to raise_error(Puppet::Error, /dsc_interfacealias is a required attribute/)
   end
@@ -84,7 +83,6 @@ describe Puppet::Type.type(:dsc_xdhcpclient) do
     #dsc_xdhcpclient[:dsc_addressfamily]
     expect { Puppet::Type.type(:dsc_xdhcpclient).new(
       :name     => 'foo',
-      :dsc_state => 'Enabled',
       :dsc_interfacealias => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_addressfamily is a required attribute/)
   end

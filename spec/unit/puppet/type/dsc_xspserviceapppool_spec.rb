@@ -18,8 +18,6 @@ describe Puppet::Type.type(:dsc_xspserviceapppool) do
     #dsc_xspserviceapppool[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspserviceapppool).new(
       :name     => 'foo',
-      :dsc_serviceaccount => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

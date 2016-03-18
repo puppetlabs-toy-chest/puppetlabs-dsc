@@ -22,10 +22,6 @@ describe Puppet::Type.type(:dsc_xnetworkteam) do
     #dsc_xnetworkteam[:dsc_name]
     expect { Puppet::Type.type(:dsc_xnetworkteam).new(
       :name     => 'foo',
-      :dsc_teamingmode => 'SwitchIndependent',
-      :dsc_loadbalancingalgorithm => 'Dynamic',
-      :dsc_teammembers => ["foo", "bar", "spec"],
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

@@ -22,20 +22,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
     #dsc_xadgroup[:dsc_groupname]
     expect { Puppet::Type.type(:dsc_xadgroup).new(
       :name     => 'foo',
-      :dsc_groupscope => 'DomainLocal',
-      :dsc_category => 'Security',
-      :dsc_path => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_description => 'foo',
-      :dsc_displayname => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_domaincontroller => 'foo',
-      :dsc_members => ["foo", "bar", "spec"],
-      :dsc_memberstoinclude => ["foo", "bar", "spec"],
-      :dsc_memberstoexclude => ["foo", "bar", "spec"],
-      :dsc_membershipattribute => 'SamAccountName',
-      :dsc_managedby => 'foo',
-      :dsc_notes => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_groupname is a required attribute/)
   end
 

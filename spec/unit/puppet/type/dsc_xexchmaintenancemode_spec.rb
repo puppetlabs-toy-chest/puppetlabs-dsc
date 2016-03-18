@@ -18,12 +18,6 @@ describe Puppet::Type.type(:dsc_xexchmaintenancemode) do
     #dsc_xexchmaintenancemode[:dsc_enabled]
     expect { Puppet::Type.type(:dsc_xexchmaintenancemode).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_additionalcomponentstoactivate => ["foo", "bar", "spec"],
-      :dsc_domaincontroller => 'foo',
-      :dsc_movepreferreddatabasesback => true,
-      :dsc_setinactivecomponentsfromanyrequestertoactive => true,
-      :dsc_upgradedserverversion => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_enabled is a required attribute/)
   end
 

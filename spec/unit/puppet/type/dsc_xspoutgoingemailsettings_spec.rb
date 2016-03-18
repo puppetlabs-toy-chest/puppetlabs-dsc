@@ -18,11 +18,6 @@ describe Puppet::Type.type(:dsc_xspoutgoingemailsettings) do
     #dsc_xspoutgoingemailsettings[:dsc_webappurl]
     expect { Puppet::Type.type(:dsc_xspoutgoingemailsettings).new(
       :name     => 'foo',
-      :dsc_smtpserver => 'foo',
-      :dsc_fromaddress => 'foo',
-      :dsc_replytoaddress => 'foo',
-      :dsc_characterset => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_webappurl is a required attribute/)
   end
 

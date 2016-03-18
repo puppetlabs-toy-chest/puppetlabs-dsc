@@ -18,20 +18,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     #dsc_xexchoutlookanywhere[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchoutlookanywhere).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_allowservicerestart => true,
-      :dsc_domaincontroller => 'foo',
-      :dsc_externalclientsrequiressl => true,
-      :dsc_extendedprotectionflags => ["foo", "bar", "spec"],
-      :dsc_extendedprotectionspnlist => ["foo", "bar", "spec"],
-      :dsc_extendedprotectiontokenchecking => 'Allow',
-      :dsc_externalclientauthenticationmethod => 'Ntlm',
-      :dsc_externalhostname => 'foo',
-      :dsc_iisauthenticationmethods => ["foo", "bar", "spec"],
-      :dsc_internalclientauthenticationmethod => 'Ntlm',
-      :dsc_internalclientsrequiressl => true,
-      :dsc_internalhostname => 'foo',
-      :dsc_ssloffloading => true,
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

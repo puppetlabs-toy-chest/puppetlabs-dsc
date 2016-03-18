@@ -18,12 +18,6 @@ describe Puppet::Type.type(:dsc_xexchjetstresscleanup) do
     #dsc_xexchjetstresscleanup[:dsc_jetstresspath]
     expect { Puppet::Type.type(:dsc_xexchjetstresscleanup).new(
       :name     => 'foo',
-      :dsc_configfilepath => 'foo',
-      :dsc_databasepaths => ["foo", "bar", "spec"],
-      :dsc_deleteassociatedmountpoints => true,
-      :dsc_logpaths => ["foo", "bar", "spec"],
-      :dsc_outputsavelocation => 'foo',
-      :dsc_removebinaries => true,
     )}.to raise_error(Puppet::Error, /dsc_jetstresspath is a required attribute/)
   end
 

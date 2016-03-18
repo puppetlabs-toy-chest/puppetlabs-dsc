@@ -24,12 +24,6 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
     expect { Puppet::Type.type(:dsc_xvmswitch).new(
       :name     => 'foo',
       :dsc_type => 'External',
-      :dsc_netadaptername => 'foo',
-      :dsc_allowmanagementos => true,
-      :dsc_bandwidthreservationmode => 'Default',
-      :dsc_ensure => 'Present',
-      :dsc_id => 'foo',
-      :dsc_netadapterinterfacedescription => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -54,12 +48,6 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
     expect { Puppet::Type.type(:dsc_xvmswitch).new(
       :name     => 'foo',
       :dsc_name => 'foo',
-      :dsc_netadaptername => 'foo',
-      :dsc_allowmanagementos => true,
-      :dsc_bandwidthreservationmode => 'Default',
-      :dsc_ensure => 'Present',
-      :dsc_id => 'foo',
-      :dsc_netadapterinterfacedescription => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_type is a required attribute/)
   end
 

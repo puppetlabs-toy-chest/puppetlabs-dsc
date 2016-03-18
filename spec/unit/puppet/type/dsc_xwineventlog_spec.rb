@@ -18,11 +18,6 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
     #dsc_xwineventlog[:dsc_logname]
     expect { Puppet::Type.type(:dsc_xwineventlog).new(
       :name     => 'foo',
-      :dsc_maximumsizeinbytes => -64,
-      :dsc_isenabled => true,
-      :dsc_logmode => 'AutoBackup',
-      :dsc_securitydescriptor => 'foo',
-      :dsc_logfilepath => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_logname is a required attribute/)
   end
 

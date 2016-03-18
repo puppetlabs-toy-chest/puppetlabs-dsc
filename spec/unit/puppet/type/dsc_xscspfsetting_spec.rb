@@ -73,11 +73,7 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
     #dsc_xscspfsetting[:dsc_servername]
     expect { Puppet::Type.type(:dsc_xscspfsetting).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_settingtype => 'DatabaseConnectionString',
       :dsc_name => 'foo',
-      :dsc_value => 'foo',
-      :dsc_scspfadmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_servername is a required attribute/)
   end
 
@@ -141,11 +137,7 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
     #dsc_xscspfsetting[:dsc_name]
     expect { Puppet::Type.type(:dsc_xscspfsetting).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
       :dsc_servername => 'foo',
-      :dsc_settingtype => 'DatabaseConnectionString',
-      :dsc_value => 'foo',
-      :dsc_scspfadmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

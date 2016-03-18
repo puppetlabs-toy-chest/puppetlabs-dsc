@@ -22,27 +22,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     #dsc_xadcscertificationauthority[:dsc_catype]
     expect { Puppet::Type.type(:dsc_xadcscertificationauthority).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_ensure => 'Present',
-      :dsc_cacommonname => 'foo',
-      :dsc_cadistinguishednamesuffix => 'foo',
-      :dsc_certfile => 'foo',
-      :dsc_certfilepassword => {"user"=>"user", "password"=>"password"},
-      :dsc_certificateid => 'foo',
-      :dsc_cryptoprovidername => 'foo',
-      :dsc_databasedirectory => 'foo',
-      :dsc_hashalgorithmname => 'foo',
-      :dsc_ignoreunicode => true,
-      :dsc_keycontainername => 'foo',
-      :dsc_keylength => 32,
-      :dsc_logdirectory => 'foo',
-      :dsc_outputcertrequestfile => 'foo',
-      :dsc_overwriteexistingcainds => true,
-      :dsc_overwriteexistingdatabase => true,
-      :dsc_overwriteexistingkey => true,
-      :dsc_parentca => 'foo',
-      :dsc_validityperiod => 'Hours',
-      :dsc_validityperiodunits => 32,
     )}.to raise_error(Puppet::Error, /dsc_catype is a required attribute/)
   end
 

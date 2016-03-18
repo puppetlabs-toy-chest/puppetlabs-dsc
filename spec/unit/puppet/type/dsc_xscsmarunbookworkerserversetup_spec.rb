@@ -22,19 +22,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
     #dsc_xscsmarunbookworkerserversetup[:dsc_ensure]
     expect { Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup).new(
       :name     => 'foo',
-      :dsc_sourcepath => 'foo',
-      :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_service => {"user"=>"user", "password"=>"password"},
-      :dsc_serviceusername => 'foo',
-      :dsc_sqlserver => 'foo',
-      :dsc_sqlinstance => 'foo',
-      :dsc_sqldatabase => 'foo',
-      :dsc_installfolder => 'foo',
-      :dsc_etwmanifest => 'foo',
-      :dsc_sendceipreports => 'foo',
-      :dsc_msupdate => 'foo',
-      :dsc_productkey => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

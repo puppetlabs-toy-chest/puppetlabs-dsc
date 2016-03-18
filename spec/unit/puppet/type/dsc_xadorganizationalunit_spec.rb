@@ -24,10 +24,6 @@ describe Puppet::Type.type(:dsc_xadorganizationalunit) do
     expect { Puppet::Type.type(:dsc_xadorganizationalunit).new(
       :name     => 'foo',
       :dsc_path => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_protectedfromaccidentaldeletion => true,
-      :dsc_description => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -52,10 +48,6 @@ describe Puppet::Type.type(:dsc_xadorganizationalunit) do
     expect { Puppet::Type.type(:dsc_xadorganizationalunit).new(
       :name     => 'foo',
       :dsc_name => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_protectedfromaccidentaldeletion => true,
-      :dsc_description => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_path is a required attribute/)
   end
 

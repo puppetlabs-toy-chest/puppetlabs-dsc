@@ -18,16 +18,6 @@ describe Puppet::Type.type(:dsc_xspuserprofilesyncconnection) do
     #dsc_xspuserprofilesyncconnection[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspuserprofilesyncconnection).new(
       :name     => 'foo',
-      :dsc_forest => 'foo',
-      :dsc_userprofileservice => 'foo',
-      :dsc_connectioncredentials => {"user"=>"user", "password"=>"password"},
-      :dsc_includedous => ["foo", "bar", "spec"],
-      :dsc_excludedous => ["foo", "bar", "spec"],
-      :dsc_server => 'foo',
-      :dsc_usessl => true,
-      :dsc_force => true,
-      :dsc_connectiontype => 'ActiveDirectory',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

@@ -19,9 +19,7 @@ describe Puppet::Type.type(:dsc_xsqlhaendpoint) do
     #dsc_xsqlhaendpoint[:dsc_instancename]
     expect { Puppet::Type.type(:dsc_xsqlhaendpoint).new(
       :name     => 'foo',
-      :dsc_alloweduser => 'foo',
       :dsc_name => 'foo',
-      :dsc_portnumber => 32,
     )}.to raise_error(Puppet::Error, /dsc_instancename is a required attribute/)
   end
 
@@ -62,8 +60,6 @@ describe Puppet::Type.type(:dsc_xsqlhaendpoint) do
     expect { Puppet::Type.type(:dsc_xsqlhaendpoint).new(
       :name     => 'foo',
       :dsc_instancename => 'foo',
-      :dsc_alloweduser => 'foo',
-      :dsc_portnumber => 32,
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

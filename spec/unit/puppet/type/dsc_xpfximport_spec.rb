@@ -20,10 +20,6 @@ describe Puppet::Type.type(:dsc_xpfximport) do
     expect { Puppet::Type.type(:dsc_xpfximport).new(
       :name     => 'foo',
       :dsc_path => 'foo',
-      :dsc_location => 'LocalMachine',
-      :dsc_store => 'foo',
-      :dsc_exportable => true,
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_thumbprint is a required attribute/)
   end
 
@@ -48,10 +44,6 @@ describe Puppet::Type.type(:dsc_xpfximport) do
     expect { Puppet::Type.type(:dsc_xpfximport).new(
       :name     => 'foo',
       :dsc_thumbprint => 'foo',
-      :dsc_location => 'LocalMachine',
-      :dsc_store => 'foo',
-      :dsc_exportable => true,
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_path is a required attribute/)
   end
 

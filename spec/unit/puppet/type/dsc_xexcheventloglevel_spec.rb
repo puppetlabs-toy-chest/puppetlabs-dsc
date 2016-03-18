@@ -18,8 +18,6 @@ describe Puppet::Type.type(:dsc_xexcheventloglevel) do
     #dsc_xexcheventloglevel[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexcheventloglevel).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_level => 'Lowest',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

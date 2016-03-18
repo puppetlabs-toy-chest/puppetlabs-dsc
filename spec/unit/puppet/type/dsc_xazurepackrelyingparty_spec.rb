@@ -20,11 +20,6 @@ describe Puppet::Type.type(:dsc_xazurepackrelyingparty) do
     expect { Puppet::Type.type(:dsc_xazurepackrelyingparty).new(
       :name     => 'foo',
       :dsc_fullyqualifieddomainname => 'foo',
-      :dsc_port => 16,
-      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
-      :dsc_sqlserver => 'foo',
-      :dsc_sqlinstance => 'foo',
-      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_target is a required attribute/)
   end
 
@@ -73,11 +68,6 @@ describe Puppet::Type.type(:dsc_xazurepackrelyingparty) do
     expect { Puppet::Type.type(:dsc_xazurepackrelyingparty).new(
       :name     => 'foo',
       :dsc_target => 'Admin',
-      :dsc_port => 16,
-      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
-      :dsc_sqlserver => 'foo',
-      :dsc_sqlinstance => 'foo',
-      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_fullyqualifieddomainname is a required attribute/)
   end
 

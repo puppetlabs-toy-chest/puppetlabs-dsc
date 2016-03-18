@@ -18,14 +18,6 @@ describe Puppet::Type.type(:dsc_xspsearchtopology) do
     #dsc_xspsearchtopology[:dsc_serviceappname]
     expect { Puppet::Type.type(:dsc_xspsearchtopology).new(
       :name     => 'foo',
-      :dsc_admin => ["foo", "bar", "spec"],
-      :dsc_crawler => ["foo", "bar", "spec"],
-      :dsc_contentprocessing => ["foo", "bar", "spec"],
-      :dsc_analyticsprocessing => ["foo", "bar", "spec"],
-      :dsc_queryprocessing => ["foo", "bar", "spec"],
-      :dsc_indexpartition => ["foo", "bar", "spec"],
-      :dsc_firstpartitiondirectory => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_serviceappname is a required attribute/)
   end
 

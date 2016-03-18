@@ -22,13 +22,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork) do
     #dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_name]
     expect { Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_databaseavailabilitygroup => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_domaincontroller => 'foo',
-      :dsc_ignorenetwork => true,
-      :dsc_replicationenabled => true,
-      :dsc_subnets => ["foo", "bar", "spec"],
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

@@ -18,8 +18,6 @@ describe Puppet::Type.type(:dsc_xsqlhaservice) do
     #dsc_xsqlhaservice[:dsc_instancename]
     expect { Puppet::Type.type(:dsc_xsqlhaservice).new(
       :name     => 'foo',
-      :dsc_sqladministratorcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_servicecredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_instancename is a required attribute/)
   end
 

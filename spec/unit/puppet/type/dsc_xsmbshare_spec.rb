@@ -22,20 +22,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     #dsc_xsmbshare[:dsc_name]
     expect { Puppet::Type.type(:dsc_xsmbshare).new(
       :name     => 'foo',
-      :dsc_path => 'foo',
-      :dsc_description => 'foo',
-      :dsc_changeaccess => ["foo", "bar", "spec"],
-      :dsc_concurrentuserlimit => 32,
-      :dsc_encryptdata => true,
-      :dsc_folderenumerationmode => 'AccessBased',
-      :dsc_fullaccess => ["foo", "bar", "spec"],
-      :dsc_noaccess => ["foo", "bar", "spec"],
-      :dsc_readaccess => ["foo", "bar", "spec"],
-      :dsc_ensure => 'Present',
-      :dsc_sharestate => 'foo',
-      :dsc_sharetype => 'foo',
-      :dsc_shadowcopy => 'foo',
-      :dsc_special => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

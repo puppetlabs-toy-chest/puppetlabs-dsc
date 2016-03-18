@@ -18,12 +18,6 @@ describe Puppet::Type.type(:dsc_xcomputer) do
     #dsc_xcomputer[:dsc_name]
     expect { Puppet::Type.type(:dsc_xcomputer).new(
       :name     => 'foo',
-      :dsc_domainname => 'foo',
-      :dsc_joinou => 'foo',
-      :dsc_currentou => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_unjoincredential => {"user"=>"user", "password"=>"password"},
-      :dsc_workgroupname => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

@@ -18,16 +18,6 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     #dsc_xpendingreboot[:dsc_name]
     expect { Puppet::Type.type(:dsc_xpendingreboot).new(
       :name     => 'foo',
-      :dsc_skipcomponentbasedservicing => true,
-      :dsc_componentbasedservicing => true,
-      :dsc_skipwindowsupdate => true,
-      :dsc_windowsupdate => true,
-      :dsc_skippendingfilerename => true,
-      :dsc_pendingfilerename => true,
-      :dsc_skippendingcomputerrename => true,
-      :dsc_pendingcomputerrename => true,
-      :dsc_skipccmclientsdk => true,
-      :dsc_ccmclientsdk => true,
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

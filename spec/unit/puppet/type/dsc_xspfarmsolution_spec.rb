@@ -22,12 +22,6 @@ describe Puppet::Type.type(:dsc_xspfarmsolution) do
     #dsc_xspfarmsolution[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspfarmsolution).new(
       :name     => 'foo',
-      :dsc_literalpath => 'foo',
-      :dsc_webapplications => ["foo", "bar", "spec"],
-      :dsc_ensure => 'Present',
-      :dsc_version => 'foo',
-      :dsc_deployed => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

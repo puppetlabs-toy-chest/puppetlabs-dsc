@@ -22,18 +22,6 @@ describe Puppet::Type.type(:dsc_file) do
     #dsc_file[:dsc_destinationpath]
     expect { Puppet::Type.type(:dsc_file).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_type => 'File',
-      :dsc_sourcepath => 'foo',
-      :dsc_contents => 'foo',
-      :dsc_checksum => 'SHA-1',
-      :dsc_recurse => true,
-      :dsc_force => true,
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_attributes => 'ReadOnly',
-      :dsc_dependson => ["foo", "bar", "spec"],
-      :dsc_matchsource => true,
-      :dsc_psdscrunascredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_destinationpath is a required attribute/)
   end
 

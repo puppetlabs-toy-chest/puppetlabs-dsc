@@ -22,8 +22,6 @@ describe Puppet::Type.type(:dsc_xsslsettings) do
     #dsc_xsslsettings[:dsc_name]
     expect { Puppet::Type.type(:dsc_xsslsettings).new(
       :name     => 'foo',
-      :dsc_bindings => ["foo", "bar", "spec"],
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

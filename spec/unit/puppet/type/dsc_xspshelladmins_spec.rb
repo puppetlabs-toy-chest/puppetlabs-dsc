@@ -18,12 +18,6 @@ describe Puppet::Type.type(:dsc_xspshelladmins) do
     #dsc_xspshelladmins[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspshelladmins).new(
       :name     => 'foo',
-      :dsc_members => ["foo", "bar", "spec"],
-      :dsc_memberstoinclude => ["foo", "bar", "spec"],
-      :dsc_memberstoexclude => ["foo", "bar", "spec"],
-      :dsc_contentdatabases => {"Name"=>"foo"},
-      :dsc_allcontentdatabases => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

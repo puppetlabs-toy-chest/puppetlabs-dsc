@@ -18,8 +18,6 @@ describe Puppet::Type.type(:dsc_xwebapppooldefaults) do
     #dsc_xwebapppooldefaults[:dsc_applyto]
     expect { Puppet::Type.type(:dsc_xwebapppooldefaults).new(
       :name     => 'foo',
-      :dsc_managedruntimeversion => '',
-      :dsc_identitytype => 'ApplicationPoolIdentity',
     )}.to raise_error(Puppet::Error, /dsc_applyto is a required attribute/)
   end
 

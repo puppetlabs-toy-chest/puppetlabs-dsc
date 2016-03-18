@@ -18,17 +18,6 @@ describe Puppet::Type.type(:dsc_xspsecurestoreserviceapp) do
     #dsc_xspsecurestoreserviceapp[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspsecurestoreserviceapp).new(
       :name     => 'foo',
-      :dsc_applicationpool => 'foo',
-      :dsc_auditingenabled => true,
-      :dsc_auditlogmaxsize => 32,
-      :dsc_databasecredentials => {"user"=>"user", "password"=>"password"},
-      :dsc_databasename => 'foo',
-      :dsc_databaseserver => 'foo',
-      :dsc_databaseauthenticationtype => 'Windows',
-      :dsc_failoverdatabaseserver => 'foo',
-      :dsc_partitionmode => true,
-      :dsc_sharing => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

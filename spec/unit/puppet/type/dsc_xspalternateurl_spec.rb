@@ -24,9 +24,6 @@ describe Puppet::Type.type(:dsc_xspalternateurl) do
     expect { Puppet::Type.type(:dsc_xspalternateurl).new(
       :name     => 'foo',
       :dsc_zone => 'Default',
-      :dsc_url => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_webappurl is a required attribute/)
   end
 
@@ -51,9 +48,6 @@ describe Puppet::Type.type(:dsc_xspalternateurl) do
     expect { Puppet::Type.type(:dsc_xspalternateurl).new(
       :name     => 'foo',
       :dsc_webappurl => 'foo',
-      :dsc_url => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_zone is a required attribute/)
   end
 

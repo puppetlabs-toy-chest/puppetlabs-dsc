@@ -18,21 +18,6 @@ describe Puppet::Type.type(:dsc_xazurevmdscextension) do
     #dsc_xazurevmdscextension[:dsc_vmname]
     expect { Puppet::Type.type(:dsc_xazurevmdscextension).new(
       :name     => 'foo',
-      :dsc_servicename => 'foo',
-      :dsc_configurationarchive => 'foo',
-      :dsc_storageaccountname => 'foo',
-      :dsc_configurationargument => {"somekey"=>"somevalue"},
-      :dsc_configurationdatapath => 'foo',
-      :dsc_configuration => 'foo',
-      :dsc_containername => 'foo',
-      :dsc_force => true,
-      :dsc_referencename => 'foo',
-      :dsc_storageendpointsuffix => 'foo',
-      :dsc_version => 'foo',
-      :dsc_timestamp => 'foo',
-      :dsc_code => 'foo',
-      :dsc_message => 'foo',
-      :dsc_status => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_vmname is a required attribute/)
   end
 

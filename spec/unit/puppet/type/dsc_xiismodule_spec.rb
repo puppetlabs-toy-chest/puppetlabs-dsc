@@ -22,13 +22,6 @@ describe Puppet::Type.type(:dsc_xiismodule) do
     #dsc_xiismodule[:dsc_path]
     expect { Puppet::Type.type(:dsc_xiismodule).new(
       :name     => 'foo',
-      :dsc_name => 'foo',
-      :dsc_requestpath => 'foo',
-      :dsc_verb => ["foo", "bar", "spec"],
-      :dsc_sitename => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_moduletype => 'FastCgiModule',
-      :dsc_endpointsetup => true,
     )}.to raise_error(Puppet::Error, /dsc_path is a required attribute/)
   end
 

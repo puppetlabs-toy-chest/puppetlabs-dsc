@@ -22,9 +22,6 @@ describe Puppet::Type.type(:dsc_environment) do
     #dsc_environment[:dsc_name]
     expect { Puppet::Type.type(:dsc_environment).new(
       :name     => 'foo',
-      :dsc_value => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_path => true,
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

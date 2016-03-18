@@ -20,16 +20,6 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect { Puppet::Type.type(:dsc_xrobocopy).new(
       :name     => 'foo',
       :dsc_destination => 'foo',
-      :dsc_files => 'foo',
-      :dsc_retry => 32,
-      :dsc_wait => 32,
-      :dsc_subdirectoriesincludingempty => true,
-      :dsc_restartable => true,
-      :dsc_multithreaded => true,
-      :dsc_excludefiles => 'foo',
-      :dsc_logoutput => 'foo',
-      :dsc_appendlog => true,
-      :dsc_additionalargs => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_source is a required attribute/)
   end
 
@@ -54,16 +44,6 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect { Puppet::Type.type(:dsc_xrobocopy).new(
       :name     => 'foo',
       :dsc_source => 'foo',
-      :dsc_files => 'foo',
-      :dsc_retry => 32,
-      :dsc_wait => 32,
-      :dsc_subdirectoriesincludingempty => true,
-      :dsc_restartable => true,
-      :dsc_multithreaded => true,
-      :dsc_excludefiles => 'foo',
-      :dsc_logoutput => 'foo',
-      :dsc_appendlog => true,
-      :dsc_additionalargs => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_destination is a required attribute/)
   end
 

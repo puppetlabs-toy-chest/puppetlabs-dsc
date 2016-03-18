@@ -24,7 +24,6 @@ describe Puppet::Type.type(:dsc_xiismimetypemapping) do
     expect { Puppet::Type.type(:dsc_xiismimetypemapping).new(
       :name     => 'foo',
       :dsc_mimetype => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_extension is a required attribute/)
   end
 
@@ -49,7 +48,6 @@ describe Puppet::Type.type(:dsc_xiismimetypemapping) do
     expect { Puppet::Type.type(:dsc_xiismimetypemapping).new(
       :name     => 'foo',
       :dsc_extension => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_mimetype is a required attribute/)
   end
 

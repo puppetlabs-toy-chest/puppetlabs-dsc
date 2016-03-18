@@ -22,12 +22,6 @@ describe Puppet::Type.type(:dsc_windowsfeature) do
     #dsc_windowsfeature[:dsc_name]
     expect { Puppet::Type.type(:dsc_windowsfeature).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_displayname => 'foo',
-      :dsc_source => 'foo',
-      :dsc_includeallsubfeature => true,
-      :dsc_logpath => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

@@ -18,7 +18,6 @@ describe Puppet::Type.type(:dsc_xtimezone) do
     #dsc_xtimezone[:dsc_issingleinstance]
     expect { Puppet::Type.type(:dsc_xtimezone).new(
       :name     => 'foo',
-      :dsc_timezone => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_issingleinstance is a required attribute/)
   end
 

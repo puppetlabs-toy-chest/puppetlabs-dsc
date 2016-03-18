@@ -38,11 +38,6 @@ describe Puppet::Type.type(:dsc_xdbpackage) do
     #dsc_xdbpackage[:dsc_databasename]
     expect { Puppet::Type.type(:dsc_xdbpackage).new(
       :name     => 'foo',
-      :dsc_credentials => {"user"=>"user", "password"=>"password"},
-      :dsc_sqlserver => 'foo',
-      :dsc_path => 'foo',
-      :dsc_type => 'DACPAC',
-      :dsc_sqlserverversion => '2008-R2',
     )}.to raise_error(Puppet::Error, /dsc_databasename is a required attribute/)
   end
 

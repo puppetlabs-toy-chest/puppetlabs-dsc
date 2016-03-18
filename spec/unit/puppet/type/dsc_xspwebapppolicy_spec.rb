@@ -20,9 +20,6 @@ describe Puppet::Type.type(:dsc_xspwebapppolicy) do
     expect { Puppet::Type.type(:dsc_xspwebapppolicy).new(
       :name     => 'foo',
       :dsc_username => 'foo',
-      :dsc_permissionlevel => 'Deny All',
-      :dsc_actassystemuser => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_webappurl is a required attribute/)
   end
 
@@ -47,9 +44,6 @@ describe Puppet::Type.type(:dsc_xspwebapppolicy) do
     expect { Puppet::Type.type(:dsc_xspwebapppolicy).new(
       :name     => 'foo',
       :dsc_webappurl => 'foo',
-      :dsc_permissionlevel => 'Deny All',
-      :dsc_actassystemuser => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_username is a required attribute/)
   end
 

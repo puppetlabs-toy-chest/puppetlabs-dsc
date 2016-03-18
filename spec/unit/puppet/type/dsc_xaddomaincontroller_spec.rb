@@ -18,11 +18,6 @@ describe Puppet::Type.type(:dsc_xaddomaincontroller) do
     #dsc_xaddomaincontroller[:dsc_domainname]
     expect { Puppet::Type.type(:dsc_xaddomaincontroller).new(
       :name     => 'foo',
-      :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_safemodeadministratorpassword => {"user"=>"user", "password"=>"password"},
-      :dsc_databasepath => 'foo',
-      :dsc_logpath => 'foo',
-      :dsc_sysvolpath => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_domainname is a required attribute/)
   end
 

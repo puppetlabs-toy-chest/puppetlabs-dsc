@@ -18,10 +18,6 @@ describe Puppet::Type.type(:dsc_xexchjetstress) do
     #dsc_xexchjetstress[:dsc_type]
     expect { Puppet::Type.type(:dsc_xexchjetstress).new(
       :name     => 'foo',
-      :dsc_jetstresspath => 'foo',
-      :dsc_jetstressparams => 'foo',
-      :dsc_maxwaitminutes => 32,
-      :dsc_minachievediops => 32,
     )}.to raise_error(Puppet::Error, /dsc_type is a required attribute/)
   end
 

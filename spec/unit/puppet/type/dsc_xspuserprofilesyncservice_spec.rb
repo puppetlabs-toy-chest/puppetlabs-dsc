@@ -22,9 +22,6 @@ describe Puppet::Type.type(:dsc_xspuserprofilesyncservice) do
     #dsc_xspuserprofilesyncservice[:dsc_userprofileserviceappname]
     expect { Puppet::Type.type(:dsc_xspuserprofilesyncservice).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_userprofileserviceappname is a required attribute/)
   end
 

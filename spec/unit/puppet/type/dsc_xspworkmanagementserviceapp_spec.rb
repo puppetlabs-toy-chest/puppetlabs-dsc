@@ -22,15 +22,6 @@ describe Puppet::Type.type(:dsc_xspworkmanagementserviceapp) do
     #dsc_xspworkmanagementserviceapp[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspworkmanagementserviceapp).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_applicationpool => 'foo',
-      :dsc_minimumtimebetweenewssyncsubscriptionsearches => 32,
-      :dsc_minimumtimebetweenproviderrefreshes => 32,
-      :dsc_minimumtimebetweensearchqueries => 32,
-      :dsc_numberofsubscriptionsyncsperewssyncrun => 32,
-      :dsc_numberofusersewssyncwillprocessatonce => 32,
-      :dsc_numberofusersperewssyncbatch => 32,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

@@ -72,9 +72,6 @@ describe Puppet::Type.type(:dsc_xscspfserver) do
     #dsc_xscspfserver[:dsc_name]
     expect { Puppet::Type.type(:dsc_xscspfserver).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_servertype => 'VMM',
-      :dsc_scspfadmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

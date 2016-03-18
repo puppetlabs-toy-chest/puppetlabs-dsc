@@ -22,12 +22,6 @@ describe Puppet::Type.type(:dsc_xspquotatemplate) do
     #dsc_xspquotatemplate[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspquotatemplate).new(
       :name     => 'foo',
-      :dsc_storagemaxinmb => 32,
-      :dsc_storagewarninginmb => 32,
-      :dsc_maximumusagepointssolutions => 32,
-      :dsc_warningusagepointssolutions => 32,
-      :dsc_ensure => 'Present',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

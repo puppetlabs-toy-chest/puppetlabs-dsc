@@ -108,9 +108,6 @@ describe Puppet::Type.type(:dsc_xadcswebenrollment) do
     #dsc_xadcswebenrollment[:dsc_name]
     expect { Puppet::Type.type(:dsc_xadcswebenrollment).new(
       :name     => 'foo',
-      :dsc_caconfig => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

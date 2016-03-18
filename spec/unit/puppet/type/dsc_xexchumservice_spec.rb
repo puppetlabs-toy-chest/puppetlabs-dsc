@@ -18,10 +18,6 @@ describe Puppet::Type.type(:dsc_xexchumservice) do
     #dsc_xexchumservice[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchumservice).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_umstartupmode => 'TCP',
-      :dsc_dialplans => ["foo", "bar", "spec"],
-      :dsc_domaincontroller => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

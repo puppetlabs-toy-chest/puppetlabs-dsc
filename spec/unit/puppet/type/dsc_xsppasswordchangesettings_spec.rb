@@ -18,10 +18,6 @@ describe Puppet::Type.type(:dsc_xsppasswordchangesettings) do
     #dsc_xsppasswordchangesettings[:dsc_mailaddress]
     expect { Puppet::Type.type(:dsc_xsppasswordchangesettings).new(
       :name     => 'foo',
-      :dsc_daysbeforeexpiry => 32,
-      :dsc_passwordchangewaittimeseconds => 32,
-      :dsc_numberofretries => 32,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_mailaddress is a required attribute/)
   end
 

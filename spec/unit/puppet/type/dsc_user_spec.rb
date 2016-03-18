@@ -22,14 +22,6 @@ describe Puppet::Type.type(:dsc_user) do
     #dsc_user[:dsc_username]
     expect { Puppet::Type.type(:dsc_user).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_fullname => 'foo',
-      :dsc_description => 'foo',
-      :dsc_password => {"user"=>"user", "password"=>"password"},
-      :dsc_disabled => true,
-      :dsc_passwordneverexpires => true,
-      :dsc_passwordchangerequired => true,
-      :dsc_passwordchangenotallowed => true,
     )}.to raise_error(Puppet::Error, /dsc_username is a required attribute/)
   end
 

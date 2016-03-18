@@ -18,24 +18,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
     #dsc_xexchowavirtualdirectory[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchowavirtualdirectory).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_adfsauthentication => true,
-      :dsc_allowservicerestart => true,
-      :dsc_basicauthentication => true,
-      :dsc_changepasswordenabled => true,
-      :dsc_digestauthentication => true,
-      :dsc_domaincontroller => 'foo',
-      :dsc_externalauthenticationmethods => ["foo", "bar", "spec"],
-      :dsc_externalurl => 'foo',
-      :dsc_formsauthentication => true,
-      :dsc_internalurl => 'foo',
-      :dsc_instantmessagingenabled => true,
-      :dsc_instantmessagingcertificatethumbprint => 'foo',
-      :dsc_instantmessagingservername => 'foo',
-      :dsc_instantmessagingtype => 'None',
-      :dsc_logonpagepublicprivateselectionenabled => true,
-      :dsc_logonpagelightselectionenabled => true,
-      :dsc_windowsauthentication => true,
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

@@ -18,7 +18,6 @@ describe Puppet::Type.type(:dsc_xspvisioserviceapp) do
     #dsc_xspvisioserviceapp[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspvisioserviceapp).new(
       :name     => 'foo',
-      :dsc_applicationpool => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

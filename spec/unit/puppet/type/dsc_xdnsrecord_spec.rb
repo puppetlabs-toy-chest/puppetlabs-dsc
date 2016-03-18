@@ -25,9 +25,7 @@ describe Puppet::Type.type(:dsc_xdnsrecord) do
     expect { Puppet::Type.type(:dsc_xdnsrecord).new(
       :name     => 'foo',
       :dsc_zone => 'foo',
-      :dsc_type => 'ARecord',
       :dsc_target => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -52,9 +50,7 @@ describe Puppet::Type.type(:dsc_xdnsrecord) do
     expect { Puppet::Type.type(:dsc_xdnsrecord).new(
       :name     => 'foo',
       :dsc_name => 'foo',
-      :dsc_type => 'ARecord',
       :dsc_target => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_zone is a required attribute/)
   end
 
@@ -120,8 +116,6 @@ describe Puppet::Type.type(:dsc_xdnsrecord) do
       :name     => 'foo',
       :dsc_name => 'foo',
       :dsc_zone => 'foo',
-      :dsc_type => 'ARecord',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_target is a required attribute/)
   end
 

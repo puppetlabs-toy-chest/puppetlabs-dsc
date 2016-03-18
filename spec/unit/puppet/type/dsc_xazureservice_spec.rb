@@ -22,10 +22,6 @@ describe Puppet::Type.type(:dsc_xazureservice) do
     #dsc_xazureservice[:dsc_servicename]
     expect { Puppet::Type.type(:dsc_xazureservice).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_description => 'foo',
-      :dsc_affinitygroup => 'foo',
-      :dsc_label => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_servicename is a required attribute/)
   end
 

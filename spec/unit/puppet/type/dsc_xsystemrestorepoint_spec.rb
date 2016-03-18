@@ -22,8 +22,6 @@ describe Puppet::Type.type(:dsc_xsystemrestorepoint) do
     #dsc_xsystemrestorepoint[:dsc_description]
     expect { Puppet::Type.type(:dsc_xsystemrestorepoint).new(
       :name     => 'foo',
-      :dsc_restorepointtype => 'APPLICATION_INSTALL',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_description is a required attribute/)
   end
 

@@ -22,12 +22,6 @@ describe Puppet::Type.type(:dsc_xazurevmdscconfiguration) do
     #dsc_xazurevmdscconfiguration[:dsc_storageaccountname]
     expect { Puppet::Type.type(:dsc_xazurevmdscconfiguration).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_containername => 'foo',
-      :dsc_configurationpath => 'foo',
-      :dsc_azuresubscriptionname => 'foo',
-      :dsc_azurepublishsettingspath => 'foo',
-      :dsc_bloburi => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_storageaccountname is a required attribute/)
   end
 

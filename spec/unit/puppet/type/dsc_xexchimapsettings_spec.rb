@@ -18,12 +18,6 @@ describe Puppet::Type.type(:dsc_xexchimapsettings) do
     #dsc_xexchimapsettings[:dsc_server]
     expect { Puppet::Type.type(:dsc_xexchimapsettings).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_allowservicerestart => true,
-      :dsc_domaincontroller => 'foo',
-      :dsc_logintype => 'PlainTextLogin',
-      :dsc_externalconnectionsettings => ["foo", "bar", "spec"],
-      :dsc_x509certificatename => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_server is a required attribute/)
   end
 

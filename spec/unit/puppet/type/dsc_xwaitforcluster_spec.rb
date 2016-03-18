@@ -18,8 +18,6 @@ describe Puppet::Type.type(:dsc_xwaitforcluster) do
     #dsc_xwaitforcluster[:dsc_name]
     expect { Puppet::Type.type(:dsc_xwaitforcluster).new(
       :name     => 'foo',
-      :dsc_retryintervalsec => 64,
-      :dsc_retrycount => 32,
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

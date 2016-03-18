@@ -18,7 +18,6 @@ describe Puppet::Type.type(:dsc_xspappcatalog) do
     #dsc_xspappcatalog[:dsc_siteurl]
     expect { Puppet::Type.type(:dsc_xspappcatalog).new(
       :name     => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_siteurl is a required attribute/)
   end
 

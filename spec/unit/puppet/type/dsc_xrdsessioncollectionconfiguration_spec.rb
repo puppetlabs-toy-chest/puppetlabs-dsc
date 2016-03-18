@@ -18,24 +18,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     #dsc_xrdsessioncollectionconfiguration[:dsc_collectionname]
     expect { Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration).new(
       :name     => 'foo',
-      :dsc_activesessionlimitmin => 32,
-      :dsc_authenticateusingnla => true,
-      :dsc_automaticreconnectionenabled => true,
-      :dsc_brokenconnectionaction => 'foo',
-      :dsc_clientdeviceredirectionoptions => 'foo',
-      :dsc_clientprinterasdefault => true,
-      :dsc_clientprinterredirected => true,
-      :dsc_collectiondescription => 'foo',
-      :dsc_connectionbroker => 'foo',
-      :dsc_customrdpproperty => 'foo',
-      :dsc_disconnectedsessionlimitmin => 32,
-      :dsc_encryptionlevel => 'foo',
-      :dsc_idlesessionlimitmin => 32,
-      :dsc_maxredirectedmonitors => 32,
-      :dsc_rdeasyprintdriverenabled => true,
-      :dsc_securitylayer => 'foo',
-      :dsc_temporaryfoldersdeletedonexit => true,
-      :dsc_usergroup => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_collectionname is a required attribute/)
   end
 

@@ -18,22 +18,6 @@ describe Puppet::Type.type(:dsc_xspwebappgeneralsettings) do
     #dsc_xspwebappgeneralsettings[:dsc_url]
     expect { Puppet::Type.type(:dsc_xspwebappgeneralsettings).new(
       :name     => 'foo',
-      :dsc_timezone => 32,
-      :dsc_alerts => true,
-      :dsc_alertslimit => 32,
-      :dsc_rss => true,
-      :dsc_blogapi => true,
-      :dsc_blogapiauthenticated => true,
-      :dsc_browserfilehandling => 'Stric',
-      :dsc_securityvalidation => true,
-      :dsc_recyclebinenabled => true,
-      :dsc_recyclebincleanupenabled => true,
-      :dsc_recyclebinretentionperiod => 32,
-      :dsc_secondstagerecyclebinquota => 32,
-      :dsc_maximumuploadsize => 32,
-      :dsc_customerexperienceprogram => true,
-      :dsc_presenceenabled => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_url is a required attribute/)
   end
 

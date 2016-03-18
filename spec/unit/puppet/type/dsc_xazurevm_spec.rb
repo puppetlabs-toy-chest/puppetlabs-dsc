@@ -22,17 +22,6 @@ describe Puppet::Type.type(:dsc_xazurevm) do
     #dsc_xazurevm[:dsc_name]
     expect { Puppet::Type.type(:dsc_xazurevm).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_imagename => 'foo',
-      :dsc_servicename => 'foo',
-      :dsc_storageaccountname => 'foo',
-      :dsc_instancesize => 'foo',
-      :dsc_linux => true,
-      :dsc_windows => true,
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_extensioncontainername => 'foo',
-      :dsc_extensionfilelist => 'foo',
-      :dsc_extensionscriptname => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

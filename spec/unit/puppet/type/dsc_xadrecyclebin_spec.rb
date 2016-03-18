@@ -18,9 +18,6 @@ describe Puppet::Type.type(:dsc_xadrecyclebin) do
     #dsc_xadrecyclebin[:dsc_forestfqdn]
     expect { Puppet::Type.type(:dsc_xadrecyclebin).new(
       :name     => 'foo',
-      :dsc_enterpriseadministratorcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_recyclebinenabled => 'foo',
-      :dsc_forestmode => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_forestfqdn is a required attribute/)
   end
 

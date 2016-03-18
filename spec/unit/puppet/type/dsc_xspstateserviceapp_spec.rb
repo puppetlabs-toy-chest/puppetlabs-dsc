@@ -18,10 +18,6 @@ describe Puppet::Type.type(:dsc_xspstateserviceapp) do
     #dsc_xspstateserviceapp[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspstateserviceapp).new(
       :name     => 'foo',
-      :dsc_databasecredentials => {"user"=>"user", "password"=>"password"},
-      :dsc_databasename => 'foo',
-      :dsc_databaseserver => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

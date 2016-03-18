@@ -20,7 +20,6 @@ describe Puppet::Type.type(:dsc_xexchinstall) do
     expect { Puppet::Type.type(:dsc_xexchinstall).new(
       :name     => 'foo',
       :dsc_arguments => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_path is a required attribute/)
   end
 
@@ -45,7 +44,6 @@ describe Puppet::Type.type(:dsc_xexchinstall) do
     expect { Puppet::Type.type(:dsc_xexchinstall).new(
       :name     => 'foo',
       :dsc_path => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_arguments is a required attribute/)
   end
 

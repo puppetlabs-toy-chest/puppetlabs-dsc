@@ -18,10 +18,6 @@ describe Puppet::Type.type(:dsc_xspfarmadministrators) do
     #dsc_xspfarmadministrators[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspfarmadministrators).new(
       :name     => 'foo',
-      :dsc_members => ["foo", "bar", "spec"],
-      :dsc_memberstoinclude => ["foo", "bar", "spec"],
-      :dsc_memberstoexclude => ["foo", "bar", "spec"],
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

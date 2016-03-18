@@ -18,10 +18,6 @@ describe Puppet::Type.type(:dsc_xspwebappblockedfiletypes) do
     #dsc_xspwebappblockedfiletypes[:dsc_url]
     expect { Puppet::Type.type(:dsc_xspwebappblockedfiletypes).new(
       :name     => 'foo',
-      :dsc_blocked => ["foo", "bar", "spec"],
-      :dsc_ensureblocked => ["foo", "bar", "spec"],
-      :dsc_ensureallowed => ["foo", "bar", "spec"],
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_url is a required attribute/)
   end
 

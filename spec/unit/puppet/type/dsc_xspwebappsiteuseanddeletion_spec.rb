@@ -18,11 +18,6 @@ describe Puppet::Type.type(:dsc_xspwebappsiteuseanddeletion) do
     #dsc_xspwebappsiteuseanddeletion[:dsc_url]
     expect { Puppet::Type.type(:dsc_xspwebappsiteuseanddeletion).new(
       :name     => 'foo',
-      :dsc_sendunusedsitecollectionnotifications => true,
-      :dsc_unusedsitenotificationperiod => 32,
-      :dsc_automaticallydeleteunusedsitecollections => true,
-      :dsc_unusedsitenotificationsbeforedeletion => 32,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_url is a required attribute/)
   end
 

@@ -18,10 +18,6 @@ describe Puppet::Type.type(:dsc_xspwebappworkflowsettings) do
     #dsc_xspwebappworkflowsettings[:dsc_url]
     expect { Puppet::Type.type(:dsc_xspwebappworkflowsettings).new(
       :name     => 'foo',
-      :dsc_externalworkflowparticipantsenabled => true,
-      :dsc_userdefinedworkflowsenabled => true,
-      :dsc_emailtonopermissionworkflowparticipantsenable => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_url is a required attribute/)
   end
 

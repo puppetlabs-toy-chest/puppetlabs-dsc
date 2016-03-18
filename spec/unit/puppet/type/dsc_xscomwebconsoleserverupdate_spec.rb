@@ -22,10 +22,6 @@ describe Puppet::Type.type(:dsc_xscomwebconsoleserverupdate) do
     #dsc_xscomwebconsoleserverupdate[:dsc_ensure]
     expect { Puppet::Type.type(:dsc_xscomwebconsoleserverupdate).new(
       :name     => 'foo',
-      :dsc_sourcepath => 'foo',
-      :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_update => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

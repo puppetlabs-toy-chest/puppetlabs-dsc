@@ -22,8 +22,6 @@ describe Puppet::Type.type(:dsc_xadcsonlineresponder) do
     #dsc_xadcsonlineresponder[:dsc_issingleinstance]
     expect { Puppet::Type.type(:dsc_xadcsonlineresponder).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_issingleinstance is a required attribute/)
   end
 

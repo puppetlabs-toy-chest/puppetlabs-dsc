@@ -18,9 +18,6 @@ describe Puppet::Type.type(:dsc_xnetconnectionprofile) do
     #dsc_xnetconnectionprofile[:dsc_interfacealias]
     expect { Puppet::Type.type(:dsc_xnetconnectionprofile).new(
       :name     => 'foo',
-      :dsc_ipv4connectivity => 'Disconnected',
-      :dsc_ipv6connectivity => 'Disconnected',
-      :dsc_networkcategory => 'Public',
     )}.to raise_error(Puppet::Error, /dsc_interfacealias is a required attribute/)
   end
 

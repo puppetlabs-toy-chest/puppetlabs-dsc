@@ -22,11 +22,6 @@ describe Puppet::Type.type(:dsc_xdhcpserveroption) do
     #dsc_xdhcpserveroption[:dsc_scopeid]
     expect { Puppet::Type.type(:dsc_xdhcpserveroption).new(
       :name     => 'foo',
-      :dsc_dnsserveripaddress => ["foo", "bar", "spec"],
-      :dsc_dnsdomain => 'foo',
-      :dsc_router => ["foo", "bar", "spec"],
-      :dsc_addressfamily => 'IPv4',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_scopeid is a required attribute/)
   end
 

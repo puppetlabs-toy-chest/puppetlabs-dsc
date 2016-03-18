@@ -22,7 +22,6 @@ describe Puppet::Type.type(:dsc_xiishandler) do
     #dsc_xiishandler[:dsc_name]
     expect { Puppet::Type.type(:dsc_xiishandler).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

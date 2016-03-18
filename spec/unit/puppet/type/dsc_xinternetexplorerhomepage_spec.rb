@@ -22,8 +22,6 @@ describe Puppet::Type.type(:dsc_xinternetexplorerhomepage) do
     #dsc_xinternetexplorerhomepage[:dsc_startpage]
     expect { Puppet::Type.type(:dsc_xinternetexplorerhomepage).new(
       :name     => 'foo',
-      :dsc_secondarystartpages => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_startpage is a required attribute/)
   end
 

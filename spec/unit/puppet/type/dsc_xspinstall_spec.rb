@@ -22,8 +22,6 @@ describe Puppet::Type.type(:dsc_xspinstall) do
     #dsc_xspinstall[:dsc_binarydir]
     expect { Puppet::Type.type(:dsc_xspinstall).new(
       :name     => 'foo',
-      :dsc_productkey => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_binarydir is a required attribute/)
   end
 

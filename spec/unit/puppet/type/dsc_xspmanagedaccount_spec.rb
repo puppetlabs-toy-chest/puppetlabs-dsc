@@ -18,11 +18,6 @@ describe Puppet::Type.type(:dsc_xspmanagedaccount) do
     #dsc_xspmanagedaccount[:dsc_accountname]
     expect { Puppet::Type.type(:dsc_xspmanagedaccount).new(
       :name     => 'foo',
-      :dsc_account => {"user"=>"user", "password"=>"password"},
-      :dsc_emailnotification => 32,
-      :dsc_preexpiredays => 32,
-      :dsc_schedule => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_accountname is a required attribute/)
   end
 

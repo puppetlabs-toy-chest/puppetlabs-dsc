@@ -22,10 +22,6 @@ describe Puppet::Type.type(:dsc_xwordpresssite) do
     #dsc_xwordpresssite[:dsc_uri]
     expect { Puppet::Type.type(:dsc_xwordpresssite).new(
       :name     => 'foo',
-      :dsc_title => 'foo',
-      :dsc_administratorcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_administratoremail => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_uri is a required attribute/)
   end
 

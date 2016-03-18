@@ -20,8 +20,6 @@ describe Puppet::Type.type(:dsc_xipaddress) do
     expect { Puppet::Type.type(:dsc_xipaddress).new(
       :name     => 'foo',
       :dsc_interfacealias => 'foo',
-      :dsc_subnetmask => 32,
-      :dsc_addressfamily => 'IPv4',
     )}.to raise_error(Puppet::Error, /dsc_ipaddress is a required attribute/)
   end
 
@@ -46,8 +44,6 @@ describe Puppet::Type.type(:dsc_xipaddress) do
     expect { Puppet::Type.type(:dsc_xipaddress).new(
       :name     => 'foo',
       :dsc_ipaddress => 'foo',
-      :dsc_subnetmask => 32,
-      :dsc_addressfamily => 'IPv4',
     )}.to raise_error(Puppet::Error, /dsc_interfacealias is a required attribute/)
   end
 

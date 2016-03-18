@@ -72,8 +72,6 @@ describe Puppet::Type.type(:dsc_xdismfeature) do
     #dsc_xdismfeature[:dsc_name]
     expect { Puppet::Type.type(:dsc_xdismfeature).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_source => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

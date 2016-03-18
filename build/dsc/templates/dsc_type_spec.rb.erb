@@ -46,7 +46,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
     #dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]
     expect { Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>).new(
       :name     => <%= format_type_value(@spec_test_values['string']) %>,
-<%      resource.properties.select{|rp| rp.name != property.name}.each do |other_property| -%>
+<%      resource.properties.select{|rp| rp.name != property.name && rp.required? }.each do |other_property| -%>
 <%        if other_property.values -%>
       :dsc_<%= other_property.name.downcase %> => '<%= other_property.values.first %>',
 <%        else -%>

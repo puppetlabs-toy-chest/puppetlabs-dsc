@@ -23,11 +23,7 @@ describe Puppet::Type.type(:dsc_xspfeature) do
     #dsc_xspfeature[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspfeature).new(
       :name     => 'foo',
-      :dsc_featurescope => 'Farm',
       :dsc_url => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_version => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -112,10 +108,6 @@ describe Puppet::Type.type(:dsc_xspfeature) do
     expect { Puppet::Type.type(:dsc_xspfeature).new(
       :name     => 'foo',
       :dsc_name => 'foo',
-      :dsc_featurescope => 'Farm',
-      :dsc_ensure => 'Present',
-      :dsc_version => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_url is a required attribute/)
   end
 

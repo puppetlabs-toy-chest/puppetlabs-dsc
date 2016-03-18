@@ -22,17 +22,6 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
     #dsc_xdscwebservice[:dsc_endpointname]
     expect { Puppet::Type.type(:dsc_xdscwebservice).new(
       :name     => 'foo',
-      :dsc_certificatethumbprint => 'foo',
-      :dsc_port => 32,
-      :dsc_physicalpath => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_state => 'Started',
-      :dsc_modulepath => 'foo',
-      :dsc_configurationpath => 'foo',
-      :dsc_iscomplianceserver => true,
-      :dsc_dscserverurl => 'foo',
-      :dsc_registrationkeypath => 'foo',
-      :dsc_acceptselfsignedcertificates => true,
     )}.to raise_error(Puppet::Error, /dsc_endpointname is a required attribute/)
   end
 

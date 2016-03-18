@@ -54,8 +54,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverauthorization) do
     #dsc_xdhcpserverauthorization[:dsc_ensure]
     expect { Puppet::Type.type(:dsc_xdhcpserverauthorization).new(
       :name     => 'foo',
-      :dsc_dnsname => 'foo',
-      :dsc_ipaddress => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

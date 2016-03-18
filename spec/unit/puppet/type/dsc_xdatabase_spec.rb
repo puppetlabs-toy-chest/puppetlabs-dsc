@@ -174,14 +174,6 @@ describe Puppet::Type.type(:dsc_xdatabase) do
     #dsc_xdatabase[:dsc_databasename]
     expect { Puppet::Type.type(:dsc_xdatabase).new(
       :name     => 'foo',
-      :dsc_credentials => {"user"=>"user", "password"=>"password"},
-      :dsc_ensure => 'Present',
-      :dsc_sqlserver => 'foo',
-      :dsc_sqlserverversion => '2008-R2',
-      :dsc_bacpacpath => 'foo',
-      :dsc_dacpacpath => 'foo',
-      :dsc_dacpacapplicationname => 'foo',
-      :dsc_dacpacapplicationversion => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_databasename is a required attribute/)
   end
 

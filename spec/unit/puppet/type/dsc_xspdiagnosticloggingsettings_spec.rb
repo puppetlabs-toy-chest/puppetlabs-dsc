@@ -18,24 +18,6 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     #dsc_xspdiagnosticloggingsettings[:dsc_logpath]
     expect { Puppet::Type.type(:dsc_xspdiagnosticloggingsettings).new(
       :name     => 'foo',
-      :dsc_logspaceingb => 32,
-      :dsc_appanalyticsautomaticuploadenabled => true,
-      :dsc_customerexperienceimprovementprogramenabled => true,
-      :dsc_daystokeeplogs => 32,
-      :dsc_downloaderrorreportingupdatesenabled => true,
-      :dsc_errorreportingautomaticuploadenabled => true,
-      :dsc_errorreportingenabled => true,
-      :dsc_eventlogfloodprotectionenabled => true,
-      :dsc_eventlogfloodprotectionnotifyinterval => 32,
-      :dsc_eventlogfloodprotectionquietperiod => 32,
-      :dsc_eventlogfloodprotectionthreshold => 32,
-      :dsc_eventlogfloodprotectiontriggerperiod => 32,
-      :dsc_logcutinterval => 32,
-      :dsc_logmaxdiskspaceusageenabled => true,
-      :dsc_scripterrorreportingdelay => 32,
-      :dsc_scripterrorreportingenabled => true,
-      :dsc_scripterrorreportingrequireauth => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_logpath is a required attribute/)
   end
 

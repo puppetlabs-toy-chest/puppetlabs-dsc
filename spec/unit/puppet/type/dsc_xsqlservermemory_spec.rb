@@ -72,11 +72,6 @@ describe Puppet::Type.type(:dsc_xsqlservermemory) do
     #dsc_xsqlservermemory[:dsc_dynamicalloc]
     expect { Puppet::Type.type(:dsc_xsqlservermemory).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_minmemory => -32,
-      :dsc_maxmemory => -32,
-      :dsc_sqlserver => 'foo',
-      :dsc_sqlinstancename => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_dynamicalloc is a required attribute/)
   end
 

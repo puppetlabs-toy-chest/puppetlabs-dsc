@@ -18,10 +18,6 @@ describe Puppet::Type.type(:dsc_xsqlserverrsconfig) do
     #dsc_xsqlserverrsconfig[:dsc_instancename]
     expect { Puppet::Type.type(:dsc_xsqlserverrsconfig).new(
       :name     => 'foo',
-      :dsc_rssqlserver => 'foo',
-      :dsc_rssqlinstancename => 'foo',
-      :dsc_sqladmincredential => {"user"=>"user", "password"=>"password"},
-      :dsc_isinitialized => true,
     )}.to raise_error(Puppet::Error, /dsc_instancename is a required attribute/)
   end
 

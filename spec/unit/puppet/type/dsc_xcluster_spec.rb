@@ -18,8 +18,6 @@ describe Puppet::Type.type(:dsc_xcluster) do
     #dsc_xcluster[:dsc_name]
     expect { Puppet::Type.type(:dsc_xcluster).new(
       :name     => 'foo',
-      :dsc_staticipaddress => 'foo',
-      :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

@@ -28,10 +28,6 @@ describe Puppet::Type.type(:dsc_xroute) do
       :dsc_addressfamily => 'IPv4',
       :dsc_destinationprefix => 'foo',
       :dsc_nexthop => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_routemetric => 16,
-      :dsc_publish => 'No',
-      :dsc_preferredlifetime => '64.000',
     )}.to raise_error(Puppet::Error, /dsc_interfacealias is a required attribute/)
   end
 
@@ -58,10 +54,6 @@ describe Puppet::Type.type(:dsc_xroute) do
       :dsc_interfacealias => 'foo',
       :dsc_destinationprefix => 'foo',
       :dsc_nexthop => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_routemetric => 16,
-      :dsc_publish => 'No',
-      :dsc_preferredlifetime => '64.000',
     )}.to raise_error(Puppet::Error, /dsc_addressfamily is a required attribute/)
   end
 
@@ -112,10 +104,6 @@ describe Puppet::Type.type(:dsc_xroute) do
       :dsc_interfacealias => 'foo',
       :dsc_addressfamily => 'IPv4',
       :dsc_nexthop => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_routemetric => 16,
-      :dsc_publish => 'No',
-      :dsc_preferredlifetime => '64.000',
     )}.to raise_error(Puppet::Error, /dsc_destinationprefix is a required attribute/)
   end
 
@@ -142,10 +130,6 @@ describe Puppet::Type.type(:dsc_xroute) do
       :dsc_interfacealias => 'foo',
       :dsc_addressfamily => 'IPv4',
       :dsc_destinationprefix => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_routemetric => 16,
-      :dsc_publish => 'No',
-      :dsc_preferredlifetime => '64.000',
     )}.to raise_error(Puppet::Error, /dsc_nexthop is a required attribute/)
   end
 

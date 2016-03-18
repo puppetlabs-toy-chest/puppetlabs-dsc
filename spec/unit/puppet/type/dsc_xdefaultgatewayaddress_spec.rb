@@ -35,7 +35,6 @@ describe Puppet::Type.type(:dsc_xdefaultgatewayaddress) do
     #dsc_xdefaultgatewayaddress[:dsc_interfacealias]
     expect { Puppet::Type.type(:dsc_xdefaultgatewayaddress).new(
       :name     => 'foo',
-      :dsc_address => 'foo',
       :dsc_addressfamily => 'IPv4',
     )}.to raise_error(Puppet::Error, /dsc_interfacealias is a required attribute/)
   end
@@ -60,7 +59,6 @@ describe Puppet::Type.type(:dsc_xdefaultgatewayaddress) do
     #dsc_xdefaultgatewayaddress[:dsc_addressfamily]
     expect { Puppet::Type.type(:dsc_xdefaultgatewayaddress).new(
       :name     => 'foo',
-      :dsc_address => 'foo',
       :dsc_interfacealias => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_addressfamily is a required attribute/)
   end

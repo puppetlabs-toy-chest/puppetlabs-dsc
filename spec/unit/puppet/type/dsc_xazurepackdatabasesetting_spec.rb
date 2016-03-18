@@ -21,11 +21,7 @@ describe Puppet::Type.type(:dsc_xazurepackdatabasesetting) do
     expect { Puppet::Type.type(:dsc_xazurepackdatabasesetting).new(
       :name     => 'foo',
       :dsc_name => 'foo',
-      :dsc_value => 'foo',
-      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
-      :dsc_sqlinstance => 'foo',
-      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_namespace is a required attribute/)
   end
 
@@ -74,11 +70,7 @@ describe Puppet::Type.type(:dsc_xazurepackdatabasesetting) do
     expect { Puppet::Type.type(:dsc_xazurepackdatabasesetting).new(
       :name     => 'foo',
       :dsc_namespace => 'AdminSite',
-      :dsc_value => 'foo',
-      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
       :dsc_sqlserver => 'foo',
-      :dsc_sqlinstance => 'foo',
-      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -140,10 +132,6 @@ describe Puppet::Type.type(:dsc_xazurepackdatabasesetting) do
       :name     => 'foo',
       :dsc_namespace => 'AdminSite',
       :dsc_name => 'foo',
-      :dsc_value => 'foo',
-      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
-      :dsc_sqlinstance => 'foo',
-      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_sqlserver is a required attribute/)
   end
 

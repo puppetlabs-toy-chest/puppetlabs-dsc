@@ -22,8 +22,6 @@ describe Puppet::Type.type(:dsc_xmysqlserver) do
     #dsc_xmysqlserver[:dsc_servicename]
     expect { Puppet::Type.type(:dsc_xmysqlserver).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_rootpassword => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_servicename is a required attribute/)
   end
 

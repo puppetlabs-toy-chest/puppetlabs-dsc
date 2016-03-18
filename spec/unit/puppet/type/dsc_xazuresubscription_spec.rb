@@ -72,8 +72,6 @@ describe Puppet::Type.type(:dsc_xazuresubscription) do
     #dsc_xazuresubscription[:dsc_azuresubscriptionname]
     expect { Puppet::Type.type(:dsc_xazuresubscription).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_azurepublishsettingsfile => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_azuresubscriptionname is a required attribute/)
   end
 

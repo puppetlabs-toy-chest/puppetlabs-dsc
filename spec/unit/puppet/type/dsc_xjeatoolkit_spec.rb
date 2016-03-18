@@ -22,10 +22,6 @@ describe Puppet::Type.type(:dsc_xjeatoolkit) do
     #dsc_xjeatoolkit[:dsc_name]
     expect { Puppet::Type.type(:dsc_xjeatoolkit).new(
       :name     => 'foo',
-      :dsc_commandspecs => 'foo',
-      :dsc_scriptdirectory => ["foo", "bar", "spec"],
-      :dsc_applications => ["foo", "bar", "spec"],
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

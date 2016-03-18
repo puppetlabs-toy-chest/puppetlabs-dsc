@@ -72,10 +72,6 @@ describe Puppet::Type.type(:dsc_xsqlservermaxdop) do
     #dsc_xsqlservermaxdop[:dsc_dynamicalloc]
     expect { Puppet::Type.type(:dsc_xsqlservermaxdop).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_maxdop => -32,
-      :dsc_sqlserver => 'foo',
-      :dsc_sqlinstancename => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_dynamicalloc is a required attribute/)
   end
 

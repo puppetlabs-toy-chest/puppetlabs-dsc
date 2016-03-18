@@ -22,12 +22,6 @@ describe Puppet::Type.type(:dsc_xspdistributedcacheservice) do
     #dsc_xspdistributedcacheservice[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspdistributedcacheservice).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_cachesizeinmb => 32,
-      :dsc_serviceaccount => 'foo',
-      :dsc_serverprovisionorder => ["foo", "bar", "spec"],
-      :dsc_createfirewallrules => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

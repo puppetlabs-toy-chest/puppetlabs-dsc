@@ -22,16 +22,6 @@ describe Puppet::Type.type(:dsc_service) do
     #dsc_service[:dsc_name]
     expect { Puppet::Type.type(:dsc_service).new(
       :name     => 'foo',
-      :dsc_state => 'Running',
-      :dsc_startuptype => 'Automatic',
-      :dsc_builtinaccount => 'LocalSystem',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_status => 'foo',
-      :dsc_displayname => 'foo',
-      :dsc_description => 'foo',
-      :dsc_path => 'foo',
-      :dsc_dependencies => ["foo", "bar", "spec"],
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

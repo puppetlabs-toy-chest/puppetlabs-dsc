@@ -22,11 +22,6 @@ describe Puppet::Type.type(:dsc_xazurestorageaccount) do
     #dsc_xazurestorageaccount[:dsc_storageaccountname]
     expect { Puppet::Type.type(:dsc_xazurestorageaccount).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_affinitygroup => 'foo',
-      :dsc_container => 'foo',
-      :dsc_folder => 'foo',
-      :dsc_label => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_storageaccountname is a required attribute/)
   end
 

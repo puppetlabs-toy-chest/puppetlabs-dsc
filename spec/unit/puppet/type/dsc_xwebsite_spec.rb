@@ -72,13 +72,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     #dsc_xwebsite[:dsc_name]
     expect { Puppet::Type.type(:dsc_xwebsite).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_physicalpath => 'foo',
-      :dsc_state => 'Started',
-      :dsc_applicationpool => 'foo',
-      :dsc_bindinginfo => {"Port"=>8080, "Protocol"=>"https"},
-      :dsc_defaultpage => ["foo", "bar", "spec"],
-      :dsc_enabledprotocols => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

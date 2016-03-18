@@ -18,14 +18,6 @@ describe Puppet::Type.type(:dsc_xexchexchangeserver) do
     #dsc_xexchexchangeserver[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchexchangeserver).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_allowservicerestart => true,
-      :dsc_customerfeedbackenabled => true,
-      :dsc_domaincontroller => 'foo',
-      :dsc_internetwebproxy => 'foo',
-      :dsc_monitoringgroup => 'foo',
-      :dsc_productkey => 'foo',
-      :dsc_workloadmanagementpolicy => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

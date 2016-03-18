@@ -72,11 +72,6 @@ describe Puppet::Type.type(:dsc_xsqlserverdatabaserole) do
     #dsc_xsqlserverdatabaserole[:dsc_name]
     expect { Puppet::Type.type(:dsc_xsqlserverdatabaserole).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_sqlserver => 'foo',
-      :dsc_sqlinstancename => 'foo',
-      :dsc_database => 'foo',
-      :dsc_role => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

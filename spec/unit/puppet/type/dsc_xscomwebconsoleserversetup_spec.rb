@@ -22,18 +22,6 @@ describe Puppet::Type.type(:dsc_xscomwebconsoleserversetup) do
     #dsc_xscomwebconsoleserversetup[:dsc_ensure]
     expect { Puppet::Type.type(:dsc_xscomwebconsoleserversetup).new(
       :name     => 'foo',
-      :dsc_sourcepath => 'foo',
-      :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_installpath => 'foo',
-      :dsc_managementserver => 'foo',
-      :dsc_websitename => 'foo',
-      :dsc_webconsoleauthorizationmode => 'Mixed',
-      :dsc_webconsoleusessl => true,
-      :dsc_usemicrosoftupdate => 1,
-      :dsc_sendceipreports => 1,
-      :dsc_enableerrorreporting => 'Never',
-      :dsc_sendodrreports => 1,
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

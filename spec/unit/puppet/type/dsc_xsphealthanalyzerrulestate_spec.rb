@@ -18,11 +18,6 @@ describe Puppet::Type.type(:dsc_xsphealthanalyzerrulestate) do
     #dsc_xsphealthanalyzerrulestate[:dsc_name]
     expect { Puppet::Type.type(:dsc_xsphealthanalyzerrulestate).new(
       :name     => 'foo',
-      :dsc_enabled => true,
-      :dsc_rulescope => 'All Servers',
-      :dsc_schedule => 'Hourly',
-      :dsc_fixautomatically => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

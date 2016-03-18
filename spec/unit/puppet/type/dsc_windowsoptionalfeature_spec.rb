@@ -22,15 +22,6 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
     #dsc_windowsoptionalfeature[:dsc_name]
     expect { Puppet::Type.type(:dsc_windowsoptionalfeature).new(
       :name     => 'foo',
-      :dsc_ensure => 'Enable',
-      :dsc_source => ["foo", "bar", "spec"],
-      :dsc_nowindowsupdatecheck => true,
-      :dsc_removefilesondisable => true,
-      :dsc_loglevel => 'ErrorsOnly',
-      :dsc_logpath => 'foo',
-      :dsc_customproperties => ["foo", "bar", "spec"],
-      :dsc_description => 'foo',
-      :dsc_displayname => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

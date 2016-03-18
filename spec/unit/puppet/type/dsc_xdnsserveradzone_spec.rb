@@ -22,12 +22,6 @@ describe Puppet::Type.type(:dsc_xdnsserveradzone) do
     #dsc_xdnsserveradzone[:dsc_name]
     expect { Puppet::Type.type(:dsc_xdnsserveradzone).new(
       :name     => 'foo',
-      :dsc_dynamicupdate => 'None',
-      :dsc_replicationscope => 'Custom',
-      :dsc_directorypartitionname => 'foo',
-      :dsc_computername => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

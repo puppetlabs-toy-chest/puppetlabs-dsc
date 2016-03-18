@@ -18,13 +18,6 @@ describe Puppet::Type.type(:dsc_xexchautodiscovervirtualdirectory) do
     #dsc_xexchautodiscovervirtualdirectory[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchautodiscovervirtualdirectory).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_allowservicerestart => true,
-      :dsc_basicauthentication => true,
-      :dsc_digestauthentication => true,
-      :dsc_domaincontroller => 'foo',
-      :dsc_windowsauthentication => true,
-      :dsc_wssecurityauthentication => true,
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

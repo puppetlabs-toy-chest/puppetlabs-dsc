@@ -22,11 +22,6 @@ describe Puppet::Type.type(:dsc_xsqlalias) do
     #dsc_xsqlalias[:dsc_sqlservername]
     expect { Puppet::Type.type(:dsc_xsqlalias).new(
       :name     => 'foo',
-      :dsc_protocol => 'TCP',
-      :dsc_servername => 'foo',
-      :dsc_tcpport => -32,
-      :dsc_pipename => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_sqlservername is a required attribute/)
   end
 

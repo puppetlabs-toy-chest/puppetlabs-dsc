@@ -18,18 +18,6 @@ describe Puppet::Type.type(:dsc_xspwebapplication) do
     #dsc_xspwebapplication[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspwebapplication).new(
       :name     => 'foo',
-      :dsc_applicationpool => 'foo',
-      :dsc_applicationpoolaccount => 'foo',
-      :dsc_url => 'foo',
-      :dsc_allowanonymous => true,
-      :dsc_authenticationmethod => 'NTLM',
-      :dsc_databasename => 'foo',
-      :dsc_databaseserver => 'foo',
-      :dsc_hostheader => 'foo',
-      :dsc_path => 'foo',
-      :dsc_port => 'foo',
-      :dsc_usessl => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

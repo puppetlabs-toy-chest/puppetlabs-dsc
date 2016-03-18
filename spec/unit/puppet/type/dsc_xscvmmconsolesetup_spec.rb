@@ -22,12 +22,6 @@ describe Puppet::Type.type(:dsc_xscvmmconsolesetup) do
     #dsc_xscvmmconsolesetup[:dsc_ensure]
     expect { Puppet::Type.type(:dsc_xscvmmconsolesetup).new(
       :name     => 'foo',
-      :dsc_sourcepath => 'foo',
-      :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_programfiles => 'foo',
-      :dsc_indigotcpport => 16,
-      :dsc_muoptin => 1,
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

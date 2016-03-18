@@ -18,8 +18,6 @@ describe Puppet::Type.type(:dsc_xsqldatabaserecoverymodel) do
     #dsc_xsqldatabaserecoverymodel[:dsc_databasename]
     expect { Puppet::Type.type(:dsc_xsqldatabaserecoverymodel).new(
       :name     => 'foo',
-      :dsc_sqlserverinstance => 'foo',
-      :dsc_recoverymodel => 'Full',
     )}.to raise_error(Puppet::Error, /dsc_databasename is a required attribute/)
   end
 

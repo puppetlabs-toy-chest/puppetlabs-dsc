@@ -18,11 +18,6 @@ describe Puppet::Type.type(:dsc_xsqlservernetwork) do
     #dsc_xsqlservernetwork[:dsc_instancename]
     expect { Puppet::Type.type(:dsc_xsqlservernetwork).new(
       :name     => 'foo',
-      :dsc_protocolname => 'tcp',
-      :dsc_isenabled => true,
-      :dsc_tcpdynamicports => '0',
-      :dsc_tcpport => 'foo',
-      :dsc_restartservice => true,
     )}.to raise_error(Puppet::Error, /dsc_instancename is a required attribute/)
   end
 

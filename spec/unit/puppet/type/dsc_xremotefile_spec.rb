@@ -22,12 +22,6 @@ describe Puppet::Type.type(:dsc_xremotefile) do
     #dsc_xremotefile[:dsc_destinationpath]
     expect { Puppet::Type.type(:dsc_xremotefile).new(
       :name     => 'foo',
-      :dsc_uri => 'foo',
-      :dsc_useragent => 'foo',
-      :dsc_headers => {"somekey"=>"somevalue", "somekey2"=>"somevalue2"},
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_matchsource => true,
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_destinationpath is a required attribute/)
   end
 

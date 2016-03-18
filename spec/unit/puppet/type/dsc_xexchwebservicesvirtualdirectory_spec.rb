@@ -18,18 +18,6 @@ describe Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory) do
     #dsc_xexchwebservicesvirtualdirectory[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_allowservicerestart => true,
-      :dsc_basicauthentication => true,
-      :dsc_certificateauthentication => true,
-      :dsc_digestauthentication => true,
-      :dsc_domaincontroller => 'foo',
-      :dsc_externalurl => 'foo',
-      :dsc_internalnlbbypassurl => 'foo',
-      :dsc_internalurl => 'foo',
-      :dsc_oauthauthentication => true,
-      :dsc_windowsauthentication => true,
-      :dsc_wssecurityauthentication => true,
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

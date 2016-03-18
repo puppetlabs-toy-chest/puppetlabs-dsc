@@ -20,10 +20,6 @@ describe Puppet::Type.type(:dsc_xspwebapplicationappdomain) do
     expect { Puppet::Type.type(:dsc_xspwebapplicationappdomain).new(
       :name     => 'foo',
       :dsc_zone => 'Default',
-      :dsc_appdomain => 'foo',
-      :dsc_port => 'foo',
-      :dsc_ssl => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_webapplication is a required attribute/)
   end
 
@@ -48,10 +44,6 @@ describe Puppet::Type.type(:dsc_xspwebapplicationappdomain) do
     expect { Puppet::Type.type(:dsc_xspwebapplicationappdomain).new(
       :name     => 'foo',
       :dsc_webapplication => 'foo',
-      :dsc_appdomain => 'foo',
-      :dsc_port => 'foo',
-      :dsc_ssl => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_zone is a required attribute/)
   end
 

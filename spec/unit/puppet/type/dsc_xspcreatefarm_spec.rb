@@ -20,12 +20,6 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
     expect { Puppet::Type.type(:dsc_xspcreatefarm).new(
       :name     => 'foo',
       :dsc_databaseserver => 'foo',
-      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
-      :dsc_passphrase => 'foo',
-      :dsc_admincontentdatabasename => 'foo',
-      :dsc_centraladministrationport => 32,
-      :dsc_serverrole => 'Application',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_farmconfigdatabasename is a required attribute/)
   end
 
@@ -50,12 +44,6 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
     expect { Puppet::Type.type(:dsc_xspcreatefarm).new(
       :name     => 'foo',
       :dsc_farmconfigdatabasename => 'foo',
-      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
-      :dsc_passphrase => 'foo',
-      :dsc_admincontentdatabasename => 'foo',
-      :dsc_centraladministrationport => 32,
-      :dsc_serverrole => 'Application',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_databaseserver is a required attribute/)
   end
 

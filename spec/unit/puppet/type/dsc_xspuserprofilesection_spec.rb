@@ -22,11 +22,6 @@ describe Puppet::Type.type(:dsc_xspuserprofilesection) do
     #dsc_xspuserprofilesection[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspuserprofilesection).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_userprofileservice => 'foo',
-      :dsc_displayname => 'foo',
-      :dsc_displayorder => 32,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

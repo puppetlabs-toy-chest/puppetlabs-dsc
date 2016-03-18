@@ -22,15 +22,6 @@ describe Puppet::Type.type(:dsc_xazurequickvm) do
     #dsc_xazurequickvm[:dsc_name]
     expect { Puppet::Type.type(:dsc_xazurequickvm).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_imagename => 'foo',
-      :dsc_servicename => 'foo',
-      :dsc_linux => true,
-      :dsc_linuxuser => 'foo',
-      :dsc_windows => true,
-      :dsc_adminusername => 'foo',
-      :dsc_password => 'foo',
-      :dsc_instancesize => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

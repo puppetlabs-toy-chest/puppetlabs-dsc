@@ -18,15 +18,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
     #dsc_xexchmailboxdatabasecopy[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchmailboxdatabasecopy).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_mailboxserver => 'foo',
-      :dsc_adserversettingspreferredserver => 'foo',
-      :dsc_allowservicerestart => true,
-      :dsc_activationpreference => 32,
-      :dsc_domaincontroller => 'foo',
-      :dsc_replaylagtime => 'foo',
-      :dsc_seedingpostponed => true,
-      :dsc_truncationlagtime => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

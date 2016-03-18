@@ -20,8 +20,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollection) do
     expect { Puppet::Type.type(:dsc_xrdsessioncollection).new(
       :name     => 'foo',
       :dsc_sessionhost => 'foo',
-      :dsc_collectiondescription => 'foo',
-      :dsc_connectionbroker => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_collectionname is a required attribute/)
   end
 
@@ -46,8 +44,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollection) do
     expect { Puppet::Type.type(:dsc_xrdsessioncollection).new(
       :name     => 'foo',
       :dsc_collectionname => 'foo',
-      :dsc_collectiondescription => 'foo',
-      :dsc_connectionbroker => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_sessionhost is a required attribute/)
   end
 

@@ -18,16 +18,6 @@ describe Puppet::Type.type(:dsc_xspuserprofileserviceapp) do
     #dsc_xspuserprofileserviceapp[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspuserprofileserviceapp).new(
       :name     => 'foo',
-      :dsc_applicationpool => 'foo',
-      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
-      :dsc_mysitehostlocation => 'foo',
-      :dsc_profiledbname => 'foo',
-      :dsc_profiledbserver => 'foo',
-      :dsc_socialdbname => 'foo',
-      :dsc_socialdbserver => 'foo',
-      :dsc_syncdbname => 'foo',
-      :dsc_syncdbserver => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

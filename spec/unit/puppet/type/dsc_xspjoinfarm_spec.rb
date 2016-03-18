@@ -20,9 +20,6 @@ describe Puppet::Type.type(:dsc_xspjoinfarm) do
     expect { Puppet::Type.type(:dsc_xspjoinfarm).new(
       :name     => 'foo',
       :dsc_databaseserver => 'foo',
-      :dsc_passphrase => 'foo',
-      :dsc_serverrole => 'Application',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_farmconfigdatabasename is a required attribute/)
   end
 
@@ -47,9 +44,6 @@ describe Puppet::Type.type(:dsc_xspjoinfarm) do
     expect { Puppet::Type.type(:dsc_xspjoinfarm).new(
       :name     => 'foo',
       :dsc_farmconfigdatabasename => 'foo',
-      :dsc_passphrase => 'foo',
-      :dsc_serverrole => 'Application',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_databaseserver is a required attribute/)
   end
 

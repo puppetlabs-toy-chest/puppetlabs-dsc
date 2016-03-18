@@ -18,15 +18,6 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
     #dsc_xspusageapplication[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspusageapplication).new(
       :name     => 'foo',
-      :dsc_databasename => 'foo',
-      :dsc_databaseserver => 'foo',
-      :dsc_databasecredentials => {"user"=>"user", "password"=>"password"},
-      :dsc_failoverdatabaseserver => 'foo',
-      :dsc_usagelogcuttime => 32,
-      :dsc_usageloglocation => 'foo',
-      :dsc_usagelogmaxfilesizekb => 32,
-      :dsc_usagelogmaxspacegb => 32,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

@@ -18,11 +18,6 @@ describe Puppet::Type.type(:dsc_xwebsitedefaults) do
     #dsc_xwebsitedefaults[:dsc_applyto]
     expect { Puppet::Type.type(:dsc_xwebsitedefaults).new(
       :name     => 'foo',
-      :dsc_logformat => 'W3C',
-      :dsc_logdirectory => 'foo',
-      :dsc_tracelogdirectory => 'foo',
-      :dsc_defaultapplicationpool => 'foo',
-      :dsc_allowsubdirconfig => 'true',
     )}.to raise_error(Puppet::Error, /dsc_applyto is a required attribute/)
   end
 

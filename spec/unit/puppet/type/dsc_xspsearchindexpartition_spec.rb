@@ -18,10 +18,6 @@ describe Puppet::Type.type(:dsc_xspsearchindexpartition) do
     #dsc_xspsearchindexpartition[:dsc_index]
     expect { Puppet::Type.type(:dsc_xspsearchindexpartition).new(
       :name     => 'foo',
-      :dsc_servers => ["foo", "bar", "spec"],
-      :dsc_rootdirectory => 'foo',
-      :dsc_serviceappname => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_index is a required attribute/)
   end
 

@@ -18,15 +18,6 @@ describe Puppet::Type.type(:dsc_xspdesignersettings) do
     #dsc_xspdesignersettings[:dsc_url]
     expect { Puppet::Type.type(:dsc_xspdesignersettings).new(
       :name     => 'foo',
-      :dsc_settingsscope => 'WebApplication',
-      :dsc_allowsharepointdesigner => true,
-      :dsc_allowdetachpagesfromdefinition => true,
-      :dsc_allowcustomisemasterpage => true,
-      :dsc_allowmanagesiteurlstructure => true,
-      :dsc_allowcreatedeclarativeworkflow => true,
-      :dsc_allowsavepublishdeclarativeworkflow => true,
-      :dsc_allowsavedeclarativeworkflowastemplate => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_url is a required attribute/)
   end
 

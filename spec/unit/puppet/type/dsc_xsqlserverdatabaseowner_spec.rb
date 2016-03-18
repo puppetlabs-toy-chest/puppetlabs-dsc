@@ -18,9 +18,6 @@ describe Puppet::Type.type(:dsc_xsqlserverdatabaseowner) do
     #dsc_xsqlserverdatabaseowner[:dsc_database]
     expect { Puppet::Type.type(:dsc_xsqlserverdatabaseowner).new(
       :name     => 'foo',
-      :dsc_name => 'foo',
-      :dsc_sqlserver => 'foo',
-      :dsc_sqlinstancename => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_database is a required attribute/)
   end
 

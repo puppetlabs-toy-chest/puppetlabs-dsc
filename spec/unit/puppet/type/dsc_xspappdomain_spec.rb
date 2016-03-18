@@ -18,8 +18,6 @@ describe Puppet::Type.type(:dsc_xspappdomain) do
     #dsc_xspappdomain[:dsc_appdomain]
     expect { Puppet::Type.type(:dsc_xspappdomain).new(
       :name     => 'foo',
-      :dsc_prefix => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_appdomain is a required attribute/)
   end
 

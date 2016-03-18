@@ -18,14 +18,6 @@ describe Puppet::Type.type(:dsc_xaddomain) do
     #dsc_xaddomain[:dsc_domainname]
     expect { Puppet::Type.type(:dsc_xaddomain).new(
       :name     => 'foo',
-      :dsc_parentdomainname => 'foo',
-      :dsc_domainnetbiosname => 'foo',
-      :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_safemodeadministratorpassword => {"user"=>"user", "password"=>"password"},
-      :dsc_dnsdelegationcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_databasepath => 'foo',
-      :dsc_logpath => 'foo',
-      :dsc_sysvolpath => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_domainname is a required attribute/)
   end
 

@@ -18,14 +18,6 @@ describe Puppet::Type.type(:dsc_xarchive) do
     #dsc_xarchive[:dsc_destination]
     expect { Puppet::Type.type(:dsc_xarchive).new(
       :name     => 'foo',
-      :dsc_path => ["foo", "bar", "spec"],
-      :dsc_compressionlevel => 'Optimal',
-      :dsc_destinationtype => 'File',
-      :dsc_matchsource => true,
-      :dsc_creationtime => '20140711',
-      :dsc_attributes => 'foo',
-      :dsc_mode => 'foo',
-      :dsc_size => 64,
     )}.to raise_error(Puppet::Error, /dsc_destination is a required attribute/)
   end
 

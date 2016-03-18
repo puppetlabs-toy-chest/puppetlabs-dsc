@@ -22,7 +22,6 @@ describe Puppet::Type.type(:dsc_xremotedesktopadmin) do
     #dsc_xremotedesktopadmin[:dsc_ensure]
     expect { Puppet::Type.type(:dsc_xremotedesktopadmin).new(
       :name     => 'foo',
-      :dsc_userauthentication => 'Secure',
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

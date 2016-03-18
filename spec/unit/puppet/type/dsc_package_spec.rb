@@ -73,19 +73,7 @@ describe Puppet::Type.type(:dsc_package) do
     #dsc_package[:dsc_name]
     expect { Puppet::Type.type(:dsc_package).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_path => 'foo',
       :dsc_productid => 'foo',
-      :dsc_arguments => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_returncode => [32, 64, 128],
-      :dsc_logpath => 'foo',
-      :dsc_packagedescription => 'foo',
-      :dsc_publisher => 'foo',
-      :dsc_installedon => 'foo',
-      :dsc_size => 32,
-      :dsc_version => 'foo',
-      :dsc_installed => true,
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -125,19 +113,7 @@ describe Puppet::Type.type(:dsc_package) do
     #dsc_package[:dsc_productid]
     expect { Puppet::Type.type(:dsc_package).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
       :dsc_name => 'foo',
-      :dsc_path => 'foo',
-      :dsc_arguments => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_returncode => [32, 64, 128],
-      :dsc_logpath => 'foo',
-      :dsc_packagedescription => 'foo',
-      :dsc_publisher => 'foo',
-      :dsc_installedon => 'foo',
-      :dsc_size => 32,
-      :dsc_version => 'foo',
-      :dsc_installed => true,
     )}.to raise_error(Puppet::Error, /dsc_productid is a required attribute/)
   end
 

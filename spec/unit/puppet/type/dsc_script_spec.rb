@@ -22,8 +22,6 @@ describe Puppet::Type.type(:dsc_script) do
       :name     => 'foo',
       :dsc_setscript => 'foo',
       :dsc_testscript => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_result => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_getscript is a required attribute/)
   end
 
@@ -49,8 +47,6 @@ describe Puppet::Type.type(:dsc_script) do
       :name     => 'foo',
       :dsc_getscript => 'foo',
       :dsc_testscript => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_result => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_setscript is a required attribute/)
   end
 
@@ -76,8 +72,6 @@ describe Puppet::Type.type(:dsc_script) do
       :name     => 'foo',
       :dsc_getscript => 'foo',
       :dsc_setscript => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_result => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_testscript is a required attribute/)
   end
 

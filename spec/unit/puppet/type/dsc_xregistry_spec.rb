@@ -24,11 +24,6 @@ describe Puppet::Type.type(:dsc_xregistry) do
     expect { Puppet::Type.type(:dsc_xregistry).new(
       :name     => 'foo',
       :dsc_valuename => 'foo',
-      :dsc_valuedata => ["foo", "bar", "spec"],
-      :dsc_valuetype => 'String',
-      :dsc_ensure => 'Present',
-      :dsc_hex => true,
-      :dsc_force => true,
     )}.to raise_error(Puppet::Error, /dsc_key is a required attribute/)
   end
 
@@ -53,11 +48,6 @@ describe Puppet::Type.type(:dsc_xregistry) do
     expect { Puppet::Type.type(:dsc_xregistry).new(
       :name     => 'foo',
       :dsc_key => 'foo',
-      :dsc_valuedata => ["foo", "bar", "spec"],
-      :dsc_valuetype => 'String',
-      :dsc_ensure => 'Present',
-      :dsc_hex => true,
-      :dsc_force => true,
     )}.to raise_error(Puppet::Error, /dsc_valuename is a required attribute/)
   end
 

@@ -22,20 +22,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
     #dsc_xscsrserversetup[:dsc_ensure]
     expect { Puppet::Type.type(:dsc_xscsrserversetup).new(
       :name     => 'foo',
-      :dsc_sourcepath => 'foo',
-      :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_sendceipreports => 'Yes',
-      :dsc_usemicrosoftupdate => 'Yes',
-      :dsc_installfolder => 'foo',
-      :dsc_databaseserver => 'foo',
-      :dsc_databaseserverinstance => 'foo',
-      :dsc_repositorydatabasename => 'foo',
-      :dsc_stagingdatabasename => 'foo',
-      :dsc_dwdatabasename => 'foo',
-      :dsc_analysisdatabaseserver => 'foo',
-      :dsc_analysisdatabaseserverinstance => 'foo',
-      :dsc_analysisdatabasename => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

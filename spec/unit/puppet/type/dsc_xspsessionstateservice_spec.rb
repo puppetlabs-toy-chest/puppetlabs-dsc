@@ -20,9 +20,6 @@ describe Puppet::Type.type(:dsc_xspsessionstateservice) do
     expect { Puppet::Type.type(:dsc_xspsessionstateservice).new(
       :name     => 'foo',
       :dsc_databaseserver => 'foo',
-      :dsc_enabled => true,
-      :dsc_sessiontimeout => 32,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_databasename is a required attribute/)
   end
 
@@ -47,9 +44,6 @@ describe Puppet::Type.type(:dsc_xspsessionstateservice) do
     expect { Puppet::Type.type(:dsc_xspsessionstateservice).new(
       :name     => 'foo',
       :dsc_databasename => 'foo',
-      :dsc_enabled => true,
-      :dsc_sessiontimeout => 32,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_databaseserver is a required attribute/)
   end
 

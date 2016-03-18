@@ -24,14 +24,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
       :dsc_collectionname => 'foo',
       :dsc_displayname => 'foo',
       :dsc_filepath => 'foo',
-      :dsc_filevirtualpath => 'foo',
-      :dsc_foldername => 'foo',
-      :dsc_commandlinesetting => 'foo',
-      :dsc_requiredcommandline => 'foo',
-      :dsc_iconindex => 32,
-      :dsc_iconpath => 'foo',
-      :dsc_usergroups => 'foo',
-      :dsc_showinwebaccess => true,
     )}.to raise_error(Puppet::Error, /dsc_alias is a required attribute/)
   end
 
@@ -58,14 +50,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
       :dsc_alias => 'foo',
       :dsc_displayname => 'foo',
       :dsc_filepath => 'foo',
-      :dsc_filevirtualpath => 'foo',
-      :dsc_foldername => 'foo',
-      :dsc_commandlinesetting => 'foo',
-      :dsc_requiredcommandline => 'foo',
-      :dsc_iconindex => 32,
-      :dsc_iconpath => 'foo',
-      :dsc_usergroups => 'foo',
-      :dsc_showinwebaccess => true,
     )}.to raise_error(Puppet::Error, /dsc_collectionname is a required attribute/)
   end
 
@@ -92,14 +76,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
       :dsc_alias => 'foo',
       :dsc_collectionname => 'foo',
       :dsc_filepath => 'foo',
-      :dsc_filevirtualpath => 'foo',
-      :dsc_foldername => 'foo',
-      :dsc_commandlinesetting => 'foo',
-      :dsc_requiredcommandline => 'foo',
-      :dsc_iconindex => 32,
-      :dsc_iconpath => 'foo',
-      :dsc_usergroups => 'foo',
-      :dsc_showinwebaccess => true,
     )}.to raise_error(Puppet::Error, /dsc_displayname is a required attribute/)
   end
 
@@ -126,14 +102,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
       :dsc_alias => 'foo',
       :dsc_collectionname => 'foo',
       :dsc_displayname => 'foo',
-      :dsc_filevirtualpath => 'foo',
-      :dsc_foldername => 'foo',
-      :dsc_commandlinesetting => 'foo',
-      :dsc_requiredcommandline => 'foo',
-      :dsc_iconindex => 32,
-      :dsc_iconpath => 'foo',
-      :dsc_usergroups => 'foo',
-      :dsc_showinwebaccess => true,
     )}.to raise_error(Puppet::Error, /dsc_filepath is a required attribute/)
   end
 

@@ -18,18 +18,6 @@ describe Puppet::Type.type(:dsc_xspwebappthrottlingsettings) do
     #dsc_xspwebappthrottlingsettings[:dsc_url]
     expect { Puppet::Type.type(:dsc_xspwebappthrottlingsettings).new(
       :name     => 'foo',
-      :dsc_listviewthreshold => 32,
-      :dsc_allowobjectmodeloverride => true,
-      :dsc_adminthreshold => 32,
-      :dsc_listviewlookupthreshold => 32,
-      :dsc_happyhourenabled => true,
-      :dsc_happyhour => {"Hour"=>12},
-      :dsc_uniquepermissionthreshold => 32,
-      :dsc_requestthrottling => true,
-      :dsc_changelogenabled => true,
-      :dsc_changelogexpirydays => 32,
-      :dsc_eventhandlersenabled => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_url is a required attribute/)
   end
 

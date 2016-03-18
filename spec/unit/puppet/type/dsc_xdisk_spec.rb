@@ -18,10 +18,6 @@ describe Puppet::Type.type(:dsc_xdisk) do
     #dsc_xdisk[:dsc_driveletter]
     expect { Puppet::Type.type(:dsc_xdisk).new(
       :name     => 'foo',
-      :dsc_disknumber => 32,
-      :dsc_size => 64,
-      :dsc_fslabel => 'foo',
-      :dsc_allocationunitsize => 32,
     )}.to raise_error(Puppet::Error, /dsc_driveletter is a required attribute/)
   end
 

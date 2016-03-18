@@ -22,9 +22,6 @@ describe Puppet::Type.type(:dsc_xdnsserverprimaryzone) do
     #dsc_xdnsserverprimaryzone[:dsc_name]
     expect { Puppet::Type.type(:dsc_xdnsserverprimaryzone).new(
       :name     => 'foo',
-      :dsc_zonefile => 'foo',
-      :dsc_dynamicupdate => 'None',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

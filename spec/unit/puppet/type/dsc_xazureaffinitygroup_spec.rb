@@ -22,10 +22,6 @@ describe Puppet::Type.type(:dsc_xazureaffinitygroup) do
     #dsc_xazureaffinitygroup[:dsc_name]
     expect { Puppet::Type.type(:dsc_xazureaffinitygroup).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_location => 'foo',
-      :dsc_description => 'foo',
-      :dsc_label => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

@@ -18,7 +18,6 @@ describe Puppet::Type.type(:dsc_xnetbios) do
     #dsc_xnetbios[:dsc_interfacealias]
     expect { Puppet::Type.type(:dsc_xnetbios).new(
       :name     => 'foo',
-      :dsc_setting => 'Default',
     )}.to raise_error(Puppet::Error, /dsc_interfacealias is a required attribute/)
   end
 

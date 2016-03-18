@@ -18,12 +18,6 @@ describe Puppet::Type.type(:dsc_xspantivirussettings) do
     #dsc_xspantivirussettings[:dsc_scanondownload]
     expect { Puppet::Type.type(:dsc_xspantivirussettings).new(
       :name     => 'foo',
-      :dsc_scanonupload => true,
-      :dsc_allowdownloadinfected => true,
-      :dsc_attempttoclean => true,
-      :dsc_timeoutduration => 16,
-      :dsc_numberofthreads => 16,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_scanondownload is a required attribute/)
   end
 

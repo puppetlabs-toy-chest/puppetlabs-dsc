@@ -18,9 +18,6 @@ describe Puppet::Type.type(:dsc_xbltpm) do
     #dsc_xbltpm[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xbltpm).new(
       :name     => 'foo',
-      :dsc_allowclear => true,
-      :dsc_allowphysicalpresence => true,
-      :dsc_allowimmediatereboot => true,
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

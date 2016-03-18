@@ -18,25 +18,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     #dsc_xblautobitlocker[:dsc_drivetype]
     expect { Puppet::Type.type(:dsc_xblautobitlocker).new(
       :name     => 'foo',
-      :dsc_mindiskcapacitygb => -32,
-      :dsc_primaryprotector => 'PasswordProtector',
-      :dsc_autounlock => true,
-      :dsc_adaccountorgroup => 'foo',
-      :dsc_adaccountorgroupprotector => true,
-      :dsc_encryptionmethod => 'Aes128',
-      :dsc_hardwareencryption => true,
-      :dsc_password => {"user"=>"user", "password"=>"password"},
-      :dsc_passwordprotector => true,
-      :dsc_pin => {"user"=>"user", "password"=>"password"},
-      :dsc_recoverykeypath => 'foo',
-      :dsc_recoverykeyprotector => true,
-      :dsc_recoverypasswordprotector => true,
-      :dsc_service => true,
-      :dsc_skiphardwaretest => true,
-      :dsc_startupkeypath => 'foo',
-      :dsc_startupkeyprotector => true,
-      :dsc_tpmprotector => true,
-      :dsc_usedspaceonly => true,
     )}.to raise_error(Puppet::Error, /dsc_drivetype is a required attribute/)
   end
 

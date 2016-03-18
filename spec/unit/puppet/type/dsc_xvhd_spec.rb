@@ -24,14 +24,6 @@ describe Puppet::Type.type(:dsc_xvhd) do
     expect { Puppet::Type.type(:dsc_xvhd).new(
       :name     => 'foo',
       :dsc_path => 'foo',
-      :dsc_parentpath => 'foo',
-      :dsc_maximumsizebytes => 64,
-      :dsc_generation => 'Vhd',
-      :dsc_ensure => 'Present',
-      :dsc_id => 'foo',
-      :dsc_type => 'foo',
-      :dsc_filesizebytes => 64,
-      :dsc_isattached => true,
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -56,14 +48,6 @@ describe Puppet::Type.type(:dsc_xvhd) do
     expect { Puppet::Type.type(:dsc_xvhd).new(
       :name     => 'foo',
       :dsc_name => 'foo',
-      :dsc_parentpath => 'foo',
-      :dsc_maximumsizebytes => 64,
-      :dsc_generation => 'Vhd',
-      :dsc_ensure => 'Present',
-      :dsc_id => 'foo',
-      :dsc_type => 'foo',
-      :dsc_filesizebytes => 64,
-      :dsc_isattached => true,
     )}.to raise_error(Puppet::Error, /dsc_path is a required attribute/)
   end
 

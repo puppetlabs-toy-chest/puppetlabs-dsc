@@ -38,8 +38,6 @@ describe Puppet::Type.type(:dsc_xwebpackagedeploy) do
     #dsc_xwebpackagedeploy[:dsc_destination]
     expect { Puppet::Type.type(:dsc_xwebpackagedeploy).new(
       :name     => 'foo',
-      :dsc_sourcepath => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_destination is a required attribute/)
   end
 

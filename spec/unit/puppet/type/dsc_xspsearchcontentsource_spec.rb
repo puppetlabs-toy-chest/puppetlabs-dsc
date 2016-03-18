@@ -24,18 +24,6 @@ describe Puppet::Type.type(:dsc_xspsearchcontentsource) do
     expect { Puppet::Type.type(:dsc_xspsearchcontentsource).new(
       :name     => 'foo',
       :dsc_serviceappname => 'foo',
-      :dsc_contentsourcetype => 'SharePoint',
-      :dsc_addresses => ["foo", "bar", "spec"],
-      :dsc_crawlsetting => 'CrawlEverything',
-      :dsc_continuouscrawl => true,
-      :dsc_incrementalschedule => {"ScheduleType"=>"Daily"},
-      :dsc_fullschedule => {"ScheduleType"=>"Daily"},
-      :dsc_priority => 'Normal',
-      :dsc_limitpagedepth => 32,
-      :dsc_limitserverhops => 32,
-      :dsc_ensure => 'Present',
-      :dsc_force => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -60,18 +48,6 @@ describe Puppet::Type.type(:dsc_xspsearchcontentsource) do
     expect { Puppet::Type.type(:dsc_xspsearchcontentsource).new(
       :name     => 'foo',
       :dsc_name => 'foo',
-      :dsc_contentsourcetype => 'SharePoint',
-      :dsc_addresses => ["foo", "bar", "spec"],
-      :dsc_crawlsetting => 'CrawlEverything',
-      :dsc_continuouscrawl => true,
-      :dsc_incrementalschedule => {"ScheduleType"=>"Daily"},
-      :dsc_fullschedule => {"ScheduleType"=>"Daily"},
-      :dsc_priority => 'Normal',
-      :dsc_limitpagedepth => 32,
-      :dsc_limitserverhops => 32,
-      :dsc_ensure => 'Present',
-      :dsc_force => true,
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_serviceappname is a required attribute/)
   end
 

@@ -24,11 +24,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabaseserverfirewallrule) do
     expect { Puppet::Type.type(:dsc_xazuresqldatabaseserverfirewallrule).new(
       :name     => 'foo',
       :dsc_servername => 'foo',
-      :dsc_startipaddress => 'foo',
-      :dsc_endipaddress => 'foo',
-      :dsc_azuresubscriptionname => 'foo',
-      :dsc_azurepublishsettingsfile => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_rulename is a required attribute/)
   end
 
@@ -53,11 +48,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabaseserverfirewallrule) do
     expect { Puppet::Type.type(:dsc_xazuresqldatabaseserverfirewallrule).new(
       :name     => 'foo',
       :dsc_rulename => 'foo',
-      :dsc_startipaddress => 'foo',
-      :dsc_endipaddress => 'foo',
-      :dsc_azuresubscriptionname => 'foo',
-      :dsc_azurepublishsettingsfile => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_servername is a required attribute/)
   end
 

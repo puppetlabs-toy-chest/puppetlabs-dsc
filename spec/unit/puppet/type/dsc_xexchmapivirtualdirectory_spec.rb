@@ -18,12 +18,6 @@ describe Puppet::Type.type(:dsc_xexchmapivirtualdirectory) do
     #dsc_xexchmapivirtualdirectory[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchmapivirtualdirectory).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_allowservicerestart => true,
-      :dsc_domaincontroller => 'foo',
-      :dsc_externalurl => 'foo',
-      :dsc_iisauthenticationmethods => ["foo", "bar", "spec"],
-      :dsc_internalurl => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

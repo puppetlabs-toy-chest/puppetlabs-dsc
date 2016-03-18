@@ -72,11 +72,6 @@ describe Puppet::Type.type(:dsc_xsqlserverlogin) do
     #dsc_xsqlserverlogin[:dsc_name]
     expect { Puppet::Type.type(:dsc_xsqlserverlogin).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_logincredential => {"user"=>"user", "password"=>"password"},
-      :dsc_logintype => 'SqlLogin',
-      :dsc_sqlserver => 'foo',
-      :dsc_sqlinstancename => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

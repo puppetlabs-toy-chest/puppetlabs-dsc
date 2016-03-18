@@ -18,12 +18,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxserver) do
     #dsc_xexchmailboxserver[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchmailboxserver).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_domaincontroller => 'foo',
-      :dsc_databasecopyactivationdisabledandmovenow => true,
-      :dsc_databasecopyautoactivationpolicy => 'Blocked',
-      :dsc_maximumactivedatabases => 'foo',
-      :dsc_maximumpreferredactivedatabases => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

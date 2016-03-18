@@ -22,10 +22,6 @@ describe Puppet::Type.type(:dsc_xspdatabaseaag) do
     #dsc_xspdatabaseaag[:dsc_databasename]
     expect { Puppet::Type.type(:dsc_xspdatabaseaag).new(
       :name     => 'foo',
-      :dsc_agname => 'foo',
-      :dsc_fileshare => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_databasename is a required attribute/)
   end
 

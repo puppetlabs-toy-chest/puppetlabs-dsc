@@ -18,19 +18,6 @@ describe Puppet::Type.type(:dsc_xspsite) do
     #dsc_xspsite[:dsc_url]
     expect { Puppet::Type.type(:dsc_xspsite).new(
       :name     => 'foo',
-      :dsc_owneralias => 'foo',
-      :dsc_compatibilitylevel => 32,
-      :dsc_contentdatabase => 'foo',
-      :dsc_description => 'foo',
-      :dsc_hostheaderwebapplication => 'foo',
-      :dsc_language => 32,
-      :dsc_name => 'foo',
-      :dsc_owneremail => 'foo',
-      :dsc_quotatemplate => 'foo',
-      :dsc_secondaryemail => 'foo',
-      :dsc_secondaryowneralias => 'foo',
-      :dsc_template => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_url is a required attribute/)
   end
 

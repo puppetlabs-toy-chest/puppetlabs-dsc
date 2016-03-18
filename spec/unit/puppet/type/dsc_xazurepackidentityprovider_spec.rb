@@ -18,12 +18,6 @@ describe Puppet::Type.type(:dsc_xazurepackidentityprovider) do
     #dsc_xazurepackidentityprovider[:dsc_target]
     expect { Puppet::Type.type(:dsc_xazurepackidentityprovider).new(
       :name     => 'foo',
-      :dsc_fullyqualifieddomainname => 'foo',
-      :dsc_port => 16,
-      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
-      :dsc_sqlserver => 'foo',
-      :dsc_sqlinstance => 'foo',
-      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_target is a required attribute/)
   end
 

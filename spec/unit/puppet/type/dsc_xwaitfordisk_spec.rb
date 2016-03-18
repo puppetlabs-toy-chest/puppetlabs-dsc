@@ -18,8 +18,6 @@ describe Puppet::Type.type(:dsc_xwaitfordisk) do
     #dsc_xwaitfordisk[:dsc_disknumber]
     expect { Puppet::Type.type(:dsc_xwaitfordisk).new(
       :name     => 'foo',
-      :dsc_retryintervalsec => 64,
-      :dsc_retrycount => 32,
     )}.to raise_error(Puppet::Error, /dsc_disknumber is a required attribute/)
   end
 

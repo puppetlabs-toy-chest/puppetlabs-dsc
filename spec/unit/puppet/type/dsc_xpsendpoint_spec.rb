@@ -22,11 +22,6 @@ describe Puppet::Type.type(:dsc_xpsendpoint) do
     #dsc_xpsendpoint[:dsc_name]
     expect { Puppet::Type.type(:dsc_xpsendpoint).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_startupscript => 'foo',
-      :dsc_runascredential => {"user"=>"user", "password"=>"password"},
-      :dsc_securitydescriptorsddl => 'foo',
-      :dsc_accessmode => 'Local',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

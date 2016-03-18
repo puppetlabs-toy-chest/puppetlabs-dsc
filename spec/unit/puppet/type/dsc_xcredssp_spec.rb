@@ -72,8 +72,6 @@ describe Puppet::Type.type(:dsc_xcredssp) do
     #dsc_xcredssp[:dsc_role]
     expect { Puppet::Type.type(:dsc_xcredssp).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_delegatecomputers => ["foo", "bar", "spec"],
     )}.to raise_error(Puppet::Error, /dsc_role is a required attribute/)
   end
 

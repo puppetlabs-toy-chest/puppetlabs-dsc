@@ -18,13 +18,6 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
     #dsc_xsqlhagroup[:dsc_name]
     expect { Puppet::Type.type(:dsc_xsqlhagroup).new(
       :name     => 'foo',
-      :dsc_database => ["foo", "bar", "spec"],
-      :dsc_clustername => 'foo',
-      :dsc_databasebackuppath => 'foo',
-      :dsc_instancename => 'foo',
-      :dsc_endpointname => 'foo',
-      :dsc_domaincredential => {"user"=>"user", "password"=>"password"},
-      :dsc_sqladministratorcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
