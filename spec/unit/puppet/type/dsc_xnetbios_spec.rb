@@ -10,6 +10,14 @@ describe Puppet::Type.type(:dsc_xnetbios) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xnetbios).new(
+      :name     => 'foo',
+      :dsc_interfacealias => 'foo',
+      :dsc_setting => 'Default',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xnetbios.to_s).to eq("Dsc_xnetbios[foo]")
   end

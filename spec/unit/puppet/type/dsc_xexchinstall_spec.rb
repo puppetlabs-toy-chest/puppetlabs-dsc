@@ -11,6 +11,15 @@ describe Puppet::Type.type(:dsc_xexchinstall) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchinstall).new(
+      :name     => 'foo',
+      :dsc_path => 'foo',
+      :dsc_arguments => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchinstall.to_s).to eq("Dsc_xexchinstall[foo]")
   end

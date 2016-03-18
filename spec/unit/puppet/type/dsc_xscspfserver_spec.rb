@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_xscspfserver) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscspfserver).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_name => 'foo',
+      :dsc_servertype => 'VMM',
+      :dsc_scspfadmincredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscspfserver.to_s).to eq("Dsc_xscspfserver[foo]")
   end

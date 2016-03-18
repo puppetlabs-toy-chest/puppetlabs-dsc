@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xsphealthanalyzerrulestate) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsphealthanalyzerrulestate).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_enabled => true,
+      :dsc_rulescope => 'All Servers',
+      :dsc_schedule => 'Hourly',
+      :dsc_fixautomatically => true,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsphealthanalyzerrulestate.to_s).to eq("Dsc_xsphealthanalyzerrulestate[foo]")
   end

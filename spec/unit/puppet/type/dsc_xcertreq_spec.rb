@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xcertreq) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xcertreq).new(
+      :name     => 'foo',
+      :dsc_subject => 'foo',
+      :dsc_caserverfqdn => 'foo',
+      :dsc_carootname => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_autorenew => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xcertreq.to_s).to eq("Dsc_xcertreq[foo]")
   end

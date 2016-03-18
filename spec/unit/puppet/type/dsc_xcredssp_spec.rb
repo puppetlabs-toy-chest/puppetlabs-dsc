@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xcredssp) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xcredssp).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_role => 'Server',
+      :dsc_delegatecomputers => ["foo", "bar", "spec"],
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xcredssp.to_s).to eq("Dsc_xcredssp[foo]")
   end

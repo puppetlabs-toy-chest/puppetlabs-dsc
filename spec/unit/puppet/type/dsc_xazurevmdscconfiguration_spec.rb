@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xazurevmdscconfiguration) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazurevmdscconfiguration).new(
+      :name     => 'foo',
+      :dsc_storageaccountname => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_containername => 'foo',
+      :dsc_configurationpath => 'foo',
+      :dsc_azuresubscriptionname => 'foo',
+      :dsc_azurepublishsettingspath => 'foo',
+      :dsc_bloburi => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazurevmdscconfiguration.to_s).to eq("Dsc_xazurevmdscconfiguration[foo]")
   end

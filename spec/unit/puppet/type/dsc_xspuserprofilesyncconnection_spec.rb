@@ -10,6 +10,23 @@ describe Puppet::Type.type(:dsc_xspuserprofilesyncconnection) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspuserprofilesyncconnection).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_forest => 'foo',
+      :dsc_userprofileservice => 'foo',
+      :dsc_connectioncredentials => {"user"=>"user", "password"=>"password"},
+      :dsc_includedous => ["foo", "bar", "spec"],
+      :dsc_excludedous => ["foo", "bar", "spec"],
+      :dsc_server => 'foo',
+      :dsc_usessl => true,
+      :dsc_force => true,
+      :dsc_connectiontype => 'ActiveDirectory',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspuserprofilesyncconnection.to_s).to eq("Dsc_xspuserprofilesyncconnection[foo]")
   end

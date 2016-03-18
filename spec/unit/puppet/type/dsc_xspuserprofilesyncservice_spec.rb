@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_xspuserprofilesyncservice) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspuserprofilesyncservice).new(
+      :name     => 'foo',
+      :dsc_userprofileserviceappname => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspuserprofilesyncservice.to_s).to eq("Dsc_xspuserprofilesyncservice[foo]")
   end

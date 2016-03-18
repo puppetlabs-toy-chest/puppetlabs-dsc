@@ -10,6 +10,26 @@ describe Puppet::Type.type(:dsc_xspsite) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspsite).new(
+      :name     => 'foo',
+      :dsc_url => 'foo',
+      :dsc_owneralias => 'foo',
+      :dsc_compatibilitylevel => 32,
+      :dsc_contentdatabase => 'foo',
+      :dsc_description => 'foo',
+      :dsc_hostheaderwebapplication => 'foo',
+      :dsc_language => 32,
+      :dsc_name => 'foo',
+      :dsc_owneremail => 'foo',
+      :dsc_quotatemplate => 'foo',
+      :dsc_secondaryemail => 'foo',
+      :dsc_secondaryowneralias => 'foo',
+      :dsc_template => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspsite.to_s).to eq("Dsc_xspsite[foo]")
   end

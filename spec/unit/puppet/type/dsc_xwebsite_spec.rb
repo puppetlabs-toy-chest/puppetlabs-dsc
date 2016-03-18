@@ -10,6 +10,20 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwebsite).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_name => 'foo',
+      :dsc_physicalpath => 'foo',
+      :dsc_state => 'Started',
+      :dsc_applicationpool => 'foo',
+      :dsc_bindinginfo => {"Port"=>8080, "Protocol"=>"https"},
+      :dsc_defaultpage => ["foo", "bar", "spec"],
+      :dsc_enabledprotocols => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwebsite.to_s).to eq("Dsc_xwebsite[foo]")
   end

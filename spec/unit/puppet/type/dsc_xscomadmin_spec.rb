@@ -11,6 +11,16 @@ describe Puppet::Type.type(:dsc_xscomadmin) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscomadmin).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_principal => 'foo',
+      :dsc_userrole => 'foo',
+      :dsc_scomadmincredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscomadmin.to_s).to eq("Dsc_xscomadmin[foo]")
   end

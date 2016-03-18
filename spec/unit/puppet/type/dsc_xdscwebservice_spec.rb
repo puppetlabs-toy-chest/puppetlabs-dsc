@@ -10,6 +10,24 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xdscwebservice).new(
+      :name     => 'foo',
+      :dsc_endpointname => 'foo',
+      :dsc_certificatethumbprint => 'foo',
+      :dsc_port => 32,
+      :dsc_physicalpath => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_state => 'Started',
+      :dsc_modulepath => 'foo',
+      :dsc_configurationpath => 'foo',
+      :dsc_iscomplianceserver => true,
+      :dsc_dscserverurl => 'foo',
+      :dsc_registrationkeypath => 'foo',
+      :dsc_acceptselfsignedcertificates => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xdscwebservice.to_s).to eq("Dsc_xdscwebservice[foo]")
   end

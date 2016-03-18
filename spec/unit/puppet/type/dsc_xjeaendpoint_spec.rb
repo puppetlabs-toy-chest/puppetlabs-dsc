@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xjeaendpoint) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xjeaendpoint).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_toolkit => ["foo", "bar", "spec"],
+      :dsc_securitydescriptorsddl => 'foo',
+      :dsc_group => ["foo", "bar", "spec"],
+      :dsc_ensure => 'Present',
+      :dsc_cleanall => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xjeaendpoint.to_s).to eq("Dsc_xjeaendpoint[foo]")
   end

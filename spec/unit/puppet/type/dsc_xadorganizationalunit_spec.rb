@@ -11,6 +11,18 @@ describe Puppet::Type.type(:dsc_xadorganizationalunit) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xadorganizationalunit).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_path => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_protectedfromaccidentaldeletion => true,
+      :dsc_description => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xadorganizationalunit.to_s).to eq("Dsc_xadorganizationalunit[foo]")
   end

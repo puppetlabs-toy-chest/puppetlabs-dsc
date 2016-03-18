@@ -10,6 +10,24 @@ describe Puppet::Type.type(:dsc_xazurevm) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazurevm).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_imagename => 'foo',
+      :dsc_servicename => 'foo',
+      :dsc_storageaccountname => 'foo',
+      :dsc_instancesize => 'foo',
+      :dsc_linux => true,
+      :dsc_windows => true,
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_extensioncontainername => 'foo',
+      :dsc_extensionfilelist => 'foo',
+      :dsc_extensionscriptname => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazurevm.to_s).to eq("Dsc_xazurevm[foo]")
   end

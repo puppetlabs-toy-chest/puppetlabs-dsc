@@ -10,6 +10,29 @@ describe Puppet::Type.type(:dsc_xspwebappgeneralsettings) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspwebappgeneralsettings).new(
+      :name     => 'foo',
+      :dsc_url => 'foo',
+      :dsc_timezone => 32,
+      :dsc_alerts => true,
+      :dsc_alertslimit => 32,
+      :dsc_rss => true,
+      :dsc_blogapi => true,
+      :dsc_blogapiauthenticated => true,
+      :dsc_browserfilehandling => 'Stric',
+      :dsc_securityvalidation => true,
+      :dsc_recyclebinenabled => true,
+      :dsc_recyclebincleanupenabled => true,
+      :dsc_recyclebinretentionperiod => 32,
+      :dsc_secondstagerecyclebinquota => 32,
+      :dsc_maximumuploadsize => 32,
+      :dsc_customerexperienceprogram => true,
+      :dsc_presenceenabled => true,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspwebappgeneralsettings.to_s).to eq("Dsc_xspwebappgeneralsettings[foo]")
   end

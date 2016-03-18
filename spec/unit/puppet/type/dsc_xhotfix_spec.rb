@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xhotfix) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xhotfix).new(
+      :name     => 'foo',
+      :dsc_path => 'foo',
+      :dsc_id => 'foo',
+      :dsc_log => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xhotfix.to_s).to eq("Dsc_xhotfix[foo]")
   end

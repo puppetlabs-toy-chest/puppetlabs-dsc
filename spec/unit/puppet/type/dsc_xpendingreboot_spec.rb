@@ -10,6 +10,23 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xpendingreboot).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_skipcomponentbasedservicing => true,
+      :dsc_componentbasedservicing => true,
+      :dsc_skipwindowsupdate => true,
+      :dsc_windowsupdate => true,
+      :dsc_skippendingfilerename => true,
+      :dsc_pendingfilerename => true,
+      :dsc_skippendingcomputerrename => true,
+      :dsc_pendingcomputerrename => true,
+      :dsc_skipccmclientsdk => true,
+      :dsc_ccmclientsdk => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xpendingreboot.to_s).to eq("Dsc_xpendingreboot[foo]")
   end

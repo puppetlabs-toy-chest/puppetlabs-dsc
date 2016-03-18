@@ -10,6 +10,48 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazurepackresourceprovider).new(
+      :name     => 'foo',
+      :dsc_authenticationsite => 'foo',
+      :dsc_adminuri => 'foo',
+      :dsc_name => 'foo',
+      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
+      :dsc_displayname => 'foo',
+      :dsc_enabled => true,
+      :dsc_passthroughenabled => true,
+      :dsc_allowanonymousaccess => true,
+      :dsc_allowmultipleinstances => true,
+      :dsc_adminforwardingaddress => 'foo',
+      :dsc_adminauthenticationmode => 'None',
+      :dsc_adminauthenticationuser => {"user"=>"user", "password"=>"password"},
+      :dsc_adminauthenticationusername => 'foo',
+      :dsc_tenantforwardingaddress => 'foo',
+      :dsc_tenantauthenticationmode => 'None',
+      :dsc_tenantauthenticationuser => {"user"=>"user", "password"=>"password"},
+      :dsc_tenantauthenticationusername => 'foo',
+      :dsc_tenantsourceuritemplate => 'foo',
+      :dsc_tenanttargeturitemplate => 'foo',
+      :dsc_usageforwardingaddress => 'foo',
+      :dsc_usageauthenticationmode => 'None',
+      :dsc_usageauthenticationuser => {"user"=>"user", "password"=>"password"},
+      :dsc_usageauthenticationusername => 'foo',
+      :dsc_healthcheckforwardingaddress => 'foo',
+      :dsc_healthcheckauthenticationmode => 'None',
+      :dsc_healthcheckauthenticationuser => {"user"=>"user", "password"=>"password"},
+      :dsc_healthcheckauthenticationusername => 'foo',
+      :dsc_notificationforwardingaddress => 'foo',
+      :dsc_notificationauthenticationmode => 'None',
+      :dsc_notificationauthenticationuser => {"user"=>"user", "password"=>"password"},
+      :dsc_notificationauthenticationusername => 'foo',
+      :dsc_instanceid => 'foo',
+      :dsc_instancedisplayname => 'foo',
+      :dsc_maxquotaupdatebatchsize => 'foo',
+      :dsc_subscriptionstatuspollinginterval => 'foo',
+      :dsc_type => 'Standard',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazurepackresourceprovider.to_s).to eq("Dsc_xazurepackresourceprovider[foo]")
   end

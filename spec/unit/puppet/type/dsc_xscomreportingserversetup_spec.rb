@@ -10,6 +10,25 @@ describe Puppet::Type.type(:dsc_xscomreportingserversetup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscomreportingserversetup).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_installpath => 'foo',
+      :dsc_managementserver => 'foo',
+      :dsc_srsinstance => 'foo',
+      :dsc_datareader => {"user"=>"user", "password"=>"password"},
+      :dsc_datareaderusername => 'foo',
+      :dsc_usemicrosoftupdate => 1,
+      :dsc_sendceipreports => 1,
+      :dsc_enableerrorreporting => 'Never',
+      :dsc_sendodrreports => 1,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscomreportingserversetup.to_s).to eq("Dsc_xscomreportingserversetup[foo]")
   end

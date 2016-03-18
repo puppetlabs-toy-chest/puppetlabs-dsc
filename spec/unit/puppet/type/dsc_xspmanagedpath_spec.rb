@@ -11,6 +11,17 @@ describe Puppet::Type.type(:dsc_xspmanagedpath) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspmanagedpath).new(
+      :name     => 'foo',
+      :dsc_webappurl => 'foo',
+      :dsc_relativeurl => 'foo',
+      :dsc_explicit => true,
+      :dsc_hostheader => true,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspmanagedpath.to_s).to eq("Dsc_xspmanagedpath[foo]")
   end

@@ -10,6 +10,59 @@ describe Puppet::Type.type(:dsc_xsqlserversetup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqlserversetup).new(
+      :name     => 'foo',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sourcecredential => {"user"=>"user", "password"=>"password"},
+      :dsc_suppressreboot => true,
+      :dsc_forcereboot => true,
+      :dsc_features => 'foo',
+      :dsc_instancename => 'foo',
+      :dsc_instanceid => 'foo',
+      :dsc_pid => 'foo',
+      :dsc_updateenabled => 'foo',
+      :dsc_updatesource => 'foo',
+      :dsc_sqmreporting => 'foo',
+      :dsc_errorreporting => 'foo',
+      :dsc_installshareddir => 'foo',
+      :dsc_installsharedwowdir => 'foo',
+      :dsc_instancedir => 'foo',
+      :dsc_sqlsvcaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_sqlsvcaccountusername => 'foo',
+      :dsc_agtsvcaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_agtsvcaccountusername => 'foo',
+      :dsc_sqlcollation => 'foo',
+      :dsc_sqlsysadminaccounts => ["foo", "bar", "spec"],
+      :dsc_securitymode => 'foo',
+      :dsc_sapwd => {"user"=>"user", "password"=>"password"},
+      :dsc_installsqldatadir => 'foo',
+      :dsc_sqluserdbdir => 'foo',
+      :dsc_sqluserdblogdir => 'foo',
+      :dsc_sqltempdbdir => 'foo',
+      :dsc_sqltempdblogdir => 'foo',
+      :dsc_sqlbackupdir => 'foo',
+      :dsc_ftsvcaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_ftsvcaccountusername => 'foo',
+      :dsc_rssvcaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_rssvcaccountusername => 'foo',
+      :dsc_assvcaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_assvcaccountusername => 'foo',
+      :dsc_ascollation => 'foo',
+      :dsc_assysadminaccounts => ["foo", "bar", "spec"],
+      :dsc_asdatadir => 'foo',
+      :dsc_aslogdir => 'foo',
+      :dsc_asbackupdir => 'foo',
+      :dsc_astempdir => 'foo',
+      :dsc_asconfigdir => 'foo',
+      :dsc_issvcaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_issvcaccountusername => 'foo',
+      :dsc_browsersvcstartuptype => 'Automatic',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqlserversetup.to_s).to eq("Dsc_xsqlserversetup[foo]")
   end

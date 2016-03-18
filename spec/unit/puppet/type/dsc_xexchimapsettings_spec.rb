@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xexchimapsettings) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchimapsettings).new(
+      :name     => 'foo',
+      :dsc_server => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_allowservicerestart => true,
+      :dsc_domaincontroller => 'foo',
+      :dsc_logintype => 'PlainTextLogin',
+      :dsc_externalconnectionsettings => ["foo", "bar", "spec"],
+      :dsc_x509certificatename => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchimapsettings.to_s).to eq("Dsc_xexchimapsettings[foo]")
   end

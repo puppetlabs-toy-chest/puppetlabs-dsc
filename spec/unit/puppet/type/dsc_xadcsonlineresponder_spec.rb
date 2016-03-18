@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xadcsonlineresponder) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xadcsonlineresponder).new(
+      :name     => 'foo',
+      :dsc_issingleinstance => 'Yes',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xadcsonlineresponder.to_s).to eq("Dsc_xadcsonlineresponder[foo]")
   end

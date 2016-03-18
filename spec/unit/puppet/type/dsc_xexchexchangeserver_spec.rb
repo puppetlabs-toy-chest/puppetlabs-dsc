@@ -10,6 +10,21 @@ describe Puppet::Type.type(:dsc_xexchexchangeserver) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchexchangeserver).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_allowservicerestart => true,
+      :dsc_customerfeedbackenabled => true,
+      :dsc_domaincontroller => 'foo',
+      :dsc_internetwebproxy => 'foo',
+      :dsc_monitoringgroup => 'foo',
+      :dsc_productkey => 'foo',
+      :dsc_workloadmanagementpolicy => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchexchangeserver.to_s).to eq("Dsc_xexchexchangeserver[foo]")
   end

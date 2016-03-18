@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xsslsettings) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsslsettings).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_bindings => ["foo", "bar", "spec"],
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsslsettings.to_s).to eq("Dsc_xsslsettings[foo]")
   end

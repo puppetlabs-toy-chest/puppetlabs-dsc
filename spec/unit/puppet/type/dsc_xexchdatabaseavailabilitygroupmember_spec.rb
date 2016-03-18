@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupmember) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupmember).new(
+      :name     => 'foo',
+      :dsc_mailboxserver => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_dagname => 'foo',
+      :dsc_domaincontroller => 'foo',
+      :dsc_skipdagvalidation => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchdatabaseavailabilitygroupmember.to_s).to eq("Dsc_xexchdatabaseavailabilitygroupmember[foo]")
   end

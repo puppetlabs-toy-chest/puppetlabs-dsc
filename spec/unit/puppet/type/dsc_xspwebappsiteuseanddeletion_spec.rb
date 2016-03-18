@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xspwebappsiteuseanddeletion) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspwebappsiteuseanddeletion).new(
+      :name     => 'foo',
+      :dsc_url => 'foo',
+      :dsc_sendunusedsitecollectionnotifications => true,
+      :dsc_unusedsitenotificationperiod => 32,
+      :dsc_automaticallydeleteunusedsitecollections => true,
+      :dsc_unusedsitenotificationsbeforedeletion => 32,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspwebappsiteuseanddeletion.to_s).to eq("Dsc_xspwebappsiteuseanddeletion[foo]")
   end

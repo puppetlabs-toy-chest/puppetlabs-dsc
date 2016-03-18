@@ -10,6 +10,20 @@ describe Puppet::Type.type(:dsc_xiismodule) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xiismodule).new(
+      :name     => 'foo',
+      :dsc_path => 'foo',
+      :dsc_name => 'foo',
+      :dsc_requestpath => 'foo',
+      :dsc_verb => ["foo", "bar", "spec"],
+      :dsc_sitename => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_moduletype => 'FastCgiModule',
+      :dsc_endpointsetup => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xiismodule.to_s).to eq("Dsc_xiismodule[foo]")
   end

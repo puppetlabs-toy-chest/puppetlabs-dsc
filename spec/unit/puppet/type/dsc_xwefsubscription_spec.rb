@@ -10,6 +10,32 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwefsubscription).new(
+      :name     => 'foo',
+      :dsc_subscriptionid => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_subscriptiontype => 'CollectorInitiated',
+      :dsc_description => 'foo',
+      :dsc_enabled => 'true',
+      :dsc_deliverymode => 'Push',
+      :dsc_maxitems => -32,
+      :dsc_maxlatencytime => 64,
+      :dsc_heartbeatinterval => 64,
+      :dsc_readexistingevents => 'true',
+      :dsc_transportname => 'HTTP',
+      :dsc_transportport => 'foo',
+      :dsc_contentformat => 'foo',
+      :dsc_locale => 'foo',
+      :dsc_logfile => 'foo',
+      :dsc_credentialstype => 'Default',
+      :dsc_allowedsourcenondomaincomputers => ["foo", "bar", "spec"],
+      :dsc_allowedsourcedomaincomputers => 'foo',
+      :dsc_query => ["foo", "bar", "spec"],
+      :dsc_address => ["foo", "bar", "spec"],
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwefsubscription.to_s).to eq("Dsc_xwefsubscription[foo]")
   end

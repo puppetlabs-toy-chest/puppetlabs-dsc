@@ -10,6 +10,36 @@ describe Puppet::Type.type(:dsc_xspuserprofileproperty) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspuserprofileproperty).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_userprofileservice => 'foo',
+      :dsc_displayname => 'foo',
+      :dsc_type => 'BigInteger',
+      :dsc_description => 'foo',
+      :dsc_policysetting => 'Mandatory',
+      :dsc_privacysetting => 'Public',
+      :dsc_mappingconnectionname => 'foo',
+      :dsc_mappingpropertyname => 'foo',
+      :dsc_mappingdirection => 'foo',
+      :dsc_length => 32,
+      :dsc_displayorder => 32,
+      :dsc_iseventlog => true,
+      :dsc_isvisibleoneditor => true,
+      :dsc_isvisibleonviewer => true,
+      :dsc_isusereditable => true,
+      :dsc_isalias => true,
+      :dsc_issearchable => true,
+      :dsc_useroverrideprivacy => true,
+      :dsc_termstore => 'foo',
+      :dsc_termgroup => 'foo',
+      :dsc_termset => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspuserprofileproperty.to_s).to eq("Dsc_xspuserprofileproperty[foo]")
   end

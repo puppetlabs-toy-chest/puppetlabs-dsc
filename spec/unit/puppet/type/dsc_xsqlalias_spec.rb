@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xsqlalias) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqlalias).new(
+      :name     => 'foo',
+      :dsc_sqlservername => 'foo',
+      :dsc_protocol => 'TCP',
+      :dsc_servername => 'foo',
+      :dsc_tcpport => -32,
+      :dsc_pipename => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqlalias.to_s).to eq("Dsc_xsqlalias[foo]")
   end

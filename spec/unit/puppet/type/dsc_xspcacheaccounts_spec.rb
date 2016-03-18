@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_xspcacheaccounts) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspcacheaccounts).new(
+      :name     => 'foo',
+      :dsc_webappurl => 'foo',
+      :dsc_superuseralias => 'foo',
+      :dsc_superreaderalias => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspcacheaccounts.to_s).to eq("Dsc_xspcacheaccounts[foo]")
   end

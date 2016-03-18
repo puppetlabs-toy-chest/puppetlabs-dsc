@@ -10,6 +10,27 @@ describe Puppet::Type.type(:dsc_xadgroup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xadgroup).new(
+      :name     => 'foo',
+      :dsc_groupname => 'foo',
+      :dsc_groupscope => 'DomainLocal',
+      :dsc_category => 'Security',
+      :dsc_path => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_description => 'foo',
+      :dsc_displayname => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_domaincontroller => 'foo',
+      :dsc_members => ["foo", "bar", "spec"],
+      :dsc_memberstoinclude => ["foo", "bar", "spec"],
+      :dsc_memberstoexclude => ["foo", "bar", "spec"],
+      :dsc_membershipattribute => 'SamAccountName',
+      :dsc_managedby => 'foo',
+      :dsc_notes => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xadgroup.to_s).to eq("Dsc_xadgroup[foo]")
   end

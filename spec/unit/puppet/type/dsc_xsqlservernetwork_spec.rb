@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xsqlservernetwork) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqlservernetwork).new(
+      :name     => 'foo',
+      :dsc_instancename => 'foo',
+      :dsc_protocolname => 'tcp',
+      :dsc_isenabled => true,
+      :dsc_tcpdynamicports => '0',
+      :dsc_tcpport => 'foo',
+      :dsc_restartservice => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqlservernetwork.to_s).to eq("Dsc_xsqlservernetwork[foo]")
   end

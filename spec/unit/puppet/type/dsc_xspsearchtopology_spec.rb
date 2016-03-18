@@ -10,6 +10,21 @@ describe Puppet::Type.type(:dsc_xspsearchtopology) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspsearchtopology).new(
+      :name     => 'foo',
+      :dsc_serviceappname => 'foo',
+      :dsc_admin => ["foo", "bar", "spec"],
+      :dsc_crawler => ["foo", "bar", "spec"],
+      :dsc_contentprocessing => ["foo", "bar", "spec"],
+      :dsc_analyticsprocessing => ["foo", "bar", "spec"],
+      :dsc_queryprocessing => ["foo", "bar", "spec"],
+      :dsc_indexpartition => ["foo", "bar", "spec"],
+      :dsc_firstpartitiondirectory => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspsearchtopology.to_s).to eq("Dsc_xspsearchtopology[foo]")
   end

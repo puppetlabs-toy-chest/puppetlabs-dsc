@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xspwebappblockedfiletypes) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspwebappblockedfiletypes).new(
+      :name     => 'foo',
+      :dsc_url => 'foo',
+      :dsc_blocked => ["foo", "bar", "spec"],
+      :dsc_ensureblocked => ["foo", "bar", "spec"],
+      :dsc_ensureallowed => ["foo", "bar", "spec"],
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspwebappblockedfiletypes.to_s).to eq("Dsc_xspwebappblockedfiletypes[foo]")
   end

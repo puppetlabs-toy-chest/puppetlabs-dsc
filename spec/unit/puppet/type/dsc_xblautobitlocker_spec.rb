@@ -10,6 +10,32 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xblautobitlocker).new(
+      :name     => 'foo',
+      :dsc_drivetype => 'Fixed',
+      :dsc_mindiskcapacitygb => -32,
+      :dsc_primaryprotector => 'PasswordProtector',
+      :dsc_autounlock => true,
+      :dsc_adaccountorgroup => 'foo',
+      :dsc_adaccountorgroupprotector => true,
+      :dsc_encryptionmethod => 'Aes128',
+      :dsc_hardwareencryption => true,
+      :dsc_password => {"user"=>"user", "password"=>"password"},
+      :dsc_passwordprotector => true,
+      :dsc_pin => {"user"=>"user", "password"=>"password"},
+      :dsc_recoverykeypath => 'foo',
+      :dsc_recoverykeyprotector => true,
+      :dsc_recoverypasswordprotector => true,
+      :dsc_service => true,
+      :dsc_skiphardwaretest => true,
+      :dsc_startupkeypath => 'foo',
+      :dsc_startupkeyprotector => true,
+      :dsc_tpmprotector => true,
+      :dsc_usedspaceonly => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xblautobitlocker.to_s).to eq("Dsc_xblautobitlocker[foo]")
   end

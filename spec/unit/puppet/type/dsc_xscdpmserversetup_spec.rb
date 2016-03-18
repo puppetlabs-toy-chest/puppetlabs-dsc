@@ -10,6 +10,26 @@ describe Puppet::Type.type(:dsc_xscdpmserversetup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscdpmserversetup).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_username => 'foo',
+      :dsc_companyname => 'foo',
+      :dsc_productkey => 'foo',
+      :dsc_programfiles => 'foo',
+      :dsc_yukonmachinename => 'foo',
+      :dsc_yukoninstancename => 'foo',
+      :dsc_yukonmachinecredential => {"user"=>"user", "password"=>"password"},
+      :dsc_reportingmachinename => 'foo',
+      :dsc_reportinginstancename => 'foo',
+      :dsc_reportingmachinecredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscdpmserversetup.to_s).to eq("Dsc_xscdpmserversetup[foo]")
   end

@@ -10,6 +10,22 @@ describe Puppet::Type.type(:dsc_xspdesignersettings) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspdesignersettings).new(
+      :name     => 'foo',
+      :dsc_url => 'foo',
+      :dsc_settingsscope => 'WebApplication',
+      :dsc_allowsharepointdesigner => true,
+      :dsc_allowdetachpagesfromdefinition => true,
+      :dsc_allowcustomisemasterpage => true,
+      :dsc_allowmanagesiteurlstructure => true,
+      :dsc_allowcreatedeclarativeworkflow => true,
+      :dsc_allowsavepublishdeclarativeworkflow => true,
+      :dsc_allowsavedeclarativeworkflowastemplate => true,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspdesignersettings.to_s).to eq("Dsc_xspdesignersettings[foo]")
   end

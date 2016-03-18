@@ -10,6 +10,24 @@ describe Puppet::Type.type(:dsc_xspsecurestoreserviceapp) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspsecurestoreserviceapp).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_applicationpool => 'foo',
+      :dsc_auditingenabled => true,
+      :dsc_auditlogmaxsize => 32,
+      :dsc_databasecredentials => {"user"=>"user", "password"=>"password"},
+      :dsc_databasename => 'foo',
+      :dsc_databaseserver => 'foo',
+      :dsc_databaseauthenticationtype => 'Windows',
+      :dsc_failoverdatabaseserver => 'foo',
+      :dsc_partitionmode => true,
+      :dsc_sharing => true,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspsecurestoreserviceapp.to_s).to eq("Dsc_xspsecurestoreserviceapp[foo]")
   end

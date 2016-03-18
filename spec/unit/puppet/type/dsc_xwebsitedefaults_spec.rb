@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xwebsitedefaults) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwebsitedefaults).new(
+      :name     => 'foo',
+      :dsc_applyto => 'Machine',
+      :dsc_logformat => 'W3C',
+      :dsc_logdirectory => 'foo',
+      :dsc_tracelogdirectory => 'foo',
+      :dsc_defaultapplicationpool => 'foo',
+      :dsc_allowsubdirconfig => 'true',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwebsitedefaults.to_s).to eq("Dsc_xwebsitedefaults[foo]")
   end

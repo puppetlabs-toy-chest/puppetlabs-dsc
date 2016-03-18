@@ -10,6 +10,45 @@ describe Puppet::Type.type(:dsc_xfirewall) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xfirewall).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_displayname => 'foo',
+      :dsc_group => 'foo',
+      :dsc_displaygroup => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_enabled => 'True',
+      :dsc_action => 'NotConfigured',
+      :dsc_profile => ["foo", "bar", "spec"],
+      :dsc_direction => 'Inbound',
+      :dsc_remoteport => ["foo", "bar", "spec"],
+      :dsc_localport => ["foo", "bar", "spec"],
+      :dsc_protocol => 'foo',
+      :dsc_description => 'foo',
+      :dsc_program => 'foo',
+      :dsc_service => 'foo',
+      :dsc_authentication => 'NotRequired',
+      :dsc_encryption => 'NotRequired',
+      :dsc_interfacealias => ["foo", "bar", "spec"],
+      :dsc_interfacetype => 'Any',
+      :dsc_localaddress => ["foo", "bar", "spec"],
+      :dsc_localuser => 'foo',
+      :dsc_package => 'foo',
+      :dsc_platform => ["foo", "bar", "spec"],
+      :dsc_remoteaddress => ["foo", "bar", "spec"],
+      :dsc_remotemachine => 'foo',
+      :dsc_remoteuser => 'foo',
+      :dsc_dynamictransport => 'Any',
+      :dsc_edgetraversalpolicy => 'Block',
+      :dsc_icmptype => ["foo", "bar", "spec"],
+      :dsc_localonlymapping => true,
+      :dsc_loosesourcemapping => true,
+      :dsc_overrideblockrules => true,
+      :dsc_owner => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xfirewall.to_s).to eq("Dsc_xfirewall[foo]")
   end

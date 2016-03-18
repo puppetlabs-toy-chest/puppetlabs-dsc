@@ -10,6 +10,28 @@ describe Puppet::Type.type(:dsc_xazurevmdscextension) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazurevmdscextension).new(
+      :name     => 'foo',
+      :dsc_vmname => 'foo',
+      :dsc_servicename => 'foo',
+      :dsc_configurationarchive => 'foo',
+      :dsc_storageaccountname => 'foo',
+      :dsc_configurationargument => {"somekey"=>"somevalue"},
+      :dsc_configurationdatapath => 'foo',
+      :dsc_configuration => 'foo',
+      :dsc_containername => 'foo',
+      :dsc_force => true,
+      :dsc_referencename => 'foo',
+      :dsc_storageendpointsuffix => 'foo',
+      :dsc_version => 'foo',
+      :dsc_timestamp => 'foo',
+      :dsc_code => 'foo',
+      :dsc_message => 'foo',
+      :dsc_status => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazurevmdscextension.to_s).to eq("Dsc_xazurevmdscextension[foo]")
   end

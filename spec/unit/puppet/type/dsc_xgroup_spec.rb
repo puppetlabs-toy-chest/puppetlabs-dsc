@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xgroup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xgroup).new(
+      :name     => 'foo',
+      :dsc_groupname => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_description => 'foo',
+      :dsc_members => ["foo", "bar", "spec"],
+      :dsc_memberstoinclude => ["foo", "bar", "spec"],
+      :dsc_memberstoexclude => ["foo", "bar", "spec"],
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xgroup.to_s).to eq("Dsc_xgroup[foo]")
   end

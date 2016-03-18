@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xexchjetstress) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchjetstress).new(
+      :name     => 'foo',
+      :dsc_type => 'Performance',
+      :dsc_jetstresspath => 'foo',
+      :dsc_jetstressparams => 'foo',
+      :dsc_maxwaitminutes => 32,
+      :dsc_minachievediops => 32,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchjetstress.to_s).to eq("Dsc_xexchjetstress[foo]")
   end

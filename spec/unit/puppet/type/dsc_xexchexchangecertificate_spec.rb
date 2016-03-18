@@ -10,6 +10,20 @@ describe Puppet::Type.type(:dsc_xexchexchangecertificate) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchexchangecertificate).new(
+      :name     => 'foo',
+      :dsc_thumbprint => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_ensure => 'Present',
+      :dsc_allowextraservices => true,
+      :dsc_certcreds => {"user"=>"user", "password"=>"password"},
+      :dsc_certfilepath => 'foo',
+      :dsc_domaincontroller => 'foo',
+      :dsc_services => ["foo", "bar", "spec"],
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchexchangecertificate.to_s).to eq("Dsc_xexchexchangecertificate[foo]")
   end

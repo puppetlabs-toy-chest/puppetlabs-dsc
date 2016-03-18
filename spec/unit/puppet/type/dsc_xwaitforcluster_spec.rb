@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xwaitforcluster) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwaitforcluster).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_retryintervalsec => 64,
+      :dsc_retrycount => 32,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwaitforcluster.to_s).to eq("Dsc_xwaitforcluster[foo]")
   end

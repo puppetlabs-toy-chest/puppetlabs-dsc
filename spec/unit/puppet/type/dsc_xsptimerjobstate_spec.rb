@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xsptimerjobstate) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsptimerjobstate).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_webapplication => 'foo',
+      :dsc_enabled => true,
+      :dsc_schedule => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsptimerjobstate.to_s).to eq("Dsc_xsptimerjobstate[foo]")
   end

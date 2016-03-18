@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xvhdfile) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xvhdfile).new(
+      :name     => 'foo',
+      :dsc_vhdpath => 'foo',
+      :dsc_filedirectory => {"DestinationPath"=>"c:/foo/bar", "Recurse"=>true},
+      :dsc_checksum => 'ModifiedDate',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xvhdfile.to_s).to eq("Dsc_xvhdfile[foo]")
   end

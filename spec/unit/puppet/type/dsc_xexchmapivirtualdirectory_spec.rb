@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xexchmapivirtualdirectory) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchmapivirtualdirectory).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_allowservicerestart => true,
+      :dsc_domaincontroller => 'foo',
+      :dsc_externalurl => 'foo',
+      :dsc_iisauthenticationmethods => ["foo", "bar", "spec"],
+      :dsc_internalurl => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchmapivirtualdirectory.to_s).to eq("Dsc_xexchmapivirtualdirectory[foo]")
   end

@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xdhcpserveroption) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xdhcpserveroption).new(
+      :name     => 'foo',
+      :dsc_scopeid => 'foo',
+      :dsc_dnsserveripaddress => ["foo", "bar", "spec"],
+      :dsc_dnsdomain => 'foo',
+      :dsc_router => ["foo", "bar", "spec"],
+      :dsc_addressfamily => 'IPv4',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xdhcpserveroption.to_s).to eq("Dsc_xdhcpserveroption[foo]")
   end

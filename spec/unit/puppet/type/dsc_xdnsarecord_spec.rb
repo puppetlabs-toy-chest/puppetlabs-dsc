@@ -11,6 +11,16 @@ describe Puppet::Type.type(:dsc_xdnsarecord) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xdnsarecord).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_zone => 'foo',
+      :dsc_target => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xdnsarecord.to_s).to eq("Dsc_xdnsarecord[foo]")
   end

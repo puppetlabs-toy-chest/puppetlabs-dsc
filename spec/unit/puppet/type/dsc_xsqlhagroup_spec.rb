@@ -10,6 +10,20 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqlhagroup).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_database => ["foo", "bar", "spec"],
+      :dsc_clustername => 'foo',
+      :dsc_databasebackuppath => 'foo',
+      :dsc_instancename => 'foo',
+      :dsc_endpointname => 'foo',
+      :dsc_domaincredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sqladministratorcredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqlhagroup.to_s).to eq("Dsc_xsqlhagroup[foo]")
   end

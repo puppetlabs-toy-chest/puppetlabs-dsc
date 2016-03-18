@@ -10,6 +10,14 @@ describe Puppet::Type.type(:dsc_xspappcatalog) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspappcatalog).new(
+      :name     => 'foo',
+      :dsc_siteurl => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspappcatalog.to_s).to eq("Dsc_xspappcatalog[foo]")
   end

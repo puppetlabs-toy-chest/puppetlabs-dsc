@@ -11,6 +11,22 @@ describe Puppet::Type.type(:dsc_xazurepacksetup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazurepacksetup).new(
+      :name     => 'foo',
+      :dsc_role => 'Admin API',
+      :dsc_action => 'Install',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_passphrase => {"user"=>"user", "password"=>"password"},
+      :dsc_sqlserver => 'foo',
+      :dsc_sqlinstance => 'foo',
+      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
+      :dsc_enableceip => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazurepacksetup.to_s).to eq("Dsc_xazurepacksetup[foo]")
   end

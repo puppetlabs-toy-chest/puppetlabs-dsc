@@ -10,6 +10,27 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsmbshare).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_path => 'foo',
+      :dsc_description => 'foo',
+      :dsc_changeaccess => ["foo", "bar", "spec"],
+      :dsc_concurrentuserlimit => 32,
+      :dsc_encryptdata => true,
+      :dsc_folderenumerationmode => 'AccessBased',
+      :dsc_fullaccess => ["foo", "bar", "spec"],
+      :dsc_noaccess => ["foo", "bar", "spec"],
+      :dsc_readaccess => ["foo", "bar", "spec"],
+      :dsc_ensure => 'Present',
+      :dsc_sharestate => 'foo',
+      :dsc_sharetype => 'foo',
+      :dsc_shadowcopy => 'foo',
+      :dsc_special => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsmbshare.to_s).to eq("Dsc_xsmbshare[foo]")
   end

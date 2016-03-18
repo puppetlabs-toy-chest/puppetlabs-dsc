@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xspuserprofilesection) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspuserprofilesection).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_userprofileservice => 'foo',
+      :dsc_displayname => 'foo',
+      :dsc_displayorder => 32,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspuserprofilesection.to_s).to eq("Dsc_xspuserprofilesection[foo]")
   end

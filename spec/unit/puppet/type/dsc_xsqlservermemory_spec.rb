@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xsqlservermemory) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqlservermemory).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_dynamicalloc => true,
+      :dsc_minmemory => -32,
+      :dsc_maxmemory => -32,
+      :dsc_sqlserver => 'foo',
+      :dsc_sqlinstancename => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqlservermemory.to_s).to eq("Dsc_xsqlservermemory[foo]")
   end

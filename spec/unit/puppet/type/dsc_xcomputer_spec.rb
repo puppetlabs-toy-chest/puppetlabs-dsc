@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xcomputer) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xcomputer).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_domainname => 'foo',
+      :dsc_joinou => 'foo',
+      :dsc_currentou => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_unjoincredential => {"user"=>"user", "password"=>"password"},
+      :dsc_workgroupname => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xcomputer.to_s).to eq("Dsc_xcomputer[foo]")
   end

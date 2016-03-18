@@ -11,6 +11,16 @@ describe Puppet::Type.type(:dsc_xsqlhaendpoint) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqlhaendpoint).new(
+      :name     => 'foo',
+      :dsc_instancename => 'foo',
+      :dsc_alloweduser => 'foo',
+      :dsc_name => 'foo',
+      :dsc_portnumber => 32,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqlhaendpoint.to_s).to eq("Dsc_xsqlhaendpoint[foo]")
   end

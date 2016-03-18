@@ -10,6 +10,22 @@ describe Puppet::Type.type(:dsc_xspworkmanagementserviceapp) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspworkmanagementserviceapp).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_applicationpool => 'foo',
+      :dsc_minimumtimebetweenewssyncsubscriptionsearches => 32,
+      :dsc_minimumtimebetweenproviderrefreshes => 32,
+      :dsc_minimumtimebetweensearchqueries => 32,
+      :dsc_numberofsubscriptionsyncsperewssyncrun => 32,
+      :dsc_numberofusersewssyncwillprocessatonce => 32,
+      :dsc_numberofusersperewssyncbatch => 32,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspworkmanagementserviceapp.to_s).to eq("Dsc_xspworkmanagementserviceapp[foo]")
   end

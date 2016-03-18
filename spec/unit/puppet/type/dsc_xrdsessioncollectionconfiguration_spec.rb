@@ -10,6 +10,31 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration).new(
+      :name     => 'foo',
+      :dsc_collectionname => 'foo',
+      :dsc_activesessionlimitmin => 32,
+      :dsc_authenticateusingnla => true,
+      :dsc_automaticreconnectionenabled => true,
+      :dsc_brokenconnectionaction => 'foo',
+      :dsc_clientdeviceredirectionoptions => 'foo',
+      :dsc_clientprinterasdefault => true,
+      :dsc_clientprinterredirected => true,
+      :dsc_collectiondescription => 'foo',
+      :dsc_connectionbroker => 'foo',
+      :dsc_customrdpproperty => 'foo',
+      :dsc_disconnectedsessionlimitmin => 32,
+      :dsc_encryptionlevel => 'foo',
+      :dsc_idlesessionlimitmin => 32,
+      :dsc_maxredirectedmonitors => 32,
+      :dsc_rdeasyprintdriverenabled => true,
+      :dsc_securitylayer => 'foo',
+      :dsc_temporaryfoldersdeletedonexit => true,
+      :dsc_usergroup => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xrdsessioncollectionconfiguration.to_s).to eq("Dsc_xrdsessioncollectionconfiguration[foo]")
   end

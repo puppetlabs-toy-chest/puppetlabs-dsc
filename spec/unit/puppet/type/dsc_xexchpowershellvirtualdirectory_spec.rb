@@ -10,6 +10,22 @@ describe Puppet::Type.type(:dsc_xexchpowershellvirtualdirectory) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchpowershellvirtualdirectory).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_allowservicerestart => true,
+      :dsc_basicauthentication => true,
+      :dsc_certificateauthentication => true,
+      :dsc_domaincontroller => 'foo',
+      :dsc_externalurl => 'foo',
+      :dsc_internalurl => 'foo',
+      :dsc_requiressl => true,
+      :dsc_windowsauthentication => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchpowershellvirtualdirectory.to_s).to eq("Dsc_xexchpowershellvirtualdirectory[foo]")
   end

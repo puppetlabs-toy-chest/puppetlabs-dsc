@@ -10,6 +10,35 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_autodagtotalnumberofservers => -32,
+      :dsc_alternatewitnessdirectory => 'foo',
+      :dsc_alternatewitnessserver => 'foo',
+      :dsc_autodagautoreseedenabled => true,
+      :dsc_autodagdatabasecopiesperdatabase => -32,
+      :dsc_autodagdatabasecopiespervolume => -32,
+      :dsc_autodagdatabasesrootfolderpath => 'foo',
+      :dsc_autodagdiskreclaimerenabled => true,
+      :dsc_autodagtotalnumberofdatabases => -32,
+      :dsc_autodagvolumesrootfolderpath => 'foo',
+      :dsc_databaseavailabilitygroupipaddresses => ["foo", "bar", "spec"],
+      :dsc_datacenteractivationmode => 'Off',
+      :dsc_domaincontroller => 'foo',
+      :dsc_manualdagnetworkconfiguration => true,
+      :dsc_networkcompression => 'Disabled',
+      :dsc_networkencryption => 'Disabled',
+      :dsc_replaylagmanagerenabled => true,
+      :dsc_replicationport => 16,
+      :dsc_skipdagvalidation => true,
+      :dsc_witnessdirectory => 'foo',
+      :dsc_witnessserver => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchdatabaseavailabilitygroup.to_s).to eq("Dsc_xexchdatabaseavailabilitygroup[foo]")
   end

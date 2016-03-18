@@ -11,6 +11,37 @@ describe Puppet::Type.type(:dsc_xpackage) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xpackage).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_name => 'foo',
+      :dsc_path => 'foo',
+      :dsc_productid => 'foo',
+      :dsc_arguments => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_returncode => [32, 64, 128],
+      :dsc_logpath => 'foo',
+      :dsc_packagedescription => 'foo',
+      :dsc_publisher => 'foo',
+      :dsc_installedon => 'foo',
+      :dsc_size => 32,
+      :dsc_version => 'foo',
+      :dsc_installed => true,
+      :dsc_runascredential => {"user"=>"user", "password"=>"password"},
+      :dsc_filehash => 'foo',
+      :dsc_hashalgorithm => 'SHA1',
+      :dsc_signersubject => 'foo',
+      :dsc_signerthumbprint => 'foo',
+      :dsc_servercertificatevalidationcallback => 'foo',
+      :dsc_installedcheckreghive => 'LocalMachine',
+      :dsc_installedcheckregkey => 'foo',
+      :dsc_installedcheckregvaluename => 'foo',
+      :dsc_installedcheckregvaluedata => 'foo',
+      :dsc_createcheckregvalue => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xpackage.to_s).to eq("Dsc_xpackage[foo]")
   end

@@ -10,6 +10,22 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_windowsoptionalfeature).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_ensure => 'Enable',
+      :dsc_source => ["foo", "bar", "spec"],
+      :dsc_nowindowsupdatecheck => true,
+      :dsc_removefilesondisable => true,
+      :dsc_loglevel => 'ErrorsOnly',
+      :dsc_logpath => 'foo',
+      :dsc_customproperties => ["foo", "bar", "spec"],
+      :dsc_description => 'foo',
+      :dsc_displayname => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_windowsoptionalfeature.to_s).to eq("Dsc_windowsoptionalfeature[foo]")
   end

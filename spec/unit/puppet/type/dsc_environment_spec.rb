@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_environment) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_environment).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_value => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_path => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_environment.to_s).to eq("Dsc_environment[foo]")
   end

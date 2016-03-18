@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xwordpresssite) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwordpresssite).new(
+      :name     => 'foo',
+      :dsc_uri => 'foo',
+      :dsc_title => 'foo',
+      :dsc_administratorcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_administratoremail => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwordpresssite.to_s).to eq("Dsc_xwordpresssite[foo]")
   end

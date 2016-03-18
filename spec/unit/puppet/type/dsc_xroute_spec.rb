@@ -13,6 +13,20 @@ describe Puppet::Type.type(:dsc_xroute) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xroute).new(
+      :name     => 'foo',
+      :dsc_interfacealias => 'foo',
+      :dsc_addressfamily => 'IPv4',
+      :dsc_destinationprefix => 'foo',
+      :dsc_nexthop => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_routemetric => 16,
+      :dsc_publish => 'No',
+      :dsc_preferredlifetime => '64.000',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xroute.to_s).to eq("Dsc_xroute[foo]")
   end

@@ -11,6 +11,17 @@ describe Puppet::Type.type(:dsc_xspsessionstateservice) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspsessionstateservice).new(
+      :name     => 'foo',
+      :dsc_databasename => 'foo',
+      :dsc_databaseserver => 'foo',
+      :dsc_enabled => true,
+      :dsc_sessiontimeout => 32,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspsessionstateservice.to_s).to eq("Dsc_xspsessionstateservice[foo]")
   end

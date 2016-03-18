@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xdnsserveradzone) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xdnsserveradzone).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_dynamicupdate => 'None',
+      :dsc_replicationscope => 'Custom',
+      :dsc_directorypartitionname => 'foo',
+      :dsc_computername => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xdnsserveradzone.to_s).to eq("Dsc_xdnsserveradzone[foo]")
   end

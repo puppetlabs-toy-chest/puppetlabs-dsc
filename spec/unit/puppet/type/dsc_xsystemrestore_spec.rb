@@ -10,6 +10,14 @@ describe Puppet::Type.type(:dsc_xsystemrestore) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsystemrestore).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_drive => ["foo", "bar", "spec"],
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsystemrestore.to_s).to eq("Dsc_xsystemrestore[foo]")
   end

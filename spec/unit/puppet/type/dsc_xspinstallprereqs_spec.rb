@@ -10,6 +10,32 @@ describe Puppet::Type.type(:dsc_xspinstallprereqs) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspinstallprereqs).new(
+      :name     => 'foo',
+      :dsc_installerpath => 'foo',
+      :dsc_onlinemode => true,
+      :dsc_sqlncli => 'foo',
+      :dsc_powershell => 'foo',
+      :dsc_netfx => 'foo',
+      :dsc_idfx => 'foo',
+      :dsc_sync => 'foo',
+      :dsc_appfabric => 'foo',
+      :dsc_idfx11 => 'foo',
+      :dsc_msipcclient => 'foo',
+      :dsc_wcfdataservices => 'foo',
+      :dsc_kb2671763 => 'foo',
+      :dsc_wcfdataservices56 => 'foo',
+      :dsc_kb2898850 => 'foo',
+      :dsc_msvcrt11 => 'foo',
+      :dsc_msvcrt14 => 'foo',
+      :dsc_kb3092423 => 'foo',
+      :dsc_odbc => 'foo',
+      :dsc_dotnet452 => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspinstallprereqs.to_s).to eq("Dsc_xspinstallprereqs[foo]")
   end

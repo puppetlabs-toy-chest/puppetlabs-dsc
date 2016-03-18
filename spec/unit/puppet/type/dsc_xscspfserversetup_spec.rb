@@ -10,6 +10,36 @@ describe Puppet::Type.type(:dsc_xscspfserversetup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscspfserversetup).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sendceipreports => 'foo',
+      :dsc_usemicrosoftupdate => 'foo',
+      :dsc_specifycertificate => true,
+      :dsc_certificatename => 'foo',
+      :dsc_databaseserver => 'foo',
+      :dsc_databaseportnumber => 16,
+      :dsc_databasename => 'foo',
+      :dsc_websiteportnumber => 16,
+      :dsc_scvmm => {"user"=>"user", "password"=>"password"},
+      :dsc_scvmmusername => 'foo',
+      :dsc_scadmin => {"user"=>"user", "password"=>"password"},
+      :dsc_scadminusername => 'foo',
+      :dsc_scprovider => {"user"=>"user", "password"=>"password"},
+      :dsc_scproviderusername => 'foo',
+      :dsc_scusage => {"user"=>"user", "password"=>"password"},
+      :dsc_scusageusername => 'foo',
+      :dsc_vmmsecuritygroupusers => 'foo',
+      :dsc_adminsecuritygroupusers => 'foo',
+      :dsc_providersecuritygroupusers => 'foo',
+      :dsc_usagesecuritygroupusers => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscspfserversetup.to_s).to eq("Dsc_xscspfserversetup[foo]")
   end

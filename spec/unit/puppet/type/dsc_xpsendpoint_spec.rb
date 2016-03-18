@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xpsendpoint) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xpsendpoint).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_startupscript => 'foo',
+      :dsc_runascredential => {"user"=>"user", "password"=>"password"},
+      :dsc_securitydescriptorsddl => 'foo',
+      :dsc_accessmode => 'Local',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xpsendpoint.to_s).to eq("Dsc_xpsendpoint[foo]")
   end

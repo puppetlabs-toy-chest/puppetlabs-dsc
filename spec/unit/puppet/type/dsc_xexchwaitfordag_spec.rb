@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xexchwaitfordag) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchwaitfordag).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_domaincontroller => 'foo',
+      :dsc_retryintervalsec => 32,
+      :dsc_retrycount => 32,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchwaitfordag.to_s).to eq("Dsc_xexchwaitfordag[foo]")
   end

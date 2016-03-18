@@ -11,6 +11,17 @@ describe Puppet::Type.type(:dsc_xspwebapppolicy) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspwebapppolicy).new(
+      :name     => 'foo',
+      :dsc_webappurl => 'foo',
+      :dsc_username => 'foo',
+      :dsc_permissionlevel => 'Deny All',
+      :dsc_actassystemuser => true,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspwebapppolicy.to_s).to eq("Dsc_xspwebapppolicy[foo]")
   end

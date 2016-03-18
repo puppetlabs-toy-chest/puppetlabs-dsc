@@ -10,6 +10,14 @@ describe Puppet::Type.type(:dsc_xwefcollector) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwefcollector).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_name => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwefcollector.to_s).to eq("Dsc_xwefcollector[foo]")
   end

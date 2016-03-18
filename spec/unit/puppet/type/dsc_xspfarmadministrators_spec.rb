@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xspfarmadministrators) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspfarmadministrators).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_members => ["foo", "bar", "spec"],
+      :dsc_memberstoinclude => ["foo", "bar", "spec"],
+      :dsc_memberstoexclude => ["foo", "bar", "spec"],
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspfarmadministrators.to_s).to eq("Dsc_xspfarmadministrators[foo]")
   end

@@ -10,6 +10,24 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchautomountpoint).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_autodagdatabasesrootfolderpath => 'foo',
+      :dsc_autodagvolumesrootfolderpath => 'foo',
+      :dsc_disktodbmap => ["foo", "bar", "spec"],
+      :dsc_sparevolumecount => 32,
+      :dsc_ensureexchangevolumemountpointislast => true,
+      :dsc_createsubfolders => true,
+      :dsc_filesystem => 'NTFS',
+      :dsc_mindisksize => 'foo',
+      :dsc_partitioningscheme => 'MBR',
+      :dsc_unitsize => 'foo',
+      :dsc_volumeprefix => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchautomountpoint.to_s).to eq("Dsc_xexchautomountpoint[foo]")
   end

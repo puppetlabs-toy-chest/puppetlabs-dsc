@@ -10,6 +10,39 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscommanagementserversetup).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_productkey => 'foo',
+      :dsc_installpath => 'foo',
+      :dsc_managementgroupname => 'foo',
+      :dsc_firstmanagementserver => true,
+      :dsc_managementserviceport => 16,
+      :dsc_actionaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_actionaccountusername => 'foo',
+      :dsc_dasaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_dasaccountusername => 'foo',
+      :dsc_datareader => {"user"=>"user", "password"=>"password"},
+      :dsc_datareaderusername => 'foo',
+      :dsc_datawriter => {"user"=>"user", "password"=>"password"},
+      :dsc_datawriterusername => 'foo',
+      :dsc_sqlserverinstance => 'foo',
+      :dsc_databasename => 'foo',
+      :dsc_databasesize => 16,
+      :dsc_dwsqlserverinstance => 'foo',
+      :dsc_dwdatabasename => 'foo',
+      :dsc_dwdatabasesize => 16,
+      :dsc_usemicrosoftupdate => 1,
+      :dsc_sendceipreports => 1,
+      :dsc_enableerrorreporting => 'Never',
+      :dsc_sendodrreports => 1,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscommanagementserversetup.to_s).to eq("Dsc_xscommanagementserversetup[foo]")
   end

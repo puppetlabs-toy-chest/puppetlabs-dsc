@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xdisk) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xdisk).new(
+      :name     => 'foo',
+      :dsc_driveletter => 'foo',
+      :dsc_disknumber => 32,
+      :dsc_size => 64,
+      :dsc_fslabel => 'foo',
+      :dsc_allocationunitsize => 32,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xdisk.to_s).to eq("Dsc_xdisk[foo]")
   end

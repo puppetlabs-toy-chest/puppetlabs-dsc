@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xwebpackagedeploy) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwebpackagedeploy).new(
+      :name     => 'foo',
+      :dsc_sourcepath => 'foo',
+      :dsc_destination => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwebpackagedeploy.to_s).to eq("Dsc_xwebpackagedeploy[foo]")
   end

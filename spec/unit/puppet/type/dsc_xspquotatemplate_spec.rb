@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xspquotatemplate) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspquotatemplate).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_storagemaxinmb => 32,
+      :dsc_storagewarninginmb => 32,
+      :dsc_maximumusagepointssolutions => 32,
+      :dsc_warningusagepointssolutions => 32,
+      :dsc_ensure => 'Present',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspquotatemplate.to_s).to eq("Dsc_xspquotatemplate[foo]")
   end

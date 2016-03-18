@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xexchumservice) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchumservice).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_umstartupmode => 'TCP',
+      :dsc_dialplans => ["foo", "bar", "spec"],
+      :dsc_domaincontroller => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchumservice.to_s).to eq("Dsc_xexchumservice[foo]")
   end

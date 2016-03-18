@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xdhcpserverauthorization) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xdhcpserverauthorization).new(
+      :name     => 'foo',
+      :dsc_dnsname => 'foo',
+      :dsc_ipaddress => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xdhcpserverauthorization.to_s).to eq("Dsc_xdhcpserverauthorization[foo]")
   end

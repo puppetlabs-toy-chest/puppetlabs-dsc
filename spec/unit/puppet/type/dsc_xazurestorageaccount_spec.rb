@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xazurestorageaccount) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazurestorageaccount).new(
+      :name     => 'foo',
+      :dsc_storageaccountname => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_affinitygroup => 'foo',
+      :dsc_container => 'foo',
+      :dsc_folder => 'foo',
+      :dsc_label => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazurestorageaccount.to_s).to eq("Dsc_xazurestorageaccount[foo]")
   end

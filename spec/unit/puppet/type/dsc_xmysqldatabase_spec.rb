@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xmysqldatabase) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xmysqldatabase).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_connectioncredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xmysqldatabase.to_s).to eq("Dsc_xmysqldatabase[foo]")
   end

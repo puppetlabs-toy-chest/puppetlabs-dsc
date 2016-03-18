@@ -11,6 +11,15 @@ describe Puppet::Type.type(:dsc_xiismimetypemapping) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xiismimetypemapping).new(
+      :name     => 'foo',
+      :dsc_extension => 'foo',
+      :dsc_mimetype => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xiismimetypemapping.to_s).to eq("Dsc_xiismimetypemapping[foo]")
   end

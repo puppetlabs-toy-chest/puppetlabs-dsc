@@ -10,6 +10,20 @@ describe Puppet::Type.type(:dsc_xexchautodiscovervirtualdirectory) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchautodiscovervirtualdirectory).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_allowservicerestart => true,
+      :dsc_basicauthentication => true,
+      :dsc_digestauthentication => true,
+      :dsc_domaincontroller => 'foo',
+      :dsc_windowsauthentication => true,
+      :dsc_wssecurityauthentication => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchautodiscovervirtualdirectory.to_s).to eq("Dsc_xexchautodiscovervirtualdirectory[foo]")
   end

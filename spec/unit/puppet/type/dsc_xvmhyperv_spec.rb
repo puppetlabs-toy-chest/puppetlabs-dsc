@@ -10,6 +10,37 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xvmhyperv).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_vhdpath => 'foo',
+      :dsc_switchname => ["foo", "bar", "spec"],
+      :dsc_state => 'Running',
+      :dsc_path => 'foo',
+      :dsc_generation => 32,
+      :dsc_startupmemory => 64,
+      :dsc_minimummemory => 64,
+      :dsc_maximummemory => 64,
+      :dsc_macaddress => ["foo", "bar", "spec"],
+      :dsc_processorcount => 32,
+      :dsc_waitforip => true,
+      :dsc_restartifneeded => true,
+      :dsc_ensure => 'Present',
+      :dsc_notes => 'foo',
+      :dsc_secureboot => true,
+      :dsc_enableguestservice => true,
+      :dsc_id => 'foo',
+      :dsc_status => 'foo',
+      :dsc_cpuusage => 32,
+      :dsc_memoryassigned => 64,
+      :dsc_uptime => 'foo',
+      :dsc_creationtime => '20140711',
+      :dsc_hasdynamicmemory => true,
+      :dsc_networkadapters => ["foo", "bar", "spec"],
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xvmhyperv.to_s).to eq("Dsc_xvmhyperv[foo]")
   end

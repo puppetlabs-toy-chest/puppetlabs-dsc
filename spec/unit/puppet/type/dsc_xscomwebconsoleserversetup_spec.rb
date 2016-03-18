@@ -10,6 +10,25 @@ describe Puppet::Type.type(:dsc_xscomwebconsoleserversetup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscomwebconsoleserversetup).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_installpath => 'foo',
+      :dsc_managementserver => 'foo',
+      :dsc_websitename => 'foo',
+      :dsc_webconsoleauthorizationmode => 'Mixed',
+      :dsc_webconsoleusessl => true,
+      :dsc_usemicrosoftupdate => 1,
+      :dsc_sendceipreports => 1,
+      :dsc_enableerrorreporting => 'Never',
+      :dsc_sendodrreports => 1,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscomwebconsoleserversetup.to_s).to eq("Dsc_xscomwebconsoleserversetup[foo]")
   end

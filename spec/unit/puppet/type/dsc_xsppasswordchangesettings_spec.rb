@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xsppasswordchangesettings) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsppasswordchangesettings).new(
+      :name     => 'foo',
+      :dsc_mailaddress => 'foo',
+      :dsc_daysbeforeexpiry => 32,
+      :dsc_passwordchangewaittimeseconds => 32,
+      :dsc_numberofretries => 32,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsppasswordchangesettings.to_s).to eq("Dsc_xsppasswordchangesettings[foo]")
   end

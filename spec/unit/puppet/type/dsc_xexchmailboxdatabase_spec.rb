@@ -10,6 +10,43 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchmailboxdatabase).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_databasecopycount => 32,
+      :dsc_server => 'foo',
+      :dsc_edbfilepath => 'foo',
+      :dsc_logfolderpath => 'foo',
+      :dsc_adserversettingspreferredserver => 'foo',
+      :dsc_skipinitialdatabasemount => true,
+      :dsc_allowservicerestart => true,
+      :dsc_autodagexcludefrommonitoring => true,
+      :dsc_backgrounddatabasemaintenance => true,
+      :dsc_calendarloggingquota => 'foo',
+      :dsc_circularloggingenabled => true,
+      :dsc_datamovereplicationconstraint => 'None',
+      :dsc_deleteditemretention => 'foo',
+      :dsc_domaincontroller => 'foo',
+      :dsc_eventhistoryretentionperiod => 'foo',
+      :dsc_indexenabled => true,
+      :dsc_isexcludedfromprovisioning => true,
+      :dsc_isexcludedfromprovisioningreason => 'foo',
+      :dsc_issuewarningquota => 'foo',
+      :dsc_issuspendedfromprovisioning => true,
+      :dsc_journalrecipient => 'foo',
+      :dsc_mailboxretention => 'foo',
+      :dsc_mountatstartup => true,
+      :dsc_offlineaddressbook => 'foo',
+      :dsc_prohibitsendquota => 'foo',
+      :dsc_prohibitsendreceivequota => 'foo',
+      :dsc_recoverableitemsquota => 'foo',
+      :dsc_recoverableitemswarningquota => 'foo',
+      :dsc_retaindeleteditemsuntilbackup => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchmailboxdatabase.to_s).to eq("Dsc_xexchmailboxdatabase[foo]")
   end

@@ -10,6 +10,14 @@ describe Puppet::Type.type(:dsc_xiishandler) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xiishandler).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xiishandler.to_s).to eq("Dsc_xiishandler[foo]")
   end

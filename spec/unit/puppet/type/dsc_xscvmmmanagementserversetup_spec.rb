@@ -10,6 +10,45 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscvmmmanagementserversetup).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_vmmservice => {"user"=>"user", "password"=>"password"},
+      :dsc_vmmserviceusername => 'foo',
+      :dsc_productkey => 'foo',
+      :dsc_username => 'foo',
+      :dsc_companyname => 'foo',
+      :dsc_programfiles => 'foo',
+      :dsc_clustermanagementserver => true,
+      :dsc_firstmanagementserver => true,
+      :dsc_createnewsqldatabase => 'foo',
+      :dsc_sqlmachinename => 'foo',
+      :dsc_sqlinstancename => 'foo',
+      :dsc_sqldatabasename => 'foo',
+      :dsc_indigotcpport => 16,
+      :dsc_indigohttpsport => 16,
+      :dsc_indigonettcpport => 16,
+      :dsc_indigohttpport => 16,
+      :dsc_wsmantcpport => 16,
+      :dsc_bitstcpport => 16,
+      :dsc_createnewlibraryshare => 'foo',
+      :dsc_librarysharename => 'foo',
+      :dsc_librarysharepath => 'foo',
+      :dsc_librarysharedescription => 'foo',
+      :dsc_topcontainername => 'foo',
+      :dsc_vmmservername => 'foo',
+      :dsc_vmmstaticipaddress => 'foo',
+      :dsc_retainsqldatabase => 1,
+      :dsc_forcehavmmuninstall => 1,
+      :dsc_sqmoptin => 1,
+      :dsc_muoptin => 1,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscvmmmanagementserversetup.to_s).to eq("Dsc_xscvmmmanagementserversetup[foo]")
   end

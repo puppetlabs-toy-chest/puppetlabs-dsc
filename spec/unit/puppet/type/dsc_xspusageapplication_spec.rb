@@ -10,6 +10,22 @@ describe Puppet::Type.type(:dsc_xspusageapplication) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspusageapplication).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_databasename => 'foo',
+      :dsc_databaseserver => 'foo',
+      :dsc_databasecredentials => {"user"=>"user", "password"=>"password"},
+      :dsc_failoverdatabaseserver => 'foo',
+      :dsc_usagelogcuttime => 32,
+      :dsc_usageloglocation => 'foo',
+      :dsc_usagelogmaxfilesizekb => 32,
+      :dsc_usagelogmaxspacegb => 32,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspusageapplication.to_s).to eq("Dsc_xspusageapplication[foo]")
   end

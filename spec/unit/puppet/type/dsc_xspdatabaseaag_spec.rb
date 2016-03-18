@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xspdatabaseaag) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspdatabaseaag).new(
+      :name     => 'foo',
+      :dsc_databasename => 'foo',
+      :dsc_agname => 'foo',
+      :dsc_fileshare => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspdatabaseaag.to_s).to eq("Dsc_xspdatabaseaag[foo]")
   end

@@ -10,6 +10,28 @@ describe Puppet::Type.type(:dsc_xsqlserverinstall) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqlserverinstall).new(
+      :name     => 'foo',
+      :dsc_instancename => 'foo',
+      :dsc_sourcepath => 'foo',
+      :dsc_versionid => 'foo',
+      :dsc_sourcepathcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_features => 'foo',
+      :dsc_sqladministratorcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_updateenabled => true,
+      :dsc_svcaccount => 'foo',
+      :dsc_sysadminaccounts => 'foo',
+      :dsc_agentsvcaccount => 'foo',
+      :dsc_sqlcollation => 'foo',
+      :dsc_installsqldatadir => 'foo',
+      :dsc_sqltempdbdir => 'foo',
+      :dsc_sqluserdbdir => 'foo',
+      :dsc_sqluserdblogdir => 'foo',
+      :dsc_sqlbackupdir => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqlserverinstall.to_s).to eq("Dsc_xsqlserverinstall[foo]")
   end

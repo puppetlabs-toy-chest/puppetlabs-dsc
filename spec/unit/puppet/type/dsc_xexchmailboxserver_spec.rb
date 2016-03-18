@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xexchmailboxserver) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchmailboxserver).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_domaincontroller => 'foo',
+      :dsc_databasecopyactivationdisabledandmovenow => true,
+      :dsc_databasecopyautoactivationpolicy => 'Blocked',
+      :dsc_maximumactivedatabases => 'foo',
+      :dsc_maximumpreferredactivedatabases => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchmailboxserver.to_s).to eq("Dsc_xexchmailboxserver[foo]")
   end

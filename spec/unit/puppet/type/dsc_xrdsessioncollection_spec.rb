@@ -11,6 +11,16 @@ describe Puppet::Type.type(:dsc_xrdsessioncollection) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xrdsessioncollection).new(
+      :name     => 'foo',
+      :dsc_collectionname => 'foo',
+      :dsc_sessionhost => 'foo',
+      :dsc_collectiondescription => 'foo',
+      :dsc_connectionbroker => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xrdsessioncollection.to_s).to eq("Dsc_xrdsessioncollection[foo]")
   end

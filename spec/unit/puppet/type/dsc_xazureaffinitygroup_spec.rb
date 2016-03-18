@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xazureaffinitygroup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazureaffinitygroup).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_location => 'foo',
+      :dsc_description => 'foo',
+      :dsc_label => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazureaffinitygroup.to_s).to eq("Dsc_xazureaffinitygroup[foo]")
   end

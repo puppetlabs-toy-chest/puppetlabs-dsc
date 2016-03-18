@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xremotefile) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xremotefile).new(
+      :name     => 'foo',
+      :dsc_destinationpath => 'foo',
+      :dsc_uri => 'foo',
+      :dsc_useragent => 'foo',
+      :dsc_headers => {"somekey"=>"somevalue", "somekey2"=>"somevalue2"},
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_matchsource => true,
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xremotefile.to_s).to eq("Dsc_xremotefile[foo]")
   end

@@ -11,6 +11,15 @@ describe Puppet::Type.type(:dsc_xdefaultgatewayaddress) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xdefaultgatewayaddress).new(
+      :name     => 'foo',
+      :dsc_address => 'foo',
+      :dsc_interfacealias => 'foo',
+      :dsc_addressfamily => 'IPv4',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xdefaultgatewayaddress.to_s).to eq("Dsc_xdefaultgatewayaddress[foo]")
   end

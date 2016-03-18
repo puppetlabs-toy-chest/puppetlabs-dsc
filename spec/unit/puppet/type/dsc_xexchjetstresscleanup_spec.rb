@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xexchjetstresscleanup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchjetstresscleanup).new(
+      :name     => 'foo',
+      :dsc_jetstresspath => 'foo',
+      :dsc_configfilepath => 'foo',
+      :dsc_databasepaths => ["foo", "bar", "spec"],
+      :dsc_deleteassociatedmountpoints => true,
+      :dsc_logpaths => ["foo", "bar", "spec"],
+      :dsc_outputsavelocation => 'foo',
+      :dsc_removebinaries => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchjetstresscleanup.to_s).to eq("Dsc_xexchjetstresscleanup[foo]")
   end

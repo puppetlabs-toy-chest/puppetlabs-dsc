@@ -10,6 +10,14 @@ describe Puppet::Type.type(:dsc_xremotedesktopadmin) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xremotedesktopadmin).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_userauthentication => 'Secure',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xremotedesktopadmin.to_s).to eq("Dsc_xremotedesktopadmin[foo]")
   end

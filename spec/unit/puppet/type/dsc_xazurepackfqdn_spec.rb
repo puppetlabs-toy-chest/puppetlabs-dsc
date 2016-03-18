@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xazurepackfqdn) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazurepackfqdn).new(
+      :name     => 'foo',
+      :dsc_namespace => 'AdminSite',
+      :dsc_fullyqualifieddomainname => 'foo',
+      :dsc_port => 16,
+      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sqlserver => 'foo',
+      :dsc_sqlinstance => 'foo',
+      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazurepackfqdn.to_s).to eq("Dsc_xazurepackfqdn[foo]")
   end

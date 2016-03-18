@@ -10,6 +10,25 @@ describe Puppet::Type.type(:dsc_file) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_file).new(
+      :name     => 'foo',
+      :dsc_destinationpath => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_type => 'File',
+      :dsc_sourcepath => 'foo',
+      :dsc_contents => 'foo',
+      :dsc_checksum => 'SHA-1',
+      :dsc_recurse => true,
+      :dsc_force => true,
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_attributes => 'ReadOnly',
+      :dsc_dependson => ["foo", "bar", "spec"],
+      :dsc_matchsource => true,
+      :dsc_psdscrunascredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_file.to_s).to eq("Dsc_file[foo]")
   end

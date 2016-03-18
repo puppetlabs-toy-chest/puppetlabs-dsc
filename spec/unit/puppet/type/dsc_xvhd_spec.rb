@@ -11,6 +11,22 @@ describe Puppet::Type.type(:dsc_xvhd) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xvhd).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_path => 'foo',
+      :dsc_parentpath => 'foo',
+      :dsc_maximumsizebytes => 64,
+      :dsc_generation => 'Vhd',
+      :dsc_ensure => 'Present',
+      :dsc_id => 'foo',
+      :dsc_type => 'foo',
+      :dsc_filesizebytes => 64,
+      :dsc_isattached => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xvhd.to_s).to eq("Dsc_xvhd[foo]")
   end

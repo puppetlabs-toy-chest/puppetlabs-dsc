@@ -11,6 +11,17 @@ describe Puppet::Type.type(:dsc_xwebapplication) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwebapplication).new(
+      :name     => 'foo',
+      :dsc_website => 'foo',
+      :dsc_name => 'foo',
+      :dsc_webapppool => 'foo',
+      :dsc_physicalpath => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwebapplication.to_s).to eq("Dsc_xwebapplication[foo]")
   end

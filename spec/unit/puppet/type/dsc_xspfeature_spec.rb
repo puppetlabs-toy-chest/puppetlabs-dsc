@@ -11,6 +11,18 @@ describe Puppet::Type.type(:dsc_xspfeature) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspfeature).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_featurescope => 'Farm',
+      :dsc_url => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_version => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspfeature.to_s).to eq("Dsc_xspfeature[foo]")
   end

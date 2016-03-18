@@ -10,6 +10,31 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspdiagnosticloggingsettings).new(
+      :name     => 'foo',
+      :dsc_logpath => 'foo',
+      :dsc_logspaceingb => 32,
+      :dsc_appanalyticsautomaticuploadenabled => true,
+      :dsc_customerexperienceimprovementprogramenabled => true,
+      :dsc_daystokeeplogs => 32,
+      :dsc_downloaderrorreportingupdatesenabled => true,
+      :dsc_errorreportingautomaticuploadenabled => true,
+      :dsc_errorreportingenabled => true,
+      :dsc_eventlogfloodprotectionenabled => true,
+      :dsc_eventlogfloodprotectionnotifyinterval => 32,
+      :dsc_eventlogfloodprotectionquietperiod => 32,
+      :dsc_eventlogfloodprotectionthreshold => 32,
+      :dsc_eventlogfloodprotectiontriggerperiod => 32,
+      :dsc_logcutinterval => 32,
+      :dsc_logmaxdiskspaceusageenabled => true,
+      :dsc_scripterrorreportingdelay => 32,
+      :dsc_scripterrorreportingenabled => true,
+      :dsc_scripterrorreportingrequireauth => true,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspdiagnosticloggingsettings.to_s).to eq("Dsc_xspdiagnosticloggingsettings[foo]")
   end

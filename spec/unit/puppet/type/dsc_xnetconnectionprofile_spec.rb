@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_xnetconnectionprofile) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xnetconnectionprofile).new(
+      :name     => 'foo',
+      :dsc_interfacealias => 'foo',
+      :dsc_ipv4connectivity => 'Disconnected',
+      :dsc_ipv6connectivity => 'Disconnected',
+      :dsc_networkcategory => 'Public',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xnetconnectionprofile.to_s).to eq("Dsc_xnetconnectionprofile[foo]")
   end

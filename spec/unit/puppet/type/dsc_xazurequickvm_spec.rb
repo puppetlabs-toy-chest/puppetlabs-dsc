@@ -10,6 +10,22 @@ describe Puppet::Type.type(:dsc_xazurequickvm) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazurequickvm).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_imagename => 'foo',
+      :dsc_servicename => 'foo',
+      :dsc_linux => true,
+      :dsc_linuxuser => 'foo',
+      :dsc_windows => true,
+      :dsc_adminusername => 'foo',
+      :dsc_password => 'foo',
+      :dsc_instancesize => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazurequickvm.to_s).to eq("Dsc_xazurequickvm[foo]")
   end

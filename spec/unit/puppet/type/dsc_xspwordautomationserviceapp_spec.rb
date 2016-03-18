@@ -10,6 +10,31 @@ describe Puppet::Type.type(:dsc_xspwordautomationserviceapp) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspwordautomationserviceapp).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_applicationpool => 'foo',
+      :dsc_databasename => 'foo',
+      :dsc_databaseserver => 'foo',
+      :dsc_supportedfileformats => 'docx',
+      :dsc_disableembeddedfonts => true,
+      :dsc_maximummemoryusage => 32,
+      :dsc_recyclethreshold => 32,
+      :dsc_disablebinaryfilescan => true,
+      :dsc_conversionprocesses => 32,
+      :dsc_jobconversionfrequency => 32,
+      :dsc_numberofconversionsperprocess => 32,
+      :dsc_timebeforeconversionismonitored => 32,
+      :dsc_maximumconversionattempts => 32,
+      :dsc_maximumsyncconversionrequests => 32,
+      :dsc_keepalivetimeout => 32,
+      :dsc_maximumconversiontime => 32,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspwordautomationserviceapp.to_s).to eq("Dsc_xspwordautomationserviceapp[foo]")
   end

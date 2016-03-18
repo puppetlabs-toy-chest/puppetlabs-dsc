@@ -11,6 +11,19 @@ describe Puppet::Type.type(:dsc_xazurepackrelyingparty) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazurepackrelyingparty).new(
+      :name     => 'foo',
+      :dsc_target => 'Admin',
+      :dsc_fullyqualifieddomainname => 'foo',
+      :dsc_port => 16,
+      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sqlserver => 'foo',
+      :dsc_sqlinstance => 'foo',
+      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazurepackrelyingparty.to_s).to eq("Dsc_xazurepackrelyingparty[foo]")
   end

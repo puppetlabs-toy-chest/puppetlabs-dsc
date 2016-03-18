@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xnetworkteam) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xnetworkteam).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_teamingmode => 'SwitchIndependent',
+      :dsc_loadbalancingalgorithm => 'Dynamic',
+      :dsc_teammembers => ["foo", "bar", "spec"],
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xnetworkteam.to_s).to eq("Dsc_xnetworkteam[foo]")
   end

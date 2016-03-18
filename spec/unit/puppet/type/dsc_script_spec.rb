@@ -12,6 +12,17 @@ describe Puppet::Type.type(:dsc_script) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_script).new(
+      :name     => 'foo',
+      :dsc_getscript => 'foo',
+      :dsc_setscript => 'foo',
+      :dsc_testscript => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_result => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_script.to_s).to eq("Dsc_script[foo]")
   end

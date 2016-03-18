@@ -10,6 +10,21 @@ describe Puppet::Type.type(:dsc_xaddomain) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xaddomain).new(
+      :name     => 'foo',
+      :dsc_domainname => 'foo',
+      :dsc_parentdomainname => 'foo',
+      :dsc_domainnetbiosname => 'foo',
+      :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_safemodeadministratorpassword => {"user"=>"user", "password"=>"password"},
+      :dsc_dnsdelegationcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_databasepath => 'foo',
+      :dsc_logpath => 'foo',
+      :dsc_sysvolpath => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xaddomain.to_s).to eq("Dsc_xaddomain[foo]")
   end

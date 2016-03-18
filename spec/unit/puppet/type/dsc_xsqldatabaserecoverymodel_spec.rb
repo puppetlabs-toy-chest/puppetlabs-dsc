@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xsqldatabaserecoverymodel) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqldatabaserecoverymodel).new(
+      :name     => 'foo',
+      :dsc_databasename => 'foo',
+      :dsc_sqlserverinstance => 'foo',
+      :dsc_recoverymodel => 'Full',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqldatabaserecoverymodel.to_s).to eq("Dsc_xsqldatabaserecoverymodel[foo]")
   end

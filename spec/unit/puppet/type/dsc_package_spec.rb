@@ -11,6 +11,26 @@ describe Puppet::Type.type(:dsc_package) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_package).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_name => 'foo',
+      :dsc_path => 'foo',
+      :dsc_productid => 'foo',
+      :dsc_arguments => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_returncode => [32, 64, 128],
+      :dsc_logpath => 'foo',
+      :dsc_packagedescription => 'foo',
+      :dsc_publisher => 'foo',
+      :dsc_installedon => 'foo',
+      :dsc_size => 32,
+      :dsc_version => 'foo',
+      :dsc_installed => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_package.to_s).to eq("Dsc_package[foo]")
   end

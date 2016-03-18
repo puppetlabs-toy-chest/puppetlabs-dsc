@@ -10,6 +10,26 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_service => {"user"=>"user", "password"=>"password"},
+      :dsc_serviceusername => 'foo',
+      :dsc_sqlserver => 'foo',
+      :dsc_sqlinstance => 'foo',
+      :dsc_sqldatabase => 'foo',
+      :dsc_installfolder => 'foo',
+      :dsc_etwmanifest => 'foo',
+      :dsc_sendceipreports => 'foo',
+      :dsc_msupdate => 'foo',
+      :dsc_productkey => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscsmarunbookworkerserversetup.to_s).to eq("Dsc_xscsmarunbookworkerserversetup[foo]")
   end

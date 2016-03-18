@@ -10,6 +10,26 @@ describe Puppet::Type.type(:dsc_xexchoabvirtualdirectory) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchoabvirtualdirectory).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_oabstodistribute => ["foo", "bar", "spec"],
+      :dsc_allowservicerestart => true,
+      :dsc_basicauthentication => true,
+      :dsc_domaincontroller => 'foo',
+      :dsc_extendedprotectionflags => ["foo", "bar", "spec"],
+      :dsc_extendedprotectionspnlist => ["foo", "bar", "spec"],
+      :dsc_extendedprotectiontokenchecking => 'None',
+      :dsc_externalurl => 'foo',
+      :dsc_internalurl => 'foo',
+      :dsc_pollinterval => -32,
+      :dsc_requiressl => true,
+      :dsc_windowsauthentication => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchoabvirtualdirectory.to_s).to eq("Dsc_xexchoabvirtualdirectory[foo]")
   end

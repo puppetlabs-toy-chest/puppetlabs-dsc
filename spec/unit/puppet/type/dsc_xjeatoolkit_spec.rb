@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xjeatoolkit) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xjeatoolkit).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_commandspecs => 'foo',
+      :dsc_scriptdirectory => ["foo", "bar", "spec"],
+      :dsc_applications => ["foo", "bar", "spec"],
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xjeatoolkit.to_s).to eq("Dsc_xjeatoolkit[foo]")
   end

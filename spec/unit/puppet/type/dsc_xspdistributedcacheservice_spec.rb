@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xspdistributedcacheservice) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspdistributedcacheservice).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_cachesizeinmb => 32,
+      :dsc_serviceaccount => 'foo',
+      :dsc_serverprovisionorder => ["foo", "bar", "spec"],
+      :dsc_createfirewallrules => true,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspdistributedcacheservice.to_s).to eq("Dsc_xspdistributedcacheservice[foo]")
   end

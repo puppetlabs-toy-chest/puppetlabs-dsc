@@ -11,6 +11,18 @@ describe Puppet::Type.type(:dsc_xpfximport) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xpfximport).new(
+      :name     => 'foo',
+      :dsc_thumbprint => 'foo',
+      :dsc_path => 'foo',
+      :dsc_location => 'LocalMachine',
+      :dsc_store => 'foo',
+      :dsc_exportable => true,
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xpfximport.to_s).to eq("Dsc_xpfximport[foo]")
   end

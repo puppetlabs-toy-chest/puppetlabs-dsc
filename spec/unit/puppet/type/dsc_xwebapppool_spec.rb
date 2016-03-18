@@ -10,6 +10,60 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwebapppool).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_state => 'Started',
+      :dsc_autostart => 'true',
+      :dsc_managedruntimeversion => 'v4.0',
+      :dsc_managedpipelinemode => 'Integrated',
+      :dsc_startmode => 'AlwaysRunning',
+      :dsc_identitytype => 'ApplicationPoolIdentity',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_loaduserprofile => 'true',
+      :dsc_queuelength => 'foo',
+      :dsc_enable32bitapponwin64 => 'true',
+      :dsc_managedruntimeloader => 'foo',
+      :dsc_enableconfigurationoverride => 'true',
+      :dsc_clrconfigfile => 'foo',
+      :dsc_passanonymoustoken => 'true',
+      :dsc_logontype => 'LogonBatch',
+      :dsc_manualgroupmembership => 'true',
+      :dsc_idletimeout => 'foo',
+      :dsc_maxprocesses => 'foo',
+      :dsc_shutdowntimelimit => 'foo',
+      :dsc_startuptimelimit => 'foo',
+      :dsc_pingingenabled => 'true',
+      :dsc_pinginterval => 'foo',
+      :dsc_pingresponsetime => 'foo',
+      :dsc_disallowoverlappingrotation => 'true',
+      :dsc_disallowrotationonconfigchange => 'true',
+      :dsc_logeventonrecycle => 'foo',
+      :dsc_restartmemorylimit => 'foo',
+      :dsc_restartprivatememorylimit => 'foo',
+      :dsc_restartrequestslimit => 'foo',
+      :dsc_restarttimelimit => 'foo',
+      :dsc_restartschedule => ["foo", "bar", "spec"],
+      :dsc_loadbalancercapabilities => 'HttpLevel',
+      :dsc_orphanworkerprocess => 'true',
+      :dsc_orphanactionexe => 'foo',
+      :dsc_orphanactionparams => 'foo',
+      :dsc_rapidfailprotection => 'true',
+      :dsc_rapidfailprotectioninterval => 'foo',
+      :dsc_rapidfailprotectionmaxcrashes => 'foo',
+      :dsc_autoshutdownexe => 'foo',
+      :dsc_autoshutdownparams => 'foo',
+      :dsc_cpulimit => 'foo',
+      :dsc_cpuaction => 'NoAction',
+      :dsc_cpuresetinterval => 'foo',
+      :dsc_cpusmpaffinitized => 'true',
+      :dsc_cpusmpprocessoraffinitymask => 'foo',
+      :dsc_cpusmpprocessoraffinitymask2 => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwebapppool.to_s).to eq("Dsc_xwebapppool[foo]")
   end

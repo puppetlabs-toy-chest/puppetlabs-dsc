@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xspoutgoingemailsettings) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspoutgoingemailsettings).new(
+      :name     => 'foo',
+      :dsc_webappurl => 'foo',
+      :dsc_smtpserver => 'foo',
+      :dsc_fromaddress => 'foo',
+      :dsc_replytoaddress => 'foo',
+      :dsc_characterset => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspoutgoingemailsettings.to_s).to eq("Dsc_xspoutgoingemailsettings[foo]")
   end

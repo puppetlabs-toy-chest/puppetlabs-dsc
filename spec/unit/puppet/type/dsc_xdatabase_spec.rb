@@ -10,6 +10,21 @@ describe Puppet::Type.type(:dsc_xdatabase) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xdatabase).new(
+      :name     => 'foo',
+      :dsc_credentials => {"user"=>"user", "password"=>"password"},
+      :dsc_ensure => 'Present',
+      :dsc_sqlserver => 'foo',
+      :dsc_sqlserverversion => '2008-R2',
+      :dsc_bacpacpath => 'foo',
+      :dsc_databasename => 'foo',
+      :dsc_dacpacpath => 'foo',
+      :dsc_dacpacapplicationname => 'foo',
+      :dsc_dacpacapplicationversion => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xdatabase.to_s).to eq("Dsc_xdatabase[foo]")
   end

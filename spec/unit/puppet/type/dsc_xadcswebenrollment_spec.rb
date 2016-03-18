@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_xadcswebenrollment) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xadcswebenrollment).new(
+      :name     => 'foo',
+      :dsc_caconfig => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_ensure => 'Present',
+      :dsc_name => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xadcswebenrollment.to_s).to eq("Dsc_xadcswebenrollment[foo]")
   end

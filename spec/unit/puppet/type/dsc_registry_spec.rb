@@ -11,6 +11,19 @@ describe Puppet::Type.type(:dsc_registry) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_registry).new(
+      :name     => 'foo',
+      :dsc_key => 'foo',
+      :dsc_valuename => 'foo',
+      :dsc_valuedata => ["foo", "bar", "spec"],
+      :dsc_valuetype => 'String',
+      :dsc_ensure => 'Present',
+      :dsc_hex => true,
+      :dsc_force => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_registry.to_s).to eq("Dsc_registry[foo]")
   end

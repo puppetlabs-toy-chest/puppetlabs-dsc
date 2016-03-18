@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xsqlserverdatabaserole) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqlserverdatabaserole).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_name => 'foo',
+      :dsc_sqlserver => 'foo',
+      :dsc_sqlinstancename => 'foo',
+      :dsc_database => 'foo',
+      :dsc_role => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqlserverdatabaserole.to_s).to eq("Dsc_xsqlserverdatabaserole[foo]")
   end

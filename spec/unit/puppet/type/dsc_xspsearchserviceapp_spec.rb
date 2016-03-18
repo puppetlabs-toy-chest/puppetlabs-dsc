@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xspsearchserviceapp) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspsearchserviceapp).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_applicationpool => 'foo',
+      :dsc_databasename => 'foo',
+      :dsc_databaseserver => 'foo',
+      :dsc_defaultcontentaccessaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspsearchserviceapp.to_s).to eq("Dsc_xspsearchserviceapp[foo]")
   end

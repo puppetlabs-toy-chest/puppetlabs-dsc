@@ -10,6 +10,25 @@ describe Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_allowservicerestart => true,
+      :dsc_basicauthentication => true,
+      :dsc_certificateauthentication => true,
+      :dsc_digestauthentication => true,
+      :dsc_domaincontroller => 'foo',
+      :dsc_externalurl => 'foo',
+      :dsc_internalnlbbypassurl => 'foo',
+      :dsc_internalurl => 'foo',
+      :dsc_oauthauthentication => true,
+      :dsc_windowsauthentication => true,
+      :dsc_wssecurityauthentication => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchwebservicesvirtualdirectory.to_s).to eq("Dsc_xexchwebservicesvirtualdirectory[foo]")
   end

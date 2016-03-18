@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xspmanagedaccount) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspmanagedaccount).new(
+      :name     => 'foo',
+      :dsc_accountname => 'foo',
+      :dsc_account => {"user"=>"user", "password"=>"password"},
+      :dsc_emailnotification => 32,
+      :dsc_preexpiredays => 32,
+      :dsc_schedule => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspmanagedaccount.to_s).to eq("Dsc_xspmanagedaccount[foo]")
   end

@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xsqlserverlogin) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqlserverlogin).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_name => 'foo',
+      :dsc_logincredential => {"user"=>"user", "password"=>"password"},
+      :dsc_logintype => 'SqlLogin',
+      :dsc_sqlserver => 'foo',
+      :dsc_sqlinstancename => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqlserverlogin.to_s).to eq("Dsc_xsqlserverlogin[foo]")
   end

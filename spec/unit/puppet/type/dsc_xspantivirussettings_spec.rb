@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xspantivirussettings) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspantivirussettings).new(
+      :name     => 'foo',
+      :dsc_scanondownload => true,
+      :dsc_scanonupload => true,
+      :dsc_allowdownloadinfected => true,
+      :dsc_attempttoclean => true,
+      :dsc_timeoutduration => 16,
+      :dsc_numberofthreads => 16,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspantivirussettings.to_s).to eq("Dsc_xspantivirussettings[foo]")
   end

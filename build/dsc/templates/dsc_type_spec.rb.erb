@@ -24,6 +24,19 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>).new(
+      :name     => <%= format_type_value(@spec_test_values['string']) %>,
+<%      resource.properties.each do |property| -%>
+<%        if property.values -%>
+      :dsc_<%= property.name.downcase %> => '<%= property.values.first %>',
+<%        else -%>
+      :dsc_<%= property.name.downcase %> => <%= format_type_value(@spec_test_values[property.type]) || 'nil' %>,
+<%        end # if property.values -%>
+<%      end # each -%>
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_<%= resource.friendlyname.downcase %>.to_s).to eq("Dsc_<%= resource.friendlyname.downcase %>[<%= @spec_test_values['string'] %>]")
   end

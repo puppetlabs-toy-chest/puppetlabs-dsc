@@ -10,6 +10,27 @@ describe Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_allowservicerestart => true,
+      :dsc_autocertbasedauth => true,
+      :dsc_autocertbasedauththumbprint => 'foo',
+      :dsc_autocertbasedauthhttpsbindings => ["foo", "bar", "spec"],
+      :dsc_basicauthenabled => true,
+      :dsc_clientcertauth => 'Ignore',
+      :dsc_compressionenabled => true,
+      :dsc_domaincontroller => 'foo',
+      :dsc_externalauthenticationmethods => ["foo", "bar", "spec"],
+      :dsc_externalurl => 'foo',
+      :dsc_internalauthenticationmethods => ["foo", "bar", "spec"],
+      :dsc_internalurl => 'foo',
+      :dsc_windowsauthenabled => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchactivesyncvirtualdirectory.to_s).to eq("Dsc_xexchactivesyncvirtualdirectory[foo]")
   end

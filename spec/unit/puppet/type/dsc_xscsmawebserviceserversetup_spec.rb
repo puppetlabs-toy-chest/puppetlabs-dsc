@@ -10,6 +10,34 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscsmawebserviceserversetup).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_firstwebserviceserver => true,
+      :dsc_appool => {"user"=>"user", "password"=>"password"},
+      :dsc_appoolusername => 'foo',
+      :dsc_admingroupmembers => 'foo',
+      :dsc_sqlserver => 'foo',
+      :dsc_sqlinstance => 'foo',
+      :dsc_sqldatabase => 'foo',
+      :dsc_sitename => 'foo',
+      :dsc_webserviceport => 16,
+      :dsc_installfolder => 'foo',
+      :dsc_usessl => 'foo',
+      :dsc_specifycertificate => 'foo',
+      :dsc_certificatename => 'foo',
+      :dsc_etwmanifest => 'foo',
+      :dsc_sendceipreports => 'foo',
+      :dsc_msupdate => 'foo',
+      :dsc_productkey => 'foo',
+      :dsc_runbookworkerservers => ["foo", "bar", "spec"],
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscsmawebserviceserversetup.to_s).to eq("Dsc_xscsmawebserviceserversetup[foo]")
   end

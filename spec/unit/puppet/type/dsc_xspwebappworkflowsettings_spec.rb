@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xspwebappworkflowsettings) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspwebappworkflowsettings).new(
+      :name     => 'foo',
+      :dsc_url => 'foo',
+      :dsc_externalworkflowparticipantsenabled => true,
+      :dsc_userdefinedworkflowsenabled => true,
+      :dsc_emailtonopermissionworkflowparticipantsenable => true,
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspwebappworkflowsettings.to_s).to eq("Dsc_xspwebappworkflowsettings[foo]")
   end

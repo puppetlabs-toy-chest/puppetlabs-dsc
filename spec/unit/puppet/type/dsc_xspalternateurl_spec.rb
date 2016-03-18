@@ -11,6 +11,17 @@ describe Puppet::Type.type(:dsc_xspalternateurl) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspalternateurl).new(
+      :name     => 'foo',
+      :dsc_webappurl => 'foo',
+      :dsc_zone => 'Default',
+      :dsc_url => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspalternateurl.to_s).to eq("Dsc_xspalternateurl[foo]")
   end

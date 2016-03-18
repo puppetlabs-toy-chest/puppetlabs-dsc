@@ -11,6 +11,18 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazurepackadmin).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_principal => 'foo',
+      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sqlserver => 'foo',
+      :dsc_sqlinstance => 'foo',
+      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazurepackadmin.to_s).to eq("Dsc_xazurepackadmin[foo]")
   end

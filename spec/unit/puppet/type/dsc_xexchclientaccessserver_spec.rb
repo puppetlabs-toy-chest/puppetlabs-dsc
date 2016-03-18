@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xexchclientaccessserver) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchclientaccessserver).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_autodiscoverserviceinternaluri => 'foo',
+      :dsc_autodiscoversitescope => ["foo", "bar", "spec"],
+      :dsc_domaincontroller => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchclientaccessserver.to_s).to eq("Dsc_xexchclientaccessserver[foo]")
   end

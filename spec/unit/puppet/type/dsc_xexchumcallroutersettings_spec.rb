@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_xexchumcallroutersettings) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchumcallroutersettings).new(
+      :name     => 'foo',
+      :dsc_server => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_umstartupmode => 'TCP',
+      :dsc_domaincontroller => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchumcallroutersettings.to_s).to eq("Dsc_xexchumcallroutersettings[foo]")
   end

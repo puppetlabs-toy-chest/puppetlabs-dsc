@@ -10,6 +10,20 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_databaseavailabilitygroup => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_domaincontroller => 'foo',
+      :dsc_ignorenetwork => true,
+      :dsc_replicationenabled => true,
+      :dsc_subnets => ["foo", "bar", "spec"],
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchdatabaseavailabilitygroupnetwork.to_s).to eq("Dsc_xexchdatabaseavailabilitygroupnetwork[foo]")
   end
