@@ -9,6 +9,13 @@ describe Puppet::Type.type(:dsc_log) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_log).new(
+      :name     => 'foo',
+      :dsc_message => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_log.to_s).to eq("Dsc_log[foo]")
   end

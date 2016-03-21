@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xspsearchserviceapp) do
   def dscmeta_resource_friendly_name; 'xSPSearchServiceApp' end
   def dscmeta_resource_name; 'MSFT_xSPSearchServiceApp' end
   def dscmeta_module_name; 'xSharePoint' end
-  def dscmeta_module_version; '0.7.0.0' end
+  def dscmeta_module_version; '0.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -45,7 +45,7 @@ Puppet::Type.newtype(:dsc_xspsearchserviceapp) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - The name of the search service application"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xspsearchserviceapp) do
   newparam(:dsc_applicationpool) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ApplicationPool"
+    desc "ApplicationPool - The application pool that it should run in"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -76,7 +76,7 @@ Puppet::Type.newtype(:dsc_xspsearchserviceapp) do
   newparam(:dsc_databasename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DatabaseName"
+    desc "DatabaseName - The name of the database (noting that some search databases will use this as a prefix)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -91,11 +91,27 @@ Puppet::Type.newtype(:dsc_xspsearchserviceapp) do
   newparam(:dsc_databaseserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DatabaseServer"
+    desc "DatabaseServer - The server that host the databases for this service application"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         DefaultContentAccessAccount
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_defaultcontentaccessaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "DefaultContentAccessAccount - The default content access account for this search service app"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("DefaultContentAccessAccount", value)
     end
   end
 
@@ -106,7 +122,7 @@ Puppet::Type.newtype(:dsc_xspsearchserviceapp) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "InstallAccount"
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

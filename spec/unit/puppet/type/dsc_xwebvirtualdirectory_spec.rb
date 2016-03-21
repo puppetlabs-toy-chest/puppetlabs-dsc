@@ -12,6 +12,17 @@ describe Puppet::Type.type(:dsc_xwebvirtualdirectory) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwebvirtualdirectory).new(
+      :name     => 'foo',
+      :dsc_website => 'foo',
+      :dsc_webapplication => 'foo',
+      :dsc_name => 'foo',
+      :dsc_physicalpath => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwebvirtualdirectory.to_s).to eq("Dsc_xwebvirtualdirectory[foo]")
   end
@@ -26,8 +37,6 @@ describe Puppet::Type.type(:dsc_xwebvirtualdirectory) do
       :name     => 'foo',
       :dsc_webapplication => 'foo',
       :dsc_name => 'foo',
-      :dsc_physicalpath => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_website is a required attribute/)
   end
 
@@ -53,8 +62,6 @@ describe Puppet::Type.type(:dsc_xwebvirtualdirectory) do
       :name     => 'foo',
       :dsc_website => 'foo',
       :dsc_name => 'foo',
-      :dsc_physicalpath => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_webapplication is a required attribute/)
   end
 
@@ -80,8 +87,6 @@ describe Puppet::Type.type(:dsc_xwebvirtualdirectory) do
       :name     => 'foo',
       :dsc_website => 'foo',
       :dsc_webapplication => 'foo',
-      :dsc_physicalpath => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

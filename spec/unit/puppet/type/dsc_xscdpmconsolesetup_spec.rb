@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_xscdpmconsolesetup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscdpmconsolesetup).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscdpmconsolesetup.to_s).to eq("Dsc_xscdpmconsolesetup[foo]")
   end
@@ -22,9 +32,6 @@ describe Puppet::Type.type(:dsc_xscdpmconsolesetup) do
     #dsc_xscdpmconsolesetup[:dsc_ensure]
     expect { Puppet::Type.type(:dsc_xscdpmconsolesetup).new(
       :name     => 'foo',
-      :dsc_sourcepath => 'foo',
-      :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

@@ -32,9 +32,6 @@ module Dsc
         'MSFT_Credential' => { 'user' => 'user', 'password' => 'password' },
         'MSFT_KeyValuePair' => { 'somekey' => 'somevalue' },
         'MSFT_KeyValuePair[]' => { 'somekey' => 'somevalue', 'somekey2' => 'somevalue2' },
-        # these hashes will be automatically wrapped in tests
-        'MSFT_xFileDirectory[]' => { 'DestinationPath' => 'c:/foo/bar', 'Recurse' => true },
-        'MSFT_xWebBindingInformation[]' => { 'Port' => 8080, 'Protocol' => 'https' },
         'bool'     => true,
         'boolean'  => true,
         'munged_bools' => ['true','false','True', 'False', :true, :false],
@@ -71,6 +68,31 @@ module Dsc
         'real64'   => '64.000',
       }
 
+    end
+
+    def get_spec_test_value(type)
+      # generate a hash here for any EmbeddedInstance type not seen yet
+      if ! @spec_test_values[type]
+
+        type_name = type.gsub(/\[\]$/, '') # strip [] off end of MOF type name
+        values = cim_classes_with_path
+          .select{ |c| c[:klass].name == type_name }
+          .first[:klass]
+          .features
+          .map do |prop|
+            # use first value in ValueMap if present
+            if prop.qualifiers['Values']
+              val = prop.qualifiers['Values'].value.first
+            else
+              val = get_spec_test_value(prop.type.to_s)
+            end
+            [prop.name, val]
+          end
+
+        @spec_test_values[type] = Hash[ values ]
+      end
+
+      @spec_test_values[type]
     end
 
     def dsc_results

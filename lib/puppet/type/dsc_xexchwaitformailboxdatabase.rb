@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchwaitformailboxdatabase) do
   def dscmeta_resource_friendly_name; 'xExchWaitForMailboxDatabase' end
   def dscmeta_resource_name; 'MSFT_xExchWaitForMailboxDatabase' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

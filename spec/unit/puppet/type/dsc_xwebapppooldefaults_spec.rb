@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xwebapppooldefaults) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwebapppooldefaults).new(
+      :name     => 'foo',
+      :dsc_applyto => 'Machine',
+      :dsc_managedruntimeversion => '',
+      :dsc_identitytype => 'ApplicationPoolIdentity',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwebapppooldefaults.to_s).to eq("Dsc_xwebapppooldefaults[foo]")
   end
@@ -18,8 +27,6 @@ describe Puppet::Type.type(:dsc_xwebapppooldefaults) do
     #dsc_xwebapppooldefaults[:dsc_applyto]
     expect { Puppet::Type.type(:dsc_xwebapppooldefaults).new(
       :name     => 'foo',
-      :dsc_managedruntimeversion => '',
-      :dsc_identitytype => 'ApplicationPoolIdentity',
     )}.to raise_error(Puppet::Error, /dsc_applyto is a required attribute/)
   end
 

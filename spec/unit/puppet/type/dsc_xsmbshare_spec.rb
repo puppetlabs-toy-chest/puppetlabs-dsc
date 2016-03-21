@@ -10,18 +10,10 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xsmbshare.to_s).to eq("Dsc_xsmbshare[foo]")
-  end
-
-  it 'should default to ensure => present' do
-    expect(dsc_xsmbshare[:ensure]).to eq :present
-  end
-
-  it 'should require that dsc_name is specified' do
-    #dsc_xsmbshare[:dsc_name]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xsmbshare).new(
       :name     => 'foo',
+      :dsc_name => 'foo',
       :dsc_path => 'foo',
       :dsc_description => 'foo',
       :dsc_changeaccess => ["foo", "bar", "spec"],
@@ -36,6 +28,21 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
       :dsc_sharetype => 'foo',
       :dsc_shadowcopy => 'foo',
       :dsc_special => 'foo',
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xsmbshare.to_s).to eq("Dsc_xsmbshare[foo]")
+  end
+
+  it 'should default to ensure => present' do
+    expect(dsc_xsmbshare[:ensure]).to eq :present
+  end
+
+  it 'should require that dsc_name is specified' do
+    #dsc_xsmbshare[:dsc_name]
+    expect { Puppet::Type.type(:dsc_xsmbshare).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

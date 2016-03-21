@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xazureservice) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazureservice).new(
+      :name     => 'foo',
+      :dsc_servicename => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_description => 'foo',
+      :dsc_affinitygroup => 'foo',
+      :dsc_label => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazureservice.to_s).to eq("Dsc_xazureservice[foo]")
   end
@@ -22,10 +33,6 @@ describe Puppet::Type.type(:dsc_xazureservice) do
     #dsc_xazureservice[:dsc_servicename]
     expect { Puppet::Type.type(:dsc_xazureservice).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_description => 'foo',
-      :dsc_affinitygroup => 'foo',
-      :dsc_label => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_servicename is a required attribute/)
   end
 

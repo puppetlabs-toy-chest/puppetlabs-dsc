@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_xmountimage) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xmountimage).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_imagepath => 'foo',
+      :dsc_driveletter => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xmountimage.to_s).to eq("Dsc_xmountimage[foo]")
   end
@@ -22,9 +32,6 @@ describe Puppet::Type.type(:dsc_xmountimage) do
     #dsc_xmountimage[:dsc_name]
     expect { Puppet::Type.type(:dsc_xmountimage).new(
       :name     => 'foo',
-      :dsc_imagepath => 'foo',
-      :dsc_driveletter => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

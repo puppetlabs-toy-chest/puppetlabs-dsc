@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdnsserverzonetransfer) do
   def dscmeta_resource_friendly_name; 'xDnsServerZoneTransfer' end
   def dscmeta_resource_name; 'MSFT_xDnsServerZoneTransfer' end
   def dscmeta_module_name; 'xDnsServer' end
-  def dscmeta_module_version; '1.3.0.0' end
+  def dscmeta_module_version; '1.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

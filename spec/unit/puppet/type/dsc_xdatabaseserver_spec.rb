@@ -10,6 +10,13 @@ describe Puppet::Type.type(:dsc_xdatabaseserver) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xdatabaseserver).new(
+      :name     => 'foo',
+      :dsc_loginmode => 'Windows',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xdatabaseserver.to_s).to eq("Dsc_xdatabaseserver[foo]")
   end

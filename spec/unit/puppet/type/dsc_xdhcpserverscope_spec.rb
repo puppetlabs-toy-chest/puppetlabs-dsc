@@ -11,6 +11,21 @@ describe Puppet::Type.type(:dsc_xdhcpserverscope) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xdhcpserverscope).new(
+      :name     => 'foo',
+      :dsc_ipstartrange => 'foo',
+      :dsc_ipendrange => 'foo',
+      :dsc_name => 'foo',
+      :dsc_subnetmask => 'foo',
+      :dsc_leaseduration => 'foo',
+      :dsc_state => 'Active',
+      :dsc_addressfamily => 'IPv4',
+      :dsc_ensure => 'Present',
+      :dsc_scopeid => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xdhcpserverscope.to_s).to eq("Dsc_xdhcpserverscope[foo]")
   end
@@ -24,13 +39,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverscope) do
     expect { Puppet::Type.type(:dsc_xdhcpserverscope).new(
       :name     => 'foo',
       :dsc_ipendrange => 'foo',
-      :dsc_name => 'foo',
-      :dsc_subnetmask => 'foo',
-      :dsc_leaseduration => 'foo',
-      :dsc_state => 'Active',
-      :dsc_addressfamily => 'IPv4',
-      :dsc_ensure => 'Present',
-      :dsc_scopeid => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_ipstartrange is a required attribute/)
   end
 
@@ -55,13 +63,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverscope) do
     expect { Puppet::Type.type(:dsc_xdhcpserverscope).new(
       :name     => 'foo',
       :dsc_ipstartrange => 'foo',
-      :dsc_name => 'foo',
-      :dsc_subnetmask => 'foo',
-      :dsc_leaseduration => 'foo',
-      :dsc_state => 'Active',
-      :dsc_addressfamily => 'IPv4',
-      :dsc_ensure => 'Present',
-      :dsc_scopeid => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_ipendrange is a required attribute/)
   end
 

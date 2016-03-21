@@ -243,98 +243,98 @@ function GetWAPComponentIdentifyingNumbers
         "MgmtSvc-PowerShellAPI"
         {
             return @(
-                "{16487D2C-F851-450D-AB52-1163D8057D9A}"
+                "{567EE4F8-35CA-4111-A2F9-9AFE911959B1}"
 
             )
         }
         "MgmtSvc-WebAppGallery"
         {
             return @(
-                "{E33E0D2B-D289-4300-B431-CA51052E1507}"
+                "{95BD63BE-88C5-4F43-9CC8-31A1903C3D75}"
 
             )
         }
         "MgmtSvc-Monitoring"
         {
             return @(
-                "{EAB7C0A2-17C0-46DC-8DD5-3167FCCA3471}"
+                "{BD31C44E-1E91-4C61-8955-CC4386EB31CB}"
 
             )
         }
         "MgmtSvc-Usage"
         {
             return @(
-                "{9DCEAFF9-7499-47D4-98E8-EF6877E7D5CF}"
+                "{D8AFA6F8-7CF5-4C6F-BE6E-5EBEB9A5EE3D}"
 
             )
         }
         "MgmtSvc-AdminAPI"
         {
             return @(
-                "{7A18CA60-6275-463A-A28F-15B3DECE9167}"
+                "{7CA2FE56-D216-431D-AD9B-96F2EFA0060F}"
 
             )
         }
         "MgmtSvc-TenantAPI"
         {
             return @(
-                "{57AAAF80-FED1-4574-B8A5-D67C3347B7F3}"
+                "{5FB651B3-5247-450F-B459-903602EF90AB}"
 
             )
         }
         "MgmtSvc-TenantPublicAPI"
         {
             return @(
-                "{91EEF0F7-E4CA-4162-AF4F-D4D67CBFADAE}"
+                "{90C2701B-6410-4C6D-B595-30D19DD8BD48}"
 
             )
         }
         "MgmtSvc-SQLServer"
         {
             return @(
-                "{71C55DAA-0C85-4186-A1E9-5064C5CC686D}"
+                "{24AB07BB-750C-4CC4-959A-69D68F03B672}"
 
             )
         }
         "MgmtSvc-MySQL"
         {
             return @(
-                "{ED962FFD-1998-4F03-9165-B0B0E27AF0C5}"
+                "{6FF0D21B-C7CC-4881-9463-4CFFFA5143F9}"
 
             )
         }
         "MgmtSvc-AdminSite"
         {
             return @(
-                "{265EE8DB-FE0B-4532-AAD3-6787D6B4D91B}"
+                "{713C3A58-010A-4DA4-8FA3-E1012C844F6C}"
 
             )
         }
         "MgmtSvc-WindowsAuthSite"
         {
             return @(
-                "{9381CC0F-A0B5-4DDE-8141-6E725B95919C}"
+                "{C36C12EA-71F5-46EB-8BAB-F32C53161B2E}"
 
             )
         }
         "MgmtSvc-TenantSite"
         {
             return @(
-                "{348B0395-AD2A-45A6-BFFA-BB502F59ABC0}"
+                "{FC2F4900-7DEF-4314-B838-1A47B4DB09DD}"
 
             )
         }
         "MgmtSvc-AuthSite"
         {
             return @(
-                "{6D4ABA37-50DB-4FA5-B833-D152370A4121}"
+                "{9AD3BB15-3471-4A0F-A0CD-BB1408F598B8}"
 
             )
         }
         "MgmtSvc-ConfigSite"
         {
             return @(
-                "{72BA84F9-BAA5-4451-AFA5-89841CFDA170}"
+                "{A3A5D3F7-C18E-4BE9-B792-9699B3B334DE}"
 
             )
         }

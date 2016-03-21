@@ -2,7 +2,7 @@
 class MSFT_xDhcpServerOption : OMI_BaseResource
 {
     [Key, Description("ScopeId for which options are set")] String ScopeID;
-    [Required, Description("IP address of DNS Servers")] String DnsServerIPAddress[];
+    [Write, Description("IP address of DNS Servers")] String DnsServerIPAddress[];
     [Write, Description("Domain name of DNS Server")] String DnsDomain;
     [Write, Description("IP address of the router/default gateway.")] String Router[];
     [Write, Description("Address family type"), ValueMap{"IPv4"}, Values{"IPv4"}] String AddressFamily;

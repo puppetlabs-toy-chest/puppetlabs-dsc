@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xblbitlocker.to_s).to eq("Dsc_xblbitlocker[foo]")
-  end
-
-  it 'should require that dsc_mountpoint is specified' do
-    #dsc_xblbitlocker[:dsc_mountpoint]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xblbitlocker).new(
       :name     => 'foo',
+      :dsc_mountpoint => 'foo',
       :dsc_primaryprotector => 'PasswordProtector',
       :dsc_autounlock => true,
       :dsc_allowimmediatereboot => true,
@@ -37,6 +33,17 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
       :dsc_startupkeyprotector => true,
       :dsc_tpmprotector => true,
       :dsc_usedspaceonly => true,
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xblbitlocker.to_s).to eq("Dsc_xblbitlocker[foo]")
+  end
+
+  it 'should require that dsc_mountpoint is specified' do
+    #dsc_xblbitlocker[:dsc_mountpoint]
+    expect { Puppet::Type.type(:dsc_xblbitlocker).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_mountpoint is a required attribute/)
   end
 

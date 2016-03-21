@@ -51,13 +51,13 @@ function Set-TargetResource
         $Wait,
 
         [System.Boolean]
-        $SubdirectoriesIncludingEmpty,
+        $SubdirectoriesIncludingEmpty = $False,
 
         [System.Boolean]
-        $Restartable,
+        $Restartable = $False,
 
         [System.Boolean]
-        $MultiThreaded,
+        $MultiThreaded = $False,
 
         [System.String]
         $ExcludeFiles,
@@ -66,7 +66,7 @@ function Set-TargetResource
         $LogOutput,
 
         [System.Boolean]
-        $AppendLog,
+        $AppendLog = $False,
 
         [System.String]
         $AdditionalArgs
@@ -75,20 +75,21 @@ function Set-TargetResource
     [string]$Arguments = ''
     if ($Retry -ne '') {$Arguments += " /R:$Retry"}
     if ($Wait -ne '') {$Arguments += " /W:$Wait"}
-    if ($SubdirectoriesIncludingEmpty -ne '') {$Arguments += ' /E'}
-    if ($Restartable -ne '') {$Arguments += ' /MT'}
-    if ($ExcludeFiles -ne '') {$Arguments += " /XF $ExludeFiles"}
+    if ($SubdirectoriesIncludingEmpty) {$Arguments += ' /E'}
+    if ($Restartable) {$Arguments += ' /Z'}
+    if ($MultiThreaded) {$Arguments += ' /MT'}
+    if ($ExcludeFiles -ne '') {$Arguments += " /XF $ExcludeFiles"}
     if ($ExcludeDirs -ne '') {$Arguments += " /XD $ExcludeDirs"}
-    if ($LogOutput -ne '' -AND $AppendLog -eq $true) {
+    if ($LogOutput -ne '' -AND $AppendLog) {
         $Arguments += " /LOG+:$LogOutput"
         }
-    if ($LogOutput -ne '' -AND $AppendLog -eq $false) {
+    if ($LogOutput -ne '' -AND -not $AppendLog) {
         $Arguments += " /LOG:$LogOutput"
      }
     if ($AdditionalArgs -ne $null) {$Arguments += " $AdditionalArgs"}
 
     try {
-        Write-Verbose "Executing Robocopy with arguements: $arguements"
+        Write-Verbose "Executing: Robocopy.exe `"$($Source)`" `"$($Destination)`" $($Arguments)"
         Invoke-Robocopy $Source $Destination $Arguments
         }
     catch {
@@ -148,8 +149,16 @@ function Test-TargetResource
         Write-Warning "An error occured while getting the file list from Robocopy.exe.  ERROR: $_"
         }
     
-    if ($result -eq 0) {[system.boolean]$result = $true}
-     else {[system.boolean]$result = $false}
+    # https://support.microsoft.com/en-us/kb/954404
+    # ROBOCOPY $LASTEXITCODE is a bitflag:
+    #  0: Source and destination are completely synchronized
+    #  1: One or more files were copied successfully (new files present)
+    #  2: extra files/directories detected
+    #  4: mismatched files/directories
+    #  8: copy errors and retries exceeded
+    # 16: serious error
+    if ($result -ge 0 -and $result -lt 8) {[system.boolean]$result = $true}
+    else {[system.boolean]$result = $false}
     
     $result
 }
@@ -186,7 +195,7 @@ param (
 )
 
     # This is a safe use of invoke-expression.  Input is only passed as parameters to Robocopy.exe, it cannot be executed directly
-    $output = Invoke-Expression "Robocopy.exe $Source $Destination $Arguments"
+    $output = Invoke-Expression "Robocopy.exe `"$Source`" `"$Destination`" $Arguments"
 
     $LASTEXITCODE
 }

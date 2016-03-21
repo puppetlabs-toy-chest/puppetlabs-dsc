@@ -12,6 +12,18 @@ describe Puppet::Type.type(:dsc_xwebconfigkeyvalue) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwebconfigkeyvalue).new(
+      :name     => 'foo',
+      :dsc_websitepath => 'foo',
+      :dsc_configsection => 'AppSettings',
+      :dsc_ensure => 'Present',
+      :dsc_key => 'foo',
+      :dsc_value => 'foo',
+      :dsc_isattribute => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwebconfigkeyvalue.to_s).to eq("Dsc_xwebconfigkeyvalue[foo]")
   end
@@ -25,10 +37,7 @@ describe Puppet::Type.type(:dsc_xwebconfigkeyvalue) do
     expect { Puppet::Type.type(:dsc_xwebconfigkeyvalue).new(
       :name     => 'foo',
       :dsc_configsection => 'AppSettings',
-      :dsc_ensure => 'Present',
       :dsc_key => 'foo',
-      :dsc_value => 'foo',
-      :dsc_isattribute => true,
     )}.to raise_error(Puppet::Error, /dsc_websitepath is a required attribute/)
   end
 
@@ -53,10 +62,7 @@ describe Puppet::Type.type(:dsc_xwebconfigkeyvalue) do
     expect { Puppet::Type.type(:dsc_xwebconfigkeyvalue).new(
       :name     => 'foo',
       :dsc_websitepath => 'foo',
-      :dsc_ensure => 'Present',
       :dsc_key => 'foo',
-      :dsc_value => 'foo',
-      :dsc_isattribute => true,
     )}.to raise_error(Puppet::Error, /dsc_configsection is a required attribute/)
   end
 
@@ -146,9 +152,6 @@ describe Puppet::Type.type(:dsc_xwebconfigkeyvalue) do
       :name     => 'foo',
       :dsc_websitepath => 'foo',
       :dsc_configsection => 'AppSettings',
-      :dsc_ensure => 'Present',
-      :dsc_value => 'foo',
-      :dsc_isattribute => true,
     )}.to raise_error(Puppet::Error, /dsc_key is a required attribute/)
   end
 

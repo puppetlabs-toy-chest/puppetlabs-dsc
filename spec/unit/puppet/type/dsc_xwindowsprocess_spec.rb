@@ -11,6 +11,25 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwindowsprocess).new(
+      :name     => 'foo',
+      :dsc_path => 'foo',
+      :dsc_arguments => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_ensure => 'Present',
+      :dsc_standardoutputpath => 'foo',
+      :dsc_standarderrorpath => 'foo',
+      :dsc_standardinputpath => 'foo',
+      :dsc_workingdirectory => 'foo',
+      :dsc_pagedmemorysize => 64,
+      :dsc_nonpagedmemorysize => 64,
+      :dsc_virtualmemorysize => 64,
+      :dsc_handlecount => -32,
+      :dsc_processid => -32,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwindowsprocess.to_s).to eq("Dsc_xwindowsprocess[foo]")
   end
@@ -24,17 +43,6 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect { Puppet::Type.type(:dsc_xwindowsprocess).new(
       :name     => 'foo',
       :dsc_arguments => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_ensure => 'Present',
-      :dsc_standardoutputpath => 'foo',
-      :dsc_standarderrorpath => 'foo',
-      :dsc_standardinputpath => 'foo',
-      :dsc_workingdirectory => 'foo',
-      :dsc_pagedmemorysize => 64,
-      :dsc_nonpagedmemorysize => 64,
-      :dsc_virtualmemorysize => 64,
-      :dsc_handlecount => -32,
-      :dsc_processid => -32,
     )}.to raise_error(Puppet::Error, /dsc_path is a required attribute/)
   end
 
@@ -59,17 +67,6 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect { Puppet::Type.type(:dsc_xwindowsprocess).new(
       :name     => 'foo',
       :dsc_path => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_ensure => 'Present',
-      :dsc_standardoutputpath => 'foo',
-      :dsc_standarderrorpath => 'foo',
-      :dsc_standardinputpath => 'foo',
-      :dsc_workingdirectory => 'foo',
-      :dsc_pagedmemorysize => 64,
-      :dsc_nonpagedmemorysize => 64,
-      :dsc_virtualmemorysize => 64,
-      :dsc_handlecount => -32,
-      :dsc_processid => -32,
     )}.to raise_error(Puppet::Error, /dsc_arguments is a required attribute/)
   end
 

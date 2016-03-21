@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xinternetexplorerhomepage) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xinternetexplorerhomepage).new(
+      :name     => 'foo',
+      :dsc_startpage => 'foo',
+      :dsc_secondarystartpages => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xinternetexplorerhomepage.to_s).to eq("Dsc_xinternetexplorerhomepage[foo]")
   end
@@ -22,8 +31,6 @@ describe Puppet::Type.type(:dsc_xinternetexplorerhomepage) do
     #dsc_xinternetexplorerhomepage[:dsc_startpage]
     expect { Puppet::Type.type(:dsc_xinternetexplorerhomepage).new(
       :name     => 'foo',
-      :dsc_secondarystartpages => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_startpage is a required attribute/)
   end
 

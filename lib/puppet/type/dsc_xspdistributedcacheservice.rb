@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
   def dscmeta_resource_friendly_name; 'xSPDistributedCacheService' end
   def dscmeta_resource_name; 'MSFT_xSPDistributedCacheService' end
   def dscmeta_module_name; 'xSharePoint' end
-  def dscmeta_module_version; '0.7.0.0' end
+  def dscmeta_module_version; '0.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -46,7 +46,7 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - A name to assign to this resource - not really used. For example - AppFabricCachingService"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Present to ensure the current server should be running distributed cache, absent to ensure that it isn't running Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -81,7 +81,7 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
   newparam(:dsc_cachesizeinmb) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "CacheSizeInMB"
+    desc "CacheSizeInMB - How many MB should be used for the cache. The maximum supported is 16384"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -99,7 +99,7 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
   newparam(:dsc_serviceaccount) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ServiceAccount"
+    desc "ServiceAccount - The name of the service account to run the service as. This should already be registered as a managed account in SharePoint"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -107,19 +107,21 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
     end
   end
 
-  # Name:         InstallAccount
-  # Type:         MSFT_Credential
+  # Name:         ServerProvisionOrder
+  # Type:         string[]
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_installaccount) do
-    def mof_type; 'MSFT_Credential' end
-    def mof_is_embedded?; true end
-    desc "InstallAccount"
+  newparam(:dsc_serverprovisionorder, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "ServerProvisionOrder - A list of servers which specifies the order they should provision the cache in to ensure that two servers do not do it at the same time"
     validate do |value|
-      unless value.kind_of?(Hash)
-        fail("Invalid value '#{value}'. Should be a hash")
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
-      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
+    end
+    munge do |value|
+      Array(value)
     end
   end
 
@@ -130,12 +132,28 @@ Puppet::Type.newtype(:dsc_xspdistributedcacheservice) do
   newparam(:dsc_createfirewallrules) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "CreateFirewallRules"
+    desc "CreateFirewallRules - Should the Windows Firewall rules for distributed cache be created?"
     validate do |value|
     end
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         InstallAccount
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_installaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
     end
   end
 

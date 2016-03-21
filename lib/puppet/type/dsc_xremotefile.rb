@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xremotefile) do
   def dscmeta_resource_friendly_name; 'xRemoteFile' end
   def dscmeta_resource_name; 'MSFT_xRemoteFile' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '3.5.0.0' end
+  def dscmeta_module_version; '3.7.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -113,6 +113,22 @@ Puppet::Type.newtype(:dsc_xremotefile) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
+    end
+  end
+
+  # Name:         MatchSource
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_matchsource) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "MatchSource - A boolean value to indicate whether the remote file should be re-downloaded if the file in the DestinationPath was modified locally."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

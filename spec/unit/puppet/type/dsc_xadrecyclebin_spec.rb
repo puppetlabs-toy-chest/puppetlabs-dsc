@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_xadrecyclebin) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xadrecyclebin).new(
+      :name     => 'foo',
+      :dsc_forestfqdn => 'foo',
+      :dsc_enterpriseadministratorcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_recyclebinenabled => 'foo',
+      :dsc_forestmode => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xadrecyclebin.to_s).to eq("Dsc_xadrecyclebin[foo]")
   end
@@ -18,9 +28,6 @@ describe Puppet::Type.type(:dsc_xadrecyclebin) do
     #dsc_xadrecyclebin[:dsc_forestfqdn]
     expect { Puppet::Type.type(:dsc_xadrecyclebin).new(
       :name     => 'foo',
-      :dsc_enterpriseadministratorcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_recyclebinenabled => 'foo',
-      :dsc_forestmode => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_forestfqdn is a required attribute/)
   end
 

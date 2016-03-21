@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xpowershellexecutionpolicy) do
   @doc = %q{
     The DSC xPowerShellExecutionPolicy resource type.
     Automatically generated from
-    'xPowerShellExecutionPolicy/DSCResources/xPowerShellExecutionPolicy/xPowerShellExecutionPolicy.schema.mof'
+    'xPowerShellExecutionPolicy/DSCResources/MSFT_xPowerShellExecutionPolicy/MSFT_xPowerShellExecutionPolicy.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -25,9 +25,9 @@ Puppet::Type.newtype(:dsc_xpowershellexecutionpolicy) do
     end
 
   def dscmeta_resource_friendly_name; 'xPowerShellExecutionPolicy' end
-  def dscmeta_resource_name; 'xPowerShellExecutionPolicy' end
+  def dscmeta_resource_name; 'MSFT_xPowerShellExecutionPolicy' end
   def dscmeta_module_name; 'xPowerShellExecutionPolicy' end
-  def dscmeta_module_version; '1.0.0' end
+  def dscmeta_module_version; '1.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

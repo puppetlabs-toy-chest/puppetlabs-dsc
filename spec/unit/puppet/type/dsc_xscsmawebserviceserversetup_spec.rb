@@ -10,18 +10,10 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xscsmawebserviceserversetup.to_s).to eq("Dsc_xscsmawebserviceserversetup[foo]")
-  end
-
-  it 'should default to ensure => present' do
-    expect(dsc_xscsmawebserviceserversetup[:ensure]).to eq :present
-  end
-
-  it 'should require that dsc_ensure is specified' do
-    #dsc_xscsmawebserviceserversetup[:dsc_ensure]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xscsmawebserviceserversetup).new(
       :name     => 'foo',
+      :dsc_ensure => 'Present',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
       :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
@@ -43,6 +35,21 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
       :dsc_msupdate => 'foo',
       :dsc_productkey => 'foo',
       :dsc_runbookworkerservers => ["foo", "bar", "spec"],
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xscsmawebserviceserversetup.to_s).to eq("Dsc_xscsmawebserviceserversetup[foo]")
+  end
+
+  it 'should default to ensure => present' do
+    expect(dsc_xscsmawebserviceserversetup[:ensure]).to eq :present
+  end
+
+  it 'should require that dsc_ensure is specified' do
+    #dsc_xscsmawebserviceserversetup[:dsc_ensure]
+    expect { Puppet::Type.type(:dsc_xscsmawebserviceserversetup).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

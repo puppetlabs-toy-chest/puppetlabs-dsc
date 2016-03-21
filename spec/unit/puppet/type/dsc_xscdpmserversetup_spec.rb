@@ -10,18 +10,10 @@ describe Puppet::Type.type(:dsc_xscdpmserversetup) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xscdpmserversetup.to_s).to eq("Dsc_xscdpmserversetup[foo]")
-  end
-
-  it 'should default to ensure => present' do
-    expect(dsc_xscdpmserversetup[:ensure]).to eq :present
-  end
-
-  it 'should require that dsc_ensure is specified' do
-    #dsc_xscdpmserversetup[:dsc_ensure]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xscdpmserversetup).new(
       :name     => 'foo',
+      :dsc_ensure => 'Present',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
       :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
@@ -35,6 +27,21 @@ describe Puppet::Type.type(:dsc_xscdpmserversetup) do
       :dsc_reportingmachinename => 'foo',
       :dsc_reportinginstancename => 'foo',
       :dsc_reportingmachinecredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xscdpmserversetup.to_s).to eq("Dsc_xscdpmserversetup[foo]")
+  end
+
+  it 'should default to ensure => present' do
+    expect(dsc_xscdpmserversetup[:ensure]).to eq :present
+  end
+
+  it 'should require that dsc_ensure is specified' do
+    #dsc_xscdpmserversetup[:dsc_ensure]
+    expect { Puppet::Type.type(:dsc_xscdpmserversetup).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

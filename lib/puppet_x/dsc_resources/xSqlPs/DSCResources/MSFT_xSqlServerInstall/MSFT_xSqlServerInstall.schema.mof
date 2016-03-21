@@ -1,14 +1,16 @@
 #pragma namespace("\\\\.\\root\\microsoft\\windows\\DesiredStateConfiguration")
 
-[ClassVersion("1.0.0"), FriendlyName("xSqlServerInstall")] 
+[ClassVersion("1.0.0"), FriendlyName("xSqlServerInstall")]
 class MSFT_xSqlServerInstall : OMI_BaseResource
 {
     [key, Description("The name of sql instance.")] string InstanceName;
 
     [required, Description("The share path of sql server software.")] string SourcePath;
+    
+    [write, Description("The numeric version identifier for the instance to be installed")] string VersionID;
 
-    [write,EmbeddedInstance("MSFT_Credential"), 
-    Description("The credential that vm could use to access net share of sql server software.")] 
+    [write,EmbeddedInstance("MSFT_Credential"),
+    Description("The credential that vm could use to access net share of sql server software.")]
     string SourcePathCredential;
 
     [write, Description("List of names of Sql Server features to install")] string Features;
@@ -19,5 +21,10 @@ class MSFT_xSqlServerInstall : OMI_BaseResource
     [write, Description("Specify the startup account for the SQL server service.")] string SvcAccount;
     [write, Description("Specify logins to be members of the sysadmin role.")] string SysAdminAccounts;
     [write, Description("Specify the account for SQL server agent service.")] string AgentSvcAccount;
+    [write, Description("Specify the default collation for SQL server")] string SqlCollation;
+    [write, Description("Specify the directory for SQL server system db files")] string InstallSqlDataDir;
+    [write, Description("Specify the directory for TempDB files.")] string SqlTempDBDir;
+    [write, Description("Specify the directory for UserDB data files.")] string SqlUserDBDir;
+    [write, Description("Specify the directory for UserDB log files.")] string SqlUserDBLogDir;
+    [write, Description("Specify the directory for backup files.")] string SqlBackupDir;
 };
-

@@ -10,58 +10,26 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwebsite).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_name => 'foo',
+      :dsc_physicalpath => 'foo',
+      :dsc_state => 'Started',
+      :dsc_applicationpool => 'foo',
+      :dsc_bindinginfo => {"Protocol"=>"http", "BindingInformation"=>"foo", "IPAddress"=>"foo", "Port"=>16, "HostName"=>"foo", "CertificateThumbprint"=>"foo", "CertificateStoreName"=>"My", "SslFlags"=>"0"},
+      :dsc_defaultpage => ["foo", "bar", "spec"],
+      :dsc_enabledprotocols => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwebsite.to_s).to eq("Dsc_xwebsite[foo]")
   end
 
   it 'should default to ensure => present' do
     expect(dsc_xwebsite[:ensure]).to eq :present
-  end
-
-  it 'should require that dsc_name is specified' do
-    #dsc_xwebsite[:dsc_name]
-    expect { Puppet::Type.type(:dsc_xwebsite).new(
-      :name     => 'foo',
-      :dsc_physicalpath => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_state => 'Started',
-      :dsc_bindinginfo => {"Port"=>8080, "Protocol"=>"https"},
-      :dsc_applicationpool => 'foo',
-      :dsc_id => 'foo',
-      :dsc_defaultpage => ["foo", "bar", "spec"],
-    )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
-  end
-
-  it 'should not accept array for dsc_name' do
-    expect{dsc_xwebsite[:dsc_name] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_name' do
-    expect{dsc_xwebsite[:dsc_name] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_name' do
-    expect{dsc_xwebsite[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xwebsite[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_physicalpath' do
-    expect{dsc_xwebsite[:dsc_physicalpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_physicalpath' do
-    expect{dsc_xwebsite[:dsc_physicalpath] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_physicalpath' do
-    expect{dsc_xwebsite[:dsc_physicalpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_physicalpath' do
-    expect{dsc_xwebsite[:dsc_physicalpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -114,6 +82,45 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it 'should require that dsc_name is specified' do
+    #dsc_xwebsite[:dsc_name]
+    expect { Puppet::Type.type(:dsc_xwebsite).new(
+      :name     => 'foo',
+    )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
+  end
+
+  it 'should not accept array for dsc_name' do
+    expect{dsc_xwebsite[:dsc_name] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_name' do
+    expect{dsc_xwebsite[:dsc_name] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_name' do
+    expect{dsc_xwebsite[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_name' do
+    expect{dsc_xwebsite[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_physicalpath' do
+    expect{dsc_xwebsite[:dsc_physicalpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_physicalpath' do
+    expect{dsc_xwebsite[:dsc_physicalpath] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_physicalpath' do
+    expect{dsc_xwebsite[:dsc_physicalpath] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_physicalpath' do
+    expect{dsc_xwebsite[:dsc_physicalpath] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should accept dsc_state predefined value Started' do
     dsc_xwebsite[:dsc_state] = 'Started'
     expect(dsc_xwebsite[:dsc_state]).to eq('Started')
@@ -154,28 +161,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept a hash for dsc_bindinginfo' do
-    dsc_xwebsite[:dsc_bindinginfo] = {"Port"=>8080, "Protocol"=>"https"}
-    expect(dsc_xwebsite[:dsc_bindinginfo]).to eq([{"Port"=>8080, "Protocol"=>"https"}])
-  end
-
-  it 'should accept a an array of hashes for dsc_bindinginfo' do
-    dsc_xwebsite[:dsc_bindinginfo] = [{"Port"=>8080, "Protocol"=>"https"}]
-    expect(dsc_xwebsite[:dsc_bindinginfo]).to eq([{"Port"=>8080, "Protocol"=>"https"}])
-  end
-
-  it 'should not accept boolean for dsc_bindinginfo' do
-    expect{dsc_xwebsite[:dsc_bindinginfo] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_bindinginfo' do
-    expect{dsc_xwebsite[:dsc_bindinginfo] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_bindinginfo' do
-    expect{dsc_xwebsite[:dsc_bindinginfo] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_applicationpool' do
     expect{dsc_xwebsite[:dsc_applicationpool] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -192,20 +177,26 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_applicationpool] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_id' do
-    expect{dsc_xwebsite[:dsc_id] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should accept a hash for dsc_bindinginfo' do
+    dsc_xwebsite[:dsc_bindinginfo] = {"Protocol"=>"http", "BindingInformation"=>"foo", "IPAddress"=>"foo", "Port"=>16, "HostName"=>"foo", "CertificateThumbprint"=>"foo", "CertificateStoreName"=>"My", "SslFlags"=>"0"}
+    expect(dsc_xwebsite[:dsc_bindinginfo]).to eq([{"Protocol"=>"http", "BindingInformation"=>"foo", "IPAddress"=>"foo", "Port"=>16, "HostName"=>"foo", "CertificateThumbprint"=>"foo", "CertificateStoreName"=>"My", "SslFlags"=>"0"}])
   end
 
-  it 'should not accept boolean for dsc_id' do
-    expect{dsc_xwebsite[:dsc_id] = true}.to raise_error(Puppet::ResourceError)
+  it 'should accept a an array of hashes for dsc_bindinginfo' do
+    dsc_xwebsite[:dsc_bindinginfo] = [{"Protocol"=>"http", "BindingInformation"=>"foo", "IPAddress"=>"foo", "Port"=>16, "HostName"=>"foo", "CertificateThumbprint"=>"foo", "CertificateStoreName"=>"My", "SslFlags"=>"0"}]
+    expect(dsc_xwebsite[:dsc_bindinginfo]).to eq([{"Protocol"=>"http", "BindingInformation"=>"foo", "IPAddress"=>"foo", "Port"=>16, "HostName"=>"foo", "CertificateThumbprint"=>"foo", "CertificateStoreName"=>"My", "SslFlags"=>"0"}])
   end
 
-  it 'should not accept int for dsc_id' do
-    expect{dsc_xwebsite[:dsc_id] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_bindinginfo' do
+    expect{dsc_xwebsite[:dsc_bindinginfo] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_id' do
-    expect{dsc_xwebsite[:dsc_id] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_bindinginfo' do
+    expect{dsc_xwebsite[:dsc_bindinginfo] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_bindinginfo' do
+    expect{dsc_xwebsite[:dsc_bindinginfo] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_defaultpage' do
@@ -223,6 +214,22 @@ describe Puppet::Type.type(:dsc_xwebsite) do
 
   it 'should not accept uint for dsc_defaultpage' do
     expect{dsc_xwebsite[:dsc_defaultpage] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_enabledprotocols' do
+    expect{dsc_xwebsite[:dsc_enabledprotocols] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_enabledprotocols' do
+    expect{dsc_xwebsite[:dsc_enabledprotocols] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_enabledprotocols' do
+    expect{dsc_xwebsite[:dsc_enabledprotocols] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_enabledprotocols' do
+    expect{dsc_xwebsite[:dsc_enabledprotocols] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_xbltpm) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xbltpm).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_allowclear => true,
+      :dsc_allowphysicalpresence => true,
+      :dsc_allowimmediatereboot => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xbltpm.to_s).to eq("Dsc_xbltpm[foo]")
   end
@@ -18,9 +28,6 @@ describe Puppet::Type.type(:dsc_xbltpm) do
     #dsc_xbltpm[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xbltpm).new(
       :name     => 'foo',
-      :dsc_allowclear => true,
-      :dsc_allowphysicalpresence => true,
-      :dsc_allowimmediatereboot => true,
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

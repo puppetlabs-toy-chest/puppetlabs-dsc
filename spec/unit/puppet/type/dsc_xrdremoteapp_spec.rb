@@ -13,14 +13,10 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xrdremoteapp.to_s).to eq("Dsc_xrdremoteapp[foo]")
-  end
-
-  it 'should require that dsc_alias is specified' do
-    #dsc_xrdremoteapp[:dsc_alias]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xrdremoteapp).new(
       :name     => 'foo',
+      :dsc_alias => 'foo',
       :dsc_collectionname => 'foo',
       :dsc_displayname => 'foo',
       :dsc_filepath => 'foo',
@@ -32,6 +28,20 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
       :dsc_iconpath => 'foo',
       :dsc_usergroups => 'foo',
       :dsc_showinwebaccess => true,
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xrdremoteapp.to_s).to eq("Dsc_xrdremoteapp[foo]")
+  end
+
+  it 'should require that dsc_alias is specified' do
+    #dsc_xrdremoteapp[:dsc_alias]
+    expect { Puppet::Type.type(:dsc_xrdremoteapp).new(
+      :name     => 'foo',
+      :dsc_collectionname => 'foo',
+      :dsc_displayname => 'foo',
+      :dsc_filepath => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_alias is a required attribute/)
   end
 
@@ -58,14 +68,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
       :dsc_alias => 'foo',
       :dsc_displayname => 'foo',
       :dsc_filepath => 'foo',
-      :dsc_filevirtualpath => 'foo',
-      :dsc_foldername => 'foo',
-      :dsc_commandlinesetting => 'foo',
-      :dsc_requiredcommandline => 'foo',
-      :dsc_iconindex => 32,
-      :dsc_iconpath => 'foo',
-      :dsc_usergroups => 'foo',
-      :dsc_showinwebaccess => true,
     )}.to raise_error(Puppet::Error, /dsc_collectionname is a required attribute/)
   end
 
@@ -92,14 +94,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
       :dsc_alias => 'foo',
       :dsc_collectionname => 'foo',
       :dsc_filepath => 'foo',
-      :dsc_filevirtualpath => 'foo',
-      :dsc_foldername => 'foo',
-      :dsc_commandlinesetting => 'foo',
-      :dsc_requiredcommandline => 'foo',
-      :dsc_iconindex => 32,
-      :dsc_iconpath => 'foo',
-      :dsc_usergroups => 'foo',
-      :dsc_showinwebaccess => true,
     )}.to raise_error(Puppet::Error, /dsc_displayname is a required attribute/)
   end
 
@@ -126,14 +120,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
       :dsc_alias => 'foo',
       :dsc_collectionname => 'foo',
       :dsc_displayname => 'foo',
-      :dsc_filevirtualpath => 'foo',
-      :dsc_foldername => 'foo',
-      :dsc_commandlinesetting => 'foo',
-      :dsc_requiredcommandline => 'foo',
-      :dsc_iconindex => 32,
-      :dsc_iconpath => 'foo',
-      :dsc_usergroups => 'foo',
-      :dsc_showinwebaccess => true,
     )}.to raise_error(Puppet::Error, /dsc_filepath is a required attribute/)
   end
 

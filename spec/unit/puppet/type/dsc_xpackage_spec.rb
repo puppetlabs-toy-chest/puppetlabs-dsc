@@ -11,6 +11,37 @@ describe Puppet::Type.type(:dsc_xpackage) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xpackage).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_name => 'foo',
+      :dsc_path => 'foo',
+      :dsc_productid => 'foo',
+      :dsc_arguments => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_returncode => [32, 64, 128],
+      :dsc_logpath => 'foo',
+      :dsc_packagedescription => 'foo',
+      :dsc_publisher => 'foo',
+      :dsc_installedon => 'foo',
+      :dsc_size => 32,
+      :dsc_version => 'foo',
+      :dsc_installed => true,
+      :dsc_runascredential => {"user"=>"user", "password"=>"password"},
+      :dsc_filehash => 'foo',
+      :dsc_hashalgorithm => 'SHA1',
+      :dsc_signersubject => 'foo',
+      :dsc_signerthumbprint => 'foo',
+      :dsc_servercertificatevalidationcallback => 'foo',
+      :dsc_installedcheckreghive => 'LocalMachine',
+      :dsc_installedcheckregkey => 'foo',
+      :dsc_installedcheckregvaluename => 'foo',
+      :dsc_installedcheckregvaluedata => 'foo',
+      :dsc_createcheckregvalue => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xpackage.to_s).to eq("Dsc_xpackage[foo]")
   end
@@ -73,29 +104,7 @@ describe Puppet::Type.type(:dsc_xpackage) do
     #dsc_xpackage[:dsc_name]
     expect { Puppet::Type.type(:dsc_xpackage).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_path => 'foo',
       :dsc_productid => 'foo',
-      :dsc_arguments => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_returncode => [32, 64, 128],
-      :dsc_logpath => 'foo',
-      :dsc_packagedescription => 'foo',
-      :dsc_publisher => 'foo',
-      :dsc_installedon => 'foo',
-      :dsc_size => 32,
-      :dsc_version => 'foo',
-      :dsc_installed => true,
-      :dsc_runascredential => {"user"=>"user", "password"=>"password"},
-      :dsc_filehash => 'foo',
-      :dsc_hashalgorithm => 'SHA1',
-      :dsc_signersubject => 'foo',
-      :dsc_signerthumbprint => 'foo',
-      :dsc_servercertificatevalidationcallback => 'foo',
-      :dsc_installedcheckreghive => 'LocalMachine',
-      :dsc_installedcheckregkey => 'foo',
-      :dsc_installedcheckregvaluename => 'foo',
-      :dsc_installedcheckregvaluedata => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -135,29 +144,7 @@ describe Puppet::Type.type(:dsc_xpackage) do
     #dsc_xpackage[:dsc_productid]
     expect { Puppet::Type.type(:dsc_xpackage).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
       :dsc_name => 'foo',
-      :dsc_path => 'foo',
-      :dsc_arguments => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_returncode => [32, 64, 128],
-      :dsc_logpath => 'foo',
-      :dsc_packagedescription => 'foo',
-      :dsc_publisher => 'foo',
-      :dsc_installedon => 'foo',
-      :dsc_size => 32,
-      :dsc_version => 'foo',
-      :dsc_installed => true,
-      :dsc_runascredential => {"user"=>"user", "password"=>"password"},
-      :dsc_filehash => 'foo',
-      :dsc_hashalgorithm => 'SHA1',
-      :dsc_signersubject => 'foo',
-      :dsc_signerthumbprint => 'foo',
-      :dsc_servercertificatevalidationcallback => 'foo',
-      :dsc_installedcheckreghive => 'LocalMachine',
-      :dsc_installedcheckregkey => 'foo',
-      :dsc_installedcheckregvaluename => 'foo',
-      :dsc_installedcheckregvaluedata => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_productid is a required attribute/)
   end
 
@@ -669,6 +656,53 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept uint for dsc_installedcheckregvaluedata' do
     expect{dsc_xpackage[:dsc_installedcheckregvaluedata] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_createcheckregvalue' do
+    expect{dsc_xpackage[:dsc_createcheckregvalue] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_createcheckregvalue' do
+    dsc_xpackage[:dsc_createcheckregvalue] = true
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_createcheckregvalue" do
+    dsc_xpackage[:dsc_createcheckregvalue] = 'true'
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_createcheckregvalue" do
+    dsc_xpackage[:dsc_createcheckregvalue] = 'false'
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_createcheckregvalue" do
+    dsc_xpackage[:dsc_createcheckregvalue] = 'True'
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_createcheckregvalue" do
+    dsc_xpackage[:dsc_createcheckregvalue] = 'False'
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_createcheckregvalue" do
+    dsc_xpackage[:dsc_createcheckregvalue] = :true
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_createcheckregvalue" do
+    dsc_xpackage[:dsc_createcheckregvalue] = :false
+    expect(dsc_xpackage[:dsc_createcheckregvalue]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_createcheckregvalue' do
+    expect{dsc_xpackage[:dsc_createcheckregvalue] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_createcheckregvalue' do
+    expect{dsc_xpackage[:dsc_createcheckregvalue] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

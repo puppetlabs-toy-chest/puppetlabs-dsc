@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwineventlog).new(
+      :name     => 'foo',
+      :dsc_logname => 'foo',
+      :dsc_maximumsizeinbytes => -64,
+      :dsc_isenabled => true,
+      :dsc_logmode => 'AutoBackup',
+      :dsc_securitydescriptor => 'foo',
+      :dsc_logfilepath => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwineventlog.to_s).to eq("Dsc_xwineventlog[foo]")
   end
@@ -18,11 +30,6 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
     #dsc_xwineventlog[:dsc_logname]
     expect { Puppet::Type.type(:dsc_xwineventlog).new(
       :name     => 'foo',
-      :dsc_maximumsizeinbytes => -64,
-      :dsc_isenabled => true,
-      :dsc_logmode => 'AutoBackup',
-      :dsc_securitydescriptor => 'foo',
-      :dsc_logfilepath => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_logname is a required attribute/)
   end
 

@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xwaitfordisk) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwaitfordisk).new(
+      :name     => 'foo',
+      :dsc_disknumber => 32,
+      :dsc_retryintervalsec => 64,
+      :dsc_retrycount => 32,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwaitfordisk.to_s).to eq("Dsc_xwaitfordisk[foo]")
   end
@@ -18,8 +27,6 @@ describe Puppet::Type.type(:dsc_xwaitfordisk) do
     #dsc_xwaitfordisk[:dsc_disknumber]
     expect { Puppet::Type.type(:dsc_xwaitfordisk).new(
       :name     => 'foo',
-      :dsc_retryintervalsec => 64,
-      :dsc_retrycount => 32,
     )}.to raise_error(Puppet::Error, /dsc_disknumber is a required attribute/)
   end
 

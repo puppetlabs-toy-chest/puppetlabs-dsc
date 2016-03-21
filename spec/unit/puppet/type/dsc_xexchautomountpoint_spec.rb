@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xexchautomountpoint.to_s).to eq("Dsc_xexchautomountpoint[foo]")
-  end
-
-  it 'should require that dsc_identity is specified' do
-    #dsc_xexchautomountpoint[:dsc_identity]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xexchautomountpoint).new(
       :name     => 'foo',
+      :dsc_identity => 'foo',
       :dsc_autodagdatabasesrootfolderpath => 'foo',
       :dsc_autodagvolumesrootfolderpath => 'foo',
       :dsc_disktodbmap => ["foo", "bar", "spec"],
@@ -29,6 +25,17 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
       :dsc_partitioningscheme => 'MBR',
       :dsc_unitsize => 'foo',
       :dsc_volumeprefix => 'foo',
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xexchautomountpoint.to_s).to eq("Dsc_xexchautomountpoint[foo]")
+  end
+
+  it 'should require that dsc_identity is specified' do
+    #dsc_xexchautomountpoint[:dsc_identity]
+    expect { Puppet::Type.type(:dsc_xexchautomountpoint).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

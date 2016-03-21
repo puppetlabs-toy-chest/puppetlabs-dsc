@@ -10,6 +10,14 @@ describe Puppet::Type.type(:dsc_xtimezone) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xtimezone).new(
+      :name     => 'foo',
+      :dsc_issingleinstance => 'Yes',
+      :dsc_timezone => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xtimezone.to_s).to eq("Dsc_xtimezone[foo]")
   end
@@ -18,7 +26,6 @@ describe Puppet::Type.type(:dsc_xtimezone) do
     #dsc_xtimezone[:dsc_issingleinstance]
     expect { Puppet::Type.type(:dsc_xtimezone).new(
       :name     => 'foo',
-      :dsc_timezone => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_issingleinstance is a required attribute/)
   end
 

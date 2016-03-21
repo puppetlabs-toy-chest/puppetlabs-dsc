@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xexchwebservicesvirtualdirectory.to_s).to eq("Dsc_xexchwebservicesvirtualdirectory[foo]")
-  end
-
-  it 'should require that dsc_identity is specified' do
-    #dsc_xexchwebservicesvirtualdirectory[:dsc_identity]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory).new(
       :name     => 'foo',
+      :dsc_identity => 'foo',
       :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_allowservicerestart => true,
       :dsc_basicauthentication => true,
@@ -30,6 +26,17 @@ describe Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory) do
       :dsc_oauthauthentication => true,
       :dsc_windowsauthentication => true,
       :dsc_wssecurityauthentication => true,
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xexchwebservicesvirtualdirectory.to_s).to eq("Dsc_xexchwebservicesvirtualdirectory[foo]")
+  end
+
+  it 'should require that dsc_identity is specified' do
+    #dsc_xexchwebservicesvirtualdirectory[:dsc_identity]
+    expect { Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

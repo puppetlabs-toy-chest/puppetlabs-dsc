@@ -29,6 +29,8 @@ Puppet Type | DSC Resource | Github Repo
 dsc_xaddomain | [xADDomain](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADDomain) | [repo](https://github.com/PowerShell/xActiveDirectory)
 dsc_xaddomaincontroller | [xADDomainController](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADDomainController) | [repo](https://github.com/PowerShell/xActiveDirectory)
 dsc_xaddomaintrust | [xADDomainTrust](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADDomainTrust) | [repo](https://github.com/PowerShell/xActiveDirectory)
+dsc_xadgroup | [xADGroup](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADGroup) | [repo](https://github.com/PowerShell/xActiveDirectory)
+dsc_xadorganizationalunit | [xADOrganizationalUnit](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADOrganizationalUnit) | [repo](https://github.com/PowerShell/xActiveDirectory)
 dsc_xadrecyclebin | [xADRecycleBin](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADRecycleBin) | [repo](https://github.com/PowerShell/xActiveDirectory)
 dsc_xaduser | [xADUser](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADUser) | [repo](https://github.com/PowerShell/xActiveDirectory)
 dsc_xwaitforaddomain | [xWaitForADDomain](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xWaitForADDomain) | [repo](https://github.com/PowerShell/xActiveDirectory)
@@ -38,6 +40,7 @@ dsc_xwaitforaddomain | [xWaitForADDomain](https://github.com/puppetlabs/puppetla
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xadcscertificationauthority | [xAdcsCertificationAuthority](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/DSCResources/MSFT_xAdcsCertificationAuthority) | [repo](https://github.com/PowerShell/xAdcsDeployment)
+dsc_xadcsonlineresponder | [xAdcsOnlineResponder](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/DSCResources/MSFT_xAdcsOnlineResponder) | [repo](https://github.com/PowerShell/xAdcsDeployment)
 dsc_xadcswebenrollment | [xAdcsWebEnrollment](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/DSCResources/MSFT_xAdcsWebEnrollment) | [repo](https://github.com/PowerShell/xAdcsDeployment)
 
 ##### xCertificateServices
@@ -45,6 +48,7 @@ dsc_xadcswebenrollment | [xAdcsWebEnrollment](https://github.com/puppetlabs/pupp
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xadcscertificationauthority | [xAdcsCertificationAuthority](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/xCertificateServices/DSCResources/MSFT_xAdcsCertificationAuthority) | [repo](https://github.com/PowerShell/xCertificateServices)
+dsc_xadcsonlineresponder | [xAdcsOnlineResponder](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/xCertificateServices/DSCResources/MSFT_xAdcsOnlineResponder) | [repo](https://github.com/PowerShell/xCertificateServices)
 dsc_xadcswebenrollment | [xAdcsWebEnrollment](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/xCertificateServices/DSCResources/MSFT_xAdcsWebEnrollment) | [repo](https://github.com/PowerShell/xCertificateServices)
 
 ##### xAzure
@@ -88,6 +92,7 @@ dsc_xbltpm | [xBLTpm](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/l
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xcertreq | [xCertReq](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xCertificate/DSCResources/MSFT_xCertReq) | [repo](https://github.com/PowerShell/xCertificate)
+dsc_xpfximport | [xPfxImport](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xCertificate/DSCResources/MSFT_xPfxImport) | [repo](https://github.com/PowerShell/xCertificate)
 
 ##### xComputerManagement
 
@@ -120,6 +125,7 @@ dsc_xmppreference | [xMpPreference](https://github.com/puppetlabs/puppetlabs-dsc
 
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
+dsc_xdhcpserverauthorization | [xDhcpServerAuthorization](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDhcpServer/DSCResources/MSFT_xDhcpServerAuthorization) | [repo](https://github.com/PowerShell/xDhcpServer)
 dsc_xdhcpserveroption | [xDhcpServerOption](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDhcpServer/DSCResources/MSFT_xDhcpServerOption) | [repo](https://github.com/PowerShell/xDhcpServer)
 dsc_xdhcpserverreservation | [xDhcpServerReservation](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDhcpServer/DSCResources/MSFT_xDhcpServerReservation) | [repo](https://github.com/PowerShell/xDhcpServer)
 dsc_xdhcpserverscope | [xDhcpServerScope](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDhcpServer/DSCResources/MSFT_xDhcpServerScope) | [repo](https://github.com/PowerShell/xDhcpServer)
@@ -135,6 +141,9 @@ dsc_xdismfeature | [xDismFeature](https://github.com/puppetlabs/puppetlabs-dsc/t
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xdnsarecord | [xDnsARecord](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsARecord) | [repo](https://github.com/PowerShell/xDnsServer)
+dsc_xdnsrecord | [xDnsRecord](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsRecord) | [repo](https://github.com/PowerShell/xDnsServer)
+dsc_xdnsserveradzone | [xDnsServerADZone](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerADZone) | [repo](https://github.com/PowerShell/xDnsServer)
+dsc_xdnsserverprimaryzone | [xDnsServerPrimaryZone](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerPrimaryZone) | [repo](https://github.com/PowerShell/xDnsServer)
 dsc_xdnsserversecondaryzone | [xDnsServerSecondaryZone](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerSecondaryZone) | [repo](https://github.com/PowerShell/xDnsServer)
 dsc_xdnsserverzonetransfer | [xDnsServerZoneTransfer](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerZoneTransfer) | [repo](https://github.com/PowerShell/xDnsServer)
 
@@ -221,8 +230,14 @@ Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xdnsserveraddress | [xDNSServerAddress](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xDNSServerAddress) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xdefaultgatewayaddress | [xDefaultGatewayAddress](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xDefaultGatewayAddress) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xdhcpclient | [xDHCPClient](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xDhcpClient) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xdnsconnectionsuffix | [xDnsConnectionSuffix](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xDnsConnectionSuffix) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xfirewall | [xFirewall](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xFirewall) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xipaddress | [xIPAddress](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xIPAddress) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xnetbios | [xNetBIOS](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetBIOS) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xnetconnectionprofile | [xNetConnectionProfile](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetConnectionProfile) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xnetworkteam | [xNetworkTeam](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetworkTeam) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xroute | [xRoute](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xRoute) | [repo](https://github.com/PowerShell/xNetworking)
 
 ##### xPSDesiredStateConfiguration
 
@@ -234,6 +249,7 @@ dsc_xgroup | [xGroup](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/l
 dsc_xpsendpoint | [xPSEndpoint](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xPSSessionConfiguration) | [repo](https://github.com/PowerShell/xPSDesiredStateConfiguration)
 dsc_xpackage | [xPackage](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xPackageResource) | [repo](https://github.com/PowerShell/xPSDesiredStateConfiguration)
 dsc_xwindowsprocess | [xWindowsProcess](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xProcessResource) | [repo](https://github.com/PowerShell/xPSDesiredStateConfiguration)
+dsc_xregistry | [xRegistry](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xRegistryResource) | [repo](https://github.com/PowerShell/xPSDesiredStateConfiguration)
 dsc_xremotefile | [xRemoteFile](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xRemoteFile) | [repo](https://github.com/PowerShell/xPSDesiredStateConfiguration)
 dsc_xservice | [xService](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xServiceResource) | [repo](https://github.com/PowerShell/xPSDesiredStateConfiguration)
 dsc_xwindowsoptionalfeature | [xWindowsOptionalFeature](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xWindowsOptionalFeature) | [repo](https://github.com/PowerShell/xPSDesiredStateConfiguration)
@@ -248,7 +264,7 @@ dsc_xpendingreboot | [xPendingReboot](https://github.com/puppetlabs/puppetlabs-d
 
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
-dsc_xpowershellexecutionpolicy | [xPowerShellExecutionPolicy](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xPowerShellExecutionPolicy/DSCResources/xPowerShellExecutionPolicy) | [repo](https://github.com/PowerShell/xPowerShellExecutionPolicy)
+dsc_xpowershellexecutionpolicy | [xPowerShellExecutionPolicy](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xPowerShellExecutionPolicy/DSCResources/MSFT_xPowerShellExecutionPolicy) | [repo](https://github.com/PowerShell/xPowerShellExecutionPolicy)
 
 ##### xRemoteDesktopAdmin
 
@@ -332,38 +348,80 @@ dsc_xscvmmmanagementserverupdate | [xSCVMMManagementServerUpdate](https://github
 
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
+dsc_xsqldatabaserecoverymodel | [xSQLDatabaseRecoveryModel](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLDatabaseRecoveryModel) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlserverdatabaseowner | [xSQLServerDatabaseOwner](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerDatabaseOwner) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlserverdatabasepermissions | [xSQLServerDatabasePermissions](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerDatabasePermissions) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlserverdatabaserole | [xSQLServerDatabaseRole](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerDatabaseRole) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverfailoverclustersetup | [xSQLServerFailoverClusterSetup](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerFailoverClusterSetup) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverfirewall | [xSQLServerFirewall](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerFirewall) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlserverlogin | [xSQLServerLogin](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerLogin) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlservermaxdop | [xSQLServerMaxDop](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerMaxDop) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlservermemory | [xSQLServerMemory](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerMemory) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlserverpowerplan | [xSQLServerPowerPlan](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerPowerPlan) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverrsconfig | [xSQLServerRSConfig](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerRSConfig) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverrssecureconnectionlevel | [xSQLServerRSSecureConnectionLevel](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerRSSecureConnectionLevel) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserversetup | [xSQLServerSetup](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerSetup) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlservernetwork | [xSQLServerNetwork](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/xSQLServerNetwork) | [repo](https://github.com/PowerShell/xSQLServer)
 
 ##### xSharePoint
 
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
+dsc_xspalternateurl | [xSPAlternateUrl](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPAlternateUrl) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspantivirussettings | [xSPAntivirusSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPAntivirusSettings) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspappcatalog | [xSPAppCatalog](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPAppCatalog) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspappdomain | [xSPAppDomain](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPAppDomain) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspappmanagementserviceapp | [xSPAppManagementServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPAppManagementServiceApp) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspbcsserviceapp | [xSPBCSServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPBCSServiceApp) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspcacheaccounts | [xSPCacheAccounts](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPCacheAccounts) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspcreatefarm | [xSPCreateFarm](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPCreateFarm) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspdatabaseaag | [xSPDatabaseAAG](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPDatabaseAAG) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspdesignersettings | [xSPDesignerSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPDesignerSettings) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspdiagnosticloggingsettings | [xSPDiagnosticLoggingSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPDiagnosticLoggingSettings) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspdistributedcacheservice | [xSPDistributedCacheService](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPDistributedCacheService) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspfarmadministrators | [xSPFarmAdministrators](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPFarmAdministrators) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspfarmsolution | [xSPFarmSolution](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPFarmSolution) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspfeature | [xSPFeature](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPFeature) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xsphealthanalyzerrulestate | [xSPHealthAnalyzerRuleState](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPHealthAnalyzerRuleState) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspinstall | [xSPInstall](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPInstall) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspinstallprereqs | [xSPInstallPrereqs](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPInstallPrereqs) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspjoinfarm | [xSPJoinFarm](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPJoinFarm) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspmanagedaccount | [xSPManagedAccount](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPManagedAccount) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspmanagedmetadataserviceapp | [xSPManagedMetaDataServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPManagedMetadataServiceApp) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspmanagedpath | [xSPManagedPath](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPManagedPath) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspoutgoingemailsettings | [xSPOutgoingEmailSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPOutgoingEmailSettings) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xsppasswordchangesettings | [xSPPasswordChangeSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPPasswordChangeSettings) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspquotatemplate | [xSPQuotaTemplate](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPQuotaTemplate) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspsearchcontentsource | [xSPSearchContentSource](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPSearchContentSource) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspsearchindexpartition | [xSPSearchIndexPartition](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPSearchIndexPartition) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspsearchserviceapp | [xSPSearchServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPSearchServiceApp) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspsearchtopology | [xSPSearchTopology](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPSearchTopology) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspsecurestoreserviceapp | [xSPSecureStoreServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPSecureStoreServiceApp) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspserviceapppool | [xSPServiceAppPool](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPServiceAppPool) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspserviceinstance | [xSPServiceInstance](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPServiceInstance) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspsessionstateservice | [xSPSessionStateService](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPSessionStateService) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspshelladmins | [xSPShellAdmins](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPShellAdmins) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspsite | [xSPSite](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPSite) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspstateserviceapp | [xSPStateServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPStateServiceApp) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspsubscriptionsettingsserviceapp | [xSPSubscriptionSettingsServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPSubscriptionSettingsServiceApp) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xsptimerjobstate | [xSPTimerJobState](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPTimerJobState) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspusageapplication | [xSPUsageApplication](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPUsageApplication) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspuserprofileproperty | [xSPUserProfileProperty](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPUserProfileProperty) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspuserprofilesection | [xSPUserProfileSection](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPUserProfileSection) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspuserprofileserviceapp | [xSPUserProfileServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPUserProfileServiceApp) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspuserprofilesyncconnection | [xSPUserProfileSyncConnection](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPUserProfileSyncConnection) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspuserprofilesyncservice | [xSPUserProfileSyncService](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPUserProfileSyncService) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspvisioserviceapp | [xSPVisioServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPVisioServiceApp) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspwebappblockedfiletypes | [xSPWebAppBlockedFileTypes](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPWebAppBlockedFileTypes) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspwebappgeneralsettings | [xSPWebAppGeneralSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPWebAppGeneralSettings) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspwebapppolicy | [xSPWebAppPolicy](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPWebAppPolicy) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspwebappsiteuseanddeletion | [xSPWebAppSiteUseAndDeletion](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPWebAppSiteUseAndDeletion) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspwebappthrottlingsettings | [xSPWebAppThrottlingSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPWebAppThrottlingSettings) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspwebappworkflowsettings | [xSPWebAppWorkflowSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPWebAppWorkflowSettings) | [repo](https://github.com/PowerShell/xSharePoint)
 dsc_xspwebapplication | [xSPWebApplication](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPWebApplication) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspwebapplicationappdomain | [xSPWebApplicationAppDomain](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPWebApplicationAppDomain) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspwordautomationserviceapp | [xSPWordAutomationServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPWordAutomationServiceApp) | [repo](https://github.com/PowerShell/xSharePoint)
+dsc_xspworkmanagementserviceapp | [xSPWorkManagementServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSharePoint/Modules/xSharePoint/DSCResources/MSFT_xSPWorkManagementServiceApp) | [repo](https://github.com/PowerShell/xSharePoint)
 
 ##### xSmbShare
 
@@ -375,6 +433,7 @@ dsc_xsmbshare | [xSmbShare](https://github.com/puppetlabs/puppetlabs-dsc/tree/ma
 
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
+dsc_xsqlalias | [xSqlAlias](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSqlPs/DSCResources/MSFT_xSqlAlias) | [repo](https://github.com/PowerShell/xSqlPs)
 dsc_xsqlhaendpoint | [xSqlHAEndPoint](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSqlPs/DSCResources/MSFT_xSqlHAEndPoint) | [repo](https://github.com/PowerShell/xSqlPs)
 dsc_xsqlhagroup | [xSqlHAGroup](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSqlPs/DSCResources/MSFT_xSqlHAGroup) | [repo](https://github.com/PowerShell/xSqlPs)
 dsc_xsqlhaservice | [xSqlHAService](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSqlPs/DSCResources/MSFT_xSqlHAService) | [repo](https://github.com/PowerShell/xSqlPs)
@@ -403,6 +462,7 @@ dsc_xiishandler | [xIisHandler](https://github.com/puppetlabs/puppetlabs-dsc/tre
 dsc_xiisfeaturedelegation | [xIisFeatureDelegation](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xWebAdministration/DSCResources/MSFT_xIisFeatureDelegation) | [repo](https://github.com/PowerShell/xWebAdministration)
 dsc_xiismimetypemapping | [xIisMimeTypeMapping](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xWebAdministration/DSCResources/MSFT_xIisMimeTypeMapping) | [repo](https://github.com/PowerShell/xWebAdministration)
 dsc_xiismodule | [xIisModule](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xWebAdministration/DSCResources/MSFT_xIisModule) | [repo](https://github.com/PowerShell/xWebAdministration)
+dsc_xsslsettings | [xSSLSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xWebAdministration/DSCResources/MSFT_xSSLSettings) | [repo](https://github.com/PowerShell/xWebAdministration)
 dsc_xwebapppool | [xWebAppPool](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xWebAdministration/DSCResources/MSFT_xWebAppPool) | [repo](https://github.com/PowerShell/xWebAdministration)
 dsc_xwebapppooldefaults | [xWebAppPoolDefaults](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xWebAdministration/DSCResources/MSFT_xWebAppPoolDefaults) | [repo](https://github.com/PowerShell/xWebAdministration)
 dsc_xwebapplication | [xWebApplication](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xWebAdministration/DSCResources/MSFT_xWebApplication) | [repo](https://github.com/PowerShell/xWebAdministration)

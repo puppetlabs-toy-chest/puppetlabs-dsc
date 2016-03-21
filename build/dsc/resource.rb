@@ -16,6 +16,7 @@ module Dsc
       @embedded_properties = nil
       @dsc_module          = nil
       @ps_module           = nil
+      @absentable          = nil
     end
 
     def relative_mof_path
@@ -36,7 +37,7 @@ module Dsc
 
     def properties
       unless @properties
-        @properties ||= @resource_cim_class.features.collect{|cim_feature| Dsc::Property.new(cim_feature) }
+        @properties ||= @resource_cim_class.features.collect{|cim_feature| Dsc::Property.new(cim_feature, @resource_mof_path) }
       end
       @properties
     end
@@ -77,29 +78,41 @@ module Dsc
     end
 
     def ensurable?
-      properties.detect{|p|p.is_ensure?} ? true : false
+      ensure_property ? true : false
+    end
+
+    def ensure_property
+      @ensure_property ||= properties.find{|p| p.is_ensure?}
     end
 
     def absentable?
-      properties.detect do |p|
-        p.is_ensure? && p.values.any? { |v| v.casecmp('absent') == 0 || v.casecmp('disable') == 0 }
+      if @absentable.nil?
+        @absentable = ensurable? &&
+          ensure_property.values.any? { |v| v.casecmp('absent') == 0 || v.casecmp('disable') == 0 }
       end
+      @absentable
     end
 
     def absent_value
-      properties.detect do |p|
-        return 'absent' if p.is_ensure? && p.values.any? { |v| v.casecmp('absent') == 0 }
-        return 'disable' if p.is_ensure? && p.values.any? { |v| v.casecmp('disable') == 0 }
-      end
-      throw 'Error processing MOF schema - could not determine equivalent \'absent\' value for ensure'
+      @absent_value ||=
+        if ensure_property.values.any? { |v| v.casecmp('absent') == 0 }
+          'absent'
+        elsif ensure_property.values.any? { |v| v.casecmp('disable') == 0 }
+          'disable'
+        else
+          throw 'Error processing MOF schema - could not determine equivalent \'absent\' value for ensure'
+        end
     end
 
     def ensure_value
-      properties.detect do |p|
-        return 'present' if p.is_ensure? && p.values.any? { |v| v.casecmp('present') == 0 }
-        return 'enable' if p.is_ensure? && p.values.any? { |v| v.casecmp('enable') == 0 }
-      end
-      throw 'Error processing MOF schema - could not determine equivalent \'present\' value for ensure'
+      @ensure_value ||=
+        if ensure_property.values.any? { |v| v.casecmp('present') == 0 }
+          'present'
+        elsif ensure_property.values.any? { |v| v.casecmp('enable') == 0 }
+          'enable'
+        else
+          throw 'Error processing MOF schema - could not determine equivalent \'present\' value for ensure'
+        end
     end
 
     def has_name?
@@ -123,10 +136,10 @@ module Dsc
         raise "module for #{self.name} not found (Missing DSCResources directory in path #{@resource_mof_path})" if index == nil
 
         module_name = revert_array[index + 1 ] rescue nil
-        if (module_name == "dsc_resources") 
+        if (module_name == "dsc_resources")
           warn("The name of the module in directory #{@resource_mof_path} was detected as #{module_name}.  This may indicate that the wrong directory was used to import the resource")
         end
-        
+
         module_dir = path_array[0..(path_array.count - (index + 2))].join('/')
         module_manifest_path = "#{module_dir}/#{module_name}.psd1"
         raise "module manifest #{module_manifest_path} not found" unless File.exists?(module_manifest_path)

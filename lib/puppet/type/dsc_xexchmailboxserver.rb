@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchmailboxserver) do
   def dscmeta_resource_friendly_name; 'xExchMailboxServer' end
   def dscmeta_resource_name; 'MSFT_xExchMailboxServer' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -115,6 +115,36 @@ Puppet::Type.newtype(:dsc_xexchmailboxserver) do
       end
       unless ['Blocked', 'blocked', 'IntrasiteOnly', 'intrasiteonly', 'Unrestricted', 'unrestricted'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Blocked, IntrasiteOnly, Unrestricted")
+      end
+    end
+  end
+
+  # Name:         MaximumActiveDatabases
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_maximumactivedatabases) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "MaximumActiveDatabases - The MaximumActiveDatabases parameter specifies the number of databases that can be mounted on this Mailbox server. This parameter accepts numeric values."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         MaximumPreferredActiveDatabases
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_maximumpreferredactivedatabases) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "MaximumPreferredActiveDatabases - The MaximumPreferredActiveDatabases parameter specifies a preferred maximum number of databases that a server should have. This value is different from the actual maximum, which is configured using the MaximumActiveDatabases parameter. The value of MaximumPreferredActiveDatabases is only honored during best copy and server selection, database and server switchovers, and when rebalancing the DAG."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end

@@ -10,18 +10,10 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xexchreceiveconnector.to_s).to eq("Dsc_xexchreceiveconnector[foo]")
-  end
-
-  it 'should default to ensure => present' do
-    expect(dsc_xexchreceiveconnector[:ensure]).to eq :present
-  end
-
-  it 'should require that dsc_identity is specified' do
-    #dsc_xexchreceiveconnector[:dsc_identity]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xexchreceiveconnector).new(
       :name     => 'foo',
+      :dsc_identity => 'foo',
       :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_ensure => 'Present',
       :dsc_advertiseclientsettings => true,
@@ -42,6 +34,8 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
       :dsc_enableauthgssapi => true,
       :dsc_enabled => true,
       :dsc_enhancedstatuscodesenabled => true,
+      :dsc_extendedrightallowentries => {"somekey"=>"somevalue", "somekey2"=>"somevalue2"},
+      :dsc_extendedrightdenyentries => {"somekey"=>"somevalue", "somekey2"=>"somevalue2"},
       :dsc_extendedprotectionpolicy => 'None',
       :dsc_fqdn => 'foo',
       :dsc_longaddressesenabled => true,
@@ -73,6 +67,21 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
       :dsc_tlsdomaincapabilities => ["foo", "bar", "spec"],
       :dsc_transportrole => 'FrontendTransport',
       :dsc_usage => 'Client',
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xexchreceiveconnector.to_s).to eq("Dsc_xexchreceiveconnector[foo]")
+  end
+
+  it 'should default to ensure => present' do
+    expect(dsc_xexchreceiveconnector[:ensure]).to eq :present
+  end
+
+  it 'should require that dsc_identity is specified' do
+    #dsc_xexchreceiveconnector[:dsc_identity]
+    expect { Puppet::Type.type(:dsc_xexchreceiveconnector).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 
@@ -760,6 +769,40 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept uint for dsc_enhancedstatuscodesenabled' do
     expect{dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept a hash for dsc_extendedrightallowentries' do
+    dsc_xexchreceiveconnector[:dsc_extendedrightallowentries] = {"somekey"=>"somevalue", "somekey2"=>"somevalue2"}
+    expect(dsc_xexchreceiveconnector[:dsc_extendedrightallowentries]).to eq({"somekey"=>"somevalue", "somekey2"=>"somevalue2"})
+  end
+
+  it 'should not accept boolean for dsc_extendedrightallowentries' do
+    expect{dsc_xexchreceiveconnector[:dsc_extendedrightallowentries] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_extendedrightallowentries' do
+    expect{dsc_xexchreceiveconnector[:dsc_extendedrightallowentries] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_extendedrightallowentries' do
+    expect{dsc_xexchreceiveconnector[:dsc_extendedrightallowentries] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept a hash for dsc_extendedrightdenyentries' do
+    dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries] = {"somekey"=>"somevalue", "somekey2"=>"somevalue2"}
+    expect(dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries]).to eq({"somekey"=>"somevalue", "somekey2"=>"somevalue2"})
+  end
+
+  it 'should not accept boolean for dsc_extendedrightdenyentries' do
+    expect{dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_extendedrightdenyentries' do
+    expect{dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_extendedrightdenyentries' do
+    expect{dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_extendedprotectionpolicy predefined value None' do

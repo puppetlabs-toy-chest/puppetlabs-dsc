@@ -11,6 +11,15 @@ describe Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel).new(
+      :name     => 'foo',
+      :dsc_instancename => 'foo',
+      :dsc_secureconnectionlevel => 16,
+      :dsc_sqladmincredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqlserverrssecureconnectionlevel.to_s).to eq("Dsc_xsqlserverrssecureconnectionlevel[foo]")
   end
@@ -20,7 +29,6 @@ describe Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel) do
     expect { Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel).new(
       :name     => 'foo',
       :dsc_secureconnectionlevel => 16,
-      :dsc_sqladmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_instancename is a required attribute/)
   end
 
@@ -45,7 +53,6 @@ describe Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel) do
     expect { Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel).new(
       :name     => 'foo',
       :dsc_instancename => 'foo',
-      :dsc_sqladmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_secureconnectionlevel is a required attribute/)
   end
 

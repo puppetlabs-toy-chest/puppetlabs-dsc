@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xmppreference.to_s).to eq("Dsc_xmppreference[foo]")
-  end
-
-  it 'should require that dsc_name is specified' do
-    #dsc_xmppreference[:dsc_name]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xmppreference).new(
       :name     => 'foo',
+      :dsc_name => 'foo',
       :dsc_exclusionpath => ["foo", "bar", "spec"],
       :dsc_exclusionextension => ["foo", "bar", "spec"],
       :dsc_exclusionprocess => ["foo", "bar", "spec"],
@@ -71,6 +67,17 @@ describe Puppet::Type.type(:dsc_xmppreference) do
       :dsc_highthreatdefaultaction => 'Allow',
       :dsc_severethreatdefaultaction => 'Allow',
       :dsc_submitsamplesconsent => 'Allways Prompt',
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xmppreference.to_s).to eq("Dsc_xmppreference[foo]")
+  end
+
+  it 'should require that dsc_name is specified' do
+    #dsc_xmppreference[:dsc_name]
+    expect { Puppet::Type.type(:dsc_xmppreference).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xspdiagnosticloggingsettings.to_s).to eq("Dsc_xspdiagnosticloggingsettings[foo]")
-  end
-
-  it 'should require that dsc_logpath is specified' do
-    #dsc_xspdiagnosticloggingsettings[:dsc_logpath]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xspdiagnosticloggingsettings).new(
       :name     => 'foo',
+      :dsc_logpath => 'foo',
       :dsc_logspaceingb => 32,
       :dsc_appanalyticsautomaticuploadenabled => true,
       :dsc_customerexperienceimprovementprogramenabled => true,
@@ -36,6 +32,17 @@ describe Puppet::Type.type(:dsc_xspdiagnosticloggingsettings) do
       :dsc_scripterrorreportingenabled => true,
       :dsc_scripterrorreportingrequireauth => true,
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xspdiagnosticloggingsettings.to_s).to eq("Dsc_xspdiagnosticloggingsettings[foo]")
+  end
+
+  it 'should require that dsc_logpath is specified' do
+    #dsc_xspdiagnosticloggingsettings[:dsc_logpath]
+    expect { Puppet::Type.type(:dsc_xspdiagnosticloggingsettings).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_logpath is a required attribute/)
   end
 

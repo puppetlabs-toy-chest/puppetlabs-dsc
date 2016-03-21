@@ -25,34 +25,33 @@ function Get-TargetResource
         $SQLServer,
 
         [System.String]
-        $SQLInstance = "MSSQLSERVER"
+        $SQLInstance = "MSSQLSERVER",
+
+        [System.Management.Automation.PSCredential]
+        $dbUser
     )
 
     if($SQLInstance -eq "MSSQLSERVER")
     {
-        $ConnectionString = "Data Source=$SQLServer;Initial Catalog=Microsoft.MgmtSvc.PortalConfigStore;Integrated Security=True";
+        $ConnectionString = "Data Source=$SQLServer;Initial Catalog=Microsoft.MgmtSvc.PortalConfigStore;User ID=$($dbUser.UserName);Password=$($dbUser.GetNetworkCredential().password)";
     }
     else
     {
-        $ConnectionString = "Data Source=$SQLServer\$SQLInstance;Initial Catalog=Microsoft.MgmtSvc.PortalConfigStore;Integrated Security=True";
+        $ConnectionString = "Data Source=$SQLServer\$SQLInstance;Initial Catalog=Microsoft.MgmtSvc.PortalConfigStore;User ID=$($dbUser.UserName);Password=$($dbUser.GetNetworkCredential().password)";
     }
 
-    $FQDN = Invoke-Command -ComputerName . -Credential $AzurePackAdminCredential -Authentication Credssp {
-        $Target = $args[0]
-        $ConnectionString = $args[1]
-        switch($Target)
+    switch($Target)
+    {
+        "Membership"
         {
-            "Membership"
-            {
-                $Namespace = "AuthSite"
-            }
-            "Windows"
-            {
-                $Namespace = "WindowsAuthSite"
-            }
+            $Namespace = "AuthSite"
         }
-        ((ConvertFrom-Json (Get-MgmtSvcDatabaseSetting -Namespace $Namespace -Name Authentication.RelyingParty.Primary -ConnectionString $ConnectionString).Value).ReplyTo).Split("/")[2]
-    } -ArgumentList @($Target,$ConnectionString)
+        "Windows"
+        {
+            $Namespace = "WindowsAuthSite"
+        }
+    }
+    $FQDN = ((ConvertFrom-Json (Get-MgmtSvcDatabaseSetting -Namespace $Namespace -Name Authentication.RelyingParty.Primary -ConnectionString $ConnectionString).Value).ReplyTo).Split("/")[2]
 
     $returnValue = @{
         Target = $Target
@@ -92,7 +91,10 @@ function Set-TargetResource
         $SQLServer,
 
         [System.String]
-        $SQLInstance = "MSSQLSERVER"
+        $SQLInstance = "MSSQLSERVER",
+
+        [System.Management.Automation.PSCredential]
+        $dbUser
     )
 
     if($Port -eq 0)
@@ -112,23 +114,16 @@ function Set-TargetResource
     
     if($SQLInstance -eq "MSSQLSERVER")
     {
-        $PortalConnectionString = "Data Source=$SQLServer;Initial Catalog=Microsoft.MgmtSvc.PortalConfigStore;Integrated Security=True";
-        $ManagementConnectionString = "Data Source=$SQLServer;Initial Catalog=Microsoft.MgmtSvc.Store;Integrated Security=True";
+        $PortalConnectionString = "Data Source=$SQLServer;Initial Catalog=Microsoft.MgmtSvc.PortalConfigStore;User ID=$($dbUser.UserName);Password=$($dbUser.GetNetworkCredential().password)";
+        $ManagementConnectionString = "Data Source=$SQLServer;Initial Catalog=Microsoft.MgmtSvc.Store;User ID=$($dbUser.UserName);Password=$($dbUser.GetNetworkCredential().password)";
     }
     else
     {
-        $PortalConnectionString = "Data Source=$SQLServer\$SQLInstance;Initial Catalog=Microsoft.MgmtSvc.PortalConfigStore;Integrated Security=True";
-        $ManagementConnectionString = "Data Source=$SQLServer\$SQLInstance;Initial Catalog=Microsoft.MgmtSvc.Store;Integrated Security=True";
+        $PortalConnectionString = "Data Source=$SQLServer\$SQLInstance;Initial Catalog=Microsoft.MgmtSvc.PortalConfigStore;User ID=$($dbUser.UserName);Password=$($dbUser.GetNetworkCredential().password)";
+        $ManagementConnectionString = "Data Source=$SQLServer\$SQLInstance;Initial Catalog=Microsoft.MgmtSvc.Store;User ID=$($dbUser.UserName);Password=$($dbUser.GetNetworkCredential().password)";
     }
 
-    Invoke-Command -ComputerName . -Credential $AzurePackAdminCredential -Authentication Credssp {
-        $Target = $args[0]
-        $FullyQualifiedDomainName = $args[1]
-        $Port = $args[2]
-        $PortalConnectionString = $args[3]
-        $ManagementConnectionString = $args[4]
-        Set-MgmtSvcIdentityProviderSettings -Target $Target -MetadataEndpoint "https://$FullyQualifiedDomainName`:$Port/FederationMetadata/2007-06/FederationMetadata.xml" -PortalConnectionString $PortalConnectionString -ManagementConnectionString $ManagementConnectionString -DisableCertificateValidation;
-    } -ArgumentList @($Target,$FullyQualifiedDomainName,$Port,$PortalConnectionString,$ManagementConnectionString)
+    Set-MgmtSvcIdentityProviderSettings -Target $Target -MetadataEndpoint "https://$FullyQualifiedDomainName`:$Port/FederationMetadata/2007-06/FederationMetadata.xml" -PortalConnectionString $PortalConnectionString -ManagementConnectionString $ManagementConnectionString -DisableCertificateValidation;
 
     if(!(Test-TargetResource @PSBoundParameters))
     {
@@ -164,7 +159,10 @@ function Test-TargetResource
         $SQLServer,
 
         [System.String]
-        $SQLInstance = "MSSQLSERVER"
+        $SQLInstance = "MSSQLSERVER",
+
+        [System.Management.Automation.PSCredential]
+        $dbUser
     )
 
     if($Port -eq 0)
@@ -184,7 +182,12 @@ function Test-TargetResource
 
     $FQDN = Get-TargetResource @PSBoundParameters
     
-    $result = (($FQDN.FullyQualifiedDomainName -eq $FullyQualifiedDomainName) -and ($FQDN.Port -eq $Port))
+    if ($Port -ne 443)
+    {
+    $TestPort = $Port
+    }
+
+    $result = (($FQDN.FullyQualifiedDomainName -eq $FullyQualifiedDomainName) -and ($FQDN.Port -eq $TestPort))
 
     $result
 }

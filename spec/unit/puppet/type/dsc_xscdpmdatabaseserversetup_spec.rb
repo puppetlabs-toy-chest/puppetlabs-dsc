@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_xscdpmdatabaseserversetup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscdpmdatabaseserversetup).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscdpmdatabaseserversetup.to_s).to eq("Dsc_xscdpmdatabaseserversetup[foo]")
   end
@@ -72,9 +82,6 @@ describe Puppet::Type.type(:dsc_xscdpmdatabaseserversetup) do
     #dsc_xscdpmdatabaseserversetup[:dsc_sourcepath]
     expect { Puppet::Type.type(:dsc_xscdpmdatabaseserversetup).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_sourcepath is a required attribute/)
   end
 

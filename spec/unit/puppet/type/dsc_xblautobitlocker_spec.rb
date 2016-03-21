@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xblautobitlocker.to_s).to eq("Dsc_xblautobitlocker[foo]")
-  end
-
-  it 'should require that dsc_drivetype is specified' do
-    #dsc_xblautobitlocker[:dsc_drivetype]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xblautobitlocker).new(
       :name     => 'foo',
+      :dsc_drivetype => 'Fixed',
       :dsc_mindiskcapacitygb => -32,
       :dsc_primaryprotector => 'PasswordProtector',
       :dsc_autounlock => true,
@@ -37,6 +33,17 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
       :dsc_startupkeyprotector => true,
       :dsc_tpmprotector => true,
       :dsc_usedspaceonly => true,
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xblautobitlocker.to_s).to eq("Dsc_xblautobitlocker[foo]")
+  end
+
+  it 'should require that dsc_drivetype is specified' do
+    #dsc_xblautobitlocker[:dsc_drivetype]
+    expect { Puppet::Type.type(:dsc_xblautobitlocker).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_drivetype is a required attribute/)
   end
 

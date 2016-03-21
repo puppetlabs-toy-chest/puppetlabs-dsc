@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xexchmailboxdatabasecopy.to_s).to eq("Dsc_xexchmailboxdatabasecopy[foo]")
-  end
-
-  it 'should require that dsc_identity is specified' do
-    #dsc_xexchmailboxdatabasecopy[:dsc_identity]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xexchmailboxdatabasecopy).new(
       :name     => 'foo',
+      :dsc_identity => 'foo',
       :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_mailboxserver => 'foo',
       :dsc_adserversettingspreferredserver => 'foo',
@@ -27,6 +23,17 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
       :dsc_replaylagtime => 'foo',
       :dsc_seedingpostponed => true,
       :dsc_truncationlagtime => 'foo',
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xexchmailboxdatabasecopy.to_s).to eq("Dsc_xexchmailboxdatabasecopy[foo]")
+  end
+
+  it 'should require that dsc_identity is specified' do
+    #dsc_xexchmailboxdatabasecopy[:dsc_identity]
+    expect { Puppet::Type.type(:dsc_xexchmailboxdatabasecopy).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

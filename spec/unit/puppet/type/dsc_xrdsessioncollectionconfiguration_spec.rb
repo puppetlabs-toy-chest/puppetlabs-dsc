@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xrdsessioncollectionconfiguration.to_s).to eq("Dsc_xrdsessioncollectionconfiguration[foo]")
-  end
-
-  it 'should require that dsc_collectionname is specified' do
-    #dsc_xrdsessioncollectionconfiguration[:dsc_collectionname]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration).new(
       :name     => 'foo',
+      :dsc_collectionname => 'foo',
       :dsc_activesessionlimitmin => 32,
       :dsc_authenticateusingnla => true,
       :dsc_automaticreconnectionenabled => true,
@@ -36,6 +32,17 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
       :dsc_securitylayer => 'foo',
       :dsc_temporaryfoldersdeletedonexit => true,
       :dsc_usergroup => 'foo',
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xrdsessioncollectionconfiguration.to_s).to eq("Dsc_xrdsessioncollectionconfiguration[foo]")
+  end
+
+  it 'should require that dsc_collectionname is specified' do
+    #dsc_xrdsessioncollectionconfiguration[:dsc_collectionname]
+    expect { Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_collectionname is a required attribute/)
   end
 

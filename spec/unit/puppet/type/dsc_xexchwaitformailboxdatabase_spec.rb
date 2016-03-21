@@ -10,6 +10,18 @@ describe Puppet::Type.type(:dsc_xexchwaitformailboxdatabase) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchwaitformailboxdatabase).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_adserversettingspreferredserver => 'foo',
+      :dsc_domaincontroller => 'foo',
+      :dsc_retryintervalsec => 32,
+      :dsc_retrycount => 32,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchwaitformailboxdatabase.to_s).to eq("Dsc_xexchwaitformailboxdatabase[foo]")
   end
@@ -18,11 +30,6 @@ describe Puppet::Type.type(:dsc_xexchwaitformailboxdatabase) do
     #dsc_xexchwaitformailboxdatabase[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchwaitformailboxdatabase).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_adserversettingspreferredserver => 'foo',
-      :dsc_domaincontroller => 'foo',
-      :dsc_retryintervalsec => 32,
-      :dsc_retrycount => 32,
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

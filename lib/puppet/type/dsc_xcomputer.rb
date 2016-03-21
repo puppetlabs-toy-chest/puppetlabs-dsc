@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   def dscmeta_resource_friendly_name; 'xComputer' end
   def dscmeta_resource_name; 'MSFT_xComputer' end
   def dscmeta_module_name; 'xComputerManagement' end
-  def dscmeta_module_version; '1.3.0' end
+  def dscmeta_module_version; '1.4.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,6 +62,36 @@ Puppet::Type.newtype(:dsc_xcomputer) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "DomainName"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         JoinOU
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_joinou) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "JoinOU"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CurrentOU
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_currentou) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CurrentOU"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

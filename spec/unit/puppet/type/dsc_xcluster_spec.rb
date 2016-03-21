@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xcluster) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xcluster).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_staticipaddress => 'foo',
+      :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xcluster.to_s).to eq("Dsc_xcluster[foo]")
   end
@@ -18,8 +27,6 @@ describe Puppet::Type.type(:dsc_xcluster) do
     #dsc_xcluster[:dsc_name]
     expect { Puppet::Type.type(:dsc_xcluster).new(
       :name     => 'foo',
-      :dsc_staticipaddress => 'foo',
-      :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

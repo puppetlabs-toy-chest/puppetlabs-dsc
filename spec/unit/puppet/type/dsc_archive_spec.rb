@@ -11,6 +11,19 @@ describe Puppet::Type.type(:dsc_archive) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_archive).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_path => 'foo',
+      :dsc_destination => 'foo',
+      :dsc_validate => true,
+      :dsc_checksum => 'SHA-1',
+      :dsc_force => true,
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_archive.to_s).to eq("Dsc_archive[foo]")
   end
@@ -73,12 +86,7 @@ describe Puppet::Type.type(:dsc_archive) do
     #dsc_archive[:dsc_path]
     expect { Puppet::Type.type(:dsc_archive).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
       :dsc_destination => 'foo',
-      :dsc_validate => true,
-      :dsc_checksum => 'SHA-1',
-      :dsc_force => true,
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_path is a required attribute/)
   end
 
@@ -102,12 +110,7 @@ describe Puppet::Type.type(:dsc_archive) do
     #dsc_archive[:dsc_destination]
     expect { Puppet::Type.type(:dsc_archive).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
       :dsc_path => 'foo',
-      :dsc_validate => true,
-      :dsc_checksum => 'SHA-1',
-      :dsc_force => true,
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_destination is a required attribute/)
   end
 

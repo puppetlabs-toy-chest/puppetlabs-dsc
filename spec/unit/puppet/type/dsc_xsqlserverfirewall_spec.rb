@@ -11,6 +11,22 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqlserverfirewall).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_features => 'foo',
+      :dsc_instancename => 'foo',
+      :dsc_databaseenginefirewall => true,
+      :dsc_browserfirewall => true,
+      :dsc_reportingservicesfirewall => true,
+      :dsc_analysisservicesfirewall => true,
+      :dsc_integrationservicesfirewall => true,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqlserverfirewall.to_s).to eq("Dsc_xsqlserverfirewall[foo]")
   end
@@ -105,15 +121,7 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     #dsc_xsqlserverfirewall[:dsc_features]
     expect { Puppet::Type.type(:dsc_xsqlserverfirewall).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_sourcepath => 'foo',
-      :dsc_sourcefolder => 'foo',
       :dsc_instancename => 'foo',
-      :dsc_databaseenginefirewall => true,
-      :dsc_browserfirewall => true,
-      :dsc_reportingservicesfirewall => true,
-      :dsc_analysisservicesfirewall => true,
-      :dsc_integrationservicesfirewall => true,
     )}.to raise_error(Puppet::Error, /dsc_features is a required attribute/)
   end
 
@@ -137,15 +145,7 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     #dsc_xsqlserverfirewall[:dsc_instancename]
     expect { Puppet::Type.type(:dsc_xsqlserverfirewall).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_sourcepath => 'foo',
-      :dsc_sourcefolder => 'foo',
       :dsc_features => 'foo',
-      :dsc_databaseenginefirewall => true,
-      :dsc_browserfirewall => true,
-      :dsc_reportingservicesfirewall => true,
-      :dsc_analysisservicesfirewall => true,
-      :dsc_integrationservicesfirewall => true,
     )}.to raise_error(Puppet::Error, /dsc_instancename is a required attribute/)
   end
 

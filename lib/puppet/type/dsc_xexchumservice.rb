@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchumservice) do
   def dscmeta_resource_friendly_name; 'xExchUMService' end
   def dscmeta_resource_name; 'MSFT_xExchUMService' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -85,6 +85,24 @@ Puppet::Type.newtype(:dsc_xexchumservice) do
       unless ['TCP', 'tcp', 'TLS', 'tls', 'Dual', 'dual'].include?(value)
         fail("Invalid value '#{value}'. Valid values are TCP, TLS, Dual")
       end
+    end
+  end
+
+  # Name:         DialPlans
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_dialplans, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "DialPlans"
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 

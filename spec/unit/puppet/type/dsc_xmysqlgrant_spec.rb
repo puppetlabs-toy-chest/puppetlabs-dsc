@@ -11,6 +11,17 @@ describe Puppet::Type.type(:dsc_xmysqlgrant) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xmysqlgrant).new(
+      :name     => 'foo',
+      :dsc_username => 'foo',
+      :dsc_databasename => 'foo',
+      :dsc_connectioncredential => {"user"=>"user", "password"=>"password"},
+      :dsc_permissiontype => 'ALL PRIVILEGES',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xmysqlgrant.to_s).to eq("Dsc_xmysqlgrant[foo]")
   end
@@ -24,9 +35,6 @@ describe Puppet::Type.type(:dsc_xmysqlgrant) do
     expect { Puppet::Type.type(:dsc_xmysqlgrant).new(
       :name     => 'foo',
       :dsc_databasename => 'foo',
-      :dsc_connectioncredential => {"user"=>"user", "password"=>"password"},
-      :dsc_permissiontype => 'ALL PRIVILEGES',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_username is a required attribute/)
   end
 
@@ -51,9 +59,6 @@ describe Puppet::Type.type(:dsc_xmysqlgrant) do
     expect { Puppet::Type.type(:dsc_xmysqlgrant).new(
       :name     => 'foo',
       :dsc_username => 'foo',
-      :dsc_connectioncredential => {"user"=>"user", "password"=>"password"},
-      :dsc_permissiontype => 'ALL PRIVILEGES',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_databasename is a required attribute/)
   end
 

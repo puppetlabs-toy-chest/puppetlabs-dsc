@@ -176,7 +176,10 @@ function Test-TargetResource
     }
 
     # Convert the Lease duration to be a valid timespan
-    $LeaseDuration = (Get-ValidTimeSpan -tsString $LeaseDuration -parameterName 'Leaseduration').ToString()
+    if($LeaseDuration)
+    {
+        $LeaseDuration = (Get-ValidTimeSpan -tsString $LeaseDuration -parameterName 'Leaseduration').ToString()
+    }
     
 #endregion Input Validation
 

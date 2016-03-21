@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_xscsmapowershellsetup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscsmapowershellsetup).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_sourcepath => 'foo',
+      :dsc_sourcefolder => 'foo',
+      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscsmapowershellsetup.to_s).to eq("Dsc_xscsmapowershellsetup[foo]")
   end
@@ -22,9 +32,6 @@ describe Puppet::Type.type(:dsc_xscsmapowershellsetup) do
     #dsc_xscsmapowershellsetup[:dsc_ensure]
     expect { Puppet::Type.type(:dsc_xscsmapowershellsetup).new(
       :name     => 'foo',
-      :dsc_sourcepath => 'foo',
-      :dsc_sourcefolder => 'foo',
-      :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

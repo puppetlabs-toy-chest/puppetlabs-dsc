@@ -11,6 +11,16 @@ describe Puppet::Type.type(:dsc_xipaddress) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xipaddress).new(
+      :name     => 'foo',
+      :dsc_ipaddress => 'foo',
+      :dsc_interfacealias => 'foo',
+      :dsc_subnetmask => 32,
+      :dsc_addressfamily => 'IPv4',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xipaddress.to_s).to eq("Dsc_xipaddress[foo]")
   end
@@ -20,8 +30,6 @@ describe Puppet::Type.type(:dsc_xipaddress) do
     expect { Puppet::Type.type(:dsc_xipaddress).new(
       :name     => 'foo',
       :dsc_interfacealias => 'foo',
-      :dsc_subnetmask => 32,
-      :dsc_addressfamily => 'IPv4',
     )}.to raise_error(Puppet::Error, /dsc_ipaddress is a required attribute/)
   end
 
@@ -46,8 +54,6 @@ describe Puppet::Type.type(:dsc_xipaddress) do
     expect { Puppet::Type.type(:dsc_xipaddress).new(
       :name     => 'foo',
       :dsc_ipaddress => 'foo',
-      :dsc_subnetmask => 32,
-      :dsc_addressfamily => 'IPv4',
     )}.to raise_error(Puppet::Error, /dsc_interfacealias is a required attribute/)
   end
 

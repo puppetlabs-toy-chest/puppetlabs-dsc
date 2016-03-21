@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xarchive) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xarchive.to_s).to eq("Dsc_xarchive[foo]")
-  end
-
-  it 'should require that dsc_destination is specified' do
-    #dsc_xarchive[:dsc_destination]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xarchive).new(
       :name     => 'foo',
+      :dsc_destination => 'foo',
       :dsc_path => ["foo", "bar", "spec"],
       :dsc_compressionlevel => 'Optimal',
       :dsc_destinationtype => 'File',
@@ -26,6 +22,17 @@ describe Puppet::Type.type(:dsc_xarchive) do
       :dsc_attributes => 'foo',
       :dsc_mode => 'foo',
       :dsc_size => 64,
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xarchive.to_s).to eq("Dsc_xarchive[foo]")
+  end
+
+  it 'should require that dsc_destination is specified' do
+    #dsc_xarchive[:dsc_destination]
+    expect { Puppet::Type.type(:dsc_xarchive).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_destination is a required attribute/)
   end
 

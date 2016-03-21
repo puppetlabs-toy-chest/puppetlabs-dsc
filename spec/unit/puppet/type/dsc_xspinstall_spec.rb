@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xspinstall) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspinstall).new(
+      :name     => 'foo',
+      :dsc_binarydir => 'foo',
+      :dsc_productkey => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspinstall.to_s).to eq("Dsc_xspinstall[foo]")
   end
@@ -22,8 +31,6 @@ describe Puppet::Type.type(:dsc_xspinstall) do
     #dsc_xspinstall[:dsc_binarydir]
     expect { Puppet::Type.type(:dsc_xspinstall).new(
       :name     => 'foo',
-      :dsc_productkey => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_binarydir is a required attribute/)
   end
 

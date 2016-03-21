@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xazurepackfqdn) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazurepackfqdn).new(
+      :name     => 'foo',
+      :dsc_namespace => 'AdminSite',
+      :dsc_fullyqualifieddomainname => 'foo',
+      :dsc_port => 16,
+      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sqlserver => 'foo',
+      :dsc_sqlinstance => 'foo',
+      :dsc_dbuser => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazurepackfqdn.to_s).to eq("Dsc_xazurepackfqdn[foo]")
   end
@@ -18,11 +31,6 @@ describe Puppet::Type.type(:dsc_xazurepackfqdn) do
     #dsc_xazurepackfqdn[:dsc_namespace]
     expect { Puppet::Type.type(:dsc_xazurepackfqdn).new(
       :name     => 'foo',
-      :dsc_fullyqualifieddomainname => 'foo',
-      :dsc_port => 16,
-      :dsc_azurepackadmincredential => {"user"=>"user", "password"=>"password"},
-      :dsc_sqlserver => 'foo',
-      :dsc_sqlinstance => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_namespace is a required attribute/)
   end
 
@@ -186,6 +194,26 @@ describe Puppet::Type.type(:dsc_xazurepackfqdn) do
 
   it 'should not accept uint for dsc_sqlinstance' do
     expect{dsc_xazurepackfqdn[:dsc_sqlinstance] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_dbuser" do
+    expect{dsc_xazurepackfqdn[:dsc_dbuser] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_dbuser' do
+    expect{dsc_xazurepackfqdn[:dsc_dbuser] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_dbuser' do
+    expect{dsc_xazurepackfqdn[:dsc_dbuser] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_dbuser' do
+    expect{dsc_xazurepackfqdn[:dsc_dbuser] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_dbuser' do
+    expect{dsc_xazurepackfqdn[:dsc_dbuser] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

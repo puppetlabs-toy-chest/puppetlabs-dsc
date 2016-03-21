@@ -10,6 +10,21 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazuresqldatabase).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_maximumsizeingb => 32,
+      :dsc_collation => 'foo',
+      :dsc_edition => 'foo',
+      :dsc_servercredential => {"user"=>"user", "password"=>"password"},
+      :dsc_servername => 'foo',
+      :dsc_azuresubscriptionname => 'foo',
+      :dsc_azurepublishsettingsfile => 'foo',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazuresqldatabase.to_s).to eq("Dsc_xazuresqldatabase[foo]")
   end
@@ -22,14 +37,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
     #dsc_xazuresqldatabase[:dsc_name]
     expect { Puppet::Type.type(:dsc_xazuresqldatabase).new(
       :name     => 'foo',
-      :dsc_maximumsizeingb => 32,
-      :dsc_collation => 'foo',
-      :dsc_edition => 'foo',
-      :dsc_servercredential => {"user"=>"user", "password"=>"password"},
-      :dsc_servername => 'foo',
-      :dsc_azuresubscriptionname => 'foo',
-      :dsc_azurepublishsettingsfile => 'foo',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

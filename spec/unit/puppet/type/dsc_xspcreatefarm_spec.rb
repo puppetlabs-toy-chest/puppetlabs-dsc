@@ -11,6 +11,20 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspcreatefarm).new(
+      :name     => 'foo',
+      :dsc_farmconfigdatabasename => 'foo',
+      :dsc_databaseserver => 'foo',
+      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_passphrase => 'foo',
+      :dsc_admincontentdatabasename => 'foo',
+      :dsc_centraladministrationport => 32,
+      :dsc_serverrole => 'Application',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspcreatefarm.to_s).to eq("Dsc_xspcreatefarm[foo]")
   end
@@ -20,12 +34,6 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
     expect { Puppet::Type.type(:dsc_xspcreatefarm).new(
       :name     => 'foo',
       :dsc_databaseserver => 'foo',
-      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
-      :dsc_passphrase => 'foo',
-      :dsc_admincontentdatabasename => 'foo',
-      :dsc_centraladministrationport => 32,
-      :dsc_serverrole => 'Application',
     )}.to raise_error(Puppet::Error, /dsc_farmconfigdatabasename is a required attribute/)
   end
 
@@ -50,12 +58,6 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
     expect { Puppet::Type.type(:dsc_xspcreatefarm).new(
       :name     => 'foo',
       :dsc_farmconfigdatabasename => 'foo',
-      :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
-      :dsc_passphrase => 'foo',
-      :dsc_admincontentdatabasename => 'foo',
-      :dsc_centraladministrationport => 32,
-      :dsc_serverrole => 'Application',
     )}.to raise_error(Puppet::Error, /dsc_databaseserver is a required attribute/)
   end
 
@@ -93,26 +95,6 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
 
   it 'should not accept uint for dsc_farmaccount' do
     expect{dsc_xspcreatefarm[:dsc_farmaccount] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it "should not accept empty password for dsc_installaccount" do
-    expect{dsc_xspcreatefarm[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_installaccount' do
-    expect{dsc_xspcreatefarm[:dsc_installaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_installaccount' do
-    expect{dsc_xspcreatefarm[:dsc_installaccount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_installaccount' do
-    expect{dsc_xspcreatefarm[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_xspcreatefarm[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_passphrase' do
@@ -279,6 +261,26 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
 
   it 'should not accept uint for dsc_serverrole' do
     expect{dsc_xspcreatefarm[:dsc_serverrole] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_installaccount" do
+    expect{dsc_xspcreatefarm[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_installaccount' do
+    expect{dsc_xspcreatefarm[:dsc_installaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_installaccount' do
+    expect{dsc_xspcreatefarm[:dsc_installaccount] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_installaccount' do
+    expect{dsc_xspcreatefarm[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_installaccount' do
+    expect{dsc_xspcreatefarm[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

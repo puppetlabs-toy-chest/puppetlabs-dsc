@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xexchdatabaseavailabilitygroup.to_s).to eq("Dsc_xexchdatabaseavailabilitygroup[foo]")
-  end
-
-  it 'should require that dsc_name is specified' do
-    #dsc_xexchdatabaseavailabilitygroup[:dsc_name]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup).new(
       :name     => 'foo',
+      :dsc_name => 'foo',
       :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_autodagtotalnumberofservers => -32,
       :dsc_alternatewitnessdirectory => 'foo',
@@ -40,6 +36,17 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
       :dsc_skipdagvalidation => true,
       :dsc_witnessdirectory => 'foo',
       :dsc_witnessserver => 'foo',
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xexchdatabaseavailabilitygroup.to_s).to eq("Dsc_xexchdatabaseavailabilitygroup[foo]")
+  end
+
+  it 'should require that dsc_name is specified' do
+    #dsc_xexchdatabaseavailabilitygroup[:dsc_name]
+    expect { Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

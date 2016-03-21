@@ -10,6 +10,16 @@ describe Puppet::Type.type(:dsc_xdnsserversecondaryzone) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xdnsserversecondaryzone).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_masterservers => ["foo", "bar", "spec"],
+      :dsc_ensure => 'Present',
+      :dsc_type => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xdnsserversecondaryzone.to_s).to eq("Dsc_xdnsserversecondaryzone[foo]")
   end
@@ -22,9 +32,6 @@ describe Puppet::Type.type(:dsc_xdnsserversecondaryzone) do
     #dsc_xdnsserversecondaryzone[:dsc_name]
     expect { Puppet::Type.type(:dsc_xdnsserversecondaryzone).new(
       :name     => 'foo',
-      :dsc_masterservers => ["foo", "bar", "spec"],
-      :dsc_ensure => 'Present',
-      :dsc_type => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

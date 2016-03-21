@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xexchmaintenancemode) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchmaintenancemode).new(
+      :name     => 'foo',
+      :dsc_enabled => true,
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_additionalcomponentstoactivate => ["foo", "bar", "spec"],
+      :dsc_domaincontroller => 'foo',
+      :dsc_movepreferreddatabasesback => true,
+      :dsc_setinactivecomponentsfromanyrequestertoactive => true,
+      :dsc_upgradedserverversion => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchmaintenancemode.to_s).to eq("Dsc_xexchmaintenancemode[foo]")
   end
@@ -18,12 +31,6 @@ describe Puppet::Type.type(:dsc_xexchmaintenancemode) do
     #dsc_xexchmaintenancemode[:dsc_enabled]
     expect { Puppet::Type.type(:dsc_xexchmaintenancemode).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_additionalcomponentstoactivate => ["foo", "bar", "spec"],
-      :dsc_domaincontroller => 'foo',
-      :dsc_movepreferreddatabasesback => true,
-      :dsc_setinactivecomponentsfromanyrequestertoactive => true,
-      :dsc_upgradedserverversion => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_enabled is a required attribute/)
   end
 

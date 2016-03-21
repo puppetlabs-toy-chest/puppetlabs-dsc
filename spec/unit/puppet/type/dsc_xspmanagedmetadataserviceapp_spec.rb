@@ -10,6 +10,17 @@ describe Puppet::Type.type(:dsc_xspmanagedmetadataserviceapp) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xspmanagedmetadataserviceapp).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_applicationpool => 'foo',
+      :dsc_databaseserver => 'foo',
+      :dsc_databasename => 'foo',
+      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xspmanagedmetadataserviceapp.to_s).to eq("Dsc_xspmanagedmetadataserviceapp[foo]")
   end
@@ -18,10 +29,6 @@ describe Puppet::Type.type(:dsc_xspmanagedmetadataserviceapp) do
     #dsc_xspmanagedmetadataserviceapp[:dsc_name]
     expect { Puppet::Type.type(:dsc_xspmanagedmetadataserviceapp).new(
       :name     => 'foo',
-      :dsc_installaccount => {"user"=>"user", "password"=>"password"},
-      :dsc_applicationpool => 'foo',
-      :dsc_databaseserver => 'foo',
-      :dsc_databasename => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
@@ -39,26 +46,6 @@ describe Puppet::Type.type(:dsc_xspmanagedmetadataserviceapp) do
 
   it 'should not accept uint for dsc_name' do
     expect{dsc_xspmanagedmetadataserviceapp[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it "should not accept empty password for dsc_installaccount" do
-    expect{dsc_xspmanagedmetadataserviceapp[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_installaccount' do
-    expect{dsc_xspmanagedmetadataserviceapp[:dsc_installaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_installaccount' do
-    expect{dsc_xspmanagedmetadataserviceapp[:dsc_installaccount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_installaccount' do
-    expect{dsc_xspmanagedmetadataserviceapp[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_xspmanagedmetadataserviceapp[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_applicationpool' do
@@ -107,6 +94,26 @@ describe Puppet::Type.type(:dsc_xspmanagedmetadataserviceapp) do
 
   it 'should not accept uint for dsc_databasename' do
     expect{dsc_xspmanagedmetadataserviceapp[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_installaccount" do
+    expect{dsc_xspmanagedmetadataserviceapp[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_installaccount' do
+    expect{dsc_xspmanagedmetadataserviceapp[:dsc_installaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_installaccount' do
+    expect{dsc_xspmanagedmetadataserviceapp[:dsc_installaccount] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_installaccount' do
+    expect{dsc_xspmanagedmetadataserviceapp[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_installaccount' do
+    expect{dsc_xspmanagedmetadataserviceapp[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xsystemrestorepoint) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsystemrestorepoint).new(
+      :name     => 'foo',
+      :dsc_description => 'foo',
+      :dsc_restorepointtype => 'APPLICATION_INSTALL',
+      :dsc_ensure => 'Present',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsystemrestorepoint.to_s).to eq("Dsc_xsystemrestorepoint[foo]")
   end
@@ -22,8 +31,6 @@ describe Puppet::Type.type(:dsc_xsystemrestorepoint) do
     #dsc_xsystemrestorepoint[:dsc_description]
     expect { Puppet::Type.type(:dsc_xsystemrestorepoint).new(
       :name     => 'foo',
-      :dsc_restorepointtype => 'APPLICATION_INSTALL',
-      :dsc_ensure => 'Present',
     )}.to raise_error(Puppet::Error, /dsc_description is a required attribute/)
   end
 

@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xsqlhaservice) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqlhaservice).new(
+      :name     => 'foo',
+      :dsc_instancename => 'foo',
+      :dsc_sqladministratorcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_servicecredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqlhaservice.to_s).to eq("Dsc_xsqlhaservice[foo]")
   end
@@ -18,8 +27,6 @@ describe Puppet::Type.type(:dsc_xsqlhaservice) do
     #dsc_xsqlhaservice[:dsc_instancename]
     expect { Puppet::Type.type(:dsc_xsqlhaservice).new(
       :name     => 'foo',
-      :dsc_sqladministratorcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_servicecredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_instancename is a required attribute/)
   end
 

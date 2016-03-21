@@ -10,6 +10,28 @@ describe Puppet::Type.type(:dsc_xsqlserverinstall) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xsqlserverinstall).new(
+      :name     => 'foo',
+      :dsc_instancename => 'foo',
+      :dsc_sourcepath => 'foo',
+      :dsc_versionid => 'foo',
+      :dsc_sourcepathcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_features => 'foo',
+      :dsc_sqladministratorcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_updateenabled => true,
+      :dsc_svcaccount => 'foo',
+      :dsc_sysadminaccounts => 'foo',
+      :dsc_agentsvcaccount => 'foo',
+      :dsc_sqlcollation => 'foo',
+      :dsc_installsqldatadir => 'foo',
+      :dsc_sqltempdbdir => 'foo',
+      :dsc_sqluserdbdir => 'foo',
+      :dsc_sqluserdblogdir => 'foo',
+      :dsc_sqlbackupdir => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xsqlserverinstall.to_s).to eq("Dsc_xsqlserverinstall[foo]")
   end
@@ -18,14 +40,6 @@ describe Puppet::Type.type(:dsc_xsqlserverinstall) do
     #dsc_xsqlserverinstall[:dsc_instancename]
     expect { Puppet::Type.type(:dsc_xsqlserverinstall).new(
       :name     => 'foo',
-      :dsc_sourcepath => 'foo',
-      :dsc_sourcepathcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_features => 'foo',
-      :dsc_sqladministratorcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_updateenabled => true,
-      :dsc_svcaccount => 'foo',
-      :dsc_sysadminaccounts => 'foo',
-      :dsc_agentsvcaccount => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_instancename is a required attribute/)
   end
 
@@ -59,6 +73,22 @@ describe Puppet::Type.type(:dsc_xsqlserverinstall) do
 
   it 'should not accept uint for dsc_sourcepath' do
     expect{dsc_xsqlserverinstall[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_versionid' do
+    expect{dsc_xsqlserverinstall[:dsc_versionid] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_versionid' do
+    expect{dsc_xsqlserverinstall[:dsc_versionid] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_versionid' do
+    expect{dsc_xsqlserverinstall[:dsc_versionid] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_versionid' do
+    expect{dsc_xsqlserverinstall[:dsc_versionid] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_sourcepathcredential" do
@@ -210,6 +240,102 @@ describe Puppet::Type.type(:dsc_xsqlserverinstall) do
 
   it 'should not accept uint for dsc_agentsvcaccount' do
     expect{dsc_xsqlserverinstall[:dsc_agentsvcaccount] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_sqlcollation' do
+    expect{dsc_xsqlserverinstall[:dsc_sqlcollation] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_sqlcollation' do
+    expect{dsc_xsqlserverinstall[:dsc_sqlcollation] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_sqlcollation' do
+    expect{dsc_xsqlserverinstall[:dsc_sqlcollation] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_sqlcollation' do
+    expect{dsc_xsqlserverinstall[:dsc_sqlcollation] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_installsqldatadir' do
+    expect{dsc_xsqlserverinstall[:dsc_installsqldatadir] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_installsqldatadir' do
+    expect{dsc_xsqlserverinstall[:dsc_installsqldatadir] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_installsqldatadir' do
+    expect{dsc_xsqlserverinstall[:dsc_installsqldatadir] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_installsqldatadir' do
+    expect{dsc_xsqlserverinstall[:dsc_installsqldatadir] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_sqltempdbdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqltempdbdir] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_sqltempdbdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqltempdbdir] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_sqltempdbdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqltempdbdir] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_sqltempdbdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqltempdbdir] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_sqluserdbdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqluserdbdir] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_sqluserdbdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqluserdbdir] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_sqluserdbdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqluserdbdir] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_sqluserdbdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqluserdbdir] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_sqluserdblogdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqluserdblogdir] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_sqluserdblogdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqluserdblogdir] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_sqluserdblogdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqluserdblogdir] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_sqluserdblogdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqluserdblogdir] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_sqlbackupdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqlbackupdir] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_sqlbackupdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqlbackupdir] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_sqlbackupdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqlbackupdir] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_sqlbackupdir' do
+    expect{dsc_xsqlserverinstall[:dsc_sqlbackupdir] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

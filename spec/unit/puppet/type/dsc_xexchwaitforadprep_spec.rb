@@ -10,6 +10,20 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexchwaitforadprep).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_schemaversion => -32,
+      :dsc_organizationversion => -32,
+      :dsc_domainversion => -32,
+      :dsc_exchangedomains => ["foo", "bar", "spec"],
+      :dsc_retryintervalsec => 32,
+      :dsc_retrycount => 32,
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexchwaitforadprep.to_s).to eq("Dsc_xexchwaitforadprep[foo]")
   end
@@ -18,13 +32,6 @@ describe Puppet::Type.type(:dsc_xexchwaitforadprep) do
     #dsc_xexchwaitforadprep[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexchwaitforadprep).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_schemaversion => -32,
-      :dsc_organizationversion => -32,
-      :dsc_domainversion => -32,
-      :dsc_exchangedomains => ["foo", "bar", "spec"],
-      :dsc_retryintervalsec => 32,
-      :dsc_retrycount => 32,
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

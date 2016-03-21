@@ -10,18 +10,10 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xscvmmmanagementserversetup.to_s).to eq("Dsc_xscvmmmanagementserversetup[foo]")
-  end
-
-  it 'should default to ensure => present' do
-    expect(dsc_xscvmmmanagementserversetup[:ensure]).to eq :present
-  end
-
-  it 'should require that dsc_ensure is specified' do
-    #dsc_xscvmmmanagementserversetup[:dsc_ensure]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xscvmmmanagementserversetup).new(
       :name     => 'foo',
+      :dsc_ensure => 'Present',
       :dsc_sourcepath => 'foo',
       :dsc_sourcefolder => 'foo',
       :dsc_setupcredential => {"user"=>"user", "password"=>"password"},
@@ -54,6 +46,21 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
       :dsc_forcehavmmuninstall => 1,
       :dsc_sqmoptin => 1,
       :dsc_muoptin => 1,
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xscvmmmanagementserversetup.to_s).to eq("Dsc_xscvmmmanagementserversetup[foo]")
+  end
+
+  it 'should default to ensure => present' do
+    expect(dsc_xscvmmmanagementserversetup[:ensure]).to eq :present
+  end
+
+  it 'should require that dsc_ensure is specified' do
+    #dsc_xscvmmmanagementserversetup[:dsc_ensure]
+    expect { Puppet::Type.type(:dsc_xscvmmmanagementserversetup).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_ensure is a required attribute/)
   end
 

@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xspmanagedpath) do
   def dscmeta_resource_friendly_name; 'xSPManagedPath' end
   def dscmeta_resource_name; 'MSFT_xSPManagedPath' end
   def dscmeta_module_name; 'xSharePoint' end
-  def dscmeta_module_version; '0.7.0.0' end
+  def dscmeta_module_version; '0.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -46,28 +46,12 @@ Puppet::Type.newtype(:dsc_xspmanagedpath) do
   newparam(:dsc_webappurl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "WebAppUrl"
+    desc "WebAppUrl - The URL of the web application to apply the managed path to - this is ignored for host header web applications"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-    end
-  end
-
-  # Name:         InstallAccount
-  # Type:         MSFT_Credential
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_installaccount) do
-    def mof_type; 'MSFT_Credential' end
-    def mof_is_embedded?; true end
-    desc "InstallAccount"
-    validate do |value|
-      unless value.kind_of?(Hash)
-        fail("Invalid value '#{value}'. Should be a hash")
-      end
-      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
     end
   end
 
@@ -78,7 +62,7 @@ Puppet::Type.newtype(:dsc_xspmanagedpath) do
   newparam(:dsc_relativeurl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "RelativeUrl"
+    desc "RelativeUrl - The relative URL of the managed path"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -94,7 +78,7 @@ Puppet::Type.newtype(:dsc_xspmanagedpath) do
   newparam(:dsc_explicit) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Explicit"
+    desc "Explicit - Should the host header be explicit? If false then it is a wildcard"
     validate do |value|
     end
     newvalues(true, false)
@@ -110,12 +94,28 @@ Puppet::Type.newtype(:dsc_xspmanagedpath) do
   newparam(:dsc_hostheader) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "HostHeader"
+    desc "HostHeader - Is this a host header web application?"
     validate do |value|
     end
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         InstallAccount
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_installaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
     end
   end
 

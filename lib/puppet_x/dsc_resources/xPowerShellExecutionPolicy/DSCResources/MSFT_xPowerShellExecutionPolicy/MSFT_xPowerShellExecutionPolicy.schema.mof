@@ -1,6 +1,6 @@
 
 [ClassVersion("1.0.0.0"), FriendlyName("xPowerShellExecutionPolicy")]
-class xPowerShellExecutionPolicy : OMI_BaseResource
+class MSFT_xPowerShellExecutionPolicy : OMI_BaseResource
 {
     [Key, Description("Changes the user preference for the Windows PowerShell execution policy."), ValueMap{"Bypass","Restricted","AllSigned","RemoteSigned","Unrestricted"}, Values{"Bypass","Restricted","AllSigned","RemoteSigned","Unrestricted"}] String ExecutionPolicy;
 };

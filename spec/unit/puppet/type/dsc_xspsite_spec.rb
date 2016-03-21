@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xspsite) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xspsite.to_s).to eq("Dsc_xspsite[foo]")
-  end
-
-  it 'should require that dsc_url is specified' do
-    #dsc_xspsite[:dsc_url]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xspsite).new(
       :name     => 'foo',
+      :dsc_url => 'foo',
       :dsc_owneralias => 'foo',
       :dsc_compatibilitylevel => 32,
       :dsc_contentdatabase => 'foo',
@@ -31,6 +27,17 @@ describe Puppet::Type.type(:dsc_xspsite) do
       :dsc_secondaryowneralias => 'foo',
       :dsc_template => 'foo',
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xspsite.to_s).to eq("Dsc_xspsite[foo]")
+  end
+
+  it 'should require that dsc_url is specified' do
+    #dsc_xspsite[:dsc_url]
+    expect { Puppet::Type.type(:dsc_xspsite).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_url is a required attribute/)
   end
 

@@ -11,6 +11,18 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xaddomaintrust).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_targetdomainadministratorcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_targetdomainname => 'foo',
+      :dsc_trusttype => 'External',
+      :dsc_trustdirection => 'Bidirectional',
+      :dsc_sourcedomainname => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xaddomaintrust.to_s).to eq("Dsc_xaddomaintrust[foo]")
   end
@@ -93,10 +105,6 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
     #dsc_xaddomaintrust[:dsc_targetdomainname]
     expect { Puppet::Type.type(:dsc_xaddomaintrust).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_targetdomainadministratorcredential => {"user"=>"user", "password"=>"password"},
-      :dsc_trusttype => 'External',
-      :dsc_trustdirection => 'Bidirectional',
       :dsc_sourcedomainname => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_targetdomainname is a required attribute/)
   end
@@ -211,11 +219,7 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
     #dsc_xaddomaintrust[:dsc_sourcedomainname]
     expect { Puppet::Type.type(:dsc_xaddomaintrust).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_targetdomainadministratorcredential => {"user"=>"user", "password"=>"password"},
       :dsc_targetdomainname => 'foo',
-      :dsc_trusttype => 'External',
-      :dsc_trustdirection => 'Bidirectional',
     )}.to raise_error(Puppet::Error, /dsc_sourcedomainname is a required attribute/)
   end
 

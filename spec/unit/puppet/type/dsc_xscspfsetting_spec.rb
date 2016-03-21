@@ -11,6 +11,18 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xscspfsetting).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_servername => 'foo',
+      :dsc_settingtype => 'DatabaseConnectionString',
+      :dsc_name => 'foo',
+      :dsc_value => 'foo',
+      :dsc_scspfadmincredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xscspfsetting.to_s).to eq("Dsc_xscspfsetting[foo]")
   end
@@ -73,11 +85,7 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
     #dsc_xscspfsetting[:dsc_servername]
     expect { Puppet::Type.type(:dsc_xscspfsetting).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_settingtype => 'DatabaseConnectionString',
       :dsc_name => 'foo',
-      :dsc_value => 'foo',
-      :dsc_scspfadmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_servername is a required attribute/)
   end
 
@@ -141,11 +149,7 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
     #dsc_xscspfsetting[:dsc_name]
     expect { Puppet::Type.type(:dsc_xscspfsetting).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
       :dsc_servername => 'foo',
-      :dsc_settingtype => 'DatabaseConnectionString',
-      :dsc_value => 'foo',
-      :dsc_scspfadmincredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

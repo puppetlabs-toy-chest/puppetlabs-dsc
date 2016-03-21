@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xazuresubscription) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xazuresubscription).new(
+      :name     => 'foo',
+      :dsc_ensure => 'Present',
+      :dsc_azuresubscriptionname => 'foo',
+      :dsc_azurepublishsettingsfile => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xazuresubscription.to_s).to eq("Dsc_xazuresubscription[foo]")
   end
@@ -72,8 +81,6 @@ describe Puppet::Type.type(:dsc_xazuresubscription) do
     #dsc_xazuresubscription[:dsc_azuresubscriptionname]
     expect { Puppet::Type.type(:dsc_xazuresubscription).new(
       :name     => 'foo',
-      :dsc_ensure => 'Present',
-      :dsc_azurepublishsettingsfile => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_azuresubscriptionname is a required attribute/)
   end
 

@@ -6,8 +6,8 @@ Puppet::Type.newtype(:dsc_xwebsite) do
 
     class PuppetX::Dsc::TypeHelpers
       def self.validate_MSFT_xWebBindingInformation(mof_type_map, name, value)
-        required = []
-        allowed = ['port','protocol','ipaddress','hostname','certificatethumbprint','certificatestorename','sslflags']
+        required = ['protocol']
+        allowed = ['bindinginformation','ipaddress','port','hostname','certificatethumbprint','certificatestorename','sslflags']
         lowkey_hash = Hash[value.map { |k, v| [k.to_s.downcase, v] }]
 
         missing = required - lowkey_hash.keys
@@ -50,7 +50,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
   def dscmeta_resource_friendly_name; 'xWebsite' end
   def dscmeta_resource_name; 'MSFT_xWebsite' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '1.9.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -60,6 +60,25 @@ Puppet::Type.newtype(:dsc_xwebsite) do
     newvalue(:present) { provider.create }
     newvalue(:absent)  { provider.destroy }
     defaultto { :present }
+  end
+
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
+    validate do |value|
+      resource[:ensure] = value.downcase
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      end
+    end
   end
 
   # Name:         Name
@@ -93,25 +112,6 @@ Puppet::Type.newtype(:dsc_xwebsite) do
     end
   end
 
-  # Name:         Ensure
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       ["Present", "Absent"]
-  newparam(:dsc_ensure) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
-    validate do |value|
-      resource[:ensure] = value.downcase
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Present, Absent")
-      end
-    end
-  end
-
   # Name:         State
   # Type:         string
   # IsMandatory:  False
@@ -130,6 +130,21 @@ Puppet::Type.newtype(:dsc_xwebsite) do
     end
   end
 
+  # Name:         ApplicationPool
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_applicationpool) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ApplicationPool"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
   # Name:         BindingInfo
   # Type:         MSFT_xWebBindingInformation[]
   # IsMandatory:  False
@@ -138,9 +153,9 @@ Puppet::Type.newtype(:dsc_xwebsite) do
     def mof_type; 'MSFT_xWebBindingInformation[]' end
     def mof_is_embedded?; true end
     def mof_type_map
-      {"port"=>{:type=>"uint16"}, "protocol"=>{:type=>"string", :values=>["http", "https"]}, "ipaddress"=>{:type=>"string"}, "hostname"=>{:type=>"string"}, "certificatethumbprint"=>{:type=>"string"}, "certificatestorename"=>{:type=>"string", :values=>["My", "WebHosting"]}, "sslflags"=>{:type=>"string", :values=>["0", "1", "2", "3"]}}
+      {"protocol"=>{:type=>"string", :values=>["http", "https", "msmq.formatname", "net.msmq", "net.pipe", "net.tcp"]}, "bindinginformation"=>{:type=>"string"}, "ipaddress"=>{:type=>"string"}, "port"=>{:type=>"uint16"}, "hostname"=>{:type=>"string"}, "certificatethumbprint"=>{:type=>"string"}, "certificatestorename"=>{:type=>"string", :values=>["My", "WebHosting"]}, "sslflags"=>{:type=>"string", :values=>["0", "1", "2", "3"]}}
     end
-    desc "BindingInfo - Hashtable containing binding information (Port, Protocol, IPAddress, HostName, CertificateThumbPrint, CertificateStore)"
+    desc "BindingInfo - Website's binding information in the form of an array of embedded instances of the MSFT_xWebBindingInformation CIM class."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be an array of hashes or a hash")
@@ -158,36 +173,6 @@ Puppet::Type.newtype(:dsc_xwebsite) do
     end
   end
 
-  # Name:         ApplicationPool
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_applicationpool) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "ApplicationPool"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         Id
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_id) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "Id"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
   # Name:         DefaultPage
   # Type:         string[]
   # IsMandatory:  False
@@ -195,7 +180,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
   newparam(:dsc_defaultpage, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "DefaultPage - The default pages for the website"
+    desc "DefaultPage"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -203,6 +188,21 @@ Puppet::Type.newtype(:dsc_xwebsite) do
     end
     munge do |value|
       Array(value)
+    end
+  end
+
+  # Name:         EnabledProtocols
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_enabledprotocols) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "EnabledProtocols"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
     end
   end
 

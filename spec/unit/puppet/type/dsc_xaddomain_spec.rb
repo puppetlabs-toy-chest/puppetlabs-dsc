@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xaddomain) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xaddomain.to_s).to eq("Dsc_xaddomain[foo]")
-  end
-
-  it 'should require that dsc_domainname is specified' do
-    #dsc_xaddomain[:dsc_domainname]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xaddomain).new(
       :name     => 'foo',
+      :dsc_domainname => 'foo',
       :dsc_parentdomainname => 'foo',
       :dsc_domainnetbiosname => 'foo',
       :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
@@ -26,6 +22,17 @@ describe Puppet::Type.type(:dsc_xaddomain) do
       :dsc_databasepath => 'foo',
       :dsc_logpath => 'foo',
       :dsc_sysvolpath => 'foo',
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xaddomain.to_s).to eq("Dsc_xaddomain[foo]")
+  end
+
+  it 'should require that dsc_domainname is specified' do
+    #dsc_xaddomain[:dsc_domainname]
+    expect { Puppet::Type.type(:dsc_xaddomain).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_domainname is a required attribute/)
   end
 

@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xexchactivesyncvirtualdirectory.to_s).to eq("Dsc_xexchactivesyncvirtualdirectory[foo]")
-  end
-
-  it 'should require that dsc_identity is specified' do
-    #dsc_xexchactivesyncvirtualdirectory[:dsc_identity]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory).new(
       :name     => 'foo',
+      :dsc_identity => 'foo',
       :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_allowservicerestart => true,
       :dsc_autocertbasedauth => true,
@@ -32,6 +28,17 @@ describe Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory) do
       :dsc_internalauthenticationmethods => ["foo", "bar", "spec"],
       :dsc_internalurl => 'foo',
       :dsc_windowsauthenabled => true,
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xexchactivesyncvirtualdirectory.to_s).to eq("Dsc_xexchactivesyncvirtualdirectory[foo]")
+  end
+
+  it 'should require that dsc_identity is specified' do
+    #dsc_xexchactivesyncvirtualdirectory[:dsc_identity]
+    expect { Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

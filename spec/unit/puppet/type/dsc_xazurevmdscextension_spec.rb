@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xazurevmdscextension) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xazurevmdscextension.to_s).to eq("Dsc_xazurevmdscextension[foo]")
-  end
-
-  it 'should require that dsc_vmname is specified' do
-    #dsc_xazurevmdscextension[:dsc_vmname]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xazurevmdscextension).new(
       :name     => 'foo',
+      :dsc_vmname => 'foo',
       :dsc_servicename => 'foo',
       :dsc_configurationarchive => 'foo',
       :dsc_storageaccountname => 'foo',
@@ -33,6 +29,17 @@ describe Puppet::Type.type(:dsc_xazurevmdscextension) do
       :dsc_code => 'foo',
       :dsc_message => 'foo',
       :dsc_status => 'foo',
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xazurevmdscextension.to_s).to eq("Dsc_xazurevmdscextension[foo]")
+  end
+
+  it 'should require that dsc_vmname is specified' do
+    #dsc_xazurevmdscextension[:dsc_vmname]
+    expect { Puppet::Type.type(:dsc_xazurevmdscextension).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_vmname is a required attribute/)
   end
 

@@ -10,6 +10,19 @@ describe Puppet::Type.type(:dsc_xwaitforsqlhagroup) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xwaitforsqlhagroup).new(
+      :name     => 'foo',
+      :dsc_name => 'foo',
+      :dsc_clustername => 'foo',
+      :dsc_retryintervalsec => 64,
+      :dsc_retrycount => 32,
+      :dsc_instancename => 'foo',
+      :dsc_domaincredential => {"user"=>"user", "password"=>"password"},
+      :dsc_sqladministratorcredential => {"user"=>"user", "password"=>"password"},
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xwaitforsqlhagroup.to_s).to eq("Dsc_xwaitforsqlhagroup[foo]")
   end
@@ -18,12 +31,6 @@ describe Puppet::Type.type(:dsc_xwaitforsqlhagroup) do
     #dsc_xwaitforsqlhagroup[:dsc_name]
     expect { Puppet::Type.type(:dsc_xwaitforsqlhagroup).new(
       :name     => 'foo',
-      :dsc_clustername => 'foo',
-      :dsc_retryintervalsec => 64,
-      :dsc_retrycount => 32,
-      :dsc_instancename => 'foo',
-      :dsc_domaincredential => {"user"=>"user", "password"=>"password"},
-      :dsc_sqladministratorcredential => {"user"=>"user", "password"=>"password"},
     )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 

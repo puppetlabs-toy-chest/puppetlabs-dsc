@@ -13,19 +13,32 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
   let :dsc_<%= resource.friendlyname.downcase %> do
     Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>).new(
-      :name     => <%= format_type_value(@spec_test_values['string']) %>,
+      :name     => <%= format_type_value(get_spec_test_value('string')) %>,
 <%  resource.properties.select{|rp| rp.required? }.each do |property| -%>
 <%    if property.values -%>
       :dsc_<%= property.name.downcase %> => '<%= property.values.first %>',
 <%    else -%>
-      :dsc_<%= property.name.downcase %> => <%= format_type_value(@spec_test_values[property.type]) %>,
+      :dsc_<%= property.name.downcase %> => <%= format_type_value(get_spec_test_value(property.type)) %>,
 <%    end -%>
 <%  end -%>
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>).new(
+      :name     => <%= format_type_value(get_spec_test_value('string')) %>,
+<%      resource.properties.each do |property| -%>
+<%        if property.values -%>
+      :dsc_<%= property.name.downcase %> => '<%= property.values.first %>',
+<%        else -%>
+      :dsc_<%= property.name.downcase %> => <%= format_type_value(get_spec_test_value(property.type)) || 'nil' %>,
+<%        end # if property.values -%>
+<%      end # each -%>
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
-    expect(dsc_<%= resource.friendlyname.downcase %>.to_s).to eq("Dsc_<%= resource.friendlyname.downcase %>[<%= @spec_test_values['string'] %>]")
+    expect(dsc_<%= resource.friendlyname.downcase %>.to_s).to eq("Dsc_<%= resource.friendlyname.downcase %>[<%= get_spec_test_value('string') %>]")
   end
 <%  if resource.ensurable? -%>
 
@@ -45,12 +58,12 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
   it 'should require that dsc_<%= property.name.downcase %> is specified' do
     #dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]
     expect { Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>).new(
-      :name     => <%= format_type_value(@spec_test_values['string']) %>,
-<%      resource.properties.select{|rp| rp.name != property.name}.each do |other_property| -%>
+      :name     => <%= format_type_value(get_spec_test_value('string')) %>,
+<%      resource.properties.select{|rp| rp.name != property.name && rp.required? }.each do |other_property| -%>
 <%        if other_property.values -%>
       :dsc_<%= other_property.name.downcase %> => '<%= other_property.values.first %>',
 <%        else -%>
-      :dsc_<%= other_property.name.downcase %> => <%= format_type_value(@spec_test_values[other_property.type]) || 'nil' %>,
+      :dsc_<%= other_property.name.downcase %> => <%= format_type_value(get_spec_test_value(other_property.type)) || 'nil' %>,
 <%        end # if other_property.values -%>
 <%      end # each -%>
     )}.to raise_error(Puppet::Error, /dsc_<%= property.name.downcase %> is a required attribute/)
@@ -97,19 +110,19 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 <%      if property.keyvaluepair? -%>
 
   it 'should accept a hash for dsc_<%= property.name.downcase %>' do
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values[property.type]) %>
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(@spec_test_values[property.type]) %>)
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value(property.type)) %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(get_spec_test_value(property.type)) %>)
   end
 <%      elsif property.embeddedinstance? -%>
 
   it 'should accept a hash for dsc_<%= property.name.downcase %>' do
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values[property.type]) %>
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq([<%= format_type_value(@spec_test_values[property.type]) %>])
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value(property.type)) %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq([<%= format_type_value(get_spec_test_value(property.type)) %>])
   end
 
   it 'should accept a an array of hashes for dsc_<%= property.name.downcase %>' do
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = [<%= format_type_value(@spec_test_values[property.type]) %>]
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq([<%= format_type_value(@spec_test_values[property.type]) %>])
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = [<%= format_type_value(get_spec_test_value(property.type)) %>]
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq([<%= format_type_value(get_spec_test_value(property.type)) %>])
   end
 <%      elsif property.values -%>
 
@@ -120,110 +133,110 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 <%      else # if property.values -%>
 
   it 'should accept array for dsc_<%= property.name.downcase %>' do
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values[property.type]) %>
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(@spec_test_values[property.type]) %>)
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value(property.type)) %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(get_spec_test_value(property.type)) %>)
   end
 <%      end # if property.values -%>
 <%    else # if property.array? -%>
 
   it 'should not accept array for dsc_<%= property.name.downcase %>' do
-    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values['string[]']) %>}.to raise_error(Puppet::ResourceError)
+    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value('string[]')) %>}.to raise_error(Puppet::ResourceError)
   end
 <%    end # if property.array? -%>
 <%    if property.bool? -%>
 
   it 'should accept boolean for dsc_<%= property.name.downcase %>' do
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values[property.type]) %>
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(@spec_test_values[property.type]) %>)
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value(property.type)) %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(get_spec_test_value(property.type)) %>)
   end
-<%      @spec_test_values['munged_bools'].each do |munged_bool| %>
+<%      get_spec_test_value('munged_bools').each do |munged_bool| %>
   it "should accept boolean-like value <%= format_type_value(munged_bool) %> and munge this value to boolean for dsc_<%= property.name.downcase %>" do
     dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(munged_bool) %>
     expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= munge_boolean(munged_bool.to_s) %>)
   end
-<%      end #  @spec_test_values['munged_bools']... -%>
+<%      end #  get_spec_test_value('munged_bools')... -%>
 <%    else # if property.bool? -%>
 
   it 'should not accept boolean for dsc_<%= property.name.downcase %>' do
-    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values['boolean']) %>}.to raise_error(Puppet::ResourceError)
+    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value('boolean')) %>}.to raise_error(Puppet::ResourceError)
   end
 <%    end # if property.bool? -%>
 <%    if property.int? || property.int_array? -%>
 
   it 'should accept int for dsc_<%= property.name.downcase %>' do
 <%-       single_int_type = property.type.gsub(/\[\]/,'')
-          expected = @spec_test_values[single_int_type]
+          expected = get_spec_test_value(single_int_type)
           expected = [expected] if property.int_array? -%>
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values[single_int_type]) %>
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value(single_int_type)) %>
     expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(expected) %>)
   end
-<%      @spec_test_values['munged_ints'].each do |munged_int| -%>
+<%      get_spec_test_value('munged_ints').each do |munged_int| -%>
 
   it 'should accept string-like int for dsc_<%= property.name.downcase %>' do
     dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(munged_int) %>
 <%-       expected = property.uint_array? ? [munged_int.to_i] : munged_int.to_i -%>
     expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(expected) %>)
   end
-<%      end #  @spec_test_values['munged_ints']... -%>
+<%      end #  get_spec_test_value('munged_ints')... -%>
 
 <%      if property.int_array? -%>
 
   it 'should accept int[] for dsc_<%= property.name.downcase %>' do
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values[property.type]) %>
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(@spec_test_values[property.type]) %>)
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value(property.type)) %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(get_spec_test_value(property.type)) %>)
   end
 
   it 'should accept string-like int[] for dsc_<%= property.name.downcase %>' do
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values['munged_ints']) %>
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(@spec_test_values['munged_ints'].map(&:to_i)) %>)
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value('munged_ints')) %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(get_spec_test_value('munged_ints').map(&:to_i)) %>
   end
 <%      end # if property.int_array? -%>
 <%    elsif !property.uint? && !property.uint_array? # if property.int? -%>
 
   it 'should not accept int for dsc_<%= property.name.downcase %>' do
-    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values['int_not_bool_mungeable']) %>}.to raise_error(Puppet::ResourceError)
+    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value('int_not_bool_mungeable')) %>}.to raise_error(Puppet::ResourceError)
   end
 <%    end # if property.int? -%>
 <%    if property.uint? || property.uint_array? -%>
 
   it 'should accept uint for dsc_<%= property.name.downcase %>' do
 <%-       single_uint_type = property.type.gsub(/\[\]/,'')
-          expected = @spec_test_values[single_uint_type]
+          expected = get_spec_test_value(single_uint_type)
           expected = [expected] if property.uint_array? -%>
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values[single_uint_type]) %>
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value(single_uint_type)) %>
     expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(expected) %>)
   end
 
   it 'should not accept signed (negative) value for dsc_<%= property.name.downcase %>' do
 <%-     signed_type = property.type.gsub(/(u|\[\])/,'')  -%>
-    value = <%= format_type_value(@spec_test_values[signed_type]) %>
+    value = <%= format_type_value(get_spec_test_value(signed_type)) %>
     expect(value).to be < 0
     expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = value}.to raise_error(Puppet::ResourceError)
   end
-<%      @spec_test_values['munged_uints'].each do |munged_uint| -%>
+<%      get_spec_test_value('munged_uints').each do |munged_uint| -%>
 
   it 'should accept string-like uint for dsc_<%= property.name.downcase %>' do
     dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(munged_uint) %>
 <%-       expected = property.uint_array? ? [munged_uint.to_i] : munged_uint.to_i -%>
     expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(expected) %>)
   end
-<%      end #  @spec_test_values['munged_ints']... -%>
+<%      end #  get_spec_test_value('munged_ints')... -%>
 <%      if property.uint_array? -%>
 
   it 'should accept uint[] for dsc_<%= property.name.downcase %>' do
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values[property.type]) %>
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(@spec_test_values[property.type]) %>)
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value(property.type)) %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(get_spec_test_value(property.type)) %>)
   end
 
   it 'should accept string-like uint[] for dsc_<%= property.name.downcase %>' do
-    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values['munged_uints']) %>
-    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(@spec_test_values['munged_uints'].map(&:to_i)) %>)
+    dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value('munged_uints')) %>
+    expect(dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>]).to eq(<%= format_type_value(get_spec_test_value('munged_uints').map(&:to_i)) %>)
   end
 <%      end # if property.uint_array? -%>
 <%    elsif !property.int? && !property.int_array? # if property.uint? -%>
 
   it 'should not accept uint for dsc_<%= property.name.downcase %>' do
-    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(@spec_test_values['uint_not_bool_mungeable']) %>}.to raise_error(Puppet::ResourceError)
+    expect{dsc_<%= resource.friendlyname.downcase %>[:dsc_<%= property.name.downcase %>] = <%= format_type_value(get_spec_test_value('uint_not_bool_mungeable')) %>}.to raise_error(Puppet::ResourceError)
   end
 <%    end # if property.uint? -%>
 <%  end # resource.properties.each... -%>

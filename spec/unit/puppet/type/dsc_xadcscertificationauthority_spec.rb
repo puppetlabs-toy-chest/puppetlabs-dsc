@@ -10,18 +10,10 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xadcscertificationauthority.to_s).to eq("Dsc_xadcscertificationauthority[foo]")
-  end
-
-  it 'should default to ensure => present' do
-    expect(dsc_xadcscertificationauthority[:ensure]).to eq :present
-  end
-
-  it 'should require that dsc_catype is specified' do
-    #dsc_xadcscertificationauthority[:dsc_catype]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xadcscertificationauthority).new(
       :name     => 'foo',
+      :dsc_catype => 'EnterpriseRootCA',
       :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_ensure => 'Present',
       :dsc_cacommonname => 'foo',
@@ -43,6 +35,21 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
       :dsc_parentca => 'foo',
       :dsc_validityperiod => 'Hours',
       :dsc_validityperiodunits => 32,
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xadcscertificationauthority.to_s).to eq("Dsc_xadcscertificationauthority[foo]")
+  end
+
+  it 'should default to ensure => present' do
+    expect(dsc_xadcscertificationauthority[:ensure]).to eq :present
+  end
+
+  it 'should require that dsc_catype is specified' do
+    #dsc_xadcscertificationauthority[:dsc_catype]
+    expect { Puppet::Type.type(:dsc_xadcscertificationauthority).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_catype is a required attribute/)
   end
 

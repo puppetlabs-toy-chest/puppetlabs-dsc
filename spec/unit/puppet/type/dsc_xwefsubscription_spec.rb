@@ -10,18 +10,10 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xwefsubscription.to_s).to eq("Dsc_xwefsubscription[foo]")
-  end
-
-  it 'should default to ensure => present' do
-    expect(dsc_xwefsubscription[:ensure]).to eq :present
-  end
-
-  it 'should require that dsc_subscriptionid is specified' do
-    #dsc_xwefsubscription[:dsc_subscriptionid]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xwefsubscription).new(
       :name     => 'foo',
+      :dsc_subscriptionid => 'foo',
       :dsc_ensure => 'Present',
       :dsc_subscriptiontype => 'CollectorInitiated',
       :dsc_description => 'foo',
@@ -41,6 +33,21 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
       :dsc_allowedsourcedomaincomputers => 'foo',
       :dsc_query => ["foo", "bar", "spec"],
       :dsc_address => ["foo", "bar", "spec"],
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xwefsubscription.to_s).to eq("Dsc_xwefsubscription[foo]")
+  end
+
+  it 'should default to ensure => present' do
+    expect(dsc_xwefsubscription[:ensure]).to eq :present
+  end
+
+  it 'should require that dsc_subscriptionid is specified' do
+    #dsc_xwefsubscription[:dsc_subscriptionid]
+    expect { Puppet::Type.type(:dsc_xwefsubscription).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_subscriptionid is a required attribute/)
   end
 

@@ -1,6 +1,7 @@
 #region Get Resource
 Function Get-TargetResource
 {
+    [OutputType([System.Collections.Hashtable])]
     [CmdletBinding()]
     param(
     [ValidateSet('Present','Absent')]
@@ -101,6 +102,7 @@ Function Set-TargetResource
 #region Test Resource
 Function Test-TargetResource
 {
+    [OutputType([System.Boolean])]
     [CmdletBinding()]
     param(
     [ValidateSet('Present','Absent')]

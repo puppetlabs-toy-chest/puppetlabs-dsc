@@ -12,6 +12,15 @@ describe Puppet::Type.type(:dsc_xrdsessiondeployment) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xrdsessiondeployment).new(
+      :name     => 'foo',
+      :dsc_sessionhost => 'foo',
+      :dsc_connectionbroker => 'foo',
+      :dsc_webaccessserver => 'foo',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xrdsessiondeployment.to_s).to eq("Dsc_xrdsessiondeployment[foo]")
   end

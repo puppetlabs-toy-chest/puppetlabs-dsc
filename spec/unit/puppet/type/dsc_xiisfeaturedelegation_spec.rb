@@ -11,6 +11,14 @@ describe Puppet::Type.type(:dsc_xiisfeaturedelegation) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xiisfeaturedelegation).new(
+      :name     => 'foo',
+      :dsc_sectionname => 'foo',
+      :dsc_overridemode => 'Allow',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xiisfeaturedelegation.to_s).to eq("Dsc_xiisfeaturedelegation[foo]")
   end

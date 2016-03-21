@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xdhcpserverreservation) do
   def dscmeta_resource_friendly_name; 'xDhcpServerReservation' end
   def dscmeta_resource_name; 'MSFT_xDhcpServerReservation' end
   def dscmeta_module_name; 'xDhcpServer' end
-  def dscmeta_module_version; '1.2' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

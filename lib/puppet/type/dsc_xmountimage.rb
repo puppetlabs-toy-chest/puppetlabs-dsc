@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xmountimage) do
   def dscmeta_resource_friendly_name; 'xMountImage' end
   def dscmeta_resource_name; 'MSFT_xMountImage' end
   def dscmeta_module_name; 'xStorage' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '2.4.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

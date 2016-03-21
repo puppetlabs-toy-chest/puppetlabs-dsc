@@ -10,14 +10,10 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     )
   end
 
-  it "should stringify normally" do
-    expect(dsc_xexchoutlookanywhere.to_s).to eq("Dsc_xexchoutlookanywhere[foo]")
-  end
-
-  it 'should require that dsc_identity is specified' do
-    #dsc_xexchoutlookanywhere[:dsc_identity]
+  it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xexchoutlookanywhere).new(
       :name     => 'foo',
+      :dsc_identity => 'foo',
       :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_allowservicerestart => true,
       :dsc_domaincontroller => 'foo',
@@ -32,6 +28,17 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
       :dsc_internalclientsrequiressl => true,
       :dsc_internalhostname => 'foo',
       :dsc_ssloffloading => true,
+    )}.to_not raise_error
+  end
+
+  it "should stringify normally" do
+    expect(dsc_xexchoutlookanywhere.to_s).to eq("Dsc_xexchoutlookanywhere[foo]")
+  end
+
+  it 'should require that dsc_identity is specified' do
+    #dsc_xexchoutlookanywhere[:dsc_identity]
+    expect { Puppet::Type.type(:dsc_xexchoutlookanywhere).new(
+      :name     => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

@@ -10,6 +10,13 @@ describe Puppet::Type.type(:dsc_xpowershellexecutionpolicy) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xpowershellexecutionpolicy).new(
+      :name     => 'foo',
+      :dsc_executionpolicy => 'Bypass',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xpowershellexecutionpolicy.to_s).to eq("Dsc_xpowershellexecutionpolicy[foo]")
   end

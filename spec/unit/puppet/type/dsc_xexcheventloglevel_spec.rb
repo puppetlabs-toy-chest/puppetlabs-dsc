@@ -10,6 +10,15 @@ describe Puppet::Type.type(:dsc_xexcheventloglevel) do
     )
   end
 
+  it 'should allow all properties to be specified' do
+    expect { Puppet::Type.type(:dsc_xexcheventloglevel).new(
+      :name     => 'foo',
+      :dsc_identity => 'foo',
+      :dsc_credential => {"user"=>"user", "password"=>"password"},
+      :dsc_level => 'Lowest',
+    )}.to_not raise_error
+  end
+
   it "should stringify normally" do
     expect(dsc_xexcheventloglevel.to_s).to eq("Dsc_xexcheventloglevel[foo]")
   end
@@ -18,8 +27,6 @@ describe Puppet::Type.type(:dsc_xexcheventloglevel) do
     #dsc_xexcheventloglevel[:dsc_identity]
     expect { Puppet::Type.type(:dsc_xexcheventloglevel).new(
       :name     => 'foo',
-      :dsc_credential => {"user"=>"user", "password"=>"password"},
-      :dsc_level => 'Lowest',
     )}.to raise_error(Puppet::Error, /dsc_identity is a required attribute/)
   end
 

@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   def dscmeta_resource_friendly_name; 'xRobocopy' end
   def dscmeta_resource_name; 'MSFT_xRobocopy' end
   def dscmeta_module_name; 'xRobocopy' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
