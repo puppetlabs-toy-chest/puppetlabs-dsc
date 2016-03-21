@@ -76,6 +76,10 @@ module Dsc
 
     end
 
+    def get_spec_test_value(type)
+      @spec_test_values[type]
+    end
+
     def dsc_results
       mof = Dsc::Mof.new(
         :import_folder          => @import_folder,
