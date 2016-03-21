@@ -1,3 +1,12 @@
+## 2016-03-17 - Supported Release 1.0.1
+### Summary
+
+The DSC module is now packaged in a different format tar file.  When installing the module on Windows with the Puppet module tool command `puppet module install puppetlab-dsc`, all files present in the tar.gz archive are not properly copied to the module directory. This is due to a bug in the module tool that is fixed as part of ([PUP-5994](https://tickets.puppetlabs.com/browse/PUP-5994)) and ships in the Puppet Enterprise 3.8.7, puppet-agent 1.4.0, or newer installers.  To enable existing Windows agents to properly install the module, it was necessary to repack the module in a different manner to work around this problem.
+
+### Bugfixes
+
+- Fix: The tar file format for the module has been changed to work around a bug in the Puppet module tool ([PUP-5994](https://tickets.puppetlabs.com/browse/PUP-5994))
+
 ## 2016-01-19 - Supported Release 1.0.0
 ### Summary
 
