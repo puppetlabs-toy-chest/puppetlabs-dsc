@@ -21,13 +21,13 @@ Puppet::Type.newtype(:dsc_xmysqldatabase) do
   }
 
   validate do
-      fail('dsc_name is a required attribute') if self[:dsc_name].nil?
+      fail('dsc_databasename is a required attribute') if self[:dsc_databasename].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xMySqlDatabase' end
   def dscmeta_resource_name; 'MSFT_xMySqlDatabase' end
   def dscmeta_module_name; 'xMySql' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -39,14 +39,14 @@ Puppet::Type.newtype(:dsc_xmysqldatabase) do
     defaultto { :present }
   end
 
-  # Name:         Name
+  # Name:         DatabaseName
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_name) do
+  newparam(:dsc_databasename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - Name of the database."
+    desc "DatabaseName - Name of the database."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -74,19 +74,34 @@ Puppet::Type.newtype(:dsc_xmysqldatabase) do
     end
   end
 
-  # Name:         ConnectionCredential
+  # Name:         RootCredential
   # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_connectioncredential) do
+  newparam(:dsc_rootcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "ConnectionCredential - The root credential that is used to install MySql server."
+    desc "RootCredential - The root credential that is used to install MySql server."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
-      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("ConnectionCredential", value)
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("RootCredential", value)
+    end
+  end
+
+  # Name:         MySqlVersion
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_mysqlversion) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "MySqlVersion - MYSql Version Number"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
     end
   end
 

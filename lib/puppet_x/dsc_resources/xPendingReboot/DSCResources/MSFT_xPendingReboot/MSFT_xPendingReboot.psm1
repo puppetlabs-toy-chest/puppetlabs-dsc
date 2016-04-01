@@ -1,31 +1,59 @@
-Function Get-TargetResource
+﻿Function Get-TargetResource
 {
     [CmdletBinding()]
     [OutputType([Hashtable])]
      param
     (
     [Parameter(Mandatory=$true)]
-    [string]$Name
+    [string]$Name,
+    
+    [Parameter()]
+    [bool]$SkipCcmClientSDK
     )
 
-    $ComponentBasedServicing = (Get-ChildItem 'hklm:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\').Name.Split("\") -contains "RebootPending"
-    $WindowsUpdate = (Get-ChildItem 'hklm:SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\').Name.Split("\") -contains "RebootRequired"
+    $ComponentBasedServicingKeys = (Get-ChildItem 'hklm:SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\').Name
+    if ($ComponentBasedServicingKeys)
+    {
+        $ComponentBasedServicing = $ComponentBasedServicingKeys.Split("\") -contains "RebootPending"
+    }
+    else
+    {
+        $ComponentBasedServicing = $false
+    }
+
+    $WindowsUpdateKeys = (Get-ChildItem 'hklm:SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\').Name
+    if ($WindowsUpdateKeys)
+    {
+        $WindowsUpdate = $WindowsUpdateKeys.Split("\") -contains "RebootRequired"
+    }
+    else
+    {
+        $WindowsUpdate = $false
+    }
+
     $PendingFileRename = (Get-ItemProperty 'hklm:\SYSTEM\CurrentControlSet\Control\Session Manager\').PendingFileRenameOperations.Length -gt 0
     $ActiveComputerName = (Get-ItemProperty 'hklm:\SYSTEM\CurrentControlSet\Control\ComputerName\ActiveComputerName').ComputerName
     $PendingComputerName = (Get-ItemProperty 'hklm:\SYSTEM\CurrentControlSet\Control\ComputerName\ComputerName').ComputerName
     $PendingComputerRename = $ActiveComputerName -ne $PendingComputerName
 
-    $CCMSplat = @{
-        NameSpace='ROOT\ccm\ClientSDK'
-        Class='CCM_ClientUtilities'
-        Name='DetermineIfRebootPending'
-        ErrorAction='Stop'
-    }
+    
 
-    Try {
-        $CCMClientSDK = Invoke-WmiMethod @CCMSplat
-    } Catch {
-        Write-Warning "Unable to query CCM_ClientUtilities: $_"
+    if (-not $SkipCcmClientSDK)
+    {
+        $CCMSplat = @{
+            NameSpace='ROOT\ccm\ClientSDK'
+            Class='CCM_ClientUtilities'
+            Name='DetermineIfRebootPending'
+            ErrorAction='Stop'
+        }
+        
+        Try {
+            $CCMClientSDK = Invoke-WmiMethod @CCMSplat
+        }
+        Catch
+        {
+            Write-Warning "Unable to query CCM_ClientUtilities: $_"
+        }
     }
 
     $SCCMSDK = ($CCMClientSDK.ReturnValue -eq 0) -and ($CCMClientSDK.IsHardRebootPending -or $CCMClientSDK.RebootPending)
@@ -72,7 +100,7 @@ Function Test-TargetResource
     [bool]$SkipCcmClientSDK
     )
 
-    $status = Get-TargetResource $Name
+    $status = Get-TargetResource $Name -SkipCcmClientSDK $SkipCcmClientSDK
 
     if(-not $SkipComponentBasedServicing -and $status.ComponentBasedServicing)
     {

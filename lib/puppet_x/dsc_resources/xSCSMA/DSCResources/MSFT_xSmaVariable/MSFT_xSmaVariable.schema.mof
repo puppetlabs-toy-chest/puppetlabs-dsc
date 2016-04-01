@@ -1,0 +1,14 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("SmaVariable")]
+class MSFT_xSmaVariable : OMI_BaseResource
+{
+    [Required, Description("Desired state of SMA variable"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Key, Description("Name of SMA variable.")] String Name;
+    [Required, Description("Value of SMA variable.")] String value;
+    [Write, Description("Description of SMA variable.")] String Description;
+    [Read, Description("Set is true if existing SMA variable matches configuration.")] Boolean Set;
+    [Key, Description("Web service endpoint of SMA instance.")] String WebServiceEndpoint;
+    [Write, Description("Port to reach the web service endpoint. Defaults to the SMA default of 9090.")] Uint32 Port;
+};
+
+

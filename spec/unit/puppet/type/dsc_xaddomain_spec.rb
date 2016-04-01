@@ -14,10 +14,10 @@ describe Puppet::Type.type(:dsc_xaddomain) do
     expect { Puppet::Type.type(:dsc_xaddomain).new(
       :name     => 'foo',
       :dsc_domainname => 'foo',
-      :dsc_parentdomainname => 'foo',
-      :dsc_domainnetbiosname => 'foo',
       :dsc_domainadministratorcredential => {"user"=>"user", "password"=>"password"},
       :dsc_safemodeadministratorpassword => {"user"=>"user", "password"=>"password"},
+      :dsc_parentdomainname => 'foo',
+      :dsc_domainnetbiosname => 'foo',
       :dsc_dnsdelegationcredential => {"user"=>"user", "password"=>"password"},
       :dsc_databasepath => 'foo',
       :dsc_logpath => 'foo',
@@ -50,38 +50,6 @@ describe Puppet::Type.type(:dsc_xaddomain) do
 
   it 'should not accept uint for dsc_domainname' do
     expect{dsc_xaddomain[:dsc_domainname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_parentdomainname' do
-    expect{dsc_xaddomain[:dsc_parentdomainname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_parentdomainname' do
-    expect{dsc_xaddomain[:dsc_parentdomainname] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_parentdomainname' do
-    expect{dsc_xaddomain[:dsc_parentdomainname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_parentdomainname' do
-    expect{dsc_xaddomain[:dsc_parentdomainname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_domainnetbiosname' do
-    expect{dsc_xaddomain[:dsc_domainnetbiosname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_domainnetbiosname' do
-    expect{dsc_xaddomain[:dsc_domainnetbiosname] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_domainnetbiosname' do
-    expect{dsc_xaddomain[:dsc_domainnetbiosname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domainnetbiosname' do
-    expect{dsc_xaddomain[:dsc_domainnetbiosname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_domainadministratorcredential" do
@@ -122,6 +90,38 @@ describe Puppet::Type.type(:dsc_xaddomain) do
 
   it 'should not accept uint for dsc_safemodeadministratorpassword' do
     expect{dsc_xaddomain[:dsc_safemodeadministratorpassword] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_parentdomainname' do
+    expect{dsc_xaddomain[:dsc_parentdomainname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_parentdomainname' do
+    expect{dsc_xaddomain[:dsc_parentdomainname] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_parentdomainname' do
+    expect{dsc_xaddomain[:dsc_parentdomainname] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_parentdomainname' do
+    expect{dsc_xaddomain[:dsc_parentdomainname] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_domainnetbiosname' do
+    expect{dsc_xaddomain[:dsc_domainnetbiosname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_domainnetbiosname' do
+    expect{dsc_xaddomain[:dsc_domainnetbiosname] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_domainnetbiosname' do
+    expect{dsc_xaddomain[:dsc_domainnetbiosname] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_domainnetbiosname' do
+    expect{dsc_xaddomain[:dsc_domainnetbiosname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_dnsdelegationcredential" do

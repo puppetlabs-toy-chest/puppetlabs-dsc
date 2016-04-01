@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xscomreportingserversetup) do
   def dscmeta_resource_friendly_name; 'xSCOMReportingServerSetup' end
   def dscmeta_resource_name; 'MSFT_xSCOMReportingServerSetup' end
   def dscmeta_module_name; 'xSCOM' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.3.3.0' end
 
   newparam(:name, :namevar => true ) do
   end

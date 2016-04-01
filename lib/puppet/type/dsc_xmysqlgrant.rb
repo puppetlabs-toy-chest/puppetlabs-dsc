@@ -23,12 +23,13 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
   validate do
       fail('dsc_username is a required attribute') if self[:dsc_username].nil?
       fail('dsc_databasename is a required attribute') if self[:dsc_databasename].nil?
+      fail('dsc_permissiontype is a required attribute') if self[:dsc_permissiontype].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xMySqlGrant' end
   def dscmeta_resource_name; 'MSFT_xMySqlGrant' end
   def dscmeta_module_name; 'xMySql' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -72,30 +73,31 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
     end
   end
 
-  # Name:         ConnectionCredential
+  # Name:         RootCredential
   # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_connectioncredential) do
+  newparam(:dsc_rootcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "ConnectionCredential - MySql connection credential used for the root."
+    desc "RootCredential - MySql connection credential used for the root."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
-      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("ConnectionCredential", value)
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("RootCredential", value)
     end
   end
 
   # Name:         PermissionType
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       ["ALL PRIVILEGES", "CREATE", "DROP", "DELETE", "INSERT", "SELECT", "UPDATE", "EXECUTE"]
   newparam(:dsc_permissiontype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "PermissionType - MySql user permission type. Valid values are ALL PRIVILEGES, CREATE, DROP, DELETE, INSERT, SELECT, UPDATE, EXECUTE."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -121,6 +123,21 @@ Puppet::Type.newtype(:dsc_xmysqlgrant) do
       end
       unless ['Present', 'present', 'Absent', 'absent'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      end
+    end
+  end
+
+  # Name:         MySqlVersion
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_mysqlversion) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "MySqlVersion - MYSql Version Number"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end

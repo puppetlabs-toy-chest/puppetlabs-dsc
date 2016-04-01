@@ -92,13 +92,13 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @('DesiredStateConfiguration', 'DSC', 'DSCResourceKit', 'DSCResource')
+        # Tags = @()
 
         # A URL to the license for this module.
-        LicenseUri = 'https://github.com/PowerShell/xCertificate/blob/master/LICENSE'
+        # LicenseUri = ''
 
         # A URL to the main website for this project.
-        ProjectUri = 'https://github.com/PowerShell/xCertificate'
+        # ProjectUri = ''
 
         # A URL to an icon representing this module.
         # IconUri = ''

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xscomwebconsoleserverupdate) do
   def dscmeta_resource_friendly_name; 'xSCOMWebConsoleServerUpdate' end
   def dscmeta_resource_name; 'MSFT_xSCOMWebConsoleServerUpdate' end
   def dscmeta_module_name; 'xSCOM' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.3.3.0' end
 
   newparam(:name, :namevar => true ) do
   end

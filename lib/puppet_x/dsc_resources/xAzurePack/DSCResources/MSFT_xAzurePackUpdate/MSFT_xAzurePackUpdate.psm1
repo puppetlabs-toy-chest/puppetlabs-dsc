@@ -5,7 +5,7 @@ function Get-TargetResource
     param
     (
         [parameter(Mandatory = $true)]
-        [ValidateSet("Admin API","Tenant API","Tenant Public API","SQL Server Extension","MySQL Extension","Admin Site","Admin Authentication Site","Tenant Site","Tenant Authentication Site")]
+        [ValidateSet('Admin API','Tenant API','Tenant Public API','SQL Server Extension','MySQL Extension','Admin Site','Admin Authentication Site','Tenant Site','Tenant Authentication Site')]
         [System.String]
         $Role,
 
@@ -14,7 +14,7 @@ function Get-TargetResource
         $SourcePath,
 
         [System.String]
-        $SourceFolder = "\WindowsAzurePack2013\Updates",
+        $SourceFolder = '\WindowsAzurePack2013\Updates',
 
         [parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
@@ -37,7 +37,7 @@ function Set-TargetResource
     param
     (
         [parameter(Mandatory = $true)]
-        [ValidateSet("Admin API","Tenant API","Tenant Public API","SQL Server Extension","MySQL Extension","Admin Site","Admin Authentication Site","Tenant Site","Tenant Authentication Site")]
+        [ValidateSet('Admin API','Tenant API','Tenant Public API','SQL Server Extension','MySQL Extension','Admin Site','Admin Authentication Site','Tenant Site','Tenant Authentication Site')]
         [System.String]
         $Role,
 
@@ -46,7 +46,7 @@ function Set-TargetResource
         $SourcePath,
 
         [System.String]
-        $SourceFolder = "\WindowsAzurePack2013\Updates",
+        $SourceFolder = '\WindowsAzurePack2013\Updates',
 
         [parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
@@ -55,11 +55,11 @@ function Set-TargetResource
 
     Import-Module $PSScriptRoot\..\..\xPDT.psm1
         
-    $Path = "msiexec.exe"
+    $Path = 'msiexec.exe'
     $Path = ResolvePath $Path
     Write-Verbose "Path: $Path"
 
-    $TempPath = [IO.Path]::GetTempPath().TrimEnd("\")
+    $TempPath = [IO.Path]::GetTempPath().TrimEnd('\')
     $Products = (Get-WmiObject -Class Win32_Product).IdentifyingNumber
     $Components = GetWAPComponents -Role $Role
     foreach($Component in $Components)
@@ -92,7 +92,7 @@ function Set-TargetResource
     {
         if(!(Test-TargetResource @PSBoundParameters))
         {
-            throw "Set-TargetResouce failed"
+            throw 'Set-TargetResouce failed'
         }
     }
 }
@@ -105,7 +105,7 @@ function Test-TargetResource
     param
     (
         [parameter(Mandatory = $true)]
-        [ValidateSet("Admin API","Tenant API","Tenant Public API","SQL Server Extension","MySQL Extension","Admin Site","Admin Authentication Site","Tenant Site","Tenant Authentication Site")]
+        [ValidateSet('Admin API','Tenant API','Tenant Public API','SQL Server Extension','MySQL Extension','Admin Site','Admin Authentication Site','Tenant Site','Tenant Authentication Site')]
         [System.String]
         $Role,
 
@@ -114,7 +114,7 @@ function Test-TargetResource
         $SourcePath,
 
         [System.String]
-        $SourceFolder = "\WindowsAzurePack2013\Updates",
+        $SourceFolder = '\WindowsAzurePack2013\Updates',
 
         [parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
@@ -151,79 +151,79 @@ function GetWAPComponents
 
     switch($Role)
     {
-        "Admin API"
+        'Admin API'
         {
             return @(
-                "MgmtSvc-PowerShellAPI",
-                "MgmtSvc-WebAppGallery",
-                "MgmtSvc-Monitoring",
-                "MgmtSvc-Usage",
-                "MgmtSvc-AdminAPI",
-                "MgmtSvc-ConfigSite"
+                'MgmtSvc-PowerShellAPI',
+                'MgmtSvc-WebAppGallery',
+                'MgmtSvc-Monitoring',
+                'MgmtSvc-Usage',
+                'MgmtSvc-AdminAPI',
+                'MgmtSvc-ConfigSite'
             )
         }
-        "Tenant API"
+        'Tenant API'
         {
             return @(
-                "MgmtSvc-PowerShellAPI",
-                "MgmtSvc-TenantAPI",
-                "MgmtSvc-ConfigSite"
+                'MgmtSvc-PowerShellAPI',
+                'MgmtSvc-TenantAPI',
+                'MgmtSvc-ConfigSite'
             )
         }
-        "Tenant Public API"
+        'Tenant Public API'
         {
             return @(
-                "MgmtSvc-PowerShellAPI",
-                "MgmtSvc-TenantPublicAPI",
-                "MgmtSvc-ConfigSite"
+                'MgmtSvc-PowerShellAPI',
+                'MgmtSvc-TenantPublicAPI',
+                'MgmtSvc-ConfigSite'
             )
         }
-        "SQL Server Extension"
+        'SQL Server Extension'
         {
             return @(
-                "MgmtSvc-PowerShellAPI",
-                "MgmtSvc-SQLServer",
-                "MgmtSvc-ConfigSite"
+                'MgmtSvc-PowerShellAPI',
+                'MgmtSvc-SQLServer',
+                'MgmtSvc-ConfigSite'
             )
         }
-        "MySQL Extension"
+        'MySQL Extension'
         {
             return @(
-                "MgmtSvc-PowerShellAPI",
-                "MgmtSvc-MySQL",
-                "MgmtSvc-ConfigSite"
+                'MgmtSvc-PowerShellAPI',
+                'MgmtSvc-MySQL',
+                'MgmtSvc-ConfigSite'
             )
         }
-        "Admin Site"
+        'Admin Site'
         {
             return @(
-                "MgmtSvc-PowerShellAPI",
-                "MgmtSvc-AdminSite",
-                "MgmtSvc-ConfigSite"
+                'MgmtSvc-PowerShellAPI',
+                'MgmtSvc-AdminSite',
+                'MgmtSvc-ConfigSite'
             )
         }
-        "Admin Authentication Site"
+        'Admin Authentication Site'
         {
             return @(
-                "MgmtSvc-PowerShellAPI",
-                "MgmtSvc-WindowsAuthSite",
-                "MgmtSvc-ConfigSite"
+                'MgmtSvc-PowerShellAPI',
+                'MgmtSvc-WindowsAuthSite',
+                'MgmtSvc-ConfigSite'
             )
         }
-        "Tenant Site"
+        'Tenant Site'
         {
             return @(
-                "MgmtSvc-PowerShellAPI",
-                "MgmtSvc-TenantSite",
-                "MgmtSvc-ConfigSite"
+                'MgmtSvc-PowerShellAPI',
+                'MgmtSvc-TenantSite',
+                'MgmtSvc-ConfigSite'
             )
         }
-        "Tenant Authentication Site"
+        'Tenant Authentication Site'
         {
             return @(
-                "MgmtSvc-PowerShellAPI",
-                "MgmtSvc-AuthSite",
-                "MgmtSvc-ConfigSite"
+                'MgmtSvc-PowerShellAPI',
+                'MgmtSvc-AuthSite',
+                'MgmtSvc-ConfigSite'
             )
         }
     }
@@ -240,101 +240,101 @@ function GetWAPComponentIdentifyingNumbers
 
     switch($Component)
     {
-        "MgmtSvc-PowerShellAPI"
+        'MgmtSvc-PowerShellAPI'
         {
             return @(
-                "{567EE4F8-35CA-4111-A2F9-9AFE911959B1}"
+                '{F525AB73-3F65-4AF7-AE32-C6E732B9A7E0}'
 
             )
         }
-        "MgmtSvc-WebAppGallery"
+        'MgmtSvc-WebAppGallery'
         {
             return @(
-                "{95BD63BE-88C5-4F43-9CC8-31A1903C3D75}"
+                '{9C9D2734-902A-4F41-8C56-AC21E216745F}'
 
             )
         }
-        "MgmtSvc-Monitoring"
+        'MgmtSvc-Monitoring'
         {
             return @(
-                "{BD31C44E-1E91-4C61-8955-CC4386EB31CB}"
+                '{649E3CE3-4F85-4F49-B850-1A4B00BDF944}'
 
             )
         }
-        "MgmtSvc-Usage"
+        'MgmtSvc-Usage'
         {
             return @(
-                "{D8AFA6F8-7CF5-4C6F-BE6E-5EBEB9A5EE3D}"
+                '{946B0B96-13AF-404E-98F0-D38BF3828E8E}'
 
             )
         }
-        "MgmtSvc-AdminAPI"
+        'MgmtSvc-AdminAPI'
         {
             return @(
-                "{7CA2FE56-D216-431D-AD9B-96F2EFA0060F}"
+                '{DAB5A87F-32D0-4E96-B7FD-47DBDC6EAEED}'
 
             )
         }
-        "MgmtSvc-TenantAPI"
+        'MgmtSvc-TenantAPI'
         {
             return @(
-                "{5FB651B3-5247-450F-B459-903602EF90AB}"
+                '{CF41308C-9BC3-46C1-8B39-135D00E491E8}'
 
             )
         }
-        "MgmtSvc-TenantPublicAPI"
+        'MgmtSvc-TenantPublicAPI'
         {
             return @(
-                "{90C2701B-6410-4C6D-B595-30D19DD8BD48}"
+                '{7442368E-A20A-4B4A-9304-104B7191CD82}'
 
             )
         }
-        "MgmtSvc-SQLServer"
+        'MgmtSvc-SQLServer'
         {
             return @(
-                "{24AB07BB-750C-4CC4-959A-69D68F03B672}"
+                '{FFE3B7AD-BED4-4F9C-98CC-D75E64B770EE}'
 
             )
         }
-        "MgmtSvc-MySQL"
+        'MgmtSvc-MySQL'
         {
             return @(
-                "{6FF0D21B-C7CC-4881-9463-4CFFFA5143F9}"
+                '{038DEB00-87C2-483D-B303-3732A6CE6280}'
 
             )
         }
-        "MgmtSvc-AdminSite"
+        'MgmtSvc-AdminSite'
         {
             return @(
-                "{713C3A58-010A-4DA4-8FA3-E1012C844F6C}"
+                '{8DFE1C24-EF33-4DE8-A8F2-192C7E1FECE0}'
 
             )
         }
-        "MgmtSvc-WindowsAuthSite"
+        'MgmtSvc-WindowsAuthSite'
         {
             return @(
-                "{C36C12EA-71F5-46EB-8BAB-F32C53161B2E}"
+                '{42A86301-91AA-4CF2-95AB-C305052ECEFD}'
 
             )
         }
-        "MgmtSvc-TenantSite"
+        'MgmtSvc-TenantSite'
         {
             return @(
-                "{FC2F4900-7DEF-4314-B838-1A47B4DB09DD}"
+                '{78E38778-C952-4B53-96D8-A65DB9683269}'
 
             )
         }
-        "MgmtSvc-AuthSite"
+        'MgmtSvc-AuthSite'
         {
             return @(
-                "{9AD3BB15-3471-4A0F-A0CD-BB1408F598B8}"
+                '{B2D82054-D973-4447-BDDF-AE7D11E86585}'
 
             )
         }
-        "MgmtSvc-ConfigSite"
+        'MgmtSvc-ConfigSite'
         {
             return @(
-                "{A3A5D3F7-C18E-4BE9-B792-9699B3B334DE}"
+                '{53DA6693-27E7-438C-A4C1-BE2FCA1811DC}'
 
             )
         }
