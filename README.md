@@ -49,6 +49,8 @@ In this version, the following DSC Resources are already built and ready for use
 puppet module install puppetlabs-dsc
 ~~~
 
+See [known issues](#known-issues) for troubleshooting setup.
+
 ## Usage
 
 ### Using DSC Resources with Puppet
@@ -403,8 +405,12 @@ Error: No such file or directory @ rb_sysopen - C:/ProgramData/PuppetLabs/puppet
 Error: Try 'puppet help module install' for usage
   ~~~
 
-For Puppet 4.2.2+ (and 3.8.2) we've decreased the possibility of the issue occurring based on the fixes in [PUP-4854](https://tickets.puppetlabs.com/browse/PUP-4854). A complete fix will become available in a future version of Puppet that incorporates [PUP-4866](https://tickets.puppetlabs.com/browse/PUP-4866).
-If you are affected by this issue, you can work around this by downloading the `.tar.gz` from the Forge and use `puppet module install` using the file rather than directly from the Forge.
+  For Puppet 4.2.2+ (and 3.8.2) we've decreased the possibility of the issue occurring based on the fixes in [PUP-4854](https://tickets.puppetlabs.com/browse/PUP-4854). A complete fix is plannd in a future version of Puppet that incorporates [PUP-4866](https://tickets.puppetlabs.com/browse/PUP-4866).
+  
+  If you are affected by this issue:
+  - Use the `--module_working_dir` parameter to set a different temporary directory which has a smaller length, for example;
+    `puppet module install puppetlabs-dsc --module_working_dir C:\Windows\Temp`
+  - Download the `.tar.gz` from the [Forge](https://forge.puppetlabs.com/puppetlabs/dsc) and use `puppet module install` using the downloaded file, rather than directly installing from the Forge.
 
 - Windows Server 2003 is not supported. **If this module is present on the master, it breaks Windows 2003 agents.**
 
