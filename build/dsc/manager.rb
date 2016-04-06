@@ -12,6 +12,7 @@ module Dsc
 
       @import_folder            = "#{@module_path}/import"
       @dsc_modules_folder       = "#{@import_folder}/dsc_resources"
+      @dsc_git_reference        = "#{@import_folder}/dsc_resources/dsc_reference.txt"
       @dmtf_mof_folder          = "#{@module_path}/build/vendor/dmtf_mof"
 
       @type_template_file       = "#{@dsc_lib_path}/templates/dsc_type.rb.erb"
@@ -210,8 +211,23 @@ module Dsc
           end
           file.write("\n")
         end
+        
+        gitref = get_powershell_dsc_git_reference        
+        file.write("\nThe vendored Powershell DSC Resource can be rebuilt using `DSC_REF=#{gitref}`") if gitref
       end
     end
+
+    def save_powershell_dsc_git_reference(gitref)
+      File.open(@dsc_git_reference, 'w') { |file|
+        file.write("#{gitref}")
+      }      
+    end
+
+    def get_powershell_dsc_git_reference()
+      File.open(@dsc_git_reference, 'r') { |file|
+        file.gets()
+      } if File.exist?(@dsc_git_reference)      
+    end    
 
     def clean_dsc_types
       puppet_type_path = "#{@target_module_path}/#{@puppet_type_subpath}"

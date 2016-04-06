@@ -510,3 +510,5 @@ Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xwordpresssite | [xWordPressSite](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xWordPress/DscResources/MSFT_xWordPressSite) | [repo](https://github.com/PowerShell/xWordPress)
 
+
+The vendored Powershell DSC Resource can be rebuilt using `DSC_REF=09b9a46`
