@@ -143,6 +143,8 @@ Puppet (including 3.x), or to a Puppet version newer than 3.x.
 
   def self.format_dsc_value(dsc_value)
     case
+    when dsc_value.class.name == 'String' && dsc_value.lines.count > 1
+      "@'\n#{dsc_value}\n'@"
     when dsc_value.class.name == 'String'
       "'#{escape_quotes(dsc_value)}'"
     when dsc_value.class.ancestors.include?(Numeric)
