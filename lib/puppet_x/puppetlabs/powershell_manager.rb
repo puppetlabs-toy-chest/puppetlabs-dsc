@@ -35,9 +35,9 @@ module PuppetX
           $runspace.Open()
         }
 
-        $powershell_code = @'
+        $powershell_code = {
 #{powershell_code}
-'@
+}
         $ps = $null
 
         try
