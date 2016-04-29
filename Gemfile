@@ -55,7 +55,6 @@ end
 group :build do
   gem 'cim',                :require => false
   gem 'mof',                :require => false, :git => 'https://github.com/puppetlabs/mof.git', :ref => 'f50581901c53ff6a40c54b72ef5f4fcaed9679a1'
-
   gem 'charlock_holmes',    :require => false
   gem 'iconv', '~> 1.0.4',  :require => false if RUBY_VERSION >= '2.0'
 end
@@ -86,6 +85,17 @@ if puppet_gem_location != :gem || puppetversion < '3.5.0'
   if Gem::Platform.local.os == 'mingw32'
     explicitly_require_windows_gems = true
   end
+
+  if puppet_gem_location == :gem
+    # If facterversion hasn't been specified and we are
+    # looking for a Puppet Gem version less than 3.5.0, we
+    # need to ensure we get a good Facter for specs.
+    gem "facter",">= 1.6.11","<= 1.7.5",:require => false unless facterversion
+    # If hieraversion hasn't been specified and we are
+    # looking for a Puppet Gem version less than 3.5.0, we
+    # need to ensure we get a good Hiera for specs.
+    gem "hiera",">= 1.0.0","<= 1.3.0",:require => false unless hieraversion
+  end
 end
 
 if explicitly_require_windows_gems
@@ -98,10 +108,6 @@ if explicitly_require_windows_gems
     gem "win32-security", "~> 0.1.2",   :require => false
     gem "win32-service", "0.7.2",       :require => false
     gem "minitar", "0.5.4",             :require => false
-    # If facterversion hasn't been specified and we are
-    # looking for a Puppet Gem version less than 3.5.0, we
-    # need to ensure we get a good Facter for Windows specs.
-    gem "facter",">= 1.6.11","<= 1.7.5",:require => false unless facterversion
   else
     gem "ffi", "~> 1.9.0",              :require => false
     gem "win32-eventlog", "~> 0.5",     :require => false
