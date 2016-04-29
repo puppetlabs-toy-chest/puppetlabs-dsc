@@ -30,6 +30,7 @@ Gemfile:
       - gem: cim
       - gem: mof
         git: 'https://github.com/puppetlabs/mof.git'
+        ref: 'f50581901c53ff6a40c54b72ef5f4fcaed9679a1'
       - gem: charlock_holmes
       - gem: iconv
         version: '~> 1.0.4'
@@ -48,11 +49,22 @@ spec/spec_helper.rb:
   - '*.lock'
   - 'vendor/'
 appveyor.yml:
+  appveyor_bundle_install: "bundle install --jobs 4 --retry 2 --without system_tests build"
   matrix_extras:
     - PUPPET_GEM_VERSION: 3.7.0
       RUBY_VER: 193
     - PUPPET_GEM_VERSION: 3.7.0
       RUBY_VER: 200-x64
-  appveyor_bundle_install: "bundle install --jobs 4 --retry 2 --without system_tests build"
   test_script:
     - 'bundle exec rspec spec/unit spec/integration -fd -b'
+MAINTAINERS.md:
+  maintainers:
+    - "Puppet Windows Team `windows |at| puppet |dot| com`"
+NOTICE:
+  copyright_holders:
+    - name: 'Marc Sutter, original author'
+      begin: 2014
+      end: 2015
+    - name: 'Puppet, Inc.'
+      begin: 2015
+      end: 'latest'
