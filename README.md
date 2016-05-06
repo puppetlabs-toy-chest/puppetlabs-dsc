@@ -78,7 +78,7 @@ dsc_windowsfeature {'IIS':
 
 All DSC Resource names and parameters have to be in lowercase, for example: `dsc_windowsfeature` or `dsc_name`.
 
-> Note: Normally, you can use either `ensure =>` (Puppet's `ensure`) or `dsc_ensure =>` (DSC's `Ensure`) in your manifests. However, there is currently a known issue where `ensure => absent` reports success but does nothing. See [MODULES-2966](https://tickets.puppetlabs.com/browse/MODULES-2966) for details. **Until this issue is resolved, we recommend using `dsc_ensure` exclusively.**
+> Note: Normally, you can use either `ensure =>` (Puppet's `ensure`) or `dsc_ensure =>` (DSC's `Ensure`) in your manifests. However, there is currently a known issue where `ensure => absent` reports success but does nothing. See [MODULES-2966](https://tickets.puppet.com/browse/MODULES-2966) for details. **Until this issue is resolved, we recommend using `dsc_ensure` exclusively.**
 
 You can use either `ensure =>` (Puppet's `ensure`) versus `dsc_ensure =>` (DSC's `Ensure`) in your manifests for Puppet DSC resource types. If you use both in a Puppet DSC resource, `dsc_ensure` overrides the value in `ensure`, so the value for `ensure` is essentially ignored. It is recommended that `dsc_ensure` is used as it is a closer match for converting from the DSC properties to Puppet DSC resources and it overrides `ensure` so there is less confusion if both are accidentally included.
 
@@ -319,7 +319,7 @@ class fourthcoffee(
 ~~~
 
 As you can see, you can mix and match DSC resources with common Puppet resources.
-All [Puppet metaparameters](https://docs.puppetlabs.com/references/latest/metaparameter.html) are also supported.
+All [Puppet metaparameters](https://docs.puppet.com/references/latest/metaparameter.html) are also supported.
 
 ### Optionally Configure the DSC LCM RefreshMode
 
@@ -345,7 +345,7 @@ Where available, a link to the external GitHub repo of each resource is also inc
 
 - DSC Composite Resources are not supported.
 
-- DSC requires PowerShell `Execution Policy` for the `LocalMachine` scope to be set to a less restrictive setting than `Restricted`. If you see the error below, see [MODULES-2500](https://tickets.puppetlabs.com/browse/MODULES-2500) for more information.
+- DSC requires PowerShell `Execution Policy` for the `LocalMachine` scope to be set to a less restrictive setting than `Restricted`. If you see the error below, see [MODULES-2500](https://tickets.puppet.com/browse/MODULES-2500) for more information.
 
 ~~~
 Error: /Stage[main]/Main/Dsc_xgroup[testgroup]: Could not evaluate: Importing module MSFT_xGroupResource failed with
@@ -355,7 +355,7 @@ esource\MSFT_xGroupResource.psm1 cannot be loaded because running scripts is dis
 information, see about_Execution_Policies at http://go.microsoft.com/fwlink/?LinkID=135170.
 ~~~
 
-- You cannot use forward slashes for the MSI `Path` property for the `Package` DSC Resource. The underlying implementation does not accept forward slashes instead of backward slashes in paths, and it throws a misleading error that it could not find a Package with the Name and ProductId provided. [MODULES-2486](https://tickets.puppetlabs.com/browse/MODULES-2486) has more examples and information on this subject.
+- You cannot use forward slashes for the MSI `Path` property for the `Package` DSC Resource. The underlying implementation does not accept forward slashes instead of backward slashes in paths, and it throws a misleading error that it could not find a Package with the Name and ProductId provided. [MODULES-2486](https://tickets.puppet.com/browse/MODULES-2486) has more examples and information on this subject.
 - `dsc_ensure` overrides and ignores the value in `ensure` if both are present in a Puppet DSC resource. See [Using DSC Resources with Puppet](#using-dsc-resources-with-puppet).
 - Use of this module with the 3.8.x x86 version of Puppet is highly discouraged, though supported.  Normally, this module employs a technique to dramatically improve performance by reusing a PowerShell process to execute DSC related commands.  However, due to the Ruby 1.9.3 runtime used with the 3.8.x x86 version of Puppet, this technique must be disabled, resulting in at least a 2x slowdown.
 
@@ -384,9 +384,9 @@ dsc_service{'disable_foo':
 }
   ~~~
 
-  [MODULES-2512](https://tickets.puppetlabs.com/browse/MODULES-2512) has more details.
+  [MODULES-2512](https://tickets.puppet.com/browse/MODULES-2512) has more details.
 
-- You might have issues attempting to use `dsc_ensure => absent` with `dsc_xservice` with services that are already not present. To work around this problem, always specify the path to the executable for the service when specifying `absent`. [MODULES-2512](https://tickets.puppetlabs.com/browse/MODULES-2512) has more details. The following example works:
+- You might have issues attempting to use `dsc_ensure => absent` with `dsc_xservice` with services that are already not present. To work around this problem, always specify the path to the executable for the service when specifying `absent`. [MODULES-2512](https://tickets.puppet.com/browse/MODULES-2512) has more details. The following example works:
 
   ~~~puppet
 dsc_xservice{'disable_foo':
@@ -396,7 +396,7 @@ dsc_xservice{'disable_foo':
 }
   ~~~
 
-- Use `ensure` instead of `dsc_ensure` - `ensure => absent` will report success while doing nothing - see [MODULES-2966](https://tickets.puppetlabs.com/browse/MODULES-2966) for details. Also see [Using DSC Resources with Puppet](#using-dsc-resources-with-puppet).
+- Use `ensure` instead of `dsc_ensure` - `ensure => absent` will report success while doing nothing - see [MODULES-2966](https://tickets.puppet.com/browse/MODULES-2966) for details. Also see [Using DSC Resources with Puppet](#using-dsc-resources-with-puppet).
 
 - When installing the module on Windows you might run into an issue regarding long file names (LFN) due to the long paths of the generated schema files. If you install your module on a Linux master, and then use plugin sync you will likely not see this issue. If you are attempting to install the module on a Windows machine using `puppet module install puppetlabs-dsc` you may run into an error that looks similar to the following:
 
@@ -405,18 +405,18 @@ Error: No such file or directory @ rb_sysopen - C:/ProgramData/PuppetLabs/puppet
 Error: Try 'puppet help module install' for usage
   ~~~
 
-  For Puppet 4.2.2+ (and 3.8.2) we've decreased the possibility of the issue occurring based on the fixes in [PUP-4854](https://tickets.puppetlabs.com/browse/PUP-4854). A complete fix is plannd in a future version of Puppet that incorporates [PUP-4866](https://tickets.puppetlabs.com/browse/PUP-4866).
+  For Puppet 4.2.2+ (and 3.8.2) we've decreased the possibility of the issue occurring based on the fixes in [PUP-4854](https://tickets.puppet.com/browse/PUP-4854). A complete fix is plannd in a future version of Puppet that incorporates [PUP-4866](https://tickets.puppet.com/browse/PUP-4866).
   
   If you are affected by this issue:
   - Use the `--module_working_dir` parameter to set a different temporary directory which has a smaller length, for example;
     `puppet module install puppetlabs-dsc --module_working_dir C:\Windows\Temp`
-  - Download the `.tar.gz` from the [Forge](https://forge.puppetlabs.com/puppetlabs/dsc) and use `puppet module install` using the downloaded file, rather than directly installing from the Forge.
+  - Download the `.tar.gz` from the [Forge](https://forge.puppet.com/puppetlabs/dsc) and use `puppet module install` using the downloaded file, rather than directly installing from the Forge.
 
 - Windows Server 2003 is not supported. **If this module is present on the master, it breaks Windows 2003 agents.**
 
-  When installed on a Puppet master to the default `production` environment, this module causes pluginsync to **fail** on Windows 2003 agents because of an issue with [LFN (long file names)](https://tickets.puppetlabs.com/browse/PUP-4866). To work around this issue, host your Windows 2003 nodes on a [Puppet environment](https://docs.puppetlabs.com/puppet/latest/reference/environments.html) that is separate from `production` and that does **not** have the DSC module installed.  
+  When installed on a Puppet master to the default `production` environment, this module causes pluginsync to **fail** on Windows 2003 agents because of an issue with [LFN (long file names)](https://tickets.puppet.com/browse/PUP-4866). To work around this issue, host your Windows 2003 nodes on a [Puppet environment](https://docs.puppet.com/puppet/latest/reference/environments.html) that is separate from `production` and that does **not** have the DSC module installed.  
 
-- `--noop` mode, `puppet resource` and property change notifications are currently not implemented - see [MODULES-2270](https://tickets.puppetlabs.com/browse/MODULES-2270) for details.
+- `--noop` mode, `puppet resource` and property change notifications are currently not implemented - see [MODULES-2270](https://tickets.puppet.com/browse/MODULES-2270) for details.
 
 - [Known WMF 5.0 Product Incompatibilites][wmf5-blog-incompatibilites]
 
@@ -438,11 +438,11 @@ The Puppet agent on a Windows node can run DSC with a normal default install. If
 
 ## Development
 
-Puppet Labs modules on the Puppet Forge are open projects, and community contributions are essential for keeping them great. We can’t access the huge number of platforms and myriad of hardware, software, and deployment configurations that Puppet is intended to serve.
+Puppet Inc modules on the Puppet Forge are open projects, and community contributions are essential for keeping them great. We can’t access the huge number of platforms and myriad of hardware, software, and deployment configurations that Puppet is intended to serve.
 
 We want to keep it as easy as possible to contribute changes so that our modules work in your environment. There are a few guidelines that we need contributors to follow so that we can have a chance of keeping on top of things.
 
-For more information, see our [module contribution guide.](https://docs.puppetlabs.com/forge/contributing.html)
+For more information, see our [module contribution guide.](https://docs.puppet.com/forge/contributing.html)
 
 * The Puppet types are built from the source code of each DSC Resources MOF schema files. If you want to build the types, read the [Quick-start and Building](README_BUILD.md#quick-start).
 * If you want the build Puppet types for your own custom DSC Resources, read [Build Custom DSC Resource Types](README_BUILD.md#build-custom-dsc-resource-types).
@@ -459,19 +459,19 @@ You can learn more about PowerShell DSC from the following online resources:
 - [Microsoft PowerShell DSC Resources page](https://msdn.microsoft.com/en-us/powershell/dsc/resources) - For more information about built-in DSC Resources
 - [Microsoft PowerShell xDSCResources Github Repo](https://github.com/PowerShell/DscResources) -  For more information about xDscResources
 - [Windows PowerShell Blog](http://blogs.msdn.com/b/powershell/archive/tags/dsc/) - DSC tagged posts from the Microsoft PowerShell Team
-- [Puppet Labs Windows DSC & WSUS Webinar 9-17-2015 webinar](https://puppetlabs.com/webinars/windows-dsc-wsus-webinar-09-17-2015) - How DSC works with Puppet
+- [Puppet Inc Windows DSC & WSUS Webinar 9-17-2015 webinar](https://puppet.com/webinars/windows-dsc-wsus-webinar-09-17-2015) - How DSC works with Puppet
 - [Better Together: Managing Windows with Puppet, PowerShell and DSC - PuppetConf 10-2015 talk](https://www.youtube.com/watch?v=TP0zqe-yQto) and [slides](https://speakerdeck.com/iristyle/better-together-managing-windows-with-puppet-powershell-and-dsc)
 - [PowerShell.org](http://powershell.org/wp/tag/dsc/) - Community based DSC tagged posts
 - [PowerShell Magazine](http://www.powershellmagazine.com/tag/dsc/) - Community based DSC tagged posts
 
 There are several books available as well. Here are some selected books for reference:
 
-- [Learning PowerShell DSC](http://bit.ly/learndsc) - James Pogran is a member of the team here at Puppet Labs working on the DSC/Puppet integration
+- [Learning PowerShell DSC](http://bit.ly/learndsc) - James Pogran is a member of the team here at Puppet Inc working on the DSC/Puppet integration
 - [The DSC Book](https://www.penflip.com/powershellorg/the-dsc-book) - Powershell.org community contributed content
 - [Windows PowerShell Desired State Configuration Revealed](http://www.apress.com/9781484200179) - Ravikanth Chaganti
 
 ## License
 
 * Copyright (c) 2014 Marc Sutter, original author
-* Copyright (c) 2015 - Present Puppet Labs
+* Copyright (c) 2015 - Present Puppet Inc
 * License: [Apache License, Version 2.0](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/LICENSE)
