@@ -43,6 +43,18 @@ $count
       expect(result).not_to eq(nil)
     end
 
+    it "should execute here strings" do
+      result = manager.execute(<<-CODE
+$foo = @'
+foo
+bar
+'@
+$foo
+      CODE
+      )[:stdout]
+      expect(result).to eq("foo\nbar\n")
+    end
+
     it "should reuse the same PowerShell process for multiple calls" do
       first_pid = manager.execute('[Diagnostics.Process]::GetCurrentProcess().Id')[:stdout]
       second_pid = manager.execute('[Diagnostics.Process]::GetCurrentProcess().Id')[:stdout]
