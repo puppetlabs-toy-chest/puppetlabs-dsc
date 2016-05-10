@@ -49,7 +49,7 @@ module PuppetX
 
           $asyncResult = $ps.BeginInvoke()
 
-          if (!$asyncResult.AsyncWaitHandle.WaitOne(#{timeout_ms}, $false))
+          if (!$asyncResult.AsyncWaitHandle.WaitOne(#{timeout_ms}))
           {
             throw "Catastrophic failure: PowerShell DSC resource timeout (#{timeout_ms} ms) exceeded while executing"
           }
