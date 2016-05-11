@@ -55,7 +55,7 @@ Puppet (including 3.x), or to a Puppet version newer than 3.x.
   end
 
   def self.powershell_args
-    ps_args = ['-NoProfile', '-NonInteractive', '-Sta', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command']
+    ps_args = ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command']
     ps_args << '-' if !Facter.value(:uses_win32console)
     ps_args
   end
