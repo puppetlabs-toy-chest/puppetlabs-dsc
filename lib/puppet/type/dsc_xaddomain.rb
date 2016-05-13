@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   def dscmeta_resource_friendly_name; 'xADDomain' end
   def dscmeta_resource_name; 'MSFT_xADDomain' end
   def dscmeta_module_name; 'xActiveDirectory' end
-  def dscmeta_module_version; '2.9.0.0' end
+  def dscmeta_module_version; '2.10.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -45,38 +45,8 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_domainname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainName"
+    desc "DomainName - Name of the domain to which the user will be added"
     isrequired
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         ParentDomainName
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_parentdomainname) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "ParentDomainName"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         DomainNetbiosName
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_domainnetbiosname) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "DomainNetbiosName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -91,7 +61,7 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_domainadministratorcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "DomainAdministratorCredential"
+    desc "DomainAdministratorCredential - Credentials used to query for domain existence"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -107,12 +77,42 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_safemodeadministratorpassword) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "SafemodeAdministratorPassword"
+    desc "SafemodeAdministratorPassword - Password for the administrator account when the computer is started in Safe Mode"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SafemodeAdministratorPassword", value)
+    end
+  end
+
+  # Name:         ParentDomainName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_parentdomainname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ParentDomainName - Fully qualified name of the parent domain"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         DomainNetbiosName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_domainnetbiosname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DomainNetbiosName - NetBIOS name for the new domain"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
     end
   end
 
@@ -123,7 +123,7 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_dnsdelegationcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "DnsDelegationCredential"
+    desc "DnsDelegationCredential - Credential used for creating DNS delegation"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -139,7 +139,7 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_databasepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DatabasePath"
+    desc "DatabasePath - Path to a directory that contains the domain database"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -154,7 +154,7 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_logpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "LogPath"
+    desc "LogPath - Path to a directory for the log file that will be written"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -169,7 +169,7 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   newparam(:dsc_sysvolpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SysvolPath"
+    desc "SysvolPath - Path to a directory where the Sysvol file will be written"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

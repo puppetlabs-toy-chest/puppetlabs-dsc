@@ -1,0 +1,57 @@
+## SHA tags for each DSC Resource repo
+
+DSC Resource | SHA | Release Tag
+------------ | --- | -----
+xActiveDirectory | b96a752 | 2.10.0.0-PSGallery
+xAdcsDeployment | bc9a2d8 | 0.2.0.0-PSGallery
+xAzure | a45efea | 0.2.0.0-PSGallery
+xAzurePack | e3f363a | 1.4.0.0-PSGallery
+xBitlocker | 0fec32f | 1.1.0.0-PSGallery
+xCertificate | cf8d6df | 1.1.0.0-PSGallery
+xChrome | 8ac57b0 | 1.0.2.0-PSGallery
+xComputerManagement | 9c3e2b1 | 1.5.0.0-PSGallery
+xCredSSP | 3297a2c | 1.1.0.0-PSGallery
+xDatabase | b236a02 | 1.4.0.0-PSGallery
+xDefender | 9364607 | 0.2.0.0-PSGallery
+xDhcpServer | 54dee7b | 1.3.0.0-PSGallery
+xDismFeature | cc7fea0 | 1.1.0.0-PSGallery
+xDnsServer | 0be4d69 | 1.6.0.0-PSGallery
+xDscDiagnostics | 2677f0b | 2.2.0.0-PSGallery
+xDSCResourceDesigner | 1fa5d69 | 1.8.0.0-PSGallery
+xExchange | ad09bfd | 1.6.0.0-PSGallery
+xFailOverCluster | 64dec71 | 1.2.0.0-PSGallery
+xFirefox | 5db2437 | 1.1.0.0-PSGallery
+xHyper-V | 1155542 | 3.4.0.0-PSGallery
+xInternetExplorerHomePage | 26ab5f8 | 1.0.0-PSGallery
+xJea | 5fccf06 | 0.3.0.0-PSGallery
+xMySql | 5ffa098 | 2.1.0.0-PSGallery
+xNetworking | a175d17 | 2.8.0.0-PSGallery
+xPendingReboot | 7c1a4f2 | 0.3.0.0-PSGallery
+xPhp | c4337cd | 1.1.0.0-PSGallery
+xPowerShellExecutionPolicy | 9354ce1 | 1.1.0.0-PSGallery
+xPSDesiredStateConfiguration | ac9d08a | 3.9.0.0-PSGallery
+xRemoteDesktopAdmin | eb1f249 | 1.1.0.0-PSGallery
+xRemoteDesktopSessionHost | ffe75dd | 1.2.0.0-PSGallery
+xRobocopy | fed7247 | 1.2.0.0-PSGallery
+xSafeHarbor | d2b65ed | 1.0.0.1-PSGallery
+xSCDPM | 3243d05 | 1.2.0.0-PSGallery
+xSCOM | ae7eb91 | 1.3.3.0-PSGallery
+xSCSMA | a2f8eec | 1.3.0.0-PSGallery
+xSCSPF | def04f5 | 1.3.1.0-PSGallery
+xSCSR | 944696f | 1.3.0.0-PSGallery
+xSCVMM | ce80844 | 1.2.4.0-PSGallery
+xSharePoint | 50d7769 | 0.12.0.0-PSGallery
+xSmbShare | 8aaa383 | 1.1.0.0-PSGallery
+xSqlPs | 2c33e39 | 1.2.0.0-PSGallery
+xSQLServer | aadcac5 | 1.5.0.0-PSGallery
+xStorage | 8611821 | 2.5.0.0-PSGallery
+xSystemSecurity | c96e520 | 1.1.0.0-PSGallery
+xTimeZone | 7409619 | 1.3.0.0-PSGallery
+xWebAdministration | 71d8b91 | 1.10.0.0-PSGallery
+xWebDeploy | e1d2951 | 1.1.0.0-PSGallery
+xWindowsEventForwarding | e5d3052 | 1.0.0.0-PSGallery
+xWindowsRestore | fa8552b | 1.0.0-PSGallery
+xWindowsUpdate | a9e3947 | 2.4.0.0-PSGallery
+xWinEventLog | c7c0e63 | 1.1.0.0-PSGallery
+xWordPress | 8fa349c | 1.1.0.0-PSGallery
+

@@ -28,7 +28,7 @@ function Get-TargetResource
         $dbUser
     )
 
-    $ConnectionString = Get-SQLConnectionString @PSBoundParameters
+    $ConnectionString = Get-SQLConnectionString -SQLServer $SQLServer -SQLInstance $SQLInstance -dbUser $dbUser
 
     $Ensure = 
     if(Get-MgmtSvcAdminUser -Principal $Principal -ConnectionString $ConnectionString)
@@ -80,7 +80,7 @@ function Set-TargetResource
         $dbUser
     )
 
-    $ConnectionString = Get-SQLConnectionString @PSBoundParameters
+    $ConnectionString = Get-SQLConnectionString -SQLServer $SQLServer -SQLInstance $SQLInstance -dbUser $dbUser
 
     switch($Ensure)
     {

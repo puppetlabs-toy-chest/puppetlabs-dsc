@@ -56,11 +56,43 @@ eod
       if !is_custom_resource
         puts "Downloading and Importing #{item_name}"
         cmd = "git clone #{dsc_repo} #{dsc_resources_path_tmp} && " +
-          "cd #{dsc_resources_path_tmp} && "
-        cmd += "git checkout #{ENV['DSC_REF']} &&" if ENV['DSC_REF']
-        cmd += "git submodule update --init --recursive"
+          "cd #{dsc_resources_path_tmp}"
+          #"cd #{dsc_resources_path_tmp} && "
+        #cmd += "git checkout #{ENV['DSC_REF']} &&" if ENV['DSC_REF']
+        #cmd += "git submodule update --init --recursive"
 
-        sh cmd
+        sh cmd unless File.exists?(dsc_resources_path_tmp)
+
+        puts "Creating sha file"
+        File.open("#{default_dsc_module_path}/dsc_resource_release_tags.md", 'w+') do |file|
+          file.write("## SHA tags for each DSC Resource repo\n")
+          file.write("\n")
+          file.write("DSC Resource | SHA | Release Tag\n")
+          file.write("------------ | --- | -----\n")
+          
+          Dir["#{dsc_resources_path_tmp}/xDSCResources/*"].each do |path|
+            next unless File.directory?(path)
+            
+            name = Pathname.new(path).basename
+            sh "git clone http://github.com/powershell/#{name} #{path}"
+            
+            puts "Finding latest tag for #{path}"
+            FileUtils.cd(path) do
+              begin
+                sh "git checkout master"
+                tag  = %x{ git describe --tags --abbrev=0 }
+                sha  = %x{ git rev-parse --short #{tag} }
+                file.write("#{name} | #{sha.strip!} | #{tag.strip!}\n")
+              rescue
+              end
+              sh "git describe --tags --abbrev=0 | xargs git checkout"
+            end
+          end
+          
+          file.write("\n")
+          
+        end
+
       else
         puts "Importing custom types from '#{dsc_resources_path}'"
         FileUtils.mkdir_p "#{dsc_resources_path_tmp}"

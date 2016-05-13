@@ -126,7 +126,7 @@ function Set-TargetResource
                 }
             }
 
-            Add-ClusterNode $env:COMPUTERNAME -Cluster $Name
+            Add-ClusterNode $env:COMPUTERNAME -Cluster $Name -NoStorage
             
             Write-Verbose -Message "Added node to Cluster $Name"
         

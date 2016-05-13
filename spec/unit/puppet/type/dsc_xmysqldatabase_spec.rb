@@ -6,16 +6,17 @@ describe Puppet::Type.type(:dsc_xmysqldatabase) do
   let :dsc_xmysqldatabase do
     Puppet::Type.type(:dsc_xmysqldatabase).new(
       :name     => 'foo',
-      :dsc_name => 'foo',
+      :dsc_databasename => 'foo',
     )
   end
 
   it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xmysqldatabase).new(
       :name     => 'foo',
-      :dsc_name => 'foo',
+      :dsc_databasename => 'foo',
       :dsc_ensure => 'Present',
-      :dsc_connectioncredential => {"user"=>"user", "password"=>"password"},
+      :dsc_rootcredential => {"user"=>"user", "password"=>"password"},
+      :dsc_mysqlversion => 'foo',
     )}.to_not raise_error
   end
 
@@ -27,27 +28,27 @@ describe Puppet::Type.type(:dsc_xmysqldatabase) do
     expect(dsc_xmysqldatabase[:ensure]).to eq :present
   end
 
-  it 'should require that dsc_name is specified' do
-    #dsc_xmysqldatabase[:dsc_name]
+  it 'should require that dsc_databasename is specified' do
+    #dsc_xmysqldatabase[:dsc_databasename]
     expect { Puppet::Type.type(:dsc_xmysqldatabase).new(
       :name     => 'foo',
-    )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
+    )}.to raise_error(Puppet::Error, /dsc_databasename is a required attribute/)
   end
 
-  it 'should not accept array for dsc_name' do
-    expect{dsc_xmysqldatabase[:dsc_name] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should not accept array for dsc_databasename' do
+    expect{dsc_xmysqldatabase[:dsc_databasename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept boolean for dsc_name' do
-    expect{dsc_xmysqldatabase[:dsc_name] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_databasename' do
+    expect{dsc_xmysqldatabase[:dsc_databasename] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_name' do
-    expect{dsc_xmysqldatabase[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_databasename' do
+    expect{dsc_xmysqldatabase[:dsc_databasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xmysqldatabase[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_databasename' do
+    expect{dsc_xmysqldatabase[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -100,24 +101,40 @@ describe Puppet::Type.type(:dsc_xmysqldatabase) do
     expect{dsc_xmysqldatabase[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it "should not accept empty password for dsc_connectioncredential" do
-    expect{dsc_xmysqldatabase[:dsc_connectioncredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  it "should not accept empty password for dsc_rootcredential" do
+    expect{dsc_xmysqldatabase[:dsc_rootcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_connectioncredential' do
-    expect{dsc_xmysqldatabase[:dsc_connectioncredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should not accept array for dsc_rootcredential' do
+    expect{dsc_xmysqldatabase[:dsc_rootcredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept boolean for dsc_connectioncredential' do
-    expect{dsc_xmysqldatabase[:dsc_connectioncredential] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_rootcredential' do
+    expect{dsc_xmysqldatabase[:dsc_rootcredential] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_connectioncredential' do
-    expect{dsc_xmysqldatabase[:dsc_connectioncredential] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_rootcredential' do
+    expect{dsc_xmysqldatabase[:dsc_rootcredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_connectioncredential' do
-    expect{dsc_xmysqldatabase[:dsc_connectioncredential] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_rootcredential' do
+    expect{dsc_xmysqldatabase[:dsc_rootcredential] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_mysqlversion' do
+    expect{dsc_xmysqldatabase[:dsc_mysqlversion] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_mysqlversion' do
+    expect{dsc_xmysqldatabase[:dsc_mysqlversion] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_mysqlversion' do
+    expect{dsc_xmysqldatabase[:dsc_mysqlversion] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_mysqlversion' do
+    expect{dsc_xmysqldatabase[:dsc_mysqlversion] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

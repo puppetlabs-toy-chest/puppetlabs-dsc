@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   def dscmeta_resource_friendly_name; 'xDSCWebService' end
   def dscmeta_resource_name; 'MSFT_xDSCWebService' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '3.7.0.0' end
+  def dscmeta_module_version; '3.9.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -167,22 +167,6 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-    end
-  end
-
-  # Name:         IsComplianceServer
-  # Type:         boolean
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_iscomplianceserver) do
-    def mof_type; 'boolean' end
-    def mof_is_embedded?; false end
-    desc "IsComplianceServer"
-    validate do |value|
-    end
-    newvalues(true, false)
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

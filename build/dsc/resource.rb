@@ -110,6 +110,10 @@ module Dsc
           'present'
         elsif ensure_property.values.any? { |v| v.casecmp('enable') == 0 }
           'enable'
+        elsif ensure_property.values.any? { |v| v.casecmp('published') == 0 }
+          'published'
+        elsif ensure_property.values.any? { |v| v.casecmp('draft') == 0 }
+          'draft'
         else
           throw 'Error processing MOF schema - could not determine equivalent \'present\' value for ensure'
         end
