@@ -87,32 +87,77 @@ module Dsc
 
     def absentable?
       if @absentable.nil?
-        @absentable = ensurable? &&
-          ensure_property.values.any? { |v| v.casecmp('absent') == 0 || v.casecmp('disable') == 0 }
+        if !ensurable?
+          @absentable = false
+        else
+          override = ensure_type_overrides[name.downcase]
+          @absentable = override ?
+            # if an override exists, the absence of the :absent hash key (or nil value at :absent) means not absentable
+            !override[:absent].nil? :
+            # otherwise use typical 'absent' heuristic
+            ensure_property.values.any? { |v| v.casecmp('absent') == 0 }
+        end
       end
       @absentable
     end
 
+    def ensure_type_overrides
+      # always key the hash with a lower case version of the name
+      # the first defined present value is the default
+      # :absent may be omitted to indicate there is no ability to absent the resource
+      @ensure_type_overrides ||=
+      {
+        'MSFT_xRunbookDirectory'.downcase      => { :present => ['published', 'draft'], :absent => 'absent' },
+        'MSFT_WindowsOptionalFeature'.downcase => { :present => ['enable'], :absent => 'disable' },
+      }
+    end
+
     def absent_value
       @absent_value ||=
-        if ensure_property.values.any? { |v| v.casecmp('absent') == 0 }
+        # explicit absent by MOF type name
+        if (ensure_values = ensure_type_overrides[name.downcase])
+          ensure_values[:absent]
+        # resources like MSFT_LogResource or MSFT_ScriptResource have no Ensure / can't be 'absent'
+        elsif ensure_property.nil?
+          # absent_value should never be called if absentable? is not true
+          throw "Error processing MOF schema for #{name} - absent_value unavailable on property that is not absentable"
+        # absent is explicitly in the value map
+        elsif ensure_property.values.any? { |v| v.casecmp('absent') == 0 }
           'absent'
-        elsif ensure_property.values.any? { |v| v.casecmp('disable') == 0 }
-          'disable'
         else
-          throw 'Error processing MOF schema - could not determine equivalent \'absent\' value for ensure'
+          throw "Error processing MOF schema for #{name} - could not determine equivalent 'absent' value for ensure"
         end
     end
 
-    def ensure_value
-      @ensure_value ||=
-        if ensure_property.values.any? { |v| v.casecmp('present') == 0 }
-          'present'
-        elsif ensure_property.values.any? { |v| v.casecmp('enable') == 0 }
-          'enable'
+    def valid_ensure_present_values
+      @valid_ensure_present_values ||=
+        # explicit absent by MOF type name
+        if (ensure_values = ensure_type_overrides[name.downcase])
+          ensure_values[:present]
+        # resources like MSFT_LogResource with no Ensure *must* be able to set 'present'
+        elsif ensure_property.nil?
+          ['present']
+        # a non-nil list of ensure values with 'absent' filtered
+        elsif (present = ensure_property.values.collect { |v| v.downcase }.select { |v| v != 'absent' })
+          # empty list of properties OR properties only contains 'absent' - makes no sense, FAIL hard
+          throw("Error processing MOF schema for #{name} - no valid ensure present property found in list #{ensure_property.values}") if present.empty?
+          present
         else
-          throw 'Error processing MOF schema - could not determine equivalent \'present\' value for ensure'
+          throw "Error processing MOF schema for #{name} - could not determine equivalent 'present' value for ensure"
         end
+    end
+
+    def default_ensure_value
+      # with overrides present, use the first value
+      if ensure_type_overrides.include?(name.downcase)
+        valid_ensure_present_values[0]
+      # if no explicit overrides, and multiple values, favor present if defined
+      elsif valid_ensure_present_values.any? { |v| v.casecmp('present') == 0 }
+        'present'
+      # otherwise, use the first value for present, which should be 'present'
+      else
+        valid_ensure_present_values[0]
+      end
     end
 
     def has_name?

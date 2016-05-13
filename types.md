@@ -19,6 +19,8 @@ dsc_script | [Script](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/b
 dsc_service | [Service](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_ServiceResource) | import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_ServiceResource/MSFT_ServiceResource.schema.mof
 dsc_user | [User](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_UserResource) | import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_UserResource/MSFT_UserResource.schema.mof
 dsc_windowsoptionalfeature | [WindowsOptionalFeature](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_WindowsOptionalFeature) | import/dsc_resources/PSDesiredStateConfiguration/DSCResources/MSFT_WindowsOptionalFeature/MSFT_WindowsOptionalFeature.schema.mof
+dsc_runbookdirectory | [RunbookDirectory](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/xSCSMA/DSCResources/MSFT_xRunbookDirectory) | import/dsc_resources/xSCSMA/DSCResources/MSFT_xRunbookDirectory/MSFT_xRunbookDirectory.schema.mof
+dsc_smavariable | [SmaVariable](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/xSCSMA/DSCResources/MSFT_xSmaVariable) | import/dsc_resources/xSCSMA/DSCResources/MSFT_xSmaVariable/MSFT_xSmaVariable.schema.mof
 
 #### Community x Prefixed types
 
