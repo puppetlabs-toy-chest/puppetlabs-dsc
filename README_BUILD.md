@@ -76,4 +76,4 @@ When importing or creating custom types, follow these steps:
 If you need a puppet type for a DSC composite resources, you have to define a xxx.schema.mof file next to your xxx.Schema.psm1 file.
 
 ## Issues
-Please report issues on the [project issues](https://tickets.puppetlabs.com/browse/MODULES)
+Please report issues on the [project issues](https://tickets.puppet.com/browse/MODULES)
