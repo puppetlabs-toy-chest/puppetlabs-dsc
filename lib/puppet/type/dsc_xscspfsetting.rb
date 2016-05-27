@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xscspfsetting) do
   def dscmeta_resource_friendly_name; 'xSCSPFSetting' end
   def dscmeta_resource_name; 'MSFT_xSCSPFSetting' end
   def dscmeta_module_name; 'xSCSPF' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.3.1.0' end
 
   newparam(:name, :namevar => true ) do
   end

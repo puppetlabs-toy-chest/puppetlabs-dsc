@@ -21,7 +21,6 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
       :dsc_state => 'Started',
       :dsc_modulepath => 'foo',
       :dsc_configurationpath => 'foo',
-      :dsc_iscomplianceserver => true,
       :dsc_dscserverurl => 'foo',
       :dsc_registrationkeypath => 'foo',
       :dsc_acceptselfsignedcertificates => true,
@@ -245,53 +244,6 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
 
   it 'should not accept uint for dsc_configurationpath' do
     expect{dsc_xdscwebservice[:dsc_configurationpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_iscomplianceserver' do
-    expect{dsc_xdscwebservice[:dsc_iscomplianceserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept boolean for dsc_iscomplianceserver' do
-    dsc_xdscwebservice[:dsc_iscomplianceserver] = true
-    expect(dsc_xdscwebservice[:dsc_iscomplianceserver]).to eq(true)
-  end
-
-  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_iscomplianceserver" do
-    dsc_xdscwebservice[:dsc_iscomplianceserver] = 'true'
-    expect(dsc_xdscwebservice[:dsc_iscomplianceserver]).to eq(true)
-  end
-
-  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_iscomplianceserver" do
-    dsc_xdscwebservice[:dsc_iscomplianceserver] = 'false'
-    expect(dsc_xdscwebservice[:dsc_iscomplianceserver]).to eq(false)
-  end
-
-  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_iscomplianceserver" do
-    dsc_xdscwebservice[:dsc_iscomplianceserver] = 'True'
-    expect(dsc_xdscwebservice[:dsc_iscomplianceserver]).to eq(true)
-  end
-
-  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_iscomplianceserver" do
-    dsc_xdscwebservice[:dsc_iscomplianceserver] = 'False'
-    expect(dsc_xdscwebservice[:dsc_iscomplianceserver]).to eq(false)
-  end
-
-  it "should accept boolean-like value :true and munge this value to boolean for dsc_iscomplianceserver" do
-    dsc_xdscwebservice[:dsc_iscomplianceserver] = :true
-    expect(dsc_xdscwebservice[:dsc_iscomplianceserver]).to eq(true)
-  end
-
-  it "should accept boolean-like value :false and munge this value to boolean for dsc_iscomplianceserver" do
-    dsc_xdscwebservice[:dsc_iscomplianceserver] = :false
-    expect(dsc_xdscwebservice[:dsc_iscomplianceserver]).to eq(false)
-  end
-
-  it 'should not accept int for dsc_iscomplianceserver' do
-    expect{dsc_xdscwebservice[:dsc_iscomplianceserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_iscomplianceserver' do
-    expect{dsc_xdscwebservice[:dsc_iscomplianceserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_dscserverurl' do
