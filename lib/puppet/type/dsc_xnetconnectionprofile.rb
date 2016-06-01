@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xnetconnectionprofile) do
   def dscmeta_resource_friendly_name; 'xNetConnectionProfile' end
   def dscmeta_resource_name; 'MSFT_xNetConnectionProfile' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '2.7.0.0' end
+  def dscmeta_module_version; '2.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

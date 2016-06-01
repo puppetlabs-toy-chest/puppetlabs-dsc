@@ -28,6 +28,7 @@ Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xaddomain | [xADDomain](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADDomain) | [repo](https://github.com/PowerShell/xActiveDirectory)
 dsc_xaddomaincontroller | [xADDomainController](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADDomainController) | [repo](https://github.com/PowerShell/xActiveDirectory)
+dsc_xaddomaindefaultpasswordpolicy | [xADDomainDefaultPasswordPolicy](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADDomainDefaultPasswordPolicy) | [repo](https://github.com/PowerShell/xActiveDirectory)
 dsc_xaddomaintrust | [xADDomainTrust](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADDomainTrust) | [repo](https://github.com/PowerShell/xActiveDirectory)
 dsc_xadgroup | [xADGroup](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADGroup) | [repo](https://github.com/PowerShell/xActiveDirectory)
 dsc_xadorganizationalunit | [xADOrganizationalUnit](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADOrganizationalUnit) | [repo](https://github.com/PowerShell/xActiveDirectory)
@@ -42,14 +43,6 @@ Puppet Type | DSC Resource | Github Repo
 dsc_xadcscertificationauthority | [xAdcsCertificationAuthority](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/DSCResources/MSFT_xAdcsCertificationAuthority) | [repo](https://github.com/PowerShell/xAdcsDeployment)
 dsc_xadcsonlineresponder | [xAdcsOnlineResponder](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/DSCResources/MSFT_xAdcsOnlineResponder) | [repo](https://github.com/PowerShell/xAdcsDeployment)
 dsc_xadcswebenrollment | [xAdcsWebEnrollment](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/DSCResources/MSFT_xAdcsWebEnrollment) | [repo](https://github.com/PowerShell/xAdcsDeployment)
-
-##### xCertificateServices
-
-Puppet Type | DSC Resource | Github Repo
------------ | ----------------- | -----
-dsc_xadcscertificationauthority | [xAdcsCertificationAuthority](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/xCertificateServices/DSCResources/MSFT_xAdcsCertificationAuthority) | [repo](https://github.com/PowerShell/xCertificateServices)
-dsc_xadcsonlineresponder | [xAdcsOnlineResponder](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/xCertificateServices/DSCResources/MSFT_xAdcsOnlineResponder) | [repo](https://github.com/PowerShell/xCertificateServices)
-dsc_xadcswebenrollment | [xAdcsWebEnrollment](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/xCertificateServices/DSCResources/MSFT_xAdcsWebEnrollment) | [repo](https://github.com/PowerShell/xCertificateServices)
 
 ##### xAzure
 
@@ -92,6 +85,7 @@ dsc_xbltpm | [xBLTpm](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/l
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xcertreq | [xCertReq](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xCertificate/DSCResources/MSFT_xCertReq) | [repo](https://github.com/PowerShell/xCertificate)
+dsc_xcertificateimport | [xCertificateImport](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xCertificate/DSCResources/MSFT_xCertificateImport) | [repo](https://github.com/PowerShell/xCertificate)
 dsc_xpfximport | [xPfxImport](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xCertificate/DSCResources/MSFT_xPfxImport) | [repo](https://github.com/PowerShell/xCertificate)
 
 ##### xComputerManagement
@@ -99,6 +93,7 @@ dsc_xpfximport | [xPfxImport](https://github.com/puppetlabs/puppetlabs-dsc/tree/
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xcomputer | [xComputer](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xComputerManagement/DSCResources/MSFT_xComputer) | [repo](https://github.com/PowerShell/xComputerManagement)
+dsc_xofflinedomainjoin | [xOfflineDomainJoin](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xComputerManagement/DSCResources/MSFT_xOfflineDomainJoin) | [repo](https://github.com/PowerShell/xComputerManagement)
 
 ##### xCredSSP
 
@@ -143,6 +138,7 @@ Puppet Type | DSC Resource | Github Repo
 dsc_xdnsarecord | [xDnsARecord](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsARecord) | [repo](https://github.com/PowerShell/xDnsServer)
 dsc_xdnsrecord | [xDnsRecord](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsRecord) | [repo](https://github.com/PowerShell/xDnsServer)
 dsc_xdnsserveradzone | [xDnsServerADZone](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerADZone) | [repo](https://github.com/PowerShell/xDnsServer)
+dsc_xdnsserverforwarder | [xDnsServerForwarder](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerForwarder) | [repo](https://github.com/PowerShell/xDnsServer)
 dsc_xdnsserverprimaryzone | [xDnsServerPrimaryZone](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerPrimaryZone) | [repo](https://github.com/PowerShell/xDnsServer)
 dsc_xdnsserversecondaryzone | [xDnsServerSecondaryZone](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerSecondaryZone) | [repo](https://github.com/PowerShell/xDnsServer)
 dsc_xdnsserverzonetransfer | [xDnsServerZoneTransfer](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerZoneTransfer) | [repo](https://github.com/PowerShell/xDnsServer)
@@ -191,6 +187,8 @@ dsc_xexchwebservicesvirtualdirectory | [xExchWebServicesVirtualDirectory](https:
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xcluster | [xCluster](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xFailOverCluster/DSCResources/MSFT_xCluster) | [repo](https://github.com/PowerShell/xFailOverCluster)
+dsc_xclusterdisk | [xClusterDisk](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xFailOverCluster/DSCResources/MSFT_xClusterDisk) | [repo](https://github.com/PowerShell/xFailOverCluster)
+dsc_xclusternetwork | [xClusterNetwork](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xFailOverCluster/DSCResources/MSFT_xClusterNetwork) | [repo](https://github.com/PowerShell/xFailOverCluster)
 dsc_xwaitforcluster | [xWaitForCluster](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xFailOverCluster/DSCResources/MSFT_xWaitForCluster) | [repo](https://github.com/PowerShell/xFailOverCluster)
 
 ##### xHyper-V
@@ -233,6 +231,7 @@ dsc_xdefaultgatewayaddress | [xDefaultGatewayAddress](https://github.com/puppetl
 dsc_xdhcpclient | [xDHCPClient](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xDhcpClient) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xdnsconnectionsuffix | [xDnsConnectionSuffix](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xDnsConnectionSuffix) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xfirewall | [xFirewall](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xFirewall) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xhostsfile | [xHostsFile](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xHostsFile) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xipaddress | [xIPAddress](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xIPAddress) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xnetbios | [xNetBIOS](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetBIOS) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xnetconnectionprofile | [xNetConnectionProfile](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetConnectionProfile) | [repo](https://github.com/PowerShell/xNetworking)

@@ -4,65 +4,85 @@ configuration xMySqlProvision
     param
     (
         [Parameter(Mandatory = $true)]
-        [string] $ServiceName,
+        [ValidateNotNullOrEmpty()]
+        [string] $DownloadUri,
 
         [Parameter(Mandatory = $true)]
-        [string] $DownloadUri,
+        [ValidateNotNullOrEmpty()]
+        [String] $MySQLVersion,
 
         [Parameter(Mandatory = $true)]
         [PSCredential] $RootCredential,
 
+        [String] $Port,
+
         [Parameter(Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [String] $DatabaseName,
 
         [Parameter(Mandatory = $true)]
-        [PSCredential] $UserCredential
+        [ValidateNotNullOrEmpty()]
+        [String] $UserName,
+
+        [Parameter(Mandatory = $true)]
+        [PSCredential] $UserCredential,
+
+        [parameter(Mandatory = $true)]
+        [ValidateSet("ALL PRIVILEGES", "CREATE", "DROP", "DELETE", "INSERT", "SELECT", "UPDATE", "EXECUTE")]
+        [ValidateNotNullOrEmpty()]
+        [string[]] $PermissionType
     )
-        # Make sure the mySqlServer installer package is present
+
+        # Make sure the MySQL Installer Console is installed
         Package mySqlInstaller
         {
-                    
+            Ensure    = "Present"
             Path      = $DownloadURI
-            ProductId = "{437AC169-780B-47A9-86F6-14D43C8F596B}"
-            Name      = "MySQL Installer"
+            ProductId = "{5848D524-F8CF-4A46-A3E4-B9BDB979A0FE}"
+            Name      = "MySQL Installer - Community"
         }
 
-        # Make sure the mySqlServer exists with the correct root credential
-        xMySqlServer mySQLServer
+        # Make sure MySQL is installed with the correct port and root credential
+        xMySqlServer mySqlServer
         {
-           ServiceName          = $ServiceName
-           Ensure               = "Present"
-           RootPassword         = $RootCredential
-           DependsOn            = "[Package]mySqlInstaller"
+            Ensure       = "Present"
+            MySQLVersion = $MySQLVersion
+            RootPassword = $RootCredential
+            Port         = $Port
+            DependsOn    = "[Package]mySqlInstaller"
         }
 
-        # Make sure the MySql WordPress database exists
-        xMySqlDatabase mySQLDatabase
+        # Make sure the MySQL database exists
+        xMySqlDatabase mySqlDatabase
         {
-           Ensure               = "Present"
-           Name                 = $DatabaseName
-           ConnectionCredential = $RootCredential
-           DependsOn            = "[xMySqlServer]mySQLServer"
+            Ensure         = "Present"
+            DatabaseName   = $DatabaseName
+            RootCredential = $RootCredential
+            MySQLVersion   = $MySQLVersion
+            DependsOn      = "[xMySqlServer]mySqlServer"
         }
 
-        # Make sure the MySql WordPress user exists
-        xMySqlUser mySQLUser
+        # Make sure the MySQL user exists
+        xMySqlUser mySqlUser
         {
-            Name                 = $UserCredential.UserName
-            Ensure               = "Present"
-            Credential           = $UserCredential
-            ConnectionCredential = $RootCredential
-            DependsOn            = "[xMySqlDatabase]mySQLDatabase"
+            Ensure         = "Present"
+            UserName       = $UserName
+            UserCredential = $UserCredential
+            RootCredential = $RootCredential
+            MySQLVersion   = $MySQLVersion
+            DependsOn      = "[xMySqlDatabase]mySqlDatabase"
         }
 
-        # Make sure the MySql WordPress user has access to tho WordPress database
-        xMySqlGrant mySQLGrant
+        # Make sure the MySQL user has access to the MySQL database
+        xMySqlGrant mySqlGrant
         {
-            UserName             = $UserCredential.UserName
-            DatabaseName         = $DatabaseName
-            Ensure               = "Present"               
-            ConnectionCredential = $RootCredential
-            DependsOn            = "[xMySqlUser]mySQLUser"
+            Ensure         = "Present"               
+            UserName       = $UserName
+            DatabaseName   = $DatabaseName
+            RootCredential = $RootCredential
+            PermissionType = $PermissionType
+            MySQLVersion   = $MySQLVersion
+            DependsOn      = "[xMySqlUser]mySqlUser"
         }
 }
 

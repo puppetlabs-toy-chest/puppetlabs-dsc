@@ -22,7 +22,8 @@ Puppet::Type.newtype(:dsc_xpfximport) do
 
   validate do
       fail('dsc_thumbprint is a required attribute') if self[:dsc_thumbprint].nil?
-      fail('dsc_path is a required attribute') if self[:dsc_path].nil?
+      fail('dsc_location is a required attribute') if self[:dsc_location].nil?
+      fail('dsc_store is a required attribute') if self[:dsc_store].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xPfxImport' end
@@ -36,6 +37,7 @@ Puppet::Type.newtype(:dsc_xpfximport) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto { :present }
   end
 
@@ -57,13 +59,12 @@ Puppet::Type.newtype(:dsc_xpfximport) do
 
   # Name:         Path
   # Type:         string
-  # IsMandatory:  True
+  # IsMandatory:  False
   # Values:       None
   newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "Path"
-    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -73,30 +74,32 @@ Puppet::Type.newtype(:dsc_xpfximport) do
 
   # Name:         Location
   # Type:         string
-  # IsMandatory:  False
-  # Values:       ["LocalMachine"]
+  # IsMandatory:  True
+  # Values:       ["LocalMachine", "CurrentUser"]
   newparam(:dsc_location) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Location - Valid values are LocalMachine."
+    desc "Location - Valid values are LocalMachine, CurrentUser."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['LocalMachine', 'localmachine'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are LocalMachine")
+      unless ['LocalMachine', 'localmachine', 'CurrentUser', 'currentuser'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are LocalMachine, CurrentUser")
       end
     end
   end
 
   # Name:         Store
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_store) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "Store"
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -133,6 +136,25 @@ Puppet::Type.newtype(:dsc_xpfximport) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
+    end
+  end
+
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Ensure - Valid values are Present, Absent."
+    validate do |value|
+      resource[:ensure] = value.downcase
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      end
     end
   end
 

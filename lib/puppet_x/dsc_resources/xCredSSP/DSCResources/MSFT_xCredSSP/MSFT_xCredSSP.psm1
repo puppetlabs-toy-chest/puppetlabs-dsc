@@ -114,6 +114,7 @@ function Set-TargetResource
                 "Present"
                 {
                     Enable-WSManCredSSP -Role Server -Force
+                    $global:DSCMachineStatus = 1
                 }
                 "Absent"
                 {
@@ -135,6 +136,7 @@ function Set-TargetResource
                             if(!$CurrentDelegateComputer.Contains("wsman/$DelegateComputer"))
                             {
                                 Enable-WSManCredSSP -Role Client -DelegateComputer $DelegateComputer -Force
+                                $global:DSCMachineStatus = 1
                             }
                         }
                     }

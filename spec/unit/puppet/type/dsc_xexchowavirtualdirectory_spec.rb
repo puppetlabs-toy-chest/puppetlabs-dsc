@@ -32,6 +32,8 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
       :dsc_logonpagepublicprivateselectionenabled => true,
       :dsc_logonpagelightselectionenabled => true,
       :dsc_windowsauthentication => true,
+      :dsc_logonformat => 'FullDomain',
+      :dsc_defaultdomain => 'foo',
     )}.to_not raise_error
   end
 
@@ -687,6 +689,72 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
 
   it 'should not accept uint for dsc_windowsauthentication' do
     expect{dsc_xexchowavirtualdirectory[:dsc_windowsauthentication] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_logonformat predefined value FullDomain' do
+    dsc_xexchowavirtualdirectory[:dsc_logonformat] = 'FullDomain'
+    expect(dsc_xexchowavirtualdirectory[:dsc_logonformat]).to eq('FullDomain')
+  end
+
+  it 'should accept dsc_logonformat predefined value fulldomain' do
+    dsc_xexchowavirtualdirectory[:dsc_logonformat] = 'fulldomain'
+    expect(dsc_xexchowavirtualdirectory[:dsc_logonformat]).to eq('fulldomain')
+  end
+
+  it 'should accept dsc_logonformat predefined value UserName' do
+    dsc_xexchowavirtualdirectory[:dsc_logonformat] = 'UserName'
+    expect(dsc_xexchowavirtualdirectory[:dsc_logonformat]).to eq('UserName')
+  end
+
+  it 'should accept dsc_logonformat predefined value username' do
+    dsc_xexchowavirtualdirectory[:dsc_logonformat] = 'username'
+    expect(dsc_xexchowavirtualdirectory[:dsc_logonformat]).to eq('username')
+  end
+
+  it 'should accept dsc_logonformat predefined value PrincipalName' do
+    dsc_xexchowavirtualdirectory[:dsc_logonformat] = 'PrincipalName'
+    expect(dsc_xexchowavirtualdirectory[:dsc_logonformat]).to eq('PrincipalName')
+  end
+
+  it 'should accept dsc_logonformat predefined value principalname' do
+    dsc_xexchowavirtualdirectory[:dsc_logonformat] = 'principalname'
+    expect(dsc_xexchowavirtualdirectory[:dsc_logonformat]).to eq('principalname')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xexchowavirtualdirectory[:dsc_logonformat] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_logonformat' do
+    expect{dsc_xexchowavirtualdirectory[:dsc_logonformat] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_logonformat' do
+    expect{dsc_xexchowavirtualdirectory[:dsc_logonformat] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_logonformat' do
+    expect{dsc_xexchowavirtualdirectory[:dsc_logonformat] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_logonformat' do
+    expect{dsc_xexchowavirtualdirectory[:dsc_logonformat] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_defaultdomain' do
+    expect{dsc_xexchowavirtualdirectory[:dsc_defaultdomain] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_defaultdomain' do
+    expect{dsc_xexchowavirtualdirectory[:dsc_defaultdomain] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_defaultdomain' do
+    expect{dsc_xexchowavirtualdirectory[:dsc_defaultdomain] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_defaultdomain' do
+    expect{dsc_xexchowavirtualdirectory[:dsc_defaultdomain] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

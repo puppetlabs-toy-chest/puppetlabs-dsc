@@ -2,19 +2,10 @@
 [ClassVersion("1.0.0"),FriendlyName("xMySqlServer")] 
 class MSFT_xMySqlServer : OMI_BaseResource
 {
-  [Key, Description("Provides the service name to use during setup of MySQL")]
-  String ServiceName;
-  
-  [Write,
-  ValueMap{"Present", "Absent"},Values{"Present", "Absent"},
-  Description("Ensure resource is present or absent")]
-  String Ensure;
-  
-  [required,
-  Write,
-  EmbeddedInstance("MSFT_Credential"),
-  Description("The root credential that is used to install mySql server.")]
-  String RootPassword;
+    [Key, Description("mySql Version Number")] String MySqlVersion;
+    [Write, ValueMap{"Present", "Absent"},Values{"Present", "Absent"}, Description("Ensure server is present or absent")] String Ensure;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("The root credential that is used to install mySql server.")] String RootPassword;
+    [Write, Description("The port number for the service")] String Port;
 };
 
 

@@ -1,4 +1,4 @@
-if ([System.Environment]::OSVersion.Version.ToString() -lt "6.2.9200.0") { Throw "The minimum OS requirement was not met."}
+if (!(Test-xRemoteDesktopSessionHostOsRequirement)) { Throw "The minimum OS requirement was not met."}
 Import-Module RemoteDesktop
 $localhost = [System.Net.Dns]::GetHostByName((hostname)).HostName
 

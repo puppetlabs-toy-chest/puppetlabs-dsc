@@ -21,13 +21,13 @@ Puppet::Type.newtype(:dsc_xmysqluser) do
   }
 
   validate do
-      fail('dsc_name is a required attribute') if self[:dsc_name].nil?
+      fail('dsc_username is a required attribute') if self[:dsc_username].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xMySqlUser' end
   def dscmeta_resource_name; 'MSFT_xMySqlUser' end
   def dscmeta_module_name; 'xMySql' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -39,14 +39,14 @@ Puppet::Type.newtype(:dsc_xmysqluser) do
     defaultto { :present }
   end
 
-  # Name:         Name
+  # Name:         UserName
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_name) do
+  newparam(:dsc_username) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - Name of MySQL user to create or remove."
+    desc "UserName - Name of MySQL user to create or remove."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -55,35 +55,35 @@ Puppet::Type.newtype(:dsc_xmysqluser) do
     end
   end
 
-  # Name:         Credential
+  # Name:         UserCredential
   # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_credential) do
+  newparam(:dsc_usercredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential - Credential for MySql user."
+    desc "UserCredential - Credential for MySQL user."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
-      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("UserCredential", value)
     end
   end
 
-  # Name:         ConnectionCredential
+  # Name:         RootCredential
   # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_connectioncredential) do
+  newparam(:dsc_rootcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "ConnectionCredential - MySql connection credential used to create a user."
+    desc "RootCredential - MySQL root credential used to create a user."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
-      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("ConnectionCredential", value)
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("RootCredential", value)
     end
   end
 
@@ -94,7 +94,7 @@ Puppet::Type.newtype(:dsc_xmysqluser) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Ensure mysql user is present or absent. Valid values are Present, Absent."
+    desc "Ensure - Ensure MySQL user is present or absent. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -102,6 +102,21 @@ Puppet::Type.newtype(:dsc_xmysqluser) do
       end
       unless ['Present', 'present', 'Absent', 'absent'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      end
+    end
+  end
+
+  # Name:         MySqlVersion
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_mysqlversion) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "MySqlVersion - MySQL Version Number"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end

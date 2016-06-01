@@ -57,8 +57,8 @@ eod
         puts "Downloading and Importing #{item_name}"
         cmd = "git clone #{dsc_repo} #{dsc_resources_path_tmp} && " +
           "cd #{dsc_resources_path_tmp} && "
-        cmd += "git checkout #{ENV['DSC_REF']} &&" if ENV['DSC_REF']
-        cmd += "git submodule update --init --recursive"
+        cmd += "git checkout #{ENV['DSC_REF']} && " if ENV['DSC_REF']
+        cmd += "git submodule update --init"
 
         sh cmd
       else

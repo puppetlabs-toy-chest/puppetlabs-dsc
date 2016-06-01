@@ -341,6 +341,39 @@ Puppet::Type.newtype(:dsc_xexchowavirtualdirectory) do
     end
   end
 
+  # Name:         LogonFormat
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["FullDomain", "UserName", "PrincipalName"]
+  newparam(:dsc_logonformat) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "LogonFormat - Valid values are FullDomain, UserName, PrincipalName."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['FullDomain', 'fulldomain', 'UserName', 'username', 'PrincipalName', 'principalname'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are FullDomain, UserName, PrincipalName")
+      end
+    end
+  end
+
+  # Name:         DefaultDomain
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_defaultdomain) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DefaultDomain"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
 
   def builddepends
     pending_relations = super()
