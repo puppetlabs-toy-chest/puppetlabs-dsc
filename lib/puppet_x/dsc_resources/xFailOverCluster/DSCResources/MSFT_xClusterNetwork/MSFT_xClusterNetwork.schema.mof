@@ -1,0 +1,10 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xClusterNetwork")]
+class MSFT_xClusterNetwork : OMI_BaseResource
+{
+    [Key] String Address;
+    [Key] String AddressMask;
+    [Write] String Name;
+    [Write, ValueMap{"0","1","3"}, Values{"0","1","3"}] String Role;
+    [Write] String Metric;
+};

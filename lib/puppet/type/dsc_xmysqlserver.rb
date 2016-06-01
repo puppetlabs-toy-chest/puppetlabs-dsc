@@ -21,13 +21,13 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
   }
 
   validate do
-      fail('dsc_servicename is a required attribute') if self[:dsc_servicename].nil?
+      fail('dsc_mysqlversion is a required attribute') if self[:dsc_mysqlversion].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xMySqlServer' end
   def dscmeta_resource_name; 'MSFT_xMySqlServer' end
   def dscmeta_module_name; 'xMySql' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -39,14 +39,14 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
     defaultto { :present }
   end
 
-  # Name:         ServiceName
+  # Name:         MySqlVersion
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_servicename) do
+  newparam(:dsc_mysqlversion) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ServiceName - Provides the service name to use during setup of MySQL"
+    desc "MySqlVersion - mySql Version Number"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Ensure resource is present or absent Valid values are Present, Absent."
+    desc "Ensure - Ensure server is present or absent Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -87,6 +87,21 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("RootPassword", value)
+    end
+  end
+
+  # Name:         Port
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_port) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Port - The port number for the service"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
     end
   end
 

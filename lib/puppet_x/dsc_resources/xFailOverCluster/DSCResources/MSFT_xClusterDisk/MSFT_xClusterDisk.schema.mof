@@ -1,0 +1,8 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xClusterDisk")]
+class MSFT_xClusterDisk : OMI_BaseResource
+{
+    [Key] String Number;
+    [Write,ValueMap{"Present", "Absent"},Values{"Present", "Absent"}] string Ensure;
+    [Write] String Label;
+};

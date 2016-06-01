@@ -6,16 +6,17 @@ describe Puppet::Type.type(:dsc_xmysqlserver) do
   let :dsc_xmysqlserver do
     Puppet::Type.type(:dsc_xmysqlserver).new(
       :name     => 'foo',
-      :dsc_servicename => 'foo',
+      :dsc_mysqlversion => 'foo',
     )
   end
 
   it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xmysqlserver).new(
       :name     => 'foo',
-      :dsc_servicename => 'foo',
+      :dsc_mysqlversion => 'foo',
       :dsc_ensure => 'Present',
       :dsc_rootpassword => {"user"=>"user", "password"=>"password"},
+      :dsc_port => 'foo',
     )}.to_not raise_error
   end
 
@@ -27,27 +28,27 @@ describe Puppet::Type.type(:dsc_xmysqlserver) do
     expect(dsc_xmysqlserver[:ensure]).to eq :present
   end
 
-  it 'should require that dsc_servicename is specified' do
-    #dsc_xmysqlserver[:dsc_servicename]
+  it 'should require that dsc_mysqlversion is specified' do
+    #dsc_xmysqlserver[:dsc_mysqlversion]
     expect { Puppet::Type.type(:dsc_xmysqlserver).new(
       :name     => 'foo',
-    )}.to raise_error(Puppet::Error, /dsc_servicename is a required attribute/)
+    )}.to raise_error(Puppet::Error, /dsc_mysqlversion is a required attribute/)
   end
 
-  it 'should not accept array for dsc_servicename' do
-    expect{dsc_xmysqlserver[:dsc_servicename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should not accept array for dsc_mysqlversion' do
+    expect{dsc_xmysqlserver[:dsc_mysqlversion] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept boolean for dsc_servicename' do
-    expect{dsc_xmysqlserver[:dsc_servicename] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_mysqlversion' do
+    expect{dsc_xmysqlserver[:dsc_mysqlversion] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_servicename' do
-    expect{dsc_xmysqlserver[:dsc_servicename] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_mysqlversion' do
+    expect{dsc_xmysqlserver[:dsc_mysqlversion] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_servicename' do
-    expect{dsc_xmysqlserver[:dsc_servicename] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_mysqlversion' do
+    expect{dsc_xmysqlserver[:dsc_mysqlversion] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -118,6 +119,22 @@ describe Puppet::Type.type(:dsc_xmysqlserver) do
 
   it 'should not accept uint for dsc_rootpassword' do
     expect{dsc_xmysqlserver[:dsc_rootpassword] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_port' do
+    expect{dsc_xmysqlserver[:dsc_port] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_port' do
+    expect{dsc_xmysqlserver[:dsc_port] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_port' do
+    expect{dsc_xmysqlserver[:dsc_port] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_port' do
+    expect{dsc_xmysqlserver[:dsc_port] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

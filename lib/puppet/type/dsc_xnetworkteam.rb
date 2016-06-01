@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xnetworkteam) do
   def dscmeta_resource_friendly_name; 'xNetworkTeam' end
   def dscmeta_resource_name; 'MSFT_xNetworkTeam' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '2.7.0.0' end
+  def dscmeta_module_version; '2.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
