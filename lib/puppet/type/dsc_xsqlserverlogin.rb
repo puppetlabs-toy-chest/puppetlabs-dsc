@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
   def dscmeta_resource_friendly_name; 'xSQLServerLogin' end
   def dscmeta_resource_name; 'MSFT_xSQLServerLogin' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

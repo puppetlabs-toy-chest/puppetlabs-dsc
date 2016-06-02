@@ -1,14 +1,14 @@
 require 'pathname'
 
-Puppet::Type.newtype(:dsc_xdisk) do
+Puppet::Type.newtype(:dsc_runbookdirectory) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
 
   @doc = %q{
-    The DSC xDisk resource type.
+    The DSC RunbookDirectory resource type.
     Automatically generated from
-    'xStorage/DSCResources/MSFT_xDisk/MSFT_xDisk.schema.mof'
+    'xSCSMA/DSCResources/MSFT_xRunbookDirectory/MSFT_xRunbookDirectory.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -21,31 +21,53 @@ Puppet::Type.newtype(:dsc_xdisk) do
   }
 
   validate do
-      fail('dsc_driveletter is a required attribute') if self[:dsc_driveletter].nil?
+      fail('dsc_runbookpath is a required attribute') if self[:dsc_runbookpath].nil?
+      fail('dsc_webserviceendpoint is a required attribute') if self[:dsc_webserviceendpoint].nil?
     end
 
-  def dscmeta_resource_friendly_name; 'xDisk' end
-  def dscmeta_resource_name; 'MSFT_xDisk' end
-  def dscmeta_module_name; 'xStorage' end
-  def dscmeta_module_version; '2.5.0.0' end
+  def dscmeta_resource_friendly_name; 'RunbookDirectory' end
+  def dscmeta_resource_name; 'MSFT_xRunbookDirectory' end
+  def dscmeta_module_name; 'xSCSMA' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
 
   ensurable do
     newvalue(:exists?) { provider.exists? }
-    newvalue(:present) { provider.create }
-    defaultto { :present }
+    newvalue(:published) { provider.create }
+    newvalue(:draft) { provider.create }
+    newvalue(:absent)  { provider.destroy }
+    defaultto { :published }
   end
 
-  # Name:         DriveLetter
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Published", "Draft", "Absent"]
+  newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Ensure - The import state of runbooks found at RunbookPath. This can be Published, Draft, or Absent Valid values are Published, Draft, Absent."
+    validate do |value|
+      resource[:ensure] = value.downcase
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Published', 'published', 'Draft', 'draft', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Published, Draft, Absent")
+      end
+    end
+  end
+
+  # Name:         RunbookPath
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_driveletter) do
+  newparam(:dsc_runbookpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DriveLetter"
+    desc "RunbookPath - Path to Runbook(s) to be imported. Accepts wildcards."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -54,50 +76,31 @@ Puppet::Type.newtype(:dsc_xdisk) do
     end
   end
 
-  # Name:         DiskNumber
-  # Type:         uint32
+  # Name:         Matches
+  # Type:         boolean
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_disknumber) do
-    def mof_type; 'uint32' end
+  newparam(:dsc_matches) do
+    def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "DiskNumber"
+    desc "Matches - Describes the validity of the imported Runbook(s)."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
     end
+    newvalues(true, false)
     munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
-  # Name:         Size
-  # Type:         uint64
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_size) do
-    def mof_type; 'uint64' end
-    def mof_is_embedded?; false end
-    desc "Size"
-    validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
-    end
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_integer(value)
-    end
-  end
-
-  # Name:         FSLabel
+  # Name:         WebServiceEndpoint
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_fslabel) do
+  newparam(:dsc_webserviceendpoint) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "FSLabel"
+    desc "WebServiceEndpoint - URL of SMA's web service endpoint."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -105,14 +108,14 @@ Puppet::Type.newtype(:dsc_xdisk) do
     end
   end
 
-  # Name:         AllocationUnitSize
+  # Name:         Port
   # Type:         uint32
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_allocationunitsize) do
+  newparam(:dsc_port) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "AllocationUnitSize"
+    desc "Port - Port of the SMA web site. Defaults to the SMA default of 9090."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -130,7 +133,7 @@ Puppet::Type.newtype(:dsc_xdisk) do
   end
 end
 
-Puppet::Type.type(:dsc_xdisk).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
+Puppet::Type.type(:dsc_runbookdirectory).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
   confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
   defaultfor :operatingsystem => :windows
 

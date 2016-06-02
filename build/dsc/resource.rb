@@ -93,26 +93,25 @@ module Dsc
       @absentable
     end
 
-    def absent_value
-      @absent_value ||=
-        if ensure_property.values.any? { |v| v.casecmp('absent') == 0 }
-          'absent'
-        elsif ensure_property.values.any? { |v| v.casecmp('disable') == 0 }
-          'disable'
-        else
-          throw 'Error processing MOF schema - could not determine equivalent \'absent\' value for ensure'
-        end
+    def ensure_hash
+      {
+        'MSFT_xRunbookDirectory'      => { :present => ['published', 'draft'], :absent => 'absent' },
+        'MSFT_WindowsOptionalFeature' => { :present => ['enable'], :absent => 'disable' },
+      }
     end
 
-    def ensure_value
-      @ensure_value ||=
-        if ensure_property.values.any? { |v| v.casecmp('present') == 0 }
-          'present'
-        elsif ensure_property.values.any? { |v| v.casecmp('enable') == 0 }
-          'enable'
-        else
-          throw 'Error processing MOF schema - could not determine equivalent \'present\' value for ensure'
-        end
+    def valid_ensure_present_values
+      ensure_value = ensure_hash[name]
+      ensure_value != nil ? ensure_value[:present] : ['present']
+    end
+
+    def default_ensure_present_value
+      valid_ensure_present_values[0]
+    end
+
+    def valid_ensure_absent_value
+      ensure_value = ensure_hash[name]
+      ensure_value != nil ? ensure_value[:absent] : 'absent'
     end
 
     def has_name?
