@@ -7,6 +7,7 @@ test_name 'MODULES-2538 - C89507 - Apply DSC Manifest for Creating a MySql Datab
 # Init
 mysql_msi_file = 'mysql-installer.msi'
 sqlserver_dl_url = 'http://int-resources.ops.puppetlabs.net/QA_resources/microsoft_sql/mysql-installer-community-5.6.17.0.msi'
+sqlserver_dl_version = '5.6.17.0'
 sqlserver_dl_path = "C:\\#{mysql_msi_file}"
 user = 'Admin' + SecureRandom.hex(2)
 user_password = 'P@ssw0rd!'
@@ -17,16 +18,18 @@ database_name = 'DB' + SecureRandom.hex(3)
 teardown do
   step 'Remove Test Artifacts'
   confine_block(:to, :platform => 'windows') do
-    set_dsc_cred_resource(
-        agents,
-        user,
-        user_password,
-        'xMySqlServer',
-        'xMySql',
-        :RootPassword,
-        :Ensure => 'Absent',
-        :ServiceName => mysql_instance,
-    )
+    expect_failure('expected to fail due to xMySQL DSC module releasing breaking changes from v2.x') do
+      set_dsc_cred_resource(
+          agents,
+          user,
+          user_password,
+          'xMySqlServer',
+          'xMySql',
+          :RootPassword,
+          :Ensure => 'Absent',
+          :ServiceName => mysql_instance,
+      )
+    end
     on(agents, "rm -rf /cygdrive/c/#{mysql_msi_file}")
     on(agents, "rm -rf /cygdrive/c/temp.ps1")
   end
@@ -62,6 +65,7 @@ dsc_group {'add_#{user}_to_admin_group':
 dsc_xmysqlserver {'mysql':
   dsc_ensure        => 'Present',
   dsc_rootpassword  => {'user' => '#{user}', 'password' => '#{user_password}'},
+  dsc_mysqlversion  => '#{sqlserver_dl_version}',
 }
 MANIFEST
 
@@ -72,8 +76,10 @@ inject_site_pp(master, get_site_pp_path(master), site_pp)
 step 'Run Puppet Agent to create mysql instance'
 confine_block(:to, :platform => 'windows') do
   agents.each do |agent|
-    on(agent, puppet('agent -t --environment production'), :stdin => pp1, :acceptable_exit_codes => [0,2]) do |result|
-      assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
+    on(agent, puppet('agent -t --environment production'), :stdin => pp1, :accept_all_exit_codes => true) do |result|
+      expect_failure('expected to fail due to xMySQL DSC module releasing breaking changes from v2.x') do
+        assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
+      end
     end
   end
 end
@@ -113,20 +119,24 @@ inject_site_pp(master, get_site_pp_path(master), site_pp)
 step 'Create mysql database'
 confine_block(:to, :platform => 'windows') do
   agents.each do |agent|
-    on(agent, puppet('agent -t --environment production'), :stdin => pp2, :acceptable_exit_codes => [0,2]) do |result|
-      assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
+    on(agent, puppet('agent -t --environment production'), :stdin => pp2, :accept_all_exit_codes => true) do |result|
+      expect_failure('expected to fail due to xMySQL DSC module releasing breaking changes from v2.x') do
+        assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
+      end
     end
   end
 
   step 'Verify Results'
-  assert_dsc_cred_resource(
-    agent,
-    user,
-    user_password,
-    'xMySqlDatabase',
-    'xMySql',
-    :ConnectionCredential,
-    :Ensure => 'Present',
-    :Name => database_name,
-  )
+  expect_failure('expected to fail due to xMySQL DSC module releasing breaking changes from v2.x') do
+    assert_dsc_cred_resource(
+      agent,
+      user,
+      user_password,
+      'xMySqlDatabase',
+      'xMySql',
+      :ConnectionCredential,
+      :Ensure => 'Present',
+      :Name => database_name,
+    )
+  end
 end

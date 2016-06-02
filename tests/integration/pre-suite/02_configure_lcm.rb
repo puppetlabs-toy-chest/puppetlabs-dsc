@@ -3,8 +3,10 @@ test_name 'FM-2626 - C70297 - Configure LCM for "Disabled" Refresh Mode'
 
 #Init
 dsc_conf_manifest = <<-MANIFEST
-dsc::lcm_config {'disable_lcm':
-  refresh_mode => 'Disabled'
+if ($::operatingsystem == 'windows') or ($::os['name'] == 'windows') {
+  dsc::lcm_config {'disable_lcm':
+    refresh_mode => 'Disabled'
+  }
 }
 MANIFEST
 
