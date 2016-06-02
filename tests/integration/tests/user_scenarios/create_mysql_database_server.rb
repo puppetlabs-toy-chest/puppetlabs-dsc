@@ -61,7 +61,6 @@ dsc_group {'add_#{user}_to_admin_group':
 ->
 dsc_xmysqlserver {'mysql':
   dsc_ensure        => 'Present',
-  dsc_servicename   => '#{mysql_instance}',
   dsc_rootpassword  => {'user' => '#{user}', 'password' => '#{user_password}'},
 }
 MANIFEST
@@ -82,7 +81,6 @@ end
 pp2 = <<-MANIFEST
 dsc_xmysqlserver {'mysql':
   dsc_ensure        => 'Present',
-  dsc_servicename   => '#{mysql_instance}',
   dsc_rootpassword  => {'user' => '#{user}', 'password' => '#{user_password}'},
 }
 ->
