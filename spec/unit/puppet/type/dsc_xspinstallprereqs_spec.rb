@@ -15,6 +15,7 @@ describe Puppet::Type.type(:dsc_xspinstallprereqs) do
       :name     => 'foo',
       :dsc_installerpath => 'foo',
       :dsc_onlinemode => true,
+      :dsc_sxspath => 'foo',
       :dsc_sqlncli => 'foo',
       :dsc_powershell => 'foo',
       :dsc_netfx => 'foo',
@@ -26,12 +27,11 @@ describe Puppet::Type.type(:dsc_xspinstallprereqs) do
       :dsc_wcfdataservices => 'foo',
       :dsc_kb2671763 => 'foo',
       :dsc_wcfdataservices56 => 'foo',
-      :dsc_kb2898850 => 'foo',
       :dsc_msvcrt11 => 'foo',
       :dsc_msvcrt14 => 'foo',
       :dsc_kb3092423 => 'foo',
       :dsc_odbc => 'foo',
-      :dsc_dotnet452 => 'foo',
+      :dsc_dotnetfx => 'foo',
       :dsc_ensure => 'Present',
     )}.to_not raise_error
   end
@@ -112,6 +112,22 @@ describe Puppet::Type.type(:dsc_xspinstallprereqs) do
 
   it 'should not accept uint for dsc_onlinemode' do
     expect{dsc_xspinstallprereqs[:dsc_onlinemode] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_sxspath' do
+    expect{dsc_xspinstallprereqs[:dsc_sxspath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_sxspath' do
+    expect{dsc_xspinstallprereqs[:dsc_sxspath] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_sxspath' do
+    expect{dsc_xspinstallprereqs[:dsc_sxspath] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_sxspath' do
+    expect{dsc_xspinstallprereqs[:dsc_sxspath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sqlncli' do
@@ -290,22 +306,6 @@ describe Puppet::Type.type(:dsc_xspinstallprereqs) do
     expect{dsc_xspinstallprereqs[:dsc_wcfdataservices56] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_kb2898850' do
-    expect{dsc_xspinstallprereqs[:dsc_kb2898850] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_kb2898850' do
-    expect{dsc_xspinstallprereqs[:dsc_kb2898850] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_kb2898850' do
-    expect{dsc_xspinstallprereqs[:dsc_kb2898850] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_kb2898850' do
-    expect{dsc_xspinstallprereqs[:dsc_kb2898850] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_msvcrt11' do
     expect{dsc_xspinstallprereqs[:dsc_msvcrt11] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -370,20 +370,20 @@ describe Puppet::Type.type(:dsc_xspinstallprereqs) do
     expect{dsc_xspinstallprereqs[:dsc_odbc] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_dotnet452' do
-    expect{dsc_xspinstallprereqs[:dsc_dotnet452] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should not accept array for dsc_dotnetfx' do
+    expect{dsc_xspinstallprereqs[:dsc_dotnetfx] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept boolean for dsc_dotnet452' do
-    expect{dsc_xspinstallprereqs[:dsc_dotnet452] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_dotnetfx' do
+    expect{dsc_xspinstallprereqs[:dsc_dotnetfx] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_dotnet452' do
-    expect{dsc_xspinstallprereqs[:dsc_dotnet452] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_dotnetfx' do
+    expect{dsc_xspinstallprereqs[:dsc_dotnetfx] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dotnet452' do
-    expect{dsc_xspinstallprereqs[:dsc_dotnet452] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_dotnetfx' do
+    expect{dsc_xspinstallprereqs[:dsc_dotnetfx] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do

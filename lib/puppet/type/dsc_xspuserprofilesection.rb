@@ -46,7 +46,7 @@ Puppet::Type.newtype(:dsc_xspuserprofilesection) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - The internal name of the user profile section"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xspuserprofilesection) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Present if the section should exist, absent if it should be removed Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -81,7 +81,7 @@ Puppet::Type.newtype(:dsc_xspuserprofilesection) do
   newparam(:dsc_userprofileservice) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UserProfileService"
+    desc "UserProfileService - The name of the user profile service application this section exists in"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -96,7 +96,7 @@ Puppet::Type.newtype(:dsc_xspuserprofilesection) do
   newparam(:dsc_displayname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DisplayName"
+    desc "DisplayName - The display name of the section"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -111,7 +111,7 @@ Puppet::Type.newtype(:dsc_xspuserprofilesection) do
   newparam(:dsc_displayorder) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "DisplayOrder"
+    desc "DisplayOrder - A number used to sort sections by"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -129,7 +129,7 @@ Puppet::Type.newtype(:dsc_xspuserprofilesection) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "InstallAccount"
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

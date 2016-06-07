@@ -35,6 +35,7 @@ Puppet::Type.newtype(:dsc_xspmanagedmetadataserviceapp) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto { :present }
   end
 
@@ -92,6 +93,40 @@ Puppet::Type.newtype(:dsc_xspmanagedmetadataserviceapp) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "DatabaseName - The name of the database for the service application"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Ensure - Present ensures service app exists, absent ensures it is removed Valid values are Present, Absent."
+    validate do |value|
+      resource[:ensure] = value.downcase
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      end
+    end
+  end
+
+  # Name:         ContentTypeHubUrl
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_contenttypehuburl) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ContentTypeHubUrl - The URL of the content type hub for this app (only set when the app is provisioned)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -27,6 +27,29 @@ Puppet::Type.newtype(:dsc_xwebsite) do
         end
       end
     end
+    class PuppetX::Dsc::TypeHelpers
+      def self.validate_MSFT_xWebAuthenticationInformation(mof_type_map, name, value)
+        required = []
+        allowed = ['anonymous','basic','digest','windows']
+        lowkey_hash = Hash[value.map { |k, v| [k.to_s.downcase, v] }]
+
+        missing = required - lowkey_hash.keys
+        unless missing.empty?
+          fail "#{name} is missing the following required keys: #{missing.join(',')}"
+        end
+
+        extraneous = lowkey_hash.keys - required - allowed
+        unless extraneous.empty?
+          fail "#{name} includes invalid keys: #{extraneous.join(',')}"
+        end
+
+        lowkey_hash.keys.each do |key|
+          if lowkey_hash[key]
+            validate_mof_type(mof_type_map[key], 'MSFT_xWebAuthenticationInformation', key, lowkey_hash[key])
+          end
+        end
+      end
+    end
 
   @doc = %q{
     The DSC xWebsite resource type.
@@ -50,7 +73,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
   def dscmeta_resource_friendly_name; 'xWebsite' end
   def dscmeta_resource_name; 'MSFT_xWebsite' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.9.0.0' end
+  def dscmeta_module_version; '1.11.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -199,6 +222,90 @@ Puppet::Type.newtype(:dsc_xwebsite) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "EnabledProtocols"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         AuthenticationInfo
+  # Type:         MSFT_xWebAuthenticationInformation
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_authenticationinfo) do
+    def mof_type; 'MSFT_xWebAuthenticationInformation' end
+    def mof_is_embedded?; true end
+    def mof_type_map
+      {"anonymous"=>{:type=>"boolean"}, "basic"=>{:type=>"boolean"}, "digest"=>{:type=>"boolean"}, "windows"=>{:type=>"boolean"}}
+    end
+    desc "AuthenticationInfo - Hashtable containing authentication information (Anonymous, Basic, Digest, Windows)"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_xWebAuthenticationInformation(mof_type_map, "AuthenticationInfo", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, value)
+    end
+  end
+
+  # Name:         PreloadEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_preloadenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "PreloadEnabled - Allows the Website to automatically start without a request"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         ServiceAutoStartEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_serviceautostartenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "ServiceAutoStartEnabled - Enables Autostart on a Website."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         ServiceAutoStartProvider
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_serviceautostartprovider) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ServiceAutoStartProvider - Adds a AutostartProvider"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ApplicationType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_applicationtype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ApplicationType - Adds a AutostartProvider ApplicationType"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

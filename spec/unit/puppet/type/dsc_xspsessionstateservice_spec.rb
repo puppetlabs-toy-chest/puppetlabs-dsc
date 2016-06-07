@@ -16,7 +16,7 @@ describe Puppet::Type.type(:dsc_xspsessionstateservice) do
       :name     => 'foo',
       :dsc_databasename => 'foo',
       :dsc_databaseserver => 'foo',
-      :dsc_enabled => true,
+      :dsc_ensure => 'Present',
       :dsc_sessiontimeout => 32,
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to_not raise_error
@@ -24,6 +24,10 @@ describe Puppet::Type.type(:dsc_xspsessionstateservice) do
 
   it "should stringify normally" do
     expect(dsc_xspsessionstateservice.to_s).to eq("Dsc_xspsessionstateservice[foo]")
+  end
+
+  it 'should default to ensure => present' do
+    expect(dsc_xspsessionstateservice[:ensure]).to eq :present
   end
 
   it 'should require that dsc_databasename is specified' do
@@ -74,51 +78,54 @@ describe Puppet::Type.type(:dsc_xspsessionstateservice) do
     expect{dsc_xspsessionstateservice[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_enabled' do
-    expect{dsc_xspsessionstateservice[:dsc_enabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should accept dsc_ensure predefined value Present' do
+    dsc_xspsessionstateservice[:dsc_ensure] = 'Present'
+    expect(dsc_xspsessionstateservice[:dsc_ensure]).to eq('Present')
   end
 
-  it 'should accept boolean for dsc_enabled' do
-    dsc_xspsessionstateservice[:dsc_enabled] = true
-    expect(dsc_xspsessionstateservice[:dsc_enabled]).to eq(true)
+  it 'should accept dsc_ensure predefined value present' do
+    dsc_xspsessionstateservice[:dsc_ensure] = 'present'
+    expect(dsc_xspsessionstateservice[:dsc_ensure]).to eq('present')
   end
 
-  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enabled" do
-    dsc_xspsessionstateservice[:dsc_enabled] = 'true'
-    expect(dsc_xspsessionstateservice[:dsc_enabled]).to eq(true)
+  it 'should accept dsc_ensure predefined value present and update ensure with this value (ensure end value should be a symbol)' do
+    dsc_xspsessionstateservice[:dsc_ensure] = 'present'
+    expect(dsc_xspsessionstateservice[:ensure]).to eq(dsc_xspsessionstateservice[:dsc_ensure].downcase.to_sym)
   end
 
-  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enabled" do
-    dsc_xspsessionstateservice[:dsc_enabled] = 'false'
-    expect(dsc_xspsessionstateservice[:dsc_enabled]).to eq(false)
+  it 'should accept dsc_ensure predefined value Absent' do
+    dsc_xspsessionstateservice[:dsc_ensure] = 'Absent'
+    expect(dsc_xspsessionstateservice[:dsc_ensure]).to eq('Absent')
   end
 
-  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enabled" do
-    dsc_xspsessionstateservice[:dsc_enabled] = 'True'
-    expect(dsc_xspsessionstateservice[:dsc_enabled]).to eq(true)
+  it 'should accept dsc_ensure predefined value absent' do
+    dsc_xspsessionstateservice[:dsc_ensure] = 'absent'
+    expect(dsc_xspsessionstateservice[:dsc_ensure]).to eq('absent')
   end
 
-  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enabled" do
-    dsc_xspsessionstateservice[:dsc_enabled] = 'False'
-    expect(dsc_xspsessionstateservice[:dsc_enabled]).to eq(false)
+  it 'should accept dsc_ensure predefined value absent and update ensure with this value (ensure end value should be a symbol)' do
+    dsc_xspsessionstateservice[:dsc_ensure] = 'absent'
+    expect(dsc_xspsessionstateservice[:ensure]).to eq(dsc_xspsessionstateservice[:dsc_ensure].downcase.to_sym)
   end
 
-  it "should accept boolean-like value :true and munge this value to boolean for dsc_enabled" do
-    dsc_xspsessionstateservice[:dsc_enabled] = :true
-    expect(dsc_xspsessionstateservice[:dsc_enabled]).to eq(true)
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xspsessionstateservice[:dsc_ensure] = 'invalid value'}.to raise_error(Puppet::ResourceError)
   end
 
-  it "should accept boolean-like value :false and munge this value to boolean for dsc_enabled" do
-    dsc_xspsessionstateservice[:dsc_enabled] = :false
-    expect(dsc_xspsessionstateservice[:dsc_enabled]).to eq(false)
+  it 'should not accept array for dsc_ensure' do
+    expect{dsc_xspsessionstateservice[:dsc_ensure] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_enabled' do
-    expect{dsc_xspsessionstateservice[:dsc_enabled] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_ensure' do
+    expect{dsc_xspsessionstateservice[:dsc_ensure] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enabled' do
-    expect{dsc_xspsessionstateservice[:dsc_enabled] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_ensure' do
+    expect{dsc_xspsessionstateservice[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_ensure' do
+    expect{dsc_xspsessionstateservice[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sessiontimeout' do
@@ -203,6 +210,50 @@ describe Puppet::Type.type(:dsc_xspsessionstateservice) do
 
       it "should compute powershell dsc test script with method Set" do
         expect(@provider.ps_script_content('set')).to match(/Method\s+=\s*'set'/)
+      end
+
+    end
+
+    describe "when dsc_ensure is 'present'" do
+
+      before(:each) do
+        dsc_xspsessionstateservice.original_parameters[:dsc_ensure] = 'present'
+        dsc_xspsessionstateservice[:dsc_ensure] = 'present'
+        @provider = described_class.provider(:powershell).new(dsc_xspsessionstateservice)
+      end
+
+      it "should update :ensure to :present" do
+        expect(dsc_xspsessionstateservice[:ensure]).to eq(:present)
+      end
+
+      it "should compute powershell dsc test script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
+      end
+
+      it "should compute powershell dsc set script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'present'/)
+      end
+
+    end
+
+    describe "when dsc_ensure is 'absent'" do
+
+      before(:each) do
+        dsc_xspsessionstateservice.original_parameters[:dsc_ensure] = 'absent'
+        dsc_xspsessionstateservice[:dsc_ensure] = 'absent'
+        @provider = described_class.provider(:powershell).new(dsc_xspsessionstateservice)
+      end
+
+      it "should update :ensure to :absent" do
+        expect(dsc_xspsessionstateservice[:ensure]).to eq(:absent)
+      end
+
+      it "should compute powershell dsc test script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
+      end
+
+      it "should compute powershell dsc set script in which ensure value is 'absent'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
       end
 
     end

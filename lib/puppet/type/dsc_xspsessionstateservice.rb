@@ -36,6 +36,7 @@ Puppet::Type.newtype(:dsc_xspsessionstateservice) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto { :present }
   end
 
@@ -71,19 +72,22 @@ Puppet::Type.newtype(:dsc_xspsessionstateservice) do
     end
   end
 
-  # Name:         Enabled
-  # Type:         boolean
+  # Name:         Ensure
+  # Type:         string
   # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_enabled) do
-    def mof_type; 'boolean' end
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
+    def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Enabled - Is the state service enabled"
+    desc "Ensure - Present is the state service should be enabled, absent if it should be disabled Valid values are Present, Absent."
     validate do |value|
-    end
-    newvalues(true, false)
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+      resource[:ensure] = value.downcase
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      end
     end
   end
 

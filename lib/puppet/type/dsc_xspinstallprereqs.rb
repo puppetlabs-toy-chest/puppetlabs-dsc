@@ -71,6 +71,21 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
     end
   end
 
+  # Name:         SXSpath
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sxspath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SXSpath - The path to the Windows Server Operating System SXS source files, for use in closed environments without access to Windows Update"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
   # Name:         SQLNCli
   # Type:         string
   # IsMandatory:  False
@@ -236,21 +251,6 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
     end
   end
 
-  # Name:         KB2898850
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_kb2898850) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "KB2898850 - The path to the installer for this prerequisite"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
   # Name:         MSVCRT11
   # Type:         string
   # IsMandatory:  False
@@ -311,14 +311,14 @@ Puppet::Type.newtype(:dsc_xspinstallprereqs) do
     end
   end
 
-  # Name:         DotNet452
+  # Name:         DotNetFx
   # Type:         string
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_dotnet452) do
+  newparam(:dsc_dotnetfx) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DotNet452 - The path to the installer for this prerequisite"
+    desc "DotNetFx - The path to the installer for this prerequisite"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

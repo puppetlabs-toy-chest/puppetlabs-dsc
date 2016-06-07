@@ -35,6 +35,7 @@ Puppet::Type.newtype(:dsc_xspfarmsolution) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto { :present }
   end
 
@@ -90,18 +91,18 @@ Puppet::Type.newtype(:dsc_xspfarmsolution) do
   # Name:         Ensure
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["Present"]
+  # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Present if the WSP should be deployed, or Absent if it should be removed Valid values are Present."
+    desc "Ensure - Present if the WSP should be deployed, or Absent if it should be removed Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['Present', 'present'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Present")
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
       end
     end
   end

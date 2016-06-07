@@ -1,0 +1,11 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xDFSReplicationGroupFolder")]
+class MSFT_xDFSReplicationGroupFolder : OMI_BaseResource
+{
+    [Key, Description("The name of the DFS Replication Group.")] String GroupName;
+    [Key, Description("The name of the DFS Replication Group Folder.")] String FolderName;
+    [Write, Description("A description for the DFS Replication Group Folder.")] String Description;
+    [Write, Description("An array of file names to exclude from replication")] String FilenameToExclude[];
+    [Write, Description("An array of directory names to exclude from replication.")] String DirectoryNameToExclude[];
+    [Write, Description("The DFS Namespace that this DFS Replication Group folder is mapped to.")] String DfsnPath;
+    [Write, Description("The name of the AD Domain the DFS Replication Group Folder will be in.")] String DomainName;
+};

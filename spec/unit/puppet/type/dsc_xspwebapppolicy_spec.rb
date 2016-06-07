@@ -7,7 +7,6 @@ describe Puppet::Type.type(:dsc_xspwebapppolicy) do
     Puppet::Type.type(:dsc_xspwebapppolicy).new(
       :name     => 'foo',
       :dsc_webappurl => 'foo',
-      :dsc_username => 'foo',
     )
   end
 
@@ -15,9 +14,10 @@ describe Puppet::Type.type(:dsc_xspwebapppolicy) do
     expect { Puppet::Type.type(:dsc_xspwebapppolicy).new(
       :name     => 'foo',
       :dsc_webappurl => 'foo',
-      :dsc_username => 'foo',
-      :dsc_permissionlevel => 'Deny All',
-      :dsc_actassystemuser => true,
+      :dsc_members => {"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true},
+      :dsc_memberstoinclude => {"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true},
+      :dsc_memberstoexclude => {"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true},
+      :dsc_setcacheaccountspolicy => true,
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to_not raise_error
   end
@@ -30,7 +30,6 @@ describe Puppet::Type.type(:dsc_xspwebapppolicy) do
     #dsc_xspwebapppolicy[:dsc_webappurl]
     expect { Puppet::Type.type(:dsc_xspwebapppolicy).new(
       :name     => 'foo',
-      :dsc_username => 'foo',
     )}.to raise_error(Puppet::Error, /dsc_webappurl is a required attribute/)
   end
 
@@ -50,135 +49,117 @@ describe Puppet::Type.type(:dsc_xspwebapppolicy) do
     expect{dsc_xspwebapppolicy[:dsc_webappurl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should require that dsc_username is specified' do
-    #dsc_xspwebapppolicy[:dsc_username]
-    expect { Puppet::Type.type(:dsc_xspwebapppolicy).new(
-      :name     => 'foo',
-      :dsc_webappurl => 'foo',
-    )}.to raise_error(Puppet::Error, /dsc_username is a required attribute/)
+  it 'should accept a hash for dsc_members' do
+    dsc_xspwebapppolicy[:dsc_members] = {"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true}
+    expect(dsc_xspwebapppolicy[:dsc_members]).to eq([{"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true}])
   end
 
-  it 'should not accept array for dsc_username' do
-    expect{dsc_xspwebapppolicy[:dsc_username] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should accept a an array of hashes for dsc_members' do
+    dsc_xspwebapppolicy[:dsc_members] = [{"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true}]
+    expect(dsc_xspwebapppolicy[:dsc_members]).to eq([{"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true}])
   end
 
-  it 'should not accept boolean for dsc_username' do
-    expect{dsc_xspwebapppolicy[:dsc_username] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_members' do
+    expect{dsc_xspwebapppolicy[:dsc_members] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_username' do
-    expect{dsc_xspwebapppolicy[:dsc_username] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_members' do
+    expect{dsc_xspwebapppolicy[:dsc_members] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_username' do
-    expect{dsc_xspwebapppolicy[:dsc_username] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_members' do
+    expect{dsc_xspwebapppolicy[:dsc_members] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_permissionlevel predefined value Deny All' do
-    dsc_xspwebapppolicy[:dsc_permissionlevel] = 'Deny All'
-    expect(dsc_xspwebapppolicy[:dsc_permissionlevel]).to eq('Deny All')
+  it 'should accept a hash for dsc_memberstoinclude' do
+    dsc_xspwebapppolicy[:dsc_memberstoinclude] = {"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true}
+    expect(dsc_xspwebapppolicy[:dsc_memberstoinclude]).to eq([{"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true}])
   end
 
-  it 'should accept dsc_permissionlevel predefined value deny all' do
-    dsc_xspwebapppolicy[:dsc_permissionlevel] = 'deny all'
-    expect(dsc_xspwebapppolicy[:dsc_permissionlevel]).to eq('deny all')
+  it 'should accept a an array of hashes for dsc_memberstoinclude' do
+    dsc_xspwebapppolicy[:dsc_memberstoinclude] = [{"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true}]
+    expect(dsc_xspwebapppolicy[:dsc_memberstoinclude]).to eq([{"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true}])
   end
 
-  it 'should accept dsc_permissionlevel predefined value Deny Write' do
-    dsc_xspwebapppolicy[:dsc_permissionlevel] = 'Deny Write'
-    expect(dsc_xspwebapppolicy[:dsc_permissionlevel]).to eq('Deny Write')
+  it 'should not accept boolean for dsc_memberstoinclude' do
+    expect{dsc_xspwebapppolicy[:dsc_memberstoinclude] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_permissionlevel predefined value deny write' do
-    dsc_xspwebapppolicy[:dsc_permissionlevel] = 'deny write'
-    expect(dsc_xspwebapppolicy[:dsc_permissionlevel]).to eq('deny write')
+  it 'should not accept int for dsc_memberstoinclude' do
+    expect{dsc_xspwebapppolicy[:dsc_memberstoinclude] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_permissionlevel predefined value Full Read' do
-    dsc_xspwebapppolicy[:dsc_permissionlevel] = 'Full Read'
-    expect(dsc_xspwebapppolicy[:dsc_permissionlevel]).to eq('Full Read')
+  it 'should not accept uint for dsc_memberstoinclude' do
+    expect{dsc_xspwebapppolicy[:dsc_memberstoinclude] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_permissionlevel predefined value full read' do
-    dsc_xspwebapppolicy[:dsc_permissionlevel] = 'full read'
-    expect(dsc_xspwebapppolicy[:dsc_permissionlevel]).to eq('full read')
+  it 'should accept a hash for dsc_memberstoexclude' do
+    dsc_xspwebapppolicy[:dsc_memberstoexclude] = {"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true}
+    expect(dsc_xspwebapppolicy[:dsc_memberstoexclude]).to eq([{"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true}])
   end
 
-  it 'should accept dsc_permissionlevel predefined value Full Control' do
-    dsc_xspwebapppolicy[:dsc_permissionlevel] = 'Full Control'
-    expect(dsc_xspwebapppolicy[:dsc_permissionlevel]).to eq('Full Control')
+  it 'should accept a an array of hashes for dsc_memberstoexclude' do
+    dsc_xspwebapppolicy[:dsc_memberstoexclude] = [{"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true}]
+    expect(dsc_xspwebapppolicy[:dsc_memberstoexclude]).to eq([{"Username"=>"foo", "PermissionLevel"=>"Deny All", "ActAsSystemAccount"=>true}])
   end
 
-  it 'should accept dsc_permissionlevel predefined value full control' do
-    dsc_xspwebapppolicy[:dsc_permissionlevel] = 'full control'
-    expect(dsc_xspwebapppolicy[:dsc_permissionlevel]).to eq('full control')
+  it 'should not accept boolean for dsc_memberstoexclude' do
+    expect{dsc_xspwebapppolicy[:dsc_memberstoexclude] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept values not equal to predefined values' do
-    expect{dsc_xspwebapppolicy[:dsc_permissionlevel] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_memberstoexclude' do
+    expect{dsc_xspwebapppolicy[:dsc_memberstoexclude] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept array for dsc_permissionlevel' do
-    expect{dsc_xspwebapppolicy[:dsc_permissionlevel] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_memberstoexclude' do
+    expect{dsc_xspwebapppolicy[:dsc_memberstoexclude] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept boolean for dsc_permissionlevel' do
-    expect{dsc_xspwebapppolicy[:dsc_permissionlevel] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept array for dsc_setcacheaccountspolicy' do
+    expect{dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_permissionlevel' do
-    expect{dsc_xspwebapppolicy[:dsc_permissionlevel] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should accept boolean for dsc_setcacheaccountspolicy' do
+    dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy] = true
+    expect(dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy]).to eq(true)
   end
 
-  it 'should not accept uint for dsc_permissionlevel' do
-    expect{dsc_xspwebapppolicy[:dsc_permissionlevel] = 16}.to raise_error(Puppet::ResourceError)
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_setcacheaccountspolicy" do
+    dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy] = 'true'
+    expect(dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy]).to eq(true)
   end
 
-  it 'should not accept array for dsc_actassystemuser' do
-    expect{dsc_xspwebapppolicy[:dsc_actassystemuser] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_setcacheaccountspolicy" do
+    dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy] = 'false'
+    expect(dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy]).to eq(false)
   end
 
-  it 'should accept boolean for dsc_actassystemuser' do
-    dsc_xspwebapppolicy[:dsc_actassystemuser] = true
-    expect(dsc_xspwebapppolicy[:dsc_actassystemuser]).to eq(true)
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_setcacheaccountspolicy" do
+    dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy] = 'True'
+    expect(dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy]).to eq(true)
   end
 
-  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_actassystemuser" do
-    dsc_xspwebapppolicy[:dsc_actassystemuser] = 'true'
-    expect(dsc_xspwebapppolicy[:dsc_actassystemuser]).to eq(true)
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_setcacheaccountspolicy" do
+    dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy] = 'False'
+    expect(dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy]).to eq(false)
   end
 
-  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_actassystemuser" do
-    dsc_xspwebapppolicy[:dsc_actassystemuser] = 'false'
-    expect(dsc_xspwebapppolicy[:dsc_actassystemuser]).to eq(false)
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_setcacheaccountspolicy" do
+    dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy] = :true
+    expect(dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy]).to eq(true)
   end
 
-  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_actassystemuser" do
-    dsc_xspwebapppolicy[:dsc_actassystemuser] = 'True'
-    expect(dsc_xspwebapppolicy[:dsc_actassystemuser]).to eq(true)
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_setcacheaccountspolicy" do
+    dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy] = :false
+    expect(dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy]).to eq(false)
   end
 
-  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_actassystemuser" do
-    dsc_xspwebapppolicy[:dsc_actassystemuser] = 'False'
-    expect(dsc_xspwebapppolicy[:dsc_actassystemuser]).to eq(false)
+  it 'should not accept int for dsc_setcacheaccountspolicy' do
+    expect{dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it "should accept boolean-like value :true and munge this value to boolean for dsc_actassystemuser" do
-    dsc_xspwebapppolicy[:dsc_actassystemuser] = :true
-    expect(dsc_xspwebapppolicy[:dsc_actassystemuser]).to eq(true)
-  end
-
-  it "should accept boolean-like value :false and munge this value to boolean for dsc_actassystemuser" do
-    dsc_xspwebapppolicy[:dsc_actassystemuser] = :false
-    expect(dsc_xspwebapppolicy[:dsc_actassystemuser]).to eq(false)
-  end
-
-  it 'should not accept int for dsc_actassystemuser' do
-    expect{dsc_xspwebapppolicy[:dsc_actassystemuser] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_actassystemuser' do
-    expect{dsc_xspwebapppolicy[:dsc_actassystemuser] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_setcacheaccountspolicy' do
+    expect{dsc_xspwebapppolicy[:dsc_setcacheaccountspolicy] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do

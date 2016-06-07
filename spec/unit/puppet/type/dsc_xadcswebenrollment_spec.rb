@@ -6,17 +6,17 @@ describe Puppet::Type.type(:dsc_xadcswebenrollment) do
   let :dsc_xadcswebenrollment do
     Puppet::Type.type(:dsc_xadcswebenrollment).new(
       :name     => 'foo',
-      :dsc_name => 'foo',
+      :dsc_issingleinstance => 'Yes',
     )
   end
 
   it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xadcswebenrollment).new(
       :name     => 'foo',
+      :dsc_issingleinstance => 'Yes',
       :dsc_caconfig => 'foo',
       :dsc_credential => {"user"=>"user", "password"=>"password"},
       :dsc_ensure => 'Present',
-      :dsc_name => 'foo',
     )}.to_not raise_error
   end
 
@@ -26,6 +26,43 @@ describe Puppet::Type.type(:dsc_xadcswebenrollment) do
 
   it 'should default to ensure => present' do
     expect(dsc_xadcswebenrollment[:ensure]).to eq :present
+  end
+
+  it 'should require that dsc_issingleinstance is specified' do
+    #dsc_xadcswebenrollment[:dsc_issingleinstance]
+    expect { Puppet::Type.type(:dsc_xadcswebenrollment).new(
+      :name     => 'foo',
+    )}.to raise_error(Puppet::Error, /dsc_issingleinstance is a required attribute/)
+  end
+
+  it 'should accept dsc_issingleinstance predefined value Yes' do
+    dsc_xadcswebenrollment[:dsc_issingleinstance] = 'Yes'
+    expect(dsc_xadcswebenrollment[:dsc_issingleinstance]).to eq('Yes')
+  end
+
+  it 'should accept dsc_issingleinstance predefined value yes' do
+    dsc_xadcswebenrollment[:dsc_issingleinstance] = 'yes'
+    expect(dsc_xadcswebenrollment[:dsc_issingleinstance]).to eq('yes')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xadcswebenrollment[:dsc_issingleinstance] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_issingleinstance' do
+    expect{dsc_xadcswebenrollment[:dsc_issingleinstance] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_issingleinstance' do
+    expect{dsc_xadcswebenrollment[:dsc_issingleinstance] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_issingleinstance' do
+    expect{dsc_xadcswebenrollment[:dsc_issingleinstance] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_issingleinstance' do
+    expect{dsc_xadcswebenrollment[:dsc_issingleinstance] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_caconfig' do
@@ -112,29 +149,6 @@ describe Puppet::Type.type(:dsc_xadcswebenrollment) do
 
   it 'should not accept uint for dsc_ensure' do
     expect{dsc_xadcswebenrollment[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should require that dsc_name is specified' do
-    #dsc_xadcswebenrollment[:dsc_name]
-    expect { Puppet::Type.type(:dsc_xadcswebenrollment).new(
-      :name     => 'foo',
-    )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
-  end
-
-  it 'should not accept array for dsc_name' do
-    expect{dsc_xadcswebenrollment[:dsc_name] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_name' do
-    expect{dsc_xadcswebenrollment[:dsc_name] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_name' do
-    expect{dsc_xadcswebenrollment[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xadcswebenrollment[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -36,6 +36,7 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto { :present }
   end
 
@@ -217,16 +218,38 @@ Puppet::Type.newtype(:dsc_xrobocopy) do
   end
 
   # Name:         AdditionalArgs
-  # Type:         string
+  # Type:         string[]
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_additionalargs) do
+  newparam(:dsc_additionalargs, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "AdditionalArgs - Robocopy has MANY configuration options. Too many to present them all as DSC parameters effectively. Use this option to set additional parameters. Each parameter should be a separate array member. This array will be combined with main argument array. For a list of options run Robocopy /??? in a shell window."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AdditionalArgs - Robocopy has MANY configuration options.  Too many to present them all as DSC parameters effectively. Use this option to set additional parameters.  The string will be appended to the arguements list.  For a list of options run Robocopy /??? in a shell window."
+    desc "Ensure - Will indicate whether Destination is in sync with Source Valid values are Present, Absent."
     validate do |value|
+      resource[:ensure] = value.downcase
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
       end
     end
   end

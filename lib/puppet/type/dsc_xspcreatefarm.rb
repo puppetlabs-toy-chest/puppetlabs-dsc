@@ -88,17 +88,18 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
   end
 
   # Name:         Passphrase
-  # Type:         string
+  # Type:         MSFT_Credential
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_passphrase) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
     desc "Passphrase - The passphrase to use to allow servers to join this farm"
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
       end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Passphrase", value)
     end
   end
 
@@ -132,6 +133,24 @@ Puppet::Type.newtype(:dsc_xspcreatefarm) do
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         CentralAdministrationAuth
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["NTLM", "Kerberos"]
+  newparam(:dsc_centraladministrationauth) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CentralAdministrationAuth - The authentication provider of the CentralAdministration web application Valid values are NTLM, Kerberos."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['NTLM', 'ntlm', 'Kerberos', 'kerberos'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are NTLM, Kerberos")
+      end
     end
   end
 

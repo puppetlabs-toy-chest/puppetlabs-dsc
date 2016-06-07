@@ -20,14 +20,18 @@ describe Puppet::Type.type(:dsc_xspwebappgeneralsettings) do
       :dsc_rss => true,
       :dsc_blogapi => true,
       :dsc_blogapiauthenticated => true,
-      :dsc_browserfilehandling => 'Stric',
+      :dsc_browserfilehandling => 'Strict',
       :dsc_securityvalidation => true,
+      :dsc_securityvalidationexpires => true,
+      :dsc_securityvalidationtimeoutminutes => 32,
       :dsc_recyclebinenabled => true,
       :dsc_recyclebincleanupenabled => true,
       :dsc_recyclebinretentionperiod => 32,
       :dsc_secondstagerecyclebinquota => 32,
       :dsc_maximumuploadsize => 32,
       :dsc_customerexperienceprogram => true,
+      :dsc_allowonlinewebpartcatalog => true,
+      :dsc_selfservicesitecreationenabled => true,
       :dsc_presenceenabled => true,
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to_not raise_error
@@ -316,14 +320,14 @@ describe Puppet::Type.type(:dsc_xspwebappgeneralsettings) do
     expect{dsc_xspwebappgeneralsettings[:dsc_blogapiauthenticated] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept dsc_browserfilehandling predefined value Stric' do
-    dsc_xspwebappgeneralsettings[:dsc_browserfilehandling] = 'Stric'
-    expect(dsc_xspwebappgeneralsettings[:dsc_browserfilehandling]).to eq('Stric')
+  it 'should accept dsc_browserfilehandling predefined value Strict' do
+    dsc_xspwebappgeneralsettings[:dsc_browserfilehandling] = 'Strict'
+    expect(dsc_xspwebappgeneralsettings[:dsc_browserfilehandling]).to eq('Strict')
   end
 
-  it 'should accept dsc_browserfilehandling predefined value stric' do
-    dsc_xspwebappgeneralsettings[:dsc_browserfilehandling] = 'stric'
-    expect(dsc_xspwebappgeneralsettings[:dsc_browserfilehandling]).to eq('stric')
+  it 'should accept dsc_browserfilehandling predefined value strict' do
+    dsc_xspwebappgeneralsettings[:dsc_browserfilehandling] = 'strict'
+    expect(dsc_xspwebappgeneralsettings[:dsc_browserfilehandling]).to eq('strict')
   end
 
   it 'should accept dsc_browserfilehandling predefined value Permissive' do
@@ -401,6 +405,87 @@ describe Puppet::Type.type(:dsc_xspwebappgeneralsettings) do
 
   it 'should not accept uint for dsc_securityvalidation' do
     expect{dsc_xspwebappgeneralsettings[:dsc_securityvalidation] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_securityvalidationexpires' do
+    expect{dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_securityvalidationexpires' do
+    dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires] = true
+    expect(dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_securityvalidationexpires" do
+    dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires] = 'true'
+    expect(dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_securityvalidationexpires" do
+    dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires] = 'false'
+    expect(dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_securityvalidationexpires" do
+    dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires] = 'True'
+    expect(dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_securityvalidationexpires" do
+    dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires] = 'False'
+    expect(dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_securityvalidationexpires" do
+    dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires] = :true
+    expect(dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_securityvalidationexpires" do
+    dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires] = :false
+    expect(dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_securityvalidationexpires' do
+    expect{dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_securityvalidationexpires' do
+    expect{dsc_xspwebappgeneralsettings[:dsc_securityvalidationexpires] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_securityvalidationtimeoutminutes' do
+    expect{dsc_xspwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_securityvalidationtimeoutminutes' do
+    expect{dsc_xspwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept uint for dsc_securityvalidationtimeoutminutes' do
+    dsc_xspwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = 32
+    expect(dsc_xspwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_securityvalidationtimeoutminutes' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xspwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = value}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept string-like uint for dsc_securityvalidationtimeoutminutes' do
+    dsc_xspwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = '16'
+    expect(dsc_xspwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes]).to eq(16)
+  end
+
+  it 'should accept string-like uint for dsc_securityvalidationtimeoutminutes' do
+    dsc_xspwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = '32'
+    expect(dsc_xspwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes]).to eq(32)
+  end
+
+  it 'should accept string-like uint for dsc_securityvalidationtimeoutminutes' do
+    dsc_xspwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = '64'
+    expect(dsc_xspwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes]).to eq(64)
   end
 
   it 'should not accept array for dsc_recyclebinenabled' do
@@ -644,6 +729,100 @@ describe Puppet::Type.type(:dsc_xspwebappgeneralsettings) do
 
   it 'should not accept uint for dsc_customerexperienceprogram' do
     expect{dsc_xspwebappgeneralsettings[:dsc_customerexperienceprogram] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_allowonlinewebpartcatalog' do
+    expect{dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_allowonlinewebpartcatalog' do
+    dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = true
+    expect(dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowonlinewebpartcatalog" do
+    dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = 'true'
+    expect(dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowonlinewebpartcatalog" do
+    dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = 'false'
+    expect(dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowonlinewebpartcatalog" do
+    dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = 'True'
+    expect(dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowonlinewebpartcatalog" do
+    dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = 'False'
+    expect(dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_allowonlinewebpartcatalog" do
+    dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = :true
+    expect(dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_allowonlinewebpartcatalog" do
+    dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = :false
+    expect(dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_allowonlinewebpartcatalog' do
+    expect{dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_allowonlinewebpartcatalog' do
+    expect{dsc_xspwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_selfservicesitecreationenabled' do
+    expect{dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_selfservicesitecreationenabled' do
+    dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = true
+    expect(dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_selfservicesitecreationenabled" do
+    dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = 'true'
+    expect(dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_selfservicesitecreationenabled" do
+    dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = 'false'
+    expect(dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_selfservicesitecreationenabled" do
+    dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = 'True'
+    expect(dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_selfservicesitecreationenabled" do
+    dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = 'False'
+    expect(dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_selfservicesitecreationenabled" do
+    dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = :true
+    expect(dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_selfservicesitecreationenabled" do
+    dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = :false
+    expect(dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_selfservicesitecreationenabled' do
+    expect{dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_selfservicesitecreationenabled' do
+    expect{dsc_xspwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_presenceenabled' do

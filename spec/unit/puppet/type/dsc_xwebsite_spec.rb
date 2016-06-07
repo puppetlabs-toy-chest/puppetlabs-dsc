@@ -21,6 +21,11 @@ describe Puppet::Type.type(:dsc_xwebsite) do
       :dsc_bindinginfo => {"Protocol"=>"http", "BindingInformation"=>"foo", "IPAddress"=>"foo", "Port"=>16, "HostName"=>"foo", "CertificateThumbprint"=>"foo", "CertificateStoreName"=>"My", "SslFlags"=>"0"},
       :dsc_defaultpage => ["foo", "bar", "spec"],
       :dsc_enabledprotocols => 'foo',
+      :dsc_authenticationinfo => {"Anonymous"=>true, "Basic"=>true, "Digest"=>true, "Windows"=>true},
+      :dsc_preloadenabled => true,
+      :dsc_serviceautostartenabled => true,
+      :dsc_serviceautostartprovider => 'foo',
+      :dsc_applicationtype => 'foo',
     )}.to_not raise_error
   end
 
@@ -230,6 +235,148 @@ describe Puppet::Type.type(:dsc_xwebsite) do
 
   it 'should not accept uint for dsc_enabledprotocols' do
     expect{dsc_xwebsite[:dsc_enabledprotocols] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_authenticationinfo' do
+    expect{dsc_xwebsite[:dsc_authenticationinfo] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_authenticationinfo' do
+    expect{dsc_xwebsite[:dsc_authenticationinfo] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_authenticationinfo' do
+    expect{dsc_xwebsite[:dsc_authenticationinfo] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_authenticationinfo' do
+    expect{dsc_xwebsite[:dsc_authenticationinfo] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_preloadenabled' do
+    expect{dsc_xwebsite[:dsc_preloadenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_preloadenabled' do
+    dsc_xwebsite[:dsc_preloadenabled] = true
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_preloadenabled" do
+    dsc_xwebsite[:dsc_preloadenabled] = 'true'
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_preloadenabled" do
+    dsc_xwebsite[:dsc_preloadenabled] = 'false'
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_preloadenabled" do
+    dsc_xwebsite[:dsc_preloadenabled] = 'True'
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_preloadenabled" do
+    dsc_xwebsite[:dsc_preloadenabled] = 'False'
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_preloadenabled" do
+    dsc_xwebsite[:dsc_preloadenabled] = :true
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_preloadenabled" do
+    dsc_xwebsite[:dsc_preloadenabled] = :false
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_preloadenabled' do
+    expect{dsc_xwebsite[:dsc_preloadenabled] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_preloadenabled' do
+    expect{dsc_xwebsite[:dsc_preloadenabled] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_serviceautostartenabled' do
+    expect{dsc_xwebsite[:dsc_serviceautostartenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_serviceautostartenabled' do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = true
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_serviceautostartenabled" do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = 'true'
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_serviceautostartenabled" do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = 'false'
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_serviceautostartenabled" do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = 'True'
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_serviceautostartenabled" do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = 'False'
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_serviceautostartenabled" do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = :true
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_serviceautostartenabled" do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = :false
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_serviceautostartenabled' do
+    expect{dsc_xwebsite[:dsc_serviceautostartenabled] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_serviceautostartenabled' do
+    expect{dsc_xwebsite[:dsc_serviceautostartenabled] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_serviceautostartprovider' do
+    expect{dsc_xwebsite[:dsc_serviceautostartprovider] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_serviceautostartprovider' do
+    expect{dsc_xwebsite[:dsc_serviceautostartprovider] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_serviceautostartprovider' do
+    expect{dsc_xwebsite[:dsc_serviceautostartprovider] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_serviceautostartprovider' do
+    expect{dsc_xwebsite[:dsc_serviceautostartprovider] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_applicationtype' do
+    expect{dsc_xwebsite[:dsc_applicationtype] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_applicationtype' do
+    expect{dsc_xwebsite[:dsc_applicationtype] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_applicationtype' do
+    expect{dsc_xwebsite[:dsc_applicationtype] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_applicationtype' do
+    expect{dsc_xwebsite[:dsc_applicationtype] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

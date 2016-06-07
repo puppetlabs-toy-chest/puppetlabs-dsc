@@ -5,7 +5,7 @@ function Get-TargetResource
     param 
     ( 
         [parameter(Mandatory = $true)]                                                [System.String]   $Name, 
-        [parameter(Mandatory = $true)]  [ValidateSet("Present","Absent")]             [System.String]   $Ensure,
+        [parameter(Mandatory = $false)] [ValidateSet("Present","Absent")]             [System.String]   $Ensure = "Present",
         [parameter(Mandatory = $false)]                                               [System.String]   $ApplicationPool,
         [parameter(Mandatory = $false)]                                               [System.String]   $DatabaseName, 
         [parameter(Mandatory = $false)]                                               [System.String]   $DatabaseServer,
@@ -26,7 +26,7 @@ function Get-TargetResource
     ) 
 
     Write-Verbose -Message "Getting Word Automation service app '$Name'" 
-
+    $PSBoundParameters.Ensure = $Ensure
     if (($ApplicationPool -or $DatabaseName -or $DatabaseServer -or $SupportedFileFormats -or $DisableEmbeddedFonts -or $MaximumMemoryUsage -or $RecycleThreshold -or $DisableBinaryFileScan -or $ConversionProcesses -or $JobConversionFrequency -or $NumberOfConversionsPerProcess -or $TimeBeforeConversionIsMonitored -or $MaximumConversionAttempts -or $MaximumSyncConversionRequests -or $KeepAliveTimeout -or $MaximumConversionTime) -and ($Ensure -eq "Absent")) {
         throw "You cannot use any of the parameters when Ensure is specified as Absent"
     }
@@ -97,11 +97,10 @@ function Get-TargetResource
 function Set-TargetResource 
 { 
     [CmdletBinding()] 
-    [OutputType([System.Collections.Hashtable])] 
     param 
     ( 
         [parameter(Mandatory = $true)]                                                [System.String]   $Name, 
-        [parameter(Mandatory = $true)]  [ValidateSet("Present","Absent")]             [System.String]   $Ensure,
+        [parameter(Mandatory = $false)] [ValidateSet("Present","Absent")]             [System.String]   $Ensure = "Present",
         [parameter(Mandatory = $false)]                                               [System.String]   $ApplicationPool,
         [parameter(Mandatory = $false)]                                               [System.String]   $DatabaseName, 
         [parameter(Mandatory = $false)]                                               [System.String]   $DatabaseServer,
@@ -124,7 +123,7 @@ function Set-TargetResource
     if (($ApplicationPool -or $DatabaseName -or $DatabaseServer -or $SupportedFileFormats -or $DisableEmbeddedFonts -or $MaximumMemoryUsage -or $RecycleThreshold -or $DisableBinaryFileScan -or $ConversionProcesses -or $JobConversionFrequency -or $NumberOfConversionsPerProcess -or $TimeBeforeConversionIsMonitored -or $MaximumConversionAttempts -or $MaximumSyncConversionRequests -or $KeepAliveTimeout -or $MaximumConversionTime) -and ($Ensure -eq "Absent")) {
         throw "You cannot use any of the parameters when Ensure is specified as Absent"
     }
-
+    $PSBoundParameters.Ensure = $Ensure
     if (($Ensure -eq "Present") -and -not ($ApplicationPool -and $DatabaseName)) {
         throw "An Application Pool and Database Name are required to configure the Word Automation Service Application"
     }
@@ -239,7 +238,7 @@ function Test-TargetResource
     param 
     ( 
         [parameter(Mandatory = $true)]                                                [System.String]   $Name, 
-        [parameter(Mandatory = $true)]  [ValidateSet("Present","Absent")]             [System.String]   $Ensure,
+        [parameter(Mandatory = $false)] [ValidateSet("Present","Absent")]             [System.String]   $Ensure = "Present",
         [parameter(Mandatory = $false)]                                               [System.String]   $ApplicationPool,
         [parameter(Mandatory = $false)]                                               [System.String]   $DatabaseName, 
         [parameter(Mandatory = $false)]                                               [System.String]   $DatabaseServer,
@@ -262,6 +261,8 @@ function Test-TargetResource
     if (($ApplicationPool -or $DatabaseName -or $DatabaseServer -or $SupportedFileFormats -or $DisableEmbeddedFonts -or $MaximumMemoryUsage -or $RecycleThreshold -or $DisableBinaryFileScan -or $ConversionProcesses -or $JobConversionFrequency -or $NumberOfConversionsPerProcess -or $TimeBeforeConversionIsMonitored -or $MaximumConversionAttempts -or $MaximumSyncConversionRequests -or $KeepAliveTimeout -or $MaximumConversionTime) -and ($Ensure -eq "Absent")) {
         throw "You cannot use any of the parameters when Ensure is specified as Absent"
     }
+    
+    $PSBoundParameters.Ensure = $Ensure
 
     if (($Ensure -eq "Present") -and -not ($ApplicationPool -and $DatabaseName)) {
         throw "An Application Pool and Database Name are required to configure the Word Automation Service Application"

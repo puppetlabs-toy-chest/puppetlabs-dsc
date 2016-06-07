@@ -9,23 +9,25 @@ Function Get-TargetResource
     param(
         [parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
-        [String]
-        $IsSingleInstance, 
+        [String] $IsSingleInstance, 
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Present','Absent')]
-        [string]$Ensure = 'Present',
+        [string] $Ensure = 'Present',
 
-        [Parameter(Mandatory)]
-        [pscredential]$Credential
+        [Parameter(Mandatory = $true)]
+        [pscredential] $Credential
     )
 
     $ADCSParams = @{
         IsSingleInstance = $IsSingleInstance
         Credential = $Credential
-        Ensure = $Ensure }
+        Ensure = $Ensure
+    }
 
-    $ADCSParams += @{ StateOK = Test-TargetResource @ADCSParams }
+    $ADCSParams += @{
+        StateOK = Test-TargetResource @ADCSParams
+    }
     Return $ADCSParams
 }
 #endregion
@@ -37,23 +39,31 @@ Function Set-TargetResource
     param(
         [parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
-        [String]
-        $IsSingleInstance, 
+        [String] $IsSingleInstance, 
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Present','Absent')]
-        [string]$Ensure = 'Present',
+        [string] $Ensure = 'Present',
 
-        [Parameter(Mandatory)]
-        [pscredential]$Credential
+        [Parameter(Mandatory = $true)]
+        [pscredential] $Credential
     )
 
-    $ADCSParams = @{ Credential = $Credential }
+    $ADCSParams = @{
+        Credential = $Credential
+    }
 
-    switch ($Ensure) {
-        'Present' {(Install-AdcsOnlineResponder @ADCSParams -Force).ErrorString}
-        'Absent' {(Uninstall-AdcsOnlineResponder -Force).ErrorString}
+    switch ($Ensure)
+    {
+        'Present'
+        {
+            (Install-AdcsOnlineResponder @ADCSParams -Force).ErrorString
         }
+        'Absent'
+        {
+            (Uninstall-AdcsOnlineResponder -Force).ErrorString
+        }
+    } # Switch
 }
 #endregion
 
@@ -65,33 +75,50 @@ Function Test-TargetResource
     param(
         [parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
-        [String]
-        $IsSingleInstance, 
+        [String] $IsSingleInstance,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Present','Absent')]
-        [string]$Ensure = 'Present',
+        [string] $Ensure = 'Present',
 
-        [Parameter(Mandatory)]
-        [pscredential]$Credential
+        [Parameter(Mandatory = $true)]
+        [pscredential] $Credential
     )
 
-    $ADCSParams = @{ Credential = $Credential }
+    $ADCSParams = @{
+        Credential = $Credential
+    }
 
-    try{
+    try
+    {
         $null = Install-AdcsOnlineResponder @ADCSParams -WhatIf
-        Switch ($Ensure) {
-            'Present' {return $false}
-            'Absent' {return $true}
+        Switch ($Ensure)
+        {
+            'Present'
+            {
+                return $false
             }
-    }
-    catch{
-        Write-verbose $_
-        Switch ($Ensure) {
-            'Present' {return $true}
-            'Absent' {return $false}
+            'Absent'
+            {
+                return $true
             }
+        } # Switch
     }
+    catch
+    {
+        Write-verbose -Verbose $_
+        Switch ($Ensure)
+        {
+            'Present'
+            {
+                return $true
+            }
+            'Absent'
+            {
+                return $false
+            }
+        } # Switch
+    } # try
 }
 #endregion
 

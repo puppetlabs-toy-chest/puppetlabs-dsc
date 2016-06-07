@@ -91,7 +91,7 @@ function Set-TargetResource
     {
         #sync the given package content into iis
         
-        if($Destination -contains "\")
+        if($Destination.Contains("\"))
         {
               #this is the case when iis site content path is specified
              $appCmd += "-verb:sync -source:package=$SourcePath -dest:contentPath=$Destination"
@@ -108,7 +108,7 @@ function Set-TargetResource
     else
     {
       #delete the website content    
-      if($Destination -contains "\")
+      if($Destination.Contains("\"))
       {
         # $SourcePath in this case points to physical path of the website.
           Remove-Item -Path $Destination -Recurse -ErrorAction SilentlyContinue 

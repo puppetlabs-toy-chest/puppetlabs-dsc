@@ -21,7 +21,7 @@ Puppet::Type.newtype(:dsc_xsqlalias) do
   }
 
   validate do
-      fail('dsc_sqlservername is a required attribute') if self[:dsc_sqlservername].nil?
+      fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xSqlAlias' end
@@ -39,14 +39,14 @@ Puppet::Type.newtype(:dsc_xsqlalias) do
     defaultto { :present }
   end
 
-  # Name:         SQLServerName
+  # Name:         Name
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_sqlservername) do
+  newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLServerName"
+    desc "Name"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
