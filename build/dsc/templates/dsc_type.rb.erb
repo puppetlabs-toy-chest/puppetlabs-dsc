@@ -86,11 +86,13 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 
   ensurable do
     newvalue(:exists?) { provider.exists? }
-    newvalue(:<%= begin resource.ensure_value rescue 'present' end %>) { provider.create }
+<%  resource.valid_ensure_present_values.each do |property| -%>
+    newvalue(:<%= property.downcase %>) { provider.create }
+<%  end -%>
 <%  if resource.absentable? -%>
     newvalue(:<%= resource.absent_value %>)  { provider.destroy }
 <%  end -%>
-    defaultto { :<%= begin resource.ensure_value rescue 'present' end %> }
+    defaultto { :<%= resource.default_ensure_value %> }
   end
 
 <%  resource.properties.each do |property| -%>
