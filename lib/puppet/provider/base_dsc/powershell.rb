@@ -64,6 +64,8 @@ Puppet (including 3.x), or to a Puppet version newer than 3.x.
     PuppetX::Dsc::PowerShellManager.instance("#{command(:powershell)} #{self.class.powershell_args.join(' ')}")
   end
 
+  COMMAND_TIMEOUT = 1200000 # 20 minutes
+
   def exists?
     version = Facter.value(:powershell_version)
     uses_win32console = Facter.value(:uses_win32console)
@@ -73,7 +75,7 @@ Puppet (including 3.x), or to a Puppet version newer than 3.x.
     if uses_win32console
       output = powershell(self.class.powershell_args, script_content)
     else
-      output = ps_manager.execute(script_content)[:stdout]
+      output = ps_manager.execute(script_content, COMMAND_TIMEOUT)[:stdout]
     end
     Puppet.debug "Dsc Resource returned: #{output}"
     data = JSON.parse(output)
@@ -92,7 +94,7 @@ Puppet (including 3.x), or to a Puppet version newer than 3.x.
     if uses_win32console
       output = powershell(self.class.powershell_args, script_content)
     else
-      output = ps_manager.execute(script_content)[:stdout]
+      output = ps_manager.execute(script_content, COMMAND_TIMEOUT)[:stdout]
     end
     Puppet.debug "Create Dsc Resource returned: #{output}"
     data = JSON.parse(output)
@@ -111,7 +113,7 @@ Puppet (including 3.x), or to a Puppet version newer than 3.x.
     if uses_win32console
       output = powershell(self.class.powershell_args, script_content)
     else
-      output = ps_manager.execute(script_content)[:stdout]
+      output = ps_manager.execute(script_content, COMMAND_TIMEOUT)[:stdout]
     end
     Puppet.debug "Destroy Dsc Resource returned: #{output}"
     data = JSON.parse(output)
