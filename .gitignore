@@ -13,6 +13,7 @@ coverage/
 .*.sw[op]
 .DS_Store
 .rspec
+tmp/
 
 bin
 import
