@@ -55,10 +55,11 @@ eod
 
       if !is_custom_resource
         puts "Downloading and Importing #{item_name}"
-        cmd = "git clone #{dsc_repo} #{dsc_resources_path_tmp} && " +
-          "cd #{dsc_resources_path_tmp} && "
-        cmd += "git checkout #{ENV['DSC_REF']} && " if ENV['DSC_REF']
-        cmd += "git submodule update --init"
+        cmd = ''
+        cmd = "git clone #{dsc_repo} #{dsc_resources_path_tmp} && " unless Dir.exist? dsc_resources_path_tmp
+        cmd += "cd #{dsc_resources_path_tmp}"
+        cmd += " && git checkout #{ENV['DSC_REF']}" if ENV['DSC_REF']
+        cmd += " && git submodule update --init"
 
         sh cmd
       else
@@ -67,16 +68,34 @@ eod
         FileUtils.cp_r "#{dsc_resources_path}/.", "#{dsc_resources_path_tmp}/"
       end
 
-      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git"])
-
       blacklist = ['xChrome', 'xDSCResourceDesigner', 'xDscDiagnostics',
                    'xFireFox', 'xSafeHarbor', 'xSystemSecurity']
       puts "Cleaning out black-listed DSC resources: #{blacklist}"
       blacklist.each { |res| FileUtils.rm_rf("#{dsc_resources_path_tmp}/xDSCResources/#{res}") }
 
+      puts "Getting latest release tags for DSC resources..."
+      Dir["#{dsc_resources_path_tmp}/xDSCResources/*"].each do |dsc_resource_path|
+        dsc_resource_name = Pathname.new(dsc_resource_path).basename
+        FileUtils.cd(dsc_resource_path) do
+          # --date-order probably doesn't matter
+          tags_raw = %x{ git log --tags --pretty=format:'%D' --simplify-by-decoration --date-order }
+          # if this starts to result in errors, we should explore pushing this out to a file
+          # would prefer another method over scan
+          versions = tags_raw.scan(/(\S+)\-PSGallery/).map { | ver | Gem::Version.new(ver[0]) }
+          if versions.empty?
+            raise "#{dsc_resource_name} does not have any '*-PSGallery' tags. Appears it has not been released yet. Tags found #{tags_raw.to_s}"
+          end
+
+          latest_version = versions.max.to_s + "-PSGallery"
+          puts "Latest tag for #{dsc_resource_name} is #{latest_version}. Switching to that tag."
+          sh "git checkout #{latest_version}"
+        end
+      end
+
+      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git"])
+
       puts "Cleaning out test and example files for #{item_name}"
-      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git",
-                          "#{dsc_resources_path_tmp}/**/*[Ss]ample*",
+      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/*[Ss]ample*",
                           "#{dsc_resources_path_tmp}/**/*[Ee]xample*",
                           "#{dsc_resources_path_tmp}/**/*[Tt]est*"])
 
