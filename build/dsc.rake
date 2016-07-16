@@ -1,3 +1,5 @@
+require 'yaml'
+
 namespace :dsc do
 
   # local pathes
@@ -14,6 +16,7 @@ namespace :dsc do
   default_type_specs_path    = "#{default_dsc_module_path}/spec/unit/puppet/type"
 
   dsc_repo                   = 'https://github.com/PowerShell/DscResources.git'
+  dsc_resources_file         = "#{default_dsc_module_path}/dsc_resource_release_tags.yml"
 
   desc "Import and build all"
   task :build, [:dsc_module_path] do |t, args|
@@ -47,18 +50,20 @@ Default values:
   dsc_resources_path: #{default_dsc_resources_path}
 eod
 
-    task :import, [:dsc_resources_path] do |t, args|
+    task :import, [:dsc_resources_path, :update_versions] do |t, args|
       dsc_resources_path = args[:dsc_resources_path] || default_dsc_resources_path
       dsc_resources_path = File.expand_path(dsc_resources_path)
       dsc_resources_path_tmp = "#{dsc_resources_path}_tmp"
+      update_versions = args[:update_versions] || false
       is_custom_resource = (dsc_resources_path != default_dsc_resources_path)
 
       if !is_custom_resource
         puts "Downloading and Importing #{item_name}"
-        cmd = "git clone #{dsc_repo} #{dsc_resources_path_tmp} && " +
-          "cd #{dsc_resources_path_tmp} && "
-        cmd += "git checkout #{ENV['DSC_REF']} && " if ENV['DSC_REF']
-        cmd += "git submodule update --init"
+        cmd = ''
+        cmd = "git clone #{dsc_repo} #{dsc_resources_path_tmp} && " unless Dir.exist? dsc_resources_path_tmp
+        cmd += "cd #{dsc_resources_path_tmp}"
+        cmd += " && git checkout #{ENV['DSC_REF']}" if ENV['DSC_REF']
+        cmd += " && git submodule update --init"
 
         sh cmd
       else
@@ -67,16 +72,54 @@ eod
         FileUtils.cp_r "#{dsc_resources_path}/.", "#{dsc_resources_path_tmp}/"
       end
 
-      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git"])
-
       blacklist = ['xChrome', 'xDSCResourceDesigner', 'xDscDiagnostics',
                    'xFireFox', 'xSafeHarbor', 'xSystemSecurity']
       puts "Cleaning out black-listed DSC resources: #{blacklist}"
       blacklist.each { |res| FileUtils.rm_rf("#{dsc_resources_path_tmp}/xDSCResources/#{res}") }
 
+      resource_tags = {}
+      resource_tags = YAML::load_file("#{dsc_resources_file}") if File.exist? dsc_resources_file
+
+      puts "Getting latest release tags for DSC resources..."
+      Dir["#{dsc_resources_path_tmp}/xDSCResources/*"].each do |dsc_resource_path|
+        dsc_resource_name = Pathname.new(dsc_resource_path).basename
+        FileUtils.cd(dsc_resource_path) do
+          # --date-order probably doesn't matter
+          tags_raw = %x{ git log --tags --pretty=format:'%D' --simplify-by-decoration --date-order }
+          # If the conversion of string to version starts to result in errors,
+          # we should explore pushing this out out to a method where we can
+          # clean up the tags that may have prerelease versions in them
+          # similar to what was done in the Chocolatey module
+          versions = tags_raw.scan(/(\S+)\-PSGallery/).map { | ver | Gem::Version.new(ver[0]) }
+          if versions.empty?
+            raise "#{dsc_resource_name} does not have any '*-PSGallery' tags. Appears it has not been released yet. Tags found #{tags_raw.to_s}"
+          end
+
+          latest_version = versions.max.to_s + "-PSGallery"
+          tracked_version = resource_tags["#{dsc_resource_name}"]
+
+          update_version = update_versions
+          update_version = true if tracked_version.nil?
+
+          if update_version
+            puts "Latest/available tag for #{dsc_resource_name} is #{latest_version}. Switching to that tag."
+            checkout_version = latest_version
+          else
+            puts "Using tag for #{dsc_resource_name} is #{tracked_version}. Switching to that tag."
+            checkout_version = tracked_version
+          end
+
+          sh "git checkout #{tracked_version}"
+          resource_tags["#{dsc_resource_name}"] = tracked_version.encode("UTF-8")
+        end
+      end
+
+      File.open("#{dsc_resources_file}", 'w+') {|f| f.write resource_tags.to_yaml }
+
+      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git"])
+
       puts "Cleaning out test and example files for #{item_name}"
-      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git",
-                          "#{dsc_resources_path_tmp}/**/*[Ss]ample*",
+      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/*[Ss]ample*",
                           "#{dsc_resources_path_tmp}/**/*[Ee]xample*",
                           "#{dsc_resources_path_tmp}/**/*[Tt]est*"])
 
