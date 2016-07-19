@@ -61,7 +61,7 @@ the folder structure should be `MyModule/MyModule.psd1` and not `MyModule/Someth
 
 When importing or creating custom types, follow these steps:
 
-1. Build the module with `DSC_REF=0a9d28f bundle exec rake dsc:build`, where `0a9d28f` is the SHA of the repository https://github.com/PowerShell/DscResources that the current Puppet types are based on.
+1. Build the module with `DSC_REF=e6974e1 bundle exec rake dsc:build`, where `e6974e1` is the SHA of the repository https://github.com/PowerShell/DscResources that the current Puppet types are based on.
 2. Now take your own modules path and import your types: `bundle exec rake dsc:resources:import["path/to/your/types"]`. This should be the parent path that contains a folder (or folders) of DSC Resources.
    e.g. run `bundle exec rake dsc:resources:import["build/vendor/custom"]`.
    ![Module Layout - Import the Parent Directory](docs/images/dir_struct_import.png)

@@ -98,14 +98,13 @@ eod
           latest_version = versions.max.to_s + "-PSGallery"
           tracked_version = resource_tags["#{dsc_resource_name}"]
 
-          update_version = update_versions
-          update_version = true if tracked_version.nil?
+          update_version = tracked_version.nil? ? true : update_versions
 
           if update_version
-            puts "Latest/available tag for #{dsc_resource_name} is #{latest_version}. Switching to that tag."
+            puts "Using the latest/available reference of #{latest_version} for #{dsc_resource_name}."
             checkout_version = latest_version
           else
-            puts "Using tag for #{dsc_resource_name} is #{tracked_version}. Switching to that tag."
+            puts "Using the specified reference of #{tracked_version} for #{dsc_resource_name}."
             checkout_version = tracked_version
           end
 
