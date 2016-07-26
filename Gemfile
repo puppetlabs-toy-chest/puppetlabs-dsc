@@ -45,6 +45,7 @@ group :development do
   gem 'pry',                                 :require => false
   gem 'puppet-blacksmith',                   :require => false
   gem 'mime-types', '~>2.99',                :require => false
+  gem 'json_pure', '<=2.0.1',                :require => false if RUBY_VERSION =~ /^1\./
 end
 
 group :system_tests do
