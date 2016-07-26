@@ -28,6 +28,7 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
       :dsc_databaseavailabilitygroupipaddresses => ["foo", "bar", "spec"],
       :dsc_datacenteractivationmode => 'Off',
       :dsc_domaincontroller => 'foo',
+      :dsc_filesystem => 'NTFS',
       :dsc_manualdagnetworkconfiguration => true,
       :dsc_networkcompression => 'Disabled',
       :dsc_networkencryption => 'Disabled',
@@ -451,6 +452,46 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
 
   it 'should not accept uint for dsc_domaincontroller' do
     expect{dsc_xexchdatabaseavailabilitygroup[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_filesystem predefined value NTFS' do
+    dsc_xexchdatabaseavailabilitygroup[:dsc_filesystem] = 'NTFS'
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_filesystem]).to eq('NTFS')
+  end
+
+  it 'should accept dsc_filesystem predefined value ntfs' do
+    dsc_xexchdatabaseavailabilitygroup[:dsc_filesystem] = 'ntfs'
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_filesystem]).to eq('ntfs')
+  end
+
+  it 'should accept dsc_filesystem predefined value ReFS' do
+    dsc_xexchdatabaseavailabilitygroup[:dsc_filesystem] = 'ReFS'
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_filesystem]).to eq('ReFS')
+  end
+
+  it 'should accept dsc_filesystem predefined value refs' do
+    dsc_xexchdatabaseavailabilitygroup[:dsc_filesystem] = 'refs'
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_filesystem]).to eq('refs')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xexchdatabaseavailabilitygroup[:dsc_filesystem] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_filesystem' do
+    expect{dsc_xexchdatabaseavailabilitygroup[:dsc_filesystem] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_filesystem' do
+    expect{dsc_xexchdatabaseavailabilitygroup[:dsc_filesystem] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_filesystem' do
+    expect{dsc_xexchdatabaseavailabilitygroup[:dsc_filesystem] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_filesystem' do
+    expect{dsc_xexchdatabaseavailabilitygroup[:dsc_filesystem] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_manualdagnetworkconfiguration' do

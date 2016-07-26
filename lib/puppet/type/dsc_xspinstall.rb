@@ -70,6 +70,36 @@ Puppet::Type.newtype(:dsc_xspinstall) do
     end
   end
 
+  # Name:         InstallPath
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_installpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "InstallPath - The install directory to use in the installation, leave blank to use the setup defaults"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         DataPath
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_datapath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DataPath - The data directory to use in the installation, leave blank to use the setup defaults"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
   # Name:         Ensure
   # Type:         string
   # IsMandatory:  False

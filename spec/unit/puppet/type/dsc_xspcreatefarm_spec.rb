@@ -17,9 +17,10 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
       :dsc_farmconfigdatabasename => 'foo',
       :dsc_databaseserver => 'foo',
       :dsc_farmaccount => {"user"=>"user", "password"=>"password"},
-      :dsc_passphrase => 'foo',
+      :dsc_passphrase => {"user"=>"user", "password"=>"password"},
       :dsc_admincontentdatabasename => 'foo',
       :dsc_centraladministrationport => 32,
+      :dsc_centraladministrationauth => 'NTLM',
       :dsc_serverrole => 'Application',
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to_not raise_error
@@ -97,6 +98,10 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
     expect{dsc_xspcreatefarm[:dsc_farmaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it "should not accept empty password for dsc_passphrase" do
+    expect{dsc_xspcreatefarm[:dsc_passphrase] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
+  end
+
   it 'should not accept array for dsc_passphrase' do
     expect{dsc_xspcreatefarm[:dsc_passphrase] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -161,6 +166,46 @@ describe Puppet::Type.type(:dsc_xspcreatefarm) do
   it 'should accept string-like uint for dsc_centraladministrationport' do
     dsc_xspcreatefarm[:dsc_centraladministrationport] = '64'
     expect(dsc_xspcreatefarm[:dsc_centraladministrationport]).to eq(64)
+  end
+
+  it 'should accept dsc_centraladministrationauth predefined value NTLM' do
+    dsc_xspcreatefarm[:dsc_centraladministrationauth] = 'NTLM'
+    expect(dsc_xspcreatefarm[:dsc_centraladministrationauth]).to eq('NTLM')
+  end
+
+  it 'should accept dsc_centraladministrationauth predefined value ntlm' do
+    dsc_xspcreatefarm[:dsc_centraladministrationauth] = 'ntlm'
+    expect(dsc_xspcreatefarm[:dsc_centraladministrationauth]).to eq('ntlm')
+  end
+
+  it 'should accept dsc_centraladministrationauth predefined value Kerberos' do
+    dsc_xspcreatefarm[:dsc_centraladministrationauth] = 'Kerberos'
+    expect(dsc_xspcreatefarm[:dsc_centraladministrationauth]).to eq('Kerberos')
+  end
+
+  it 'should accept dsc_centraladministrationauth predefined value kerberos' do
+    dsc_xspcreatefarm[:dsc_centraladministrationauth] = 'kerberos'
+    expect(dsc_xspcreatefarm[:dsc_centraladministrationauth]).to eq('kerberos')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xspcreatefarm[:dsc_centraladministrationauth] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_centraladministrationauth' do
+    expect{dsc_xspcreatefarm[:dsc_centraladministrationauth] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_centraladministrationauth' do
+    expect{dsc_xspcreatefarm[:dsc_centraladministrationauth] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_centraladministrationauth' do
+    expect{dsc_xspcreatefarm[:dsc_centraladministrationauth] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_centraladministrationauth' do
+    expect{dsc_xspcreatefarm[:dsc_centraladministrationauth] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_serverrole predefined value Application' do

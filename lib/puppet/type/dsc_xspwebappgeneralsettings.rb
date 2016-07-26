@@ -157,17 +157,17 @@ Puppet::Type.newtype(:dsc_xspwebappgeneralsettings) do
   # Name:         BrowserFileHandling
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["Stric", "Permissive"]
+  # Values:       ["Strict", "Permissive"]
   newparam(:dsc_browserfilehandling) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "BrowserFileHandling - What file handling mode should be used in this web app - strict or permissive Valid values are Stric, Permissive."
+    desc "BrowserFileHandling - What file handling mode should be used in this web app - strict or permissive Valid values are Strict, Permissive."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['Stric', 'stric', 'Permissive', 'permissive'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Stric, Permissive")
+      unless ['Strict', 'strict', 'Permissive', 'permissive'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Strict, Permissive")
       end
     end
   end
@@ -185,6 +185,40 @@ Puppet::Type.newtype(:dsc_xspwebappgeneralsettings) do
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SecurityValidationExpires
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_securityvalidationexpires) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SecurityValidationExpires - Does security validation expire after a set time"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SecurityValidationTimeOutMinutes
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_securityvalidationtimeoutminutes) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "SecurityValidationTimeOutMinutes - Number of minutes security validation will expire if securityvalidationexpires is set"
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 
@@ -282,6 +316,38 @@ Puppet::Type.newtype(:dsc_xspwebappgeneralsettings) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
     desc "CustomerExperienceProgram - Should the customer experience program be enabled in this web app"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         AllowOnlineWebPartCatalog
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_allowonlinewebpartcatalog) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "AllowOnlineWebPartCatalog - Should the Online WebPart Gallery be enabled for this web app"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SelfServiceSiteCreationEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_selfservicesitecreationenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SelfServiceSiteCreationEnabled - Should Self Service Site Creation be enabled"
     validate do |value|
     end
     newvalues(true, false)

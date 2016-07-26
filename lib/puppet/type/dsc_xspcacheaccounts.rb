@@ -76,11 +76,27 @@ Puppet::Type.newtype(:dsc_xspcacheaccounts) do
   newparam(:dsc_superreaderalias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SuperReaderAlias - The account name fo the super reader"
+    desc "SuperReaderAlias - The account name for the super reader"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         SetWebAppPolicy
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_setwebapppolicy) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SetWebAppPolicy - Should the web app policy be set for these accounts?"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

@@ -16,7 +16,7 @@ describe Puppet::Type.type(:dsc_xspjoinfarm) do
       :name     => 'foo',
       :dsc_farmconfigdatabasename => 'foo',
       :dsc_databaseserver => 'foo',
-      :dsc_passphrase => 'foo',
+      :dsc_passphrase => {"user"=>"user", "password"=>"password"},
       :dsc_serverrole => 'Application',
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to_not raise_error
@@ -72,6 +72,10 @@ describe Puppet::Type.type(:dsc_xspjoinfarm) do
 
   it 'should not accept uint for dsc_databaseserver' do
     expect{dsc_xspjoinfarm[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it "should not accept empty password for dsc_passphrase" do
+    expect{dsc_xspjoinfarm[:dsc_passphrase] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_passphrase' do

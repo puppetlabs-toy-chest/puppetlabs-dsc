@@ -15,15 +15,22 @@ describe Puppet::Type.type(:dsc_xspsearchserviceapp) do
       :name     => 'foo',
       :dsc_name => 'foo',
       :dsc_applicationpool => 'foo',
+      :dsc_searchcenterurl => 'foo',
       :dsc_databasename => 'foo',
       :dsc_databaseserver => 'foo',
       :dsc_defaultcontentaccessaccount => {"user"=>"user", "password"=>"password"},
+      :dsc_cloudindex => true,
+      :dsc_ensure => 'Present',
       :dsc_installaccount => {"user"=>"user", "password"=>"password"},
     )}.to_not raise_error
   end
 
   it "should stringify normally" do
     expect(dsc_xspsearchserviceapp.to_s).to eq("Dsc_xspsearchserviceapp[foo]")
+  end
+
+  it 'should default to ensure => present' do
+    expect(dsc_xspsearchserviceapp[:ensure]).to eq :present
   end
 
   it 'should require that dsc_name is specified' do
@@ -63,6 +70,22 @@ describe Puppet::Type.type(:dsc_xspsearchserviceapp) do
 
   it 'should not accept uint for dsc_applicationpool' do
     expect{dsc_xspsearchserviceapp[:dsc_applicationpool] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_searchcenterurl' do
+    expect{dsc_xspsearchserviceapp[:dsc_searchcenterurl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_searchcenterurl' do
+    expect{dsc_xspsearchserviceapp[:dsc_searchcenterurl] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_searchcenterurl' do
+    expect{dsc_xspsearchserviceapp[:dsc_searchcenterurl] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_searchcenterurl' do
+    expect{dsc_xspsearchserviceapp[:dsc_searchcenterurl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_databasename' do
@@ -117,6 +140,103 @@ describe Puppet::Type.type(:dsc_xspsearchserviceapp) do
     expect{dsc_xspsearchserviceapp[:dsc_defaultcontentaccessaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
+  it 'should not accept array for dsc_cloudindex' do
+    expect{dsc_xspsearchserviceapp[:dsc_cloudindex] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_cloudindex' do
+    dsc_xspsearchserviceapp[:dsc_cloudindex] = true
+    expect(dsc_xspsearchserviceapp[:dsc_cloudindex]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_cloudindex" do
+    dsc_xspsearchserviceapp[:dsc_cloudindex] = 'true'
+    expect(dsc_xspsearchserviceapp[:dsc_cloudindex]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_cloudindex" do
+    dsc_xspsearchserviceapp[:dsc_cloudindex] = 'false'
+    expect(dsc_xspsearchserviceapp[:dsc_cloudindex]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_cloudindex" do
+    dsc_xspsearchserviceapp[:dsc_cloudindex] = 'True'
+    expect(dsc_xspsearchserviceapp[:dsc_cloudindex]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_cloudindex" do
+    dsc_xspsearchserviceapp[:dsc_cloudindex] = 'False'
+    expect(dsc_xspsearchserviceapp[:dsc_cloudindex]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_cloudindex" do
+    dsc_xspsearchserviceapp[:dsc_cloudindex] = :true
+    expect(dsc_xspsearchserviceapp[:dsc_cloudindex]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_cloudindex" do
+    dsc_xspsearchserviceapp[:dsc_cloudindex] = :false
+    expect(dsc_xspsearchserviceapp[:dsc_cloudindex]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_cloudindex' do
+    expect{dsc_xspsearchserviceapp[:dsc_cloudindex] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_cloudindex' do
+    expect{dsc_xspsearchserviceapp[:dsc_cloudindex] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_ensure predefined value Present' do
+    dsc_xspsearchserviceapp[:dsc_ensure] = 'Present'
+    expect(dsc_xspsearchserviceapp[:dsc_ensure]).to eq('Present')
+  end
+
+  it 'should accept dsc_ensure predefined value present' do
+    dsc_xspsearchserviceapp[:dsc_ensure] = 'present'
+    expect(dsc_xspsearchserviceapp[:dsc_ensure]).to eq('present')
+  end
+
+  it 'should accept dsc_ensure predefined value present and update ensure with this value (ensure end value should be a symbol)' do
+    dsc_xspsearchserviceapp[:dsc_ensure] = 'present'
+    expect(dsc_xspsearchserviceapp[:ensure]).to eq(dsc_xspsearchserviceapp[:dsc_ensure].downcase.to_sym)
+  end
+
+  it 'should accept dsc_ensure predefined value Absent' do
+    dsc_xspsearchserviceapp[:dsc_ensure] = 'Absent'
+    expect(dsc_xspsearchserviceapp[:dsc_ensure]).to eq('Absent')
+  end
+
+  it 'should accept dsc_ensure predefined value absent' do
+    dsc_xspsearchserviceapp[:dsc_ensure] = 'absent'
+    expect(dsc_xspsearchserviceapp[:dsc_ensure]).to eq('absent')
+  end
+
+  it 'should accept dsc_ensure predefined value absent and update ensure with this value (ensure end value should be a symbol)' do
+    dsc_xspsearchserviceapp[:dsc_ensure] = 'absent'
+    expect(dsc_xspsearchserviceapp[:ensure]).to eq(dsc_xspsearchserviceapp[:dsc_ensure].downcase.to_sym)
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xspsearchserviceapp[:dsc_ensure] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_ensure' do
+    expect{dsc_xspsearchserviceapp[:dsc_ensure] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_ensure' do
+    expect{dsc_xspsearchserviceapp[:dsc_ensure] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_ensure' do
+    expect{dsc_xspsearchserviceapp[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_ensure' do
+    expect{dsc_xspsearchserviceapp[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_xspsearchserviceapp[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -165,6 +285,50 @@ describe Puppet::Type.type(:dsc_xspsearchserviceapp) do
 
       it "should compute powershell dsc test script with method Set" do
         expect(@provider.ps_script_content('set')).to match(/Method\s+=\s*'set'/)
+      end
+
+    end
+
+    describe "when dsc_ensure is 'present'" do
+
+      before(:each) do
+        dsc_xspsearchserviceapp.original_parameters[:dsc_ensure] = 'present'
+        dsc_xspsearchserviceapp[:dsc_ensure] = 'present'
+        @provider = described_class.provider(:powershell).new(dsc_xspsearchserviceapp)
+      end
+
+      it "should update :ensure to :present" do
+        expect(dsc_xspsearchserviceapp[:ensure]).to eq(:present)
+      end
+
+      it "should compute powershell dsc test script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
+      end
+
+      it "should compute powershell dsc set script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'present'/)
+      end
+
+    end
+
+    describe "when dsc_ensure is 'absent'" do
+
+      before(:each) do
+        dsc_xspsearchserviceapp.original_parameters[:dsc_ensure] = 'absent'
+        dsc_xspsearchserviceapp[:dsc_ensure] = 'absent'
+        @provider = described_class.provider(:powershell).new(dsc_xspsearchserviceapp)
+      end
+
+      it "should update :ensure to :absent" do
+        expect(dsc_xspsearchserviceapp[:ensure]).to eq(:absent)
+      end
+
+      it "should compute powershell dsc test script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
+      end
+
+      it "should compute powershell dsc set script in which ensure value is 'absent'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
       end
 
     end

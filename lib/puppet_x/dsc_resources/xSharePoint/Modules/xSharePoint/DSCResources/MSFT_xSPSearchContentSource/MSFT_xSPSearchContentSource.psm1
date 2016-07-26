@@ -15,7 +15,7 @@ function Get-TargetResource
         [parameter(Mandatory = $false)] [ValidateSet("Normal","High")] [System.String] $Priority,
         [parameter(Mandatory = $false)] [System.UInt32]   $LimitPageDepth,
         [parameter(Mandatory = $false)] [System.UInt32]   $LimitServerHops,
-        [parameter(Mandatory = $true)]  [ValidateSet("Present","Absent")] [System.String] $Ensure,
+        [parameter(Mandatory = $false)] [ValidateSet("Present","Absent")] [System.String] $Ensure = "Present",
         [parameter(Mandatory = $false)] [System.Boolean]  $Force,
         [parameter(Mandatory = $false)] [System.Management.Automation.PSCredential] $InstallAccount
     )
@@ -112,7 +112,7 @@ function Set-TargetResource
         [parameter(Mandatory = $false)] [ValidateSet("Normal","High")] [System.String] $Priority,
         [parameter(Mandatory = $false)] [System.UInt32]   $LimitPageDepth,
         [parameter(Mandatory = $false)] [System.UInt32]   $LimitServerHops,
-        [parameter(Mandatory = $true)]  [ValidateSet("Present","Absent")] [System.String] $Ensure,
+        [parameter(Mandatory = $false)] [ValidateSet("Present","Absent")] [System.String] $Ensure = "Present",
         [parameter(Mandatory = $false)] [System.Boolean]  $Force,
         [parameter(Mandatory = $false)] [System.Management.Automation.PSCredential] $InstallAccount
     )
@@ -185,10 +185,10 @@ function Set-TargetResource
                 $loopCount = 0
                 
                 $sourceToWait = Get-SPEnterpriseSearchCrawlContentSource -SearchApplication $params.ServiceAppName -Identity $params.Name
-                while ($sourceToWait.CrawlStatus -ne "Idle" -or $loopCount > 20) {
+                while ($sourceToWait.CrawlStatus -ne "Idle" -or $loopCount > 15) {
                     $sourceToWait = Get-SPEnterpriseSearchCrawlContentSource -SearchApplication $params.ServiceAppName -Identity $params.Name
-                    Write-Verbose -Message "Waiting for content source '$($params.Name)' to be idle."
-                    Start-Sleep -Seconds 30
+                    Write-Verbose "$([DateTime]::Now.ToShortTimeString()) - Waiting for content source '$($params.Name)' to be idle (waited $loopCount of 15 minutes)"
+                    Start-Sleep -Seconds 60
                     $loopCount++
                 }
             }
@@ -319,7 +319,7 @@ function Test-TargetResource
         [parameter(Mandatory = $false)] [ValidateSet("Normal","High")] [System.String] $Priority,
         [parameter(Mandatory = $false)] [System.UInt32]   $LimitPageDepth,
         [parameter(Mandatory = $false)] [System.UInt32]   $LimitServerHops,
-        [parameter(Mandatory = $true)]  [ValidateSet("Present","Absent")] [System.String] $Ensure,
+        [parameter(Mandatory = $false)] [ValidateSet("Present","Absent")] [System.String] $Ensure = "Present",
         [parameter(Mandatory = $false)] [System.Boolean]  $Force,
         [parameter(Mandatory = $false)] [System.Management.Automation.PSCredential] $InstallAccount
     )
@@ -342,6 +342,8 @@ function Test-TargetResource
         }
     }   
     $CurrentValues = Get-TargetResource @PSBoundParameters
+    
+    $PSBoundParameters.Ensure = $Ensure
     
     if ($Ensure -eq "Absent") {
         return Test-xSharePointSpecificParameters -CurrentValues $CurrentValues `

@@ -35,6 +35,7 @@ Puppet::Type.newtype(:dsc_xspsearchserviceapp) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto { :present }
   end
 
@@ -62,6 +63,21 @@ Puppet::Type.newtype(:dsc_xspsearchserviceapp) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "ApplicationPool - The application pool that it should run in"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SearchCenterUrl
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_searchcenterurl) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SearchCenterUrl - The URL of the enterprise search center site collection"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -112,6 +128,41 @@ Puppet::Type.newtype(:dsc_xspsearchserviceapp) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("DefaultContentAccessAccount", value)
+    end
+  end
+
+  # Name:         CloudIndex
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_cloudindex) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "CloudIndex - Should this search service application be a cloud based service app"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Ensure - Present if the service app should exist, absent if it should not Valid values are Present, Absent."
+    validate do |value|
+      resource[:ensure] = value.downcase
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      end
     end
   end
 

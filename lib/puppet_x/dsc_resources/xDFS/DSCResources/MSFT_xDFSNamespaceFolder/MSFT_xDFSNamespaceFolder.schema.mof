@@ -1,0 +1,14 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xDFSNamespaceFolder")]
+class MSFT_xDFSNamespaceFolder : OMI_BaseResource
+{
+    [key, Description("Specifies a path for the root of a DFS namespace.")] String Path;
+    [key, Description("Specifies a path for a root target of the DFS namespace.")] String TargetPath;
+    [Required, Description("Specifies if the DFS Namespace root should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("The description of the DFS Namespace.")] String Description;
+    [Write, Description("Indicates whether a DFS namespace server provides a client only with referrals that are in the same site as the client.")] Boolean EnableInsiteReferrals;
+    [Write, Description("Indicates whether a DFS namespace uses target failback.")] Boolean EnableTargetFailback;
+    [Write, Description("Specifies the target priority class for a DFS namespace root."), ValueMap{"Global-High","SiteCost-High","SiteCost-Normal","SiteCost-Low","Global-Low"}, Values{"Global-High","SiteCost-High","SiteCost-Normal","SiteCost-Low","Global-Low"}] String ReferralPriorityClass;
+    [Write, Description("Specifies the priority rank, as an integer, for a root target of the DFS namespace.")] Uint32 ReferralPriorityRank;
+    [Write, Description("Specifies a TTL interval, in seconds, for referrals.")] Uint32 TimeToLiveSec;
+    [Read] String State;
+};

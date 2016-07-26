@@ -4,6 +4,29 @@ Puppet::Type.newtype(:dsc_xspwebapppolicy) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
+    class PuppetX::Dsc::TypeHelpers
+      def self.validate_MSFT_xSPWebPolicyPermissions(mof_type_map, name, value)
+        required = []
+        allowed = ['username','permissionlevel','actassystemaccount']
+        lowkey_hash = Hash[value.map { |k, v| [k.to_s.downcase, v] }]
+
+        missing = required - lowkey_hash.keys
+        unless missing.empty?
+          fail "#{name} is missing the following required keys: #{missing.join(',')}"
+        end
+
+        extraneous = lowkey_hash.keys - required - allowed
+        unless extraneous.empty?
+          fail "#{name} includes invalid keys: #{extraneous.join(',')}"
+        end
+
+        lowkey_hash.keys.each do |key|
+          if lowkey_hash[key]
+            validate_mof_type(mof_type_map[key], 'MSFT_xSPWebPolicyPermissions', key, lowkey_hash[key])
+          end
+        end
+      end
+    end
 
   @doc = %q{
     The DSC xSPWebAppPolicy resource type.
@@ -22,7 +45,6 @@ Puppet::Type.newtype(:dsc_xspwebapppolicy) do
 
   validate do
       fail('dsc_webappurl is a required attribute') if self[:dsc_webappurl].nil?
-      fail('dsc_username is a required attribute') if self[:dsc_username].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xSPWebAppPolicy' end
@@ -55,48 +77,98 @@ Puppet::Type.newtype(:dsc_xspwebapppolicy) do
     end
   end
 
-  # Name:         UserName
-  # Type:         string
-  # IsMandatory:  True
-  # Values:       None
-  newparam(:dsc_username) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "UserName - The username for the policy"
-    isrequired
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         PermissionLevel
-  # Type:         string
+  # Name:         Members
+  # Type:         MSFT_xSPWebPolicyPermissions[]
   # IsMandatory:  False
-  # Values:       ["Deny All", "Deny Write", "Full Read", "Full Control"]
-  newparam(:dsc_permissionlevel) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "PermissionLevel - The policy to apply Valid values are Deny All, Deny Write, Full Read, Full Control."
+  # Values:       None
+  newparam(:dsc_members, :array_matching => :all) do
+    def mof_type; 'MSFT_xSPWebPolicyPermissions[]' end
+    def mof_is_embedded?; true end
+    def mof_type_map
+      {"username"=>{:type=>"string"}, "permissionlevel"=>{:type=>"string[]", :values=>["Deny All", "Deny Write", "Full Read", "Full Control"]}, "actassystemaccount"=>{:type=>"boolean"}}
+    end
+    desc "Members - Exact list of accounts that will have to get Web Policy permissions"
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Array) || value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be an array of hashes or a hash")
       end
-      unless ['Deny All', 'deny all', 'Deny Write', 'deny write', 'Full Read', 'full read', 'Full Control', 'full control'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Deny All, Deny Write, Full Read, Full Control")
+      (value.kind_of?(Hash) ? [value] : value).each_with_index do |v, i|
+        fail "Members value at index #{i} should be a Hash" unless v.is_a? Hash
+
+        PuppetX::Dsc::TypeHelpers.validate_MSFT_xSPWebPolicyPermissions(mof_type_map, "Members", v)
       end
+    end
+    munge do |value|
+      value.kind_of?(Hash) ?
+        [PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, value)] :
+        value.map { |v| PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, v) }
     end
   end
 
-  # Name:         ActAsSystemUser
+  # Name:         MembersToInclude
+  # Type:         MSFT_xSPWebPolicyPermissions[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_memberstoinclude, :array_matching => :all) do
+    def mof_type; 'MSFT_xSPWebPolicyPermissions[]' end
+    def mof_is_embedded?; true end
+    def mof_type_map
+      {"username"=>{:type=>"string"}, "permissionlevel"=>{:type=>"string[]", :values=>["Deny All", "Deny Write", "Full Read", "Full Control"]}, "actassystemaccount"=>{:type=>"boolean"}}
+    end
+    desc "MembersToInclude - List of all accounts that must be in the Web Policy group"
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be an array of hashes or a hash")
+      end
+      (value.kind_of?(Hash) ? [value] : value).each_with_index do |v, i|
+        fail "MembersToInclude value at index #{i} should be a Hash" unless v.is_a? Hash
+
+        PuppetX::Dsc::TypeHelpers.validate_MSFT_xSPWebPolicyPermissions(mof_type_map, "MembersToInclude", v)
+      end
+    end
+    munge do |value|
+      value.kind_of?(Hash) ?
+        [PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, value)] :
+        value.map { |v| PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, v) }
+    end
+  end
+
+  # Name:         MembersToExclude
+  # Type:         MSFT_xSPWebPolicyPermissions[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_memberstoexclude, :array_matching => :all) do
+    def mof_type; 'MSFT_xSPWebPolicyPermissions[]' end
+    def mof_is_embedded?; true end
+    def mof_type_map
+      {"username"=>{:type=>"string"}, "permissionlevel"=>{:type=>"string[]", :values=>["Deny All", "Deny Write", "Full Read", "Full Control"]}, "actassystemaccount"=>{:type=>"boolean"}}
+    end
+    desc "MembersToExclude - List of all accounts that are not allowed to have any Web Policy permissions"
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be an array of hashes or a hash")
+      end
+      (value.kind_of?(Hash) ? [value] : value).each_with_index do |v, i|
+        fail "MembersToExclude value at index #{i} should be a Hash" unless v.is_a? Hash
+
+        PuppetX::Dsc::TypeHelpers.validate_MSFT_xSPWebPolicyPermissions(mof_type_map, "MembersToExclude", v)
+      end
+    end
+    munge do |value|
+      value.kind_of?(Hash) ?
+        [PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, value)] :
+        value.map { |v| PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, v) }
+    end
+  end
+
+  # Name:         SetCacheAccountsPolicy
   # Type:         boolean
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_actassystemuser) do
+  newparam(:dsc_setcacheaccountspolicy) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "ActAsSystemUser - Should this user be treated as a system account"
+    desc "SetCacheAccountsPolicy - Include the Cache Accounts in the policy or not"
     validate do |value|
     end
     newvalues(true, false)

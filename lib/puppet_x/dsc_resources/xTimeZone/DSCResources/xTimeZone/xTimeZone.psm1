@@ -12,6 +12,21 @@
 #of or inability to use the sample scripts or documentation, even if Microsoft 
 #has been advised of the possibility of such damages 
 #--------------------------------------------------------------------------------- 
+#region LocalizedData
+$Culture = 'en-us'
+if (Test-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath $PSUICulture))
+{
+    $Culture = $PSUICulture
+}
+Import-LocalizedData `
+    -BindingVariable LocalizedData `
+    -Filename xTimeZone.psd1 `
+    -BaseDirectory $PSScriptRoot `
+    -UICulture $Culture
+#endregion
+
+# Load the Helper Module
+Import-Module -Name "$PSScriptRoot\..\TimezoneHelper.psm1" -Verbose:$false
 
 function Get-TargetResource
 {
@@ -22,7 +37,7 @@ function Get-TargetResource
         [parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
         [String]
-        $IsSingleInstance, 
+        $IsSingleInstance,
 
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -35,6 +50,7 @@ function Get-TargetResource
 
     $returnValue = @{
         TimeZone = $CurrentTimeZone
+        IsSingleInstance = 'Yes'
     }
 
     #Output the target resource
@@ -50,7 +66,7 @@ function Set-TargetResource
         [parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
         [String]
-        $IsSingleInstance, 
+        $IsSingleInstance,
 
         [parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
@@ -61,19 +77,17 @@ function Set-TargetResource
     #Output the result of Get-TargetResource function.
     $CurrentTimeZone = Get-TimeZone
     
-    If($PSCmdlet.ShouldProcess("'$TimeZone'","Replace the System Time Zone"))
+    if($PSCmdlet.ShouldProcess("'$TimeZone'",$LocalizedData.ReplaceSystemTimezoneMessage))
     {
-        Try{
-            if($CurrentTimeZone -ne $TimeZone){
-                Write-Verbose "Setting the TimeZone"
-                Set-TimeZone -TimeZone $TimeZone}
-            else{
-                Write-Verbose "TimeZone already set to $TimeZone"
-            }
+        if($CurrentTimeZone -ne $TimeZone)
+        {
+            Write-Verbose -Message ($LocalizedData.SettingTimezoneMessage)
+            Set-TimeZone -TimeZone $TimeZone
         }
-        Catch{
-            $ErrorMsg = $_.Exception.Message
-            Write-Verbose $ErrorMsg
+        else
+        {
+            Write-Verbose -Message ($LocalizedData.TimezoneAlreadySetMessage `
+                -f $Timezone)
         }
     }
 }
@@ -96,37 +110,15 @@ function Test-TargetResource
         $TimeZone
     )
 
-    #Output from Get-TargetResource
     $CurrentTimeZone = Get-TimeZone
 
-    If($TimeZone -eq $CurrentTimeZone){
+    if($TimeZone -eq $CurrentTimeZone)
+    {
         return $true
     }
-    Else{
+    else
+    {
         return $false
-    }
-}
-
-Function Get-TimeZone {
-    [CmdletBinding()]
-    param()
-
-    & tzutil.exe /g
-}
-
-Function Set-TimeZone {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory=$true)]
-        [System.String]
-        $TimeZone
-    )
-
-    try{
-        & tzutil.exe /s $TimeZone    
-    }catch{
-        $ErrorMsg = $_.Exception.Message
-        Write-Verbose $ErrorMsg
     }
 }
 

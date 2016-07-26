@@ -13,7 +13,8 @@ function Get-TargetResource
         [parameter(Mandatory = $false)] [System.String]  $FailoverDatabaseServer,
         [parameter(Mandatory = $false)] [System.Boolean] $PartitionMode,
         [parameter(Mandatory = $false)] [System.Boolean] $Sharing,
-        [parameter(Mandatory = $false)] [ValidateSet("Windows", "SQL")] [System.String]  $DatabaseAuthenticationType,
+        [parameter(Mandatory = $false)] [ValidateSet("Windows", "SQL")]   [System.String] $DatabaseAuthenticationType,
+        [parameter(Mandatory = $false)] [ValidateSet("Present","Absent")] [System.String] $Ensure = "Present",
         [parameter(Mandatory = $false)] [System.Management.Automation.PSCredential] $DatabaseCredentials,
         [parameter(Mandatory = $false)] [System.Management.Automation.PSCredential] $InstallAccount
     )
@@ -22,24 +23,31 @@ function Get-TargetResource
 
     $result = Invoke-xSharePointCommand -Credential $InstallAccount -Arguments $PSBoundParameters -ScriptBlock {
         $params = $args[0]
+        
+        $nullReturn = @{
+            Name = $params.Name
+            ApplicationPool = $params.ApplicationPool
+            AuditingEnabled = $false
+            Ensure = "Absent"
+        }
 
         $serviceApps = Get-SPServiceApplication -Name $params.Name -ErrorAction SilentlyContinue 
         if ($null -eq $serviceApps) { 
-            return $null 
+            return $nullReturn 
         }
         $serviceApp = $serviceApps | Where-Object { $_.TypeName -eq "Secure Store Service Application" }
 
         If ($null -eq $serviceApp) { 
-            return $null 
+            return $nullReturn 
         } else {
-            $returnVal =  @{
+            return  @{
                 Name = $serviceApp.DisplayName
                 ApplicationPool = $serviceApp.ApplicationPool.Name
                 DatabaseName = $serviceApp.Database.Name
                 DatabaseServer = $serviceApp.Database.Server.Name
                 InstallAccount = $params.InstallAccount
+                Ensure = "Present"
             }
-            return $returnVal
         }
     }
     return $result
@@ -60,7 +68,8 @@ function Set-TargetResource
         [parameter(Mandatory = $false)] [System.String]  $FailoverDatabaseServer,
         [parameter(Mandatory = $false)] [System.Boolean] $PartitionMode,
         [parameter(Mandatory = $false)] [System.Boolean] $Sharing,
-        [parameter(Mandatory = $false)] [ValidateSet("Windows", "SQL")] [System.String]  $DatabaseAuthenticationType,
+        [parameter(Mandatory = $false)] [ValidateSet("Windows", "SQL")]   [System.String] $DatabaseAuthenticationType,
+        [parameter(Mandatory = $false)] [ValidateSet("Present","Absent")] [System.String] $Ensure = "Present",
         [parameter(Mandatory = $false)] [System.Management.Automation.PSCredential] $DatabaseCredentials,
         [parameter(Mandatory = $false)] [System.Management.Automation.PSCredential] $InstallAccount
     )
@@ -76,38 +85,27 @@ function Set-TargetResource
         return;
     }
 
-    switch((Get-xSharePointInstalledProductVersion).FileMajorPart) {
-        16 {
-            $hasOptionalParams = $false
-            @("AuditlogMaxSize","DatabaseName","DatabaseServer","FailoverDatabaseServer",`
-                "PartitionMode","Sharing","DatabaseCredentials") | ForEach-Object {
-                if ($PSBoundParameters.ContainsKey($_) -eq $true) { $hasOptionalParams = $true }
-            }
-            if ($hasOptionalParams -eq $false) {
-                # Add the MinDB param to ensure that the cmdlet call gets differentiated without the optional params being set
-                $params.Add("EnableMinDB", $false)
-            }
-        }
-    }
-
-    if ($null -eq $result) { 
+    if ($result.Ensure -eq "Absent" -and $Ensure -eq "Present") { 
         Write-Verbose -Message "Creating Secure Store Service Application $Name"
         Invoke-xSharePointCommand -Credential $InstallAccount -Arguments $params -ScriptBlock {
             $params = $args[0]
             
+            if ($params.ContainsKey("Ensure")) { $params.Remove("Ensure") | Out-Null }
             if ($params.ContainsKey("InstallAccount")) { $params.Remove("InstallAccount") | Out-Null }
 
             if($params.ContainsKey("DatabaseAuthenticationType")) {
                 if ($params.DatabaseAuthenticationType -eq "SQL") {
                     $params.Add("DatabaseUsername", $params.DatabaseCredentials.Username)
-                    $params.Add("DatabasePassword", (ConvertTo-SecureString $params.DatabaseCredentials.GetNetworkCredential().Password -AsPlainText -Force))
+                    $params.Add("DatabasePassword", $params.DatabaseCredentials.Password)
                 }
                 $params.Remove("DatabaseAuthenticationType")
             }
 
             New-SPSecureStoreServiceApplication @params | New-SPSecureStoreServiceApplicationProxy -Name "$($params.Name) Proxy"
         }
-    } else {
+    } 
+    
+    if ($result.Ensure -eq "Present" -and $Ensure -eq "Present") {
         if ([string]::IsNullOrEmpty($ApplicationPool) -eq $false -and $ApplicationPool -ne $result.ApplicationPool) {
             Write-Verbose -Message "Updating Secure Store Service Application $Name"
             Invoke-xSharePointCommand -Credential $InstallAccount -Arguments $PSBoundParameters -ScriptBlock {
@@ -115,20 +113,21 @@ function Set-TargetResource
 
                 $serviceApp = Get-SPServiceApplication -Name $params.Name | Where-Object { $_.TypeName -eq "Secure Store Service Application" }
                 $appPool = Get-SPServiceApplicationPool -Identity $params.ApplicationPool 
-                switch((Get-xSharePointInstalledProductVersion).FileMajorPart) {
-                    15 {
-                        Set-SPSecureStoreServiceApplication -Identity $serviceApp -ApplicationPool $appPool
-                    }
-                    16 {
-                        Set-SPSecureStoreServiceApplication -Identity $serviceApp -ApplicationPool $appPool -EnableMinDB:$false
-                    }
-                    Default {
-                        throw [Exception] "An unknown version of SharePoint (Major version $_) was detected. Only versions 15 (SharePoint 2013) or 16 (SharePoint 2016) are supported."
-                    }
-                }
+                Set-SPSecureStoreServiceApplication -Identity $serviceApp -ApplicationPool $appPool
             }
         }
     }
+    
+    if ($Ensure -eq "Absent") {
+        # The service app should not exit
+        Write-Verbose -Message "Removing Secure Store Service Application $Name"
+        Invoke-xSharePointCommand -Credential $InstallAccount -Arguments $PSBoundParameters -ScriptBlock {
+            $params = $args[0]
+            
+            $serviceApp =  Get-SPServiceApplication -Name $params.Name | Where-Object { $_.TypeName -eq "Secure Store Service Application"  }
+            Remove-SPServiceApplication $serviceApp -Confirm:$false
+        }
+    }    
 }
 
 
@@ -147,15 +146,16 @@ function Test-TargetResource
         [parameter(Mandatory = $false)] [System.String]  $FailoverDatabaseServer,
         [parameter(Mandatory = $false)] [System.Boolean] $PartitionMode,
         [parameter(Mandatory = $false)] [System.Boolean] $Sharing,
-        [parameter(Mandatory = $false)] [ValidateSet("Windows", "SQL")] [System.String]  $DatabaseAuthenticationType,
+        [parameter(Mandatory = $false)] [ValidateSet("Windows", "SQL")]   [System.String] $DatabaseAuthenticationType,
+        [parameter(Mandatory = $false)] [ValidateSet("Present","Absent")] [System.String] $Ensure = "Present",
         [parameter(Mandatory = $false)] [System.Management.Automation.PSCredential] $DatabaseCredentials,
         [parameter(Mandatory = $false)] [System.Management.Automation.PSCredential] $InstallAccount
     )
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
     Write-Verbose -Message "Testing secure store service application $Name"
-    if ($null -eq $CurrentValues) { return $false }
-    return Test-xSharePointSpecificParameters -CurrentValues $CurrentValues -DesiredValues $PSBoundParameters -ValuesToCheck @("ApplicationPool")
+    $PSBoundParameters.Ensure = $Ensure
+    return Test-xSharePointSpecificParameters -CurrentValues $CurrentValues -DesiredValues $PSBoundParameters -ValuesToCheck @("ApplicationPool", "Ensure")
 }
 
 

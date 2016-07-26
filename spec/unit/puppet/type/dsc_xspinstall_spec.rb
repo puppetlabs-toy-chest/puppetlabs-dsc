@@ -15,6 +15,8 @@ describe Puppet::Type.type(:dsc_xspinstall) do
       :name     => 'foo',
       :dsc_binarydir => 'foo',
       :dsc_productkey => 'foo',
+      :dsc_installpath => 'foo',
+      :dsc_datapath => 'foo',
       :dsc_ensure => 'Present',
     )}.to_not raise_error
   end
@@ -64,6 +66,38 @@ describe Puppet::Type.type(:dsc_xspinstall) do
 
   it 'should not accept uint for dsc_productkey' do
     expect{dsc_xspinstall[:dsc_productkey] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_installpath' do
+    expect{dsc_xspinstall[:dsc_installpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_installpath' do
+    expect{dsc_xspinstall[:dsc_installpath] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_installpath' do
+    expect{dsc_xspinstall[:dsc_installpath] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_installpath' do
+    expect{dsc_xspinstall[:dsc_installpath] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_datapath' do
+    expect{dsc_xspinstall[:dsc_datapath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_datapath' do
+    expect{dsc_xspinstall[:dsc_datapath] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_datapath' do
+    expect{dsc_xspinstall[:dsc_datapath] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_datapath' do
+    expect{dsc_xspinstall[:dsc_datapath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do

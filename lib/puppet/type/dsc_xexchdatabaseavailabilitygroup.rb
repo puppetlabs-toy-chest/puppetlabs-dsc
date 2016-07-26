@@ -285,6 +285,24 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroup) do
     end
   end
 
+  # Name:         FileSystem
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["NTFS", "ReFS"]
+  newparam(:dsc_filesystem) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "FileSystem - Valid values are NTFS, ReFS."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['NTFS', 'ntfs', 'ReFS', 'refs'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are NTFS, ReFS")
+      end
+    end
+  end
+
   # Name:         ManualDagNetworkConfiguration
   # Type:         boolean
   # IsMandatory:  False

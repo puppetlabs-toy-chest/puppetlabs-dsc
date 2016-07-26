@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xspworkmanagementserviceapp) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Present to ensure the app exists, absent to ensure it is removed Valid values are Present, Absent."
+    desc "Ensure - Present to ensure the app exists, Absent to ensure it is removed Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

@@ -102,6 +102,21 @@ describe Puppet::Type.type(:dsc_xspfarmsolution) do
     expect(dsc_xspfarmsolution[:ensure]).to eq(dsc_xspfarmsolution[:dsc_ensure].downcase.to_sym)
   end
 
+  it 'should accept dsc_ensure predefined value Absent' do
+    dsc_xspfarmsolution[:dsc_ensure] = 'Absent'
+    expect(dsc_xspfarmsolution[:dsc_ensure]).to eq('Absent')
+  end
+
+  it 'should accept dsc_ensure predefined value absent' do
+    dsc_xspfarmsolution[:dsc_ensure] = 'absent'
+    expect(dsc_xspfarmsolution[:dsc_ensure]).to eq('absent')
+  end
+
+  it 'should accept dsc_ensure predefined value absent and update ensure with this value (ensure end value should be a symbol)' do
+    dsc_xspfarmsolution[:dsc_ensure] = 'absent'
+    expect(dsc_xspfarmsolution[:ensure]).to eq(dsc_xspfarmsolution[:dsc_ensure].downcase.to_sym)
+  end
+
   it 'should not accept values not equal to predefined values' do
     expect{dsc_xspfarmsolution[:dsc_ensure] = 'invalid value'}.to raise_error(Puppet::ResourceError)
   end
@@ -259,6 +274,27 @@ describe Puppet::Type.type(:dsc_xspfarmsolution) do
 
     end
 
+    describe "when dsc_ensure is 'absent'" do
+
+      before(:each) do
+        dsc_xspfarmsolution.original_parameters[:dsc_ensure] = 'absent'
+        dsc_xspfarmsolution[:dsc_ensure] = 'absent'
+        @provider = described_class.provider(:powershell).new(dsc_xspfarmsolution)
+      end
+
+      it "should update :ensure to :absent" do
+        expect(dsc_xspfarmsolution[:ensure]).to eq(:absent)
+      end
+
+      it "should compute powershell dsc test script in which ensure value is 'present'" do
+        expect(@provider.ps_script_content('test')).to match(/ensure = 'present'/)
+      end
+
+      it "should compute powershell dsc set script in which ensure value is 'absent'" do
+        expect(@provider.ps_script_content('set')).to match(/ensure = 'absent'/)
+      end
+
+    end
 
     describe "when dsc_resource has credentials" do
 

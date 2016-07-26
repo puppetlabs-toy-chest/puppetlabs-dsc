@@ -6,14 +6,14 @@ describe Puppet::Type.type(:dsc_xsqlalias) do
   let :dsc_xsqlalias do
     Puppet::Type.type(:dsc_xsqlalias).new(
       :name     => 'foo',
-      :dsc_sqlservername => 'foo',
+      :dsc_name => 'foo',
     )
   end
 
   it 'should allow all properties to be specified' do
     expect { Puppet::Type.type(:dsc_xsqlalias).new(
       :name     => 'foo',
-      :dsc_sqlservername => 'foo',
+      :dsc_name => 'foo',
       :dsc_protocol => 'TCP',
       :dsc_servername => 'foo',
       :dsc_tcpport => -32,
@@ -30,27 +30,27 @@ describe Puppet::Type.type(:dsc_xsqlalias) do
     expect(dsc_xsqlalias[:ensure]).to eq :present
   end
 
-  it 'should require that dsc_sqlservername is specified' do
-    #dsc_xsqlalias[:dsc_sqlservername]
+  it 'should require that dsc_name is specified' do
+    #dsc_xsqlalias[:dsc_name]
     expect { Puppet::Type.type(:dsc_xsqlalias).new(
       :name     => 'foo',
-    )}.to raise_error(Puppet::Error, /dsc_sqlservername is a required attribute/)
+    )}.to raise_error(Puppet::Error, /dsc_name is a required attribute/)
   end
 
-  it 'should not accept array for dsc_sqlservername' do
-    expect{dsc_xsqlalias[:dsc_sqlservername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  it 'should not accept array for dsc_name' do
+    expect{dsc_xsqlalias[:dsc_name] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept boolean for dsc_sqlservername' do
-    expect{dsc_xsqlalias[:dsc_sqlservername] = true}.to raise_error(Puppet::ResourceError)
+  it 'should not accept boolean for dsc_name' do
+    expect{dsc_xsqlalias[:dsc_name] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept int for dsc_sqlservername' do
-    expect{dsc_xsqlalias[:dsc_sqlservername] = -16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept int for dsc_name' do
+    expect{dsc_xsqlalias[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlservername' do
-    expect{dsc_xsqlalias[:dsc_sqlservername] = 16}.to raise_error(Puppet::ResourceError)
+  it 'should not accept uint for dsc_name' do
+    expect{dsc_xsqlalias[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_protocol predefined value TCP' do
