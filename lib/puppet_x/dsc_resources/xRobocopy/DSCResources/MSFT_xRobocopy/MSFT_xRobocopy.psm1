@@ -13,19 +13,60 @@ function Get-TargetResource
         $Destination,
 
         [System.String]
-        $LogOutput
+        $Files,
+
+        [System.UInt32]
+        $Retry,
+
+        [System.UInt32]
+        $Wait,
+
+        [System.Boolean]
+        $SubdirectoriesIncludingEmpty = $False,
+
+        [System.Boolean]
+        $Restartable = $False,
+
+        [System.Boolean]
+        $MultiThreaded = $False,
+
+        [System.String]
+        $ExcludeFiles,
+
+        [System.String]
+        $LogOutput,
+
+        [System.Boolean]
+        $AppendLog = $False,
+
+        [System.String[]]
+        $AdditionalArgs
     )
 
-
-    $returnValue = @{
-        Source = if (Test-Path $Source){$Source};
-        Destination = if (Test-Path $Destination){$Destination};
-        LogOutput = if ($LogOutput){
-                        if(Test-Path $LogOutput){$LogOutput}
-                        }
+    $result = Test-TargetResource $Source $Destination $Files $Retry $Wait $SubdirectoriesIncludingEmpty $Restartable $MultiThreaded $ExcludeFiles $LogOutput $AppendLog $AdditionalArgs
+    $ensure = 'Absent'
+    if($result -eq $true)
+    {
+        $ensure = 'Present'
     }
 
-    $returnValue
+    $returnValue = @{
+        Source = $Source
+        Destination = $Destination
+        Files = $Files
+        Retry = $Retry
+        Wait = $Wait
+        SubdirectoriesIncludingEmpty = $SubdirectoriesIncludingEmpty
+        Restartable = $Restartable
+        MultiThreaded = $MultiThreaded
+        ExcludeFiles = $ExcludeFiles
+        LogOutput = $LogOutput
+        AppendLog = $AppendLog
+        AdditionalArgs = $AdditionalArgs
+        Ensure = $ensure
+    }
+
+    return $returnValue
 }
 
 function Set-TargetResource
@@ -68,39 +109,105 @@ function Set-TargetResource
         [System.Boolean]
         $AppendLog = $False,
 
-        [System.String]
+        [System.String[]]
         $AdditionalArgs
     )
 
-    [string]$Arguments = ''
-    if ($Retry -ne '') {$Arguments += " /R:$Retry"}
-    if ($Wait -ne '') {$Arguments += " /W:$Wait"}
-    if ($SubdirectoriesIncludingEmpty) {$Arguments += ' /E'}
-    if ($Restartable) {$Arguments += ' /Z'}
-    if ($MultiThreaded) {$Arguments += ' /MT'}
-    if ($ExcludeFiles -ne '') {$Arguments += " /XF $ExcludeFiles"}
-    if ($ExcludeDirs -ne '') {$Arguments += " /XD $ExcludeDirs"}
-    if ($LogOutput -ne '' -AND $AppendLog) {
-        $Arguments += " /LOG+:$LogOutput"
-        }
-    if ($LogOutput -ne '' -AND -not $AppendLog) {
-        $Arguments += " /LOG:$LogOutput"
-     }
-    if ($AdditionalArgs -ne $null) {$Arguments += " $AdditionalArgs"}
+    $arguments = Get-RobocopyArguments $Source $Destination $Files $Retry $Wait $SubdirectoriesIncludingEmpty $Restartable $MultiThreaded $ExcludeFiles $LogOutput $AppendLog $AdditionalArgs
 
-    try {
-        Write-Verbose "Executing: Robocopy.exe `"$($Source)`" `"$($Destination)`" $($Arguments)"
-        Invoke-Robocopy $Source $Destination $Arguments
-        }
-    catch {
-        Write-Warning "An error occured executing Robocopy.exe.  ERROR: $_"
-        }
+    Write-Verbose "Executing robocopy.exe with: $arguments"
+    &robocopy $arguments | Out-Null
+    if($LASTEXITCODE -ge 8)
+    {
+        throw "robocopy returned with errors! Exit code: $LASTEXITCODE! More info here:https://support.microsoft.com/en-us/kb/954404"
+    }
 }
 
 function Test-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
+    param
+    (
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Source,
+
+        [parameter(Mandatory = $true)]
+        [System.String]
+        $Destination,
+
+        [System.String]
+        $Files,
+
+        [System.UInt32]
+        $Retry,
+
+        [System.UInt32]
+        $Wait,
+
+        [System.Boolean]
+        $SubdirectoriesIncludingEmpty = $False,
+
+        [System.Boolean]
+        $Restartable = $False,
+
+        [System.Boolean]
+        $MultiThreaded = $False,
+
+        [System.String]
+        $ExcludeFiles,
+
+        [System.String]
+        $LogOutput,
+
+        [System.Boolean]
+        $AppendLog = $False,
+
+        [System.String[]]
+        $AdditionalArgs
+    )
+
+    $arguments = Get-RobocopyArguments $Source $Destination $Files $Retry $Wait $SubdirectoriesIncludingEmpty $Restartable $MultiThreaded $ExcludeFiles $LogOutput $AppendLog $AdditionalArgs
+
+    if(!$arguments.Contains('/L') -and !$arguments.Contains('/l'))
+    {
+        $arguments += '/L'
+    }
+    
+    &robocopy $arguments | Out-Null
+
+    # https://support.microsoft.com/en-us/kb/954404
+    # ROBOCOPY $LASTEXITCODE is a bitflag:
+    #  0: Source and destination are completely synchronized
+    #  1: One or more files were copied successfully (new files present)
+    #  2: extra files/directories detected
+    #  4: mismatched files/directories
+    #  8: copy errors and retries exceeded
+    # 16: serious error
+    if ($LASTEXITCODE -ge 1 -and $LASTEXITCODE -lt 8) 
+    {
+        Write-Verbose "Source and destination are out of sync"
+        $result = $false
+    }
+    elseif ($LASTEXITCODE -eq 0)
+    {
+        Write-Verbose "Source and destination are completely synchronized"
+        $result = $true
+    }
+    else
+    {
+        throw "robocopy returned with errors! Exit code: $result! More info here:https://support.microsoft.com/en-us/kb/954404"
+    }
+    
+    return $result
+}
+
+# Helper Functions
+function Get-RobocopyArguments
+{
+    [CmdletBinding()]
+    [OutputType([System.String[]])]
     param
     (
         [parameter(Mandatory = $true)]
@@ -138,67 +245,57 @@ function Test-TargetResource
         [System.Boolean]
         $AppendLog,
 
-        [System.String]
+        [System.String[]]
         $AdditionalArgs
     )
 
-    try {
-        $result = Invoke-RobocopyTest $Source $Destination
-        }
-    catch {
-        Write-Warning "An error occured while getting the file list from Robocopy.exe.  ERROR: $_"
-        }
-    
-    # https://support.microsoft.com/en-us/kb/954404
-    # ROBOCOPY $LASTEXITCODE is a bitflag:
-    #  0: Source and destination are completely synchronized
-    #  1: One or more files were copied successfully (new files present)
-    #  2: extra files/directories detected
-    #  4: mismatched files/directories
-    #  8: copy errors and retries exceeded
-    # 16: serious error
-    if ($result -ge 0 -and $result -lt 8) {[system.boolean]$result = $true}
-    else {[system.boolean]$result = $false}
-    
-    $result
+    [System.String[]]$arguments = @($Source, $Destination)
+    if($Files)
+    {
+        $arguments += $Files
+    }
+    if ($Retry) 
+    {
+        $arguments += "/R:$Retry"
+    }
+    if ($Wait) 
+    {
+        $arguments += "/W:$Wait"
+    }
+    if ($SubdirectoriesIncludingEmpty) 
+    {
+        $arguments += '/E'
+    }
+    if ($Restartable) 
+    {
+        $arguments += '/Z'
+    }
+    if ($MultiThreaded) 
+    {
+        $arguments += '/MT'
+    }
+    if ($ExcludeFiles) 
+    {
+        $arguments += @('/XF', $ExcludeFiles)
+    }
+    if ($ExcludeDirs) 
+    {
+        $arguments += @('/XD', $ExcludeDirs)
+    }
+    if ($LogOutput -AND $AppendLog) 
+    {
+        $arguments += "/LOG+:$LogOutput"
+    }
+    if ($LogOutput -AND !$AppendLog) 
+    {
+        $arguments += "/LOG:$LogOutput"
+    }
+    if ($AdditionalArgs) 
+    {
+        $arguments += $AdditionalArgs
+    }
+
+    return $arguments
 }
-
-# Helper Functions
-
-function Invoke-RobocopyTest {
-param (
-    [parameter(Mandatory = $true)]
-    [System.String]
-    $source,
-
-    [parameter(Mandatory = $true)]
-    [System.String]
-    $destination
-)
-    $output = & robocopy.exe /L $source $destination
-    $LASTEXITCODE
-}
- # Invoke-RobocopyTest C:\DSCTestMOF C:\DSCTestMOF2
-
-function Invoke-Robocopy {
-param (
-    [parameter(Mandatory = $true)]
-    [System.String]
-    $source,
-
-    [parameter(Mandatory = $true)]
-    [System.String]
-    $destination,
-
-    [System.String]
-    $Arguments
-)
-
-    # This is a safe use of invoke-expression.  Input is only passed as parameters to Robocopy.exe, it cannot be executed directly
-    $output = Invoke-Expression "Robocopy.exe `"$Source`" `"$Destination`" $Arguments"
-
-    $LASTEXITCODE
-}
- # Invoke-Robocopy -source C:\DSCTestMOF -destination C:\DSCTestMOF2 -Arguments '/E /MT'
 
 Export-ModuleMember -Function *-TargetResource

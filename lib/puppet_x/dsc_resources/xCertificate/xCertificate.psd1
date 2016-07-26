@@ -12,7 +12,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.1.0.0'
+ModuleVersion = '2.1.0.0'
 
 # ID used to uniquely identify this module
 GUID = '1b8d785e-79ae-4d95-ae58-b2460aec1031'
@@ -104,7 +104,8 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '* Fixed xCertReq to support CA Root Name with spaces
+'
 
     } # End of PSData hashtable
 

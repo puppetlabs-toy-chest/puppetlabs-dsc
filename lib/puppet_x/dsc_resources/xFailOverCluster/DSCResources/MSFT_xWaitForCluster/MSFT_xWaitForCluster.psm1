@@ -9,6 +9,7 @@
 #
 function Get-TargetResource
 {
+    [OutputType([Hashtable])]
     param
     (    
         [parameter(Mandatory)][string] $Name,
@@ -82,6 +83,7 @@ function Set-TargetResource
 #
 function Test-TargetResource
 {
+    [OutputType([Boolean])]
     param
     (    
         [parameter(Mandatory)][string] $Name,

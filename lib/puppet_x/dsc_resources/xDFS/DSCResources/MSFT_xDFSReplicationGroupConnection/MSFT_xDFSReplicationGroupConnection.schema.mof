@@ -1,0 +1,12 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xDFSReplicationGroupConnection")]
+class MSFT_xDFSReplicationGroupConnection : OMI_BaseResource
+{
+    [Key, Description("The name of the DFS Replication Group.")] String GroupName;
+    [Key, Description("The DFS Replication Group connection source computer name.")] String SourceComputerName;
+    [Key, Description("The DFS Replication Group connection destination computer name.")] String DestinationComputerName;
+    [Required, Description("Specifies whether the DSF Replication Group connection should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("A description for the DFS Replication Group connection.")] String Description;
+    [Write, Description("Ensures that connection is either Enabled or Disabled."),ValueMap{"Enabled","Disabled"}, Values{"Enabled","Disabled"}] String EnsureEnabled;
+    [Write, Description("Ensures remote differential compression is Enabled or Disabled."),ValueMap{"Enabled","Disabled"}, Values{"Enabled","Disabled"}] String EnsureRDCEnabled;
+    [Write, Description("The name of the AD Domain the DFS Replication Group connection should be in.")] String DomainName;
+};

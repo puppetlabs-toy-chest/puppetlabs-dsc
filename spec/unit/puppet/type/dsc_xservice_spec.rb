@@ -24,6 +24,7 @@ describe Puppet::Type.type(:dsc_xservice) do
       :dsc_path => 'foo',
       :dsc_dependencies => ["foo", "bar", "spec"],
       :dsc_startuptimeout => 32,
+      :dsc_terminatetimeout => 32,
       :dsc_ensure => 'Present',
     )}.to_not raise_error
   end
@@ -332,6 +333,40 @@ describe Puppet::Type.type(:dsc_xservice) do
   it 'should accept string-like uint for dsc_startuptimeout' do
     dsc_xservice[:dsc_startuptimeout] = '64'
     expect(dsc_xservice[:dsc_startuptimeout]).to eq(64)
+  end
+
+  it 'should not accept array for dsc_terminatetimeout' do
+    expect{dsc_xservice[:dsc_terminatetimeout] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_terminatetimeout' do
+    expect{dsc_xservice[:dsc_terminatetimeout] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept uint for dsc_terminatetimeout' do
+    dsc_xservice[:dsc_terminatetimeout] = 32
+    expect(dsc_xservice[:dsc_terminatetimeout]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_terminatetimeout' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xservice[:dsc_terminatetimeout] = value}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept string-like uint for dsc_terminatetimeout' do
+    dsc_xservice[:dsc_terminatetimeout] = '16'
+    expect(dsc_xservice[:dsc_terminatetimeout]).to eq(16)
+  end
+
+  it 'should accept string-like uint for dsc_terminatetimeout' do
+    dsc_xservice[:dsc_terminatetimeout] = '32'
+    expect(dsc_xservice[:dsc_terminatetimeout]).to eq(32)
+  end
+
+  it 'should accept string-like uint for dsc_terminatetimeout' do
+    dsc_xservice[:dsc_terminatetimeout] = '64'
+    expect(dsc_xservice[:dsc_terminatetimeout]).to eq(64)
   end
 
   it 'should accept dsc_ensure predefined value Present' do

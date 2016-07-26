@@ -118,10 +118,17 @@ function Test-TargetResource
     
     $CurrentDisk = Get-TargetResource -Number $Number
     
-    return (
-        (($Ensure -eq $CurrentNetwork.Ensure) -or (-not $PSBoundParameters.ContainsKey('Ensure'))) -and
-        (($Ensure -eq $CurrentNetwork.Label) -or (-not $PSBoundParameters.ContainsKey('Label')))
-    )
+    if($Ensure -eq 'Present')
+    {
+        return (
+            ($Ensure -eq $CurrentDisk.Ensure) -and
+            (($Label -eq $CurrentDisk.Label) -or (-not $PSBoundParameters.ContainsKey('Label')))
+        )
+    }
+    else
+    {
+        return $Ensure -eq $CurrentDisk.Ensure
+    }
 }
 
 Export-ModuleMember -Function *-TargetResource

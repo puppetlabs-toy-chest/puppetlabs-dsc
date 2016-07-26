@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '1.5.0.0'
+ModuleVersion = '1.7.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'B5004952-489E-43EA-999C-F16A25355B89'
@@ -49,7 +49,9 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '* Added support for enabling or disabling scheduled tasks
+* The Name parameter resolves to $env:COMPUTERNAME when the value is localhost
+'
 
     } # End of PSData hashtable
 

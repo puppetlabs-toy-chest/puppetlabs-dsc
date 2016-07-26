@@ -1,5 +1,6 @@
 function Get-TargetResource
 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCUseVerboseMessageInDSCResource", "")]
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param
@@ -10,6 +11,7 @@ function Get-TargetResource
 
         [parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
         $Credential,
 
         [parameter(Mandatory = $true)]
@@ -52,6 +54,10 @@ function Get-TargetResource
 
         [System.String]
         $DomainController,
+
+        [ValidateSet("NTFS","ReFS")]
+        [System.String]
+        $FileSystem,
 
         [System.Boolean]
         $ManualDagNetworkConfiguration,
@@ -90,7 +96,7 @@ function Get-TargetResource
 
     $dag = GetDatabaseAvailabilityGroup @PSBoundParameters
 
-    if ($dag -ne $null)
+    if ($null -ne $dag)
     {
         $returnValue = @{
             Name = $Name
@@ -114,6 +120,13 @@ function Get-TargetResource
             WitnessDirectory = $dag.WitnessDirectory
             WitnessServer = $dag.WitnessServer
         }
+
+        $serverVersion = GetExchangeVersion
+
+        if ($serverVersion -eq "2016")
+        {
+            $returnValue.Add("FileSystem", $dag.FileSystem)
+        }
     }
 
     $returnValue
@@ -121,6 +134,7 @@ function Get-TargetResource
 
 function Set-TargetResource
 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCUseVerboseMessageInDSCResource", "")]
     [CmdletBinding()]
     param
     (
@@ -130,6 +144,7 @@ function Set-TargetResource
 
         [parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
         $Credential,
 
         [parameter(Mandatory = $true)]
@@ -172,6 +187,10 @@ function Set-TargetResource
 
         [System.String]
         $DomainController,
+
+        [ValidateSet("NTFS","ReFS")]
+        [System.String]
+        $FileSystem,
 
         [System.Boolean]
         $ManualDagNetworkConfiguration,
@@ -208,12 +227,15 @@ function Set-TargetResource
     #Establish remote Powershell session
     GetRemoteExchangeSession -Credential $Credential -CommandsToLoad "Get-DatabaseAvailabilityGroup","Set-DatabaseAvailabilityGroup","New-DatabaseAvailabilityGroup" -VerbosePreference $VerbosePreference
   
+    #Check for non-existent parameters in Exchange 2013
+    RemoveVersionSpecificParameters -PSBoundParametersIn $PSBoundParameters -ParamName "FileSystem" -ResourceName "xExchDatabaseAvailabilityGroup" -ParamExistsInVersion "2016"
+
     SetEmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
 
     $dag = GetDatabaseAvailabilityGroup @PSBoundParameters
 
     #We need to create the DAG
-    if ($dag -eq $null)
+    if ($null -eq $dag)
     {
         #Create a copy of the original parameters
         $originalPSBoundParameters = @{} + $PSBoundParameters
@@ -224,7 +246,7 @@ function Set-TargetResource
         #Create the DAG
         $dag = New-DatabaseAvailabilityGroup @PSBoundParameters
 
-        if ($dag -ne $null)
+        if ($null -ne $dag)
         {
             #Add original props back
             AddParameters -PSBoundParametersIn $PSBoundParameters -ParamsToAdd $originalPSBoundParameters
@@ -236,7 +258,7 @@ function Set-TargetResource
     }
 
     #Modify existing DAG
-    if ($dag -ne $null)
+    if ($null -ne $dag)
     {
         #convert Name to Identity, and Remove Credential
         AddParameters -PSBoundParametersIn $PSBoundParameters -ParamsToAdd @{"Identity" = $PSBoundParameters["Name"]}
@@ -258,6 +280,7 @@ function Set-TargetResource
 
 function Test-TargetResource
 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCUseVerboseMessageInDSCResource", "")]
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param
@@ -268,6 +291,7 @@ function Test-TargetResource
 
         [parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
         $Credential,
 
         [parameter(Mandatory = $true)]
@@ -311,6 +335,10 @@ function Test-TargetResource
         [System.String]
         $DomainController,
 
+        [ValidateSet("NTFS","ReFS")]
+        [System.String]
+        $FileSystem,
+
         [System.Boolean]
         $ManualDagNetworkConfiguration,
 
@@ -346,9 +374,12 @@ function Test-TargetResource
     #Establish remote Powershell session
     GetRemoteExchangeSession -Credential $Credential -CommandsToLoad "Get-DatabaseAvailabilityGroup" -VerbosePreference $VerbosePreference
 
+    #Check for non-existent parameters in Exchange 2013
+    RemoveVersionSpecificParameters -PSBoundParametersIn $PSBoundParameters -ParamName "FileSystem" -ResourceName "xExchDatabaseAvailabilityGroup" -ParamExistsInVersion "2016"
+
     $dag = GetDatabaseAvailabilityGroup @PSBoundParameters
 
-    if ($dag -eq $null)
+    if ($null -eq $dag)
     {
         return $false
     }
@@ -405,6 +436,11 @@ function Test-TargetResource
         }
 
         if (!(VerifySetting -Name "DatabaseAvailabilityGroupIpAddresses" -Type "Array" -ExpectedValue $DatabaseAvailabilityGroupIpAddresses -ActualValue $dag.DatabaseAvailabilityGroupIpAddresses -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        {
+            return $false
+        }
+
+        if (!(VerifySetting -Name "FileSystem" -Type "String" -ExpectedValue $FileSystem -ActualValue $dag.FileSystem -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
         {
             return $false
         }
@@ -473,6 +509,7 @@ function GetDatabaseAvailabilityGroup
 
         [parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
         $Credential,
 
         [parameter(Mandatory = $true)]
@@ -515,6 +552,10 @@ function GetDatabaseAvailabilityGroup
 
         [System.String]
         $DomainController,
+
+        [ValidateSet("NTFS","ReFS")]
+        [System.String]
+        $FileSystem,
 
         [System.Boolean]
         $ManualDagNetworkConfiguration,

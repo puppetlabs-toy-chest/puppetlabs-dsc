@@ -1,0 +1,13 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xDFSReplicationGroupMembership")]
+class MSFT_xDFSReplicationGroupMembership : OMI_BaseResource
+{
+    [Key, Description("The name of the DFS Replication Group.")] String GroupName;
+    [Key, Description("The name of the DFS Replication Group Folder.")] String FolderName;
+    [Key, Description("The computer name of the DFS Replication Group member.")] String ComputerName;
+    [Write, Description("The local content path for the DFS Replication Group Folder.")] String ContentPath;
+    [Write, Description("The local staging path for the DFS Replication Group Folder.")] String StagingPath;
+    [Read, Description("The local content and deleted path for the DFS Replication Group Folder.")] String ConflictAndDeletedPath;
+    [Write, Description("Specify if this content path should be read only.")] Boolean ReadOnly;
+    [Write, Description("Specify if this folder/member should be the primary member.")] Boolean PrimaryMember;
+    [Write, Description("The name of the AD Domain the DFS Replication Group this replication group is in.")] String DomainName;
+};

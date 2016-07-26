@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
   def dscmeta_resource_friendly_name; 'xSqlServerInstall' end
   def dscmeta_resource_name; 'MSFT_xSqlServerInstall' end
   def dscmeta_module_name; 'xSqlPs' end
-  def dscmeta_module_version; '1.2.0.0' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '3.9.0.0'
+ModuleVersion = '3.12.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'cc8dc021-fa5f-4f96-8ecf-dfd68a6d9d48'
@@ -52,11 +52,15 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '* Removed localization for now so that resources can run on non-English systems.
+
+'
 
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
 }
+
+
 
 

@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xdhcpclient) do
   def dscmeta_resource_friendly_name; 'xDHCPClient' end
   def dscmeta_resource_name; 'MSFT_xDHCPClient' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '2.8.0.0' end
+  def dscmeta_module_version; '2.10.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserverupdate) do
   def dscmeta_resource_friendly_name; 'xSCVMMManagementServerUpdate' end
   def dscmeta_resource_name; 'MSFT_xSCVMMManagementServerUpdate' end
   def dscmeta_module_name; 'xSCVMM' end
-  def dscmeta_module_version; '1.3.0.0' end
+  def dscmeta_module_version; '1.2.4.0' end
 
   newparam(:name, :namevar => true ) do
   end

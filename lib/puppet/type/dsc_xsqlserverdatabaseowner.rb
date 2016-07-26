@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaseowner) do
   def dscmeta_resource_friendly_name; 'xSQLServerDatabaseOwner' end
   def dscmeta_resource_name; 'MSFT_xSQLServerDatabaseOwner' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.7.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
