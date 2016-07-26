@@ -22,6 +22,9 @@ Gemfile:
       - gem: puppet-blacksmith
       - gem: mime-types
         version: '~>2.99'
+      - gem: json_pure
+        version: '<=2.0.1'
+        condition: 'RUBY_VERSION =~ /^1\./'
     ':system_tests':
       - gem: beaker
       - gem: master_manipulator
