@@ -17,6 +17,7 @@ describe Puppet::Type.type(:dsc_xwaitforaddomain) do
       :dsc_domainusercredential => {"user"=>"user", "password"=>"password"},
       :dsc_retryintervalsec => 64,
       :dsc_retrycount => 32,
+      :dsc_rebootretrycount => 32,
     )}.to_not raise_error
   end
 
@@ -133,6 +134,40 @@ describe Puppet::Type.type(:dsc_xwaitforaddomain) do
   it 'should accept string-like uint for dsc_retrycount' do
     dsc_xwaitforaddomain[:dsc_retrycount] = '64'
     expect(dsc_xwaitforaddomain[:dsc_retrycount]).to eq(64)
+  end
+
+  it 'should not accept array for dsc_rebootretrycount' do
+    expect{dsc_xwaitforaddomain[:dsc_rebootretrycount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_rebootretrycount' do
+    expect{dsc_xwaitforaddomain[:dsc_rebootretrycount] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept uint for dsc_rebootretrycount' do
+    dsc_xwaitforaddomain[:dsc_rebootretrycount] = 32
+    expect(dsc_xwaitforaddomain[:dsc_rebootretrycount]).to eq(32)
+  end
+
+  it 'should not accept signed (negative) value for dsc_rebootretrycount' do
+    value = -32
+    expect(value).to be < 0
+    expect{dsc_xwaitforaddomain[:dsc_rebootretrycount] = value}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept string-like uint for dsc_rebootretrycount' do
+    dsc_xwaitforaddomain[:dsc_rebootretrycount] = '16'
+    expect(dsc_xwaitforaddomain[:dsc_rebootretrycount]).to eq(16)
+  end
+
+  it 'should accept string-like uint for dsc_rebootretrycount' do
+    dsc_xwaitforaddomain[:dsc_rebootretrycount] = '32'
+    expect(dsc_xwaitforaddomain[:dsc_rebootretrycount]).to eq(32)
+  end
+
+  it 'should accept string-like uint for dsc_rebootretrycount' do
+    dsc_xwaitforaddomain[:dsc_rebootretrycount] = '64'
+    expect(dsc_xwaitforaddomain[:dsc_rebootretrycount]).to eq(64)
   end
 
   # Configuration PROVIDER TESTS

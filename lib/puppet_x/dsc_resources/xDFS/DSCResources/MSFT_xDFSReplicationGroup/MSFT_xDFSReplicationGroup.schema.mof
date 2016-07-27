@@ -1,0 +1,12 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xDFSReplicationGroup")]
+class MSFT_xDFSReplicationGroup : OMI_BaseResource
+{
+    [Key, Description("The name of the DFS Replication Group.")] String GroupName;
+    [Required, Description("Specifies whether the DSF Replication Group should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("A description for the DFS Replication Group.")] String Description;
+    [Write, Description("The Computer Names of the DFS Replication Group Members.")] String Members[];
+    [Write, Description("The Folder Names of the DFS Replication Group Folders.")] String Folders[];
+    [Write, Description("The DFS Replication Group connection topology to configure."), ValueMap{"Fullmesh","Manual"}, Values{"Fullmesh","Manual"}] String Topology;
+    [Write, Description("The Content Paths for each Folder in the DFS Replication Group Folders.")] String ContentPaths[];
+    [Write, Description("The name of the AD Domain the DFS Replication Group should be in.")] String DomainName;
+};

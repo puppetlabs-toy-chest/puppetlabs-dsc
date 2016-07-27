@@ -21,6 +21,17 @@ describe Puppet::Type.type(:dsc_xwebsite) do
       :dsc_bindinginfo => {"Protocol"=>"http", "BindingInformation"=>"foo", "IPAddress"=>"foo", "Port"=>16, "HostName"=>"foo", "CertificateThumbprint"=>"foo", "CertificateStoreName"=>"My", "SslFlags"=>"0"},
       :dsc_defaultpage => ["foo", "bar", "spec"],
       :dsc_enabledprotocols => 'foo',
+      :dsc_authenticationinfo => {"Anonymous"=>true, "Basic"=>true, "Digest"=>true, "Windows"=>true},
+      :dsc_preloadenabled => true,
+      :dsc_serviceautostartenabled => true,
+      :dsc_serviceautostartprovider => 'foo',
+      :dsc_applicationtype => 'foo',
+      :dsc_logpath => 'foo',
+      :dsc_logflags => 'Date',
+      :dsc_logperiod => 'Hourly',
+      :dsc_logtruncatesize => 'foo',
+      :dsc_loglocaltimerollover => true,
+      :dsc_logformat => 'IIS',
     )}.to_not raise_error
   end
 
@@ -230,6 +241,588 @@ describe Puppet::Type.type(:dsc_xwebsite) do
 
   it 'should not accept uint for dsc_enabledprotocols' do
     expect{dsc_xwebsite[:dsc_enabledprotocols] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_authenticationinfo' do
+    expect{dsc_xwebsite[:dsc_authenticationinfo] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_authenticationinfo' do
+    expect{dsc_xwebsite[:dsc_authenticationinfo] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_authenticationinfo' do
+    expect{dsc_xwebsite[:dsc_authenticationinfo] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_authenticationinfo' do
+    expect{dsc_xwebsite[:dsc_authenticationinfo] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_preloadenabled' do
+    expect{dsc_xwebsite[:dsc_preloadenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_preloadenabled' do
+    dsc_xwebsite[:dsc_preloadenabled] = true
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_preloadenabled" do
+    dsc_xwebsite[:dsc_preloadenabled] = 'true'
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_preloadenabled" do
+    dsc_xwebsite[:dsc_preloadenabled] = 'false'
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_preloadenabled" do
+    dsc_xwebsite[:dsc_preloadenabled] = 'True'
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_preloadenabled" do
+    dsc_xwebsite[:dsc_preloadenabled] = 'False'
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_preloadenabled" do
+    dsc_xwebsite[:dsc_preloadenabled] = :true
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_preloadenabled" do
+    dsc_xwebsite[:dsc_preloadenabled] = :false
+    expect(dsc_xwebsite[:dsc_preloadenabled]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_preloadenabled' do
+    expect{dsc_xwebsite[:dsc_preloadenabled] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_preloadenabled' do
+    expect{dsc_xwebsite[:dsc_preloadenabled] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_serviceautostartenabled' do
+    expect{dsc_xwebsite[:dsc_serviceautostartenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_serviceautostartenabled' do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = true
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_serviceautostartenabled" do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = 'true'
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_serviceautostartenabled" do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = 'false'
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_serviceautostartenabled" do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = 'True'
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_serviceautostartenabled" do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = 'False'
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_serviceautostartenabled" do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = :true
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_serviceautostartenabled" do
+    dsc_xwebsite[:dsc_serviceautostartenabled] = :false
+    expect(dsc_xwebsite[:dsc_serviceautostartenabled]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_serviceautostartenabled' do
+    expect{dsc_xwebsite[:dsc_serviceautostartenabled] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_serviceautostartenabled' do
+    expect{dsc_xwebsite[:dsc_serviceautostartenabled] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_serviceautostartprovider' do
+    expect{dsc_xwebsite[:dsc_serviceautostartprovider] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_serviceautostartprovider' do
+    expect{dsc_xwebsite[:dsc_serviceautostartprovider] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_serviceautostartprovider' do
+    expect{dsc_xwebsite[:dsc_serviceautostartprovider] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_serviceautostartprovider' do
+    expect{dsc_xwebsite[:dsc_serviceautostartprovider] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_applicationtype' do
+    expect{dsc_xwebsite[:dsc_applicationtype] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_applicationtype' do
+    expect{dsc_xwebsite[:dsc_applicationtype] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_applicationtype' do
+    expect{dsc_xwebsite[:dsc_applicationtype] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_applicationtype' do
+    expect{dsc_xwebsite[:dsc_applicationtype] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_logpath' do
+    expect{dsc_xwebsite[:dsc_logpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_logpath' do
+    expect{dsc_xwebsite[:dsc_logpath] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_logpath' do
+    expect{dsc_xwebsite[:dsc_logpath] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_logpath' do
+    expect{dsc_xwebsite[:dsc_logpath] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_logflags predefined value Date' do
+    dsc_xwebsite[:dsc_logflags] = 'Date'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['Date'])
+  end
+
+  it 'should accept dsc_logflags predefined value date' do
+    dsc_xwebsite[:dsc_logflags] = 'date'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['date'])
+  end
+
+  it 'should accept dsc_logflags predefined value Time' do
+    dsc_xwebsite[:dsc_logflags] = 'Time'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['Time'])
+  end
+
+  it 'should accept dsc_logflags predefined value time' do
+    dsc_xwebsite[:dsc_logflags] = 'time'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['time'])
+  end
+
+  it 'should accept dsc_logflags predefined value ClientIP' do
+    dsc_xwebsite[:dsc_logflags] = 'ClientIP'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['ClientIP'])
+  end
+
+  it 'should accept dsc_logflags predefined value clientip' do
+    dsc_xwebsite[:dsc_logflags] = 'clientip'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['clientip'])
+  end
+
+  it 'should accept dsc_logflags predefined value UserName' do
+    dsc_xwebsite[:dsc_logflags] = 'UserName'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['UserName'])
+  end
+
+  it 'should accept dsc_logflags predefined value username' do
+    dsc_xwebsite[:dsc_logflags] = 'username'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['username'])
+  end
+
+  it 'should accept dsc_logflags predefined value SiteName' do
+    dsc_xwebsite[:dsc_logflags] = 'SiteName'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['SiteName'])
+  end
+
+  it 'should accept dsc_logflags predefined value sitename' do
+    dsc_xwebsite[:dsc_logflags] = 'sitename'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['sitename'])
+  end
+
+  it 'should accept dsc_logflags predefined value ComputerName' do
+    dsc_xwebsite[:dsc_logflags] = 'ComputerName'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['ComputerName'])
+  end
+
+  it 'should accept dsc_logflags predefined value computername' do
+    dsc_xwebsite[:dsc_logflags] = 'computername'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['computername'])
+  end
+
+  it 'should accept dsc_logflags predefined value ServerIP' do
+    dsc_xwebsite[:dsc_logflags] = 'ServerIP'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['ServerIP'])
+  end
+
+  it 'should accept dsc_logflags predefined value serverip' do
+    dsc_xwebsite[:dsc_logflags] = 'serverip'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['serverip'])
+  end
+
+  it 'should accept dsc_logflags predefined value Method' do
+    dsc_xwebsite[:dsc_logflags] = 'Method'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['Method'])
+  end
+
+  it 'should accept dsc_logflags predefined value method' do
+    dsc_xwebsite[:dsc_logflags] = 'method'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['method'])
+  end
+
+  it 'should accept dsc_logflags predefined value UriStem' do
+    dsc_xwebsite[:dsc_logflags] = 'UriStem'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['UriStem'])
+  end
+
+  it 'should accept dsc_logflags predefined value uristem' do
+    dsc_xwebsite[:dsc_logflags] = 'uristem'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['uristem'])
+  end
+
+  it 'should accept dsc_logflags predefined value UriQuery' do
+    dsc_xwebsite[:dsc_logflags] = 'UriQuery'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['UriQuery'])
+  end
+
+  it 'should accept dsc_logflags predefined value uriquery' do
+    dsc_xwebsite[:dsc_logflags] = 'uriquery'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['uriquery'])
+  end
+
+  it 'should accept dsc_logflags predefined value HttpStatus' do
+    dsc_xwebsite[:dsc_logflags] = 'HttpStatus'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['HttpStatus'])
+  end
+
+  it 'should accept dsc_logflags predefined value httpstatus' do
+    dsc_xwebsite[:dsc_logflags] = 'httpstatus'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['httpstatus'])
+  end
+
+  it 'should accept dsc_logflags predefined value Win32Status' do
+    dsc_xwebsite[:dsc_logflags] = 'Win32Status'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['Win32Status'])
+  end
+
+  it 'should accept dsc_logflags predefined value win32status' do
+    dsc_xwebsite[:dsc_logflags] = 'win32status'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['win32status'])
+  end
+
+  it 'should accept dsc_logflags predefined value BytesSent' do
+    dsc_xwebsite[:dsc_logflags] = 'BytesSent'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['BytesSent'])
+  end
+
+  it 'should accept dsc_logflags predefined value bytessent' do
+    dsc_xwebsite[:dsc_logflags] = 'bytessent'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['bytessent'])
+  end
+
+  it 'should accept dsc_logflags predefined value BytesRecv' do
+    dsc_xwebsite[:dsc_logflags] = 'BytesRecv'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['BytesRecv'])
+  end
+
+  it 'should accept dsc_logflags predefined value bytesrecv' do
+    dsc_xwebsite[:dsc_logflags] = 'bytesrecv'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['bytesrecv'])
+  end
+
+  it 'should accept dsc_logflags predefined value TimeTaken' do
+    dsc_xwebsite[:dsc_logflags] = 'TimeTaken'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['TimeTaken'])
+  end
+
+  it 'should accept dsc_logflags predefined value timetaken' do
+    dsc_xwebsite[:dsc_logflags] = 'timetaken'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['timetaken'])
+  end
+
+  it 'should accept dsc_logflags predefined value ServerPort' do
+    dsc_xwebsite[:dsc_logflags] = 'ServerPort'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['ServerPort'])
+  end
+
+  it 'should accept dsc_logflags predefined value serverport' do
+    dsc_xwebsite[:dsc_logflags] = 'serverport'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['serverport'])
+  end
+
+  it 'should accept dsc_logflags predefined value UserAgent' do
+    dsc_xwebsite[:dsc_logflags] = 'UserAgent'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['UserAgent'])
+  end
+
+  it 'should accept dsc_logflags predefined value useragent' do
+    dsc_xwebsite[:dsc_logflags] = 'useragent'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['useragent'])
+  end
+
+  it 'should accept dsc_logflags predefined value Cookie' do
+    dsc_xwebsite[:dsc_logflags] = 'Cookie'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['Cookie'])
+  end
+
+  it 'should accept dsc_logflags predefined value cookie' do
+    dsc_xwebsite[:dsc_logflags] = 'cookie'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['cookie'])
+  end
+
+  it 'should accept dsc_logflags predefined value Referer' do
+    dsc_xwebsite[:dsc_logflags] = 'Referer'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['Referer'])
+  end
+
+  it 'should accept dsc_logflags predefined value referer' do
+    dsc_xwebsite[:dsc_logflags] = 'referer'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['referer'])
+  end
+
+  it 'should accept dsc_logflags predefined value ProtocolVersion' do
+    dsc_xwebsite[:dsc_logflags] = 'ProtocolVersion'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['ProtocolVersion'])
+  end
+
+  it 'should accept dsc_logflags predefined value protocolversion' do
+    dsc_xwebsite[:dsc_logflags] = 'protocolversion'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['protocolversion'])
+  end
+
+  it 'should accept dsc_logflags predefined value Host' do
+    dsc_xwebsite[:dsc_logflags] = 'Host'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['Host'])
+  end
+
+  it 'should accept dsc_logflags predefined value host' do
+    dsc_xwebsite[:dsc_logflags] = 'host'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['host'])
+  end
+
+  it 'should accept dsc_logflags predefined value HttpSubStatus' do
+    dsc_xwebsite[:dsc_logflags] = 'HttpSubStatus'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['HttpSubStatus'])
+  end
+
+  it 'should accept dsc_logflags predefined value httpsubstatus' do
+    dsc_xwebsite[:dsc_logflags] = 'httpsubstatus'
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(['httpsubstatus'])
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xwebsite[:dsc_logflags] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept array of predefined values for dsc_logflags' do
+    dsc_xwebsite[:dsc_logflags] = ["Date", "Time", "ClientIP", "UserName", "SiteName", "ComputerName", "ServerIP", "Method", "UriStem", "UriQuery", "HttpStatus", "Win32Status", "BytesSent", "BytesRecv", "TimeTaken", "ServerPort", "UserAgent", "Cookie", "Referer", "ProtocolVersion", "Host", "HttpSubStatus"]
+    expect(dsc_xwebsite[:dsc_logflags]).to eq(["Date", "Time", "ClientIP", "UserName", "SiteName", "ComputerName", "ServerIP", "Method", "UriStem", "UriQuery", "HttpStatus", "Win32Status", "BytesSent", "BytesRecv", "TimeTaken", "ServerPort", "UserAgent", "Cookie", "Referer", "ProtocolVersion", "Host", "HttpSubStatus"])
+  end
+
+  it 'should not accept boolean for dsc_logflags' do
+    expect{dsc_xwebsite[:dsc_logflags] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_logflags' do
+    expect{dsc_xwebsite[:dsc_logflags] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_logflags' do
+    expect{dsc_xwebsite[:dsc_logflags] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_logperiod predefined value Hourly' do
+    dsc_xwebsite[:dsc_logperiod] = 'Hourly'
+    expect(dsc_xwebsite[:dsc_logperiod]).to eq('Hourly')
+  end
+
+  it 'should accept dsc_logperiod predefined value hourly' do
+    dsc_xwebsite[:dsc_logperiod] = 'hourly'
+    expect(dsc_xwebsite[:dsc_logperiod]).to eq('hourly')
+  end
+
+  it 'should accept dsc_logperiod predefined value Daily' do
+    dsc_xwebsite[:dsc_logperiod] = 'Daily'
+    expect(dsc_xwebsite[:dsc_logperiod]).to eq('Daily')
+  end
+
+  it 'should accept dsc_logperiod predefined value daily' do
+    dsc_xwebsite[:dsc_logperiod] = 'daily'
+    expect(dsc_xwebsite[:dsc_logperiod]).to eq('daily')
+  end
+
+  it 'should accept dsc_logperiod predefined value Weekly' do
+    dsc_xwebsite[:dsc_logperiod] = 'Weekly'
+    expect(dsc_xwebsite[:dsc_logperiod]).to eq('Weekly')
+  end
+
+  it 'should accept dsc_logperiod predefined value weekly' do
+    dsc_xwebsite[:dsc_logperiod] = 'weekly'
+    expect(dsc_xwebsite[:dsc_logperiod]).to eq('weekly')
+  end
+
+  it 'should accept dsc_logperiod predefined value Monthly' do
+    dsc_xwebsite[:dsc_logperiod] = 'Monthly'
+    expect(dsc_xwebsite[:dsc_logperiod]).to eq('Monthly')
+  end
+
+  it 'should accept dsc_logperiod predefined value monthly' do
+    dsc_xwebsite[:dsc_logperiod] = 'monthly'
+    expect(dsc_xwebsite[:dsc_logperiod]).to eq('monthly')
+  end
+
+  it 'should accept dsc_logperiod predefined value MaxSize' do
+    dsc_xwebsite[:dsc_logperiod] = 'MaxSize'
+    expect(dsc_xwebsite[:dsc_logperiod]).to eq('MaxSize')
+  end
+
+  it 'should accept dsc_logperiod predefined value maxsize' do
+    dsc_xwebsite[:dsc_logperiod] = 'maxsize'
+    expect(dsc_xwebsite[:dsc_logperiod]).to eq('maxsize')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xwebsite[:dsc_logperiod] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_logperiod' do
+    expect{dsc_xwebsite[:dsc_logperiod] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_logperiod' do
+    expect{dsc_xwebsite[:dsc_logperiod] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_logperiod' do
+    expect{dsc_xwebsite[:dsc_logperiod] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_logperiod' do
+    expect{dsc_xwebsite[:dsc_logperiod] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_logtruncatesize' do
+    expect{dsc_xwebsite[:dsc_logtruncatesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_logtruncatesize' do
+    expect{dsc_xwebsite[:dsc_logtruncatesize] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_logtruncatesize' do
+    expect{dsc_xwebsite[:dsc_logtruncatesize] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_logtruncatesize' do
+    expect{dsc_xwebsite[:dsc_logtruncatesize] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_loglocaltimerollover' do
+    expect{dsc_xwebsite[:dsc_loglocaltimerollover] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept boolean for dsc_loglocaltimerollover' do
+    dsc_xwebsite[:dsc_loglocaltimerollover] = true
+    expect(dsc_xwebsite[:dsc_loglocaltimerollover]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'true' and munge this value to boolean for dsc_loglocaltimerollover" do
+    dsc_xwebsite[:dsc_loglocaltimerollover] = 'true'
+    expect(dsc_xwebsite[:dsc_loglocaltimerollover]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'false' and munge this value to boolean for dsc_loglocaltimerollover" do
+    dsc_xwebsite[:dsc_loglocaltimerollover] = 'false'
+    expect(dsc_xwebsite[:dsc_loglocaltimerollover]).to eq(false)
+  end
+
+  it "should accept boolean-like value 'True' and munge this value to boolean for dsc_loglocaltimerollover" do
+    dsc_xwebsite[:dsc_loglocaltimerollover] = 'True'
+    expect(dsc_xwebsite[:dsc_loglocaltimerollover]).to eq(true)
+  end
+
+  it "should accept boolean-like value 'False' and munge this value to boolean for dsc_loglocaltimerollover" do
+    dsc_xwebsite[:dsc_loglocaltimerollover] = 'False'
+    expect(dsc_xwebsite[:dsc_loglocaltimerollover]).to eq(false)
+  end
+
+  it "should accept boolean-like value :true and munge this value to boolean for dsc_loglocaltimerollover" do
+    dsc_xwebsite[:dsc_loglocaltimerollover] = :true
+    expect(dsc_xwebsite[:dsc_loglocaltimerollover]).to eq(true)
+  end
+
+  it "should accept boolean-like value :false and munge this value to boolean for dsc_loglocaltimerollover" do
+    dsc_xwebsite[:dsc_loglocaltimerollover] = :false
+    expect(dsc_xwebsite[:dsc_loglocaltimerollover]).to eq(false)
+  end
+
+  it 'should not accept int for dsc_loglocaltimerollover' do
+    expect{dsc_xwebsite[:dsc_loglocaltimerollover] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_loglocaltimerollover' do
+    expect{dsc_xwebsite[:dsc_loglocaltimerollover] = 16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept dsc_logformat predefined value IIS' do
+    dsc_xwebsite[:dsc_logformat] = 'IIS'
+    expect(dsc_xwebsite[:dsc_logformat]).to eq('IIS')
+  end
+
+  it 'should accept dsc_logformat predefined value iis' do
+    dsc_xwebsite[:dsc_logformat] = 'iis'
+    expect(dsc_xwebsite[:dsc_logformat]).to eq('iis')
+  end
+
+  it 'should accept dsc_logformat predefined value W3C' do
+    dsc_xwebsite[:dsc_logformat] = 'W3C'
+    expect(dsc_xwebsite[:dsc_logformat]).to eq('W3C')
+  end
+
+  it 'should accept dsc_logformat predefined value w3c' do
+    dsc_xwebsite[:dsc_logformat] = 'w3c'
+    expect(dsc_xwebsite[:dsc_logformat]).to eq('w3c')
+  end
+
+  it 'should accept dsc_logformat predefined value NCSA' do
+    dsc_xwebsite[:dsc_logformat] = 'NCSA'
+    expect(dsc_xwebsite[:dsc_logformat]).to eq('NCSA')
+  end
+
+  it 'should accept dsc_logformat predefined value ncsa' do
+    dsc_xwebsite[:dsc_logformat] = 'ncsa'
+    expect(dsc_xwebsite[:dsc_logformat]).to eq('ncsa')
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xwebsite[:dsc_logformat] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept array for dsc_logformat' do
+    expect{dsc_xwebsite[:dsc_logformat] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept boolean for dsc_logformat' do
+    expect{dsc_xwebsite[:dsc_logformat] = true}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept int for dsc_logformat' do
+    expect{dsc_xwebsite[:dsc_logformat] = -16}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should not accept uint for dsc_logformat' do
+    expect{dsc_xwebsite[:dsc_logformat] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

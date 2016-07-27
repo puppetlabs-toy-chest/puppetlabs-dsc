@@ -14,7 +14,7 @@ describe Puppet::Type.type(:dsc_xsslsettings) do
     expect { Puppet::Type.type(:dsc_xsslsettings).new(
       :name     => 'foo',
       :dsc_name => 'foo',
-      :dsc_bindings => ["foo", "bar", "spec"],
+      :dsc_bindings => '',
       :dsc_ensure => 'Present',
     )}.to_not raise_error
   end
@@ -50,9 +50,63 @@ describe Puppet::Type.type(:dsc_xsslsettings) do
     expect{dsc_xsslsettings[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept array for dsc_bindings' do
-    dsc_xsslsettings[:dsc_bindings] = ["foo", "bar", "spec"]
-    expect(dsc_xsslsettings[:dsc_bindings]).to eq(["foo", "bar", "spec"])
+  it 'should accept dsc_bindings predefined value ' do
+    dsc_xsslsettings[:dsc_bindings] = ''
+    expect(dsc_xsslsettings[:dsc_bindings]).to eq([''])
+  end
+
+  it 'should accept dsc_bindings predefined value ' do
+    dsc_xsslsettings[:dsc_bindings] = ''
+    expect(dsc_xsslsettings[:dsc_bindings]).to eq([''])
+  end
+
+  it 'should accept dsc_bindings predefined value Ssl' do
+    dsc_xsslsettings[:dsc_bindings] = 'Ssl'
+    expect(dsc_xsslsettings[:dsc_bindings]).to eq(['Ssl'])
+  end
+
+  it 'should accept dsc_bindings predefined value ssl' do
+    dsc_xsslsettings[:dsc_bindings] = 'ssl'
+    expect(dsc_xsslsettings[:dsc_bindings]).to eq(['ssl'])
+  end
+
+  it 'should accept dsc_bindings predefined value SslNegotiateCert' do
+    dsc_xsslsettings[:dsc_bindings] = 'SslNegotiateCert'
+    expect(dsc_xsslsettings[:dsc_bindings]).to eq(['SslNegotiateCert'])
+  end
+
+  it 'should accept dsc_bindings predefined value sslnegotiatecert' do
+    dsc_xsslsettings[:dsc_bindings] = 'sslnegotiatecert'
+    expect(dsc_xsslsettings[:dsc_bindings]).to eq(['sslnegotiatecert'])
+  end
+
+  it 'should accept dsc_bindings predefined value SslRequireCert' do
+    dsc_xsslsettings[:dsc_bindings] = 'SslRequireCert'
+    expect(dsc_xsslsettings[:dsc_bindings]).to eq(['SslRequireCert'])
+  end
+
+  it 'should accept dsc_bindings predefined value sslrequirecert' do
+    dsc_xsslsettings[:dsc_bindings] = 'sslrequirecert'
+    expect(dsc_xsslsettings[:dsc_bindings]).to eq(['sslrequirecert'])
+  end
+
+  it 'should accept dsc_bindings predefined value Ssl128' do
+    dsc_xsslsettings[:dsc_bindings] = 'Ssl128'
+    expect(dsc_xsslsettings[:dsc_bindings]).to eq(['Ssl128'])
+  end
+
+  it 'should accept dsc_bindings predefined value ssl128' do
+    dsc_xsslsettings[:dsc_bindings] = 'ssl128'
+    expect(dsc_xsslsettings[:dsc_bindings]).to eq(['ssl128'])
+  end
+
+  it 'should not accept values not equal to predefined values' do
+    expect{dsc_xsslsettings[:dsc_bindings] = 'invalid value'}.to raise_error(Puppet::ResourceError)
+  end
+
+  it 'should accept array of predefined values for dsc_bindings' do
+    dsc_xsslsettings[:dsc_bindings] = ["", "Ssl", "SslNegotiateCert", "SslRequireCert", "Ssl128"]
+    expect(dsc_xsslsettings[:dsc_bindings]).to eq(["", "Ssl", "SslNegotiateCert", "SslRequireCert", "Ssl128"])
   end
 
   it 'should not accept boolean for dsc_bindings' do

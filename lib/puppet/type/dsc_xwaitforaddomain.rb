@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xwaitforaddomain) do
   def dscmeta_resource_friendly_name; 'xWaitForADDomain' end
   def dscmeta_resource_name; 'MSFT_xWaitForADDomain' end
   def dscmeta_module_name; 'xActiveDirectory' end
-  def dscmeta_module_version; '2.10.0.0' end
+  def dscmeta_module_version; '2.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -96,6 +96,24 @@ Puppet::Type.newtype(:dsc_xwaitforaddomain) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
     desc "RetryCount"
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         RebootRetryCount
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_rebootretrycount) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "RebootRetryCount"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

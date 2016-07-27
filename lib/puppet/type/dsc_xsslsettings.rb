@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsslsettings) do
   def dscmeta_resource_friendly_name; 'xSSLSettings' end
   def dscmeta_resource_name; 'MSFT_xSSLSettings' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.9.0.0' end
+  def dscmeta_module_version; '1.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,14 +58,24 @@ Puppet::Type.newtype(:dsc_xsslsettings) do
   # Name:         Bindings
   # Type:         string[]
   # IsMandatory:  False
-  # Values:       None
+  # Values:       ["", "Ssl", "SslNegotiateCert", "SslRequireCert", "Ssl128"]
   newparam(:dsc_bindings, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Bindings - The Bindings in which to modify for the website"
+    desc "Bindings - The Bindings in which to modify for the website Valid values are , Ssl, SslNegotiateCert, SslRequireCert, Ssl128."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+      if value.kind_of?(Array)
+        unless (['', '', 'Ssl', 'ssl', 'SslNegotiateCert', 'sslnegotiatecert', 'SslRequireCert', 'sslrequirecert', 'Ssl128', 'ssl128'] & value).count == value.count
+          fail("Invalid value #{value}. Valid values are , Ssl, SslNegotiateCert, SslRequireCert, Ssl128")
+        end
+      end
+      if value.kind_of?(String)
+        unless ['', '', 'Ssl', 'ssl', 'SslNegotiateCert', 'sslnegotiatecert', 'SslRequireCert', 'sslrequirecert', 'Ssl128', 'ssl128'].include?(value)
+          fail("Invalid value #{value}. Valid values are , Ssl, SslNegotiateCert, SslRequireCert, Ssl128")
+        end
       end
     end
     munge do |value|

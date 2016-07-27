@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   def dscmeta_resource_friendly_name; 'xService' end
   def dscmeta_resource_name; 'MSFT_xServiceResource' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '3.9.0.0' end
+  def dscmeta_module_version; '3.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -211,6 +211,24 @@ Puppet::Type.newtype(:dsc_xservice) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
     desc "StartupTimeout"
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         TerminateTimeout
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_terminatetimeout) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "TerminateTimeout"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

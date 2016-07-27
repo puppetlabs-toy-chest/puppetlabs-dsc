@@ -9,5 +9,3 @@ class MSFT_xCluster : OMI_BaseResource
     [required, EmbeddedInstance("MSFT_Credential"), Description("Credential to create the cluster")] 
     String DomainAdministratorCredential;
 };
-
-

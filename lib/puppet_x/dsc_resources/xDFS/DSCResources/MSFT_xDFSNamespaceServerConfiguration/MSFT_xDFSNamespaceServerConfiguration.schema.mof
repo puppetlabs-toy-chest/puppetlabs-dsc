@@ -1,0 +1,8 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xDFSNamespaceServerConfiguration")]
+class MSFT_xDFSNamespaceServerConfiguration : OMI_BaseResource
+{
+    [Key, Description("Specifies the resource is a single instance, the value must be 'Yes'"), ValueMap{"Yes"}, Values{"Yes"}] String IsSingleInstance;
+    [Write, Description("Specifies a time-out value, in seconds, for Lightweight Directory Access Protocol (LDAP) requests for the DFS namespace server.")] Uint32 LdapTimeoutSec;
+    [Write, Description("This interval controls how often domain-based DFS namespace root servers and domain controllers connect to the PDC emulator to get updates of DFS namespace metadata.")] Uint32 SyncIntervalSec;
+    [Write, Description("Indicates whether a DFS namespace server uses FQDNs in referrals.")] Boolean UseFQDN;
+};

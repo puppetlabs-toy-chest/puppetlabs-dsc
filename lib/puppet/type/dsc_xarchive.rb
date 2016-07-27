@@ -22,12 +22,13 @@ Puppet::Type.newtype(:dsc_xarchive) do
 
   validate do
       fail('dsc_destination is a required attribute') if self[:dsc_destination].nil?
+      fail('dsc_path is a required attribute') if self[:dsc_path].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xArchive' end
   def dscmeta_resource_name; 'MSFT_xArchive' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '3.9.0.0' end
+  def dscmeta_module_version; '3.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -35,6 +36,7 @@ Puppet::Type.newtype(:dsc_xarchive) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto { :present }
   end
 
@@ -55,67 +57,48 @@ Puppet::Type.newtype(:dsc_xarchive) do
   end
 
   # Name:         Path
-  # Type:         string[]
-  # IsMandatory:  False
+  # Type:         string
+  # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_path, :array_matching => :all) do
-    def mof_type; 'string[]' end
-    def mof_is_embedded?; false end
-    desc "Path - Represnts the source path to one or more files or directories.\n"
-    validate do |value|
-      unless value.kind_of?(Array) || value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string or an array of strings")
-      end
-    end
-    munge do |value|
-      Array(value)
-    end
-  end
-
-  # Name:         CompressionLevel
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       ["Optimal", "NoCompression", "Fastest"]
-  newparam(:dsc_compressionlevel) do
+  newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CompressionLevel - Specifies values that indicate whether a compression operation emphasizes speed or compression size.\nOptimal {default} \n Valid values are Optimal, NoCompression, Fastest."
+    desc "Path"
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['Optimal', 'optimal', 'NoCompression', 'nocompression', 'Fastest', 'fastest'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Optimal, NoCompression, Fastest")
-      end
     end
   end
 
-  # Name:         DestinationType
+  # Name:         Ensure
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["File", "Directory"]
-  newparam(:dsc_destinationtype) do
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DestinationType - An enumerated value that describes if the Destination path points to a File or Directory. If Directory is specified then the archive file contents would be expanded to the specified path on the other hand if File is specified, an archive file would be created at the specified destination path.\nDirectory {default} \n Valid values are File, Directory."
+    desc "Ensure - Valid values are Present, Absent."
     validate do |value|
+      resource[:ensure] = value.downcase
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['File', 'file', 'Directory', 'directory'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are File, Directory")
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
       end
     end
   end
 
-  # Name:         MatchSource
+  # Name:         Validate
   # Type:         boolean
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_matchsource) do
+  newparam(:dsc_validate) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "MatchSource - An boolean value to indicate if the destination contents have to be always kept in sync with the files or directories specified in the source path.\n"
+    desc "Validate"
     validate do |value|
     end
     newvalues(true, false)
@@ -124,66 +107,53 @@ Puppet::Type.newtype(:dsc_xarchive) do
     end
   end
 
-  # Name:         CreationTime
-  # Type:         datetime
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_creationtime) do
-    def mof_type; 'datetime' end
-    def mof_is_embedded?; false end
-    desc "CreationTime - Specifies the local time at which the file or directory was created in datetime format.\n"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         Attributes
+  # Name:         Checksum
   # Type:         string
   # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_attributes) do
+  # Values:       ["SHA-1", "SHA-256", "SHA-512", "CreatedDate", "ModifiedDate"]
+  newparam(:dsc_checksum) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Attributes - Specifies the attributes of the file or directory in string format.\n"
+    desc "Checksum - Valid values are SHA-1, SHA-256, SHA-512, CreatedDate, ModifiedDate."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-    end
-  end
-
-  # Name:         Mode
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_mode) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "Mode - Specifies the mode of the file or directory.\n"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless ['SHA-1', 'sha-1', 'SHA-256', 'sha-256', 'SHA-512', 'sha-512', 'CreatedDate', 'createddate', 'ModifiedDate', 'modifieddate'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are SHA-1, SHA-256, SHA-512, CreatedDate, ModifiedDate")
       end
     end
   end
 
-  # Name:         Size
-  # Type:         uint64
+  # Name:         Force
+  # Type:         boolean
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_size) do
-    def mof_type; 'uint64' end
+  newparam(:dsc_force) do
+    def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Size - Specifis the size of the file or directory in bytes.\n"
+    desc "Force"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
     end
+    newvalues(true, false)
     munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         Credential
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_credential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "Credential"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
   end
 

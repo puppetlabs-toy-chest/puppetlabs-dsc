@@ -259,7 +259,7 @@ function ValidateResourceProperties
                 $checkPropertyMessage = $($LocalizedData.CheckPropertyMessage) -f 'Dns server ip'
                 Write-Verbose -Message $checkPropertyMessage
                 
-                $dnsServerIP = ($DhcpOption | Where-Object OptionId -eq 6).Value
+                $dnsServerIP = ($dhcpOption | Where-Object Name -like 'DNS Servers').value
                 # If comparison return something, they are not equal
                 if((-not $dnsServerIP) -or (Compare-Object $dnsServerIP $DnsServerIPAddress))
                 {
@@ -294,7 +294,7 @@ function ValidateResourceProperties
                 $checkPropertyMessage = $($LocalizedData.CheckPropertyMessage) -f 'Dns domain name'
                 Write-Verbose -Message $checkPropertyMessage
 
-                $dnsDomainName = ($DhcpOption | Where-Object OptionId -eq 15).Value
+                $dnsDomainName = ($DhcpOption | Where-Object Name -like 'DNS Domain Name').value
                 if($dnsDomainName -ne $DnsDomain) 
                 {
                     $notDesiredPropertyMessage = $($LocalizedData.NotDesiredPropertyMessage) -f 'DNS domain name', $DnsDomain, ($dnsDomainName -join ', ')
@@ -329,7 +329,7 @@ function ValidateResourceProperties
                 $checkPropertyMessage = $($LocalizedData.CheckPropertyMessage) -f 'Router ip addresses'
                 Write-Verbose -Message $checkPropertyMessage
 
-                $routerIP = ($DhcpOption | Where-Object OptionId -eq 3).Value
+                $routerIP = ($DhcpOption | Where-Object OptionId -eq 3).value
 
                 if((-not $routerIP) -or (Compare-Object $routerIP $Router))
                 {

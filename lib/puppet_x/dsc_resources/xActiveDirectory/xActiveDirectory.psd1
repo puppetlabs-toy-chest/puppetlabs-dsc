@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '2.10.0.0'
+ModuleVersion = '2.12.0.0'
 
 # ID used to uniquely identify this module
 GUID = '9FECD4F6-8F02-4707-99B3-539E940E9FF5'
@@ -49,10 +49,14 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '* xADDomainController: Customer identified two cases of incorrect variables being called in Verbose output messages. Corrected.
+* xADComputer: New resource added.
+
+'
 
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
 }
+
 

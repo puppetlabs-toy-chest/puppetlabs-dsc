@@ -3,7 +3,7 @@
 @{
 
 
-ModuleVersion = '1.2.0.0'
+ModuleVersion = '1.3.0.0'
 
 GUID = 'abee25c0-d40a-4bf2-a04e-ed059aba377b'
 
@@ -33,7 +33,9 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '* MSFT_xSqlAlias: Fixed bugs when creating new registry keys
+
+'
 
     } # End of PSData hashtable
 

@@ -12,7 +12,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.2.0.0'
+ModuleVersion = '2.0.0.0'
 
 # ID used to uniquely identify this module
 GUID = '3c743236-35b8-4225-b76b-5e6117c0e477'
@@ -104,7 +104,13 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '* Improved Test-TargetResource method to run robocopy with the same parameters as in Set-TargetResource
+* Bug fix in Test-TargetResource when evaluating return code from robocopy
+* Updated example to use correct PsDscRunAsCredential parameter
+* **Breaking Change:** Changed AditionalArgs parameter to Array of String
+* Added additional examples with different copy options.
+
+'
 
     } # End of PSData hashtable
 

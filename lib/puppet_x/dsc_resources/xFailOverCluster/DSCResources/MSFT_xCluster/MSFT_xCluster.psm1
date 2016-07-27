@@ -8,6 +8,7 @@
 #
 function Get-TargetResource
 {
+    [OutputType([Hashtable])]
     param
     (    
         [parameter(Mandatory)]
@@ -35,7 +36,7 @@ function Get-TargetResource
             throw "Can't find the cluster $Name"
         }
 
-        $address = Get-ClusterGroup -Cluster $Name -Name "Cluster IP Address" | Get-ClusterParameter "Address"
+        $address = Get-ClusterGroup -Cluster $Name | Get-ClusterResource -Name 'Cluster IP Address' | Get-ClusterParameter 'Address'
     }
     finally
     {
@@ -49,8 +50,9 @@ function Get-TargetResource
 
     $retvalue = @{
         Name = $Name
-        IPAddress = $address.Value
+        StaticIPAddress = $address.Value
     }
+    $retvalue
 }
 
 #
@@ -117,7 +119,7 @@ function Set-TargetResource
             {
                 if ($node.Name -eq $env:COMPUTERNAME)
                 {
-                    if ($node.State -eq "Down")
+                    if ($node.State -eq 'Down')
                     {
                         Write-Verbose -Message "node $env:COMPUTERNAME was down, need remove it from the list."
 
@@ -156,6 +158,7 @@ function Set-TargetResource
 # 
 function Test-TargetResource  
 {
+    [OutputType([Boolean])]
     param
     (    
         [parameter(Mandatory)]
@@ -200,7 +203,7 @@ function Test-TargetResource
                                                                         {
                     if ($node.Name -eq $env:COMPUTERNAME)
                     {
-                        if ($node.State -eq "Up")
+                        if ($node.State -eq 'Up')
                         {
                             $bRet = $true
                         }

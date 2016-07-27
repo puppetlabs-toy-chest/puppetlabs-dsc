@@ -1,4 +1,3 @@
-
 [ClassVersion("0.1.0.0"), FriendlyName("xRobocopy")]
 class MSFT_xRobocopy : OMI_BaseResource
 {
@@ -13,6 +12,7 @@ class MSFT_xRobocopy : OMI_BaseResource
     [Write, Description("Exclude Files matching given names/paths/wildcards.")] String ExcludeFiles;
     [Write, Description("Output status to LOG file.")] String LogOutput;
     [Write, Description("Determine whether to overwrite log file or append.")] Boolean AppendLog;
-    [Write, Description("Robocopy has MANY configuration options.  Too many to present them all as DSC parameters effectively. Use this option to set additional parameters.  The string will be appended to the arguements list.  For a list of options run Robocopy /??? in a shell window.")] String AdditionalArgs;
+    [Write, Description("Robocopy has MANY configuration options. Too many to present them all as DSC parameters effectively. Use this option to set additional parameters. Each parameter should be a separate array member. This array will be combined with main argument array. For a list of options run Robocopy /??? in a shell window.")] String AdditionalArgs[];
+    [Read, ValueMap{"Present", "Absent"}, Values{"Present", "Absent"}, Description("Will indicate whether Destination is in sync with Source")] String Ensure;
 };
 

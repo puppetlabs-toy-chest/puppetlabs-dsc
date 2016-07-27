@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xremotefile) do
   def dscmeta_resource_friendly_name; 'xRemoteFile' end
   def dscmeta_resource_name; 'MSFT_xRemoteFile' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '3.9.0.0' end
+  def dscmeta_module_version; '3.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -129,6 +129,55 @@ Puppet::Type.newtype(:dsc_xremotefile) do
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         TimeoutSec
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_timeoutsec) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "TimeoutSec - Specifies how long the request can be pending before it times out."
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         Proxy
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_proxy) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Proxy - Uses a proxy server for the request, rather than connecting directly to the Internet resource. Should be the URI of a network proxy server (e.g 'http://10.20.30.1')."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ProxyCredential
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_proxycredential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "ProxyCredential - Specifies a user account that has permission to use the proxy server that is specified by the Proxy parameter."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("ProxyCredential", value)
     end
   end
 

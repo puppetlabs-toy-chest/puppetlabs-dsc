@@ -30,7 +30,7 @@ Puppet::Type.newtype(:dsc_xroute) do
   def dscmeta_resource_friendly_name; 'xRoute' end
   def dscmeta_resource_name; 'MSFT_xRoute' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '2.8.0.0' end
+  def dscmeta_module_version; '2.10.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
