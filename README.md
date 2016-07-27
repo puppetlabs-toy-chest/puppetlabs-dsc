@@ -42,7 +42,7 @@ In this version, the following DSC Resources are already built and ready for use
 
  - PowerShell 5, which is included in [Windows Management Framework 5.0][wmf-5.0].
  - [Windows 2003 is not supported](#known-issues).
- 
+
 ## Setup
 
 ~~~
@@ -406,7 +406,7 @@ Error: Try 'puppet help module install' for usage
   ~~~
 
   For Puppet 4.2.2+ (and 3.8.2) we've decreased the possibility of the issue occurring based on the fixes in [PUP-4854](https://tickets.puppet.com/browse/PUP-4854). A complete fix is plannd in a future version of Puppet that incorporates [PUP-4866](https://tickets.puppet.com/browse/PUP-4866).
-  
+
   If you are affected by this issue:
   - Use the `--module_working_dir` parameter to set a different temporary directory which has a smaller length, for example;
     `puppet module install puppetlabs-dsc --module_working_dir C:\Windows\Temp`
@@ -414,7 +414,7 @@ Error: Try 'puppet help module install' for usage
 
 - Windows Server 2003 is not supported. **If this module is present on the master, it breaks Windows 2003 agents.**
 
-  When installed on a Puppet master to the default `production` environment, this module causes pluginsync to **fail** on Windows 2003 agents because of an issue with [LFN (long file names)](https://tickets.puppet.com/browse/PUP-4866). To work around this issue, host your Windows 2003 nodes on a [Puppet environment](https://docs.puppet.com/puppet/latest/reference/environments.html) that is separate from `production` and that does **not** have the DSC module installed.  
+  When installed on a Puppet master to the default `production` environment, this module causes pluginsync to **fail** on Windows 2003 agents because of an issue with [LFN (long file names)](https://tickets.puppet.com/browse/PUP-4866). To work around this issue, host your Windows 2003 nodes on a [Puppet environment](https://docs.puppet.com/puppet/latest/reference/environments.html) that is separate from `production` and that does **not** have the DSC module installed.
 
 - `--noop` mode, `puppet resource` and property change notifications are currently not implemented - see [MODULES-2270](https://tickets.puppet.com/browse/MODULES-2270) for details.
 
@@ -446,6 +446,14 @@ For more information, see our [module contribution guide.](https://docs.puppet.c
 
 * The Puppet types are built from the source code of each DSC Resources MOF schema files. If you want to build the types, read the [Quick-start and Building](README_BUILD.md#quick-start).
 * If you want the build Puppet types for your own custom DSC Resources, read [Build Custom DSC Resource Types](README_BUILD.md#build-custom-dsc-resource-types).
+
+### Version Strategy
+
+This module generally follows [Semantic Versioning](http://semver.org/) for choosing an appropriate release version number with the following exception:
+
+* Minor, for example from version 2.0.0 to 2.1.0
+
+A minor change may also include [rebuilding the DSC resource types](README_BUILD.md). Puppet wants to keep pace with the released DSC Resources from the PowerShell team repository, but this engenders risk as Puppet adopts third party code. Normally this would mean making major version bumps, but since this is anticipated to be frequent that would be too much churn.
 
 ### Contributors
 
