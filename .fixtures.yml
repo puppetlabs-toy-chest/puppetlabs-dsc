@@ -1,10 +1,7 @@
 fixtures:
   forge_modules:
     stdlib: "puppetlabs/stdlib"
-    powershell:
-      repo: "puppetlabs/powershell"
-      # pin to version 1.0.6 to match metadata version string reqs
-      ref: "1.0.6"
+    powershell: "puppetlabs/powershell"
     reboot: "puppetlabs/reboot"
   symlinks:
     "dsc": "#{source_dir}"
