@@ -73,18 +73,19 @@ eod
       end
 
       blacklist = ['xChrome', 'xDSCResourceDesigner', 'xDscDiagnostics',
-                   'xFireFox', 'xSafeHarbor', 'xSystemSecurity']
+                   'xFirefox', 'xSafeHarbor', 'xSystemSecurity'] # Case sensitive
       puts "Cleaning out black-listed DSC resources: #{blacklist}"
-      blacklist.each { |res| FileUtils.rm_rf("#{dsc_resources_path_tmp}/xDSCResources/#{res}") }
+      blacklist.each { |res| FileUtils.rm_rf("#{dsc_resources_path_tmp}/xDscResources/#{res}") }
 
       resource_tags = {}
       resource_tags = YAML::load_file("#{dsc_resources_file}") if File.exist? dsc_resources_file
 
       puts "Getting latest release tags for DSC resources..."
-      Dir["#{dsc_resources_path_tmp}/xDSCResources/*"].each do |dsc_resource_path|
+      Dir["#{dsc_resources_path_tmp}/xDscResources/*"].each do |dsc_resource_path|
         dsc_resource_name = Pathname.new(dsc_resource_path).basename
         FileUtils.cd(dsc_resource_path) do
           # --date-order probably doesn't matter
+          # Requires git version 2.2.0 or higher - https://github.com/git/git/commit/9271095cc5571e306d709ebf8eb7f0a388254d9d
           tags_raw = %x{ git log --tags --pretty=format:'%D' --simplify-by-decoration --date-order }
           # If the conversion of string to version starts to result in errors,
           # we should explore pushing this out out to a method where we can
@@ -133,7 +134,7 @@ eod
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.{gitattributes,gitignore,gitmodules}"])
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/*.{pptx,docx,sln,cmd,xml,pssproj,pfx,html,txt,xlsm,csv,png,git,yml,md}"])
 
-      vendor_subdir = is_custom_resource ? '' : '/xDSCResources'
+      vendor_subdir = is_custom_resource ? '' : '/xDscResources' # Case sensitive
       puts "Copying vendored resources from #{dsc_resources_path_tmp}#{vendor_subdir} to #{vendor_dsc_resources_path}"
       FileUtils.cp_r "#{dsc_resources_path_tmp}#{vendor_subdir}/.", vendor_dsc_resources_path, :remove_destination => true
       FileUtils.cp_r "#{dsc_resources_path_tmp}#{vendor_subdir}/.", dsc_resources_path
