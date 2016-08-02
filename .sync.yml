@@ -62,9 +62,8 @@ MAINTAINERS.md:
     - "Puppet Windows Team `windows |at| puppet |dot| com`"
 NOTICE:
   copyright_holders:
+    - name: 'Puppet, Inc.'
+      begin: 2015
     - name: 'Marc Sutter, original author'
       begin: 2014
       end: 2015
-    - name: 'Puppet, Inc.'
-      begin: 2015
-      end: 'latest'
