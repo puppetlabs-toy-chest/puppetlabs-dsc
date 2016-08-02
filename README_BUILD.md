@@ -27,18 +27,39 @@ rake dsc:types:build       # Build DSC types in (lib/puppet/type)
 rake dsc:types:clean       # Cleanup DSC types in (lib/puppet/type)
 ~~~
 
-The default task 'bundle exec rake' will run all of this tasks.
-
 ## Building
 
 When building the types and specs, keep the following considerations in mind:
 
-* Resources must be built with a non-Windows box due to limitations in the gems that the builder uses to generate types and specs.
-* You must use Ruby 1.9.3 to build the types (again due to a limitation in the builder dependencies).
-* The builder requires a MOF file and a PSD1 to build a type. Those need to be present for it to be successful.
-* The MOF file encoding should be UTF-8. This ensures the most compatibility with the mof gem.
-* If you do a DSC build from a fresh clone, it will build the latest DSC resources, which may or may not be what you want to do. To avoid this, you should set the environment variable `DSC_REF` to the SHA1 of https://github.com/PowerShell/DscResources commit that you want to build Puppet DSC resource types from.
-* When updating the Puppet DSC resource types and specs, please include the SHA1 commit that the types were built from in your git commit message. This makes it easier to track down exactly what version of `DscResources` we have built against.
+* Resources must be built with a non-Windows computer due to limitations in the gems that the builder uses to generate types and specs.
+* You must use Ruby 1.9.3 to build the types, again due to a limitation in the builder dependencies.
+* The builder requires a `MOF` and `PSD1` file to build a type. Both need to be present for the build to be successful.
+* The `MOF` file encoding should be UTF-8. This ensures the most compatibility with the mof gem.
+* Git client needs to be version 2.2.0 or above
+
+### The DSC tag file
+
+The DSC tag file, called `dsc_resource_release_tags.yml`, determines which versions of the DSC Resources to build.  If a DSC resource is not listed in the file, the latest version that has been released to the PowerShell gallery will be used during the build, and then added to the `dsc_resource_release_tags.yml` file. An example file is shown below:
+
+~~~ yaml
+---
+xActiveDirectory: 2.12.0.0-PSGallery
+xAdcsDeployment: 1.0.0.0-PSGallery
+xAzure: 0.2.0.0-PSGallery
+xAzurePack: 1.4.0.0-PSGallery
+xBitlocker: 1.1.0.0-PSGallery
+xCertificate: 2.1.0.0-PSGallery
+xComputerManagement: 1.7.0.0-PSGallery
+...
+...
+~~~
+
+* Note that while the tag file will typically contain PowerShell Gallery tags, any type of [git reference](https://git-scm.com/book/en/v2/Git-Internals-Git-References) can be used, such as a commit SHA.
+* The `DSC_REF` environment variable is still honored by the build process however it is no longer necessary as the DSC resource versions are explicitly set in the tag file.
+
+### How to rebuild all DSC resources with the latest version
+
+The simplest way to rebuild all DSC resources with the latest version is to delete the `dsc_resource_release_tags.yml` prior to building. Alternatively, you can pass `true` to the `update_versions` argument of the `dsc:resources:import` rake task.
 
 ## Build Custom DSC Resource Types
 You can build puppet types based on your own powershell source code.
@@ -61,7 +82,7 @@ the folder structure should be `MyModule/MyModule.psd1` and not `MyModule/Someth
 
 When importing or creating custom types, follow these steps:
 
-1. Build the module with `DSC_REF=e6974e1 bundle exec rake dsc:build`, where `e6974e1` is the SHA of the repository https://github.com/PowerShell/DscResources that the current Puppet types are based on.
+1. Build the module with `bundle exec rake dsc:build`
 2. Now take your own modules path and import your types: `bundle exec rake dsc:resources:import["path/to/your/types"]`. This should be the parent path that contains a folder (or folders) of DSC Resources.
    e.g. run `bundle exec rake dsc:resources:import["build/vendor/custom"]`.
    ![Module Layout - Import the Parent Directory](docs/images/dir_struct_import.png)
