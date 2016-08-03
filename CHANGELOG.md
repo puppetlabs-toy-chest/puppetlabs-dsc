@@ -1,3 +1,26 @@
+## 2016-08-08 - Supported Release 1.1.0
+### Summary
+
+The DSC module has many bugs fixed and DSC Resources updated to be current as of 26th July 2016.
+
+### Features
+- Nano Server Compatibility ([MODULES-3343](https://tickets.puppet.com/browse/MODULES-3343))
+- Better tracking of DSC Resource version with `dsc_resource_release_tags.yml` file ([MODULES-3228](https://tickets.puppet.com/browse/MODULES-3228))([MODULES-3674](https://tickets.puppet.com/browse/MODULES-3674))
+- Revendored DSC Resources as of 26th July 2016
+
+### Bugfixes
+
+- Fix: Tests failing on PE 3.8.x because master_manipluator is pinned ([MODULES-2772](https://tickets.puppet.com/browse/MODULES-2772))
+- Fix: Improve the DSC Build import process ([FM-4661](https://tickets.puppet.com/browse/FM-4661))
+- Fix: Tests failing due to RSpec 3+ compatibility ([FM-4915](https://tickets.puppet.com/browse/FM-4915))
+- Fix: Remove unnecessary files from module build
+- Fix: Simplify 'Ensure' Property Handling ([MODULES-3133](https://tickets.puppet.com/browse/MODULES-3133))
+- Fix: Upgrade MOF Parser for UTF8-BOMs ([MODULES-3133](https://tickets.puppet.com/browse/MODULES-3133))
+- Fix: Update links for WM5 Production release
+- Fix: Increase execution timeout ([MODULES-3342](https://tickets.puppet.com/browse/MODULES-3342))
+- Fix: Fix acceptance tests for MySQL DSC resource ([MODULES-3431](https://tickets.puppet.com/browse/MODULES-3431))
+- Fix: Update documentation with Module Version strategy ([MODULES-3491](https://tickets.puppet.com/browse/MODULES-3491))
+
 ## 2016-03-17 - Supported Release 1.0.1
 ### Summary
 
