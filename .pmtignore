@@ -8,8 +8,11 @@ import/
 build/
 docs/
 tests/
+log/
+junit/
+tmp/
 
-# Normally the spec directory is included in module distribution, however due to large number of 
+# Normally the spec directory is included in module distribution, however due to large number of
 # files generated, they are ignored when packaging the module.  The spec tests are not required
 # for the module to operate
 spec/
