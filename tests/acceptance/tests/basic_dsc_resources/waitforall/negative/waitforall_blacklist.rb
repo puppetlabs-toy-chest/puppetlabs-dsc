@@ -18,7 +18,7 @@ dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resourc
 dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
 
 # Verify
-error_msg = /Error:.*Invalid resource type dsc_waitforall/
+error_msg = /Error:.*resource.*dsc_waitforall/
 
 # Tests
 agents.each do |agent|
