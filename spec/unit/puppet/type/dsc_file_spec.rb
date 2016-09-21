@@ -25,7 +25,6 @@ describe Puppet::Type.type(:dsc_file) do
       :dsc_attributes => 'ReadOnly',
       :dsc_dependson => ["foo", "bar", "spec"],
       :dsc_matchsource => true,
-      :dsc_psdscrunascredential => {"user"=>"user", "password"=>"password"},
     )}.to_not raise_error
   end
 
@@ -489,26 +488,6 @@ describe Puppet::Type.type(:dsc_file) do
 
   it 'should not accept uint for dsc_matchsource' do
     expect{dsc_file[:dsc_matchsource] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it "should not accept empty password for dsc_psdscrunascredential" do
-    expect{dsc_file[:dsc_psdscrunascredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept array for dsc_psdscrunascredential' do
-    expect{dsc_file[:dsc_psdscrunascredential] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept boolean for dsc_psdscrunascredential' do
-    expect{dsc_file[:dsc_psdscrunascredential] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept int for dsc_psdscrunascredential' do
-    expect{dsc_file[:dsc_psdscrunascredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_psdscrunascredential' do
-    expect{dsc_file[:dsc_psdscrunascredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS
