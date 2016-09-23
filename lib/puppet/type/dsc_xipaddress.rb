@@ -39,6 +39,22 @@ Puppet::Type.newtype(:dsc_xipaddress) do
     defaultto { :present }
   end
 
+  # Name:         PsDscRunAsCredential
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_psdscrunascredential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "PsDscRunAsCredential"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
+    end
+  end
+
   # Name:         IPAddress
   # Type:         string
   # IsMandatory:  True

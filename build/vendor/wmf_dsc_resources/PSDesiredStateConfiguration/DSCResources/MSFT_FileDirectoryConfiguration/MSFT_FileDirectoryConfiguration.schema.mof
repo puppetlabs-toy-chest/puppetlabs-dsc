@@ -13,6 +13,5 @@ class MSFT_FileDirectoryConfiguration : OMI_BaseResource
   [Write, ValueMap{"ReadOnly","Hidden","System","Archive"}, Values{"ReadOnly","Hidden","System","Archive"}] String Attributes[];
   [Write] String DependsOn[];
   [Write] boolean MatchSource;
-  [Write, EmbeddedInstance("MSFT_Credential")] String PsDscRunAsCredential;
 };
 
