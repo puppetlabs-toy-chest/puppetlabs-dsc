@@ -80,8 +80,11 @@ eod
       resource_tags = {}
       resource_tags = YAML::load_file("#{dsc_resources_file}") if File.exist? dsc_resources_file
 
+      puts "Setting up folder structure for DSC resources..."
+      FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", "#{dsc_resources_path_tmp}/thedscresources"
+      FileUtils.cp_r "#{dsc_resources_path_tmp}/dscresources/.", "#{dsc_resources_path_tmp}/thedscresources"
       puts "Getting latest release tags for DSC resources..."
-      Dir["#{dsc_resources_path_tmp}/xDscResources/*"].each do |dsc_resource_path|
+      Dir["#{dsc_resources_path_tmp}/thedscresources/*"].each do |dsc_resource_path|
         dsc_resource_name = Pathname.new(dsc_resource_path).basename
         FileUtils.cd(dsc_resource_path) do
           # --date-order probably doesn't matter
@@ -134,7 +137,7 @@ eod
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.{gitattributes,gitignore,gitmodules}"])
       FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/*.{pptx,docx,sln,cmd,xml,pssproj,pfx,html,txt,xlsm,csv,png,git,yml,md}"])
 
-      vendor_subdir = is_custom_resource ? '' : '/xDscResources' # Case sensitive
+      vendor_subdir = is_custom_resource ? '' : '/thedscresources' # Case sensitive
       puts "Copying vendored resources from #{dsc_resources_path_tmp}#{vendor_subdir} to #{vendor_dsc_resources_path}"
       FileUtils.cp_r "#{dsc_resources_path_tmp}#{vendor_subdir}/.", vendor_dsc_resources_path, :remove_destination => true
       FileUtils.cp_r "#{dsc_resources_path_tmp}#{vendor_subdir}/.", dsc_resources_path
