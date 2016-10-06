@@ -67,12 +67,20 @@ module PuppetX
       end
 
       def self.validate_mof_type(mof_type, embeddedinstance_name, name, value)
-        should_be_array = mof_type[:type].end_with?('[]')
+        validate_type_value(mof_type[:type],
+          value,
+          "#{name} of #{embeddedinstance_name}",
+          mof_type[:values])
+      end
+
+      def self.validate_type_value(type_name, value, display_name = nil, allowed_values = nil)
+        display_name = name if display_name.nil?
+        should_be_array = type_name.end_with?('[]')
         if !should_be_array && value.is_a?(Array)
-          fail "#{name} of #{embeddedinstance_name} should not be an Array: invalid value #{value}"
+          fail "#{display_name} should not be an Array: invalid value #{value}"
         end
 
-        case mof_type[:type]
+        case type_name
         when "bool", "boolean"
           munge_boolean(value.to_s)
         when "uint8","uint16","uint32","uint64",
@@ -82,51 +90,51 @@ module PuppetX
           "int8[]","int16[]","int32[]","int64[]",
           "sint8[]","sint16[]","sint32[]","sint64[]"
 
-          width = mof_type[:type].gsub(/[^\d]/, '').to_i
+          width = type_name.gsub(/[^\d]/, '').to_i
 
           # signed values reserve 1 bit for sign
-          signed = !mof_type[:type].start_with?('u')
+          signed = !type_name.start_with?('u')
           min = (signed ? eval('-0b' + '1' * (width - 1)) - 1 : 0)
           max = (signed ? eval('0b' + '1' * (width - 1)) : eval('0b' + '1' * width))
 
           # munging has not yet occurred to convert these values prior to validation
           values = Array(value)
           unless values.all? { |v| v.is_a?(Numeric) || v =~ /^[-+]?\d+$/ }
-            fail "#{name} of #{embeddedinstance_name} is not a numeric value: invalid value #{value}"
+            fail "#{display_name} is not a numeric value: invalid value #{value}"
           end
 
           values = values.map { |v| v.to_i }
           unless values.all? { |v| (min <= v) && (v <= max) }
-            fail "#{name} of #{embeddedinstance_name} is outside the valid range of values: #{min} to #{max}: invalid value #{value}"
+            fail "#{display_name} is outside the valid range of values: #{min} to #{max}: invalid value #{value}"
           end
 
-          if mof_type[:values] && !values.all? { |v| mof_type[:values].include?(v) }
-            fail("Invalid value #{value}. Valid values are #{mof_type[:values].join(', ')}")
+          if allowed_values && !values.all? { |v| allowed_values.include?(v) }
+            fail("Invalid value #{value}. Valid values are #{allowed_values.join(', ')}")
           end
         when 'string', 'string[]'
           values = Array(value)
           unless values.all? { |v| v.is_a? String }
-            fail "#{name} of #{embeddedinstance_name} should be an Array: invalid value #{value}"
+            fail "#{display_name} should be an Array: invalid value #{value}"
           end
-          if mof_type[:values] && !values.all? { |v| mof_type[:values].any? { |allowed_v| v.casecmp(allowed_v) == 0 } }
-            fail("Invalid value #{value}. Valid values are #{mof_type[:values].join(', ')}")
+          if allowed_values && !values.all? { |v| allowed_values.any? { |allowed_v| v.casecmp(allowed_v) == 0 } }
+            fail("Invalid value #{value}. Valid values are #{allowed_values.join(', ')}")
           end
         when 'MSFT_Credential', 'MSFT_Credential[]'
-          validate_MSFT_Credential(name, value)
+          validate_MSFT_Credential(display_name, value)
         when 'MSFT_KeyValuePair'
           unless value.is_a? Hash && value.length == 1
-            fail "#{name} of #{embeddedinstance_name} should be a Hash with 1 item: invalid value #{value}"
+            fail "#{display_name} should be a Hash with 1 item: invalid value #{value}"
           end
         when 'MSFT_KeyValuePair[]'
           unless value.is_a? Hash
-            fail "#{name} of #{embeddedinstance_name} should be a Hash: invalid value #{value}"
+            fail "#{display_name} should be a Hash: invalid value #{value}"
           end
         else
-          validation_method = "validate_#{mof_type[:type]}"
+          validation_method = "validate_#{type_name}"
           if respond_to?(validation_method)
-            send(validation_method, name, value)
+            send(validation_method, display_name, value)
           else
-            fail "Unable to validate property #{name} (type #{mof_type[:type]}) of #{embeddedinstance_name}: value #{value}"
+            fail "Unable to validate property #{display_name} (type #{type_name}): value #{value}"
           end
         end
       end
