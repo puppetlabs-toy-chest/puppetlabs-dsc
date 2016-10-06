@@ -113,39 +113,34 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
     expect{dsc_spwebapplication[:dsc_allowanonymous] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowanonymous' do
-    dsc_spwebapplication[:dsc_allowanonymous] = true
-    expect(dsc_spwebapplication[:dsc_allowanonymous]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowanonymous" do
     dsc_spwebapplication[:dsc_allowanonymous] = 'true'
-    expect(dsc_spwebapplication[:dsc_allowanonymous]).to eq(true)
+    expect(dsc_spwebapplication[:dsc_allowanonymous]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowanonymous" do
     dsc_spwebapplication[:dsc_allowanonymous] = 'false'
-    expect(dsc_spwebapplication[:dsc_allowanonymous]).to eq(false)
+    expect(dsc_spwebapplication[:dsc_allowanonymous]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowanonymous" do
     dsc_spwebapplication[:dsc_allowanonymous] = 'True'
-    expect(dsc_spwebapplication[:dsc_allowanonymous]).to eq(true)
+    expect(dsc_spwebapplication[:dsc_allowanonymous]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowanonymous" do
     dsc_spwebapplication[:dsc_allowanonymous] = 'False'
-    expect(dsc_spwebapplication[:dsc_allowanonymous]).to eq(false)
+    expect(dsc_spwebapplication[:dsc_allowanonymous]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowanonymous" do
     dsc_spwebapplication[:dsc_allowanonymous] = :true
-    expect(dsc_spwebapplication[:dsc_allowanonymous]).to eq(true)
+    expect(dsc_spwebapplication[:dsc_allowanonymous]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowanonymous" do
     dsc_spwebapplication[:dsc_allowanonymous] = :false
-    expect(dsc_spwebapplication[:dsc_allowanonymous]).to eq(false)
+    expect(dsc_spwebapplication[:dsc_allowanonymous]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowanonymous' do
@@ -280,39 +275,34 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
     expect{dsc_spwebapplication[:dsc_usessl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_usessl' do
-    dsc_spwebapplication[:dsc_usessl] = true
-    expect(dsc_spwebapplication[:dsc_usessl]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_usessl" do
     dsc_spwebapplication[:dsc_usessl] = 'true'
-    expect(dsc_spwebapplication[:dsc_usessl]).to eq(true)
+    expect(dsc_spwebapplication[:dsc_usessl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_usessl" do
     dsc_spwebapplication[:dsc_usessl] = 'false'
-    expect(dsc_spwebapplication[:dsc_usessl]).to eq(false)
+    expect(dsc_spwebapplication[:dsc_usessl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_usessl" do
     dsc_spwebapplication[:dsc_usessl] = 'True'
-    expect(dsc_spwebapplication[:dsc_usessl]).to eq(true)
+    expect(dsc_spwebapplication[:dsc_usessl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_usessl" do
     dsc_spwebapplication[:dsc_usessl] = 'False'
-    expect(dsc_spwebapplication[:dsc_usessl]).to eq(false)
+    expect(dsc_spwebapplication[:dsc_usessl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_usessl" do
     dsc_spwebapplication[:dsc_usessl] = :true
-    expect(dsc_spwebapplication[:dsc_usessl]).to eq(true)
+    expect(dsc_spwebapplication[:dsc_usessl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_usessl" do
     dsc_spwebapplication[:dsc_usessl] = :false
-    expect(dsc_spwebapplication[:dsc_usessl]).to eq(false)
+    expect(dsc_spwebapplication[:dsc_usessl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_usessl' do

@@ -72,39 +72,34 @@ describe Puppet::Type.type(:dsc_xdnsconnectionsuffix) do
     expect{dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_registerthisconnectionsaddress' do
-    dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress] = true
-    expect(dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_registerthisconnectionsaddress" do
     dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress] = 'true'
-    expect(dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress]).to eq(true)
+    expect(dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_registerthisconnectionsaddress" do
     dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress] = 'false'
-    expect(dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress]).to eq(false)
+    expect(dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_registerthisconnectionsaddress" do
     dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress] = 'True'
-    expect(dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress]).to eq(true)
+    expect(dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_registerthisconnectionsaddress" do
     dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress] = 'False'
-    expect(dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress]).to eq(false)
+    expect(dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_registerthisconnectionsaddress" do
     dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress] = :true
-    expect(dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress]).to eq(true)
+    expect(dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_registerthisconnectionsaddress" do
     dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress] = :false
-    expect(dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress]).to eq(false)
+    expect(dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_registerthisconnectionsaddress' do
@@ -119,39 +114,34 @@ describe Puppet::Type.type(:dsc_xdnsconnectionsuffix) do
     expect{dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_usesuffixwhenregistering' do
-    dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering] = true
-    expect(dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_usesuffixwhenregistering" do
     dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering] = 'true'
-    expect(dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering]).to eq(true)
+    expect(dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_usesuffixwhenregistering" do
     dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering] = 'false'
-    expect(dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering]).to eq(false)
+    expect(dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_usesuffixwhenregistering" do
     dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering] = 'True'
-    expect(dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering]).to eq(true)
+    expect(dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_usesuffixwhenregistering" do
     dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering] = 'False'
-    expect(dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering]).to eq(false)
+    expect(dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_usesuffixwhenregistering" do
     dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering] = :true
-    expect(dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering]).to eq(true)
+    expect(dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_usesuffixwhenregistering" do
     dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering] = :false
-    expect(dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering]).to eq(false)
+    expect(dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_usesuffixwhenregistering' do

@@ -207,39 +207,34 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
     expect{dsc_xdfsnamespaceroot[:dsc_enablesitecosting] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enablesitecosting' do
-    dsc_xdfsnamespaceroot[:dsc_enablesitecosting] = true
-    expect(dsc_xdfsnamespaceroot[:dsc_enablesitecosting]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enablesitecosting" do
     dsc_xdfsnamespaceroot[:dsc_enablesitecosting] = 'true'
-    expect(dsc_xdfsnamespaceroot[:dsc_enablesitecosting]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enablesitecosting]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enablesitecosting" do
     dsc_xdfsnamespaceroot[:dsc_enablesitecosting] = 'false'
-    expect(dsc_xdfsnamespaceroot[:dsc_enablesitecosting]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enablesitecosting]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enablesitecosting" do
     dsc_xdfsnamespaceroot[:dsc_enablesitecosting] = 'True'
-    expect(dsc_xdfsnamespaceroot[:dsc_enablesitecosting]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enablesitecosting]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enablesitecosting" do
     dsc_xdfsnamespaceroot[:dsc_enablesitecosting] = 'False'
-    expect(dsc_xdfsnamespaceroot[:dsc_enablesitecosting]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enablesitecosting]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enablesitecosting" do
     dsc_xdfsnamespaceroot[:dsc_enablesitecosting] = :true
-    expect(dsc_xdfsnamespaceroot[:dsc_enablesitecosting]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enablesitecosting]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enablesitecosting" do
     dsc_xdfsnamespaceroot[:dsc_enablesitecosting] = :false
-    expect(dsc_xdfsnamespaceroot[:dsc_enablesitecosting]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enablesitecosting]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enablesitecosting' do
@@ -254,39 +249,34 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
     expect{dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enableinsitereferrals' do
-    dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals] = true
-    expect(dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enableinsitereferrals" do
     dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals] = 'true'
-    expect(dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enableinsitereferrals" do
     dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals] = 'false'
-    expect(dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enableinsitereferrals" do
     dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals] = 'True'
-    expect(dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enableinsitereferrals" do
     dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals] = 'False'
-    expect(dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enableinsitereferrals" do
     dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals] = :true
-    expect(dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enableinsitereferrals" do
     dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals] = :false
-    expect(dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enableinsitereferrals' do
@@ -301,39 +291,34 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
     expect{dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enableaccessbasedenumeration' do
-    dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration] = true
-    expect(dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enableaccessbasedenumeration" do
     dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration] = 'true'
-    expect(dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enableaccessbasedenumeration" do
     dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration] = 'false'
-    expect(dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enableaccessbasedenumeration" do
     dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration] = 'True'
-    expect(dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enableaccessbasedenumeration" do
     dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration] = 'False'
-    expect(dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enableaccessbasedenumeration" do
     dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration] = :true
-    expect(dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enableaccessbasedenumeration" do
     dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration] = :false
-    expect(dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enableaccessbasedenumeration' do
@@ -348,39 +333,34 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
     expect{dsc_xdfsnamespaceroot[:dsc_enablerootscalability] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enablerootscalability' do
-    dsc_xdfsnamespaceroot[:dsc_enablerootscalability] = true
-    expect(dsc_xdfsnamespaceroot[:dsc_enablerootscalability]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enablerootscalability" do
     dsc_xdfsnamespaceroot[:dsc_enablerootscalability] = 'true'
-    expect(dsc_xdfsnamespaceroot[:dsc_enablerootscalability]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enablerootscalability]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enablerootscalability" do
     dsc_xdfsnamespaceroot[:dsc_enablerootscalability] = 'false'
-    expect(dsc_xdfsnamespaceroot[:dsc_enablerootscalability]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enablerootscalability]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enablerootscalability" do
     dsc_xdfsnamespaceroot[:dsc_enablerootscalability] = 'True'
-    expect(dsc_xdfsnamespaceroot[:dsc_enablerootscalability]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enablerootscalability]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enablerootscalability" do
     dsc_xdfsnamespaceroot[:dsc_enablerootscalability] = 'False'
-    expect(dsc_xdfsnamespaceroot[:dsc_enablerootscalability]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enablerootscalability]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enablerootscalability" do
     dsc_xdfsnamespaceroot[:dsc_enablerootscalability] = :true
-    expect(dsc_xdfsnamespaceroot[:dsc_enablerootscalability]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enablerootscalability]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enablerootscalability" do
     dsc_xdfsnamespaceroot[:dsc_enablerootscalability] = :false
-    expect(dsc_xdfsnamespaceroot[:dsc_enablerootscalability]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enablerootscalability]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enablerootscalability' do
@@ -395,39 +375,34 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
     expect{dsc_xdfsnamespaceroot[:dsc_enabletargetfailback] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enabletargetfailback' do
-    dsc_xdfsnamespaceroot[:dsc_enabletargetfailback] = true
-    expect(dsc_xdfsnamespaceroot[:dsc_enabletargetfailback]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enabletargetfailback" do
     dsc_xdfsnamespaceroot[:dsc_enabletargetfailback] = 'true'
-    expect(dsc_xdfsnamespaceroot[:dsc_enabletargetfailback]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enabletargetfailback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enabletargetfailback" do
     dsc_xdfsnamespaceroot[:dsc_enabletargetfailback] = 'false'
-    expect(dsc_xdfsnamespaceroot[:dsc_enabletargetfailback]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enabletargetfailback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enabletargetfailback" do
     dsc_xdfsnamespaceroot[:dsc_enabletargetfailback] = 'True'
-    expect(dsc_xdfsnamespaceroot[:dsc_enabletargetfailback]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enabletargetfailback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enabletargetfailback" do
     dsc_xdfsnamespaceroot[:dsc_enabletargetfailback] = 'False'
-    expect(dsc_xdfsnamespaceroot[:dsc_enabletargetfailback]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enabletargetfailback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enabletargetfailback" do
     dsc_xdfsnamespaceroot[:dsc_enabletargetfailback] = :true
-    expect(dsc_xdfsnamespaceroot[:dsc_enabletargetfailback]).to eq(true)
+    expect(dsc_xdfsnamespaceroot[:dsc_enabletargetfailback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enabletargetfailback" do
     dsc_xdfsnamespaceroot[:dsc_enabletargetfailback] = :false
-    expect(dsc_xdfsnamespaceroot[:dsc_enabletargetfailback]).to eq(false)
+    expect(dsc_xdfsnamespaceroot[:dsc_enabletargetfailback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enabletargetfailback' do

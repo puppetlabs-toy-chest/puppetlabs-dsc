@@ -362,39 +362,34 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_waitforip] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_waitforip' do
-    dsc_xvmhyperv[:dsc_waitforip] = true
-    expect(dsc_xvmhyperv[:dsc_waitforip]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_waitforip" do
     dsc_xvmhyperv[:dsc_waitforip] = 'true'
-    expect(dsc_xvmhyperv[:dsc_waitforip]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_waitforip]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_waitforip" do
     dsc_xvmhyperv[:dsc_waitforip] = 'false'
-    expect(dsc_xvmhyperv[:dsc_waitforip]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_waitforip]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_waitforip" do
     dsc_xvmhyperv[:dsc_waitforip] = 'True'
-    expect(dsc_xvmhyperv[:dsc_waitforip]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_waitforip]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_waitforip" do
     dsc_xvmhyperv[:dsc_waitforip] = 'False'
-    expect(dsc_xvmhyperv[:dsc_waitforip]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_waitforip]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_waitforip" do
     dsc_xvmhyperv[:dsc_waitforip] = :true
-    expect(dsc_xvmhyperv[:dsc_waitforip]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_waitforip]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_waitforip" do
     dsc_xvmhyperv[:dsc_waitforip] = :false
-    expect(dsc_xvmhyperv[:dsc_waitforip]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_waitforip]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_waitforip' do
@@ -409,39 +404,34 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_restartifneeded] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_restartifneeded' do
-    dsc_xvmhyperv[:dsc_restartifneeded] = true
-    expect(dsc_xvmhyperv[:dsc_restartifneeded]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_restartifneeded" do
     dsc_xvmhyperv[:dsc_restartifneeded] = 'true'
-    expect(dsc_xvmhyperv[:dsc_restartifneeded]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_restartifneeded]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_restartifneeded" do
     dsc_xvmhyperv[:dsc_restartifneeded] = 'false'
-    expect(dsc_xvmhyperv[:dsc_restartifneeded]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_restartifneeded]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_restartifneeded" do
     dsc_xvmhyperv[:dsc_restartifneeded] = 'True'
-    expect(dsc_xvmhyperv[:dsc_restartifneeded]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_restartifneeded]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_restartifneeded" do
     dsc_xvmhyperv[:dsc_restartifneeded] = 'False'
-    expect(dsc_xvmhyperv[:dsc_restartifneeded]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_restartifneeded]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_restartifneeded" do
     dsc_xvmhyperv[:dsc_restartifneeded] = :true
-    expect(dsc_xvmhyperv[:dsc_restartifneeded]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_restartifneeded]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_restartifneeded" do
     dsc_xvmhyperv[:dsc_restartifneeded] = :false
-    expect(dsc_xvmhyperv[:dsc_restartifneeded]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_restartifneeded]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_restartifneeded' do
@@ -522,39 +512,34 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_secureboot] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_secureboot' do
-    dsc_xvmhyperv[:dsc_secureboot] = true
-    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_secureboot" do
     dsc_xvmhyperv[:dsc_secureboot] = 'true'
-    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_secureboot" do
     dsc_xvmhyperv[:dsc_secureboot] = 'false'
-    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_secureboot" do
     dsc_xvmhyperv[:dsc_secureboot] = 'True'
-    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_secureboot" do
     dsc_xvmhyperv[:dsc_secureboot] = 'False'
-    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_secureboot" do
     dsc_xvmhyperv[:dsc_secureboot] = :true
-    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_secureboot" do
     dsc_xvmhyperv[:dsc_secureboot] = :false
-    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_secureboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_secureboot' do
@@ -569,39 +554,34 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_enableguestservice] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enableguestservice' do
-    dsc_xvmhyperv[:dsc_enableguestservice] = true
-    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enableguestservice" do
     dsc_xvmhyperv[:dsc_enableguestservice] = 'true'
-    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enableguestservice" do
     dsc_xvmhyperv[:dsc_enableguestservice] = 'false'
-    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enableguestservice" do
     dsc_xvmhyperv[:dsc_enableguestservice] = 'True'
-    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enableguestservice" do
     dsc_xvmhyperv[:dsc_enableguestservice] = 'False'
-    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enableguestservice" do
     dsc_xvmhyperv[:dsc_enableguestservice] = :true
-    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enableguestservice" do
     dsc_xvmhyperv[:dsc_enableguestservice] = :false
-    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_enableguestservice]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enableguestservice' do
@@ -748,39 +728,34 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_hasdynamicmemory] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_hasdynamicmemory' do
-    dsc_xvmhyperv[:dsc_hasdynamicmemory] = true
-    expect(dsc_xvmhyperv[:dsc_hasdynamicmemory]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_hasdynamicmemory" do
     dsc_xvmhyperv[:dsc_hasdynamicmemory] = 'true'
-    expect(dsc_xvmhyperv[:dsc_hasdynamicmemory]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_hasdynamicmemory]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_hasdynamicmemory" do
     dsc_xvmhyperv[:dsc_hasdynamicmemory] = 'false'
-    expect(dsc_xvmhyperv[:dsc_hasdynamicmemory]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_hasdynamicmemory]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_hasdynamicmemory" do
     dsc_xvmhyperv[:dsc_hasdynamicmemory] = 'True'
-    expect(dsc_xvmhyperv[:dsc_hasdynamicmemory]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_hasdynamicmemory]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_hasdynamicmemory" do
     dsc_xvmhyperv[:dsc_hasdynamicmemory] = 'False'
-    expect(dsc_xvmhyperv[:dsc_hasdynamicmemory]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_hasdynamicmemory]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_hasdynamicmemory" do
     dsc_xvmhyperv[:dsc_hasdynamicmemory] = :true
-    expect(dsc_xvmhyperv[:dsc_hasdynamicmemory]).to eq(true)
+    expect(dsc_xvmhyperv[:dsc_hasdynamicmemory]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_hasdynamicmemory" do
     dsc_xvmhyperv[:dsc_hasdynamicmemory] = :false
-    expect(dsc_xvmhyperv[:dsc_hasdynamicmemory]).to eq(false)
+    expect(dsc_xvmhyperv[:dsc_hasdynamicmemory]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_hasdynamicmemory' do

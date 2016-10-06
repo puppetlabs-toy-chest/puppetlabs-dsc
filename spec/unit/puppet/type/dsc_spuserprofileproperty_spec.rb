@@ -599,39 +599,34 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_iseventlog] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_iseventlog' do
-    dsc_spuserprofileproperty[:dsc_iseventlog] = true
-    expect(dsc_spuserprofileproperty[:dsc_iseventlog]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_iseventlog" do
     dsc_spuserprofileproperty[:dsc_iseventlog] = 'true'
-    expect(dsc_spuserprofileproperty[:dsc_iseventlog]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_iseventlog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_iseventlog" do
     dsc_spuserprofileproperty[:dsc_iseventlog] = 'false'
-    expect(dsc_spuserprofileproperty[:dsc_iseventlog]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_iseventlog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_iseventlog" do
     dsc_spuserprofileproperty[:dsc_iseventlog] = 'True'
-    expect(dsc_spuserprofileproperty[:dsc_iseventlog]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_iseventlog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_iseventlog" do
     dsc_spuserprofileproperty[:dsc_iseventlog] = 'False'
-    expect(dsc_spuserprofileproperty[:dsc_iseventlog]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_iseventlog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_iseventlog" do
     dsc_spuserprofileproperty[:dsc_iseventlog] = :true
-    expect(dsc_spuserprofileproperty[:dsc_iseventlog]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_iseventlog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_iseventlog" do
     dsc_spuserprofileproperty[:dsc_iseventlog] = :false
-    expect(dsc_spuserprofileproperty[:dsc_iseventlog]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_iseventlog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_iseventlog' do
@@ -646,39 +641,34 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_isvisibleoneditor] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_isvisibleoneditor' do
-    dsc_spuserprofileproperty[:dsc_isvisibleoneditor] = true
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleoneditor]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_isvisibleoneditor" do
     dsc_spuserprofileproperty[:dsc_isvisibleoneditor] = 'true'
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleoneditor]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_isvisibleoneditor]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_isvisibleoneditor" do
     dsc_spuserprofileproperty[:dsc_isvisibleoneditor] = 'false'
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleoneditor]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_isvisibleoneditor]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_isvisibleoneditor" do
     dsc_spuserprofileproperty[:dsc_isvisibleoneditor] = 'True'
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleoneditor]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_isvisibleoneditor]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_isvisibleoneditor" do
     dsc_spuserprofileproperty[:dsc_isvisibleoneditor] = 'False'
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleoneditor]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_isvisibleoneditor]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_isvisibleoneditor" do
     dsc_spuserprofileproperty[:dsc_isvisibleoneditor] = :true
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleoneditor]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_isvisibleoneditor]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_isvisibleoneditor" do
     dsc_spuserprofileproperty[:dsc_isvisibleoneditor] = :false
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleoneditor]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_isvisibleoneditor]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_isvisibleoneditor' do
@@ -693,39 +683,34 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_isvisibleonviewer] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_isvisibleonviewer' do
-    dsc_spuserprofileproperty[:dsc_isvisibleonviewer] = true
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleonviewer]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_isvisibleonviewer" do
     dsc_spuserprofileproperty[:dsc_isvisibleonviewer] = 'true'
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleonviewer]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_isvisibleonviewer]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_isvisibleonviewer" do
     dsc_spuserprofileproperty[:dsc_isvisibleonviewer] = 'false'
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleonviewer]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_isvisibleonviewer]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_isvisibleonviewer" do
     dsc_spuserprofileproperty[:dsc_isvisibleonviewer] = 'True'
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleonviewer]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_isvisibleonviewer]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_isvisibleonviewer" do
     dsc_spuserprofileproperty[:dsc_isvisibleonviewer] = 'False'
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleonviewer]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_isvisibleonviewer]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_isvisibleonviewer" do
     dsc_spuserprofileproperty[:dsc_isvisibleonviewer] = :true
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleonviewer]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_isvisibleonviewer]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_isvisibleonviewer" do
     dsc_spuserprofileproperty[:dsc_isvisibleonviewer] = :false
-    expect(dsc_spuserprofileproperty[:dsc_isvisibleonviewer]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_isvisibleonviewer]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_isvisibleonviewer' do
@@ -740,39 +725,34 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_isusereditable] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_isusereditable' do
-    dsc_spuserprofileproperty[:dsc_isusereditable] = true
-    expect(dsc_spuserprofileproperty[:dsc_isusereditable]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_isusereditable" do
     dsc_spuserprofileproperty[:dsc_isusereditable] = 'true'
-    expect(dsc_spuserprofileproperty[:dsc_isusereditable]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_isusereditable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_isusereditable" do
     dsc_spuserprofileproperty[:dsc_isusereditable] = 'false'
-    expect(dsc_spuserprofileproperty[:dsc_isusereditable]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_isusereditable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_isusereditable" do
     dsc_spuserprofileproperty[:dsc_isusereditable] = 'True'
-    expect(dsc_spuserprofileproperty[:dsc_isusereditable]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_isusereditable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_isusereditable" do
     dsc_spuserprofileproperty[:dsc_isusereditable] = 'False'
-    expect(dsc_spuserprofileproperty[:dsc_isusereditable]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_isusereditable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_isusereditable" do
     dsc_spuserprofileproperty[:dsc_isusereditable] = :true
-    expect(dsc_spuserprofileproperty[:dsc_isusereditable]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_isusereditable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_isusereditable" do
     dsc_spuserprofileproperty[:dsc_isusereditable] = :false
-    expect(dsc_spuserprofileproperty[:dsc_isusereditable]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_isusereditable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_isusereditable' do
@@ -787,39 +767,34 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_isalias] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_isalias' do
-    dsc_spuserprofileproperty[:dsc_isalias] = true
-    expect(dsc_spuserprofileproperty[:dsc_isalias]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_isalias" do
     dsc_spuserprofileproperty[:dsc_isalias] = 'true'
-    expect(dsc_spuserprofileproperty[:dsc_isalias]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_isalias]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_isalias" do
     dsc_spuserprofileproperty[:dsc_isalias] = 'false'
-    expect(dsc_spuserprofileproperty[:dsc_isalias]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_isalias]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_isalias" do
     dsc_spuserprofileproperty[:dsc_isalias] = 'True'
-    expect(dsc_spuserprofileproperty[:dsc_isalias]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_isalias]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_isalias" do
     dsc_spuserprofileproperty[:dsc_isalias] = 'False'
-    expect(dsc_spuserprofileproperty[:dsc_isalias]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_isalias]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_isalias" do
     dsc_spuserprofileproperty[:dsc_isalias] = :true
-    expect(dsc_spuserprofileproperty[:dsc_isalias]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_isalias]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_isalias" do
     dsc_spuserprofileproperty[:dsc_isalias] = :false
-    expect(dsc_spuserprofileproperty[:dsc_isalias]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_isalias]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_isalias' do
@@ -834,39 +809,34 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_issearchable] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_issearchable' do
-    dsc_spuserprofileproperty[:dsc_issearchable] = true
-    expect(dsc_spuserprofileproperty[:dsc_issearchable]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_issearchable" do
     dsc_spuserprofileproperty[:dsc_issearchable] = 'true'
-    expect(dsc_spuserprofileproperty[:dsc_issearchable]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_issearchable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_issearchable" do
     dsc_spuserprofileproperty[:dsc_issearchable] = 'false'
-    expect(dsc_spuserprofileproperty[:dsc_issearchable]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_issearchable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_issearchable" do
     dsc_spuserprofileproperty[:dsc_issearchable] = 'True'
-    expect(dsc_spuserprofileproperty[:dsc_issearchable]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_issearchable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_issearchable" do
     dsc_spuserprofileproperty[:dsc_issearchable] = 'False'
-    expect(dsc_spuserprofileproperty[:dsc_issearchable]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_issearchable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_issearchable" do
     dsc_spuserprofileproperty[:dsc_issearchable] = :true
-    expect(dsc_spuserprofileproperty[:dsc_issearchable]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_issearchable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_issearchable" do
     dsc_spuserprofileproperty[:dsc_issearchable] = :false
-    expect(dsc_spuserprofileproperty[:dsc_issearchable]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_issearchable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_issearchable' do
@@ -881,39 +851,34 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_useroverrideprivacy] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_useroverrideprivacy' do
-    dsc_spuserprofileproperty[:dsc_useroverrideprivacy] = true
-    expect(dsc_spuserprofileproperty[:dsc_useroverrideprivacy]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_useroverrideprivacy" do
     dsc_spuserprofileproperty[:dsc_useroverrideprivacy] = 'true'
-    expect(dsc_spuserprofileproperty[:dsc_useroverrideprivacy]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_useroverrideprivacy]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_useroverrideprivacy" do
     dsc_spuserprofileproperty[:dsc_useroverrideprivacy] = 'false'
-    expect(dsc_spuserprofileproperty[:dsc_useroverrideprivacy]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_useroverrideprivacy]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_useroverrideprivacy" do
     dsc_spuserprofileproperty[:dsc_useroverrideprivacy] = 'True'
-    expect(dsc_spuserprofileproperty[:dsc_useroverrideprivacy]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_useroverrideprivacy]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_useroverrideprivacy" do
     dsc_spuserprofileproperty[:dsc_useroverrideprivacy] = 'False'
-    expect(dsc_spuserprofileproperty[:dsc_useroverrideprivacy]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_useroverrideprivacy]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_useroverrideprivacy" do
     dsc_spuserprofileproperty[:dsc_useroverrideprivacy] = :true
-    expect(dsc_spuserprofileproperty[:dsc_useroverrideprivacy]).to eq(true)
+    expect(dsc_spuserprofileproperty[:dsc_useroverrideprivacy]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_useroverrideprivacy" do
     dsc_spuserprofileproperty[:dsc_useroverrideprivacy] = :false
-    expect(dsc_spuserprofileproperty[:dsc_useroverrideprivacy]).to eq(false)
+    expect(dsc_spuserprofileproperty[:dsc_useroverrideprivacy]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_useroverrideprivacy' do

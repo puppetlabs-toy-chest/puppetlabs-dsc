@@ -144,39 +144,34 @@ describe Puppet::Type.type(:dsc_spsearchserviceapp) do
     expect{dsc_spsearchserviceapp[:dsc_cloudindex] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_cloudindex' do
-    dsc_spsearchserviceapp[:dsc_cloudindex] = true
-    expect(dsc_spsearchserviceapp[:dsc_cloudindex]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_cloudindex" do
     dsc_spsearchserviceapp[:dsc_cloudindex] = 'true'
-    expect(dsc_spsearchserviceapp[:dsc_cloudindex]).to eq(true)
+    expect(dsc_spsearchserviceapp[:dsc_cloudindex]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_cloudindex" do
     dsc_spsearchserviceapp[:dsc_cloudindex] = 'false'
-    expect(dsc_spsearchserviceapp[:dsc_cloudindex]).to eq(false)
+    expect(dsc_spsearchserviceapp[:dsc_cloudindex]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_cloudindex" do
     dsc_spsearchserviceapp[:dsc_cloudindex] = 'True'
-    expect(dsc_spsearchserviceapp[:dsc_cloudindex]).to eq(true)
+    expect(dsc_spsearchserviceapp[:dsc_cloudindex]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_cloudindex" do
     dsc_spsearchserviceapp[:dsc_cloudindex] = 'False'
-    expect(dsc_spsearchserviceapp[:dsc_cloudindex]).to eq(false)
+    expect(dsc_spsearchserviceapp[:dsc_cloudindex]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_cloudindex" do
     dsc_spsearchserviceapp[:dsc_cloudindex] = :true
-    expect(dsc_spsearchserviceapp[:dsc_cloudindex]).to eq(true)
+    expect(dsc_spsearchserviceapp[:dsc_cloudindex]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_cloudindex" do
     dsc_spsearchserviceapp[:dsc_cloudindex] = :false
-    expect(dsc_spsearchserviceapp[:dsc_cloudindex]).to eq(false)
+    expect(dsc_spsearchserviceapp[:dsc_cloudindex]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_cloudindex' do

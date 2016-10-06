@@ -100,39 +100,34 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_authenticateusingnla' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla] = true
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_authenticateusingnla" do
     dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla] = 'true'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_authenticateusingnla" do
     dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla] = 'false'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_authenticateusingnla" do
     dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla] = 'True'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_authenticateusingnla" do
     dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla] = 'False'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_authenticateusingnla" do
     dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla] = :true
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_authenticateusingnla" do
     dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla] = :false
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_authenticateusingnla' do
@@ -147,39 +142,34 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_automaticreconnectionenabled' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled] = true
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_automaticreconnectionenabled" do
     dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled] = 'true'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_automaticreconnectionenabled" do
     dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled] = 'false'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_automaticreconnectionenabled" do
     dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled] = 'True'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_automaticreconnectionenabled" do
     dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled] = 'False'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_automaticreconnectionenabled" do
     dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled] = :true
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_automaticreconnectionenabled" do
     dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled] = :false
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_automaticreconnectionenabled' do
@@ -226,39 +216,34 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_clientprinterasdefault' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault] = true
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_clientprinterasdefault" do
     dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault] = 'true'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_clientprinterasdefault" do
     dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault] = 'false'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_clientprinterasdefault" do
     dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault] = 'True'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_clientprinterasdefault" do
     dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault] = 'False'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_clientprinterasdefault" do
     dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault] = :true
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_clientprinterasdefault" do
     dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault] = :false
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_clientprinterasdefault' do
@@ -273,39 +258,34 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_clientprinterredirected' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected] = true
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_clientprinterredirected" do
     dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected] = 'true'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_clientprinterredirected" do
     dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected] = 'false'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_clientprinterredirected" do
     dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected] = 'True'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_clientprinterredirected" do
     dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected] = 'False'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_clientprinterredirected" do
     dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected] = :true
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_clientprinterredirected" do
     dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected] = :false
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_clientprinterredirected' do
@@ -486,39 +466,34 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_rdeasyprintdriverenabled' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled] = true
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_rdeasyprintdriverenabled" do
     dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled] = 'true'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_rdeasyprintdriverenabled" do
     dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled] = 'false'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_rdeasyprintdriverenabled" do
     dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled] = 'True'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_rdeasyprintdriverenabled" do
     dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled] = 'False'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_rdeasyprintdriverenabled" do
     dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled] = :true
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_rdeasyprintdriverenabled" do
     dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled] = :false
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_rdeasyprintdriverenabled' do
@@ -549,39 +524,34 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_temporaryfoldersdeletedonexit' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit] = true
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_temporaryfoldersdeletedonexit" do
     dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit] = 'true'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_temporaryfoldersdeletedonexit" do
     dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit] = 'false'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_temporaryfoldersdeletedonexit" do
     dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit] = 'True'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_temporaryfoldersdeletedonexit" do
     dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit] = 'False'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_temporaryfoldersdeletedonexit" do
     dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit] = :true
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit]).to eq(true)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_temporaryfoldersdeletedonexit" do
     dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit] = :false
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit]).to eq(false)
+    expect(dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_temporaryfoldersdeletedonexit' do

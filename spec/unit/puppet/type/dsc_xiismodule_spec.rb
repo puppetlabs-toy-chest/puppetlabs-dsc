@@ -204,39 +204,34 @@ describe Puppet::Type.type(:dsc_xiismodule) do
     expect{dsc_xiismodule[:dsc_endpointsetup] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_endpointsetup' do
-    dsc_xiismodule[:dsc_endpointsetup] = true
-    expect(dsc_xiismodule[:dsc_endpointsetup]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_endpointsetup" do
     dsc_xiismodule[:dsc_endpointsetup] = 'true'
-    expect(dsc_xiismodule[:dsc_endpointsetup]).to eq(true)
+    expect(dsc_xiismodule[:dsc_endpointsetup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_endpointsetup" do
     dsc_xiismodule[:dsc_endpointsetup] = 'false'
-    expect(dsc_xiismodule[:dsc_endpointsetup]).to eq(false)
+    expect(dsc_xiismodule[:dsc_endpointsetup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_endpointsetup" do
     dsc_xiismodule[:dsc_endpointsetup] = 'True'
-    expect(dsc_xiismodule[:dsc_endpointsetup]).to eq(true)
+    expect(dsc_xiismodule[:dsc_endpointsetup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_endpointsetup" do
     dsc_xiismodule[:dsc_endpointsetup] = 'False'
-    expect(dsc_xiismodule[:dsc_endpointsetup]).to eq(false)
+    expect(dsc_xiismodule[:dsc_endpointsetup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_endpointsetup" do
     dsc_xiismodule[:dsc_endpointsetup] = :true
-    expect(dsc_xiismodule[:dsc_endpointsetup]).to eq(true)
+    expect(dsc_xiismodule[:dsc_endpointsetup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_endpointsetup" do
     dsc_xiismodule[:dsc_endpointsetup] = :false
-    expect(dsc_xiismodule[:dsc_endpointsetup]).to eq(false)
+    expect(dsc_xiismodule[:dsc_endpointsetup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_endpointsetup' do

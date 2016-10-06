@@ -51,39 +51,34 @@ describe Puppet::Type.type(:dsc_xbltpm) do
     expect{dsc_xbltpm[:dsc_allowclear] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowclear' do
-    dsc_xbltpm[:dsc_allowclear] = true
-    expect(dsc_xbltpm[:dsc_allowclear]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowclear" do
     dsc_xbltpm[:dsc_allowclear] = 'true'
-    expect(dsc_xbltpm[:dsc_allowclear]).to eq(true)
+    expect(dsc_xbltpm[:dsc_allowclear]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowclear" do
     dsc_xbltpm[:dsc_allowclear] = 'false'
-    expect(dsc_xbltpm[:dsc_allowclear]).to eq(false)
+    expect(dsc_xbltpm[:dsc_allowclear]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowclear" do
     dsc_xbltpm[:dsc_allowclear] = 'True'
-    expect(dsc_xbltpm[:dsc_allowclear]).to eq(true)
+    expect(dsc_xbltpm[:dsc_allowclear]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowclear" do
     dsc_xbltpm[:dsc_allowclear] = 'False'
-    expect(dsc_xbltpm[:dsc_allowclear]).to eq(false)
+    expect(dsc_xbltpm[:dsc_allowclear]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowclear" do
     dsc_xbltpm[:dsc_allowclear] = :true
-    expect(dsc_xbltpm[:dsc_allowclear]).to eq(true)
+    expect(dsc_xbltpm[:dsc_allowclear]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowclear" do
     dsc_xbltpm[:dsc_allowclear] = :false
-    expect(dsc_xbltpm[:dsc_allowclear]).to eq(false)
+    expect(dsc_xbltpm[:dsc_allowclear]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowclear' do
@@ -98,39 +93,34 @@ describe Puppet::Type.type(:dsc_xbltpm) do
     expect{dsc_xbltpm[:dsc_allowphysicalpresence] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowphysicalpresence' do
-    dsc_xbltpm[:dsc_allowphysicalpresence] = true
-    expect(dsc_xbltpm[:dsc_allowphysicalpresence]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowphysicalpresence" do
     dsc_xbltpm[:dsc_allowphysicalpresence] = 'true'
-    expect(dsc_xbltpm[:dsc_allowphysicalpresence]).to eq(true)
+    expect(dsc_xbltpm[:dsc_allowphysicalpresence]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowphysicalpresence" do
     dsc_xbltpm[:dsc_allowphysicalpresence] = 'false'
-    expect(dsc_xbltpm[:dsc_allowphysicalpresence]).to eq(false)
+    expect(dsc_xbltpm[:dsc_allowphysicalpresence]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowphysicalpresence" do
     dsc_xbltpm[:dsc_allowphysicalpresence] = 'True'
-    expect(dsc_xbltpm[:dsc_allowphysicalpresence]).to eq(true)
+    expect(dsc_xbltpm[:dsc_allowphysicalpresence]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowphysicalpresence" do
     dsc_xbltpm[:dsc_allowphysicalpresence] = 'False'
-    expect(dsc_xbltpm[:dsc_allowphysicalpresence]).to eq(false)
+    expect(dsc_xbltpm[:dsc_allowphysicalpresence]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowphysicalpresence" do
     dsc_xbltpm[:dsc_allowphysicalpresence] = :true
-    expect(dsc_xbltpm[:dsc_allowphysicalpresence]).to eq(true)
+    expect(dsc_xbltpm[:dsc_allowphysicalpresence]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowphysicalpresence" do
     dsc_xbltpm[:dsc_allowphysicalpresence] = :false
-    expect(dsc_xbltpm[:dsc_allowphysicalpresence]).to eq(false)
+    expect(dsc_xbltpm[:dsc_allowphysicalpresence]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowphysicalpresence' do
@@ -145,39 +135,34 @@ describe Puppet::Type.type(:dsc_xbltpm) do
     expect{dsc_xbltpm[:dsc_allowimmediatereboot] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowimmediatereboot' do
-    dsc_xbltpm[:dsc_allowimmediatereboot] = true
-    expect(dsc_xbltpm[:dsc_allowimmediatereboot]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowimmediatereboot" do
     dsc_xbltpm[:dsc_allowimmediatereboot] = 'true'
-    expect(dsc_xbltpm[:dsc_allowimmediatereboot]).to eq(true)
+    expect(dsc_xbltpm[:dsc_allowimmediatereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowimmediatereboot" do
     dsc_xbltpm[:dsc_allowimmediatereboot] = 'false'
-    expect(dsc_xbltpm[:dsc_allowimmediatereboot]).to eq(false)
+    expect(dsc_xbltpm[:dsc_allowimmediatereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowimmediatereboot" do
     dsc_xbltpm[:dsc_allowimmediatereboot] = 'True'
-    expect(dsc_xbltpm[:dsc_allowimmediatereboot]).to eq(true)
+    expect(dsc_xbltpm[:dsc_allowimmediatereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowimmediatereboot" do
     dsc_xbltpm[:dsc_allowimmediatereboot] = 'False'
-    expect(dsc_xbltpm[:dsc_allowimmediatereboot]).to eq(false)
+    expect(dsc_xbltpm[:dsc_allowimmediatereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowimmediatereboot" do
     dsc_xbltpm[:dsc_allowimmediatereboot] = :true
-    expect(dsc_xbltpm[:dsc_allowimmediatereboot]).to eq(true)
+    expect(dsc_xbltpm[:dsc_allowimmediatereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowimmediatereboot" do
     dsc_xbltpm[:dsc_allowimmediatereboot] = :false
-    expect(dsc_xbltpm[:dsc_allowimmediatereboot]).to eq(false)
+    expect(dsc_xbltpm[:dsc_allowimmediatereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowimmediatereboot' do

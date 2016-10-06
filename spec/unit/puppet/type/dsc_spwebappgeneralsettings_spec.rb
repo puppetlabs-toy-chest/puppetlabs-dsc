@@ -102,39 +102,34 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_alerts] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_alerts' do
-    dsc_spwebappgeneralsettings[:dsc_alerts] = true
-    expect(dsc_spwebappgeneralsettings[:dsc_alerts]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_alerts" do
     dsc_spwebappgeneralsettings[:dsc_alerts] = 'true'
-    expect(dsc_spwebappgeneralsettings[:dsc_alerts]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_alerts]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_alerts" do
     dsc_spwebappgeneralsettings[:dsc_alerts] = 'false'
-    expect(dsc_spwebappgeneralsettings[:dsc_alerts]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_alerts]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_alerts" do
     dsc_spwebappgeneralsettings[:dsc_alerts] = 'True'
-    expect(dsc_spwebappgeneralsettings[:dsc_alerts]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_alerts]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_alerts" do
     dsc_spwebappgeneralsettings[:dsc_alerts] = 'False'
-    expect(dsc_spwebappgeneralsettings[:dsc_alerts]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_alerts]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_alerts" do
     dsc_spwebappgeneralsettings[:dsc_alerts] = :true
-    expect(dsc_spwebappgeneralsettings[:dsc_alerts]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_alerts]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_alerts" do
     dsc_spwebappgeneralsettings[:dsc_alerts] = :false
-    expect(dsc_spwebappgeneralsettings[:dsc_alerts]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_alerts]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_alerts' do
@@ -183,39 +178,34 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_rss] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_rss' do
-    dsc_spwebappgeneralsettings[:dsc_rss] = true
-    expect(dsc_spwebappgeneralsettings[:dsc_rss]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_rss" do
     dsc_spwebappgeneralsettings[:dsc_rss] = 'true'
-    expect(dsc_spwebappgeneralsettings[:dsc_rss]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_rss]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_rss" do
     dsc_spwebappgeneralsettings[:dsc_rss] = 'false'
-    expect(dsc_spwebappgeneralsettings[:dsc_rss]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_rss]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_rss" do
     dsc_spwebappgeneralsettings[:dsc_rss] = 'True'
-    expect(dsc_spwebappgeneralsettings[:dsc_rss]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_rss]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_rss" do
     dsc_spwebappgeneralsettings[:dsc_rss] = 'False'
-    expect(dsc_spwebappgeneralsettings[:dsc_rss]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_rss]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_rss" do
     dsc_spwebappgeneralsettings[:dsc_rss] = :true
-    expect(dsc_spwebappgeneralsettings[:dsc_rss]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_rss]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_rss" do
     dsc_spwebappgeneralsettings[:dsc_rss] = :false
-    expect(dsc_spwebappgeneralsettings[:dsc_rss]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_rss]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_rss' do
@@ -230,39 +220,34 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_blogapi] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_blogapi' do
-    dsc_spwebappgeneralsettings[:dsc_blogapi] = true
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapi]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_blogapi" do
     dsc_spwebappgeneralsettings[:dsc_blogapi] = 'true'
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapi]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_blogapi]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_blogapi" do
     dsc_spwebappgeneralsettings[:dsc_blogapi] = 'false'
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapi]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_blogapi]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_blogapi" do
     dsc_spwebappgeneralsettings[:dsc_blogapi] = 'True'
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapi]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_blogapi]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_blogapi" do
     dsc_spwebappgeneralsettings[:dsc_blogapi] = 'False'
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapi]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_blogapi]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_blogapi" do
     dsc_spwebappgeneralsettings[:dsc_blogapi] = :true
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapi]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_blogapi]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_blogapi" do
     dsc_spwebappgeneralsettings[:dsc_blogapi] = :false
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapi]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_blogapi]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_blogapi' do
@@ -277,39 +262,34 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_blogapiauthenticated' do
-    dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated] = true
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_blogapiauthenticated" do
     dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated] = 'true'
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_blogapiauthenticated" do
     dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated] = 'false'
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_blogapiauthenticated" do
     dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated] = 'True'
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_blogapiauthenticated" do
     dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated] = 'False'
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_blogapiauthenticated" do
     dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated] = :true
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_blogapiauthenticated" do
     dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated] = :false
-    expect(dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_blogapiauthenticated' do
@@ -364,39 +344,34 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_securityvalidation] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_securityvalidation' do
-    dsc_spwebappgeneralsettings[:dsc_securityvalidation] = true
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidation]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_securityvalidation" do
     dsc_spwebappgeneralsettings[:dsc_securityvalidation] = 'true'
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidation]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_securityvalidation" do
     dsc_spwebappgeneralsettings[:dsc_securityvalidation] = 'false'
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidation]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_securityvalidation" do
     dsc_spwebappgeneralsettings[:dsc_securityvalidation] = 'True'
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidation]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_securityvalidation" do
     dsc_spwebappgeneralsettings[:dsc_securityvalidation] = 'False'
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidation]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_securityvalidation" do
     dsc_spwebappgeneralsettings[:dsc_securityvalidation] = :true
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidation]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_securityvalidation" do
     dsc_spwebappgeneralsettings[:dsc_securityvalidation] = :false
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidation]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_securityvalidation' do
@@ -411,39 +386,34 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_securityvalidationexpires' do
-    dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires] = true
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_securityvalidationexpires" do
     dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires] = 'true'
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_securityvalidationexpires" do
     dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires] = 'false'
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_securityvalidationexpires" do
     dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires] = 'True'
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_securityvalidationexpires" do
     dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires] = 'False'
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_securityvalidationexpires" do
     dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires] = :true
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_securityvalidationexpires" do
     dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires] = :false
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_securityvalidationexpires' do
@@ -492,39 +462,34 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_recyclebinenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_recyclebinenabled' do
-    dsc_spwebappgeneralsettings[:dsc_recyclebinenabled] = true
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_recyclebinenabled" do
     dsc_spwebappgeneralsettings[:dsc_recyclebinenabled] = 'true'
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinenabled]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_recyclebinenabled" do
     dsc_spwebappgeneralsettings[:dsc_recyclebinenabled] = 'false'
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinenabled]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_recyclebinenabled" do
     dsc_spwebappgeneralsettings[:dsc_recyclebinenabled] = 'True'
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinenabled]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_recyclebinenabled" do
     dsc_spwebappgeneralsettings[:dsc_recyclebinenabled] = 'False'
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinenabled]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_recyclebinenabled" do
     dsc_spwebappgeneralsettings[:dsc_recyclebinenabled] = :true
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinenabled]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_recyclebinenabled" do
     dsc_spwebappgeneralsettings[:dsc_recyclebinenabled] = :false
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinenabled]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_recyclebinenabled' do
@@ -539,39 +504,34 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_recyclebincleanupenabled' do
-    dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled] = true
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_recyclebincleanupenabled" do
     dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled] = 'true'
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_recyclebincleanupenabled" do
     dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled] = 'false'
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_recyclebincleanupenabled" do
     dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled] = 'True'
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_recyclebincleanupenabled" do
     dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled] = 'False'
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_recyclebincleanupenabled" do
     dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled] = :true
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_recyclebincleanupenabled" do
     dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled] = :false
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_recyclebincleanupenabled' do
@@ -688,39 +648,34 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_customerexperienceprogram' do
-    dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram] = true
-    expect(dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_customerexperienceprogram" do
     dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram] = 'true'
-    expect(dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_customerexperienceprogram" do
     dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram] = 'false'
-    expect(dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_customerexperienceprogram" do
     dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram] = 'True'
-    expect(dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_customerexperienceprogram" do
     dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram] = 'False'
-    expect(dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_customerexperienceprogram" do
     dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram] = :true
-    expect(dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_customerexperienceprogram" do
     dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram] = :false
-    expect(dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_customerexperienceprogram' do
@@ -735,39 +690,34 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowonlinewebpartcatalog' do
-    dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = true
-    expect(dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowonlinewebpartcatalog" do
     dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = 'true'
-    expect(dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowonlinewebpartcatalog" do
     dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = 'false'
-    expect(dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowonlinewebpartcatalog" do
     dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = 'True'
-    expect(dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowonlinewebpartcatalog" do
     dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = 'False'
-    expect(dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowonlinewebpartcatalog" do
     dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = :true
-    expect(dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowonlinewebpartcatalog" do
     dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = :false
-    expect(dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowonlinewebpartcatalog' do
@@ -782,39 +732,34 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_selfservicesitecreationenabled' do
-    dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = true
-    expect(dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_selfservicesitecreationenabled" do
     dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = 'true'
-    expect(dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_selfservicesitecreationenabled" do
     dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = 'false'
-    expect(dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_selfservicesitecreationenabled" do
     dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = 'True'
-    expect(dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_selfservicesitecreationenabled" do
     dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = 'False'
-    expect(dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_selfservicesitecreationenabled" do
     dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = :true
-    expect(dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_selfservicesitecreationenabled" do
     dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = :false
-    expect(dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_selfservicesitecreationenabled' do
@@ -829,39 +774,34 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_presenceenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_presenceenabled' do
-    dsc_spwebappgeneralsettings[:dsc_presenceenabled] = true
-    expect(dsc_spwebappgeneralsettings[:dsc_presenceenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_presenceenabled" do
     dsc_spwebappgeneralsettings[:dsc_presenceenabled] = 'true'
-    expect(dsc_spwebappgeneralsettings[:dsc_presenceenabled]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_presenceenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_presenceenabled" do
     dsc_spwebappgeneralsettings[:dsc_presenceenabled] = 'false'
-    expect(dsc_spwebappgeneralsettings[:dsc_presenceenabled]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_presenceenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_presenceenabled" do
     dsc_spwebappgeneralsettings[:dsc_presenceenabled] = 'True'
-    expect(dsc_spwebappgeneralsettings[:dsc_presenceenabled]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_presenceenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_presenceenabled" do
     dsc_spwebappgeneralsettings[:dsc_presenceenabled] = 'False'
-    expect(dsc_spwebappgeneralsettings[:dsc_presenceenabled]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_presenceenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_presenceenabled" do
     dsc_spwebappgeneralsettings[:dsc_presenceenabled] = :true
-    expect(dsc_spwebappgeneralsettings[:dsc_presenceenabled]).to eq(true)
+    expect(dsc_spwebappgeneralsettings[:dsc_presenceenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_presenceenabled" do
     dsc_spwebappgeneralsettings[:dsc_presenceenabled] = :false
-    expect(dsc_spwebappgeneralsettings[:dsc_presenceenabled]).to eq(false)
+    expect(dsc_spwebappgeneralsettings[:dsc_presenceenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_presenceenabled' do

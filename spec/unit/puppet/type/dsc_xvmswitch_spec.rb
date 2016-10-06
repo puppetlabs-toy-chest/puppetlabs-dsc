@@ -135,39 +135,34 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
     expect{dsc_xvmswitch[:dsc_allowmanagementos] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowmanagementos' do
-    dsc_xvmswitch[:dsc_allowmanagementos] = true
-    expect(dsc_xvmswitch[:dsc_allowmanagementos]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowmanagementos" do
     dsc_xvmswitch[:dsc_allowmanagementos] = 'true'
-    expect(dsc_xvmswitch[:dsc_allowmanagementos]).to eq(true)
+    expect(dsc_xvmswitch[:dsc_allowmanagementos]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowmanagementos" do
     dsc_xvmswitch[:dsc_allowmanagementos] = 'false'
-    expect(dsc_xvmswitch[:dsc_allowmanagementos]).to eq(false)
+    expect(dsc_xvmswitch[:dsc_allowmanagementos]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowmanagementos" do
     dsc_xvmswitch[:dsc_allowmanagementos] = 'True'
-    expect(dsc_xvmswitch[:dsc_allowmanagementos]).to eq(true)
+    expect(dsc_xvmswitch[:dsc_allowmanagementos]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowmanagementos" do
     dsc_xvmswitch[:dsc_allowmanagementos] = 'False'
-    expect(dsc_xvmswitch[:dsc_allowmanagementos]).to eq(false)
+    expect(dsc_xvmswitch[:dsc_allowmanagementos]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowmanagementos" do
     dsc_xvmswitch[:dsc_allowmanagementos] = :true
-    expect(dsc_xvmswitch[:dsc_allowmanagementos]).to eq(true)
+    expect(dsc_xvmswitch[:dsc_allowmanagementos]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowmanagementos" do
     dsc_xvmswitch[:dsc_allowmanagementos] = :false
-    expect(dsc_xvmswitch[:dsc_allowmanagementos]).to eq(false)
+    expect(dsc_xvmswitch[:dsc_allowmanagementos]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowmanagementos' do

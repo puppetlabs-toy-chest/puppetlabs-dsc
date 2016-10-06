@@ -52,39 +52,34 @@ describe Puppet::Type.type(:dsc_spwebappworkflowsettings) do
     expect{dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_externalworkflowparticipantsenabled' do
-    dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled] = true
-    expect(dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_externalworkflowparticipantsenabled" do
     dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled] = 'true'
-    expect(dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled]).to eq(true)
+    expect(dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_externalworkflowparticipantsenabled" do
     dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled] = 'false'
-    expect(dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled]).to eq(false)
+    expect(dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_externalworkflowparticipantsenabled" do
     dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled] = 'True'
-    expect(dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled]).to eq(true)
+    expect(dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_externalworkflowparticipantsenabled" do
     dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled] = 'False'
-    expect(dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled]).to eq(false)
+    expect(dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_externalworkflowparticipantsenabled" do
     dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled] = :true
-    expect(dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled]).to eq(true)
+    expect(dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_externalworkflowparticipantsenabled" do
     dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled] = :false
-    expect(dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled]).to eq(false)
+    expect(dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_externalworkflowparticipantsenabled' do
@@ -99,39 +94,34 @@ describe Puppet::Type.type(:dsc_spwebappworkflowsettings) do
     expect{dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_userdefinedworkflowsenabled' do
-    dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled] = true
-    expect(dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_userdefinedworkflowsenabled" do
     dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled] = 'true'
-    expect(dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled]).to eq(true)
+    expect(dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_userdefinedworkflowsenabled" do
     dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled] = 'false'
-    expect(dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled]).to eq(false)
+    expect(dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_userdefinedworkflowsenabled" do
     dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled] = 'True'
-    expect(dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled]).to eq(true)
+    expect(dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_userdefinedworkflowsenabled" do
     dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled] = 'False'
-    expect(dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled]).to eq(false)
+    expect(dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_userdefinedworkflowsenabled" do
     dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled] = :true
-    expect(dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled]).to eq(true)
+    expect(dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_userdefinedworkflowsenabled" do
     dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled] = :false
-    expect(dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled]).to eq(false)
+    expect(dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_userdefinedworkflowsenabled' do
@@ -146,39 +136,34 @@ describe Puppet::Type.type(:dsc_spwebappworkflowsettings) do
     expect{dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_emailtonopermissionworkflowparticipantsenable' do
-    dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable] = true
-    expect(dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_emailtonopermissionworkflowparticipantsenable" do
     dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable] = 'true'
-    expect(dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable]).to eq(true)
+    expect(dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_emailtonopermissionworkflowparticipantsenable" do
     dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable] = 'false'
-    expect(dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable]).to eq(false)
+    expect(dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_emailtonopermissionworkflowparticipantsenable" do
     dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable] = 'True'
-    expect(dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable]).to eq(true)
+    expect(dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_emailtonopermissionworkflowparticipantsenable" do
     dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable] = 'False'
-    expect(dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable]).to eq(false)
+    expect(dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_emailtonopermissionworkflowparticipantsenable" do
     dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable] = :true
-    expect(dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable]).to eq(true)
+    expect(dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_emailtonopermissionworkflowparticipantsenable" do
     dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable] = :false
-    expect(dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable]).to eq(false)
+    expect(dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_emailtonopermissionworkflowparticipantsenable' do

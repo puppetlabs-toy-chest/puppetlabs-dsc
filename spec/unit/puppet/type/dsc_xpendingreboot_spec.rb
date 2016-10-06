@@ -58,39 +58,34 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_skipcomponentbasedservicing' do
-    dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = true
-    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_skipcomponentbasedservicing" do
     dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = 'true'
-    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_skipcomponentbasedservicing" do
     dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = 'false'
-    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_skipcomponentbasedservicing" do
     dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = 'True'
-    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_skipcomponentbasedservicing" do
     dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = 'False'
-    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_skipcomponentbasedservicing" do
     dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = :true
-    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_skipcomponentbasedservicing" do
     dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = :false
-    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skipcomponentbasedservicing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_skipcomponentbasedservicing' do
@@ -105,39 +100,34 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_componentbasedservicing] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_componentbasedservicing' do
-    dsc_xpendingreboot[:dsc_componentbasedservicing] = true
-    expect(dsc_xpendingreboot[:dsc_componentbasedservicing]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_componentbasedservicing" do
     dsc_xpendingreboot[:dsc_componentbasedservicing] = 'true'
-    expect(dsc_xpendingreboot[:dsc_componentbasedservicing]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_componentbasedservicing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_componentbasedservicing" do
     dsc_xpendingreboot[:dsc_componentbasedservicing] = 'false'
-    expect(dsc_xpendingreboot[:dsc_componentbasedservicing]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_componentbasedservicing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_componentbasedservicing" do
     dsc_xpendingreboot[:dsc_componentbasedservicing] = 'True'
-    expect(dsc_xpendingreboot[:dsc_componentbasedservicing]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_componentbasedservicing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_componentbasedservicing" do
     dsc_xpendingreboot[:dsc_componentbasedservicing] = 'False'
-    expect(dsc_xpendingreboot[:dsc_componentbasedservicing]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_componentbasedservicing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_componentbasedservicing" do
     dsc_xpendingreboot[:dsc_componentbasedservicing] = :true
-    expect(dsc_xpendingreboot[:dsc_componentbasedservicing]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_componentbasedservicing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_componentbasedservicing" do
     dsc_xpendingreboot[:dsc_componentbasedservicing] = :false
-    expect(dsc_xpendingreboot[:dsc_componentbasedservicing]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_componentbasedservicing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_componentbasedservicing' do
@@ -152,39 +142,34 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_skipwindowsupdate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_skipwindowsupdate' do
-    dsc_xpendingreboot[:dsc_skipwindowsupdate] = true
-    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_skipwindowsupdate" do
     dsc_xpendingreboot[:dsc_skipwindowsupdate] = 'true'
-    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_skipwindowsupdate" do
     dsc_xpendingreboot[:dsc_skipwindowsupdate] = 'false'
-    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_skipwindowsupdate" do
     dsc_xpendingreboot[:dsc_skipwindowsupdate] = 'True'
-    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_skipwindowsupdate" do
     dsc_xpendingreboot[:dsc_skipwindowsupdate] = 'False'
-    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_skipwindowsupdate" do
     dsc_xpendingreboot[:dsc_skipwindowsupdate] = :true
-    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_skipwindowsupdate" do
     dsc_xpendingreboot[:dsc_skipwindowsupdate] = :false
-    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skipwindowsupdate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_skipwindowsupdate' do
@@ -199,39 +184,34 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_windowsupdate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_windowsupdate' do
-    dsc_xpendingreboot[:dsc_windowsupdate] = true
-    expect(dsc_xpendingreboot[:dsc_windowsupdate]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_windowsupdate" do
     dsc_xpendingreboot[:dsc_windowsupdate] = 'true'
-    expect(dsc_xpendingreboot[:dsc_windowsupdate]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_windowsupdate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_windowsupdate" do
     dsc_xpendingreboot[:dsc_windowsupdate] = 'false'
-    expect(dsc_xpendingreboot[:dsc_windowsupdate]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_windowsupdate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_windowsupdate" do
     dsc_xpendingreboot[:dsc_windowsupdate] = 'True'
-    expect(dsc_xpendingreboot[:dsc_windowsupdate]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_windowsupdate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_windowsupdate" do
     dsc_xpendingreboot[:dsc_windowsupdate] = 'False'
-    expect(dsc_xpendingreboot[:dsc_windowsupdate]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_windowsupdate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_windowsupdate" do
     dsc_xpendingreboot[:dsc_windowsupdate] = :true
-    expect(dsc_xpendingreboot[:dsc_windowsupdate]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_windowsupdate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_windowsupdate" do
     dsc_xpendingreboot[:dsc_windowsupdate] = :false
-    expect(dsc_xpendingreboot[:dsc_windowsupdate]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_windowsupdate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_windowsupdate' do
@@ -246,39 +226,34 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_skippendingfilerename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_skippendingfilerename' do
-    dsc_xpendingreboot[:dsc_skippendingfilerename] = true
-    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_skippendingfilerename" do
     dsc_xpendingreboot[:dsc_skippendingfilerename] = 'true'
-    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_skippendingfilerename" do
     dsc_xpendingreboot[:dsc_skippendingfilerename] = 'false'
-    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_skippendingfilerename" do
     dsc_xpendingreboot[:dsc_skippendingfilerename] = 'True'
-    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_skippendingfilerename" do
     dsc_xpendingreboot[:dsc_skippendingfilerename] = 'False'
-    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_skippendingfilerename" do
     dsc_xpendingreboot[:dsc_skippendingfilerename] = :true
-    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_skippendingfilerename" do
     dsc_xpendingreboot[:dsc_skippendingfilerename] = :false
-    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skippendingfilerename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_skippendingfilerename' do
@@ -293,39 +268,34 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_pendingfilerename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_pendingfilerename' do
-    dsc_xpendingreboot[:dsc_pendingfilerename] = true
-    expect(dsc_xpendingreboot[:dsc_pendingfilerename]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_pendingfilerename" do
     dsc_xpendingreboot[:dsc_pendingfilerename] = 'true'
-    expect(dsc_xpendingreboot[:dsc_pendingfilerename]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_pendingfilerename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_pendingfilerename" do
     dsc_xpendingreboot[:dsc_pendingfilerename] = 'false'
-    expect(dsc_xpendingreboot[:dsc_pendingfilerename]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_pendingfilerename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_pendingfilerename" do
     dsc_xpendingreboot[:dsc_pendingfilerename] = 'True'
-    expect(dsc_xpendingreboot[:dsc_pendingfilerename]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_pendingfilerename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_pendingfilerename" do
     dsc_xpendingreboot[:dsc_pendingfilerename] = 'False'
-    expect(dsc_xpendingreboot[:dsc_pendingfilerename]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_pendingfilerename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_pendingfilerename" do
     dsc_xpendingreboot[:dsc_pendingfilerename] = :true
-    expect(dsc_xpendingreboot[:dsc_pendingfilerename]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_pendingfilerename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_pendingfilerename" do
     dsc_xpendingreboot[:dsc_pendingfilerename] = :false
-    expect(dsc_xpendingreboot[:dsc_pendingfilerename]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_pendingfilerename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_pendingfilerename' do
@@ -340,39 +310,34 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_skippendingcomputerrename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_skippendingcomputerrename' do
-    dsc_xpendingreboot[:dsc_skippendingcomputerrename] = true
-    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_skippendingcomputerrename" do
     dsc_xpendingreboot[:dsc_skippendingcomputerrename] = 'true'
-    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_skippendingcomputerrename" do
     dsc_xpendingreboot[:dsc_skippendingcomputerrename] = 'false'
-    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_skippendingcomputerrename" do
     dsc_xpendingreboot[:dsc_skippendingcomputerrename] = 'True'
-    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_skippendingcomputerrename" do
     dsc_xpendingreboot[:dsc_skippendingcomputerrename] = 'False'
-    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_skippendingcomputerrename" do
     dsc_xpendingreboot[:dsc_skippendingcomputerrename] = :true
-    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_skippendingcomputerrename" do
     dsc_xpendingreboot[:dsc_skippendingcomputerrename] = :false
-    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skippendingcomputerrename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_skippendingcomputerrename' do
@@ -387,39 +352,34 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_pendingcomputerrename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_pendingcomputerrename' do
-    dsc_xpendingreboot[:dsc_pendingcomputerrename] = true
-    expect(dsc_xpendingreboot[:dsc_pendingcomputerrename]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_pendingcomputerrename" do
     dsc_xpendingreboot[:dsc_pendingcomputerrename] = 'true'
-    expect(dsc_xpendingreboot[:dsc_pendingcomputerrename]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_pendingcomputerrename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_pendingcomputerrename" do
     dsc_xpendingreboot[:dsc_pendingcomputerrename] = 'false'
-    expect(dsc_xpendingreboot[:dsc_pendingcomputerrename]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_pendingcomputerrename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_pendingcomputerrename" do
     dsc_xpendingreboot[:dsc_pendingcomputerrename] = 'True'
-    expect(dsc_xpendingreboot[:dsc_pendingcomputerrename]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_pendingcomputerrename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_pendingcomputerrename" do
     dsc_xpendingreboot[:dsc_pendingcomputerrename] = 'False'
-    expect(dsc_xpendingreboot[:dsc_pendingcomputerrename]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_pendingcomputerrename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_pendingcomputerrename" do
     dsc_xpendingreboot[:dsc_pendingcomputerrename] = :true
-    expect(dsc_xpendingreboot[:dsc_pendingcomputerrename]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_pendingcomputerrename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_pendingcomputerrename" do
     dsc_xpendingreboot[:dsc_pendingcomputerrename] = :false
-    expect(dsc_xpendingreboot[:dsc_pendingcomputerrename]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_pendingcomputerrename]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_pendingcomputerrename' do
@@ -434,39 +394,34 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_skipccmclientsdk] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_skipccmclientsdk' do
-    dsc_xpendingreboot[:dsc_skipccmclientsdk] = true
-    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_skipccmclientsdk" do
     dsc_xpendingreboot[:dsc_skipccmclientsdk] = 'true'
-    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_skipccmclientsdk" do
     dsc_xpendingreboot[:dsc_skipccmclientsdk] = 'false'
-    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_skipccmclientsdk" do
     dsc_xpendingreboot[:dsc_skipccmclientsdk] = 'True'
-    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_skipccmclientsdk" do
     dsc_xpendingreboot[:dsc_skipccmclientsdk] = 'False'
-    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_skipccmclientsdk" do
     dsc_xpendingreboot[:dsc_skipccmclientsdk] = :true
-    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_skipccmclientsdk" do
     dsc_xpendingreboot[:dsc_skipccmclientsdk] = :false
-    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_skipccmclientsdk]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_skipccmclientsdk' do
@@ -481,39 +436,34 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_ccmclientsdk] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_ccmclientsdk' do
-    dsc_xpendingreboot[:dsc_ccmclientsdk] = true
-    expect(dsc_xpendingreboot[:dsc_ccmclientsdk]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_ccmclientsdk" do
     dsc_xpendingreboot[:dsc_ccmclientsdk] = 'true'
-    expect(dsc_xpendingreboot[:dsc_ccmclientsdk]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_ccmclientsdk]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_ccmclientsdk" do
     dsc_xpendingreboot[:dsc_ccmclientsdk] = 'false'
-    expect(dsc_xpendingreboot[:dsc_ccmclientsdk]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_ccmclientsdk]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_ccmclientsdk" do
     dsc_xpendingreboot[:dsc_ccmclientsdk] = 'True'
-    expect(dsc_xpendingreboot[:dsc_ccmclientsdk]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_ccmclientsdk]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_ccmclientsdk" do
     dsc_xpendingreboot[:dsc_ccmclientsdk] = 'False'
-    expect(dsc_xpendingreboot[:dsc_ccmclientsdk]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_ccmclientsdk]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_ccmclientsdk" do
     dsc_xpendingreboot[:dsc_ccmclientsdk] = :true
-    expect(dsc_xpendingreboot[:dsc_ccmclientsdk]).to eq(true)
+    expect(dsc_xpendingreboot[:dsc_ccmclientsdk]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_ccmclientsdk" do
     dsc_xpendingreboot[:dsc_ccmclientsdk] = :false
-    expect(dsc_xpendingreboot[:dsc_ccmclientsdk]).to eq(false)
+    expect(dsc_xpendingreboot[:dsc_ccmclientsdk]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_ccmclientsdk' do

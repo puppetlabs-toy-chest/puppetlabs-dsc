@@ -153,39 +153,34 @@ describe Puppet::Type.type(:dsc_xdfsnamespacefolder) do
     expect{dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enableinsitereferrals' do
-    dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals] = true
-    expect(dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enableinsitereferrals" do
     dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals] = 'true'
-    expect(dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals]).to eq(true)
+    expect(dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enableinsitereferrals" do
     dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals] = 'false'
-    expect(dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals]).to eq(false)
+    expect(dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enableinsitereferrals" do
     dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals] = 'True'
-    expect(dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals]).to eq(true)
+    expect(dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enableinsitereferrals" do
     dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals] = 'False'
-    expect(dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals]).to eq(false)
+    expect(dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enableinsitereferrals" do
     dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals] = :true
-    expect(dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals]).to eq(true)
+    expect(dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enableinsitereferrals" do
     dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals] = :false
-    expect(dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals]).to eq(false)
+    expect(dsc_xdfsnamespacefolder[:dsc_enableinsitereferrals]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enableinsitereferrals' do
@@ -200,39 +195,34 @@ describe Puppet::Type.type(:dsc_xdfsnamespacefolder) do
     expect{dsc_xdfsnamespacefolder[:dsc_enabletargetfailback] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enabletargetfailback' do
-    dsc_xdfsnamespacefolder[:dsc_enabletargetfailback] = true
-    expect(dsc_xdfsnamespacefolder[:dsc_enabletargetfailback]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enabletargetfailback" do
     dsc_xdfsnamespacefolder[:dsc_enabletargetfailback] = 'true'
-    expect(dsc_xdfsnamespacefolder[:dsc_enabletargetfailback]).to eq(true)
+    expect(dsc_xdfsnamespacefolder[:dsc_enabletargetfailback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enabletargetfailback" do
     dsc_xdfsnamespacefolder[:dsc_enabletargetfailback] = 'false'
-    expect(dsc_xdfsnamespacefolder[:dsc_enabletargetfailback]).to eq(false)
+    expect(dsc_xdfsnamespacefolder[:dsc_enabletargetfailback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enabletargetfailback" do
     dsc_xdfsnamespacefolder[:dsc_enabletargetfailback] = 'True'
-    expect(dsc_xdfsnamespacefolder[:dsc_enabletargetfailback]).to eq(true)
+    expect(dsc_xdfsnamespacefolder[:dsc_enabletargetfailback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enabletargetfailback" do
     dsc_xdfsnamespacefolder[:dsc_enabletargetfailback] = 'False'
-    expect(dsc_xdfsnamespacefolder[:dsc_enabletargetfailback]).to eq(false)
+    expect(dsc_xdfsnamespacefolder[:dsc_enabletargetfailback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enabletargetfailback" do
     dsc_xdfsnamespacefolder[:dsc_enabletargetfailback] = :true
-    expect(dsc_xdfsnamespacefolder[:dsc_enabletargetfailback]).to eq(true)
+    expect(dsc_xdfsnamespacefolder[:dsc_enabletargetfailback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enabletargetfailback" do
     dsc_xdfsnamespacefolder[:dsc_enabletargetfailback] = :false
-    expect(dsc_xdfsnamespacefolder[:dsc_enabletargetfailback]).to eq(false)
+    expect(dsc_xdfsnamespacefolder[:dsc_enabletargetfailback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enabletargetfailback' do

@@ -152,39 +152,34 @@ describe Puppet::Type.type(:dsc_xpfximport) do
     expect{dsc_xpfximport[:dsc_exportable] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_exportable' do
-    dsc_xpfximport[:dsc_exportable] = true
-    expect(dsc_xpfximport[:dsc_exportable]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_exportable" do
     dsc_xpfximport[:dsc_exportable] = 'true'
-    expect(dsc_xpfximport[:dsc_exportable]).to eq(true)
+    expect(dsc_xpfximport[:dsc_exportable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_exportable" do
     dsc_xpfximport[:dsc_exportable] = 'false'
-    expect(dsc_xpfximport[:dsc_exportable]).to eq(false)
+    expect(dsc_xpfximport[:dsc_exportable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_exportable" do
     dsc_xpfximport[:dsc_exportable] = 'True'
-    expect(dsc_xpfximport[:dsc_exportable]).to eq(true)
+    expect(dsc_xpfximport[:dsc_exportable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_exportable" do
     dsc_xpfximport[:dsc_exportable] = 'False'
-    expect(dsc_xpfximport[:dsc_exportable]).to eq(false)
+    expect(dsc_xpfximport[:dsc_exportable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_exportable" do
     dsc_xpfximport[:dsc_exportable] = :true
-    expect(dsc_xpfximport[:dsc_exportable]).to eq(true)
+    expect(dsc_xpfximport[:dsc_exportable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_exportable" do
     dsc_xpfximport[:dsc_exportable] = :false
-    expect(dsc_xpfximport[:dsc_exportable]).to eq(false)
+    expect(dsc_xpfximport[:dsc_exportable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_exportable' do

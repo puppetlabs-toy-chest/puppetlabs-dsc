@@ -319,39 +319,34 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_ignoreunicode] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_ignoreunicode' do
-    dsc_xadcscertificationauthority[:dsc_ignoreunicode] = true
-    expect(dsc_xadcscertificationauthority[:dsc_ignoreunicode]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_ignoreunicode" do
     dsc_xadcscertificationauthority[:dsc_ignoreunicode] = 'true'
-    expect(dsc_xadcscertificationauthority[:dsc_ignoreunicode]).to eq(true)
+    expect(dsc_xadcscertificationauthority[:dsc_ignoreunicode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_ignoreunicode" do
     dsc_xadcscertificationauthority[:dsc_ignoreunicode] = 'false'
-    expect(dsc_xadcscertificationauthority[:dsc_ignoreunicode]).to eq(false)
+    expect(dsc_xadcscertificationauthority[:dsc_ignoreunicode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_ignoreunicode" do
     dsc_xadcscertificationauthority[:dsc_ignoreunicode] = 'True'
-    expect(dsc_xadcscertificationauthority[:dsc_ignoreunicode]).to eq(true)
+    expect(dsc_xadcscertificationauthority[:dsc_ignoreunicode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_ignoreunicode" do
     dsc_xadcscertificationauthority[:dsc_ignoreunicode] = 'False'
-    expect(dsc_xadcscertificationauthority[:dsc_ignoreunicode]).to eq(false)
+    expect(dsc_xadcscertificationauthority[:dsc_ignoreunicode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_ignoreunicode" do
     dsc_xadcscertificationauthority[:dsc_ignoreunicode] = :true
-    expect(dsc_xadcscertificationauthority[:dsc_ignoreunicode]).to eq(true)
+    expect(dsc_xadcscertificationauthority[:dsc_ignoreunicode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_ignoreunicode" do
     dsc_xadcscertificationauthority[:dsc_ignoreunicode] = :false
-    expect(dsc_xadcscertificationauthority[:dsc_ignoreunicode]).to eq(false)
+    expect(dsc_xadcscertificationauthority[:dsc_ignoreunicode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_ignoreunicode' do
@@ -448,39 +443,34 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_overwriteexistingcainds' do
-    dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds] = true
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_overwriteexistingcainds" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds] = 'true'
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds]).to eq(true)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_overwriteexistingcainds" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds] = 'false'
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds]).to eq(false)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_overwriteexistingcainds" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds] = 'True'
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds]).to eq(true)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_overwriteexistingcainds" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds] = 'False'
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds]).to eq(false)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_overwriteexistingcainds" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds] = :true
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds]).to eq(true)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_overwriteexistingcainds" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds] = :false
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds]).to eq(false)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_overwriteexistingcainds' do
@@ -495,39 +485,34 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_overwriteexistingdatabase' do
-    dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase] = true
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_overwriteexistingdatabase" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase] = 'true'
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase]).to eq(true)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_overwriteexistingdatabase" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase] = 'false'
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase]).to eq(false)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_overwriteexistingdatabase" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase] = 'True'
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase]).to eq(true)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_overwriteexistingdatabase" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase] = 'False'
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase]).to eq(false)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_overwriteexistingdatabase" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase] = :true
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase]).to eq(true)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_overwriteexistingdatabase" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase] = :false
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase]).to eq(false)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_overwriteexistingdatabase' do
@@ -542,39 +527,34 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_overwriteexistingkey] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_overwriteexistingkey' do
-    dsc_xadcscertificationauthority[:dsc_overwriteexistingkey] = true
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingkey]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_overwriteexistingkey" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingkey] = 'true'
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingkey]).to eq(true)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingkey]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_overwriteexistingkey" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingkey] = 'false'
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingkey]).to eq(false)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingkey]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_overwriteexistingkey" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingkey] = 'True'
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingkey]).to eq(true)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingkey]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_overwriteexistingkey" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingkey] = 'False'
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingkey]).to eq(false)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingkey]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_overwriteexistingkey" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingkey] = :true
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingkey]).to eq(true)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingkey]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_overwriteexistingkey" do
     dsc_xadcscertificationauthority[:dsc_overwriteexistingkey] = :false
-    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingkey]).to eq(false)
+    expect(dsc_xadcscertificationauthority[:dsc_overwriteexistingkey]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_overwriteexistingkey' do

@@ -83,39 +83,34 @@ describe Puppet::Type.type(:dsc_spmanagedpath) do
     expect{dsc_spmanagedpath[:dsc_explicit] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_explicit' do
-    dsc_spmanagedpath[:dsc_explicit] = true
-    expect(dsc_spmanagedpath[:dsc_explicit]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_explicit" do
     dsc_spmanagedpath[:dsc_explicit] = 'true'
-    expect(dsc_spmanagedpath[:dsc_explicit]).to eq(true)
+    expect(dsc_spmanagedpath[:dsc_explicit]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_explicit" do
     dsc_spmanagedpath[:dsc_explicit] = 'false'
-    expect(dsc_spmanagedpath[:dsc_explicit]).to eq(false)
+    expect(dsc_spmanagedpath[:dsc_explicit]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_explicit" do
     dsc_spmanagedpath[:dsc_explicit] = 'True'
-    expect(dsc_spmanagedpath[:dsc_explicit]).to eq(true)
+    expect(dsc_spmanagedpath[:dsc_explicit]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_explicit" do
     dsc_spmanagedpath[:dsc_explicit] = 'False'
-    expect(dsc_spmanagedpath[:dsc_explicit]).to eq(false)
+    expect(dsc_spmanagedpath[:dsc_explicit]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_explicit" do
     dsc_spmanagedpath[:dsc_explicit] = :true
-    expect(dsc_spmanagedpath[:dsc_explicit]).to eq(true)
+    expect(dsc_spmanagedpath[:dsc_explicit]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_explicit" do
     dsc_spmanagedpath[:dsc_explicit] = :false
-    expect(dsc_spmanagedpath[:dsc_explicit]).to eq(false)
+    expect(dsc_spmanagedpath[:dsc_explicit]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_explicit' do
@@ -130,39 +125,34 @@ describe Puppet::Type.type(:dsc_spmanagedpath) do
     expect{dsc_spmanagedpath[:dsc_hostheader] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_hostheader' do
-    dsc_spmanagedpath[:dsc_hostheader] = true
-    expect(dsc_spmanagedpath[:dsc_hostheader]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_hostheader" do
     dsc_spmanagedpath[:dsc_hostheader] = 'true'
-    expect(dsc_spmanagedpath[:dsc_hostheader]).to eq(true)
+    expect(dsc_spmanagedpath[:dsc_hostheader]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_hostheader" do
     dsc_spmanagedpath[:dsc_hostheader] = 'false'
-    expect(dsc_spmanagedpath[:dsc_hostheader]).to eq(false)
+    expect(dsc_spmanagedpath[:dsc_hostheader]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_hostheader" do
     dsc_spmanagedpath[:dsc_hostheader] = 'True'
-    expect(dsc_spmanagedpath[:dsc_hostheader]).to eq(true)
+    expect(dsc_spmanagedpath[:dsc_hostheader]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_hostheader" do
     dsc_spmanagedpath[:dsc_hostheader] = 'False'
-    expect(dsc_spmanagedpath[:dsc_hostheader]).to eq(false)
+    expect(dsc_spmanagedpath[:dsc_hostheader]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_hostheader" do
     dsc_spmanagedpath[:dsc_hostheader] = :true
-    expect(dsc_spmanagedpath[:dsc_hostheader]).to eq(true)
+    expect(dsc_spmanagedpath[:dsc_hostheader]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_hostheader" do
     dsc_spmanagedpath[:dsc_hostheader] = :false
-    expect(dsc_spmanagedpath[:dsc_hostheader]).to eq(false)
+    expect(dsc_spmanagedpath[:dsc_hostheader]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_hostheader' do

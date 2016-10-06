@@ -80,39 +80,34 @@ describe Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory) do
     expect{dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowservicerestart' do
-    dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart] = true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart] = 'true'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart] = 'false'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart] = 'True'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart] = 'False'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart] = :true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart] = :false
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowservicerestart' do
@@ -127,39 +122,34 @@ describe Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory) do
     expect{dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_basicauthentication' do
-    dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication] = true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_basicauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication] = 'true'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_basicauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication] = 'false'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_basicauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication] = 'True'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_basicauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication] = 'False'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_basicauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication] = :true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_basicauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication] = :false
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_basicauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_basicauthentication' do
@@ -174,39 +164,34 @@ describe Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory) do
     expect{dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_certificateauthentication' do
-    dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication] = true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_certificateauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication] = 'true'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_certificateauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication] = 'false'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_certificateauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication] = 'True'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_certificateauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication] = 'False'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_certificateauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication] = :true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_certificateauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication] = :false
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_certificateauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_certificateauthentication' do
@@ -221,39 +206,34 @@ describe Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory) do
     expect{dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_digestauthentication' do
-    dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication] = true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_digestauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication] = 'true'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_digestauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication] = 'false'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_digestauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication] = 'True'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_digestauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication] = 'False'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_digestauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication] = :true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_digestauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication] = :false
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_digestauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_digestauthentication' do
@@ -332,39 +312,34 @@ describe Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory) do
     expect{dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_oauthauthentication' do
-    dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication] = true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_oauthauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication] = 'true'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_oauthauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication] = 'false'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_oauthauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication] = 'True'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_oauthauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication] = 'False'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_oauthauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication] = :true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_oauthauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication] = :false
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_oauthauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_oauthauthentication' do
@@ -379,39 +354,34 @@ describe Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory) do
     expect{dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_windowsauthentication' do
-    dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication] = true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_windowsauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication] = 'true'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_windowsauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication] = 'false'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_windowsauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication] = 'True'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_windowsauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication] = 'False'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_windowsauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication] = :true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_windowsauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication] = :false
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_windowsauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_windowsauthentication' do
@@ -426,39 +396,34 @@ describe Puppet::Type.type(:dsc_xexchwebservicesvirtualdirectory) do
     expect{dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_wssecurityauthentication' do
-    dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication] = true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_wssecurityauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication] = 'true'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_wssecurityauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication] = 'false'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_wssecurityauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication] = 'True'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_wssecurityauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication] = 'False'
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_wssecurityauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication] = :true
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication]).to eq(true)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_wssecurityauthentication" do
     dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication] = :false
-    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication]).to eq(false)
+    expect(dsc_xexchwebservicesvirtualdirectory[:dsc_wssecurityauthentication]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_wssecurityauthentication' do

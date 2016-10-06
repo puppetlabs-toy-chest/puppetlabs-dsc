@@ -446,39 +446,34 @@ describe Puppet::Type.type(:dsc_spwebapppermissions) do
     expect{dsc_spwebapppermissions[:dsc_allpermissions] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allpermissions' do
-    dsc_spwebapppermissions[:dsc_allpermissions] = true
-    expect(dsc_spwebapppermissions[:dsc_allpermissions]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allpermissions" do
     dsc_spwebapppermissions[:dsc_allpermissions] = 'true'
-    expect(dsc_spwebapppermissions[:dsc_allpermissions]).to eq(true)
+    expect(dsc_spwebapppermissions[:dsc_allpermissions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allpermissions" do
     dsc_spwebapppermissions[:dsc_allpermissions] = 'false'
-    expect(dsc_spwebapppermissions[:dsc_allpermissions]).to eq(false)
+    expect(dsc_spwebapppermissions[:dsc_allpermissions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allpermissions" do
     dsc_spwebapppermissions[:dsc_allpermissions] = 'True'
-    expect(dsc_spwebapppermissions[:dsc_allpermissions]).to eq(true)
+    expect(dsc_spwebapppermissions[:dsc_allpermissions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allpermissions" do
     dsc_spwebapppermissions[:dsc_allpermissions] = 'False'
-    expect(dsc_spwebapppermissions[:dsc_allpermissions]).to eq(false)
+    expect(dsc_spwebapppermissions[:dsc_allpermissions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allpermissions" do
     dsc_spwebapppermissions[:dsc_allpermissions] = :true
-    expect(dsc_spwebapppermissions[:dsc_allpermissions]).to eq(true)
+    expect(dsc_spwebapppermissions[:dsc_allpermissions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allpermissions" do
     dsc_spwebapppermissions[:dsc_allpermissions] = :false
-    expect(dsc_spwebapppermissions[:dsc_allpermissions]).to eq(false)
+    expect(dsc_spwebapppermissions[:dsc_allpermissions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allpermissions' do

@@ -94,39 +94,34 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
     expect{dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowobjectmodeloverride' do
-    dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride] = true
-    expect(dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowobjectmodeloverride" do
     dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride] = 'true'
-    expect(dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowobjectmodeloverride" do
     dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride] = 'false'
-    expect(dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowobjectmodeloverride" do
     dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride] = 'True'
-    expect(dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowobjectmodeloverride" do
     dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride] = 'False'
-    expect(dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowobjectmodeloverride" do
     dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride] = :true
-    expect(dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowobjectmodeloverride" do
     dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride] = :false
-    expect(dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowobjectmodeloverride' do
@@ -209,39 +204,34 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
     expect{dsc_spwebappthrottlingsettings[:dsc_happyhourenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_happyhourenabled' do
-    dsc_spwebappthrottlingsettings[:dsc_happyhourenabled] = true
-    expect(dsc_spwebappthrottlingsettings[:dsc_happyhourenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_happyhourenabled" do
     dsc_spwebappthrottlingsettings[:dsc_happyhourenabled] = 'true'
-    expect(dsc_spwebappthrottlingsettings[:dsc_happyhourenabled]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_happyhourenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_happyhourenabled" do
     dsc_spwebappthrottlingsettings[:dsc_happyhourenabled] = 'false'
-    expect(dsc_spwebappthrottlingsettings[:dsc_happyhourenabled]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_happyhourenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_happyhourenabled" do
     dsc_spwebappthrottlingsettings[:dsc_happyhourenabled] = 'True'
-    expect(dsc_spwebappthrottlingsettings[:dsc_happyhourenabled]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_happyhourenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_happyhourenabled" do
     dsc_spwebappthrottlingsettings[:dsc_happyhourenabled] = 'False'
-    expect(dsc_spwebappthrottlingsettings[:dsc_happyhourenabled]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_happyhourenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_happyhourenabled" do
     dsc_spwebappthrottlingsettings[:dsc_happyhourenabled] = :true
-    expect(dsc_spwebappthrottlingsettings[:dsc_happyhourenabled]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_happyhourenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_happyhourenabled" do
     dsc_spwebappthrottlingsettings[:dsc_happyhourenabled] = :false
-    expect(dsc_spwebappthrottlingsettings[:dsc_happyhourenabled]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_happyhourenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_happyhourenabled' do
@@ -306,39 +296,34 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
     expect{dsc_spwebappthrottlingsettings[:dsc_requestthrottling] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_requestthrottling' do
-    dsc_spwebappthrottlingsettings[:dsc_requestthrottling] = true
-    expect(dsc_spwebappthrottlingsettings[:dsc_requestthrottling]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_requestthrottling" do
     dsc_spwebappthrottlingsettings[:dsc_requestthrottling] = 'true'
-    expect(dsc_spwebappthrottlingsettings[:dsc_requestthrottling]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_requestthrottling]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_requestthrottling" do
     dsc_spwebappthrottlingsettings[:dsc_requestthrottling] = 'false'
-    expect(dsc_spwebappthrottlingsettings[:dsc_requestthrottling]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_requestthrottling]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_requestthrottling" do
     dsc_spwebappthrottlingsettings[:dsc_requestthrottling] = 'True'
-    expect(dsc_spwebappthrottlingsettings[:dsc_requestthrottling]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_requestthrottling]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_requestthrottling" do
     dsc_spwebappthrottlingsettings[:dsc_requestthrottling] = 'False'
-    expect(dsc_spwebappthrottlingsettings[:dsc_requestthrottling]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_requestthrottling]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_requestthrottling" do
     dsc_spwebappthrottlingsettings[:dsc_requestthrottling] = :true
-    expect(dsc_spwebappthrottlingsettings[:dsc_requestthrottling]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_requestthrottling]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_requestthrottling" do
     dsc_spwebappthrottlingsettings[:dsc_requestthrottling] = :false
-    expect(dsc_spwebappthrottlingsettings[:dsc_requestthrottling]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_requestthrottling]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_requestthrottling' do
@@ -353,39 +338,34 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
     expect{dsc_spwebappthrottlingsettings[:dsc_changelogenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_changelogenabled' do
-    dsc_spwebappthrottlingsettings[:dsc_changelogenabled] = true
-    expect(dsc_spwebappthrottlingsettings[:dsc_changelogenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_changelogenabled" do
     dsc_spwebappthrottlingsettings[:dsc_changelogenabled] = 'true'
-    expect(dsc_spwebappthrottlingsettings[:dsc_changelogenabled]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_changelogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_changelogenabled" do
     dsc_spwebappthrottlingsettings[:dsc_changelogenabled] = 'false'
-    expect(dsc_spwebappthrottlingsettings[:dsc_changelogenabled]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_changelogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_changelogenabled" do
     dsc_spwebappthrottlingsettings[:dsc_changelogenabled] = 'True'
-    expect(dsc_spwebappthrottlingsettings[:dsc_changelogenabled]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_changelogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_changelogenabled" do
     dsc_spwebappthrottlingsettings[:dsc_changelogenabled] = 'False'
-    expect(dsc_spwebappthrottlingsettings[:dsc_changelogenabled]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_changelogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_changelogenabled" do
     dsc_spwebappthrottlingsettings[:dsc_changelogenabled] = :true
-    expect(dsc_spwebappthrottlingsettings[:dsc_changelogenabled]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_changelogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_changelogenabled" do
     dsc_spwebappthrottlingsettings[:dsc_changelogenabled] = :false
-    expect(dsc_spwebappthrottlingsettings[:dsc_changelogenabled]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_changelogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_changelogenabled' do
@@ -434,39 +414,34 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
     expect{dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_eventhandlersenabled' do
-    dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled] = true
-    expect(dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_eventhandlersenabled" do
     dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled] = 'true'
-    expect(dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_eventhandlersenabled" do
     dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled] = 'false'
-    expect(dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_eventhandlersenabled" do
     dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled] = 'True'
-    expect(dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_eventhandlersenabled" do
     dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled] = 'False'
-    expect(dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_eventhandlersenabled" do
     dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled] = :true
-    expect(dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled]).to eq(true)
+    expect(dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_eventhandlersenabled" do
     dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled] = :false
-    expect(dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled]).to eq(false)
+    expect(dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_eventhandlersenabled' do

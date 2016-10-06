@@ -231,39 +231,34 @@ describe Puppet::Type.type(:dsc_xregistry) do
     expect{dsc_xregistry[:dsc_hex] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_hex' do
-    dsc_xregistry[:dsc_hex] = true
-    expect(dsc_xregistry[:dsc_hex]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_hex" do
     dsc_xregistry[:dsc_hex] = 'true'
-    expect(dsc_xregistry[:dsc_hex]).to eq(true)
+    expect(dsc_xregistry[:dsc_hex]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_hex" do
     dsc_xregistry[:dsc_hex] = 'false'
-    expect(dsc_xregistry[:dsc_hex]).to eq(false)
+    expect(dsc_xregistry[:dsc_hex]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_hex" do
     dsc_xregistry[:dsc_hex] = 'True'
-    expect(dsc_xregistry[:dsc_hex]).to eq(true)
+    expect(dsc_xregistry[:dsc_hex]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_hex" do
     dsc_xregistry[:dsc_hex] = 'False'
-    expect(dsc_xregistry[:dsc_hex]).to eq(false)
+    expect(dsc_xregistry[:dsc_hex]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_hex" do
     dsc_xregistry[:dsc_hex] = :true
-    expect(dsc_xregistry[:dsc_hex]).to eq(true)
+    expect(dsc_xregistry[:dsc_hex]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_hex" do
     dsc_xregistry[:dsc_hex] = :false
-    expect(dsc_xregistry[:dsc_hex]).to eq(false)
+    expect(dsc_xregistry[:dsc_hex]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_hex' do
@@ -278,39 +273,34 @@ describe Puppet::Type.type(:dsc_xregistry) do
     expect{dsc_xregistry[:dsc_force] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_force' do
-    dsc_xregistry[:dsc_force] = true
-    expect(dsc_xregistry[:dsc_force]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_force" do
     dsc_xregistry[:dsc_force] = 'true'
-    expect(dsc_xregistry[:dsc_force]).to eq(true)
+    expect(dsc_xregistry[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_force" do
     dsc_xregistry[:dsc_force] = 'false'
-    expect(dsc_xregistry[:dsc_force]).to eq(false)
+    expect(dsc_xregistry[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_force" do
     dsc_xregistry[:dsc_force] = 'True'
-    expect(dsc_xregistry[:dsc_force]).to eq(true)
+    expect(dsc_xregistry[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_force" do
     dsc_xregistry[:dsc_force] = 'False'
-    expect(dsc_xregistry[:dsc_force]).to eq(false)
+    expect(dsc_xregistry[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_force" do
     dsc_xregistry[:dsc_force] = :true
-    expect(dsc_xregistry[:dsc_force]).to eq(true)
+    expect(dsc_xregistry[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_force" do
     dsc_xregistry[:dsc_force] = :false
-    expect(dsc_xregistry[:dsc_force]).to eq(false)
+    expect(dsc_xregistry[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_force' do

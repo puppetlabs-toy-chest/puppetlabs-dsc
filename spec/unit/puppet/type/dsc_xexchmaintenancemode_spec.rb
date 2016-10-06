@@ -38,39 +38,34 @@ describe Puppet::Type.type(:dsc_xexchmaintenancemode) do
     expect{dsc_xexchmaintenancemode[:dsc_enabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enabled' do
-    dsc_xexchmaintenancemode[:dsc_enabled] = true
-    expect(dsc_xexchmaintenancemode[:dsc_enabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enabled" do
     dsc_xexchmaintenancemode[:dsc_enabled] = 'true'
-    expect(dsc_xexchmaintenancemode[:dsc_enabled]).to eq(true)
+    expect(dsc_xexchmaintenancemode[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enabled" do
     dsc_xexchmaintenancemode[:dsc_enabled] = 'false'
-    expect(dsc_xexchmaintenancemode[:dsc_enabled]).to eq(false)
+    expect(dsc_xexchmaintenancemode[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enabled" do
     dsc_xexchmaintenancemode[:dsc_enabled] = 'True'
-    expect(dsc_xexchmaintenancemode[:dsc_enabled]).to eq(true)
+    expect(dsc_xexchmaintenancemode[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enabled" do
     dsc_xexchmaintenancemode[:dsc_enabled] = 'False'
-    expect(dsc_xexchmaintenancemode[:dsc_enabled]).to eq(false)
+    expect(dsc_xexchmaintenancemode[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enabled" do
     dsc_xexchmaintenancemode[:dsc_enabled] = :true
-    expect(dsc_xexchmaintenancemode[:dsc_enabled]).to eq(true)
+    expect(dsc_xexchmaintenancemode[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enabled" do
     dsc_xexchmaintenancemode[:dsc_enabled] = :false
-    expect(dsc_xexchmaintenancemode[:dsc_enabled]).to eq(false)
+    expect(dsc_xexchmaintenancemode[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enabled' do
@@ -138,39 +133,34 @@ describe Puppet::Type.type(:dsc_xexchmaintenancemode) do
     expect{dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_movepreferreddatabasesback' do
-    dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback] = true
-    expect(dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_movepreferreddatabasesback" do
     dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback] = 'true'
-    expect(dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback]).to eq(true)
+    expect(dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_movepreferreddatabasesback" do
     dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback] = 'false'
-    expect(dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback]).to eq(false)
+    expect(dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_movepreferreddatabasesback" do
     dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback] = 'True'
-    expect(dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback]).to eq(true)
+    expect(dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_movepreferreddatabasesback" do
     dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback] = 'False'
-    expect(dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback]).to eq(false)
+    expect(dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_movepreferreddatabasesback" do
     dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback] = :true
-    expect(dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback]).to eq(true)
+    expect(dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_movepreferreddatabasesback" do
     dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback] = :false
-    expect(dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback]).to eq(false)
+    expect(dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_movepreferreddatabasesback' do
@@ -185,39 +175,34 @@ describe Puppet::Type.type(:dsc_xexchmaintenancemode) do
     expect{dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_setinactivecomponentsfromanyrequestertoactive' do
-    dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive] = true
-    expect(dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_setinactivecomponentsfromanyrequestertoactive" do
     dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive] = 'true'
-    expect(dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive]).to eq(true)
+    expect(dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_setinactivecomponentsfromanyrequestertoactive" do
     dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive] = 'false'
-    expect(dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive]).to eq(false)
+    expect(dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_setinactivecomponentsfromanyrequestertoactive" do
     dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive] = 'True'
-    expect(dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive]).to eq(true)
+    expect(dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_setinactivecomponentsfromanyrequestertoactive" do
     dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive] = 'False'
-    expect(dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive]).to eq(false)
+    expect(dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_setinactivecomponentsfromanyrequestertoactive" do
     dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive] = :true
-    expect(dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive]).to eq(true)
+    expect(dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_setinactivecomponentsfromanyrequestertoactive" do
     dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive] = :false
-    expect(dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive]).to eq(false)
+    expect(dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_setinactivecomponentsfromanyrequestertoactive' do

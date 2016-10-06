@@ -59,39 +59,34 @@ describe Puppet::Type.type(:dsc_xaddomaindefaultpasswordpolicy) do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_complexityenabled' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled] = true
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_complexityenabled" do
     dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled] = 'true'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled]).to eq(true)
+    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_complexityenabled" do
     dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled] = 'false'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled]).to eq(false)
+    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_complexityenabled" do
     dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled] = 'True'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled]).to eq(true)
+    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_complexityenabled" do
     dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled] = 'False'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled]).to eq(false)
+    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_complexityenabled" do
     dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled] = :true
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled]).to eq(true)
+    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_complexityenabled" do
     dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled] = :false
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled]).to eq(false)
+    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_complexityenabled' do
@@ -344,39 +339,34 @@ describe Puppet::Type.type(:dsc_xaddomaindefaultpasswordpolicy) do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_reversibleencryptionenabled' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled] = true
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_reversibleencryptionenabled" do
     dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled] = 'true'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled]).to eq(true)
+    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_reversibleencryptionenabled" do
     dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled] = 'false'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled]).to eq(false)
+    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_reversibleencryptionenabled" do
     dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled] = 'True'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled]).to eq(true)
+    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_reversibleencryptionenabled" do
     dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled] = 'False'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled]).to eq(false)
+    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_reversibleencryptionenabled" do
     dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled] = :true
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled]).to eq(true)
+    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_reversibleencryptionenabled" do
     dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled] = :false
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled]).to eq(false)
+    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_reversibleencryptionenabled' do

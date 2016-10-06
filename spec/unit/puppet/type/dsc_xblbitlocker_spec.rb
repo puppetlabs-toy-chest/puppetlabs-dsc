@@ -127,39 +127,34 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     expect{dsc_xblbitlocker[:dsc_autounlock] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_autounlock' do
-    dsc_xblbitlocker[:dsc_autounlock] = true
-    expect(dsc_xblbitlocker[:dsc_autounlock]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_autounlock" do
     dsc_xblbitlocker[:dsc_autounlock] = 'true'
-    expect(dsc_xblbitlocker[:dsc_autounlock]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_autounlock]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_autounlock" do
     dsc_xblbitlocker[:dsc_autounlock] = 'false'
-    expect(dsc_xblbitlocker[:dsc_autounlock]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_autounlock]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_autounlock" do
     dsc_xblbitlocker[:dsc_autounlock] = 'True'
-    expect(dsc_xblbitlocker[:dsc_autounlock]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_autounlock]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_autounlock" do
     dsc_xblbitlocker[:dsc_autounlock] = 'False'
-    expect(dsc_xblbitlocker[:dsc_autounlock]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_autounlock]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_autounlock" do
     dsc_xblbitlocker[:dsc_autounlock] = :true
-    expect(dsc_xblbitlocker[:dsc_autounlock]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_autounlock]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_autounlock" do
     dsc_xblbitlocker[:dsc_autounlock] = :false
-    expect(dsc_xblbitlocker[:dsc_autounlock]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_autounlock]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_autounlock' do
@@ -174,39 +169,34 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     expect{dsc_xblbitlocker[:dsc_allowimmediatereboot] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowimmediatereboot' do
-    dsc_xblbitlocker[:dsc_allowimmediatereboot] = true
-    expect(dsc_xblbitlocker[:dsc_allowimmediatereboot]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowimmediatereboot" do
     dsc_xblbitlocker[:dsc_allowimmediatereboot] = 'true'
-    expect(dsc_xblbitlocker[:dsc_allowimmediatereboot]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_allowimmediatereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowimmediatereboot" do
     dsc_xblbitlocker[:dsc_allowimmediatereboot] = 'false'
-    expect(dsc_xblbitlocker[:dsc_allowimmediatereboot]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_allowimmediatereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowimmediatereboot" do
     dsc_xblbitlocker[:dsc_allowimmediatereboot] = 'True'
-    expect(dsc_xblbitlocker[:dsc_allowimmediatereboot]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_allowimmediatereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowimmediatereboot" do
     dsc_xblbitlocker[:dsc_allowimmediatereboot] = 'False'
-    expect(dsc_xblbitlocker[:dsc_allowimmediatereboot]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_allowimmediatereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowimmediatereboot" do
     dsc_xblbitlocker[:dsc_allowimmediatereboot] = :true
-    expect(dsc_xblbitlocker[:dsc_allowimmediatereboot]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_allowimmediatereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowimmediatereboot" do
     dsc_xblbitlocker[:dsc_allowimmediatereboot] = :false
-    expect(dsc_xblbitlocker[:dsc_allowimmediatereboot]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_allowimmediatereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowimmediatereboot' do
@@ -237,39 +227,34 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     expect{dsc_xblbitlocker[:dsc_adaccountorgroupprotector] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_adaccountorgroupprotector' do
-    dsc_xblbitlocker[:dsc_adaccountorgroupprotector] = true
-    expect(dsc_xblbitlocker[:dsc_adaccountorgroupprotector]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_adaccountorgroupprotector" do
     dsc_xblbitlocker[:dsc_adaccountorgroupprotector] = 'true'
-    expect(dsc_xblbitlocker[:dsc_adaccountorgroupprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_adaccountorgroupprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_adaccountorgroupprotector" do
     dsc_xblbitlocker[:dsc_adaccountorgroupprotector] = 'false'
-    expect(dsc_xblbitlocker[:dsc_adaccountorgroupprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_adaccountorgroupprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_adaccountorgroupprotector" do
     dsc_xblbitlocker[:dsc_adaccountorgroupprotector] = 'True'
-    expect(dsc_xblbitlocker[:dsc_adaccountorgroupprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_adaccountorgroupprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_adaccountorgroupprotector" do
     dsc_xblbitlocker[:dsc_adaccountorgroupprotector] = 'False'
-    expect(dsc_xblbitlocker[:dsc_adaccountorgroupprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_adaccountorgroupprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_adaccountorgroupprotector" do
     dsc_xblbitlocker[:dsc_adaccountorgroupprotector] = :true
-    expect(dsc_xblbitlocker[:dsc_adaccountorgroupprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_adaccountorgroupprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_adaccountorgroupprotector" do
     dsc_xblbitlocker[:dsc_adaccountorgroupprotector] = :false
-    expect(dsc_xblbitlocker[:dsc_adaccountorgroupprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_adaccountorgroupprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_adaccountorgroupprotector' do
@@ -324,39 +309,34 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     expect{dsc_xblbitlocker[:dsc_hardwareencryption] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_hardwareencryption' do
-    dsc_xblbitlocker[:dsc_hardwareencryption] = true
-    expect(dsc_xblbitlocker[:dsc_hardwareencryption]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_hardwareencryption" do
     dsc_xblbitlocker[:dsc_hardwareencryption] = 'true'
-    expect(dsc_xblbitlocker[:dsc_hardwareencryption]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_hardwareencryption]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_hardwareencryption" do
     dsc_xblbitlocker[:dsc_hardwareencryption] = 'false'
-    expect(dsc_xblbitlocker[:dsc_hardwareencryption]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_hardwareencryption]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_hardwareencryption" do
     dsc_xblbitlocker[:dsc_hardwareencryption] = 'True'
-    expect(dsc_xblbitlocker[:dsc_hardwareencryption]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_hardwareencryption]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_hardwareencryption" do
     dsc_xblbitlocker[:dsc_hardwareencryption] = 'False'
-    expect(dsc_xblbitlocker[:dsc_hardwareencryption]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_hardwareencryption]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_hardwareencryption" do
     dsc_xblbitlocker[:dsc_hardwareencryption] = :true
-    expect(dsc_xblbitlocker[:dsc_hardwareencryption]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_hardwareencryption]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_hardwareencryption" do
     dsc_xblbitlocker[:dsc_hardwareencryption] = :false
-    expect(dsc_xblbitlocker[:dsc_hardwareencryption]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_hardwareencryption]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_hardwareencryption' do
@@ -391,39 +371,34 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     expect{dsc_xblbitlocker[:dsc_passwordprotector] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_passwordprotector' do
-    dsc_xblbitlocker[:dsc_passwordprotector] = true
-    expect(dsc_xblbitlocker[:dsc_passwordprotector]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_passwordprotector" do
     dsc_xblbitlocker[:dsc_passwordprotector] = 'true'
-    expect(dsc_xblbitlocker[:dsc_passwordprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_passwordprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_passwordprotector" do
     dsc_xblbitlocker[:dsc_passwordprotector] = 'false'
-    expect(dsc_xblbitlocker[:dsc_passwordprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_passwordprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_passwordprotector" do
     dsc_xblbitlocker[:dsc_passwordprotector] = 'True'
-    expect(dsc_xblbitlocker[:dsc_passwordprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_passwordprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_passwordprotector" do
     dsc_xblbitlocker[:dsc_passwordprotector] = 'False'
-    expect(dsc_xblbitlocker[:dsc_passwordprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_passwordprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_passwordprotector" do
     dsc_xblbitlocker[:dsc_passwordprotector] = :true
-    expect(dsc_xblbitlocker[:dsc_passwordprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_passwordprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_passwordprotector" do
     dsc_xblbitlocker[:dsc_passwordprotector] = :false
-    expect(dsc_xblbitlocker[:dsc_passwordprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_passwordprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_passwordprotector' do
@@ -474,39 +449,34 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     expect{dsc_xblbitlocker[:dsc_recoverykeyprotector] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_recoverykeyprotector' do
-    dsc_xblbitlocker[:dsc_recoverykeyprotector] = true
-    expect(dsc_xblbitlocker[:dsc_recoverykeyprotector]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_recoverykeyprotector" do
     dsc_xblbitlocker[:dsc_recoverykeyprotector] = 'true'
-    expect(dsc_xblbitlocker[:dsc_recoverykeyprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_recoverykeyprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_recoverykeyprotector" do
     dsc_xblbitlocker[:dsc_recoverykeyprotector] = 'false'
-    expect(dsc_xblbitlocker[:dsc_recoverykeyprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_recoverykeyprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_recoverykeyprotector" do
     dsc_xblbitlocker[:dsc_recoverykeyprotector] = 'True'
-    expect(dsc_xblbitlocker[:dsc_recoverykeyprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_recoverykeyprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_recoverykeyprotector" do
     dsc_xblbitlocker[:dsc_recoverykeyprotector] = 'False'
-    expect(dsc_xblbitlocker[:dsc_recoverykeyprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_recoverykeyprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_recoverykeyprotector" do
     dsc_xblbitlocker[:dsc_recoverykeyprotector] = :true
-    expect(dsc_xblbitlocker[:dsc_recoverykeyprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_recoverykeyprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_recoverykeyprotector" do
     dsc_xblbitlocker[:dsc_recoverykeyprotector] = :false
-    expect(dsc_xblbitlocker[:dsc_recoverykeyprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_recoverykeyprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_recoverykeyprotector' do
@@ -521,39 +491,34 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     expect{dsc_xblbitlocker[:dsc_recoverypasswordprotector] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_recoverypasswordprotector' do
-    dsc_xblbitlocker[:dsc_recoverypasswordprotector] = true
-    expect(dsc_xblbitlocker[:dsc_recoverypasswordprotector]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_recoverypasswordprotector" do
     dsc_xblbitlocker[:dsc_recoverypasswordprotector] = 'true'
-    expect(dsc_xblbitlocker[:dsc_recoverypasswordprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_recoverypasswordprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_recoverypasswordprotector" do
     dsc_xblbitlocker[:dsc_recoverypasswordprotector] = 'false'
-    expect(dsc_xblbitlocker[:dsc_recoverypasswordprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_recoverypasswordprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_recoverypasswordprotector" do
     dsc_xblbitlocker[:dsc_recoverypasswordprotector] = 'True'
-    expect(dsc_xblbitlocker[:dsc_recoverypasswordprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_recoverypasswordprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_recoverypasswordprotector" do
     dsc_xblbitlocker[:dsc_recoverypasswordprotector] = 'False'
-    expect(dsc_xblbitlocker[:dsc_recoverypasswordprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_recoverypasswordprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_recoverypasswordprotector" do
     dsc_xblbitlocker[:dsc_recoverypasswordprotector] = :true
-    expect(dsc_xblbitlocker[:dsc_recoverypasswordprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_recoverypasswordprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_recoverypasswordprotector" do
     dsc_xblbitlocker[:dsc_recoverypasswordprotector] = :false
-    expect(dsc_xblbitlocker[:dsc_recoverypasswordprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_recoverypasswordprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_recoverypasswordprotector' do
@@ -568,39 +533,34 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     expect{dsc_xblbitlocker[:dsc_service] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_service' do
-    dsc_xblbitlocker[:dsc_service] = true
-    expect(dsc_xblbitlocker[:dsc_service]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_service" do
     dsc_xblbitlocker[:dsc_service] = 'true'
-    expect(dsc_xblbitlocker[:dsc_service]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_service]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_service" do
     dsc_xblbitlocker[:dsc_service] = 'false'
-    expect(dsc_xblbitlocker[:dsc_service]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_service]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_service" do
     dsc_xblbitlocker[:dsc_service] = 'True'
-    expect(dsc_xblbitlocker[:dsc_service]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_service]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_service" do
     dsc_xblbitlocker[:dsc_service] = 'False'
-    expect(dsc_xblbitlocker[:dsc_service]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_service]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_service" do
     dsc_xblbitlocker[:dsc_service] = :true
-    expect(dsc_xblbitlocker[:dsc_service]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_service]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_service" do
     dsc_xblbitlocker[:dsc_service] = :false
-    expect(dsc_xblbitlocker[:dsc_service]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_service]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_service' do
@@ -615,39 +575,34 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     expect{dsc_xblbitlocker[:dsc_skiphardwaretest] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_skiphardwaretest' do
-    dsc_xblbitlocker[:dsc_skiphardwaretest] = true
-    expect(dsc_xblbitlocker[:dsc_skiphardwaretest]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_skiphardwaretest" do
     dsc_xblbitlocker[:dsc_skiphardwaretest] = 'true'
-    expect(dsc_xblbitlocker[:dsc_skiphardwaretest]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_skiphardwaretest]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_skiphardwaretest" do
     dsc_xblbitlocker[:dsc_skiphardwaretest] = 'false'
-    expect(dsc_xblbitlocker[:dsc_skiphardwaretest]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_skiphardwaretest]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_skiphardwaretest" do
     dsc_xblbitlocker[:dsc_skiphardwaretest] = 'True'
-    expect(dsc_xblbitlocker[:dsc_skiphardwaretest]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_skiphardwaretest]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_skiphardwaretest" do
     dsc_xblbitlocker[:dsc_skiphardwaretest] = 'False'
-    expect(dsc_xblbitlocker[:dsc_skiphardwaretest]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_skiphardwaretest]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_skiphardwaretest" do
     dsc_xblbitlocker[:dsc_skiphardwaretest] = :true
-    expect(dsc_xblbitlocker[:dsc_skiphardwaretest]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_skiphardwaretest]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_skiphardwaretest" do
     dsc_xblbitlocker[:dsc_skiphardwaretest] = :false
-    expect(dsc_xblbitlocker[:dsc_skiphardwaretest]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_skiphardwaretest]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_skiphardwaretest' do
@@ -678,39 +633,34 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     expect{dsc_xblbitlocker[:dsc_startupkeyprotector] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_startupkeyprotector' do
-    dsc_xblbitlocker[:dsc_startupkeyprotector] = true
-    expect(dsc_xblbitlocker[:dsc_startupkeyprotector]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_startupkeyprotector" do
     dsc_xblbitlocker[:dsc_startupkeyprotector] = 'true'
-    expect(dsc_xblbitlocker[:dsc_startupkeyprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_startupkeyprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_startupkeyprotector" do
     dsc_xblbitlocker[:dsc_startupkeyprotector] = 'false'
-    expect(dsc_xblbitlocker[:dsc_startupkeyprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_startupkeyprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_startupkeyprotector" do
     dsc_xblbitlocker[:dsc_startupkeyprotector] = 'True'
-    expect(dsc_xblbitlocker[:dsc_startupkeyprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_startupkeyprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_startupkeyprotector" do
     dsc_xblbitlocker[:dsc_startupkeyprotector] = 'False'
-    expect(dsc_xblbitlocker[:dsc_startupkeyprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_startupkeyprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_startupkeyprotector" do
     dsc_xblbitlocker[:dsc_startupkeyprotector] = :true
-    expect(dsc_xblbitlocker[:dsc_startupkeyprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_startupkeyprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_startupkeyprotector" do
     dsc_xblbitlocker[:dsc_startupkeyprotector] = :false
-    expect(dsc_xblbitlocker[:dsc_startupkeyprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_startupkeyprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_startupkeyprotector' do
@@ -725,39 +675,34 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     expect{dsc_xblbitlocker[:dsc_tpmprotector] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_tpmprotector' do
-    dsc_xblbitlocker[:dsc_tpmprotector] = true
-    expect(dsc_xblbitlocker[:dsc_tpmprotector]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_tpmprotector" do
     dsc_xblbitlocker[:dsc_tpmprotector] = 'true'
-    expect(dsc_xblbitlocker[:dsc_tpmprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_tpmprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_tpmprotector" do
     dsc_xblbitlocker[:dsc_tpmprotector] = 'false'
-    expect(dsc_xblbitlocker[:dsc_tpmprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_tpmprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_tpmprotector" do
     dsc_xblbitlocker[:dsc_tpmprotector] = 'True'
-    expect(dsc_xblbitlocker[:dsc_tpmprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_tpmprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_tpmprotector" do
     dsc_xblbitlocker[:dsc_tpmprotector] = 'False'
-    expect(dsc_xblbitlocker[:dsc_tpmprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_tpmprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_tpmprotector" do
     dsc_xblbitlocker[:dsc_tpmprotector] = :true
-    expect(dsc_xblbitlocker[:dsc_tpmprotector]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_tpmprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_tpmprotector" do
     dsc_xblbitlocker[:dsc_tpmprotector] = :false
-    expect(dsc_xblbitlocker[:dsc_tpmprotector]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_tpmprotector]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_tpmprotector' do
@@ -772,39 +717,34 @@ describe Puppet::Type.type(:dsc_xblbitlocker) do
     expect{dsc_xblbitlocker[:dsc_usedspaceonly] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_usedspaceonly' do
-    dsc_xblbitlocker[:dsc_usedspaceonly] = true
-    expect(dsc_xblbitlocker[:dsc_usedspaceonly]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_usedspaceonly" do
     dsc_xblbitlocker[:dsc_usedspaceonly] = 'true'
-    expect(dsc_xblbitlocker[:dsc_usedspaceonly]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_usedspaceonly]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_usedspaceonly" do
     dsc_xblbitlocker[:dsc_usedspaceonly] = 'false'
-    expect(dsc_xblbitlocker[:dsc_usedspaceonly]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_usedspaceonly]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_usedspaceonly" do
     dsc_xblbitlocker[:dsc_usedspaceonly] = 'True'
-    expect(dsc_xblbitlocker[:dsc_usedspaceonly]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_usedspaceonly]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_usedspaceonly" do
     dsc_xblbitlocker[:dsc_usedspaceonly] = 'False'
-    expect(dsc_xblbitlocker[:dsc_usedspaceonly]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_usedspaceonly]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_usedspaceonly" do
     dsc_xblbitlocker[:dsc_usedspaceonly] = :true
-    expect(dsc_xblbitlocker[:dsc_usedspaceonly]).to eq(true)
+    expect(dsc_xblbitlocker[:dsc_usedspaceonly]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_usedspaceonly" do
     dsc_xblbitlocker[:dsc_usedspaceonly] = :false
-    expect(dsc_xblbitlocker[:dsc_usedspaceonly]).to eq(false)
+    expect(dsc_xblbitlocker[:dsc_usedspaceonly]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_usedspaceonly' do

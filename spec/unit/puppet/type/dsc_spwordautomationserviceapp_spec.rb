@@ -239,39 +239,34 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
     expect{dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disableembeddedfonts' do
-    dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts] = true
-    expect(dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disableembeddedfonts" do
     dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts] = 'true'
-    expect(dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts]).to eq(true)
+    expect(dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disableembeddedfonts" do
     dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts] = 'false'
-    expect(dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts]).to eq(false)
+    expect(dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disableembeddedfonts" do
     dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts] = 'True'
-    expect(dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts]).to eq(true)
+    expect(dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disableembeddedfonts" do
     dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts] = 'False'
-    expect(dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts]).to eq(false)
+    expect(dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disableembeddedfonts" do
     dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts] = :true
-    expect(dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts]).to eq(true)
+    expect(dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disableembeddedfonts" do
     dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts] = :false
-    expect(dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts]).to eq(false)
+    expect(dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disableembeddedfonts' do
@@ -354,39 +349,34 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
     expect{dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disablebinaryfilescan' do
-    dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan] = true
-    expect(dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disablebinaryfilescan" do
     dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan] = 'true'
-    expect(dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan]).to eq(true)
+    expect(dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disablebinaryfilescan" do
     dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan] = 'false'
-    expect(dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan]).to eq(false)
+    expect(dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disablebinaryfilescan" do
     dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan] = 'True'
-    expect(dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan]).to eq(true)
+    expect(dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disablebinaryfilescan" do
     dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan] = 'False'
-    expect(dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan]).to eq(false)
+    expect(dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disablebinaryfilescan" do
     dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan] = :true
-    expect(dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan]).to eq(true)
+    expect(dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disablebinaryfilescan" do
     dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan] = :false
-    expect(dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan]).to eq(false)
+    expect(dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disablebinaryfilescan' do

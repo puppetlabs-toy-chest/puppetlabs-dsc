@@ -82,39 +82,34 @@ describe Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory) do
     expect{dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowservicerestart' do
-    dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart] = true
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart] = 'true'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart] = 'false'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart] = 'True'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart] = 'False'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart] = :true
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart] = :false
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowservicerestart' do
@@ -129,39 +124,34 @@ describe Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory) do
     expect{dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_autocertbasedauth' do
-    dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth] = true
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_autocertbasedauth" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth] = 'true'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_autocertbasedauth" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth] = 'false'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_autocertbasedauth" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth] = 'True'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_autocertbasedauth" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth] = 'False'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_autocertbasedauth" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth] = :true
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_autocertbasedauth" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth] = :false
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_autocertbasedauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_autocertbasedauth' do
@@ -209,39 +199,34 @@ describe Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory) do
     expect{dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_basicauthenabled' do
-    dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled] = true
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_basicauthenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled] = 'true'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_basicauthenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled] = 'false'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_basicauthenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled] = 'True'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_basicauthenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled] = 'False'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_basicauthenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled] = :true
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_basicauthenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled] = :false
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_basicauthenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_basicauthenabled' do
@@ -306,39 +291,34 @@ describe Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory) do
     expect{dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_compressionenabled' do
-    dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled] = true
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_compressionenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled] = 'true'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_compressionenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled] = 'false'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_compressionenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled] = 'True'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_compressionenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled] = 'False'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_compressionenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled] = :true
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_compressionenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled] = :false
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_compressionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_compressionenabled' do
@@ -435,39 +415,34 @@ describe Puppet::Type.type(:dsc_xexchactivesyncvirtualdirectory) do
     expect{dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_windowsauthenabled' do
-    dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled] = true
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_windowsauthenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled] = 'true'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_windowsauthenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled] = 'false'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_windowsauthenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled] = 'True'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_windowsauthenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled] = 'False'
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_windowsauthenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled] = :true
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled]).to eq(true)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_windowsauthenabled" do
     dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled] = :false
-    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled]).to eq(false)
+    expect(dsc_xexchactivesyncvirtualdirectory[:dsc_windowsauthenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_windowsauthenabled' do

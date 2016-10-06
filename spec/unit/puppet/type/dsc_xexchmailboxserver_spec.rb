@@ -90,39 +90,34 @@ describe Puppet::Type.type(:dsc_xexchmailboxserver) do
     expect{dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_databasecopyactivationdisabledandmovenow' do
-    dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow] = true
-    expect(dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_databasecopyactivationdisabledandmovenow" do
     dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow] = 'true'
-    expect(dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow]).to eq(true)
+    expect(dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_databasecopyactivationdisabledandmovenow" do
     dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow] = 'false'
-    expect(dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow]).to eq(false)
+    expect(dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_databasecopyactivationdisabledandmovenow" do
     dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow] = 'True'
-    expect(dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow]).to eq(true)
+    expect(dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_databasecopyactivationdisabledandmovenow" do
     dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow] = 'False'
-    expect(dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow]).to eq(false)
+    expect(dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_databasecopyactivationdisabledandmovenow" do
     dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow] = :true
-    expect(dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow]).to eq(true)
+    expect(dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_databasecopyactivationdisabledandmovenow" do
     dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow] = :false
-    expect(dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow]).to eq(false)
+    expect(dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_databasecopyactivationdisabledandmovenow' do

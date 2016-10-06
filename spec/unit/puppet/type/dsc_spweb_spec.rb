@@ -194,39 +194,34 @@ describe Puppet::Type.type(:dsc_spweb) do
     expect{dsc_spweb[:dsc_uniquepermissions] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_uniquepermissions' do
-    dsc_spweb[:dsc_uniquepermissions] = true
-    expect(dsc_spweb[:dsc_uniquepermissions]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_uniquepermissions" do
     dsc_spweb[:dsc_uniquepermissions] = 'true'
-    expect(dsc_spweb[:dsc_uniquepermissions]).to eq(true)
+    expect(dsc_spweb[:dsc_uniquepermissions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_uniquepermissions" do
     dsc_spweb[:dsc_uniquepermissions] = 'false'
-    expect(dsc_spweb[:dsc_uniquepermissions]).to eq(false)
+    expect(dsc_spweb[:dsc_uniquepermissions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_uniquepermissions" do
     dsc_spweb[:dsc_uniquepermissions] = 'True'
-    expect(dsc_spweb[:dsc_uniquepermissions]).to eq(true)
+    expect(dsc_spweb[:dsc_uniquepermissions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_uniquepermissions" do
     dsc_spweb[:dsc_uniquepermissions] = 'False'
-    expect(dsc_spweb[:dsc_uniquepermissions]).to eq(false)
+    expect(dsc_spweb[:dsc_uniquepermissions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_uniquepermissions" do
     dsc_spweb[:dsc_uniquepermissions] = :true
-    expect(dsc_spweb[:dsc_uniquepermissions]).to eq(true)
+    expect(dsc_spweb[:dsc_uniquepermissions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_uniquepermissions" do
     dsc_spweb[:dsc_uniquepermissions] = :false
-    expect(dsc_spweb[:dsc_uniquepermissions]).to eq(false)
+    expect(dsc_spweb[:dsc_uniquepermissions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_uniquepermissions' do
@@ -241,39 +236,34 @@ describe Puppet::Type.type(:dsc_spweb) do
     expect{dsc_spweb[:dsc_useparenttopnav] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_useparenttopnav' do
-    dsc_spweb[:dsc_useparenttopnav] = true
-    expect(dsc_spweb[:dsc_useparenttopnav]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_useparenttopnav" do
     dsc_spweb[:dsc_useparenttopnav] = 'true'
-    expect(dsc_spweb[:dsc_useparenttopnav]).to eq(true)
+    expect(dsc_spweb[:dsc_useparenttopnav]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_useparenttopnav" do
     dsc_spweb[:dsc_useparenttopnav] = 'false'
-    expect(dsc_spweb[:dsc_useparenttopnav]).to eq(false)
+    expect(dsc_spweb[:dsc_useparenttopnav]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_useparenttopnav" do
     dsc_spweb[:dsc_useparenttopnav] = 'True'
-    expect(dsc_spweb[:dsc_useparenttopnav]).to eq(true)
+    expect(dsc_spweb[:dsc_useparenttopnav]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_useparenttopnav" do
     dsc_spweb[:dsc_useparenttopnav] = 'False'
-    expect(dsc_spweb[:dsc_useparenttopnav]).to eq(false)
+    expect(dsc_spweb[:dsc_useparenttopnav]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_useparenttopnav" do
     dsc_spweb[:dsc_useparenttopnav] = :true
-    expect(dsc_spweb[:dsc_useparenttopnav]).to eq(true)
+    expect(dsc_spweb[:dsc_useparenttopnav]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_useparenttopnav" do
     dsc_spweb[:dsc_useparenttopnav] = :false
-    expect(dsc_spweb[:dsc_useparenttopnav]).to eq(false)
+    expect(dsc_spweb[:dsc_useparenttopnav]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_useparenttopnav' do
@@ -288,39 +278,34 @@ describe Puppet::Type.type(:dsc_spweb) do
     expect{dsc_spweb[:dsc_addtoquicklaunch] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_addtoquicklaunch' do
-    dsc_spweb[:dsc_addtoquicklaunch] = true
-    expect(dsc_spweb[:dsc_addtoquicklaunch]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_addtoquicklaunch" do
     dsc_spweb[:dsc_addtoquicklaunch] = 'true'
-    expect(dsc_spweb[:dsc_addtoquicklaunch]).to eq(true)
+    expect(dsc_spweb[:dsc_addtoquicklaunch]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_addtoquicklaunch" do
     dsc_spweb[:dsc_addtoquicklaunch] = 'false'
-    expect(dsc_spweb[:dsc_addtoquicklaunch]).to eq(false)
+    expect(dsc_spweb[:dsc_addtoquicklaunch]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_addtoquicklaunch" do
     dsc_spweb[:dsc_addtoquicklaunch] = 'True'
-    expect(dsc_spweb[:dsc_addtoquicklaunch]).to eq(true)
+    expect(dsc_spweb[:dsc_addtoquicklaunch]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_addtoquicklaunch" do
     dsc_spweb[:dsc_addtoquicklaunch] = 'False'
-    expect(dsc_spweb[:dsc_addtoquicklaunch]).to eq(false)
+    expect(dsc_spweb[:dsc_addtoquicklaunch]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_addtoquicklaunch" do
     dsc_spweb[:dsc_addtoquicklaunch] = :true
-    expect(dsc_spweb[:dsc_addtoquicklaunch]).to eq(true)
+    expect(dsc_spweb[:dsc_addtoquicklaunch]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_addtoquicklaunch" do
     dsc_spweb[:dsc_addtoquicklaunch] = :false
-    expect(dsc_spweb[:dsc_addtoquicklaunch]).to eq(false)
+    expect(dsc_spweb[:dsc_addtoquicklaunch]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_addtoquicklaunch' do
@@ -335,39 +320,34 @@ describe Puppet::Type.type(:dsc_spweb) do
     expect{dsc_spweb[:dsc_addtotopnav] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_addtotopnav' do
-    dsc_spweb[:dsc_addtotopnav] = true
-    expect(dsc_spweb[:dsc_addtotopnav]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_addtotopnav" do
     dsc_spweb[:dsc_addtotopnav] = 'true'
-    expect(dsc_spweb[:dsc_addtotopnav]).to eq(true)
+    expect(dsc_spweb[:dsc_addtotopnav]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_addtotopnav" do
     dsc_spweb[:dsc_addtotopnav] = 'false'
-    expect(dsc_spweb[:dsc_addtotopnav]).to eq(false)
+    expect(dsc_spweb[:dsc_addtotopnav]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_addtotopnav" do
     dsc_spweb[:dsc_addtotopnav] = 'True'
-    expect(dsc_spweb[:dsc_addtotopnav]).to eq(true)
+    expect(dsc_spweb[:dsc_addtotopnav]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_addtotopnav" do
     dsc_spweb[:dsc_addtotopnav] = 'False'
-    expect(dsc_spweb[:dsc_addtotopnav]).to eq(false)
+    expect(dsc_spweb[:dsc_addtotopnav]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_addtotopnav" do
     dsc_spweb[:dsc_addtotopnav] = :true
-    expect(dsc_spweb[:dsc_addtotopnav]).to eq(true)
+    expect(dsc_spweb[:dsc_addtotopnav]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_addtotopnav" do
     dsc_spweb[:dsc_addtotopnav] = :false
-    expect(dsc_spweb[:dsc_addtotopnav]).to eq(false)
+    expect(dsc_spweb[:dsc_addtotopnav]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_addtotopnav' do

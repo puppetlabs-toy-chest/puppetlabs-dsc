@@ -174,39 +174,34 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_subdirectoriesincludingempty] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_subdirectoriesincludingempty' do
-    dsc_xrobocopy[:dsc_subdirectoriesincludingempty] = true
-    expect(dsc_xrobocopy[:dsc_subdirectoriesincludingempty]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_subdirectoriesincludingempty" do
     dsc_xrobocopy[:dsc_subdirectoriesincludingempty] = 'true'
-    expect(dsc_xrobocopy[:dsc_subdirectoriesincludingempty]).to eq(true)
+    expect(dsc_xrobocopy[:dsc_subdirectoriesincludingempty]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_subdirectoriesincludingempty" do
     dsc_xrobocopy[:dsc_subdirectoriesincludingempty] = 'false'
-    expect(dsc_xrobocopy[:dsc_subdirectoriesincludingempty]).to eq(false)
+    expect(dsc_xrobocopy[:dsc_subdirectoriesincludingempty]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_subdirectoriesincludingempty" do
     dsc_xrobocopy[:dsc_subdirectoriesincludingempty] = 'True'
-    expect(dsc_xrobocopy[:dsc_subdirectoriesincludingempty]).to eq(true)
+    expect(dsc_xrobocopy[:dsc_subdirectoriesincludingempty]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_subdirectoriesincludingempty" do
     dsc_xrobocopy[:dsc_subdirectoriesincludingempty] = 'False'
-    expect(dsc_xrobocopy[:dsc_subdirectoriesincludingempty]).to eq(false)
+    expect(dsc_xrobocopy[:dsc_subdirectoriesincludingempty]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_subdirectoriesincludingempty" do
     dsc_xrobocopy[:dsc_subdirectoriesincludingempty] = :true
-    expect(dsc_xrobocopy[:dsc_subdirectoriesincludingempty]).to eq(true)
+    expect(dsc_xrobocopy[:dsc_subdirectoriesincludingempty]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_subdirectoriesincludingempty" do
     dsc_xrobocopy[:dsc_subdirectoriesincludingempty] = :false
-    expect(dsc_xrobocopy[:dsc_subdirectoriesincludingempty]).to eq(false)
+    expect(dsc_xrobocopy[:dsc_subdirectoriesincludingempty]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_subdirectoriesincludingempty' do
@@ -221,39 +216,34 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_restartable] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_restartable' do
-    dsc_xrobocopy[:dsc_restartable] = true
-    expect(dsc_xrobocopy[:dsc_restartable]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_restartable" do
     dsc_xrobocopy[:dsc_restartable] = 'true'
-    expect(dsc_xrobocopy[:dsc_restartable]).to eq(true)
+    expect(dsc_xrobocopy[:dsc_restartable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_restartable" do
     dsc_xrobocopy[:dsc_restartable] = 'false'
-    expect(dsc_xrobocopy[:dsc_restartable]).to eq(false)
+    expect(dsc_xrobocopy[:dsc_restartable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_restartable" do
     dsc_xrobocopy[:dsc_restartable] = 'True'
-    expect(dsc_xrobocopy[:dsc_restartable]).to eq(true)
+    expect(dsc_xrobocopy[:dsc_restartable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_restartable" do
     dsc_xrobocopy[:dsc_restartable] = 'False'
-    expect(dsc_xrobocopy[:dsc_restartable]).to eq(false)
+    expect(dsc_xrobocopy[:dsc_restartable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_restartable" do
     dsc_xrobocopy[:dsc_restartable] = :true
-    expect(dsc_xrobocopy[:dsc_restartable]).to eq(true)
+    expect(dsc_xrobocopy[:dsc_restartable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_restartable" do
     dsc_xrobocopy[:dsc_restartable] = :false
-    expect(dsc_xrobocopy[:dsc_restartable]).to eq(false)
+    expect(dsc_xrobocopy[:dsc_restartable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_restartable' do
@@ -268,39 +258,34 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_multithreaded] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_multithreaded' do
-    dsc_xrobocopy[:dsc_multithreaded] = true
-    expect(dsc_xrobocopy[:dsc_multithreaded]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_multithreaded" do
     dsc_xrobocopy[:dsc_multithreaded] = 'true'
-    expect(dsc_xrobocopy[:dsc_multithreaded]).to eq(true)
+    expect(dsc_xrobocopy[:dsc_multithreaded]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_multithreaded" do
     dsc_xrobocopy[:dsc_multithreaded] = 'false'
-    expect(dsc_xrobocopy[:dsc_multithreaded]).to eq(false)
+    expect(dsc_xrobocopy[:dsc_multithreaded]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_multithreaded" do
     dsc_xrobocopy[:dsc_multithreaded] = 'True'
-    expect(dsc_xrobocopy[:dsc_multithreaded]).to eq(true)
+    expect(dsc_xrobocopy[:dsc_multithreaded]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_multithreaded" do
     dsc_xrobocopy[:dsc_multithreaded] = 'False'
-    expect(dsc_xrobocopy[:dsc_multithreaded]).to eq(false)
+    expect(dsc_xrobocopy[:dsc_multithreaded]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_multithreaded" do
     dsc_xrobocopy[:dsc_multithreaded] = :true
-    expect(dsc_xrobocopy[:dsc_multithreaded]).to eq(true)
+    expect(dsc_xrobocopy[:dsc_multithreaded]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_multithreaded" do
     dsc_xrobocopy[:dsc_multithreaded] = :false
-    expect(dsc_xrobocopy[:dsc_multithreaded]).to eq(false)
+    expect(dsc_xrobocopy[:dsc_multithreaded]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_multithreaded' do
@@ -347,39 +332,34 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_appendlog] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_appendlog' do
-    dsc_xrobocopy[:dsc_appendlog] = true
-    expect(dsc_xrobocopy[:dsc_appendlog]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_appendlog" do
     dsc_xrobocopy[:dsc_appendlog] = 'true'
-    expect(dsc_xrobocopy[:dsc_appendlog]).to eq(true)
+    expect(dsc_xrobocopy[:dsc_appendlog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_appendlog" do
     dsc_xrobocopy[:dsc_appendlog] = 'false'
-    expect(dsc_xrobocopy[:dsc_appendlog]).to eq(false)
+    expect(dsc_xrobocopy[:dsc_appendlog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_appendlog" do
     dsc_xrobocopy[:dsc_appendlog] = 'True'
-    expect(dsc_xrobocopy[:dsc_appendlog]).to eq(true)
+    expect(dsc_xrobocopy[:dsc_appendlog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_appendlog" do
     dsc_xrobocopy[:dsc_appendlog] = 'False'
-    expect(dsc_xrobocopy[:dsc_appendlog]).to eq(false)
+    expect(dsc_xrobocopy[:dsc_appendlog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_appendlog" do
     dsc_xrobocopy[:dsc_appendlog] = :true
-    expect(dsc_xrobocopy[:dsc_appendlog]).to eq(true)
+    expect(dsc_xrobocopy[:dsc_appendlog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_appendlog" do
     dsc_xrobocopy[:dsc_appendlog] = :false
-    expect(dsc_xrobocopy[:dsc_appendlog]).to eq(false)
+    expect(dsc_xrobocopy[:dsc_appendlog]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_appendlog' do

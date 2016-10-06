@@ -82,39 +82,34 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     expect{dsc_xexchoutlookanywhere[:dsc_allowservicerestart] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowservicerestart' do
-    dsc_xexchoutlookanywhere[:dsc_allowservicerestart] = true
-    expect(dsc_xexchoutlookanywhere[:dsc_allowservicerestart]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchoutlookanywhere[:dsc_allowservicerestart] = 'true'
-    expect(dsc_xexchoutlookanywhere[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchoutlookanywhere[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchoutlookanywhere[:dsc_allowservicerestart] = 'false'
-    expect(dsc_xexchoutlookanywhere[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchoutlookanywhere[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchoutlookanywhere[:dsc_allowservicerestart] = 'True'
-    expect(dsc_xexchoutlookanywhere[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchoutlookanywhere[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchoutlookanywhere[:dsc_allowservicerestart] = 'False'
-    expect(dsc_xexchoutlookanywhere[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchoutlookanywhere[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchoutlookanywhere[:dsc_allowservicerestart] = :true
-    expect(dsc_xexchoutlookanywhere[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchoutlookanywhere[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchoutlookanywhere[:dsc_allowservicerestart] = :false
-    expect(dsc_xexchoutlookanywhere[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchoutlookanywhere[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowservicerestart' do
@@ -145,39 +140,34 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     expect{dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_externalclientsrequiressl' do
-    dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl] = true
-    expect(dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_externalclientsrequiressl" do
     dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl] = 'true'
-    expect(dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl]).to eq(true)
+    expect(dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_externalclientsrequiressl" do
     dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl] = 'false'
-    expect(dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl]).to eq(false)
+    expect(dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_externalclientsrequiressl" do
     dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl] = 'True'
-    expect(dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl]).to eq(true)
+    expect(dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_externalclientsrequiressl" do
     dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl] = 'False'
-    expect(dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl]).to eq(false)
+    expect(dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_externalclientsrequiressl" do
     dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl] = :true
-    expect(dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl]).to eq(true)
+    expect(dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_externalclientsrequiressl" do
     dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl] = :false
-    expect(dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl]).to eq(false)
+    expect(dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_externalclientsrequiressl' do
@@ -409,39 +399,34 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     expect{dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_internalclientsrequiressl' do
-    dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl] = true
-    expect(dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_internalclientsrequiressl" do
     dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl] = 'true'
-    expect(dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl]).to eq(true)
+    expect(dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_internalclientsrequiressl" do
     dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl] = 'false'
-    expect(dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl]).to eq(false)
+    expect(dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_internalclientsrequiressl" do
     dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl] = 'True'
-    expect(dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl]).to eq(true)
+    expect(dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_internalclientsrequiressl" do
     dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl] = 'False'
-    expect(dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl]).to eq(false)
+    expect(dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_internalclientsrequiressl" do
     dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl] = :true
-    expect(dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl]).to eq(true)
+    expect(dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_internalclientsrequiressl" do
     dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl] = :false
-    expect(dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl]).to eq(false)
+    expect(dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_internalclientsrequiressl' do
@@ -472,39 +457,34 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     expect{dsc_xexchoutlookanywhere[:dsc_ssloffloading] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_ssloffloading' do
-    dsc_xexchoutlookanywhere[:dsc_ssloffloading] = true
-    expect(dsc_xexchoutlookanywhere[:dsc_ssloffloading]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_ssloffloading" do
     dsc_xexchoutlookanywhere[:dsc_ssloffloading] = 'true'
-    expect(dsc_xexchoutlookanywhere[:dsc_ssloffloading]).to eq(true)
+    expect(dsc_xexchoutlookanywhere[:dsc_ssloffloading]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_ssloffloading" do
     dsc_xexchoutlookanywhere[:dsc_ssloffloading] = 'false'
-    expect(dsc_xexchoutlookanywhere[:dsc_ssloffloading]).to eq(false)
+    expect(dsc_xexchoutlookanywhere[:dsc_ssloffloading]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_ssloffloading" do
     dsc_xexchoutlookanywhere[:dsc_ssloffloading] = 'True'
-    expect(dsc_xexchoutlookanywhere[:dsc_ssloffloading]).to eq(true)
+    expect(dsc_xexchoutlookanywhere[:dsc_ssloffloading]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_ssloffloading" do
     dsc_xexchoutlookanywhere[:dsc_ssloffloading] = 'False'
-    expect(dsc_xexchoutlookanywhere[:dsc_ssloffloading]).to eq(false)
+    expect(dsc_xexchoutlookanywhere[:dsc_ssloffloading]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_ssloffloading" do
     dsc_xexchoutlookanywhere[:dsc_ssloffloading] = :true
-    expect(dsc_xexchoutlookanywhere[:dsc_ssloffloading]).to eq(true)
+    expect(dsc_xexchoutlookanywhere[:dsc_ssloffloading]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_ssloffloading" do
     dsc_xexchoutlookanywhere[:dsc_ssloffloading] = :false
-    expect(dsc_xexchoutlookanywhere[:dsc_ssloffloading]).to eq(false)
+    expect(dsc_xexchoutlookanywhere[:dsc_ssloffloading]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_ssloffloading' do

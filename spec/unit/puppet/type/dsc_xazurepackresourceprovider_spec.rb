@@ -151,39 +151,34 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_enabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enabled' do
-    dsc_xazurepackresourceprovider[:dsc_enabled] = true
-    expect(dsc_xazurepackresourceprovider[:dsc_enabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enabled" do
     dsc_xazurepackresourceprovider[:dsc_enabled] = 'true'
-    expect(dsc_xazurepackresourceprovider[:dsc_enabled]).to eq(true)
+    expect(dsc_xazurepackresourceprovider[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enabled" do
     dsc_xazurepackresourceprovider[:dsc_enabled] = 'false'
-    expect(dsc_xazurepackresourceprovider[:dsc_enabled]).to eq(false)
+    expect(dsc_xazurepackresourceprovider[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enabled" do
     dsc_xazurepackresourceprovider[:dsc_enabled] = 'True'
-    expect(dsc_xazurepackresourceprovider[:dsc_enabled]).to eq(true)
+    expect(dsc_xazurepackresourceprovider[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enabled" do
     dsc_xazurepackresourceprovider[:dsc_enabled] = 'False'
-    expect(dsc_xazurepackresourceprovider[:dsc_enabled]).to eq(false)
+    expect(dsc_xazurepackresourceprovider[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enabled" do
     dsc_xazurepackresourceprovider[:dsc_enabled] = :true
-    expect(dsc_xazurepackresourceprovider[:dsc_enabled]).to eq(true)
+    expect(dsc_xazurepackresourceprovider[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enabled" do
     dsc_xazurepackresourceprovider[:dsc_enabled] = :false
-    expect(dsc_xazurepackresourceprovider[:dsc_enabled]).to eq(false)
+    expect(dsc_xazurepackresourceprovider[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enabled' do
@@ -198,39 +193,34 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_passthroughenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_passthroughenabled' do
-    dsc_xazurepackresourceprovider[:dsc_passthroughenabled] = true
-    expect(dsc_xazurepackresourceprovider[:dsc_passthroughenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_passthroughenabled" do
     dsc_xazurepackresourceprovider[:dsc_passthroughenabled] = 'true'
-    expect(dsc_xazurepackresourceprovider[:dsc_passthroughenabled]).to eq(true)
+    expect(dsc_xazurepackresourceprovider[:dsc_passthroughenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_passthroughenabled" do
     dsc_xazurepackresourceprovider[:dsc_passthroughenabled] = 'false'
-    expect(dsc_xazurepackresourceprovider[:dsc_passthroughenabled]).to eq(false)
+    expect(dsc_xazurepackresourceprovider[:dsc_passthroughenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_passthroughenabled" do
     dsc_xazurepackresourceprovider[:dsc_passthroughenabled] = 'True'
-    expect(dsc_xazurepackresourceprovider[:dsc_passthroughenabled]).to eq(true)
+    expect(dsc_xazurepackresourceprovider[:dsc_passthroughenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_passthroughenabled" do
     dsc_xazurepackresourceprovider[:dsc_passthroughenabled] = 'False'
-    expect(dsc_xazurepackresourceprovider[:dsc_passthroughenabled]).to eq(false)
+    expect(dsc_xazurepackresourceprovider[:dsc_passthroughenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_passthroughenabled" do
     dsc_xazurepackresourceprovider[:dsc_passthroughenabled] = :true
-    expect(dsc_xazurepackresourceprovider[:dsc_passthroughenabled]).to eq(true)
+    expect(dsc_xazurepackresourceprovider[:dsc_passthroughenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_passthroughenabled" do
     dsc_xazurepackresourceprovider[:dsc_passthroughenabled] = :false
-    expect(dsc_xazurepackresourceprovider[:dsc_passthroughenabled]).to eq(false)
+    expect(dsc_xazurepackresourceprovider[:dsc_passthroughenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_passthroughenabled' do
@@ -245,39 +235,34 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowanonymousaccess' do
-    dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess] = true
-    expect(dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowanonymousaccess" do
     dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess] = 'true'
-    expect(dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess]).to eq(true)
+    expect(dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowanonymousaccess" do
     dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess] = 'false'
-    expect(dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess]).to eq(false)
+    expect(dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowanonymousaccess" do
     dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess] = 'True'
-    expect(dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess]).to eq(true)
+    expect(dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowanonymousaccess" do
     dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess] = 'False'
-    expect(dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess]).to eq(false)
+    expect(dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowanonymousaccess" do
     dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess] = :true
-    expect(dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess]).to eq(true)
+    expect(dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowanonymousaccess" do
     dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess] = :false
-    expect(dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess]).to eq(false)
+    expect(dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowanonymousaccess' do
@@ -292,39 +277,34 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowmultipleinstances' do
-    dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances] = true
-    expect(dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowmultipleinstances" do
     dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances] = 'true'
-    expect(dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances]).to eq(true)
+    expect(dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowmultipleinstances" do
     dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances] = 'false'
-    expect(dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances]).to eq(false)
+    expect(dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowmultipleinstances" do
     dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances] = 'True'
-    expect(dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances]).to eq(true)
+    expect(dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowmultipleinstances" do
     dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances] = 'False'
-    expect(dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances]).to eq(false)
+    expect(dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowmultipleinstances" do
     dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances] = :true
-    expect(dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances]).to eq(true)
+    expect(dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowmultipleinstances" do
     dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances] = :false
-    expect(dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances]).to eq(false)
+    expect(dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowmultipleinstances' do

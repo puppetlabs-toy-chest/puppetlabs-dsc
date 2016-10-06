@@ -128,39 +128,34 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
     expect{dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_nowindowsupdatecheck' do
-    dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck] = true
-    expect(dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_nowindowsupdatecheck" do
     dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck] = 'true'
-    expect(dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck]).to eq(true)
+    expect(dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_nowindowsupdatecheck" do
     dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck] = 'false'
-    expect(dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck]).to eq(false)
+    expect(dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_nowindowsupdatecheck" do
     dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck] = 'True'
-    expect(dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck]).to eq(true)
+    expect(dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_nowindowsupdatecheck" do
     dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck] = 'False'
-    expect(dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck]).to eq(false)
+    expect(dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_nowindowsupdatecheck" do
     dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck] = :true
-    expect(dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck]).to eq(true)
+    expect(dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_nowindowsupdatecheck" do
     dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck] = :false
-    expect(dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck]).to eq(false)
+    expect(dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_nowindowsupdatecheck' do
@@ -175,39 +170,34 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
     expect{dsc_windowsoptionalfeature[:dsc_removefilesondisable] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_removefilesondisable' do
-    dsc_windowsoptionalfeature[:dsc_removefilesondisable] = true
-    expect(dsc_windowsoptionalfeature[:dsc_removefilesondisable]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_removefilesondisable" do
     dsc_windowsoptionalfeature[:dsc_removefilesondisable] = 'true'
-    expect(dsc_windowsoptionalfeature[:dsc_removefilesondisable]).to eq(true)
+    expect(dsc_windowsoptionalfeature[:dsc_removefilesondisable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_removefilesondisable" do
     dsc_windowsoptionalfeature[:dsc_removefilesondisable] = 'false'
-    expect(dsc_windowsoptionalfeature[:dsc_removefilesondisable]).to eq(false)
+    expect(dsc_windowsoptionalfeature[:dsc_removefilesondisable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_removefilesondisable" do
     dsc_windowsoptionalfeature[:dsc_removefilesondisable] = 'True'
-    expect(dsc_windowsoptionalfeature[:dsc_removefilesondisable]).to eq(true)
+    expect(dsc_windowsoptionalfeature[:dsc_removefilesondisable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_removefilesondisable" do
     dsc_windowsoptionalfeature[:dsc_removefilesondisable] = 'False'
-    expect(dsc_windowsoptionalfeature[:dsc_removefilesondisable]).to eq(false)
+    expect(dsc_windowsoptionalfeature[:dsc_removefilesondisable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_removefilesondisable" do
     dsc_windowsoptionalfeature[:dsc_removefilesondisable] = :true
-    expect(dsc_windowsoptionalfeature[:dsc_removefilesondisable]).to eq(true)
+    expect(dsc_windowsoptionalfeature[:dsc_removefilesondisable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_removefilesondisable" do
     dsc_windowsoptionalfeature[:dsc_removefilesondisable] = :false
-    expect(dsc_windowsoptionalfeature[:dsc_removefilesondisable]).to eq(false)
+    expect(dsc_windowsoptionalfeature[:dsc_removefilesondisable]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_removefilesondisable' do

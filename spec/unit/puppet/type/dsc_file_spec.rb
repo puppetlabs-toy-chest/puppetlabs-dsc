@@ -255,39 +255,34 @@ describe Puppet::Type.type(:dsc_file) do
     expect{dsc_file[:dsc_recurse] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_recurse' do
-    dsc_file[:dsc_recurse] = true
-    expect(dsc_file[:dsc_recurse]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_recurse" do
     dsc_file[:dsc_recurse] = 'true'
-    expect(dsc_file[:dsc_recurse]).to eq(true)
+    expect(dsc_file[:dsc_recurse]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_recurse" do
     dsc_file[:dsc_recurse] = 'false'
-    expect(dsc_file[:dsc_recurse]).to eq(false)
+    expect(dsc_file[:dsc_recurse]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_recurse" do
     dsc_file[:dsc_recurse] = 'True'
-    expect(dsc_file[:dsc_recurse]).to eq(true)
+    expect(dsc_file[:dsc_recurse]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_recurse" do
     dsc_file[:dsc_recurse] = 'False'
-    expect(dsc_file[:dsc_recurse]).to eq(false)
+    expect(dsc_file[:dsc_recurse]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_recurse" do
     dsc_file[:dsc_recurse] = :true
-    expect(dsc_file[:dsc_recurse]).to eq(true)
+    expect(dsc_file[:dsc_recurse]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_recurse" do
     dsc_file[:dsc_recurse] = :false
-    expect(dsc_file[:dsc_recurse]).to eq(false)
+    expect(dsc_file[:dsc_recurse]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_recurse' do
@@ -302,39 +297,34 @@ describe Puppet::Type.type(:dsc_file) do
     expect{dsc_file[:dsc_force] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_force' do
-    dsc_file[:dsc_force] = true
-    expect(dsc_file[:dsc_force]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_force" do
     dsc_file[:dsc_force] = 'true'
-    expect(dsc_file[:dsc_force]).to eq(true)
+    expect(dsc_file[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_force" do
     dsc_file[:dsc_force] = 'false'
-    expect(dsc_file[:dsc_force]).to eq(false)
+    expect(dsc_file[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_force" do
     dsc_file[:dsc_force] = 'True'
-    expect(dsc_file[:dsc_force]).to eq(true)
+    expect(dsc_file[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_force" do
     dsc_file[:dsc_force] = 'False'
-    expect(dsc_file[:dsc_force]).to eq(false)
+    expect(dsc_file[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_force" do
     dsc_file[:dsc_force] = :true
-    expect(dsc_file[:dsc_force]).to eq(true)
+    expect(dsc_file[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_force" do
     dsc_file[:dsc_force] = :false
-    expect(dsc_file[:dsc_force]).to eq(false)
+    expect(dsc_file[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_force' do
@@ -447,39 +437,34 @@ describe Puppet::Type.type(:dsc_file) do
     expect{dsc_file[:dsc_matchsource] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_matchsource' do
-    dsc_file[:dsc_matchsource] = true
-    expect(dsc_file[:dsc_matchsource]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_matchsource" do
     dsc_file[:dsc_matchsource] = 'true'
-    expect(dsc_file[:dsc_matchsource]).to eq(true)
+    expect(dsc_file[:dsc_matchsource]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_matchsource" do
     dsc_file[:dsc_matchsource] = 'false'
-    expect(dsc_file[:dsc_matchsource]).to eq(false)
+    expect(dsc_file[:dsc_matchsource]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_matchsource" do
     dsc_file[:dsc_matchsource] = 'True'
-    expect(dsc_file[:dsc_matchsource]).to eq(true)
+    expect(dsc_file[:dsc_matchsource]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_matchsource" do
     dsc_file[:dsc_matchsource] = 'False'
-    expect(dsc_file[:dsc_matchsource]).to eq(false)
+    expect(dsc_file[:dsc_matchsource]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_matchsource" do
     dsc_file[:dsc_matchsource] = :true
-    expect(dsc_file[:dsc_matchsource]).to eq(true)
+    expect(dsc_file[:dsc_matchsource]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_matchsource" do
     dsc_file[:dsc_matchsource] = :false
-    expect(dsc_file[:dsc_matchsource]).to eq(false)
+    expect(dsc_file[:dsc_matchsource]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_matchsource' do

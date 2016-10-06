@@ -71,39 +71,34 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
     expect{dsc_spinstallprereqs[:dsc_onlinemode] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_onlinemode' do
-    dsc_spinstallprereqs[:dsc_onlinemode] = true
-    expect(dsc_spinstallprereqs[:dsc_onlinemode]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_onlinemode" do
     dsc_spinstallprereqs[:dsc_onlinemode] = 'true'
-    expect(dsc_spinstallprereqs[:dsc_onlinemode]).to eq(true)
+    expect(dsc_spinstallprereqs[:dsc_onlinemode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_onlinemode" do
     dsc_spinstallprereqs[:dsc_onlinemode] = 'false'
-    expect(dsc_spinstallprereqs[:dsc_onlinemode]).to eq(false)
+    expect(dsc_spinstallprereqs[:dsc_onlinemode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_onlinemode" do
     dsc_spinstallprereqs[:dsc_onlinemode] = 'True'
-    expect(dsc_spinstallprereqs[:dsc_onlinemode]).to eq(true)
+    expect(dsc_spinstallprereqs[:dsc_onlinemode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_onlinemode" do
     dsc_spinstallprereqs[:dsc_onlinemode] = 'False'
-    expect(dsc_spinstallprereqs[:dsc_onlinemode]).to eq(false)
+    expect(dsc_spinstallprereqs[:dsc_onlinemode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_onlinemode" do
     dsc_spinstallprereqs[:dsc_onlinemode] = :true
-    expect(dsc_spinstallprereqs[:dsc_onlinemode]).to eq(true)
+    expect(dsc_spinstallprereqs[:dsc_onlinemode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_onlinemode" do
     dsc_spinstallprereqs[:dsc_onlinemode] = :false
-    expect(dsc_spinstallprereqs[:dsc_onlinemode]).to eq(false)
+    expect(dsc_spinstallprereqs[:dsc_onlinemode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_onlinemode' do

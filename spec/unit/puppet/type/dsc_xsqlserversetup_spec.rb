@@ -143,39 +143,34 @@ describe Puppet::Type.type(:dsc_xsqlserversetup) do
     expect{dsc_xsqlserversetup[:dsc_suppressreboot] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_suppressreboot' do
-    dsc_xsqlserversetup[:dsc_suppressreboot] = true
-    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_suppressreboot" do
     dsc_xsqlserversetup[:dsc_suppressreboot] = 'true'
-    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(true)
+    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_suppressreboot" do
     dsc_xsqlserversetup[:dsc_suppressreboot] = 'false'
-    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(false)
+    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_suppressreboot" do
     dsc_xsqlserversetup[:dsc_suppressreboot] = 'True'
-    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(true)
+    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_suppressreboot" do
     dsc_xsqlserversetup[:dsc_suppressreboot] = 'False'
-    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(false)
+    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_suppressreboot" do
     dsc_xsqlserversetup[:dsc_suppressreboot] = :true
-    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(true)
+    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_suppressreboot" do
     dsc_xsqlserversetup[:dsc_suppressreboot] = :false
-    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(false)
+    expect(dsc_xsqlserversetup[:dsc_suppressreboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_suppressreboot' do
@@ -190,39 +185,34 @@ describe Puppet::Type.type(:dsc_xsqlserversetup) do
     expect{dsc_xsqlserversetup[:dsc_forcereboot] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_forcereboot' do
-    dsc_xsqlserversetup[:dsc_forcereboot] = true
-    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_forcereboot" do
     dsc_xsqlserversetup[:dsc_forcereboot] = 'true'
-    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(true)
+    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_forcereboot" do
     dsc_xsqlserversetup[:dsc_forcereboot] = 'false'
-    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(false)
+    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_forcereboot" do
     dsc_xsqlserversetup[:dsc_forcereboot] = 'True'
-    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(true)
+    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_forcereboot" do
     dsc_xsqlserversetup[:dsc_forcereboot] = 'False'
-    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(false)
+    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_forcereboot" do
     dsc_xsqlserversetup[:dsc_forcereboot] = :true
-    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(true)
+    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_forcereboot" do
     dsc_xsqlserversetup[:dsc_forcereboot] = :false
-    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(false)
+    expect(dsc_xsqlserversetup[:dsc_forcereboot]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_forcereboot' do

@@ -142,39 +142,34 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     expect{dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_ensureexchangevolumemountpointislast' do
-    dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast] = true
-    expect(dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_ensureexchangevolumemountpointislast" do
     dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast] = 'true'
-    expect(dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast]).to eq(true)
+    expect(dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_ensureexchangevolumemountpointislast" do
     dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast] = 'false'
-    expect(dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast]).to eq(false)
+    expect(dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_ensureexchangevolumemountpointislast" do
     dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast] = 'True'
-    expect(dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast]).to eq(true)
+    expect(dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_ensureexchangevolumemountpointislast" do
     dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast] = 'False'
-    expect(dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast]).to eq(false)
+    expect(dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_ensureexchangevolumemountpointislast" do
     dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast] = :true
-    expect(dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast]).to eq(true)
+    expect(dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_ensureexchangevolumemountpointislast" do
     dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast] = :false
-    expect(dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast]).to eq(false)
+    expect(dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_ensureexchangevolumemountpointislast' do
@@ -189,39 +184,34 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     expect{dsc_xexchautomountpoint[:dsc_createsubfolders] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_createsubfolders' do
-    dsc_xexchautomountpoint[:dsc_createsubfolders] = true
-    expect(dsc_xexchautomountpoint[:dsc_createsubfolders]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_createsubfolders" do
     dsc_xexchautomountpoint[:dsc_createsubfolders] = 'true'
-    expect(dsc_xexchautomountpoint[:dsc_createsubfolders]).to eq(true)
+    expect(dsc_xexchautomountpoint[:dsc_createsubfolders]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_createsubfolders" do
     dsc_xexchautomountpoint[:dsc_createsubfolders] = 'false'
-    expect(dsc_xexchautomountpoint[:dsc_createsubfolders]).to eq(false)
+    expect(dsc_xexchautomountpoint[:dsc_createsubfolders]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_createsubfolders" do
     dsc_xexchautomountpoint[:dsc_createsubfolders] = 'True'
-    expect(dsc_xexchautomountpoint[:dsc_createsubfolders]).to eq(true)
+    expect(dsc_xexchautomountpoint[:dsc_createsubfolders]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_createsubfolders" do
     dsc_xexchautomountpoint[:dsc_createsubfolders] = 'False'
-    expect(dsc_xexchautomountpoint[:dsc_createsubfolders]).to eq(false)
+    expect(dsc_xexchautomountpoint[:dsc_createsubfolders]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_createsubfolders" do
     dsc_xexchautomountpoint[:dsc_createsubfolders] = :true
-    expect(dsc_xexchautomountpoint[:dsc_createsubfolders]).to eq(true)
+    expect(dsc_xexchautomountpoint[:dsc_createsubfolders]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_createsubfolders" do
     dsc_xexchautomountpoint[:dsc_createsubfolders] = :false
-    expect(dsc_xexchautomountpoint[:dsc_createsubfolders]).to eq(false)
+    expect(dsc_xexchautomountpoint[:dsc_createsubfolders]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_createsubfolders' do

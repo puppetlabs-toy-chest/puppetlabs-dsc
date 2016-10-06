@@ -192,39 +192,34 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     expect{dsc_xwebapppool[:dsc_autostart] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_autostart' do
-    dsc_xwebapppool[:dsc_autostart] = true
-    expect(dsc_xwebapppool[:dsc_autostart]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_autostart" do
     dsc_xwebapppool[:dsc_autostart] = 'true'
-    expect(dsc_xwebapppool[:dsc_autostart]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_autostart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_autostart" do
     dsc_xwebapppool[:dsc_autostart] = 'false'
-    expect(dsc_xwebapppool[:dsc_autostart]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_autostart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_autostart" do
     dsc_xwebapppool[:dsc_autostart] = 'True'
-    expect(dsc_xwebapppool[:dsc_autostart]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_autostart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_autostart" do
     dsc_xwebapppool[:dsc_autostart] = 'False'
-    expect(dsc_xwebapppool[:dsc_autostart]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_autostart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_autostart" do
     dsc_xwebapppool[:dsc_autostart] = :true
-    expect(dsc_xwebapppool[:dsc_autostart]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_autostart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_autostart" do
     dsc_xwebapppool[:dsc_autostart] = :false
-    expect(dsc_xwebapppool[:dsc_autostart]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_autostart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_autostart' do
@@ -255,39 +250,34 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     expect{dsc_xwebapppool[:dsc_enable32bitapponwin64] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enable32bitapponwin64' do
-    dsc_xwebapppool[:dsc_enable32bitapponwin64] = true
-    expect(dsc_xwebapppool[:dsc_enable32bitapponwin64]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enable32bitapponwin64" do
     dsc_xwebapppool[:dsc_enable32bitapponwin64] = 'true'
-    expect(dsc_xwebapppool[:dsc_enable32bitapponwin64]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_enable32bitapponwin64]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enable32bitapponwin64" do
     dsc_xwebapppool[:dsc_enable32bitapponwin64] = 'false'
-    expect(dsc_xwebapppool[:dsc_enable32bitapponwin64]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_enable32bitapponwin64]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enable32bitapponwin64" do
     dsc_xwebapppool[:dsc_enable32bitapponwin64] = 'True'
-    expect(dsc_xwebapppool[:dsc_enable32bitapponwin64]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_enable32bitapponwin64]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enable32bitapponwin64" do
     dsc_xwebapppool[:dsc_enable32bitapponwin64] = 'False'
-    expect(dsc_xwebapppool[:dsc_enable32bitapponwin64]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_enable32bitapponwin64]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enable32bitapponwin64" do
     dsc_xwebapppool[:dsc_enable32bitapponwin64] = :true
-    expect(dsc_xwebapppool[:dsc_enable32bitapponwin64]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_enable32bitapponwin64]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enable32bitapponwin64" do
     dsc_xwebapppool[:dsc_enable32bitapponwin64] = :false
-    expect(dsc_xwebapppool[:dsc_enable32bitapponwin64]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_enable32bitapponwin64]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enable32bitapponwin64' do
@@ -302,39 +292,34 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     expect{dsc_xwebapppool[:dsc_enableconfigurationoverride] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enableconfigurationoverride' do
-    dsc_xwebapppool[:dsc_enableconfigurationoverride] = true
-    expect(dsc_xwebapppool[:dsc_enableconfigurationoverride]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enableconfigurationoverride" do
     dsc_xwebapppool[:dsc_enableconfigurationoverride] = 'true'
-    expect(dsc_xwebapppool[:dsc_enableconfigurationoverride]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_enableconfigurationoverride]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enableconfigurationoverride" do
     dsc_xwebapppool[:dsc_enableconfigurationoverride] = 'false'
-    expect(dsc_xwebapppool[:dsc_enableconfigurationoverride]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_enableconfigurationoverride]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enableconfigurationoverride" do
     dsc_xwebapppool[:dsc_enableconfigurationoverride] = 'True'
-    expect(dsc_xwebapppool[:dsc_enableconfigurationoverride]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_enableconfigurationoverride]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enableconfigurationoverride" do
     dsc_xwebapppool[:dsc_enableconfigurationoverride] = 'False'
-    expect(dsc_xwebapppool[:dsc_enableconfigurationoverride]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_enableconfigurationoverride]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enableconfigurationoverride" do
     dsc_xwebapppool[:dsc_enableconfigurationoverride] = :true
-    expect(dsc_xwebapppool[:dsc_enableconfigurationoverride]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_enableconfigurationoverride]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enableconfigurationoverride" do
     dsc_xwebapppool[:dsc_enableconfigurationoverride] = :false
-    expect(dsc_xwebapppool[:dsc_enableconfigurationoverride]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_enableconfigurationoverride]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enableconfigurationoverride' do
@@ -455,39 +440,34 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     expect{dsc_xwebapppool[:dsc_passanonymoustoken] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_passanonymoustoken' do
-    dsc_xwebapppool[:dsc_passanonymoustoken] = true
-    expect(dsc_xwebapppool[:dsc_passanonymoustoken]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_passanonymoustoken" do
     dsc_xwebapppool[:dsc_passanonymoustoken] = 'true'
-    expect(dsc_xwebapppool[:dsc_passanonymoustoken]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_passanonymoustoken]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_passanonymoustoken" do
     dsc_xwebapppool[:dsc_passanonymoustoken] = 'false'
-    expect(dsc_xwebapppool[:dsc_passanonymoustoken]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_passanonymoustoken]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_passanonymoustoken" do
     dsc_xwebapppool[:dsc_passanonymoustoken] = 'True'
-    expect(dsc_xwebapppool[:dsc_passanonymoustoken]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_passanonymoustoken]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_passanonymoustoken" do
     dsc_xwebapppool[:dsc_passanonymoustoken] = 'False'
-    expect(dsc_xwebapppool[:dsc_passanonymoustoken]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_passanonymoustoken]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_passanonymoustoken" do
     dsc_xwebapppool[:dsc_passanonymoustoken] = :true
-    expect(dsc_xwebapppool[:dsc_passanonymoustoken]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_passanonymoustoken]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_passanonymoustoken" do
     dsc_xwebapppool[:dsc_passanonymoustoken] = :false
-    expect(dsc_xwebapppool[:dsc_passanonymoustoken]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_passanonymoustoken]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_passanonymoustoken' do
@@ -686,39 +666,34 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     expect{dsc_xwebapppool[:dsc_cpusmpaffinitized] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_cpusmpaffinitized' do
-    dsc_xwebapppool[:dsc_cpusmpaffinitized] = true
-    expect(dsc_xwebapppool[:dsc_cpusmpaffinitized]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_cpusmpaffinitized" do
     dsc_xwebapppool[:dsc_cpusmpaffinitized] = 'true'
-    expect(dsc_xwebapppool[:dsc_cpusmpaffinitized]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_cpusmpaffinitized]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_cpusmpaffinitized" do
     dsc_xwebapppool[:dsc_cpusmpaffinitized] = 'false'
-    expect(dsc_xwebapppool[:dsc_cpusmpaffinitized]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_cpusmpaffinitized]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_cpusmpaffinitized" do
     dsc_xwebapppool[:dsc_cpusmpaffinitized] = 'True'
-    expect(dsc_xwebapppool[:dsc_cpusmpaffinitized]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_cpusmpaffinitized]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_cpusmpaffinitized" do
     dsc_xwebapppool[:dsc_cpusmpaffinitized] = 'False'
-    expect(dsc_xwebapppool[:dsc_cpusmpaffinitized]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_cpusmpaffinitized]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_cpusmpaffinitized" do
     dsc_xwebapppool[:dsc_cpusmpaffinitized] = :true
-    expect(dsc_xwebapppool[:dsc_cpusmpaffinitized]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_cpusmpaffinitized]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_cpusmpaffinitized" do
     dsc_xwebapppool[:dsc_cpusmpaffinitized] = :false
-    expect(dsc_xwebapppool[:dsc_cpusmpaffinitized]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_cpusmpaffinitized]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_cpusmpaffinitized' do
@@ -947,39 +922,34 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     expect{dsc_xwebapppool[:dsc_loaduserprofile] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_loaduserprofile' do
-    dsc_xwebapppool[:dsc_loaduserprofile] = true
-    expect(dsc_xwebapppool[:dsc_loaduserprofile]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_loaduserprofile" do
     dsc_xwebapppool[:dsc_loaduserprofile] = 'true'
-    expect(dsc_xwebapppool[:dsc_loaduserprofile]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_loaduserprofile]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_loaduserprofile" do
     dsc_xwebapppool[:dsc_loaduserprofile] = 'false'
-    expect(dsc_xwebapppool[:dsc_loaduserprofile]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_loaduserprofile]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_loaduserprofile" do
     dsc_xwebapppool[:dsc_loaduserprofile] = 'True'
-    expect(dsc_xwebapppool[:dsc_loaduserprofile]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_loaduserprofile]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_loaduserprofile" do
     dsc_xwebapppool[:dsc_loaduserprofile] = 'False'
-    expect(dsc_xwebapppool[:dsc_loaduserprofile]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_loaduserprofile]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_loaduserprofile" do
     dsc_xwebapppool[:dsc_loaduserprofile] = :true
-    expect(dsc_xwebapppool[:dsc_loaduserprofile]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_loaduserprofile]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_loaduserprofile" do
     dsc_xwebapppool[:dsc_loaduserprofile] = :false
-    expect(dsc_xwebapppool[:dsc_loaduserprofile]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_loaduserprofile]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_loaduserprofile' do
@@ -1050,39 +1020,34 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     expect{dsc_xwebapppool[:dsc_manualgroupmembership] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_manualgroupmembership' do
-    dsc_xwebapppool[:dsc_manualgroupmembership] = true
-    expect(dsc_xwebapppool[:dsc_manualgroupmembership]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_manualgroupmembership" do
     dsc_xwebapppool[:dsc_manualgroupmembership] = 'true'
-    expect(dsc_xwebapppool[:dsc_manualgroupmembership]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_manualgroupmembership]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_manualgroupmembership" do
     dsc_xwebapppool[:dsc_manualgroupmembership] = 'false'
-    expect(dsc_xwebapppool[:dsc_manualgroupmembership]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_manualgroupmembership]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_manualgroupmembership" do
     dsc_xwebapppool[:dsc_manualgroupmembership] = 'True'
-    expect(dsc_xwebapppool[:dsc_manualgroupmembership]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_manualgroupmembership]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_manualgroupmembership" do
     dsc_xwebapppool[:dsc_manualgroupmembership] = 'False'
-    expect(dsc_xwebapppool[:dsc_manualgroupmembership]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_manualgroupmembership]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_manualgroupmembership" do
     dsc_xwebapppool[:dsc_manualgroupmembership] = :true
-    expect(dsc_xwebapppool[:dsc_manualgroupmembership]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_manualgroupmembership]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_manualgroupmembership" do
     dsc_xwebapppool[:dsc_manualgroupmembership] = :false
-    expect(dsc_xwebapppool[:dsc_manualgroupmembership]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_manualgroupmembership]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_manualgroupmembership' do
@@ -1131,39 +1096,34 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     expect{dsc_xwebapppool[:dsc_pingingenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_pingingenabled' do
-    dsc_xwebapppool[:dsc_pingingenabled] = true
-    expect(dsc_xwebapppool[:dsc_pingingenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_pingingenabled" do
     dsc_xwebapppool[:dsc_pingingenabled] = 'true'
-    expect(dsc_xwebapppool[:dsc_pingingenabled]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_pingingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_pingingenabled" do
     dsc_xwebapppool[:dsc_pingingenabled] = 'false'
-    expect(dsc_xwebapppool[:dsc_pingingenabled]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_pingingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_pingingenabled" do
     dsc_xwebapppool[:dsc_pingingenabled] = 'True'
-    expect(dsc_xwebapppool[:dsc_pingingenabled]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_pingingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_pingingenabled" do
     dsc_xwebapppool[:dsc_pingingenabled] = 'False'
-    expect(dsc_xwebapppool[:dsc_pingingenabled]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_pingingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_pingingenabled" do
     dsc_xwebapppool[:dsc_pingingenabled] = :true
-    expect(dsc_xwebapppool[:dsc_pingingenabled]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_pingingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_pingingenabled" do
     dsc_xwebapppool[:dsc_pingingenabled] = :false
-    expect(dsc_xwebapppool[:dsc_pingingenabled]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_pingingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_pingingenabled' do
@@ -1210,39 +1170,34 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     expect{dsc_xwebapppool[:dsc_setprofileenvironment] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_setprofileenvironment' do
-    dsc_xwebapppool[:dsc_setprofileenvironment] = true
-    expect(dsc_xwebapppool[:dsc_setprofileenvironment]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_setprofileenvironment" do
     dsc_xwebapppool[:dsc_setprofileenvironment] = 'true'
-    expect(dsc_xwebapppool[:dsc_setprofileenvironment]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_setprofileenvironment]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_setprofileenvironment" do
     dsc_xwebapppool[:dsc_setprofileenvironment] = 'false'
-    expect(dsc_xwebapppool[:dsc_setprofileenvironment]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_setprofileenvironment]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_setprofileenvironment" do
     dsc_xwebapppool[:dsc_setprofileenvironment] = 'True'
-    expect(dsc_xwebapppool[:dsc_setprofileenvironment]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_setprofileenvironment]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_setprofileenvironment" do
     dsc_xwebapppool[:dsc_setprofileenvironment] = 'False'
-    expect(dsc_xwebapppool[:dsc_setprofileenvironment]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_setprofileenvironment]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_setprofileenvironment" do
     dsc_xwebapppool[:dsc_setprofileenvironment] = :true
-    expect(dsc_xwebapppool[:dsc_setprofileenvironment]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_setprofileenvironment]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_setprofileenvironment" do
     dsc_xwebapppool[:dsc_setprofileenvironment] = :false
-    expect(dsc_xwebapppool[:dsc_setprofileenvironment]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_setprofileenvironment]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_setprofileenvironment' do
@@ -1321,39 +1276,34 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     expect{dsc_xwebapppool[:dsc_orphanworkerprocess] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_orphanworkerprocess' do
-    dsc_xwebapppool[:dsc_orphanworkerprocess] = true
-    expect(dsc_xwebapppool[:dsc_orphanworkerprocess]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_orphanworkerprocess" do
     dsc_xwebapppool[:dsc_orphanworkerprocess] = 'true'
-    expect(dsc_xwebapppool[:dsc_orphanworkerprocess]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_orphanworkerprocess]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_orphanworkerprocess" do
     dsc_xwebapppool[:dsc_orphanworkerprocess] = 'false'
-    expect(dsc_xwebapppool[:dsc_orphanworkerprocess]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_orphanworkerprocess]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_orphanworkerprocess" do
     dsc_xwebapppool[:dsc_orphanworkerprocess] = 'True'
-    expect(dsc_xwebapppool[:dsc_orphanworkerprocess]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_orphanworkerprocess]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_orphanworkerprocess" do
     dsc_xwebapppool[:dsc_orphanworkerprocess] = 'False'
-    expect(dsc_xwebapppool[:dsc_orphanworkerprocess]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_orphanworkerprocess]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_orphanworkerprocess" do
     dsc_xwebapppool[:dsc_orphanworkerprocess] = :true
-    expect(dsc_xwebapppool[:dsc_orphanworkerprocess]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_orphanworkerprocess]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_orphanworkerprocess" do
     dsc_xwebapppool[:dsc_orphanworkerprocess] = :false
-    expect(dsc_xwebapppool[:dsc_orphanworkerprocess]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_orphanworkerprocess]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_orphanworkerprocess' do
@@ -1408,39 +1358,34 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     expect{dsc_xwebapppool[:dsc_rapidfailprotection] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_rapidfailprotection' do
-    dsc_xwebapppool[:dsc_rapidfailprotection] = true
-    expect(dsc_xwebapppool[:dsc_rapidfailprotection]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_rapidfailprotection" do
     dsc_xwebapppool[:dsc_rapidfailprotection] = 'true'
-    expect(dsc_xwebapppool[:dsc_rapidfailprotection]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_rapidfailprotection]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_rapidfailprotection" do
     dsc_xwebapppool[:dsc_rapidfailprotection] = 'false'
-    expect(dsc_xwebapppool[:dsc_rapidfailprotection]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_rapidfailprotection]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_rapidfailprotection" do
     dsc_xwebapppool[:dsc_rapidfailprotection] = 'True'
-    expect(dsc_xwebapppool[:dsc_rapidfailprotection]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_rapidfailprotection]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_rapidfailprotection" do
     dsc_xwebapppool[:dsc_rapidfailprotection] = 'False'
-    expect(dsc_xwebapppool[:dsc_rapidfailprotection]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_rapidfailprotection]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_rapidfailprotection" do
     dsc_xwebapppool[:dsc_rapidfailprotection] = :true
-    expect(dsc_xwebapppool[:dsc_rapidfailprotection]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_rapidfailprotection]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_rapidfailprotection" do
     dsc_xwebapppool[:dsc_rapidfailprotection] = :false
-    expect(dsc_xwebapppool[:dsc_rapidfailprotection]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_rapidfailprotection]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_rapidfailprotection' do
@@ -1537,39 +1482,34 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     expect{dsc_xwebapppool[:dsc_disallowoverlappingrotation] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disallowoverlappingrotation' do
-    dsc_xwebapppool[:dsc_disallowoverlappingrotation] = true
-    expect(dsc_xwebapppool[:dsc_disallowoverlappingrotation]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disallowoverlappingrotation" do
     dsc_xwebapppool[:dsc_disallowoverlappingrotation] = 'true'
-    expect(dsc_xwebapppool[:dsc_disallowoverlappingrotation]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_disallowoverlappingrotation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disallowoverlappingrotation" do
     dsc_xwebapppool[:dsc_disallowoverlappingrotation] = 'false'
-    expect(dsc_xwebapppool[:dsc_disallowoverlappingrotation]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_disallowoverlappingrotation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disallowoverlappingrotation" do
     dsc_xwebapppool[:dsc_disallowoverlappingrotation] = 'True'
-    expect(dsc_xwebapppool[:dsc_disallowoverlappingrotation]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_disallowoverlappingrotation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disallowoverlappingrotation" do
     dsc_xwebapppool[:dsc_disallowoverlappingrotation] = 'False'
-    expect(dsc_xwebapppool[:dsc_disallowoverlappingrotation]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_disallowoverlappingrotation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disallowoverlappingrotation" do
     dsc_xwebapppool[:dsc_disallowoverlappingrotation] = :true
-    expect(dsc_xwebapppool[:dsc_disallowoverlappingrotation]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_disallowoverlappingrotation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disallowoverlappingrotation" do
     dsc_xwebapppool[:dsc_disallowoverlappingrotation] = :false
-    expect(dsc_xwebapppool[:dsc_disallowoverlappingrotation]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_disallowoverlappingrotation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disallowoverlappingrotation' do
@@ -1584,39 +1524,34 @@ describe Puppet::Type.type(:dsc_xwebapppool) do
     expect{dsc_xwebapppool[:dsc_disallowrotationonconfigchange] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disallowrotationonconfigchange' do
-    dsc_xwebapppool[:dsc_disallowrotationonconfigchange] = true
-    expect(dsc_xwebapppool[:dsc_disallowrotationonconfigchange]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disallowrotationonconfigchange" do
     dsc_xwebapppool[:dsc_disallowrotationonconfigchange] = 'true'
-    expect(dsc_xwebapppool[:dsc_disallowrotationonconfigchange]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_disallowrotationonconfigchange]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disallowrotationonconfigchange" do
     dsc_xwebapppool[:dsc_disallowrotationonconfigchange] = 'false'
-    expect(dsc_xwebapppool[:dsc_disallowrotationonconfigchange]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_disallowrotationonconfigchange]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disallowrotationonconfigchange" do
     dsc_xwebapppool[:dsc_disallowrotationonconfigchange] = 'True'
-    expect(dsc_xwebapppool[:dsc_disallowrotationonconfigchange]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_disallowrotationonconfigchange]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disallowrotationonconfigchange" do
     dsc_xwebapppool[:dsc_disallowrotationonconfigchange] = 'False'
-    expect(dsc_xwebapppool[:dsc_disallowrotationonconfigchange]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_disallowrotationonconfigchange]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disallowrotationonconfigchange" do
     dsc_xwebapppool[:dsc_disallowrotationonconfigchange] = :true
-    expect(dsc_xwebapppool[:dsc_disallowrotationonconfigchange]).to eq(true)
+    expect(dsc_xwebapppool[:dsc_disallowrotationonconfigchange]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disallowrotationonconfigchange" do
     dsc_xwebapppool[:dsc_disallowrotationonconfigchange] = :false
-    expect(dsc_xwebapppool[:dsc_disallowrotationonconfigchange]).to eq(false)
+    expect(dsc_xwebapppool[:dsc_disallowrotationonconfigchange]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disallowrotationonconfigchange' do

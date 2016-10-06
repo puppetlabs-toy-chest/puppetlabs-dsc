@@ -104,39 +104,34 @@ describe Puppet::Type.type(:dsc_xcertreq) do
     expect{dsc_xcertreq[:dsc_autorenew] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_autorenew' do
-    dsc_xcertreq[:dsc_autorenew] = true
-    expect(dsc_xcertreq[:dsc_autorenew]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_autorenew" do
     dsc_xcertreq[:dsc_autorenew] = 'true'
-    expect(dsc_xcertreq[:dsc_autorenew]).to eq(true)
+    expect(dsc_xcertreq[:dsc_autorenew]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_autorenew" do
     dsc_xcertreq[:dsc_autorenew] = 'false'
-    expect(dsc_xcertreq[:dsc_autorenew]).to eq(false)
+    expect(dsc_xcertreq[:dsc_autorenew]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_autorenew" do
     dsc_xcertreq[:dsc_autorenew] = 'True'
-    expect(dsc_xcertreq[:dsc_autorenew]).to eq(true)
+    expect(dsc_xcertreq[:dsc_autorenew]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_autorenew" do
     dsc_xcertreq[:dsc_autorenew] = 'False'
-    expect(dsc_xcertreq[:dsc_autorenew]).to eq(false)
+    expect(dsc_xcertreq[:dsc_autorenew]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_autorenew" do
     dsc_xcertreq[:dsc_autorenew] = :true
-    expect(dsc_xcertreq[:dsc_autorenew]).to eq(true)
+    expect(dsc_xcertreq[:dsc_autorenew]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_autorenew" do
     dsc_xcertreq[:dsc_autorenew] = :false
-    expect(dsc_xcertreq[:dsc_autorenew]).to eq(false)
+    expect(dsc_xcertreq[:dsc_autorenew]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_autorenew' do

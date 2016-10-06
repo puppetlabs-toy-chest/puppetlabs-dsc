@@ -129,39 +129,34 @@ describe Puppet::Type.type(:dsc_xexchexchangecertificate) do
     expect{dsc_xexchexchangecertificate[:dsc_allowextraservices] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowextraservices' do
-    dsc_xexchexchangecertificate[:dsc_allowextraservices] = true
-    expect(dsc_xexchexchangecertificate[:dsc_allowextraservices]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowextraservices" do
     dsc_xexchexchangecertificate[:dsc_allowextraservices] = 'true'
-    expect(dsc_xexchexchangecertificate[:dsc_allowextraservices]).to eq(true)
+    expect(dsc_xexchexchangecertificate[:dsc_allowextraservices]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowextraservices" do
     dsc_xexchexchangecertificate[:dsc_allowextraservices] = 'false'
-    expect(dsc_xexchexchangecertificate[:dsc_allowextraservices]).to eq(false)
+    expect(dsc_xexchexchangecertificate[:dsc_allowextraservices]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowextraservices" do
     dsc_xexchexchangecertificate[:dsc_allowextraservices] = 'True'
-    expect(dsc_xexchexchangecertificate[:dsc_allowextraservices]).to eq(true)
+    expect(dsc_xexchexchangecertificate[:dsc_allowextraservices]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowextraservices" do
     dsc_xexchexchangecertificate[:dsc_allowextraservices] = 'False'
-    expect(dsc_xexchexchangecertificate[:dsc_allowextraservices]).to eq(false)
+    expect(dsc_xexchexchangecertificate[:dsc_allowextraservices]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowextraservices" do
     dsc_xexchexchangecertificate[:dsc_allowextraservices] = :true
-    expect(dsc_xexchexchangecertificate[:dsc_allowextraservices]).to eq(true)
+    expect(dsc_xexchexchangecertificate[:dsc_allowextraservices]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowextraservices" do
     dsc_xexchexchangecertificate[:dsc_allowextraservices] = :false
-    expect(dsc_xexchexchangecertificate[:dsc_allowextraservices]).to eq(false)
+    expect(dsc_xexchexchangecertificate[:dsc_allowextraservices]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowextraservices' do

@@ -156,39 +156,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_allowservicerestart] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowservicerestart' do
-    dsc_xexchtransportservice[:dsc_allowservicerestart] = true
-    expect(dsc_xexchtransportservice[:dsc_allowservicerestart]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchtransportservice[:dsc_allowservicerestart] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchtransportservice[:dsc_allowservicerestart] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchtransportservice[:dsc_allowservicerestart] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchtransportservice[:dsc_allowservicerestart] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchtransportservice[:dsc_allowservicerestart] = :true
-    expect(dsc_xexchtransportservice[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchtransportservice[:dsc_allowservicerestart] = :false
-    expect(dsc_xexchtransportservice[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowservicerestart' do
@@ -267,39 +262,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_agentlogenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_agentlogenabled' do
-    dsc_xexchtransportservice[:dsc_agentlogenabled] = true
-    expect(dsc_xexchtransportservice[:dsc_agentlogenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_agentlogenabled" do
     dsc_xexchtransportservice[:dsc_agentlogenabled] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_agentlogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_agentlogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_agentlogenabled" do
     dsc_xexchtransportservice[:dsc_agentlogenabled] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_agentlogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_agentlogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_agentlogenabled" do
     dsc_xexchtransportservice[:dsc_agentlogenabled] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_agentlogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_agentlogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_agentlogenabled" do
     dsc_xexchtransportservice[:dsc_agentlogenabled] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_agentlogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_agentlogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_agentlogenabled" do
     dsc_xexchtransportservice[:dsc_agentlogenabled] = :true
-    expect(dsc_xexchtransportservice[:dsc_agentlogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_agentlogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_agentlogenabled" do
     dsc_xexchtransportservice[:dsc_agentlogenabled] = :false
-    expect(dsc_xexchtransportservice[:dsc_agentlogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_agentlogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_agentlogenabled' do
@@ -378,39 +368,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_connectivitylogenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_connectivitylogenabled' do
-    dsc_xexchtransportservice[:dsc_connectivitylogenabled] = true
-    expect(dsc_xexchtransportservice[:dsc_connectivitylogenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_connectivitylogenabled" do
     dsc_xexchtransportservice[:dsc_connectivitylogenabled] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_connectivitylogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_connectivitylogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_connectivitylogenabled" do
     dsc_xexchtransportservice[:dsc_connectivitylogenabled] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_connectivitylogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_connectivitylogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_connectivitylogenabled" do
     dsc_xexchtransportservice[:dsc_connectivitylogenabled] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_connectivitylogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_connectivitylogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_connectivitylogenabled" do
     dsc_xexchtransportservice[:dsc_connectivitylogenabled] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_connectivitylogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_connectivitylogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_connectivitylogenabled" do
     dsc_xexchtransportservice[:dsc_connectivitylogenabled] = :true
-    expect(dsc_xexchtransportservice[:dsc_connectivitylogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_connectivitylogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_connectivitylogenabled" do
     dsc_xexchtransportservice[:dsc_connectivitylogenabled] = :false
-    expect(dsc_xexchtransportservice[:dsc_connectivitylogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_connectivitylogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_connectivitylogenabled' do
@@ -489,39 +474,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_contentconversiontracingenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_contentconversiontracingenabled' do
-    dsc_xexchtransportservice[:dsc_contentconversiontracingenabled] = true
-    expect(dsc_xexchtransportservice[:dsc_contentconversiontracingenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_contentconversiontracingenabled" do
     dsc_xexchtransportservice[:dsc_contentconversiontracingenabled] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_contentconversiontracingenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_contentconversiontracingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_contentconversiontracingenabled" do
     dsc_xexchtransportservice[:dsc_contentconversiontracingenabled] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_contentconversiontracingenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_contentconversiontracingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_contentconversiontracingenabled" do
     dsc_xexchtransportservice[:dsc_contentconversiontracingenabled] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_contentconversiontracingenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_contentconversiontracingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_contentconversiontracingenabled" do
     dsc_xexchtransportservice[:dsc_contentconversiontracingenabled] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_contentconversiontracingenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_contentconversiontracingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_contentconversiontracingenabled" do
     dsc_xexchtransportservice[:dsc_contentconversiontracingenabled] = :true
-    expect(dsc_xexchtransportservice[:dsc_contentconversiontracingenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_contentconversiontracingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_contentconversiontracingenabled" do
     dsc_xexchtransportservice[:dsc_contentconversiontracingenabled] = :false
-    expect(dsc_xexchtransportservice[:dsc_contentconversiontracingenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_contentconversiontracingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_contentconversiontracingenabled' do
@@ -552,39 +532,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_dnslogenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_dnslogenabled' do
-    dsc_xexchtransportservice[:dsc_dnslogenabled] = true
-    expect(dsc_xexchtransportservice[:dsc_dnslogenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_dnslogenabled" do
     dsc_xexchtransportservice[:dsc_dnslogenabled] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_dnslogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_dnslogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_dnslogenabled" do
     dsc_xexchtransportservice[:dsc_dnslogenabled] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_dnslogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_dnslogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_dnslogenabled" do
     dsc_xexchtransportservice[:dsc_dnslogenabled] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_dnslogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_dnslogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_dnslogenabled" do
     dsc_xexchtransportservice[:dsc_dnslogenabled] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_dnslogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_dnslogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_dnslogenabled" do
     dsc_xexchtransportservice[:dsc_dnslogenabled] = :true
-    expect(dsc_xexchtransportservice[:dsc_dnslogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_dnslogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_dnslogenabled" do
     dsc_xexchtransportservice[:dsc_dnslogenabled] = :false
-    expect(dsc_xexchtransportservice[:dsc_dnslogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_dnslogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_dnslogenabled' do
@@ -663,39 +638,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_externaldnsadapterenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_externaldnsadapterenabled' do
-    dsc_xexchtransportservice[:dsc_externaldnsadapterenabled] = true
-    expect(dsc_xexchtransportservice[:dsc_externaldnsadapterenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_externaldnsadapterenabled" do
     dsc_xexchtransportservice[:dsc_externaldnsadapterenabled] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_externaldnsadapterenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_externaldnsadapterenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_externaldnsadapterenabled" do
     dsc_xexchtransportservice[:dsc_externaldnsadapterenabled] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_externaldnsadapterenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_externaldnsadapterenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_externaldnsadapterenabled" do
     dsc_xexchtransportservice[:dsc_externaldnsadapterenabled] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_externaldnsadapterenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_externaldnsadapterenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_externaldnsadapterenabled" do
     dsc_xexchtransportservice[:dsc_externaldnsadapterenabled] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_externaldnsadapterenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_externaldnsadapterenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_externaldnsadapterenabled" do
     dsc_xexchtransportservice[:dsc_externaldnsadapterenabled] = :true
-    expect(dsc_xexchtransportservice[:dsc_externaldnsadapterenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_externaldnsadapterenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_externaldnsadapterenabled" do
     dsc_xexchtransportservice[:dsc_externaldnsadapterenabled] = :false
-    expect(dsc_xexchtransportservice[:dsc_externaldnsadapterenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_externaldnsadapterenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_externaldnsadapterenabled' do
@@ -809,39 +779,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_internaldnsadapterenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_internaldnsadapterenabled' do
-    dsc_xexchtransportservice[:dsc_internaldnsadapterenabled] = true
-    expect(dsc_xexchtransportservice[:dsc_internaldnsadapterenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_internaldnsadapterenabled" do
     dsc_xexchtransportservice[:dsc_internaldnsadapterenabled] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_internaldnsadapterenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_internaldnsadapterenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_internaldnsadapterenabled" do
     dsc_xexchtransportservice[:dsc_internaldnsadapterenabled] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_internaldnsadapterenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_internaldnsadapterenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_internaldnsadapterenabled" do
     dsc_xexchtransportservice[:dsc_internaldnsadapterenabled] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_internaldnsadapterenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_internaldnsadapterenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_internaldnsadapterenabled" do
     dsc_xexchtransportservice[:dsc_internaldnsadapterenabled] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_internaldnsadapterenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_internaldnsadapterenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_internaldnsadapterenabled" do
     dsc_xexchtransportservice[:dsc_internaldnsadapterenabled] = :true
-    expect(dsc_xexchtransportservice[:dsc_internaldnsadapterenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_internaldnsadapterenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_internaldnsadapterenabled" do
     dsc_xexchtransportservice[:dsc_internaldnsadapterenabled] = :false
-    expect(dsc_xexchtransportservice[:dsc_internaldnsadapterenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_internaldnsadapterenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_internaldnsadapterenabled' do
@@ -1013,39 +978,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_irmlogenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_irmlogenabled' do
-    dsc_xexchtransportservice[:dsc_irmlogenabled] = true
-    expect(dsc_xexchtransportservice[:dsc_irmlogenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_irmlogenabled" do
     dsc_xexchtransportservice[:dsc_irmlogenabled] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_irmlogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_irmlogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_irmlogenabled" do
     dsc_xexchtransportservice[:dsc_irmlogenabled] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_irmlogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_irmlogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_irmlogenabled" do
     dsc_xexchtransportservice[:dsc_irmlogenabled] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_irmlogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_irmlogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_irmlogenabled" do
     dsc_xexchtransportservice[:dsc_irmlogenabled] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_irmlogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_irmlogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_irmlogenabled" do
     dsc_xexchtransportservice[:dsc_irmlogenabled] = :true
-    expect(dsc_xexchtransportservice[:dsc_irmlogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_irmlogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_irmlogenabled" do
     dsc_xexchtransportservice[:dsc_irmlogenabled] = :false
-    expect(dsc_xexchtransportservice[:dsc_irmlogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_irmlogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_irmlogenabled' do
@@ -1290,39 +1250,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_messagetrackinglogenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_messagetrackinglogenabled' do
-    dsc_xexchtransportservice[:dsc_messagetrackinglogenabled] = true
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_messagetrackinglogenabled" do
     dsc_xexchtransportservice[:dsc_messagetrackinglogenabled] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_messagetrackinglogenabled" do
     dsc_xexchtransportservice[:dsc_messagetrackinglogenabled] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_messagetrackinglogenabled" do
     dsc_xexchtransportservice[:dsc_messagetrackinglogenabled] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_messagetrackinglogenabled" do
     dsc_xexchtransportservice[:dsc_messagetrackinglogenabled] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_messagetrackinglogenabled" do
     dsc_xexchtransportservice[:dsc_messagetrackinglogenabled] = :true
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_messagetrackinglogenabled" do
     dsc_xexchtransportservice[:dsc_messagetrackinglogenabled] = :false
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_messagetrackinglogenabled' do
@@ -1401,39 +1356,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_messagetrackinglogsubjectloggingenabled' do
-    dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled] = true
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_messagetrackinglogsubjectloggingenabled" do
     dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_messagetrackinglogsubjectloggingenabled" do
     dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_messagetrackinglogsubjectloggingenabled" do
     dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_messagetrackinglogsubjectloggingenabled" do
     dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_messagetrackinglogsubjectloggingenabled" do
     dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled] = :true
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_messagetrackinglogsubjectloggingenabled" do
     dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled] = :false
-    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_messagetrackinglogsubjectloggingenabled' do
@@ -1564,39 +1514,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_pipelinetracingenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_pipelinetracingenabled' do
-    dsc_xexchtransportservice[:dsc_pipelinetracingenabled] = true
-    expect(dsc_xexchtransportservice[:dsc_pipelinetracingenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_pipelinetracingenabled" do
     dsc_xexchtransportservice[:dsc_pipelinetracingenabled] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_pipelinetracingenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_pipelinetracingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_pipelinetracingenabled" do
     dsc_xexchtransportservice[:dsc_pipelinetracingenabled] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_pipelinetracingenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_pipelinetracingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_pipelinetracingenabled" do
     dsc_xexchtransportservice[:dsc_pipelinetracingenabled] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_pipelinetracingenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_pipelinetracingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_pipelinetracingenabled" do
     dsc_xexchtransportservice[:dsc_pipelinetracingenabled] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_pipelinetracingenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_pipelinetracingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_pipelinetracingenabled" do
     dsc_xexchtransportservice[:dsc_pipelinetracingenabled] = :true
-    expect(dsc_xexchtransportservice[:dsc_pipelinetracingenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_pipelinetracingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_pipelinetracingenabled" do
     dsc_xexchtransportservice[:dsc_pipelinetracingenabled] = :false
-    expect(dsc_xexchtransportservice[:dsc_pipelinetracingenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_pipelinetracingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_pipelinetracingenabled' do
@@ -1643,39 +1588,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_poisonmessagedetectionenabled' do
-    dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled] = true
-    expect(dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_poisonmessagedetectionenabled" do
     dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_poisonmessagedetectionenabled" do
     dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_poisonmessagedetectionenabled" do
     dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_poisonmessagedetectionenabled" do
     dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_poisonmessagedetectionenabled" do
     dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled] = :true
-    expect(dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_poisonmessagedetectionenabled" do
     dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled] = :false
-    expect(dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_poisonmessagedetectionenabled' do
@@ -1868,39 +1808,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_recipientvalidationcacheenabled' do
-    dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled] = true
-    expect(dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_recipientvalidationcacheenabled" do
     dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_recipientvalidationcacheenabled" do
     dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_recipientvalidationcacheenabled" do
     dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_recipientvalidationcacheenabled" do
     dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_recipientvalidationcacheenabled" do
     dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled] = :true
-    expect(dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_recipientvalidationcacheenabled" do
     dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled] = :false
-    expect(dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_recipientvalidationcacheenabled' do
@@ -2173,39 +2108,34 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_usedowngradedexchangeserverauth' do
-    dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth] = true
-    expect(dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_usedowngradedexchangeserverauth" do
     dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth] = 'true'
-    expect(dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_usedowngradedexchangeserverauth" do
     dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth] = 'false'
-    expect(dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_usedowngradedexchangeserverauth" do
     dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth] = 'True'
-    expect(dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_usedowngradedexchangeserverauth" do
     dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth] = 'False'
-    expect(dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_usedowngradedexchangeserverauth" do
     dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth] = :true
-    expect(dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth]).to eq(true)
+    expect(dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_usedowngradedexchangeserverauth" do
     dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth] = :false
-    expect(dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth]).to eq(false)
+    expect(dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_usedowngradedexchangeserverauth' do

@@ -161,39 +161,34 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork) do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_ignorenetwork' do
-    dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork] = true
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_ignorenetwork" do
     dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork] = 'true'
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_ignorenetwork" do
     dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork] = 'false'
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_ignorenetwork" do
     dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork] = 'True'
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_ignorenetwork" do
     dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork] = 'False'
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_ignorenetwork" do
     dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork] = :true
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_ignorenetwork" do
     dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork] = :false
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_ignorenetwork' do
@@ -208,39 +203,34 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork) do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_replicationenabled' do
-    dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled] = true
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_replicationenabled" do
     dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled] = 'true'
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_replicationenabled" do
     dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled] = 'false'
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_replicationenabled" do
     dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled] = 'True'
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_replicationenabled" do
     dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled] = 'False'
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_replicationenabled" do
     dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled] = :true
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_replicationenabled" do
     dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled] = :false
-    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_replicationenabled' do

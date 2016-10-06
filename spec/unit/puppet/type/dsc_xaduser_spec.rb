@@ -752,39 +752,34 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_enabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enabled' do
-    dsc_xaduser[:dsc_enabled] = true
-    expect(dsc_xaduser[:dsc_enabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enabled" do
     dsc_xaduser[:dsc_enabled] = 'true'
-    expect(dsc_xaduser[:dsc_enabled]).to eq(true)
+    expect(dsc_xaduser[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enabled" do
     dsc_xaduser[:dsc_enabled] = 'false'
-    expect(dsc_xaduser[:dsc_enabled]).to eq(false)
+    expect(dsc_xaduser[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enabled" do
     dsc_xaduser[:dsc_enabled] = 'True'
-    expect(dsc_xaduser[:dsc_enabled]).to eq(true)
+    expect(dsc_xaduser[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enabled" do
     dsc_xaduser[:dsc_enabled] = 'False'
-    expect(dsc_xaduser[:dsc_enabled]).to eq(false)
+    expect(dsc_xaduser[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enabled" do
     dsc_xaduser[:dsc_enabled] = :true
-    expect(dsc_xaduser[:dsc_enabled]).to eq(true)
+    expect(dsc_xaduser[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enabled" do
     dsc_xaduser[:dsc_enabled] = :false
-    expect(dsc_xaduser[:dsc_enabled]).to eq(false)
+    expect(dsc_xaduser[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enabled' do
@@ -799,39 +794,34 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_cannotchangepassword] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_cannotchangepassword' do
-    dsc_xaduser[:dsc_cannotchangepassword] = true
-    expect(dsc_xaduser[:dsc_cannotchangepassword]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_cannotchangepassword" do
     dsc_xaduser[:dsc_cannotchangepassword] = 'true'
-    expect(dsc_xaduser[:dsc_cannotchangepassword]).to eq(true)
+    expect(dsc_xaduser[:dsc_cannotchangepassword]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_cannotchangepassword" do
     dsc_xaduser[:dsc_cannotchangepassword] = 'false'
-    expect(dsc_xaduser[:dsc_cannotchangepassword]).to eq(false)
+    expect(dsc_xaduser[:dsc_cannotchangepassword]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_cannotchangepassword" do
     dsc_xaduser[:dsc_cannotchangepassword] = 'True'
-    expect(dsc_xaduser[:dsc_cannotchangepassword]).to eq(true)
+    expect(dsc_xaduser[:dsc_cannotchangepassword]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_cannotchangepassword" do
     dsc_xaduser[:dsc_cannotchangepassword] = 'False'
-    expect(dsc_xaduser[:dsc_cannotchangepassword]).to eq(false)
+    expect(dsc_xaduser[:dsc_cannotchangepassword]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_cannotchangepassword" do
     dsc_xaduser[:dsc_cannotchangepassword] = :true
-    expect(dsc_xaduser[:dsc_cannotchangepassword]).to eq(true)
+    expect(dsc_xaduser[:dsc_cannotchangepassword]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_cannotchangepassword" do
     dsc_xaduser[:dsc_cannotchangepassword] = :false
-    expect(dsc_xaduser[:dsc_cannotchangepassword]).to eq(false)
+    expect(dsc_xaduser[:dsc_cannotchangepassword]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_cannotchangepassword' do
@@ -846,39 +836,34 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_passwordneverexpires] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_passwordneverexpires' do
-    dsc_xaduser[:dsc_passwordneverexpires] = true
-    expect(dsc_xaduser[:dsc_passwordneverexpires]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_passwordneverexpires" do
     dsc_xaduser[:dsc_passwordneverexpires] = 'true'
-    expect(dsc_xaduser[:dsc_passwordneverexpires]).to eq(true)
+    expect(dsc_xaduser[:dsc_passwordneverexpires]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_passwordneverexpires" do
     dsc_xaduser[:dsc_passwordneverexpires] = 'false'
-    expect(dsc_xaduser[:dsc_passwordneverexpires]).to eq(false)
+    expect(dsc_xaduser[:dsc_passwordneverexpires]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_passwordneverexpires" do
     dsc_xaduser[:dsc_passwordneverexpires] = 'True'
-    expect(dsc_xaduser[:dsc_passwordneverexpires]).to eq(true)
+    expect(dsc_xaduser[:dsc_passwordneverexpires]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_passwordneverexpires" do
     dsc_xaduser[:dsc_passwordneverexpires] = 'False'
-    expect(dsc_xaduser[:dsc_passwordneverexpires]).to eq(false)
+    expect(dsc_xaduser[:dsc_passwordneverexpires]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_passwordneverexpires" do
     dsc_xaduser[:dsc_passwordneverexpires] = :true
-    expect(dsc_xaduser[:dsc_passwordneverexpires]).to eq(true)
+    expect(dsc_xaduser[:dsc_passwordneverexpires]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_passwordneverexpires" do
     dsc_xaduser[:dsc_passwordneverexpires] = :false
-    expect(dsc_xaduser[:dsc_passwordneverexpires]).to eq(false)
+    expect(dsc_xaduser[:dsc_passwordneverexpires]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_passwordneverexpires' do

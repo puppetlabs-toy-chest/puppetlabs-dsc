@@ -38,39 +38,34 @@ describe Puppet::Type.type(:dsc_spantivirussettings) do
     expect{dsc_spantivirussettings[:dsc_scanondownload] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_scanondownload' do
-    dsc_spantivirussettings[:dsc_scanondownload] = true
-    expect(dsc_spantivirussettings[:dsc_scanondownload]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_scanondownload" do
     dsc_spantivirussettings[:dsc_scanondownload] = 'true'
-    expect(dsc_spantivirussettings[:dsc_scanondownload]).to eq(true)
+    expect(dsc_spantivirussettings[:dsc_scanondownload]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_scanondownload" do
     dsc_spantivirussettings[:dsc_scanondownload] = 'false'
-    expect(dsc_spantivirussettings[:dsc_scanondownload]).to eq(false)
+    expect(dsc_spantivirussettings[:dsc_scanondownload]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_scanondownload" do
     dsc_spantivirussettings[:dsc_scanondownload] = 'True'
-    expect(dsc_spantivirussettings[:dsc_scanondownload]).to eq(true)
+    expect(dsc_spantivirussettings[:dsc_scanondownload]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_scanondownload" do
     dsc_spantivirussettings[:dsc_scanondownload] = 'False'
-    expect(dsc_spantivirussettings[:dsc_scanondownload]).to eq(false)
+    expect(dsc_spantivirussettings[:dsc_scanondownload]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_scanondownload" do
     dsc_spantivirussettings[:dsc_scanondownload] = :true
-    expect(dsc_spantivirussettings[:dsc_scanondownload]).to eq(true)
+    expect(dsc_spantivirussettings[:dsc_scanondownload]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_scanondownload" do
     dsc_spantivirussettings[:dsc_scanondownload] = :false
-    expect(dsc_spantivirussettings[:dsc_scanondownload]).to eq(false)
+    expect(dsc_spantivirussettings[:dsc_scanondownload]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_scanondownload' do
@@ -85,39 +80,34 @@ describe Puppet::Type.type(:dsc_spantivirussettings) do
     expect{dsc_spantivirussettings[:dsc_scanonupload] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_scanonupload' do
-    dsc_spantivirussettings[:dsc_scanonupload] = true
-    expect(dsc_spantivirussettings[:dsc_scanonupload]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_scanonupload" do
     dsc_spantivirussettings[:dsc_scanonupload] = 'true'
-    expect(dsc_spantivirussettings[:dsc_scanonupload]).to eq(true)
+    expect(dsc_spantivirussettings[:dsc_scanonupload]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_scanonupload" do
     dsc_spantivirussettings[:dsc_scanonupload] = 'false'
-    expect(dsc_spantivirussettings[:dsc_scanonupload]).to eq(false)
+    expect(dsc_spantivirussettings[:dsc_scanonupload]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_scanonupload" do
     dsc_spantivirussettings[:dsc_scanonupload] = 'True'
-    expect(dsc_spantivirussettings[:dsc_scanonupload]).to eq(true)
+    expect(dsc_spantivirussettings[:dsc_scanonupload]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_scanonupload" do
     dsc_spantivirussettings[:dsc_scanonupload] = 'False'
-    expect(dsc_spantivirussettings[:dsc_scanonupload]).to eq(false)
+    expect(dsc_spantivirussettings[:dsc_scanonupload]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_scanonupload" do
     dsc_spantivirussettings[:dsc_scanonupload] = :true
-    expect(dsc_spantivirussettings[:dsc_scanonupload]).to eq(true)
+    expect(dsc_spantivirussettings[:dsc_scanonupload]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_scanonupload" do
     dsc_spantivirussettings[:dsc_scanonupload] = :false
-    expect(dsc_spantivirussettings[:dsc_scanonupload]).to eq(false)
+    expect(dsc_spantivirussettings[:dsc_scanonupload]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_scanonupload' do
@@ -132,39 +122,34 @@ describe Puppet::Type.type(:dsc_spantivirussettings) do
     expect{dsc_spantivirussettings[:dsc_allowdownloadinfected] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowdownloadinfected' do
-    dsc_spantivirussettings[:dsc_allowdownloadinfected] = true
-    expect(dsc_spantivirussettings[:dsc_allowdownloadinfected]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowdownloadinfected" do
     dsc_spantivirussettings[:dsc_allowdownloadinfected] = 'true'
-    expect(dsc_spantivirussettings[:dsc_allowdownloadinfected]).to eq(true)
+    expect(dsc_spantivirussettings[:dsc_allowdownloadinfected]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowdownloadinfected" do
     dsc_spantivirussettings[:dsc_allowdownloadinfected] = 'false'
-    expect(dsc_spantivirussettings[:dsc_allowdownloadinfected]).to eq(false)
+    expect(dsc_spantivirussettings[:dsc_allowdownloadinfected]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowdownloadinfected" do
     dsc_spantivirussettings[:dsc_allowdownloadinfected] = 'True'
-    expect(dsc_spantivirussettings[:dsc_allowdownloadinfected]).to eq(true)
+    expect(dsc_spantivirussettings[:dsc_allowdownloadinfected]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowdownloadinfected" do
     dsc_spantivirussettings[:dsc_allowdownloadinfected] = 'False'
-    expect(dsc_spantivirussettings[:dsc_allowdownloadinfected]).to eq(false)
+    expect(dsc_spantivirussettings[:dsc_allowdownloadinfected]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowdownloadinfected" do
     dsc_spantivirussettings[:dsc_allowdownloadinfected] = :true
-    expect(dsc_spantivirussettings[:dsc_allowdownloadinfected]).to eq(true)
+    expect(dsc_spantivirussettings[:dsc_allowdownloadinfected]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowdownloadinfected" do
     dsc_spantivirussettings[:dsc_allowdownloadinfected] = :false
-    expect(dsc_spantivirussettings[:dsc_allowdownloadinfected]).to eq(false)
+    expect(dsc_spantivirussettings[:dsc_allowdownloadinfected]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowdownloadinfected' do
@@ -179,39 +164,34 @@ describe Puppet::Type.type(:dsc_spantivirussettings) do
     expect{dsc_spantivirussettings[:dsc_attempttoclean] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_attempttoclean' do
-    dsc_spantivirussettings[:dsc_attempttoclean] = true
-    expect(dsc_spantivirussettings[:dsc_attempttoclean]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_attempttoclean" do
     dsc_spantivirussettings[:dsc_attempttoclean] = 'true'
-    expect(dsc_spantivirussettings[:dsc_attempttoclean]).to eq(true)
+    expect(dsc_spantivirussettings[:dsc_attempttoclean]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_attempttoclean" do
     dsc_spantivirussettings[:dsc_attempttoclean] = 'false'
-    expect(dsc_spantivirussettings[:dsc_attempttoclean]).to eq(false)
+    expect(dsc_spantivirussettings[:dsc_attempttoclean]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_attempttoclean" do
     dsc_spantivirussettings[:dsc_attempttoclean] = 'True'
-    expect(dsc_spantivirussettings[:dsc_attempttoclean]).to eq(true)
+    expect(dsc_spantivirussettings[:dsc_attempttoclean]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_attempttoclean" do
     dsc_spantivirussettings[:dsc_attempttoclean] = 'False'
-    expect(dsc_spantivirussettings[:dsc_attempttoclean]).to eq(false)
+    expect(dsc_spantivirussettings[:dsc_attempttoclean]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_attempttoclean" do
     dsc_spantivirussettings[:dsc_attempttoclean] = :true
-    expect(dsc_spantivirussettings[:dsc_attempttoclean]).to eq(true)
+    expect(dsc_spantivirussettings[:dsc_attempttoclean]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_attempttoclean" do
     dsc_spantivirussettings[:dsc_attempttoclean] = :false
-    expect(dsc_spantivirussettings[:dsc_attempttoclean]).to eq(false)
+    expect(dsc_spantivirussettings[:dsc_attempttoclean]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_attempttoclean' do

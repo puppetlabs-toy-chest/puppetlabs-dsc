@@ -97,39 +97,34 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
     expect{dsc_spdesignersettings[:dsc_allowsharepointdesigner] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowsharepointdesigner' do
-    dsc_spdesignersettings[:dsc_allowsharepointdesigner] = true
-    expect(dsc_spdesignersettings[:dsc_allowsharepointdesigner]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowsharepointdesigner" do
     dsc_spdesignersettings[:dsc_allowsharepointdesigner] = 'true'
-    expect(dsc_spdesignersettings[:dsc_allowsharepointdesigner]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowsharepointdesigner]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowsharepointdesigner" do
     dsc_spdesignersettings[:dsc_allowsharepointdesigner] = 'false'
-    expect(dsc_spdesignersettings[:dsc_allowsharepointdesigner]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowsharepointdesigner]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowsharepointdesigner" do
     dsc_spdesignersettings[:dsc_allowsharepointdesigner] = 'True'
-    expect(dsc_spdesignersettings[:dsc_allowsharepointdesigner]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowsharepointdesigner]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowsharepointdesigner" do
     dsc_spdesignersettings[:dsc_allowsharepointdesigner] = 'False'
-    expect(dsc_spdesignersettings[:dsc_allowsharepointdesigner]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowsharepointdesigner]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowsharepointdesigner" do
     dsc_spdesignersettings[:dsc_allowsharepointdesigner] = :true
-    expect(dsc_spdesignersettings[:dsc_allowsharepointdesigner]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowsharepointdesigner]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowsharepointdesigner" do
     dsc_spdesignersettings[:dsc_allowsharepointdesigner] = :false
-    expect(dsc_spdesignersettings[:dsc_allowsharepointdesigner]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowsharepointdesigner]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowsharepointdesigner' do
@@ -144,39 +139,34 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
     expect{dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowdetachpagesfromdefinition' do
-    dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition] = true
-    expect(dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowdetachpagesfromdefinition" do
     dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition] = 'true'
-    expect(dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowdetachpagesfromdefinition" do
     dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition] = 'false'
-    expect(dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowdetachpagesfromdefinition" do
     dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition] = 'True'
-    expect(dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowdetachpagesfromdefinition" do
     dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition] = 'False'
-    expect(dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowdetachpagesfromdefinition" do
     dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition] = :true
-    expect(dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowdetachpagesfromdefinition" do
     dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition] = :false
-    expect(dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowdetachpagesfromdefinition' do
@@ -191,39 +181,34 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
     expect{dsc_spdesignersettings[:dsc_allowcustomisemasterpage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowcustomisemasterpage' do
-    dsc_spdesignersettings[:dsc_allowcustomisemasterpage] = true
-    expect(dsc_spdesignersettings[:dsc_allowcustomisemasterpage]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowcustomisemasterpage" do
     dsc_spdesignersettings[:dsc_allowcustomisemasterpage] = 'true'
-    expect(dsc_spdesignersettings[:dsc_allowcustomisemasterpage]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowcustomisemasterpage]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowcustomisemasterpage" do
     dsc_spdesignersettings[:dsc_allowcustomisemasterpage] = 'false'
-    expect(dsc_spdesignersettings[:dsc_allowcustomisemasterpage]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowcustomisemasterpage]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowcustomisemasterpage" do
     dsc_spdesignersettings[:dsc_allowcustomisemasterpage] = 'True'
-    expect(dsc_spdesignersettings[:dsc_allowcustomisemasterpage]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowcustomisemasterpage]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowcustomisemasterpage" do
     dsc_spdesignersettings[:dsc_allowcustomisemasterpage] = 'False'
-    expect(dsc_spdesignersettings[:dsc_allowcustomisemasterpage]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowcustomisemasterpage]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowcustomisemasterpage" do
     dsc_spdesignersettings[:dsc_allowcustomisemasterpage] = :true
-    expect(dsc_spdesignersettings[:dsc_allowcustomisemasterpage]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowcustomisemasterpage]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowcustomisemasterpage" do
     dsc_spdesignersettings[:dsc_allowcustomisemasterpage] = :false
-    expect(dsc_spdesignersettings[:dsc_allowcustomisemasterpage]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowcustomisemasterpage]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowcustomisemasterpage' do
@@ -238,39 +223,34 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
     expect{dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowmanagesiteurlstructure' do
-    dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure] = true
-    expect(dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowmanagesiteurlstructure" do
     dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure] = 'true'
-    expect(dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowmanagesiteurlstructure" do
     dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure] = 'false'
-    expect(dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowmanagesiteurlstructure" do
     dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure] = 'True'
-    expect(dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowmanagesiteurlstructure" do
     dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure] = 'False'
-    expect(dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowmanagesiteurlstructure" do
     dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure] = :true
-    expect(dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowmanagesiteurlstructure" do
     dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure] = :false
-    expect(dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowmanagesiteurlstructure' do
@@ -285,39 +265,34 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
     expect{dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowcreatedeclarativeworkflow' do
-    dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow] = true
-    expect(dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowcreatedeclarativeworkflow" do
     dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow] = 'true'
-    expect(dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowcreatedeclarativeworkflow" do
     dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow] = 'false'
-    expect(dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowcreatedeclarativeworkflow" do
     dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow] = 'True'
-    expect(dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowcreatedeclarativeworkflow" do
     dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow] = 'False'
-    expect(dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowcreatedeclarativeworkflow" do
     dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow] = :true
-    expect(dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowcreatedeclarativeworkflow" do
     dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow] = :false
-    expect(dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowcreatedeclarativeworkflow' do
@@ -332,39 +307,34 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
     expect{dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowsavepublishdeclarativeworkflow' do
-    dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow] = true
-    expect(dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowsavepublishdeclarativeworkflow" do
     dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow] = 'true'
-    expect(dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowsavepublishdeclarativeworkflow" do
     dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow] = 'false'
-    expect(dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowsavepublishdeclarativeworkflow" do
     dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow] = 'True'
-    expect(dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowsavepublishdeclarativeworkflow" do
     dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow] = 'False'
-    expect(dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowsavepublishdeclarativeworkflow" do
     dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow] = :true
-    expect(dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowsavepublishdeclarativeworkflow" do
     dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow] = :false
-    expect(dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowsavepublishdeclarativeworkflow' do
@@ -379,39 +349,34 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
     expect{dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowsavedeclarativeworkflowastemplate' do
-    dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate] = true
-    expect(dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowsavedeclarativeworkflowastemplate" do
     dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate] = 'true'
-    expect(dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowsavedeclarativeworkflowastemplate" do
     dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate] = 'false'
-    expect(dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowsavedeclarativeworkflowastemplate" do
     dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate] = 'True'
-    expect(dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowsavedeclarativeworkflowastemplate" do
     dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate] = 'False'
-    expect(dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowsavedeclarativeworkflowastemplate" do
     dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate] = :true
-    expect(dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate]).to eq(true)
+    expect(dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowsavedeclarativeworkflowastemplate" do
     dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate] = :false
-    expect(dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate]).to eq(false)
+    expect(dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowsavedeclarativeworkflowastemplate' do

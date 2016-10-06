@@ -134,39 +134,34 @@ describe Puppet::Type.type(:dsc_archive) do
     expect{dsc_archive[:dsc_validate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_validate' do
-    dsc_archive[:dsc_validate] = true
-    expect(dsc_archive[:dsc_validate]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_validate" do
     dsc_archive[:dsc_validate] = 'true'
-    expect(dsc_archive[:dsc_validate]).to eq(true)
+    expect(dsc_archive[:dsc_validate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_validate" do
     dsc_archive[:dsc_validate] = 'false'
-    expect(dsc_archive[:dsc_validate]).to eq(false)
+    expect(dsc_archive[:dsc_validate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_validate" do
     dsc_archive[:dsc_validate] = 'True'
-    expect(dsc_archive[:dsc_validate]).to eq(true)
+    expect(dsc_archive[:dsc_validate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_validate" do
     dsc_archive[:dsc_validate] = 'False'
-    expect(dsc_archive[:dsc_validate]).to eq(false)
+    expect(dsc_archive[:dsc_validate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_validate" do
     dsc_archive[:dsc_validate] = :true
-    expect(dsc_archive[:dsc_validate]).to eq(true)
+    expect(dsc_archive[:dsc_validate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_validate" do
     dsc_archive[:dsc_validate] = :false
-    expect(dsc_archive[:dsc_validate]).to eq(false)
+    expect(dsc_archive[:dsc_validate]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_validate' do
@@ -251,39 +246,34 @@ describe Puppet::Type.type(:dsc_archive) do
     expect{dsc_archive[:dsc_force] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_force' do
-    dsc_archive[:dsc_force] = true
-    expect(dsc_archive[:dsc_force]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_force" do
     dsc_archive[:dsc_force] = 'true'
-    expect(dsc_archive[:dsc_force]).to eq(true)
+    expect(dsc_archive[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_force" do
     dsc_archive[:dsc_force] = 'false'
-    expect(dsc_archive[:dsc_force]).to eq(false)
+    expect(dsc_archive[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_force" do
     dsc_archive[:dsc_force] = 'True'
-    expect(dsc_archive[:dsc_force]).to eq(true)
+    expect(dsc_archive[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_force" do
     dsc_archive[:dsc_force] = 'False'
-    expect(dsc_archive[:dsc_force]).to eq(false)
+    expect(dsc_archive[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_force" do
     dsc_archive[:dsc_force] = :true
-    expect(dsc_archive[:dsc_force]).to eq(true)
+    expect(dsc_archive[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_force" do
     dsc_archive[:dsc_force] = :false
-    expect(dsc_archive[:dsc_force]).to eq(false)
+    expect(dsc_archive[:dsc_force]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_force' do

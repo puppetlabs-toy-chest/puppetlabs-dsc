@@ -89,39 +89,34 @@ describe Puppet::Type.type(:dsc_spirmsettings) do
     expect{dsc_spirmsettings[:dsc_useadrms] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_useadrms' do
-    dsc_spirmsettings[:dsc_useadrms] = true
-    expect(dsc_spirmsettings[:dsc_useadrms]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_useadrms" do
     dsc_spirmsettings[:dsc_useadrms] = 'true'
-    expect(dsc_spirmsettings[:dsc_useadrms]).to eq(true)
+    expect(dsc_spirmsettings[:dsc_useadrms]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_useadrms" do
     dsc_spirmsettings[:dsc_useadrms] = 'false'
-    expect(dsc_spirmsettings[:dsc_useadrms]).to eq(false)
+    expect(dsc_spirmsettings[:dsc_useadrms]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_useadrms" do
     dsc_spirmsettings[:dsc_useadrms] = 'True'
-    expect(dsc_spirmsettings[:dsc_useadrms]).to eq(true)
+    expect(dsc_spirmsettings[:dsc_useadrms]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_useadrms" do
     dsc_spirmsettings[:dsc_useadrms] = 'False'
-    expect(dsc_spirmsettings[:dsc_useadrms]).to eq(false)
+    expect(dsc_spirmsettings[:dsc_useadrms]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_useadrms" do
     dsc_spirmsettings[:dsc_useadrms] = :true
-    expect(dsc_spirmsettings[:dsc_useadrms]).to eq(true)
+    expect(dsc_spirmsettings[:dsc_useadrms]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_useadrms" do
     dsc_spirmsettings[:dsc_useadrms] = :false
-    expect(dsc_spirmsettings[:dsc_useadrms]).to eq(false)
+    expect(dsc_spirmsettings[:dsc_useadrms]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_useadrms' do

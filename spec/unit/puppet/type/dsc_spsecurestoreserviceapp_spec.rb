@@ -80,39 +80,34 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
     expect{dsc_spsecurestoreserviceapp[:dsc_auditingenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_auditingenabled' do
-    dsc_spsecurestoreserviceapp[:dsc_auditingenabled] = true
-    expect(dsc_spsecurestoreserviceapp[:dsc_auditingenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_auditingenabled" do
     dsc_spsecurestoreserviceapp[:dsc_auditingenabled] = 'true'
-    expect(dsc_spsecurestoreserviceapp[:dsc_auditingenabled]).to eq(true)
+    expect(dsc_spsecurestoreserviceapp[:dsc_auditingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_auditingenabled" do
     dsc_spsecurestoreserviceapp[:dsc_auditingenabled] = 'false'
-    expect(dsc_spsecurestoreserviceapp[:dsc_auditingenabled]).to eq(false)
+    expect(dsc_spsecurestoreserviceapp[:dsc_auditingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_auditingenabled" do
     dsc_spsecurestoreserviceapp[:dsc_auditingenabled] = 'True'
-    expect(dsc_spsecurestoreserviceapp[:dsc_auditingenabled]).to eq(true)
+    expect(dsc_spsecurestoreserviceapp[:dsc_auditingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_auditingenabled" do
     dsc_spsecurestoreserviceapp[:dsc_auditingenabled] = 'False'
-    expect(dsc_spsecurestoreserviceapp[:dsc_auditingenabled]).to eq(false)
+    expect(dsc_spsecurestoreserviceapp[:dsc_auditingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_auditingenabled" do
     dsc_spsecurestoreserviceapp[:dsc_auditingenabled] = :true
-    expect(dsc_spsecurestoreserviceapp[:dsc_auditingenabled]).to eq(true)
+    expect(dsc_spsecurestoreserviceapp[:dsc_auditingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_auditingenabled" do
     dsc_spsecurestoreserviceapp[:dsc_auditingenabled] = :false
-    expect(dsc_spsecurestoreserviceapp[:dsc_auditingenabled]).to eq(false)
+    expect(dsc_spsecurestoreserviceapp[:dsc_auditingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_auditingenabled' do
@@ -269,39 +264,34 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
     expect{dsc_spsecurestoreserviceapp[:dsc_partitionmode] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_partitionmode' do
-    dsc_spsecurestoreserviceapp[:dsc_partitionmode] = true
-    expect(dsc_spsecurestoreserviceapp[:dsc_partitionmode]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_partitionmode" do
     dsc_spsecurestoreserviceapp[:dsc_partitionmode] = 'true'
-    expect(dsc_spsecurestoreserviceapp[:dsc_partitionmode]).to eq(true)
+    expect(dsc_spsecurestoreserviceapp[:dsc_partitionmode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_partitionmode" do
     dsc_spsecurestoreserviceapp[:dsc_partitionmode] = 'false'
-    expect(dsc_spsecurestoreserviceapp[:dsc_partitionmode]).to eq(false)
+    expect(dsc_spsecurestoreserviceapp[:dsc_partitionmode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_partitionmode" do
     dsc_spsecurestoreserviceapp[:dsc_partitionmode] = 'True'
-    expect(dsc_spsecurestoreserviceapp[:dsc_partitionmode]).to eq(true)
+    expect(dsc_spsecurestoreserviceapp[:dsc_partitionmode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_partitionmode" do
     dsc_spsecurestoreserviceapp[:dsc_partitionmode] = 'False'
-    expect(dsc_spsecurestoreserviceapp[:dsc_partitionmode]).to eq(false)
+    expect(dsc_spsecurestoreserviceapp[:dsc_partitionmode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_partitionmode" do
     dsc_spsecurestoreserviceapp[:dsc_partitionmode] = :true
-    expect(dsc_spsecurestoreserviceapp[:dsc_partitionmode]).to eq(true)
+    expect(dsc_spsecurestoreserviceapp[:dsc_partitionmode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_partitionmode" do
     dsc_spsecurestoreserviceapp[:dsc_partitionmode] = :false
-    expect(dsc_spsecurestoreserviceapp[:dsc_partitionmode]).to eq(false)
+    expect(dsc_spsecurestoreserviceapp[:dsc_partitionmode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_partitionmode' do
@@ -316,39 +306,34 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
     expect{dsc_spsecurestoreserviceapp[:dsc_sharing] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_sharing' do
-    dsc_spsecurestoreserviceapp[:dsc_sharing] = true
-    expect(dsc_spsecurestoreserviceapp[:dsc_sharing]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_sharing" do
     dsc_spsecurestoreserviceapp[:dsc_sharing] = 'true'
-    expect(dsc_spsecurestoreserviceapp[:dsc_sharing]).to eq(true)
+    expect(dsc_spsecurestoreserviceapp[:dsc_sharing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_sharing" do
     dsc_spsecurestoreserviceapp[:dsc_sharing] = 'false'
-    expect(dsc_spsecurestoreserviceapp[:dsc_sharing]).to eq(false)
+    expect(dsc_spsecurestoreserviceapp[:dsc_sharing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_sharing" do
     dsc_spsecurestoreserviceapp[:dsc_sharing] = 'True'
-    expect(dsc_spsecurestoreserviceapp[:dsc_sharing]).to eq(true)
+    expect(dsc_spsecurestoreserviceapp[:dsc_sharing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_sharing" do
     dsc_spsecurestoreserviceapp[:dsc_sharing] = 'False'
-    expect(dsc_spsecurestoreserviceapp[:dsc_sharing]).to eq(false)
+    expect(dsc_spsecurestoreserviceapp[:dsc_sharing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_sharing" do
     dsc_spsecurestoreserviceapp[:dsc_sharing] = :true
-    expect(dsc_spsecurestoreserviceapp[:dsc_sharing]).to eq(true)
+    expect(dsc_spsecurestoreserviceapp[:dsc_sharing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_sharing" do
     dsc_spsecurestoreserviceapp[:dsc_sharing] = :false
-    expect(dsc_spsecurestoreserviceapp[:dsc_sharing]).to eq(false)
+    expect(dsc_spsecurestoreserviceapp[:dsc_sharing]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_sharing' do

@@ -140,39 +140,34 @@ describe Puppet::Type.type(:dsc_windowsfeature) do
     expect{dsc_windowsfeature[:dsc_includeallsubfeature] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_includeallsubfeature' do
-    dsc_windowsfeature[:dsc_includeallsubfeature] = true
-    expect(dsc_windowsfeature[:dsc_includeallsubfeature]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_includeallsubfeature" do
     dsc_windowsfeature[:dsc_includeallsubfeature] = 'true'
-    expect(dsc_windowsfeature[:dsc_includeallsubfeature]).to eq(true)
+    expect(dsc_windowsfeature[:dsc_includeallsubfeature]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_includeallsubfeature" do
     dsc_windowsfeature[:dsc_includeallsubfeature] = 'false'
-    expect(dsc_windowsfeature[:dsc_includeallsubfeature]).to eq(false)
+    expect(dsc_windowsfeature[:dsc_includeallsubfeature]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_includeallsubfeature" do
     dsc_windowsfeature[:dsc_includeallsubfeature] = 'True'
-    expect(dsc_windowsfeature[:dsc_includeallsubfeature]).to eq(true)
+    expect(dsc_windowsfeature[:dsc_includeallsubfeature]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_includeallsubfeature" do
     dsc_windowsfeature[:dsc_includeallsubfeature] = 'False'
-    expect(dsc_windowsfeature[:dsc_includeallsubfeature]).to eq(false)
+    expect(dsc_windowsfeature[:dsc_includeallsubfeature]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_includeallsubfeature" do
     dsc_windowsfeature[:dsc_includeallsubfeature] = :true
-    expect(dsc_windowsfeature[:dsc_includeallsubfeature]).to eq(true)
+    expect(dsc_windowsfeature[:dsc_includeallsubfeature]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_includeallsubfeature" do
     dsc_windowsfeature[:dsc_includeallsubfeature] = :false
-    expect(dsc_windowsfeature[:dsc_includeallsubfeature]).to eq(false)
+    expect(dsc_windowsfeature[:dsc_includeallsubfeature]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_includeallsubfeature' do

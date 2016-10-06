@@ -157,39 +157,34 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect{dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_autodagautoreseedenabled' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled] = true
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_autodagautoreseedenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled] = 'true'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_autodagautoreseedenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled] = 'false'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_autodagautoreseedenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled] = 'True'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_autodagautoreseedenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled] = 'False'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_autodagautoreseedenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled] = :true
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_autodagautoreseedenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled] = :false
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagautoreseedenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_autodagautoreseedenabled' do
@@ -288,39 +283,34 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect{dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_autodagdiskreclaimerenabled' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled] = true
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_autodagdiskreclaimerenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled] = 'true'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_autodagdiskreclaimerenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled] = 'false'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_autodagdiskreclaimerenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled] = 'True'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_autodagdiskreclaimerenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled] = 'False'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_autodagdiskreclaimerenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled] = :true
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_autodagdiskreclaimerenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled] = :false
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_autodagdiskreclaimerenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_autodagdiskreclaimerenabled' do
@@ -498,39 +488,34 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect{dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_manualdagnetworkconfiguration' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration] = true
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_manualdagnetworkconfiguration" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration] = 'true'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_manualdagnetworkconfiguration" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration] = 'false'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_manualdagnetworkconfiguration" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration] = 'True'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_manualdagnetworkconfiguration" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration] = 'False'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_manualdagnetworkconfiguration" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration] = :true
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_manualdagnetworkconfiguration" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration] = :false
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_manualdagnetworkconfiguration]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_manualdagnetworkconfiguration' do
@@ -665,39 +650,34 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect{dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_replaylagmanagerenabled' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled] = true
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_replaylagmanagerenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled] = 'true'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_replaylagmanagerenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled] = 'false'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_replaylagmanagerenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled] = 'True'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_replaylagmanagerenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled] = 'False'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_replaylagmanagerenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled] = :true
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_replaylagmanagerenabled" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled] = :false
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_replaylagmanagerenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_replaylagmanagerenabled' do
@@ -746,39 +726,34 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroup) do
     expect{dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_skipdagvalidation' do
-    dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation] = true
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_skipdagvalidation" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation] = 'true'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_skipdagvalidation" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation] = 'false'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_skipdagvalidation" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation] = 'True'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_skipdagvalidation" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation] = 'False'
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_skipdagvalidation" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation] = :true
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation]).to eq(true)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_skipdagvalidation" do
     dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation] = :false
-    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation]).to eq(false)
+    expect(dsc_xexchdatabaseavailabilitygroup[:dsc_skipdagvalidation]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_skipdagvalidation' do

@@ -169,39 +169,34 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     expect{dsc_xsqlserverfirewall[:dsc_databaseenginefirewall] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_databaseenginefirewall' do
-    dsc_xsqlserverfirewall[:dsc_databaseenginefirewall] = true
-    expect(dsc_xsqlserverfirewall[:dsc_databaseenginefirewall]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_databaseenginefirewall" do
     dsc_xsqlserverfirewall[:dsc_databaseenginefirewall] = 'true'
-    expect(dsc_xsqlserverfirewall[:dsc_databaseenginefirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_databaseenginefirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_databaseenginefirewall" do
     dsc_xsqlserverfirewall[:dsc_databaseenginefirewall] = 'false'
-    expect(dsc_xsqlserverfirewall[:dsc_databaseenginefirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_databaseenginefirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_databaseenginefirewall" do
     dsc_xsqlserverfirewall[:dsc_databaseenginefirewall] = 'True'
-    expect(dsc_xsqlserverfirewall[:dsc_databaseenginefirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_databaseenginefirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_databaseenginefirewall" do
     dsc_xsqlserverfirewall[:dsc_databaseenginefirewall] = 'False'
-    expect(dsc_xsqlserverfirewall[:dsc_databaseenginefirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_databaseenginefirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_databaseenginefirewall" do
     dsc_xsqlserverfirewall[:dsc_databaseenginefirewall] = :true
-    expect(dsc_xsqlserverfirewall[:dsc_databaseenginefirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_databaseenginefirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_databaseenginefirewall" do
     dsc_xsqlserverfirewall[:dsc_databaseenginefirewall] = :false
-    expect(dsc_xsqlserverfirewall[:dsc_databaseenginefirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_databaseenginefirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_databaseenginefirewall' do
@@ -216,39 +211,34 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     expect{dsc_xsqlserverfirewall[:dsc_browserfirewall] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_browserfirewall' do
-    dsc_xsqlserverfirewall[:dsc_browserfirewall] = true
-    expect(dsc_xsqlserverfirewall[:dsc_browserfirewall]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_browserfirewall" do
     dsc_xsqlserverfirewall[:dsc_browserfirewall] = 'true'
-    expect(dsc_xsqlserverfirewall[:dsc_browserfirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_browserfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_browserfirewall" do
     dsc_xsqlserverfirewall[:dsc_browserfirewall] = 'false'
-    expect(dsc_xsqlserverfirewall[:dsc_browserfirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_browserfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_browserfirewall" do
     dsc_xsqlserverfirewall[:dsc_browserfirewall] = 'True'
-    expect(dsc_xsqlserverfirewall[:dsc_browserfirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_browserfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_browserfirewall" do
     dsc_xsqlserverfirewall[:dsc_browserfirewall] = 'False'
-    expect(dsc_xsqlserverfirewall[:dsc_browserfirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_browserfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_browserfirewall" do
     dsc_xsqlserverfirewall[:dsc_browserfirewall] = :true
-    expect(dsc_xsqlserverfirewall[:dsc_browserfirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_browserfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_browserfirewall" do
     dsc_xsqlserverfirewall[:dsc_browserfirewall] = :false
-    expect(dsc_xsqlserverfirewall[:dsc_browserfirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_browserfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_browserfirewall' do
@@ -263,39 +253,34 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     expect{dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_reportingservicesfirewall' do
-    dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall] = true
-    expect(dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_reportingservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall] = 'true'
-    expect(dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_reportingservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall] = 'false'
-    expect(dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_reportingservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall] = 'True'
-    expect(dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_reportingservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall] = 'False'
-    expect(dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_reportingservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall] = :true
-    expect(dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_reportingservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall] = :false
-    expect(dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_reportingservicesfirewall' do
@@ -310,39 +295,34 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     expect{dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_analysisservicesfirewall' do
-    dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall] = true
-    expect(dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_analysisservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall] = 'true'
-    expect(dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_analysisservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall] = 'false'
-    expect(dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_analysisservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall] = 'True'
-    expect(dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_analysisservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall] = 'False'
-    expect(dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_analysisservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall] = :true
-    expect(dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_analysisservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall] = :false
-    expect(dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_analysisservicesfirewall' do
@@ -357,39 +337,34 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     expect{dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_integrationservicesfirewall' do
-    dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall] = true
-    expect(dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_integrationservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall] = 'true'
-    expect(dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_integrationservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall] = 'false'
-    expect(dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_integrationservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall] = 'True'
-    expect(dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_integrationservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall] = 'False'
-    expect(dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_integrationservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall] = :true
-    expect(dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall]).to eq(true)
+    expect(dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_integrationservicesfirewall" do
     dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall] = :false
-    expect(dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall]).to eq(false)
+    expect(dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_integrationservicesfirewall' do

@@ -876,39 +876,34 @@ describe Puppet::Type.type(:dsc_xfirewall) do
     expect{dsc_xfirewall[:dsc_localonlymapping] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_localonlymapping' do
-    dsc_xfirewall[:dsc_localonlymapping] = true
-    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_localonlymapping" do
     dsc_xfirewall[:dsc_localonlymapping] = 'true'
-    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(true)
+    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_localonlymapping" do
     dsc_xfirewall[:dsc_localonlymapping] = 'false'
-    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(false)
+    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_localonlymapping" do
     dsc_xfirewall[:dsc_localonlymapping] = 'True'
-    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(true)
+    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_localonlymapping" do
     dsc_xfirewall[:dsc_localonlymapping] = 'False'
-    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(false)
+    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_localonlymapping" do
     dsc_xfirewall[:dsc_localonlymapping] = :true
-    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(true)
+    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_localonlymapping" do
     dsc_xfirewall[:dsc_localonlymapping] = :false
-    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(false)
+    expect(dsc_xfirewall[:dsc_localonlymapping]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_localonlymapping' do
@@ -923,39 +918,34 @@ describe Puppet::Type.type(:dsc_xfirewall) do
     expect{dsc_xfirewall[:dsc_loosesourcemapping] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_loosesourcemapping' do
-    dsc_xfirewall[:dsc_loosesourcemapping] = true
-    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_loosesourcemapping" do
     dsc_xfirewall[:dsc_loosesourcemapping] = 'true'
-    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(true)
+    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_loosesourcemapping" do
     dsc_xfirewall[:dsc_loosesourcemapping] = 'false'
-    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(false)
+    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_loosesourcemapping" do
     dsc_xfirewall[:dsc_loosesourcemapping] = 'True'
-    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(true)
+    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_loosesourcemapping" do
     dsc_xfirewall[:dsc_loosesourcemapping] = 'False'
-    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(false)
+    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_loosesourcemapping" do
     dsc_xfirewall[:dsc_loosesourcemapping] = :true
-    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(true)
+    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_loosesourcemapping" do
     dsc_xfirewall[:dsc_loosesourcemapping] = :false
-    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(false)
+    expect(dsc_xfirewall[:dsc_loosesourcemapping]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_loosesourcemapping' do
@@ -970,39 +960,34 @@ describe Puppet::Type.type(:dsc_xfirewall) do
     expect{dsc_xfirewall[:dsc_overrideblockrules] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_overrideblockrules' do
-    dsc_xfirewall[:dsc_overrideblockrules] = true
-    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_overrideblockrules" do
     dsc_xfirewall[:dsc_overrideblockrules] = 'true'
-    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(true)
+    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_overrideblockrules" do
     dsc_xfirewall[:dsc_overrideblockrules] = 'false'
-    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(false)
+    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_overrideblockrules" do
     dsc_xfirewall[:dsc_overrideblockrules] = 'True'
-    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(true)
+    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_overrideblockrules" do
     dsc_xfirewall[:dsc_overrideblockrules] = 'False'
-    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(false)
+    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_overrideblockrules" do
     dsc_xfirewall[:dsc_overrideblockrules] = :true
-    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(true)
+    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_overrideblockrules" do
     dsc_xfirewall[:dsc_overrideblockrules] = :false
-    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(false)
+    expect(dsc_xfirewall[:dsc_overrideblockrules]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_overrideblockrules' do

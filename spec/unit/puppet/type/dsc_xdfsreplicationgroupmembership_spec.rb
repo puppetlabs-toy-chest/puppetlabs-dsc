@@ -158,39 +158,34 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupmembership) do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_readonly] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_readonly' do
-    dsc_xdfsreplicationgroupmembership[:dsc_readonly] = true
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_readonly]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_readonly" do
     dsc_xdfsreplicationgroupmembership[:dsc_readonly] = 'true'
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_readonly]).to eq(true)
+    expect(dsc_xdfsreplicationgroupmembership[:dsc_readonly]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_readonly" do
     dsc_xdfsreplicationgroupmembership[:dsc_readonly] = 'false'
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_readonly]).to eq(false)
+    expect(dsc_xdfsreplicationgroupmembership[:dsc_readonly]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_readonly" do
     dsc_xdfsreplicationgroupmembership[:dsc_readonly] = 'True'
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_readonly]).to eq(true)
+    expect(dsc_xdfsreplicationgroupmembership[:dsc_readonly]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_readonly" do
     dsc_xdfsreplicationgroupmembership[:dsc_readonly] = 'False'
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_readonly]).to eq(false)
+    expect(dsc_xdfsreplicationgroupmembership[:dsc_readonly]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_readonly" do
     dsc_xdfsreplicationgroupmembership[:dsc_readonly] = :true
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_readonly]).to eq(true)
+    expect(dsc_xdfsreplicationgroupmembership[:dsc_readonly]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_readonly" do
     dsc_xdfsreplicationgroupmembership[:dsc_readonly] = :false
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_readonly]).to eq(false)
+    expect(dsc_xdfsreplicationgroupmembership[:dsc_readonly]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_readonly' do
@@ -205,39 +200,34 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupmembership) do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_primarymember] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_primarymember' do
-    dsc_xdfsreplicationgroupmembership[:dsc_primarymember] = true
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_primarymember]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_primarymember" do
     dsc_xdfsreplicationgroupmembership[:dsc_primarymember] = 'true'
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_primarymember]).to eq(true)
+    expect(dsc_xdfsreplicationgroupmembership[:dsc_primarymember]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_primarymember" do
     dsc_xdfsreplicationgroupmembership[:dsc_primarymember] = 'false'
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_primarymember]).to eq(false)
+    expect(dsc_xdfsreplicationgroupmembership[:dsc_primarymember]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_primarymember" do
     dsc_xdfsreplicationgroupmembership[:dsc_primarymember] = 'True'
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_primarymember]).to eq(true)
+    expect(dsc_xdfsreplicationgroupmembership[:dsc_primarymember]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_primarymember" do
     dsc_xdfsreplicationgroupmembership[:dsc_primarymember] = 'False'
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_primarymember]).to eq(false)
+    expect(dsc_xdfsreplicationgroupmembership[:dsc_primarymember]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_primarymember" do
     dsc_xdfsreplicationgroupmembership[:dsc_primarymember] = :true
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_primarymember]).to eq(true)
+    expect(dsc_xdfsreplicationgroupmembership[:dsc_primarymember]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_primarymember" do
     dsc_xdfsreplicationgroupmembership[:dsc_primarymember] = :false
-    expect(dsc_xdfsreplicationgroupmembership[:dsc_primarymember]).to eq(false)
+    expect(dsc_xdfsreplicationgroupmembership[:dsc_primarymember]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_primarymember' do

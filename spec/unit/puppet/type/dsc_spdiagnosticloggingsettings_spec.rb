@@ -100,39 +100,34 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_appanalyticsautomaticuploadenabled' do
-    dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled] = true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_appanalyticsautomaticuploadenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled] = 'true'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_appanalyticsautomaticuploadenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled] = 'false'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_appanalyticsautomaticuploadenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled] = 'True'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_appanalyticsautomaticuploadenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled] = 'False'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_appanalyticsautomaticuploadenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled] = :true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_appanalyticsautomaticuploadenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled] = :false
-    expect(dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_appanalyticsautomaticuploadenabled' do
@@ -147,39 +142,34 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_customerexperienceimprovementprogramenabled' do
-    dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled] = true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_customerexperienceimprovementprogramenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled] = 'true'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_customerexperienceimprovementprogramenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled] = 'false'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_customerexperienceimprovementprogramenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled] = 'True'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_customerexperienceimprovementprogramenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled] = 'False'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_customerexperienceimprovementprogramenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled] = :true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_customerexperienceimprovementprogramenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled] = :false
-    expect(dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_customerexperienceimprovementprogramenabled' do
@@ -228,39 +218,34 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_downloaderrorreportingupdatesenabled' do
-    dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled] = true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_downloaderrorreportingupdatesenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled] = 'true'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_downloaderrorreportingupdatesenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled] = 'false'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_downloaderrorreportingupdatesenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled] = 'True'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_downloaderrorreportingupdatesenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled] = 'False'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_downloaderrorreportingupdatesenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled] = :true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_downloaderrorreportingupdatesenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled] = :false
-    expect(dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_downloaderrorreportingupdatesenabled' do
@@ -275,39 +260,34 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_errorreportingautomaticuploadenabled' do
-    dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled] = true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_errorreportingautomaticuploadenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled] = 'true'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_errorreportingautomaticuploadenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled] = 'false'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_errorreportingautomaticuploadenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled] = 'True'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_errorreportingautomaticuploadenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled] = 'False'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_errorreportingautomaticuploadenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled] = :true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_errorreportingautomaticuploadenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled] = :false
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_errorreportingautomaticuploadenabled' do
@@ -322,39 +302,34 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_errorreportingenabled' do
-    dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled] = true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_errorreportingenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled] = 'true'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_errorreportingenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled] = 'false'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_errorreportingenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled] = 'True'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_errorreportingenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled] = 'False'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_errorreportingenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled] = :true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_errorreportingenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled] = :false
-    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_errorreportingenabled' do
@@ -369,39 +344,34 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_eventlogfloodprotectionenabled' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled] = true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_eventlogfloodprotectionenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled] = 'true'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_eventlogfloodprotectionenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled] = 'false'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_eventlogfloodprotectionenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled] = 'True'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_eventlogfloodprotectionenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled] = 'False'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_eventlogfloodprotectionenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled] = :true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_eventlogfloodprotectionenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled] = :false
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_eventlogfloodprotectionenabled' do
@@ -586,39 +556,34 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_logmaxdiskspaceusageenabled' do
-    dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled] = true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_logmaxdiskspaceusageenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled] = 'true'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_logmaxdiskspaceusageenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled] = 'false'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_logmaxdiskspaceusageenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled] = 'True'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_logmaxdiskspaceusageenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled] = 'False'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_logmaxdiskspaceusageenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled] = :true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_logmaxdiskspaceusageenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled] = :false
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_logmaxdiskspaceusageenabled' do
@@ -667,39 +632,34 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_scripterrorreportingenabled' do
-    dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled] = true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_scripterrorreportingenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled] = 'true'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_scripterrorreportingenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled] = 'false'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_scripterrorreportingenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled] = 'True'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_scripterrorreportingenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled] = 'False'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_scripterrorreportingenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled] = :true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_scripterrorreportingenabled" do
     dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled] = :false
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_scripterrorreportingenabled' do
@@ -714,39 +674,34 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_scripterrorreportingrequireauth' do
-    dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth] = true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_scripterrorreportingrequireauth" do
     dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth] = 'true'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_scripterrorreportingrequireauth" do
     dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth] = 'false'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_scripterrorreportingrequireauth" do
     dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth] = 'True'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_scripterrorreportingrequireauth" do
     dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth] = 'False'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_scripterrorreportingrequireauth" do
     dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth] = :true
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth]).to eq(true)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_scripterrorreportingrequireauth" do
     dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth] = :false
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth]).to eq(false)
+    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_scripterrorreportingrequireauth' do

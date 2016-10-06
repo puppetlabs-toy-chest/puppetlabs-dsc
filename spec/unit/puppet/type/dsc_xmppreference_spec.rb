@@ -498,39 +498,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_checkforsignaturesbeforerunningscan' do
-    dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan] = true
-    expect(dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_checkforsignaturesbeforerunningscan" do
     dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan] = 'true'
-    expect(dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan]).to eq(true)
+    expect(dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_checkforsignaturesbeforerunningscan" do
     dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan] = 'false'
-    expect(dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan]).to eq(false)
+    expect(dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_checkforsignaturesbeforerunningscan" do
     dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan] = 'True'
-    expect(dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan]).to eq(true)
+    expect(dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_checkforsignaturesbeforerunningscan" do
     dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan] = 'False'
-    expect(dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan]).to eq(false)
+    expect(dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_checkforsignaturesbeforerunningscan" do
     dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan] = :true
-    expect(dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan]).to eq(true)
+    expect(dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_checkforsignaturesbeforerunningscan" do
     dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan] = :false
-    expect(dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan]).to eq(false)
+    expect(dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_checkforsignaturesbeforerunningscan' do
@@ -579,39 +574,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_scanonlyifidleenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_scanonlyifidleenabled' do
-    dsc_xmppreference[:dsc_scanonlyifidleenabled] = true
-    expect(dsc_xmppreference[:dsc_scanonlyifidleenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_scanonlyifidleenabled" do
     dsc_xmppreference[:dsc_scanonlyifidleenabled] = 'true'
-    expect(dsc_xmppreference[:dsc_scanonlyifidleenabled]).to eq(true)
+    expect(dsc_xmppreference[:dsc_scanonlyifidleenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_scanonlyifidleenabled" do
     dsc_xmppreference[:dsc_scanonlyifidleenabled] = 'false'
-    expect(dsc_xmppreference[:dsc_scanonlyifidleenabled]).to eq(false)
+    expect(dsc_xmppreference[:dsc_scanonlyifidleenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_scanonlyifidleenabled" do
     dsc_xmppreference[:dsc_scanonlyifidleenabled] = 'True'
-    expect(dsc_xmppreference[:dsc_scanonlyifidleenabled]).to eq(true)
+    expect(dsc_xmppreference[:dsc_scanonlyifidleenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_scanonlyifidleenabled" do
     dsc_xmppreference[:dsc_scanonlyifidleenabled] = 'False'
-    expect(dsc_xmppreference[:dsc_scanonlyifidleenabled]).to eq(false)
+    expect(dsc_xmppreference[:dsc_scanonlyifidleenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_scanonlyifidleenabled" do
     dsc_xmppreference[:dsc_scanonlyifidleenabled] = :true
-    expect(dsc_xmppreference[:dsc_scanonlyifidleenabled]).to eq(true)
+    expect(dsc_xmppreference[:dsc_scanonlyifidleenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_scanonlyifidleenabled" do
     dsc_xmppreference[:dsc_scanonlyifidleenabled] = :false
-    expect(dsc_xmppreference[:dsc_scanonlyifidleenabled]).to eq(false)
+    expect(dsc_xmppreference[:dsc_scanonlyifidleenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_scanonlyifidleenabled' do
@@ -892,39 +882,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_signaturedisableupdateonstartupwithoutengine' do
-    dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine] = true
-    expect(dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_signaturedisableupdateonstartupwithoutengine" do
     dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine] = 'true'
-    expect(dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine]).to eq(true)
+    expect(dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_signaturedisableupdateonstartupwithoutengine" do
     dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine] = 'false'
-    expect(dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine]).to eq(false)
+    expect(dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_signaturedisableupdateonstartupwithoutengine" do
     dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine] = 'True'
-    expect(dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine]).to eq(true)
+    expect(dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_signaturedisableupdateonstartupwithoutengine" do
     dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine] = 'False'
-    expect(dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine]).to eq(false)
+    expect(dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_signaturedisableupdateonstartupwithoutengine" do
     dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine] = :true
-    expect(dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine]).to eq(true)
+    expect(dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_signaturedisableupdateonstartupwithoutengine" do
     dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine] = :false
-    expect(dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine]).to eq(false)
+    expect(dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_signaturedisableupdateonstartupwithoutengine' do
@@ -1199,39 +1184,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disableprivacymode] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disableprivacymode' do
-    dsc_xmppreference[:dsc_disableprivacymode] = true
-    expect(dsc_xmppreference[:dsc_disableprivacymode]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disableprivacymode" do
     dsc_xmppreference[:dsc_disableprivacymode] = 'true'
-    expect(dsc_xmppreference[:dsc_disableprivacymode]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableprivacymode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disableprivacymode" do
     dsc_xmppreference[:dsc_disableprivacymode] = 'false'
-    expect(dsc_xmppreference[:dsc_disableprivacymode]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableprivacymode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disableprivacymode" do
     dsc_xmppreference[:dsc_disableprivacymode] = 'True'
-    expect(dsc_xmppreference[:dsc_disableprivacymode]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableprivacymode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disableprivacymode" do
     dsc_xmppreference[:dsc_disableprivacymode] = 'False'
-    expect(dsc_xmppreference[:dsc_disableprivacymode]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableprivacymode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disableprivacymode" do
     dsc_xmppreference[:dsc_disableprivacymode] = :true
-    expect(dsc_xmppreference[:dsc_disableprivacymode]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableprivacymode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disableprivacymode" do
     dsc_xmppreference[:dsc_disableprivacymode] = :false
-    expect(dsc_xmppreference[:dsc_disableprivacymode]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableprivacymode]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disableprivacymode' do
@@ -1246,39 +1226,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_randomizescheduletasktimes] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_randomizescheduletasktimes' do
-    dsc_xmppreference[:dsc_randomizescheduletasktimes] = true
-    expect(dsc_xmppreference[:dsc_randomizescheduletasktimes]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_randomizescheduletasktimes" do
     dsc_xmppreference[:dsc_randomizescheduletasktimes] = 'true'
-    expect(dsc_xmppreference[:dsc_randomizescheduletasktimes]).to eq(true)
+    expect(dsc_xmppreference[:dsc_randomizescheduletasktimes]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_randomizescheduletasktimes" do
     dsc_xmppreference[:dsc_randomizescheduletasktimes] = 'false'
-    expect(dsc_xmppreference[:dsc_randomizescheduletasktimes]).to eq(false)
+    expect(dsc_xmppreference[:dsc_randomizescheduletasktimes]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_randomizescheduletasktimes" do
     dsc_xmppreference[:dsc_randomizescheduletasktimes] = 'True'
-    expect(dsc_xmppreference[:dsc_randomizescheduletasktimes]).to eq(true)
+    expect(dsc_xmppreference[:dsc_randomizescheduletasktimes]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_randomizescheduletasktimes" do
     dsc_xmppreference[:dsc_randomizescheduletasktimes] = 'False'
-    expect(dsc_xmppreference[:dsc_randomizescheduletasktimes]).to eq(false)
+    expect(dsc_xmppreference[:dsc_randomizescheduletasktimes]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_randomizescheduletasktimes" do
     dsc_xmppreference[:dsc_randomizescheduletasktimes] = :true
-    expect(dsc_xmppreference[:dsc_randomizescheduletasktimes]).to eq(true)
+    expect(dsc_xmppreference[:dsc_randomizescheduletasktimes]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_randomizescheduletasktimes" do
     dsc_xmppreference[:dsc_randomizescheduletasktimes] = :false
-    expect(dsc_xmppreference[:dsc_randomizescheduletasktimes]).to eq(false)
+    expect(dsc_xmppreference[:dsc_randomizescheduletasktimes]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_randomizescheduletasktimes' do
@@ -1293,39 +1268,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablebehaviormonitoring] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disablebehaviormonitoring' do
-    dsc_xmppreference[:dsc_disablebehaviormonitoring] = true
-    expect(dsc_xmppreference[:dsc_disablebehaviormonitoring]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disablebehaviormonitoring" do
     dsc_xmppreference[:dsc_disablebehaviormonitoring] = 'true'
-    expect(dsc_xmppreference[:dsc_disablebehaviormonitoring]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablebehaviormonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disablebehaviormonitoring" do
     dsc_xmppreference[:dsc_disablebehaviormonitoring] = 'false'
-    expect(dsc_xmppreference[:dsc_disablebehaviormonitoring]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablebehaviormonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disablebehaviormonitoring" do
     dsc_xmppreference[:dsc_disablebehaviormonitoring] = 'True'
-    expect(dsc_xmppreference[:dsc_disablebehaviormonitoring]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablebehaviormonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disablebehaviormonitoring" do
     dsc_xmppreference[:dsc_disablebehaviormonitoring] = 'False'
-    expect(dsc_xmppreference[:dsc_disablebehaviormonitoring]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablebehaviormonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disablebehaviormonitoring" do
     dsc_xmppreference[:dsc_disablebehaviormonitoring] = :true
-    expect(dsc_xmppreference[:dsc_disablebehaviormonitoring]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablebehaviormonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disablebehaviormonitoring" do
     dsc_xmppreference[:dsc_disablebehaviormonitoring] = :false
-    expect(dsc_xmppreference[:dsc_disablebehaviormonitoring]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablebehaviormonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disablebehaviormonitoring' do
@@ -1340,39 +1310,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disableintrusionpreventionsystem] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disableintrusionpreventionsystem' do
-    dsc_xmppreference[:dsc_disableintrusionpreventionsystem] = true
-    expect(dsc_xmppreference[:dsc_disableintrusionpreventionsystem]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disableintrusionpreventionsystem" do
     dsc_xmppreference[:dsc_disableintrusionpreventionsystem] = 'true'
-    expect(dsc_xmppreference[:dsc_disableintrusionpreventionsystem]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableintrusionpreventionsystem]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disableintrusionpreventionsystem" do
     dsc_xmppreference[:dsc_disableintrusionpreventionsystem] = 'false'
-    expect(dsc_xmppreference[:dsc_disableintrusionpreventionsystem]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableintrusionpreventionsystem]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disableintrusionpreventionsystem" do
     dsc_xmppreference[:dsc_disableintrusionpreventionsystem] = 'True'
-    expect(dsc_xmppreference[:dsc_disableintrusionpreventionsystem]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableintrusionpreventionsystem]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disableintrusionpreventionsystem" do
     dsc_xmppreference[:dsc_disableintrusionpreventionsystem] = 'False'
-    expect(dsc_xmppreference[:dsc_disableintrusionpreventionsystem]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableintrusionpreventionsystem]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disableintrusionpreventionsystem" do
     dsc_xmppreference[:dsc_disableintrusionpreventionsystem] = :true
-    expect(dsc_xmppreference[:dsc_disableintrusionpreventionsystem]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableintrusionpreventionsystem]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disableintrusionpreventionsystem" do
     dsc_xmppreference[:dsc_disableintrusionpreventionsystem] = :false
-    expect(dsc_xmppreference[:dsc_disableintrusionpreventionsystem]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableintrusionpreventionsystem]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disableintrusionpreventionsystem' do
@@ -1387,39 +1352,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disableioavprotection] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disableioavprotection' do
-    dsc_xmppreference[:dsc_disableioavprotection] = true
-    expect(dsc_xmppreference[:dsc_disableioavprotection]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disableioavprotection" do
     dsc_xmppreference[:dsc_disableioavprotection] = 'true'
-    expect(dsc_xmppreference[:dsc_disableioavprotection]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableioavprotection]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disableioavprotection" do
     dsc_xmppreference[:dsc_disableioavprotection] = 'false'
-    expect(dsc_xmppreference[:dsc_disableioavprotection]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableioavprotection]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disableioavprotection" do
     dsc_xmppreference[:dsc_disableioavprotection] = 'True'
-    expect(dsc_xmppreference[:dsc_disableioavprotection]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableioavprotection]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disableioavprotection" do
     dsc_xmppreference[:dsc_disableioavprotection] = 'False'
-    expect(dsc_xmppreference[:dsc_disableioavprotection]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableioavprotection]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disableioavprotection" do
     dsc_xmppreference[:dsc_disableioavprotection] = :true
-    expect(dsc_xmppreference[:dsc_disableioavprotection]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableioavprotection]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disableioavprotection" do
     dsc_xmppreference[:dsc_disableioavprotection] = :false
-    expect(dsc_xmppreference[:dsc_disableioavprotection]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableioavprotection]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disableioavprotection' do
@@ -1434,39 +1394,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablerealtimemonitoring] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disablerealtimemonitoring' do
-    dsc_xmppreference[:dsc_disablerealtimemonitoring] = true
-    expect(dsc_xmppreference[:dsc_disablerealtimemonitoring]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disablerealtimemonitoring" do
     dsc_xmppreference[:dsc_disablerealtimemonitoring] = 'true'
-    expect(dsc_xmppreference[:dsc_disablerealtimemonitoring]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablerealtimemonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disablerealtimemonitoring" do
     dsc_xmppreference[:dsc_disablerealtimemonitoring] = 'false'
-    expect(dsc_xmppreference[:dsc_disablerealtimemonitoring]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablerealtimemonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disablerealtimemonitoring" do
     dsc_xmppreference[:dsc_disablerealtimemonitoring] = 'True'
-    expect(dsc_xmppreference[:dsc_disablerealtimemonitoring]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablerealtimemonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disablerealtimemonitoring" do
     dsc_xmppreference[:dsc_disablerealtimemonitoring] = 'False'
-    expect(dsc_xmppreference[:dsc_disablerealtimemonitoring]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablerealtimemonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disablerealtimemonitoring" do
     dsc_xmppreference[:dsc_disablerealtimemonitoring] = :true
-    expect(dsc_xmppreference[:dsc_disablerealtimemonitoring]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablerealtimemonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disablerealtimemonitoring" do
     dsc_xmppreference[:dsc_disablerealtimemonitoring] = :false
-    expect(dsc_xmppreference[:dsc_disablerealtimemonitoring]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablerealtimemonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disablerealtimemonitoring' do
@@ -1481,39 +1436,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablescriptscanning] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disablescriptscanning' do
-    dsc_xmppreference[:dsc_disablescriptscanning] = true
-    expect(dsc_xmppreference[:dsc_disablescriptscanning]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disablescriptscanning" do
     dsc_xmppreference[:dsc_disablescriptscanning] = 'true'
-    expect(dsc_xmppreference[:dsc_disablescriptscanning]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablescriptscanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disablescriptscanning" do
     dsc_xmppreference[:dsc_disablescriptscanning] = 'false'
-    expect(dsc_xmppreference[:dsc_disablescriptscanning]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablescriptscanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disablescriptscanning" do
     dsc_xmppreference[:dsc_disablescriptscanning] = 'True'
-    expect(dsc_xmppreference[:dsc_disablescriptscanning]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablescriptscanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disablescriptscanning" do
     dsc_xmppreference[:dsc_disablescriptscanning] = 'False'
-    expect(dsc_xmppreference[:dsc_disablescriptscanning]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablescriptscanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disablescriptscanning" do
     dsc_xmppreference[:dsc_disablescriptscanning] = :true
-    expect(dsc_xmppreference[:dsc_disablescriptscanning]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablescriptscanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disablescriptscanning" do
     dsc_xmppreference[:dsc_disablescriptscanning] = :false
-    expect(dsc_xmppreference[:dsc_disablescriptscanning]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablescriptscanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disablescriptscanning' do
@@ -1528,39 +1478,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablearchivescanning] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disablearchivescanning' do
-    dsc_xmppreference[:dsc_disablearchivescanning] = true
-    expect(dsc_xmppreference[:dsc_disablearchivescanning]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disablearchivescanning" do
     dsc_xmppreference[:dsc_disablearchivescanning] = 'true'
-    expect(dsc_xmppreference[:dsc_disablearchivescanning]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablearchivescanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disablearchivescanning" do
     dsc_xmppreference[:dsc_disablearchivescanning] = 'false'
-    expect(dsc_xmppreference[:dsc_disablearchivescanning]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablearchivescanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disablearchivescanning" do
     dsc_xmppreference[:dsc_disablearchivescanning] = 'True'
-    expect(dsc_xmppreference[:dsc_disablearchivescanning]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablearchivescanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disablearchivescanning" do
     dsc_xmppreference[:dsc_disablearchivescanning] = 'False'
-    expect(dsc_xmppreference[:dsc_disablearchivescanning]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablearchivescanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disablearchivescanning" do
     dsc_xmppreference[:dsc_disablearchivescanning] = :true
-    expect(dsc_xmppreference[:dsc_disablearchivescanning]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablearchivescanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disablearchivescanning" do
     dsc_xmppreference[:dsc_disablearchivescanning] = :false
-    expect(dsc_xmppreference[:dsc_disablearchivescanning]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablearchivescanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disablearchivescanning' do
@@ -1575,39 +1520,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disableautoexclusions] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disableautoexclusions' do
-    dsc_xmppreference[:dsc_disableautoexclusions] = true
-    expect(dsc_xmppreference[:dsc_disableautoexclusions]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disableautoexclusions" do
     dsc_xmppreference[:dsc_disableautoexclusions] = 'true'
-    expect(dsc_xmppreference[:dsc_disableautoexclusions]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableautoexclusions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disableautoexclusions" do
     dsc_xmppreference[:dsc_disableautoexclusions] = 'false'
-    expect(dsc_xmppreference[:dsc_disableautoexclusions]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableautoexclusions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disableautoexclusions" do
     dsc_xmppreference[:dsc_disableautoexclusions] = 'True'
-    expect(dsc_xmppreference[:dsc_disableautoexclusions]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableautoexclusions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disableautoexclusions" do
     dsc_xmppreference[:dsc_disableautoexclusions] = 'False'
-    expect(dsc_xmppreference[:dsc_disableautoexclusions]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableautoexclusions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disableautoexclusions" do
     dsc_xmppreference[:dsc_disableautoexclusions] = :true
-    expect(dsc_xmppreference[:dsc_disableautoexclusions]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableautoexclusions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disableautoexclusions" do
     dsc_xmppreference[:dsc_disableautoexclusions] = :false
-    expect(dsc_xmppreference[:dsc_disableautoexclusions]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableautoexclusions]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disableautoexclusions' do
@@ -1622,39 +1562,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablecatchupfullscan] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disablecatchupfullscan' do
-    dsc_xmppreference[:dsc_disablecatchupfullscan] = true
-    expect(dsc_xmppreference[:dsc_disablecatchupfullscan]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disablecatchupfullscan" do
     dsc_xmppreference[:dsc_disablecatchupfullscan] = 'true'
-    expect(dsc_xmppreference[:dsc_disablecatchupfullscan]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablecatchupfullscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disablecatchupfullscan" do
     dsc_xmppreference[:dsc_disablecatchupfullscan] = 'false'
-    expect(dsc_xmppreference[:dsc_disablecatchupfullscan]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablecatchupfullscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disablecatchupfullscan" do
     dsc_xmppreference[:dsc_disablecatchupfullscan] = 'True'
-    expect(dsc_xmppreference[:dsc_disablecatchupfullscan]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablecatchupfullscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disablecatchupfullscan" do
     dsc_xmppreference[:dsc_disablecatchupfullscan] = 'False'
-    expect(dsc_xmppreference[:dsc_disablecatchupfullscan]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablecatchupfullscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disablecatchupfullscan" do
     dsc_xmppreference[:dsc_disablecatchupfullscan] = :true
-    expect(dsc_xmppreference[:dsc_disablecatchupfullscan]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablecatchupfullscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disablecatchupfullscan" do
     dsc_xmppreference[:dsc_disablecatchupfullscan] = :false
-    expect(dsc_xmppreference[:dsc_disablecatchupfullscan]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablecatchupfullscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disablecatchupfullscan' do
@@ -1669,39 +1604,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablecatchupquickscan] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disablecatchupquickscan' do
-    dsc_xmppreference[:dsc_disablecatchupquickscan] = true
-    expect(dsc_xmppreference[:dsc_disablecatchupquickscan]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disablecatchupquickscan" do
     dsc_xmppreference[:dsc_disablecatchupquickscan] = 'true'
-    expect(dsc_xmppreference[:dsc_disablecatchupquickscan]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablecatchupquickscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disablecatchupquickscan" do
     dsc_xmppreference[:dsc_disablecatchupquickscan] = 'false'
-    expect(dsc_xmppreference[:dsc_disablecatchupquickscan]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablecatchupquickscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disablecatchupquickscan" do
     dsc_xmppreference[:dsc_disablecatchupquickscan] = 'True'
-    expect(dsc_xmppreference[:dsc_disablecatchupquickscan]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablecatchupquickscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disablecatchupquickscan" do
     dsc_xmppreference[:dsc_disablecatchupquickscan] = 'False'
-    expect(dsc_xmppreference[:dsc_disablecatchupquickscan]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablecatchupquickscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disablecatchupquickscan" do
     dsc_xmppreference[:dsc_disablecatchupquickscan] = :true
-    expect(dsc_xmppreference[:dsc_disablecatchupquickscan]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablecatchupquickscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disablecatchupquickscan" do
     dsc_xmppreference[:dsc_disablecatchupquickscan] = :false
-    expect(dsc_xmppreference[:dsc_disablecatchupquickscan]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablecatchupquickscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disablecatchupquickscan' do
@@ -1716,39 +1646,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disableemailscanning] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disableemailscanning' do
-    dsc_xmppreference[:dsc_disableemailscanning] = true
-    expect(dsc_xmppreference[:dsc_disableemailscanning]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disableemailscanning" do
     dsc_xmppreference[:dsc_disableemailscanning] = 'true'
-    expect(dsc_xmppreference[:dsc_disableemailscanning]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableemailscanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disableemailscanning" do
     dsc_xmppreference[:dsc_disableemailscanning] = 'false'
-    expect(dsc_xmppreference[:dsc_disableemailscanning]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableemailscanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disableemailscanning" do
     dsc_xmppreference[:dsc_disableemailscanning] = 'True'
-    expect(dsc_xmppreference[:dsc_disableemailscanning]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableemailscanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disableemailscanning" do
     dsc_xmppreference[:dsc_disableemailscanning] = 'False'
-    expect(dsc_xmppreference[:dsc_disableemailscanning]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableemailscanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disableemailscanning" do
     dsc_xmppreference[:dsc_disableemailscanning] = :true
-    expect(dsc_xmppreference[:dsc_disableemailscanning]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableemailscanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disableemailscanning" do
     dsc_xmppreference[:dsc_disableemailscanning] = :false
-    expect(dsc_xmppreference[:dsc_disableemailscanning]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableemailscanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disableemailscanning' do
@@ -1763,39 +1688,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disableremovabledrivescanning] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disableremovabledrivescanning' do
-    dsc_xmppreference[:dsc_disableremovabledrivescanning] = true
-    expect(dsc_xmppreference[:dsc_disableremovabledrivescanning]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disableremovabledrivescanning" do
     dsc_xmppreference[:dsc_disableremovabledrivescanning] = 'true'
-    expect(dsc_xmppreference[:dsc_disableremovabledrivescanning]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableremovabledrivescanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disableremovabledrivescanning" do
     dsc_xmppreference[:dsc_disableremovabledrivescanning] = 'false'
-    expect(dsc_xmppreference[:dsc_disableremovabledrivescanning]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableremovabledrivescanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disableremovabledrivescanning" do
     dsc_xmppreference[:dsc_disableremovabledrivescanning] = 'True'
-    expect(dsc_xmppreference[:dsc_disableremovabledrivescanning]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableremovabledrivescanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disableremovabledrivescanning" do
     dsc_xmppreference[:dsc_disableremovabledrivescanning] = 'False'
-    expect(dsc_xmppreference[:dsc_disableremovabledrivescanning]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableremovabledrivescanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disableremovabledrivescanning" do
     dsc_xmppreference[:dsc_disableremovabledrivescanning] = :true
-    expect(dsc_xmppreference[:dsc_disableremovabledrivescanning]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disableremovabledrivescanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disableremovabledrivescanning" do
     dsc_xmppreference[:dsc_disableremovabledrivescanning] = :false
-    expect(dsc_xmppreference[:dsc_disableremovabledrivescanning]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disableremovabledrivescanning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disableremovabledrivescanning' do
@@ -1810,39 +1730,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablerestorepoint] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disablerestorepoint' do
-    dsc_xmppreference[:dsc_disablerestorepoint] = true
-    expect(dsc_xmppreference[:dsc_disablerestorepoint]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disablerestorepoint" do
     dsc_xmppreference[:dsc_disablerestorepoint] = 'true'
-    expect(dsc_xmppreference[:dsc_disablerestorepoint]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablerestorepoint]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disablerestorepoint" do
     dsc_xmppreference[:dsc_disablerestorepoint] = 'false'
-    expect(dsc_xmppreference[:dsc_disablerestorepoint]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablerestorepoint]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disablerestorepoint" do
     dsc_xmppreference[:dsc_disablerestorepoint] = 'True'
-    expect(dsc_xmppreference[:dsc_disablerestorepoint]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablerestorepoint]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disablerestorepoint" do
     dsc_xmppreference[:dsc_disablerestorepoint] = 'False'
-    expect(dsc_xmppreference[:dsc_disablerestorepoint]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablerestorepoint]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disablerestorepoint" do
     dsc_xmppreference[:dsc_disablerestorepoint] = :true
-    expect(dsc_xmppreference[:dsc_disablerestorepoint]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablerestorepoint]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disablerestorepoint" do
     dsc_xmppreference[:dsc_disablerestorepoint] = :false
-    expect(dsc_xmppreference[:dsc_disablerestorepoint]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablerestorepoint]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disablerestorepoint' do
@@ -1857,39 +1772,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disablescanningmappednetworkdrivesforfullscan' do
-    dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan] = true
-    expect(dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disablescanningmappednetworkdrivesforfullscan" do
     dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan] = 'true'
-    expect(dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disablescanningmappednetworkdrivesforfullscan" do
     dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan] = 'false'
-    expect(dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disablescanningmappednetworkdrivesforfullscan" do
     dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan] = 'True'
-    expect(dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disablescanningmappednetworkdrivesforfullscan" do
     dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan] = 'False'
-    expect(dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disablescanningmappednetworkdrivesforfullscan" do
     dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan] = :true
-    expect(dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disablescanningmappednetworkdrivesforfullscan" do
     dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan] = :false
-    expect(dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disablescanningmappednetworkdrivesforfullscan' do
@@ -1904,39 +1814,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablescanningnetworkfiles] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_disablescanningnetworkfiles' do
-    dsc_xmppreference[:dsc_disablescanningnetworkfiles] = true
-    expect(dsc_xmppreference[:dsc_disablescanningnetworkfiles]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_disablescanningnetworkfiles" do
     dsc_xmppreference[:dsc_disablescanningnetworkfiles] = 'true'
-    expect(dsc_xmppreference[:dsc_disablescanningnetworkfiles]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablescanningnetworkfiles]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_disablescanningnetworkfiles" do
     dsc_xmppreference[:dsc_disablescanningnetworkfiles] = 'false'
-    expect(dsc_xmppreference[:dsc_disablescanningnetworkfiles]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablescanningnetworkfiles]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_disablescanningnetworkfiles" do
     dsc_xmppreference[:dsc_disablescanningnetworkfiles] = 'True'
-    expect(dsc_xmppreference[:dsc_disablescanningnetworkfiles]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablescanningnetworkfiles]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_disablescanningnetworkfiles" do
     dsc_xmppreference[:dsc_disablescanningnetworkfiles] = 'False'
-    expect(dsc_xmppreference[:dsc_disablescanningnetworkfiles]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablescanningnetworkfiles]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_disablescanningnetworkfiles" do
     dsc_xmppreference[:dsc_disablescanningnetworkfiles] = :true
-    expect(dsc_xmppreference[:dsc_disablescanningnetworkfiles]).to eq(true)
+    expect(dsc_xmppreference[:dsc_disablescanningnetworkfiles]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_disablescanningnetworkfiles" do
     dsc_xmppreference[:dsc_disablescanningnetworkfiles] = :false
-    expect(dsc_xmppreference[:dsc_disablescanningnetworkfiles]).to eq(false)
+    expect(dsc_xmppreference[:dsc_disablescanningnetworkfiles]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_disablescanningnetworkfiles' do
@@ -1951,39 +1856,34 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_uilockdown] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_uilockdown' do
-    dsc_xmppreference[:dsc_uilockdown] = true
-    expect(dsc_xmppreference[:dsc_uilockdown]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_uilockdown" do
     dsc_xmppreference[:dsc_uilockdown] = 'true'
-    expect(dsc_xmppreference[:dsc_uilockdown]).to eq(true)
+    expect(dsc_xmppreference[:dsc_uilockdown]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_uilockdown" do
     dsc_xmppreference[:dsc_uilockdown] = 'false'
-    expect(dsc_xmppreference[:dsc_uilockdown]).to eq(false)
+    expect(dsc_xmppreference[:dsc_uilockdown]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_uilockdown" do
     dsc_xmppreference[:dsc_uilockdown] = 'True'
-    expect(dsc_xmppreference[:dsc_uilockdown]).to eq(true)
+    expect(dsc_xmppreference[:dsc_uilockdown]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_uilockdown" do
     dsc_xmppreference[:dsc_uilockdown] = 'False'
-    expect(dsc_xmppreference[:dsc_uilockdown]).to eq(false)
+    expect(dsc_xmppreference[:dsc_uilockdown]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_uilockdown" do
     dsc_xmppreference[:dsc_uilockdown] = :true
-    expect(dsc_xmppreference[:dsc_uilockdown]).to eq(true)
+    expect(dsc_xmppreference[:dsc_uilockdown]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_uilockdown" do
     dsc_xmppreference[:dsc_uilockdown] = :false
-    expect(dsc_xmppreference[:dsc_uilockdown]).to eq(false)
+    expect(dsc_xmppreference[:dsc_uilockdown]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_uilockdown' do

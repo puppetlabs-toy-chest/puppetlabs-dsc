@@ -127,39 +127,34 @@ describe Puppet::Type.type(:dsc_spshelladmins) do
     expect{dsc_spshelladmins[:dsc_allcontentdatabases] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allcontentdatabases' do
-    dsc_spshelladmins[:dsc_allcontentdatabases] = true
-    expect(dsc_spshelladmins[:dsc_allcontentdatabases]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allcontentdatabases" do
     dsc_spshelladmins[:dsc_allcontentdatabases] = 'true'
-    expect(dsc_spshelladmins[:dsc_allcontentdatabases]).to eq(true)
+    expect(dsc_spshelladmins[:dsc_allcontentdatabases]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allcontentdatabases" do
     dsc_spshelladmins[:dsc_allcontentdatabases] = 'false'
-    expect(dsc_spshelladmins[:dsc_allcontentdatabases]).to eq(false)
+    expect(dsc_spshelladmins[:dsc_allcontentdatabases]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allcontentdatabases" do
     dsc_spshelladmins[:dsc_allcontentdatabases] = 'True'
-    expect(dsc_spshelladmins[:dsc_allcontentdatabases]).to eq(true)
+    expect(dsc_spshelladmins[:dsc_allcontentdatabases]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allcontentdatabases" do
     dsc_spshelladmins[:dsc_allcontentdatabases] = 'False'
-    expect(dsc_spshelladmins[:dsc_allcontentdatabases]).to eq(false)
+    expect(dsc_spshelladmins[:dsc_allcontentdatabases]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allcontentdatabases" do
     dsc_spshelladmins[:dsc_allcontentdatabases] = :true
-    expect(dsc_spshelladmins[:dsc_allcontentdatabases]).to eq(true)
+    expect(dsc_spshelladmins[:dsc_allcontentdatabases]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allcontentdatabases" do
     dsc_spshelladmins[:dsc_allcontentdatabases] = :false
-    expect(dsc_spshelladmins[:dsc_allcontentdatabases]).to eq(false)
+    expect(dsc_spshelladmins[:dsc_allcontentdatabases]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allcontentdatabases' do

@@ -212,39 +212,34 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_firstmanagementserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_firstmanagementserver' do
-    dsc_xscommanagementserversetup[:dsc_firstmanagementserver] = true
-    expect(dsc_xscommanagementserversetup[:dsc_firstmanagementserver]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_firstmanagementserver" do
     dsc_xscommanagementserversetup[:dsc_firstmanagementserver] = 'true'
-    expect(dsc_xscommanagementserversetup[:dsc_firstmanagementserver]).to eq(true)
+    expect(dsc_xscommanagementserversetup[:dsc_firstmanagementserver]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_firstmanagementserver" do
     dsc_xscommanagementserversetup[:dsc_firstmanagementserver] = 'false'
-    expect(dsc_xscommanagementserversetup[:dsc_firstmanagementserver]).to eq(false)
+    expect(dsc_xscommanagementserversetup[:dsc_firstmanagementserver]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_firstmanagementserver" do
     dsc_xscommanagementserversetup[:dsc_firstmanagementserver] = 'True'
-    expect(dsc_xscommanagementserversetup[:dsc_firstmanagementserver]).to eq(true)
+    expect(dsc_xscommanagementserversetup[:dsc_firstmanagementserver]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_firstmanagementserver" do
     dsc_xscommanagementserversetup[:dsc_firstmanagementserver] = 'False'
-    expect(dsc_xscommanagementserversetup[:dsc_firstmanagementserver]).to eq(false)
+    expect(dsc_xscommanagementserversetup[:dsc_firstmanagementserver]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_firstmanagementserver" do
     dsc_xscommanagementserversetup[:dsc_firstmanagementserver] = :true
-    expect(dsc_xscommanagementserversetup[:dsc_firstmanagementserver]).to eq(true)
+    expect(dsc_xscommanagementserversetup[:dsc_firstmanagementserver]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_firstmanagementserver" do
     dsc_xscommanagementserversetup[:dsc_firstmanagementserver] = :false
-    expect(dsc_xscommanagementserversetup[:dsc_firstmanagementserver]).to eq(false)
+    expect(dsc_xscommanagementserversetup[:dsc_firstmanagementserver]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_firstmanagementserver' do

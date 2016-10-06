@@ -257,39 +257,34 @@ describe Puppet::Type.type(:dsc_xwebapplication) do
     expect{dsc_xwebapplication[:dsc_preloadenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_preloadenabled' do
-    dsc_xwebapplication[:dsc_preloadenabled] = true
-    expect(dsc_xwebapplication[:dsc_preloadenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_preloadenabled" do
     dsc_xwebapplication[:dsc_preloadenabled] = 'true'
-    expect(dsc_xwebapplication[:dsc_preloadenabled]).to eq(true)
+    expect(dsc_xwebapplication[:dsc_preloadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_preloadenabled" do
     dsc_xwebapplication[:dsc_preloadenabled] = 'false'
-    expect(dsc_xwebapplication[:dsc_preloadenabled]).to eq(false)
+    expect(dsc_xwebapplication[:dsc_preloadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_preloadenabled" do
     dsc_xwebapplication[:dsc_preloadenabled] = 'True'
-    expect(dsc_xwebapplication[:dsc_preloadenabled]).to eq(true)
+    expect(dsc_xwebapplication[:dsc_preloadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_preloadenabled" do
     dsc_xwebapplication[:dsc_preloadenabled] = 'False'
-    expect(dsc_xwebapplication[:dsc_preloadenabled]).to eq(false)
+    expect(dsc_xwebapplication[:dsc_preloadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_preloadenabled" do
     dsc_xwebapplication[:dsc_preloadenabled] = :true
-    expect(dsc_xwebapplication[:dsc_preloadenabled]).to eq(true)
+    expect(dsc_xwebapplication[:dsc_preloadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_preloadenabled" do
     dsc_xwebapplication[:dsc_preloadenabled] = :false
-    expect(dsc_xwebapplication[:dsc_preloadenabled]).to eq(false)
+    expect(dsc_xwebapplication[:dsc_preloadenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_preloadenabled' do
@@ -304,39 +299,34 @@ describe Puppet::Type.type(:dsc_xwebapplication) do
     expect{dsc_xwebapplication[:dsc_serviceautostartenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_serviceautostartenabled' do
-    dsc_xwebapplication[:dsc_serviceautostartenabled] = true
-    expect(dsc_xwebapplication[:dsc_serviceautostartenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_serviceautostartenabled" do
     dsc_xwebapplication[:dsc_serviceautostartenabled] = 'true'
-    expect(dsc_xwebapplication[:dsc_serviceautostartenabled]).to eq(true)
+    expect(dsc_xwebapplication[:dsc_serviceautostartenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_serviceautostartenabled" do
     dsc_xwebapplication[:dsc_serviceautostartenabled] = 'false'
-    expect(dsc_xwebapplication[:dsc_serviceautostartenabled]).to eq(false)
+    expect(dsc_xwebapplication[:dsc_serviceautostartenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_serviceautostartenabled" do
     dsc_xwebapplication[:dsc_serviceautostartenabled] = 'True'
-    expect(dsc_xwebapplication[:dsc_serviceautostartenabled]).to eq(true)
+    expect(dsc_xwebapplication[:dsc_serviceautostartenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_serviceautostartenabled" do
     dsc_xwebapplication[:dsc_serviceautostartenabled] = 'False'
-    expect(dsc_xwebapplication[:dsc_serviceautostartenabled]).to eq(false)
+    expect(dsc_xwebapplication[:dsc_serviceautostartenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_serviceautostartenabled" do
     dsc_xwebapplication[:dsc_serviceautostartenabled] = :true
-    expect(dsc_xwebapplication[:dsc_serviceautostartenabled]).to eq(true)
+    expect(dsc_xwebapplication[:dsc_serviceautostartenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_serviceautostartenabled" do
     dsc_xwebapplication[:dsc_serviceautostartenabled] = :false
-    expect(dsc_xwebapplication[:dsc_serviceautostartenabled]).to eq(false)
+    expect(dsc_xwebapplication[:dsc_serviceautostartenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_serviceautostartenabled' do

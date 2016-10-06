@@ -87,39 +87,34 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
     expect{dsc_xwineventlog[:dsc_isenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_isenabled' do
-    dsc_xwineventlog[:dsc_isenabled] = true
-    expect(dsc_xwineventlog[:dsc_isenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_isenabled" do
     dsc_xwineventlog[:dsc_isenabled] = 'true'
-    expect(dsc_xwineventlog[:dsc_isenabled]).to eq(true)
+    expect(dsc_xwineventlog[:dsc_isenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_isenabled" do
     dsc_xwineventlog[:dsc_isenabled] = 'false'
-    expect(dsc_xwineventlog[:dsc_isenabled]).to eq(false)
+    expect(dsc_xwineventlog[:dsc_isenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_isenabled" do
     dsc_xwineventlog[:dsc_isenabled] = 'True'
-    expect(dsc_xwineventlog[:dsc_isenabled]).to eq(true)
+    expect(dsc_xwineventlog[:dsc_isenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_isenabled" do
     dsc_xwineventlog[:dsc_isenabled] = 'False'
-    expect(dsc_xwineventlog[:dsc_isenabled]).to eq(false)
+    expect(dsc_xwineventlog[:dsc_isenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_isenabled" do
     dsc_xwineventlog[:dsc_isenabled] = :true
-    expect(dsc_xwineventlog[:dsc_isenabled]).to eq(true)
+    expect(dsc_xwineventlog[:dsc_isenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_isenabled" do
     dsc_xwineventlog[:dsc_isenabled] = :false
-    expect(dsc_xwineventlog[:dsc_isenabled]).to eq(false)
+    expect(dsc_xwineventlog[:dsc_isenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_isenabled' do

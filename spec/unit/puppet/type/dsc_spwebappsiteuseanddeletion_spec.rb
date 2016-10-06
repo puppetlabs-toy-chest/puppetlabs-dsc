@@ -53,39 +53,34 @@ describe Puppet::Type.type(:dsc_spwebappsiteuseanddeletion) do
     expect{dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_sendunusedsitecollectionnotifications' do
-    dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications] = true
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_sendunusedsitecollectionnotifications" do
     dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications] = 'true'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications]).to eq(true)
+    expect(dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_sendunusedsitecollectionnotifications" do
     dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications] = 'false'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications]).to eq(false)
+    expect(dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_sendunusedsitecollectionnotifications" do
     dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications] = 'True'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications]).to eq(true)
+    expect(dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_sendunusedsitecollectionnotifications" do
     dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications] = 'False'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications]).to eq(false)
+    expect(dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_sendunusedsitecollectionnotifications" do
     dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications] = :true
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications]).to eq(true)
+    expect(dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_sendunusedsitecollectionnotifications" do
     dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications] = :false
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications]).to eq(false)
+    expect(dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_sendunusedsitecollectionnotifications' do
@@ -134,39 +129,34 @@ describe Puppet::Type.type(:dsc_spwebappsiteuseanddeletion) do
     expect{dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_automaticallydeleteunusedsitecollections' do
-    dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections] = true
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_automaticallydeleteunusedsitecollections" do
     dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections] = 'true'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections]).to eq(true)
+    expect(dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_automaticallydeleteunusedsitecollections" do
     dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections] = 'false'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections]).to eq(false)
+    expect(dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_automaticallydeleteunusedsitecollections" do
     dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections] = 'True'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections]).to eq(true)
+    expect(dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_automaticallydeleteunusedsitecollections" do
     dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections] = 'False'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections]).to eq(false)
+    expect(dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_automaticallydeleteunusedsitecollections" do
     dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections] = :true
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections]).to eq(true)
+    expect(dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_automaticallydeleteunusedsitecollections" do
     dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections] = :false
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections]).to eq(false)
+    expect(dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_automaticallydeleteunusedsitecollections' do

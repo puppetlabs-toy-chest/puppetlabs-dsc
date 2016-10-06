@@ -87,39 +87,34 @@ describe Puppet::Type.type(:dsc_xexchjetstresscleanup) do
     expect{dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_deleteassociatedmountpoints' do
-    dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints] = true
-    expect(dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_deleteassociatedmountpoints" do
     dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints] = 'true'
-    expect(dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints]).to eq(true)
+    expect(dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_deleteassociatedmountpoints" do
     dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints] = 'false'
-    expect(dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints]).to eq(false)
+    expect(dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_deleteassociatedmountpoints" do
     dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints] = 'True'
-    expect(dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints]).to eq(true)
+    expect(dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_deleteassociatedmountpoints" do
     dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints] = 'False'
-    expect(dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints]).to eq(false)
+    expect(dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_deleteassociatedmountpoints" do
     dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints] = :true
-    expect(dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints]).to eq(true)
+    expect(dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_deleteassociatedmountpoints" do
     dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints] = :false
-    expect(dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints]).to eq(false)
+    expect(dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_deleteassociatedmountpoints' do
@@ -167,39 +162,34 @@ describe Puppet::Type.type(:dsc_xexchjetstresscleanup) do
     expect{dsc_xexchjetstresscleanup[:dsc_removebinaries] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_removebinaries' do
-    dsc_xexchjetstresscleanup[:dsc_removebinaries] = true
-    expect(dsc_xexchjetstresscleanup[:dsc_removebinaries]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_removebinaries" do
     dsc_xexchjetstresscleanup[:dsc_removebinaries] = 'true'
-    expect(dsc_xexchjetstresscleanup[:dsc_removebinaries]).to eq(true)
+    expect(dsc_xexchjetstresscleanup[:dsc_removebinaries]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_removebinaries" do
     dsc_xexchjetstresscleanup[:dsc_removebinaries] = 'false'
-    expect(dsc_xexchjetstresscleanup[:dsc_removebinaries]).to eq(false)
+    expect(dsc_xexchjetstresscleanup[:dsc_removebinaries]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_removebinaries" do
     dsc_xexchjetstresscleanup[:dsc_removebinaries] = 'True'
-    expect(dsc_xexchjetstresscleanup[:dsc_removebinaries]).to eq(true)
+    expect(dsc_xexchjetstresscleanup[:dsc_removebinaries]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_removebinaries" do
     dsc_xexchjetstresscleanup[:dsc_removebinaries] = 'False'
-    expect(dsc_xexchjetstresscleanup[:dsc_removebinaries]).to eq(false)
+    expect(dsc_xexchjetstresscleanup[:dsc_removebinaries]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_removebinaries" do
     dsc_xexchjetstresscleanup[:dsc_removebinaries] = :true
-    expect(dsc_xexchjetstresscleanup[:dsc_removebinaries]).to eq(true)
+    expect(dsc_xexchjetstresscleanup[:dsc_removebinaries]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_removebinaries" do
     dsc_xexchjetstresscleanup[:dsc_removebinaries] = :false
-    expect(dsc_xexchjetstresscleanup[:dsc_removebinaries]).to eq(false)
+    expect(dsc_xexchjetstresscleanup[:dsc_removebinaries]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_removebinaries' do

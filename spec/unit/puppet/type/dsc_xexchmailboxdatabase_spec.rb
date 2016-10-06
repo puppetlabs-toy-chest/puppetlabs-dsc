@@ -196,39 +196,34 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_skipinitialdatabasemount' do
-    dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount] = true
-    expect(dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_skipinitialdatabasemount" do
     dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount] = 'true'
-    expect(dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_skipinitialdatabasemount" do
     dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount] = 'false'
-    expect(dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_skipinitialdatabasemount" do
     dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount] = 'True'
-    expect(dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_skipinitialdatabasemount" do
     dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount] = 'False'
-    expect(dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_skipinitialdatabasemount" do
     dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount] = :true
-    expect(dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_skipinitialdatabasemount" do
     dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount] = :false
-    expect(dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_skipinitialdatabasemount' do
@@ -243,39 +238,34 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_allowservicerestart] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_allowservicerestart' do
-    dsc_xexchmailboxdatabase[:dsc_allowservicerestart] = true
-    expect(dsc_xexchmailboxdatabase[:dsc_allowservicerestart]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchmailboxdatabase[:dsc_allowservicerestart] = 'true'
-    expect(dsc_xexchmailboxdatabase[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchmailboxdatabase[:dsc_allowservicerestart] = 'false'
-    expect(dsc_xexchmailboxdatabase[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchmailboxdatabase[:dsc_allowservicerestart] = 'True'
-    expect(dsc_xexchmailboxdatabase[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchmailboxdatabase[:dsc_allowservicerestart] = 'False'
-    expect(dsc_xexchmailboxdatabase[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchmailboxdatabase[:dsc_allowservicerestart] = :true
-    expect(dsc_xexchmailboxdatabase[:dsc_allowservicerestart]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_allowservicerestart" do
     dsc_xexchmailboxdatabase[:dsc_allowservicerestart] = :false
-    expect(dsc_xexchmailboxdatabase[:dsc_allowservicerestart]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_allowservicerestart]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_allowservicerestart' do
@@ -290,39 +280,34 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_autodagexcludefrommonitoring' do
-    dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring] = true
-    expect(dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_autodagexcludefrommonitoring" do
     dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring] = 'true'
-    expect(dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_autodagexcludefrommonitoring" do
     dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring] = 'false'
-    expect(dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_autodagexcludefrommonitoring" do
     dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring] = 'True'
-    expect(dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_autodagexcludefrommonitoring" do
     dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring] = 'False'
-    expect(dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_autodagexcludefrommonitoring" do
     dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring] = :true
-    expect(dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_autodagexcludefrommonitoring" do
     dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring] = :false
-    expect(dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_autodagexcludefrommonitoring' do
@@ -337,39 +322,34 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_backgrounddatabasemaintenance' do
-    dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance] = true
-    expect(dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_backgrounddatabasemaintenance" do
     dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance] = 'true'
-    expect(dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_backgrounddatabasemaintenance" do
     dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance] = 'false'
-    expect(dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_backgrounddatabasemaintenance" do
     dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance] = 'True'
-    expect(dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_backgrounddatabasemaintenance" do
     dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance] = 'False'
-    expect(dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_backgrounddatabasemaintenance" do
     dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance] = :true
-    expect(dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_backgrounddatabasemaintenance" do
     dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance] = :false
-    expect(dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_backgrounddatabasemaintenance' do
@@ -400,39 +380,34 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_circularloggingenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_circularloggingenabled' do
-    dsc_xexchmailboxdatabase[:dsc_circularloggingenabled] = true
-    expect(dsc_xexchmailboxdatabase[:dsc_circularloggingenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_circularloggingenabled" do
     dsc_xexchmailboxdatabase[:dsc_circularloggingenabled] = 'true'
-    expect(dsc_xexchmailboxdatabase[:dsc_circularloggingenabled]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_circularloggingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_circularloggingenabled" do
     dsc_xexchmailboxdatabase[:dsc_circularloggingenabled] = 'false'
-    expect(dsc_xexchmailboxdatabase[:dsc_circularloggingenabled]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_circularloggingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_circularloggingenabled" do
     dsc_xexchmailboxdatabase[:dsc_circularloggingenabled] = 'True'
-    expect(dsc_xexchmailboxdatabase[:dsc_circularloggingenabled]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_circularloggingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_circularloggingenabled" do
     dsc_xexchmailboxdatabase[:dsc_circularloggingenabled] = 'False'
-    expect(dsc_xexchmailboxdatabase[:dsc_circularloggingenabled]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_circularloggingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_circularloggingenabled" do
     dsc_xexchmailboxdatabase[:dsc_circularloggingenabled] = :true
-    expect(dsc_xexchmailboxdatabase[:dsc_circularloggingenabled]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_circularloggingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_circularloggingenabled" do
     dsc_xexchmailboxdatabase[:dsc_circularloggingenabled] = :false
-    expect(dsc_xexchmailboxdatabase[:dsc_circularloggingenabled]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_circularloggingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_circularloggingenabled' do
@@ -565,39 +540,34 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_indexenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_indexenabled' do
-    dsc_xexchmailboxdatabase[:dsc_indexenabled] = true
-    expect(dsc_xexchmailboxdatabase[:dsc_indexenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_indexenabled" do
     dsc_xexchmailboxdatabase[:dsc_indexenabled] = 'true'
-    expect(dsc_xexchmailboxdatabase[:dsc_indexenabled]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_indexenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_indexenabled" do
     dsc_xexchmailboxdatabase[:dsc_indexenabled] = 'false'
-    expect(dsc_xexchmailboxdatabase[:dsc_indexenabled]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_indexenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_indexenabled" do
     dsc_xexchmailboxdatabase[:dsc_indexenabled] = 'True'
-    expect(dsc_xexchmailboxdatabase[:dsc_indexenabled]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_indexenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_indexenabled" do
     dsc_xexchmailboxdatabase[:dsc_indexenabled] = 'False'
-    expect(dsc_xexchmailboxdatabase[:dsc_indexenabled]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_indexenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_indexenabled" do
     dsc_xexchmailboxdatabase[:dsc_indexenabled] = :true
-    expect(dsc_xexchmailboxdatabase[:dsc_indexenabled]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_indexenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_indexenabled" do
     dsc_xexchmailboxdatabase[:dsc_indexenabled] = :false
-    expect(dsc_xexchmailboxdatabase[:dsc_indexenabled]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_indexenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_indexenabled' do
@@ -612,39 +582,34 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_isexcludedfromprovisioning' do
-    dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning] = true
-    expect(dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_isexcludedfromprovisioning" do
     dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning] = 'true'
-    expect(dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_isexcludedfromprovisioning" do
     dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning] = 'false'
-    expect(dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_isexcludedfromprovisioning" do
     dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning] = 'True'
-    expect(dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_isexcludedfromprovisioning" do
     dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning] = 'False'
-    expect(dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_isexcludedfromprovisioning" do
     dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning] = :true
-    expect(dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_isexcludedfromprovisioning" do
     dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning] = :false
-    expect(dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_isexcludedfromprovisioning' do
@@ -691,39 +656,34 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_issuspendedfromprovisioning' do
-    dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning] = true
-    expect(dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_issuspendedfromprovisioning" do
     dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning] = 'true'
-    expect(dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_issuspendedfromprovisioning" do
     dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning] = 'false'
-    expect(dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_issuspendedfromprovisioning" do
     dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning] = 'True'
-    expect(dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_issuspendedfromprovisioning" do
     dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning] = 'False'
-    expect(dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_issuspendedfromprovisioning" do
     dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning] = :true
-    expect(dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_issuspendedfromprovisioning" do
     dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning] = :false
-    expect(dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_issuspendedfromprovisioning' do
@@ -770,39 +730,34 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_mountatstartup] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_mountatstartup' do
-    dsc_xexchmailboxdatabase[:dsc_mountatstartup] = true
-    expect(dsc_xexchmailboxdatabase[:dsc_mountatstartup]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_mountatstartup" do
     dsc_xexchmailboxdatabase[:dsc_mountatstartup] = 'true'
-    expect(dsc_xexchmailboxdatabase[:dsc_mountatstartup]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_mountatstartup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_mountatstartup" do
     dsc_xexchmailboxdatabase[:dsc_mountatstartup] = 'false'
-    expect(dsc_xexchmailboxdatabase[:dsc_mountatstartup]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_mountatstartup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_mountatstartup" do
     dsc_xexchmailboxdatabase[:dsc_mountatstartup] = 'True'
-    expect(dsc_xexchmailboxdatabase[:dsc_mountatstartup]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_mountatstartup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_mountatstartup" do
     dsc_xexchmailboxdatabase[:dsc_mountatstartup] = 'False'
-    expect(dsc_xexchmailboxdatabase[:dsc_mountatstartup]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_mountatstartup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_mountatstartup" do
     dsc_xexchmailboxdatabase[:dsc_mountatstartup] = :true
-    expect(dsc_xexchmailboxdatabase[:dsc_mountatstartup]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_mountatstartup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_mountatstartup" do
     dsc_xexchmailboxdatabase[:dsc_mountatstartup] = :false
-    expect(dsc_xexchmailboxdatabase[:dsc_mountatstartup]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_mountatstartup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_mountatstartup' do
@@ -897,39 +852,34 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_retaindeleteditemsuntilbackup' do
-    dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup] = true
-    expect(dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_retaindeleteditemsuntilbackup" do
     dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup] = 'true'
-    expect(dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_retaindeleteditemsuntilbackup" do
     dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup] = 'false'
-    expect(dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_retaindeleteditemsuntilbackup" do
     dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup] = 'True'
-    expect(dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_retaindeleteditemsuntilbackup" do
     dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup] = 'False'
-    expect(dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_retaindeleteditemsuntilbackup" do
     dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup] = :true
-    expect(dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup]).to eq(true)
+    expect(dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_retaindeleteditemsuntilbackup" do
     dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup] = :false
-    expect(dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup]).to eq(false)
+    expect(dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_retaindeleteditemsuntilbackup' do

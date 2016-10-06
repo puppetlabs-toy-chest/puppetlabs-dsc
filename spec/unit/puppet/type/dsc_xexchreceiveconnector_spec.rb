@@ -175,39 +175,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_advertiseclientsettings] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_advertiseclientsettings' do
-    dsc_xexchreceiveconnector[:dsc_advertiseclientsettings] = true
-    expect(dsc_xexchreceiveconnector[:dsc_advertiseclientsettings]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_advertiseclientsettings" do
     dsc_xexchreceiveconnector[:dsc_advertiseclientsettings] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_advertiseclientsettings]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_advertiseclientsettings]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_advertiseclientsettings" do
     dsc_xexchreceiveconnector[:dsc_advertiseclientsettings] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_advertiseclientsettings]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_advertiseclientsettings]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_advertiseclientsettings" do
     dsc_xexchreceiveconnector[:dsc_advertiseclientsettings] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_advertiseclientsettings]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_advertiseclientsettings]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_advertiseclientsettings" do
     dsc_xexchreceiveconnector[:dsc_advertiseclientsettings] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_advertiseclientsettings]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_advertiseclientsettings]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_advertiseclientsettings" do
     dsc_xexchreceiveconnector[:dsc_advertiseclientsettings] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_advertiseclientsettings]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_advertiseclientsettings]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_advertiseclientsettings" do
     dsc_xexchreceiveconnector[:dsc_advertiseclientsettings] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_advertiseclientsettings]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_advertiseclientsettings]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_advertiseclientsettings' do
@@ -255,39 +250,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_barelinefeedrejectionenabled' do
-    dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled] = true
-    expect(dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_barelinefeedrejectionenabled" do
     dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_barelinefeedrejectionenabled" do
     dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_barelinefeedrejectionenabled" do
     dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_barelinefeedrejectionenabled" do
     dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_barelinefeedrejectionenabled" do
     dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_barelinefeedrejectionenabled" do
     dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_barelinefeedrejectionenabled' do
@@ -302,39 +292,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_binarymimeenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_binarymimeenabled' do
-    dsc_xexchreceiveconnector[:dsc_binarymimeenabled] = true
-    expect(dsc_xexchreceiveconnector[:dsc_binarymimeenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_binarymimeenabled" do
     dsc_xexchreceiveconnector[:dsc_binarymimeenabled] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_binarymimeenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_binarymimeenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_binarymimeenabled" do
     dsc_xexchreceiveconnector[:dsc_binarymimeenabled] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_binarymimeenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_binarymimeenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_binarymimeenabled" do
     dsc_xexchreceiveconnector[:dsc_binarymimeenabled] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_binarymimeenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_binarymimeenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_binarymimeenabled" do
     dsc_xexchreceiveconnector[:dsc_binarymimeenabled] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_binarymimeenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_binarymimeenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_binarymimeenabled" do
     dsc_xexchreceiveconnector[:dsc_binarymimeenabled] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_binarymimeenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_binarymimeenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_binarymimeenabled" do
     dsc_xexchreceiveconnector[:dsc_binarymimeenabled] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_binarymimeenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_binarymimeenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_binarymimeenabled' do
@@ -366,39 +351,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_chunkingenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_chunkingenabled' do
-    dsc_xexchreceiveconnector[:dsc_chunkingenabled] = true
-    expect(dsc_xexchreceiveconnector[:dsc_chunkingenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_chunkingenabled" do
     dsc_xexchreceiveconnector[:dsc_chunkingenabled] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_chunkingenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_chunkingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_chunkingenabled" do
     dsc_xexchreceiveconnector[:dsc_chunkingenabled] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_chunkingenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_chunkingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_chunkingenabled" do
     dsc_xexchreceiveconnector[:dsc_chunkingenabled] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_chunkingenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_chunkingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_chunkingenabled" do
     dsc_xexchreceiveconnector[:dsc_chunkingenabled] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_chunkingenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_chunkingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_chunkingenabled" do
     dsc_xexchreceiveconnector[:dsc_chunkingenabled] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_chunkingenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_chunkingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_chunkingenabled" do
     dsc_xexchreceiveconnector[:dsc_chunkingenabled] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_chunkingenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_chunkingenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_chunkingenabled' do
@@ -477,39 +457,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_deliverystatusnotificationenabled' do
-    dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled] = true
-    expect(dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_deliverystatusnotificationenabled" do
     dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_deliverystatusnotificationenabled" do
     dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_deliverystatusnotificationenabled" do
     dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_deliverystatusnotificationenabled" do
     dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_deliverystatusnotificationenabled" do
     dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_deliverystatusnotificationenabled" do
     dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_deliverystatusnotificationenabled' do
@@ -540,39 +515,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_domainsecureenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_domainsecureenabled' do
-    dsc_xexchreceiveconnector[:dsc_domainsecureenabled] = true
-    expect(dsc_xexchreceiveconnector[:dsc_domainsecureenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_domainsecureenabled" do
     dsc_xexchreceiveconnector[:dsc_domainsecureenabled] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_domainsecureenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_domainsecureenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_domainsecureenabled" do
     dsc_xexchreceiveconnector[:dsc_domainsecureenabled] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_domainsecureenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_domainsecureenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_domainsecureenabled" do
     dsc_xexchreceiveconnector[:dsc_domainsecureenabled] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_domainsecureenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_domainsecureenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_domainsecureenabled" do
     dsc_xexchreceiveconnector[:dsc_domainsecureenabled] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_domainsecureenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_domainsecureenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_domainsecureenabled" do
     dsc_xexchreceiveconnector[:dsc_domainsecureenabled] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_domainsecureenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_domainsecureenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_domainsecureenabled" do
     dsc_xexchreceiveconnector[:dsc_domainsecureenabled] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_domainsecureenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_domainsecureenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_domainsecureenabled' do
@@ -587,39 +557,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_eightbitmimeenabled' do
-    dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled] = true
-    expect(dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_eightbitmimeenabled" do
     dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_eightbitmimeenabled" do
     dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_eightbitmimeenabled" do
     dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_eightbitmimeenabled" do
     dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_eightbitmimeenabled" do
     dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_eightbitmimeenabled" do
     dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_eightbitmimeenabled' do
@@ -634,39 +599,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_enableauthgssapi] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enableauthgssapi' do
-    dsc_xexchreceiveconnector[:dsc_enableauthgssapi] = true
-    expect(dsc_xexchreceiveconnector[:dsc_enableauthgssapi]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enableauthgssapi" do
     dsc_xexchreceiveconnector[:dsc_enableauthgssapi] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_enableauthgssapi]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_enableauthgssapi]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enableauthgssapi" do
     dsc_xexchreceiveconnector[:dsc_enableauthgssapi] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_enableauthgssapi]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_enableauthgssapi]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enableauthgssapi" do
     dsc_xexchreceiveconnector[:dsc_enableauthgssapi] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_enableauthgssapi]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_enableauthgssapi]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enableauthgssapi" do
     dsc_xexchreceiveconnector[:dsc_enableauthgssapi] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_enableauthgssapi]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_enableauthgssapi]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enableauthgssapi" do
     dsc_xexchreceiveconnector[:dsc_enableauthgssapi] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_enableauthgssapi]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_enableauthgssapi]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enableauthgssapi" do
     dsc_xexchreceiveconnector[:dsc_enableauthgssapi] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_enableauthgssapi]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_enableauthgssapi]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enableauthgssapi' do
@@ -681,39 +641,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_enabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enabled' do
-    dsc_xexchreceiveconnector[:dsc_enabled] = true
-    expect(dsc_xexchreceiveconnector[:dsc_enabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enabled" do
     dsc_xexchreceiveconnector[:dsc_enabled] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_enabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enabled" do
     dsc_xexchreceiveconnector[:dsc_enabled] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_enabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enabled" do
     dsc_xexchreceiveconnector[:dsc_enabled] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_enabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enabled" do
     dsc_xexchreceiveconnector[:dsc_enabled] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_enabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enabled" do
     dsc_xexchreceiveconnector[:dsc_enabled] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_enabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enabled" do
     dsc_xexchreceiveconnector[:dsc_enabled] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_enabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_enabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enabled' do
@@ -728,39 +683,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enhancedstatuscodesenabled' do
-    dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled] = true
-    expect(dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enhancedstatuscodesenabled" do
     dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enhancedstatuscodesenabled" do
     dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enhancedstatuscodesenabled" do
     dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enhancedstatuscodesenabled" do
     dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enhancedstatuscodesenabled" do
     dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enhancedstatuscodesenabled" do
     dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enhancedstatuscodesenabled' do
@@ -875,39 +825,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_longaddressesenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_longaddressesenabled' do
-    dsc_xexchreceiveconnector[:dsc_longaddressesenabled] = true
-    expect(dsc_xexchreceiveconnector[:dsc_longaddressesenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_longaddressesenabled" do
     dsc_xexchreceiveconnector[:dsc_longaddressesenabled] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_longaddressesenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_longaddressesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_longaddressesenabled" do
     dsc_xexchreceiveconnector[:dsc_longaddressesenabled] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_longaddressesenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_longaddressesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_longaddressesenabled" do
     dsc_xexchreceiveconnector[:dsc_longaddressesenabled] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_longaddressesenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_longaddressesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_longaddressesenabled" do
     dsc_xexchreceiveconnector[:dsc_longaddressesenabled] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_longaddressesenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_longaddressesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_longaddressesenabled" do
     dsc_xexchreceiveconnector[:dsc_longaddressesenabled] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_longaddressesenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_longaddressesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_longaddressesenabled" do
     dsc_xexchreceiveconnector[:dsc_longaddressesenabled] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_longaddressesenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_longaddressesenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_longaddressesenabled' do
@@ -1264,39 +1209,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_orarenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_orarenabled' do
-    dsc_xexchreceiveconnector[:dsc_orarenabled] = true
-    expect(dsc_xexchreceiveconnector[:dsc_orarenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_orarenabled" do
     dsc_xexchreceiveconnector[:dsc_orarenabled] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_orarenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_orarenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_orarenabled" do
     dsc_xexchreceiveconnector[:dsc_orarenabled] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_orarenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_orarenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_orarenabled" do
     dsc_xexchreceiveconnector[:dsc_orarenabled] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_orarenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_orarenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_orarenabled" do
     dsc_xexchreceiveconnector[:dsc_orarenabled] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_orarenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_orarenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_orarenabled" do
     dsc_xexchreceiveconnector[:dsc_orarenabled] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_orarenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_orarenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_orarenabled" do
     dsc_xexchreceiveconnector[:dsc_orarenabled] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_orarenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_orarenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_orarenabled' do
@@ -1328,39 +1268,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_pipeliningenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_pipeliningenabled' do
-    dsc_xexchreceiveconnector[:dsc_pipeliningenabled] = true
-    expect(dsc_xexchreceiveconnector[:dsc_pipeliningenabled]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_pipeliningenabled" do
     dsc_xexchreceiveconnector[:dsc_pipeliningenabled] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_pipeliningenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_pipeliningenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_pipeliningenabled" do
     dsc_xexchreceiveconnector[:dsc_pipeliningenabled] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_pipeliningenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_pipeliningenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_pipeliningenabled" do
     dsc_xexchreceiveconnector[:dsc_pipeliningenabled] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_pipeliningenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_pipeliningenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_pipeliningenabled" do
     dsc_xexchreceiveconnector[:dsc_pipeliningenabled] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_pipeliningenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_pipeliningenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_pipeliningenabled" do
     dsc_xexchreceiveconnector[:dsc_pipeliningenabled] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_pipeliningenabled]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_pipeliningenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_pipeliningenabled" do
     dsc_xexchreceiveconnector[:dsc_pipeliningenabled] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_pipeliningenabled]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_pipeliningenabled]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_pipeliningenabled' do
@@ -1432,39 +1367,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_requireehlodomain] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_requireehlodomain' do
-    dsc_xexchreceiveconnector[:dsc_requireehlodomain] = true
-    expect(dsc_xexchreceiveconnector[:dsc_requireehlodomain]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_requireehlodomain" do
     dsc_xexchreceiveconnector[:dsc_requireehlodomain] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_requireehlodomain]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_requireehlodomain]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_requireehlodomain" do
     dsc_xexchreceiveconnector[:dsc_requireehlodomain] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_requireehlodomain]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_requireehlodomain]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_requireehlodomain" do
     dsc_xexchreceiveconnector[:dsc_requireehlodomain] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_requireehlodomain]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_requireehlodomain]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_requireehlodomain" do
     dsc_xexchreceiveconnector[:dsc_requireehlodomain] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_requireehlodomain]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_requireehlodomain]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_requireehlodomain" do
     dsc_xexchreceiveconnector[:dsc_requireehlodomain] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_requireehlodomain]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_requireehlodomain]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_requireehlodomain" do
     dsc_xexchreceiveconnector[:dsc_requireehlodomain] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_requireehlodomain]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_requireehlodomain]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_requireehlodomain' do
@@ -1479,39 +1409,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_requiretls] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_requiretls' do
-    dsc_xexchreceiveconnector[:dsc_requiretls] = true
-    expect(dsc_xexchreceiveconnector[:dsc_requiretls]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_requiretls" do
     dsc_xexchreceiveconnector[:dsc_requiretls] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_requiretls]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_requiretls]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_requiretls" do
     dsc_xexchreceiveconnector[:dsc_requiretls] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_requiretls]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_requiretls]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_requiretls" do
     dsc_xexchreceiveconnector[:dsc_requiretls] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_requiretls]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_requiretls]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_requiretls" do
     dsc_xexchreceiveconnector[:dsc_requiretls] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_requiretls]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_requiretls]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_requiretls" do
     dsc_xexchreceiveconnector[:dsc_requiretls] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_requiretls]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_requiretls]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_requiretls" do
     dsc_xexchreceiveconnector[:dsc_requiretls] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_requiretls]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_requiretls]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_requiretls' do
@@ -1592,39 +1517,34 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_suppressxanonymoustls' do
-    dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls] = true
-    expect(dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_suppressxanonymoustls" do
     dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls] = 'true'
-    expect(dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_suppressxanonymoustls" do
     dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls] = 'false'
-    expect(dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_suppressxanonymoustls" do
     dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls] = 'True'
-    expect(dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_suppressxanonymoustls" do
     dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls] = 'False'
-    expect(dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_suppressxanonymoustls" do
     dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls] = :true
-    expect(dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls]).to eq(true)
+    expect(dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_suppressxanonymoustls" do
     dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls] = :false
-    expect(dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls]).to eq(false)
+    expect(dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_suppressxanonymoustls' do

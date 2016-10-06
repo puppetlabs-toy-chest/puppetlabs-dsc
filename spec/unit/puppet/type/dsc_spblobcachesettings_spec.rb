@@ -125,39 +125,34 @@ describe Puppet::Type.type(:dsc_spblobcachesettings) do
     expect{dsc_spblobcachesettings[:dsc_enablecache] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept boolean for dsc_enablecache' do
-    dsc_spblobcachesettings[:dsc_enablecache] = true
-    expect(dsc_spblobcachesettings[:dsc_enablecache]).to eq(true)
-  end
-
   it "should accept boolean-like value 'true' and munge this value to boolean for dsc_enablecache" do
     dsc_spblobcachesettings[:dsc_enablecache] = 'true'
-    expect(dsc_spblobcachesettings[:dsc_enablecache]).to eq(true)
+    expect(dsc_spblobcachesettings[:dsc_enablecache]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('true'))
   end
 
   it "should accept boolean-like value 'false' and munge this value to boolean for dsc_enablecache" do
     dsc_spblobcachesettings[:dsc_enablecache] = 'false'
-    expect(dsc_spblobcachesettings[:dsc_enablecache]).to eq(false)
+    expect(dsc_spblobcachesettings[:dsc_enablecache]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('false'))
   end
 
   it "should accept boolean-like value 'True' and munge this value to boolean for dsc_enablecache" do
     dsc_spblobcachesettings[:dsc_enablecache] = 'True'
-    expect(dsc_spblobcachesettings[:dsc_enablecache]).to eq(true)
+    expect(dsc_spblobcachesettings[:dsc_enablecache]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('True'))
   end
 
   it "should accept boolean-like value 'False' and munge this value to boolean for dsc_enablecache" do
     dsc_spblobcachesettings[:dsc_enablecache] = 'False'
-    expect(dsc_spblobcachesettings[:dsc_enablecache]).to eq(false)
+    expect(dsc_spblobcachesettings[:dsc_enablecache]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean('False'))
   end
 
   it "should accept boolean-like value :true and munge this value to boolean for dsc_enablecache" do
     dsc_spblobcachesettings[:dsc_enablecache] = :true
-    expect(dsc_spblobcachesettings[:dsc_enablecache]).to eq(true)
+    expect(dsc_spblobcachesettings[:dsc_enablecache]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:true))
   end
 
   it "should accept boolean-like value :false and munge this value to boolean for dsc_enablecache" do
     dsc_spblobcachesettings[:dsc_enablecache] = :false
-    expect(dsc_spblobcachesettings[:dsc_enablecache]).to eq(false)
+    expect(dsc_spblobcachesettings[:dsc_enablecache]).to eq(PuppetX::Dsc::TypeHelpers.munge_boolean(:false))
   end
 
   it 'should not accept int for dsc_enablecache' do
