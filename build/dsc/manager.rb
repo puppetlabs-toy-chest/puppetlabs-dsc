@@ -149,6 +149,9 @@ module Dsc
 
     def build_dsc_types
       type_pathes = []
+      whitelist = ['archive','environment','file','group','groupset','log','package',
+        'processset','registry','script','service','serviceset','user','windowsfeature',
+        'windowsfeatureset','windowsoptionalfeature','windowsoptionalfeatureset','windowsprocess']
       resources.each do |resource|
         type_template = File.open(@type_template_file, 'r').read
         type_erb = ERB.new(type_template, nil, '-')
@@ -164,10 +167,12 @@ module Dsc
           end
           puppet_type_spec_path = "#{@target_module_path}/#{@puppet_type_spec_subpath}"
           FileUtils.mkdir_p(puppet_type_spec_path) unless File.exists?(puppet_type_spec_path)
-          File.open("#{puppet_type_spec_path}/dsc_#{resource.friendlyname.downcase}_spec.rb", 'w+') do |file|
-            file.write(type_spec_erb.result(binding))
-            pn = Pathname.new(file.path).expand_path.relative_path_from(@module_path)
-            type_pathes << "Add type spec - #{pn.to_s}"
+          if whitelist.include?(resource.friendlyname.downcase)
+            File.open("#{puppet_type_spec_path}/dsc_#{resource.friendlyname.downcase}_spec.rb", 'w+') do |file|
+              file.write(type_spec_erb.result(binding))
+              pn = Pathname.new(file.path).expand_path.relative_path_from(@module_path)
+              type_pathes << "Add type spec - #{pn.to_s}"
+            end
           end
         else
           puts "#{resource.name} from #{resource.dsc_module} has invalid mof (no friendlyname defined)"
