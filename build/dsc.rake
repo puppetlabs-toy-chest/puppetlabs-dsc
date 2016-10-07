@@ -26,7 +26,8 @@ namespace :dsc do
       Rake::Task['dsc:module:skeleton'].invoke(dsc_module_path)
     end
 
-    Rake::Task['dsc:resources:import'].invoke unless File.exists?(default_dsc_resources_path)
+    # the presence of this git clone does not indicate the source is up to date
+    Rake::Task['dsc:resources:import'].invoke
     Rake::Task['dsc:types:clean'].invoke(dsc_module_path)
     Rake::Task['dsc:types:build'].invoke(dsc_module_path)
     Rake::Task['dsc:types:document'].invoke(dsc_module_path)
@@ -109,9 +110,10 @@ eod
             checkout_version = tracked_version
           end
 
-          # If the checkout_version is not a standard PSGallery tag, a git fetch
-          # is required before a git checkout e.g. for commits or non-default branch names
-          if !(checkout_version =~ /-PSGallery/)
+          # If the checkout_version does not yet exist in the current repo source
+          # then re-fetch the upstream repository
+          tag_exists = begin sh "git rev-parse #{checkout_version}" rescue false end
+          if !tag_exists
             puts "#{checkout_version} is not a PSGallery tag. Fetching from git remote"
             sh "git fetch"
           end
@@ -123,32 +125,45 @@ eod
 
       File.open("#{dsc_resources_file}", 'w+') {|f| f.write resource_tags.to_yaml }
 
-      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.git"])
-
-      puts "Cleaning out test and example files for #{item_name}"
-      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/*[Ss]ample*",
-                          "#{dsc_resources_path_tmp}/**/*[Ee]xample*",
-                          "#{dsc_resources_path_tmp}/**/*[Tt]est*"])
-
-      puts "Cleaning out extraneous files for #{item_name}"
-      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/.{gitattributes,gitignore,gitmodules}"])
-      FileUtils.rm_rf(Dir["#{dsc_resources_path_tmp}/**/*.{pptx,docx,sln,cmd,xml,pssproj,pfx,html,txt,xlsm,csv,png,git,yml,md}"])
+      # filter out unwanted files
+      valid_files = Dir.glob("#{dsc_resources_path_tmp}/**/*").reject do |f|
+        # reject the .git folder or special git files
+        f =~ /\/\.(git|gitattributes|gitignore|gitmodules)/ ||
+        # reject binary and other file extensions
+        f =~ /\.(pptx|docx|sln|cmd|xml|pssproj|pfx|html|txt|xlsm|csv|png|git|yml|md)$/i ||
+        # reject test / sample / example code
+        f =~ /\/.*([Ss]ample|[Ee]xample|[Tt]est).*/ ||
+        # and don't keep track of dirs
+        Dir.exists?(f)
+      end
 
       vendor_subdir = is_custom_resource ? '' : '/xDscResources' # Case sensitive
       puts "Copying vendored resources from #{dsc_resources_path_tmp}#{vendor_subdir} to #{vendor_dsc_resources_path}"
-      FileUtils.cp_r "#{dsc_resources_path_tmp}#{vendor_subdir}/.", vendor_dsc_resources_path, :remove_destination => true
-      FileUtils.cp_r "#{dsc_resources_path_tmp}#{vendor_subdir}/.", dsc_resources_path
+
+      # remove destination path, copy everything in from the filtered list
+      puts "Adding custom types to '#{default_dsc_resources_path}'" if is_custom_resource
+      FileUtils.rm_rf(vendor_dsc_resources_path) if Dir.exists?(vendor_dsc_resources_path)
+      vendor_root = "#{dsc_resources_path_tmp}#{vendor_subdir}"
+      valid_files.each do |f|
+        if f.start_with?("#{vendor_root}/")
+          dest = Pathname.new(f.sub(vendor_root, vendor_dsc_resources_path))
+
+          FileUtils.mkdir_p(dest.dirname)
+          FileUtils.cp(f, dest)
+        end
+        if is_custom_resource
+          dest = Pathname.new(f.sub(dsc_resources_path_tmp, default_dsc_resources_path))
+          FileUtils.mkdir_p(dest.dirname)
+          FileUtils.cp(f, dest)
+        end
+      end
+      # and duplicate the vendor_subdir files
+      FileUtils.cp_r vendor_dsc_resources_path, dsc_resources_path
 
       if !is_custom_resource
         puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{dsc_resources_path}"
         FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{dsc_resources_path}/"
-      else
-        puts "Adding custom types to '#{default_dsc_resources_path}'"
-        FileUtils.cp_r "#{dsc_resources_path_tmp}/.", "#{default_dsc_resources_path}/"
       end
-
-      puts "Removing extra dir #{dsc_resources_path_tmp}"
-      FileUtils.rm_rf "#{dsc_resources_path_tmp}"
     end
 
     desc <<-eod
