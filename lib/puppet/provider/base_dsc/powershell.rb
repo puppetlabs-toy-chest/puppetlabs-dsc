@@ -35,9 +35,19 @@ Puppet (including 3.x), or to a Puppet version newer than 3.x.
     UPGRADE
   end
 
+    def self.upgrade_powershell_message
+      fail <<-UPGRADE
+  The DSC module requires PowerShell version 5.0 or higher.  Please upgrade.
+      UPGRADE
+    end
 
   if Facter.value(:uses_win32console)
     upgrade_message
+  end
+
+  ps_version = Facter.value(:powershell_version)
+  if (!ps_version.nil? && Gem::Version.new(ps_version) < Gem::Version.new('5.0.10240.16384'))
+    upgrade_powershell_message
   end
 
   def self.vendored_modules_path
