@@ -510,9 +510,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
     def mof_is_embedded?; false end
     desc "MaxHopCount"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaxHopCount")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -543,9 +541,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
     def mof_is_embedded?; false end
     desc "MaxInboundConnectionPercentagePerSource"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaxInboundConnectionPercentagePerSource")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -576,9 +572,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
     def mof_is_embedded?; false end
     desc "MaxLocalHopCount"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaxLocalHopCount")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -594,9 +588,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
     def mof_is_embedded?; false end
     desc "MaxLogonFailures"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaxLogonFailures")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -642,9 +634,7 @@ Puppet::Type.newtype(:dsc_xexchreceiveconnector) do
     def mof_is_embedded?; false end
     desc "MaxRecipientsPerMessage"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaxRecipientsPerMessage")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

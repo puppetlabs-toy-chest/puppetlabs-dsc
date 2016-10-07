@@ -43,10 +43,6 @@ describe Puppet::Type.type(:dsc_xnetconnectionprofile) do
     expect{dsc_xnetconnectionprofile[:dsc_interfacealias] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_interfacealias' do
-    expect{dsc_xnetconnectionprofile[:dsc_interfacealias] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ipv4connectivity predefined value Disconnected' do
     dsc_xnetconnectionprofile[:dsc_ipv4connectivity] = 'Disconnected'
     expect(dsc_xnetconnectionprofile[:dsc_ipv4connectivity]).to eq('Disconnected')
@@ -111,10 +107,6 @@ describe Puppet::Type.type(:dsc_xnetconnectionprofile) do
 
   it 'should not accept int for dsc_ipv4connectivity' do
     expect{dsc_xnetconnectionprofile[:dsc_ipv4connectivity] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ipv4connectivity' do
-    expect{dsc_xnetconnectionprofile[:dsc_ipv4connectivity] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ipv6connectivity predefined value Disconnected' do
@@ -183,10 +175,6 @@ describe Puppet::Type.type(:dsc_xnetconnectionprofile) do
     expect{dsc_xnetconnectionprofile[:dsc_ipv6connectivity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ipv6connectivity' do
-    expect{dsc_xnetconnectionprofile[:dsc_ipv6connectivity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_networkcategory predefined value Public' do
     dsc_xnetconnectionprofile[:dsc_networkcategory] = 'Public'
     expect(dsc_xnetconnectionprofile[:dsc_networkcategory]).to eq('Public')
@@ -221,10 +209,6 @@ describe Puppet::Type.type(:dsc_xnetconnectionprofile) do
 
   it 'should not accept int for dsc_networkcategory' do
     expect{dsc_xnetconnectionprofile[:dsc_networkcategory] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_networkcategory' do
-    expect{dsc_xnetconnectionprofile[:dsc_networkcategory] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

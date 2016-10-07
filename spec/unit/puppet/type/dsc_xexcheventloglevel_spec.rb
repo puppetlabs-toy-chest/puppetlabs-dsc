@@ -42,10 +42,6 @@ describe Puppet::Type.type(:dsc_xexcheventloglevel) do
     expect{dsc_xexcheventloglevel[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexcheventloglevel[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexcheventloglevel[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -60,10 +56,6 @@ describe Puppet::Type.type(:dsc_xexcheventloglevel) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xexcheventloglevel[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexcheventloglevel[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_level predefined value Lowest' do
@@ -130,10 +122,6 @@ describe Puppet::Type.type(:dsc_xexcheventloglevel) do
 
   it 'should not accept int for dsc_level' do
     expect{dsc_xexcheventloglevel[:dsc_level] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_level' do
-    expect{dsc_xexcheventloglevel[:dsc_level] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

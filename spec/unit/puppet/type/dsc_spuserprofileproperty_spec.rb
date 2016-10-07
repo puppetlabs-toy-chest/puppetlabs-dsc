@@ -67,10 +67,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spuserprofileproperty[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_spuserprofileproperty[:dsc_ensure] = 'Present'
     expect(dsc_spuserprofileproperty[:dsc_ensure]).to eq('Present')
@@ -117,10 +113,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spuserprofileproperty[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_userprofileservice' do
     expect{dsc_spuserprofileproperty[:dsc_userprofileservice] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -133,10 +125,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_userprofileservice] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_userprofileservice' do
-    expect{dsc_spuserprofileproperty[:dsc_userprofileservice] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_displayname' do
     expect{dsc_spuserprofileproperty[:dsc_displayname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -147,10 +135,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
 
   it 'should not accept int for dsc_displayname' do
     expect{dsc_spuserprofileproperty[:dsc_displayname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_displayname' do
-    expect{dsc_spuserprofileproperty[:dsc_displayname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_type predefined value BigInteger' do
@@ -329,10 +313,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_type] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_type' do
-    expect{dsc_spuserprofileproperty[:dsc_type] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_spuserprofileproperty[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -343,10 +323,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
 
   it 'should not accept int for dsc_description' do
     expect{dsc_spuserprofileproperty[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_spuserprofileproperty[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_policysetting predefined value Mandatory' do
@@ -403,10 +379,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
 
   it 'should not accept int for dsc_policysetting' do
     expect{dsc_spuserprofileproperty[:dsc_policysetting] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_policysetting' do
-    expect{dsc_spuserprofileproperty[:dsc_policysetting] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_privacysetting predefined value Public' do
@@ -475,10 +447,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_privacysetting] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_privacysetting' do
-    expect{dsc_spuserprofileproperty[:dsc_privacysetting] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_mappingconnectionname' do
     expect{dsc_spuserprofileproperty[:dsc_mappingconnectionname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -489,10 +457,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
 
   it 'should not accept int for dsc_mappingconnectionname' do
     expect{dsc_spuserprofileproperty[:dsc_mappingconnectionname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_mappingconnectionname' do
-    expect{dsc_spuserprofileproperty[:dsc_mappingconnectionname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_mappingpropertyname' do
@@ -507,10 +471,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_mappingpropertyname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_mappingpropertyname' do
-    expect{dsc_spuserprofileproperty[:dsc_mappingpropertyname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_mappingdirection' do
     expect{dsc_spuserprofileproperty[:dsc_mappingdirection] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -523,10 +483,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_mappingdirection] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_mappingdirection' do
-    expect{dsc_spuserprofileproperty[:dsc_mappingdirection] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_length' do
     expect{dsc_spuserprofileproperty[:dsc_length] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -535,64 +491,12 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_length] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_length' do
-    dsc_spuserprofileproperty[:dsc_length] = 32
-    expect(dsc_spuserprofileproperty[:dsc_length]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_length' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spuserprofileproperty[:dsc_length] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_length' do
-    dsc_spuserprofileproperty[:dsc_length] = '16'
-    expect(dsc_spuserprofileproperty[:dsc_length]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_length' do
-    dsc_spuserprofileproperty[:dsc_length] = '32'
-    expect(dsc_spuserprofileproperty[:dsc_length]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_length' do
-    dsc_spuserprofileproperty[:dsc_length] = '64'
-    expect(dsc_spuserprofileproperty[:dsc_length]).to eq(64)
-  end
-
   it 'should not accept array for dsc_displayorder' do
     expect{dsc_spuserprofileproperty[:dsc_displayorder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_displayorder' do
     expect{dsc_spuserprofileproperty[:dsc_displayorder] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_displayorder' do
-    dsc_spuserprofileproperty[:dsc_displayorder] = 32
-    expect(dsc_spuserprofileproperty[:dsc_displayorder]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_displayorder' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spuserprofileproperty[:dsc_displayorder] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_displayorder' do
-    dsc_spuserprofileproperty[:dsc_displayorder] = '16'
-    expect(dsc_spuserprofileproperty[:dsc_displayorder]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_displayorder' do
-    dsc_spuserprofileproperty[:dsc_displayorder] = '32'
-    expect(dsc_spuserprofileproperty[:dsc_displayorder]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_displayorder' do
-    dsc_spuserprofileproperty[:dsc_displayorder] = '64'
-    expect(dsc_spuserprofileproperty[:dsc_displayorder]).to eq(64)
   end
 
   it 'should not accept array for dsc_iseventlog' do
@@ -633,10 +537,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_iseventlog] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_iseventlog' do
-    expect{dsc_spuserprofileproperty[:dsc_iseventlog] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_isvisibleoneditor' do
     expect{dsc_spuserprofileproperty[:dsc_isvisibleoneditor] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -673,10 +573,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
 
   it 'should not accept int for dsc_isvisibleoneditor' do
     expect{dsc_spuserprofileproperty[:dsc_isvisibleoneditor] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_isvisibleoneditor' do
-    expect{dsc_spuserprofileproperty[:dsc_isvisibleoneditor] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_isvisibleonviewer' do
@@ -717,10 +613,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_isvisibleonviewer] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_isvisibleonviewer' do
-    expect{dsc_spuserprofileproperty[:dsc_isvisibleonviewer] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_isusereditable' do
     expect{dsc_spuserprofileproperty[:dsc_isusereditable] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -757,10 +649,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
 
   it 'should not accept int for dsc_isusereditable' do
     expect{dsc_spuserprofileproperty[:dsc_isusereditable] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_isusereditable' do
-    expect{dsc_spuserprofileproperty[:dsc_isusereditable] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_isalias' do
@@ -801,10 +689,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_isalias] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_isalias' do
-    expect{dsc_spuserprofileproperty[:dsc_isalias] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_issearchable' do
     expect{dsc_spuserprofileproperty[:dsc_issearchable] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -841,10 +725,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
 
   it 'should not accept int for dsc_issearchable' do
     expect{dsc_spuserprofileproperty[:dsc_issearchable] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_issearchable' do
-    expect{dsc_spuserprofileproperty[:dsc_issearchable] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_useroverrideprivacy' do
@@ -885,10 +765,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_useroverrideprivacy] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_useroverrideprivacy' do
-    expect{dsc_spuserprofileproperty[:dsc_useroverrideprivacy] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_termstore' do
     expect{dsc_spuserprofileproperty[:dsc_termstore] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -899,10 +775,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
 
   it 'should not accept int for dsc_termstore' do
     expect{dsc_spuserprofileproperty[:dsc_termstore] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_termstore' do
-    expect{dsc_spuserprofileproperty[:dsc_termstore] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_termgroup' do
@@ -917,10 +789,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
     expect{dsc_spuserprofileproperty[:dsc_termgroup] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_termgroup' do
-    expect{dsc_spuserprofileproperty[:dsc_termgroup] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_termset' do
     expect{dsc_spuserprofileproperty[:dsc_termset] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -931,10 +799,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
 
   it 'should not accept int for dsc_termset' do
     expect{dsc_spuserprofileproperty[:dsc_termset] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_termset' do
-    expect{dsc_spuserprofileproperty[:dsc_termset] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -951,10 +815,6 @@ describe Puppet::Type.type(:dsc_spuserprofileproperty) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spuserprofileproperty[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spuserprofileproperty[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

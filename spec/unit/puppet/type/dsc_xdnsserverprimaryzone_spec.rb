@@ -47,10 +47,6 @@ describe Puppet::Type.type(:dsc_xdnsserverprimaryzone) do
     expect{dsc_xdnsserverprimaryzone[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xdnsserverprimaryzone[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_zonefile' do
     expect{dsc_xdnsserverprimaryzone[:dsc_zonefile] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -61,10 +57,6 @@ describe Puppet::Type.type(:dsc_xdnsserverprimaryzone) do
 
   it 'should not accept int for dsc_zonefile' do
     expect{dsc_xdnsserverprimaryzone[:dsc_zonefile] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_zonefile' do
-    expect{dsc_xdnsserverprimaryzone[:dsc_zonefile] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_dynamicupdate predefined value None' do
@@ -101,10 +93,6 @@ describe Puppet::Type.type(:dsc_xdnsserverprimaryzone) do
 
   it 'should not accept int for dsc_dynamicupdate' do
     expect{dsc_xdnsserverprimaryzone[:dsc_dynamicupdate] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_dynamicupdate' do
-    expect{dsc_xdnsserverprimaryzone[:dsc_dynamicupdate] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -151,10 +139,6 @@ describe Puppet::Type.type(:dsc_xdnsserverprimaryzone) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xdnsserverprimaryzone[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdnsserverprimaryzone[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -47,10 +47,6 @@ describe Puppet::Type.type(:dsc_spblobcachesettings) do
     expect{dsc_spblobcachesettings[:dsc_webappurl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_webappurl' do
-    expect{dsc_spblobcachesettings[:dsc_webappurl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_zone predefined value Default' do
     dsc_spblobcachesettings[:dsc_zone] = 'Default'
     expect(dsc_spblobcachesettings[:dsc_zone]).to eq('Default')
@@ -117,10 +113,6 @@ describe Puppet::Type.type(:dsc_spblobcachesettings) do
     expect{dsc_spblobcachesettings[:dsc_zone] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_zone' do
-    expect{dsc_spblobcachesettings[:dsc_zone] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_enablecache' do
     expect{dsc_spblobcachesettings[:dsc_enablecache] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -159,10 +151,6 @@ describe Puppet::Type.type(:dsc_spblobcachesettings) do
     expect{dsc_spblobcachesettings[:dsc_enablecache] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enablecache' do
-    expect{dsc_spblobcachesettings[:dsc_enablecache] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_location' do
     expect{dsc_spblobcachesettings[:dsc_location] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -175,10 +163,6 @@ describe Puppet::Type.type(:dsc_spblobcachesettings) do
     expect{dsc_spblobcachesettings[:dsc_location] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_location' do
-    expect{dsc_spblobcachesettings[:dsc_location] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maxsizeingb' do
     expect{dsc_spblobcachesettings[:dsc_maxsizeingb] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -187,64 +171,12 @@ describe Puppet::Type.type(:dsc_spblobcachesettings) do
     expect{dsc_spblobcachesettings[:dsc_maxsizeingb] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_maxsizeingb' do
-    dsc_spblobcachesettings[:dsc_maxsizeingb] = 16
-    expect(dsc_spblobcachesettings[:dsc_maxsizeingb]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maxsizeingb' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_spblobcachesettings[:dsc_maxsizeingb] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maxsizeingb' do
-    dsc_spblobcachesettings[:dsc_maxsizeingb] = '16'
-    expect(dsc_spblobcachesettings[:dsc_maxsizeingb]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maxsizeingb' do
-    dsc_spblobcachesettings[:dsc_maxsizeingb] = '32'
-    expect(dsc_spblobcachesettings[:dsc_maxsizeingb]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maxsizeingb' do
-    dsc_spblobcachesettings[:dsc_maxsizeingb] = '64'
-    expect(dsc_spblobcachesettings[:dsc_maxsizeingb]).to eq(64)
-  end
-
   it 'should not accept array for dsc_maxageinseconds' do
     expect{dsc_spblobcachesettings[:dsc_maxageinseconds] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_maxageinseconds' do
     expect{dsc_spblobcachesettings[:dsc_maxageinseconds] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_maxageinseconds' do
-    dsc_spblobcachesettings[:dsc_maxageinseconds] = 32
-    expect(dsc_spblobcachesettings[:dsc_maxageinseconds]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maxageinseconds' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spblobcachesettings[:dsc_maxageinseconds] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maxageinseconds' do
-    dsc_spblobcachesettings[:dsc_maxageinseconds] = '16'
-    expect(dsc_spblobcachesettings[:dsc_maxageinseconds]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maxageinseconds' do
-    dsc_spblobcachesettings[:dsc_maxageinseconds] = '32'
-    expect(dsc_spblobcachesettings[:dsc_maxageinseconds]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maxageinseconds' do
-    dsc_spblobcachesettings[:dsc_maxageinseconds] = '64'
-    expect(dsc_spblobcachesettings[:dsc_maxageinseconds]).to eq(64)
   end
 
   it 'should not accept array for dsc_filetypes' do
@@ -257,10 +189,6 @@ describe Puppet::Type.type(:dsc_spblobcachesettings) do
 
   it 'should not accept int for dsc_filetypes' do
     expect{dsc_spblobcachesettings[:dsc_filetypes] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_filetypes' do
-    expect{dsc_spblobcachesettings[:dsc_filetypes] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -277,10 +205,6 @@ describe Puppet::Type.type(:dsc_spblobcachesettings) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spblobcachesettings[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spblobcachesettings[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

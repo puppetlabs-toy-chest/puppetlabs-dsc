@@ -80,9 +80,7 @@ Puppet::Type.newtype(:dsc_spquotatemplate) do
     def mof_is_embedded?; false end
     desc "StorageMaxInMB - The maximum storage for sites of this template in MB"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "StorageMaxInMB")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -98,9 +96,7 @@ Puppet::Type.newtype(:dsc_spquotatemplate) do
     def mof_is_embedded?; false end
     desc "StorageWarningInMB - The amount of storage for sites of this template that triggers a warning"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "StorageWarningInMB")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -116,9 +112,7 @@ Puppet::Type.newtype(:dsc_spquotatemplate) do
     def mof_is_embedded?; false end
     desc "MaximumUsagePointsSolutions - The maximum number of performance points for sandbox solutions for this template"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaximumUsagePointsSolutions")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -134,9 +128,7 @@ Puppet::Type.newtype(:dsc_spquotatemplate) do
     def mof_is_embedded?; false end
     desc "WarningUsagePointsSolutions - The warning number of performance points for sandbox solutions for this template"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "WarningUsagePointsSolutions")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

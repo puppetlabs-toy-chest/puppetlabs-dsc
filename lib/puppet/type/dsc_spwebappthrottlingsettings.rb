@@ -102,9 +102,7 @@ Puppet::Type.newtype(:dsc_spwebappthrottlingsettings) do
     def mof_is_embedded?; false end
     desc "ListViewThreshold - What should the list view threshold for this site be set to"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ListViewThreshold")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -136,9 +134,7 @@ Puppet::Type.newtype(:dsc_spwebappthrottlingsettings) do
     def mof_is_embedded?; false end
     desc "AdminThreshold - What is the list view threshold for site administrators"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "AdminThreshold")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -154,9 +150,7 @@ Puppet::Type.newtype(:dsc_spwebappthrottlingsettings) do
     def mof_is_embedded?; false end
     desc "ListViewLookupThreshold - What is the maximum number of lookup fields in a single list view"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ListViewLookupThreshold")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -210,9 +204,7 @@ Puppet::Type.newtype(:dsc_spwebappthrottlingsettings) do
     def mof_is_embedded?; false end
     desc "UniquePermissionThreshold - What is the limit for unique permissions on a single object in this web app"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "UniquePermissionThreshold")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -260,9 +252,7 @@ Puppet::Type.newtype(:dsc_spwebappthrottlingsettings) do
     def mof_is_embedded?; false end
     desc "ChangeLogExpiryDays - How many days does the change log store data for"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ChangeLogExpiryDays")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

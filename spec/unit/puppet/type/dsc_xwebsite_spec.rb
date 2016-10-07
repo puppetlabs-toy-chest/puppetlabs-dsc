@@ -89,10 +89,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xwebsite[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_name is specified' do
     #dsc_xwebsite[:dsc_name]
     expect { Puppet::Type.type(:dsc_xwebsite).new(
@@ -112,10 +108,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xwebsite[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_physicalpath' do
     expect{dsc_xwebsite[:dsc_physicalpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -126,10 +118,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
 
   it 'should not accept int for dsc_physicalpath' do
     expect{dsc_xwebsite[:dsc_physicalpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_physicalpath' do
-    expect{dsc_xwebsite[:dsc_physicalpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_state predefined value Started' do
@@ -168,10 +156,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_state] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_state' do
-    expect{dsc_xwebsite[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_applicationpool' do
     expect{dsc_xwebsite[:dsc_applicationpool] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -182,10 +166,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
 
   it 'should not accept int for dsc_applicationpool' do
     expect{dsc_xwebsite[:dsc_applicationpool] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_applicationpool' do
-    expect{dsc_xwebsite[:dsc_applicationpool] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept a hash for dsc_bindinginfo' do
@@ -206,10 +186,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_bindinginfo] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_bindinginfo' do
-    expect{dsc_xwebsite[:dsc_bindinginfo] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_defaultpage' do
     dsc_xwebsite[:dsc_defaultpage] = ["foo", "bar", "spec"]
     expect(dsc_xwebsite[:dsc_defaultpage]).to eq(["foo", "bar", "spec"])
@@ -221,10 +197,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
 
   it 'should not accept int for dsc_defaultpage' do
     expect{dsc_xwebsite[:dsc_defaultpage] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_defaultpage' do
-    expect{dsc_xwebsite[:dsc_defaultpage] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_enabledprotocols' do
@@ -239,10 +211,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_enabledprotocols] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enabledprotocols' do
-    expect{dsc_xwebsite[:dsc_enabledprotocols] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_authenticationinfo' do
     expect{dsc_xwebsite[:dsc_authenticationinfo] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -253,10 +221,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
 
   it 'should not accept int for dsc_authenticationinfo' do
     expect{dsc_xwebsite[:dsc_authenticationinfo] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_authenticationinfo' do
-    expect{dsc_xwebsite[:dsc_authenticationinfo] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_preloadenabled' do
@@ -297,10 +261,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_preloadenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_preloadenabled' do
-    expect{dsc_xwebsite[:dsc_preloadenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_serviceautostartenabled' do
     expect{dsc_xwebsite[:dsc_serviceautostartenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -339,10 +299,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_serviceautostartenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_serviceautostartenabled' do
-    expect{dsc_xwebsite[:dsc_serviceautostartenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_serviceautostartprovider' do
     expect{dsc_xwebsite[:dsc_serviceautostartprovider] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -353,10 +309,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
 
   it 'should not accept int for dsc_serviceautostartprovider' do
     expect{dsc_xwebsite[:dsc_serviceautostartprovider] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_serviceautostartprovider' do
-    expect{dsc_xwebsite[:dsc_serviceautostartprovider] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_applicationtype' do
@@ -371,10 +323,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_applicationtype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_applicationtype' do
-    expect{dsc_xwebsite[:dsc_applicationtype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_logpath' do
     expect{dsc_xwebsite[:dsc_logpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -385,10 +333,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
 
   it 'should not accept int for dsc_logpath' do
     expect{dsc_xwebsite[:dsc_logpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_logpath' do
-    expect{dsc_xwebsite[:dsc_logpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_logflags predefined value Date' do
@@ -628,10 +572,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_logflags] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logflags' do
-    expect{dsc_xwebsite[:dsc_logflags] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_logperiod predefined value Hourly' do
     dsc_xwebsite[:dsc_logperiod] = 'Hourly'
     expect(dsc_xwebsite[:dsc_logperiod]).to eq('Hourly')
@@ -698,10 +638,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
     expect{dsc_xwebsite[:dsc_logperiod] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logperiod' do
-    expect{dsc_xwebsite[:dsc_logperiod] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_logtruncatesize' do
     expect{dsc_xwebsite[:dsc_logtruncatesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -712,10 +648,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
 
   it 'should not accept int for dsc_logtruncatesize' do
     expect{dsc_xwebsite[:dsc_logtruncatesize] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_logtruncatesize' do
-    expect{dsc_xwebsite[:dsc_logtruncatesize] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_loglocaltimerollover' do
@@ -754,10 +686,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
 
   it 'should not accept int for dsc_loglocaltimerollover' do
     expect{dsc_xwebsite[:dsc_loglocaltimerollover] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_loglocaltimerollover' do
-    expect{dsc_xwebsite[:dsc_loglocaltimerollover] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_logformat predefined value IIS' do
@@ -804,10 +732,6 @@ describe Puppet::Type.type(:dsc_xwebsite) do
 
   it 'should not accept int for dsc_logformat' do
     expect{dsc_xwebsite[:dsc_logformat] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_logformat' do
-    expect{dsc_xwebsite[:dsc_logformat] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

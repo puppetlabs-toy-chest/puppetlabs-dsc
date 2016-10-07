@@ -128,9 +128,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
     def mof_is_embedded?; false end
     desc "ConcurrentUserLimit - Specifies the maximum number of concurrently connected users that the new SMB share may accommodate. If this parameter is set to zero (0), then the number of users is unlimited. The default value is zero (0)."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ConcurrentUserLimit")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

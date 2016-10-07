@@ -50,10 +50,6 @@ describe Puppet::Type.type(:dsc_xazurevmdscconfiguration) do
     expect{dsc_xazurevmdscconfiguration[:dsc_storageaccountname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_storageaccountname' do
-    expect{dsc_xazurevmdscconfiguration[:dsc_storageaccountname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xazurevmdscconfiguration[:dsc_ensure] = 'Present'
     expect(dsc_xazurevmdscconfiguration[:dsc_ensure]).to eq('Present')
@@ -100,10 +96,6 @@ describe Puppet::Type.type(:dsc_xazurevmdscconfiguration) do
     expect{dsc_xazurevmdscconfiguration[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xazurevmdscconfiguration[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_containername' do
     expect{dsc_xazurevmdscconfiguration[:dsc_containername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -114,10 +106,6 @@ describe Puppet::Type.type(:dsc_xazurevmdscconfiguration) do
 
   it 'should not accept int for dsc_containername' do
     expect{dsc_xazurevmdscconfiguration[:dsc_containername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_containername' do
-    expect{dsc_xazurevmdscconfiguration[:dsc_containername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_configurationpath' do
@@ -132,10 +120,6 @@ describe Puppet::Type.type(:dsc_xazurevmdscconfiguration) do
     expect{dsc_xazurevmdscconfiguration[:dsc_configurationpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_configurationpath' do
-    expect{dsc_xazurevmdscconfiguration[:dsc_configurationpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_azuresubscriptionname' do
     expect{dsc_xazurevmdscconfiguration[:dsc_azuresubscriptionname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -146,10 +130,6 @@ describe Puppet::Type.type(:dsc_xazurevmdscconfiguration) do
 
   it 'should not accept int for dsc_azuresubscriptionname' do
     expect{dsc_xazurevmdscconfiguration[:dsc_azuresubscriptionname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_azuresubscriptionname' do
-    expect{dsc_xazurevmdscconfiguration[:dsc_azuresubscriptionname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_azurepublishsettingspath' do
@@ -164,10 +144,6 @@ describe Puppet::Type.type(:dsc_xazurevmdscconfiguration) do
     expect{dsc_xazurevmdscconfiguration[:dsc_azurepublishsettingspath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_azurepublishsettingspath' do
-    expect{dsc_xazurevmdscconfiguration[:dsc_azurepublishsettingspath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_bloburi' do
     expect{dsc_xazurevmdscconfiguration[:dsc_bloburi] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -178,10 +154,6 @@ describe Puppet::Type.type(:dsc_xazurevmdscconfiguration) do
 
   it 'should not accept int for dsc_bloburi' do
     expect{dsc_xazurevmdscconfiguration[:dsc_bloburi] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_bloburi' do
-    expect{dsc_xazurevmdscconfiguration[:dsc_bloburi] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -128,9 +128,7 @@ Puppet::Type.newtype(:dsc_spblobcachesettings) do
     def mof_is_embedded?; false end
     desc "MaxSizeInGB - The maximum size (in GB) of disk space the blob cache is allowed to use"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaxSizeInGB")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -146,9 +144,7 @@ Puppet::Type.newtype(:dsc_spblobcachesettings) do
     def mof_is_embedded?; false end
     desc "MaxAgeInSeconds - The maximum age (in seconds) that a browser caches a blob"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaxAgeInSeconds")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

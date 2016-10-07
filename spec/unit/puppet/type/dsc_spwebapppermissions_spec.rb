@@ -45,10 +45,6 @@ describe Puppet::Type.type(:dsc_spwebapppermissions) do
     expect{dsc_spwebapppermissions[:dsc_webappurl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_webappurl' do
-    expect{dsc_spwebapppermissions[:dsc_webappurl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_listpermissions predefined value Manage Lists' do
     dsc_spwebapppermissions[:dsc_listpermissions] = 'Manage Lists'
     expect(dsc_spwebapppermissions[:dsc_listpermissions]).to eq(['Manage Lists'])
@@ -184,10 +180,6 @@ describe Puppet::Type.type(:dsc_spwebapppermissions) do
 
   it 'should not accept int for dsc_listpermissions' do
     expect{dsc_spwebapppermissions[:dsc_listpermissions] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_listpermissions' do
-    expect{dsc_spwebapppermissions[:dsc_listpermissions] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_sitepermissions predefined value Manage Permissions' do
@@ -387,10 +379,6 @@ describe Puppet::Type.type(:dsc_spwebapppermissions) do
     expect{dsc_spwebapppermissions[:dsc_sitepermissions] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sitepermissions' do
-    expect{dsc_spwebapppermissions[:dsc_sitepermissions] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_personalpermissions predefined value Manage Personal Views' do
     dsc_spwebapppermissions[:dsc_personalpermissions] = 'Manage Personal Views'
     expect(dsc_spwebapppermissions[:dsc_personalpermissions]).to eq(['Manage Personal Views'])
@@ -438,10 +426,6 @@ describe Puppet::Type.type(:dsc_spwebapppermissions) do
     expect{dsc_spwebapppermissions[:dsc_personalpermissions] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_personalpermissions' do
-    expect{dsc_spwebapppermissions[:dsc_personalpermissions] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_allpermissions' do
     expect{dsc_spwebapppermissions[:dsc_allpermissions] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -480,10 +464,6 @@ describe Puppet::Type.type(:dsc_spwebapppermissions) do
     expect{dsc_spwebapppermissions[:dsc_allpermissions] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allpermissions' do
-    expect{dsc_spwebapppermissions[:dsc_allpermissions] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spwebapppermissions[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -498,10 +478,6 @@ describe Puppet::Type.type(:dsc_spwebapppermissions) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spwebapppermissions[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spwebapppermissions[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

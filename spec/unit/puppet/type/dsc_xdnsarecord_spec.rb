@@ -49,10 +49,6 @@ describe Puppet::Type.type(:dsc_xdnsarecord) do
     expect{dsc_xdnsarecord[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xdnsarecord[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_zone is specified' do
     #dsc_xdnsarecord[:dsc_zone]
     expect { Puppet::Type.type(:dsc_xdnsarecord).new(
@@ -73,10 +69,6 @@ describe Puppet::Type.type(:dsc_xdnsarecord) do
     expect{dsc_xdnsarecord[:dsc_zone] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_zone' do
-    expect{dsc_xdnsarecord[:dsc_zone] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_target' do
     expect{dsc_xdnsarecord[:dsc_target] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -87,10 +79,6 @@ describe Puppet::Type.type(:dsc_xdnsarecord) do
 
   it 'should not accept int for dsc_target' do
     expect{dsc_xdnsarecord[:dsc_target] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_target' do
-    expect{dsc_xdnsarecord[:dsc_target] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -137,10 +125,6 @@ describe Puppet::Type.type(:dsc_xdnsarecord) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xdnsarecord[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdnsarecord[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

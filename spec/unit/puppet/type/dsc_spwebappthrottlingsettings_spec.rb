@@ -52,42 +52,12 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
     expect{dsc_spwebappthrottlingsettings[:dsc_url] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_url' do
-    expect{dsc_spwebappthrottlingsettings[:dsc_url] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_listviewthreshold' do
     expect{dsc_spwebappthrottlingsettings[:dsc_listviewthreshold] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_listviewthreshold' do
     expect{dsc_spwebappthrottlingsettings[:dsc_listviewthreshold] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_listviewthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_listviewthreshold] = 32
-    expect(dsc_spwebappthrottlingsettings[:dsc_listviewthreshold]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_listviewthreshold' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwebappthrottlingsettings[:dsc_listviewthreshold] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_listviewthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_listviewthreshold] = '16'
-    expect(dsc_spwebappthrottlingsettings[:dsc_listviewthreshold]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_listviewthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_listviewthreshold] = '32'
-    expect(dsc_spwebappthrottlingsettings[:dsc_listviewthreshold]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_listviewthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_listviewthreshold] = '64'
-    expect(dsc_spwebappthrottlingsettings[:dsc_listviewthreshold]).to eq(64)
   end
 
   it 'should not accept array for dsc_allowobjectmodeloverride' do
@@ -128,10 +98,6 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
     expect{dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowobjectmodeloverride' do
-    expect{dsc_spwebappthrottlingsettings[:dsc_allowobjectmodeloverride] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_adminthreshold' do
     expect{dsc_spwebappthrottlingsettings[:dsc_adminthreshold] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -140,64 +106,12 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
     expect{dsc_spwebappthrottlingsettings[:dsc_adminthreshold] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_adminthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_adminthreshold] = 32
-    expect(dsc_spwebappthrottlingsettings[:dsc_adminthreshold]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_adminthreshold' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwebappthrottlingsettings[:dsc_adminthreshold] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_adminthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_adminthreshold] = '16'
-    expect(dsc_spwebappthrottlingsettings[:dsc_adminthreshold]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_adminthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_adminthreshold] = '32'
-    expect(dsc_spwebappthrottlingsettings[:dsc_adminthreshold]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_adminthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_adminthreshold] = '64'
-    expect(dsc_spwebappthrottlingsettings[:dsc_adminthreshold]).to eq(64)
-  end
-
   it 'should not accept array for dsc_listviewlookupthreshold' do
     expect{dsc_spwebappthrottlingsettings[:dsc_listviewlookupthreshold] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_listviewlookupthreshold' do
     expect{dsc_spwebappthrottlingsettings[:dsc_listviewlookupthreshold] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_listviewlookupthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_listviewlookupthreshold] = 32
-    expect(dsc_spwebappthrottlingsettings[:dsc_listviewlookupthreshold]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_listviewlookupthreshold' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwebappthrottlingsettings[:dsc_listviewlookupthreshold] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_listviewlookupthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_listviewlookupthreshold] = '16'
-    expect(dsc_spwebappthrottlingsettings[:dsc_listviewlookupthreshold]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_listviewlookupthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_listviewlookupthreshold] = '32'
-    expect(dsc_spwebappthrottlingsettings[:dsc_listviewlookupthreshold]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_listviewlookupthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_listviewlookupthreshold] = '64'
-    expect(dsc_spwebappthrottlingsettings[:dsc_listviewlookupthreshold]).to eq(64)
   end
 
   it 'should not accept array for dsc_happyhourenabled' do
@@ -238,10 +152,6 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
     expect{dsc_spwebappthrottlingsettings[:dsc_happyhourenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_happyhourenabled' do
-    expect{dsc_spwebappthrottlingsettings[:dsc_happyhourenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_happyhour' do
     expect{dsc_spwebappthrottlingsettings[:dsc_happyhour] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -254,42 +164,12 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
     expect{dsc_spwebappthrottlingsettings[:dsc_happyhour] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_happyhour' do
-    expect{dsc_spwebappthrottlingsettings[:dsc_happyhour] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_uniquepermissionthreshold' do
     expect{dsc_spwebappthrottlingsettings[:dsc_uniquepermissionthreshold] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_uniquepermissionthreshold' do
     expect{dsc_spwebappthrottlingsettings[:dsc_uniquepermissionthreshold] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_uniquepermissionthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_uniquepermissionthreshold] = 32
-    expect(dsc_spwebappthrottlingsettings[:dsc_uniquepermissionthreshold]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_uniquepermissionthreshold' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwebappthrottlingsettings[:dsc_uniquepermissionthreshold] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_uniquepermissionthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_uniquepermissionthreshold] = '16'
-    expect(dsc_spwebappthrottlingsettings[:dsc_uniquepermissionthreshold]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_uniquepermissionthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_uniquepermissionthreshold] = '32'
-    expect(dsc_spwebappthrottlingsettings[:dsc_uniquepermissionthreshold]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_uniquepermissionthreshold' do
-    dsc_spwebappthrottlingsettings[:dsc_uniquepermissionthreshold] = '64'
-    expect(dsc_spwebappthrottlingsettings[:dsc_uniquepermissionthreshold]).to eq(64)
   end
 
   it 'should not accept array for dsc_requestthrottling' do
@@ -330,10 +210,6 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
     expect{dsc_spwebappthrottlingsettings[:dsc_requestthrottling] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_requestthrottling' do
-    expect{dsc_spwebappthrottlingsettings[:dsc_requestthrottling] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_changelogenabled' do
     expect{dsc_spwebappthrottlingsettings[:dsc_changelogenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -372,42 +248,12 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
     expect{dsc_spwebappthrottlingsettings[:dsc_changelogenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_changelogenabled' do
-    expect{dsc_spwebappthrottlingsettings[:dsc_changelogenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_changelogexpirydays' do
     expect{dsc_spwebappthrottlingsettings[:dsc_changelogexpirydays] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_changelogexpirydays' do
     expect{dsc_spwebappthrottlingsettings[:dsc_changelogexpirydays] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_changelogexpirydays' do
-    dsc_spwebappthrottlingsettings[:dsc_changelogexpirydays] = 32
-    expect(dsc_spwebappthrottlingsettings[:dsc_changelogexpirydays]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_changelogexpirydays' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwebappthrottlingsettings[:dsc_changelogexpirydays] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_changelogexpirydays' do
-    dsc_spwebappthrottlingsettings[:dsc_changelogexpirydays] = '16'
-    expect(dsc_spwebappthrottlingsettings[:dsc_changelogexpirydays]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_changelogexpirydays' do
-    dsc_spwebappthrottlingsettings[:dsc_changelogexpirydays] = '32'
-    expect(dsc_spwebappthrottlingsettings[:dsc_changelogexpirydays]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_changelogexpirydays' do
-    dsc_spwebappthrottlingsettings[:dsc_changelogexpirydays] = '64'
-    expect(dsc_spwebappthrottlingsettings[:dsc_changelogexpirydays]).to eq(64)
   end
 
   it 'should not accept array for dsc_eventhandlersenabled' do
@@ -448,10 +294,6 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
     expect{dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_eventhandlersenabled' do
-    expect{dsc_spwebappthrottlingsettings[:dsc_eventhandlersenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spwebappthrottlingsettings[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -466,10 +308,6 @@ describe Puppet::Type.type(:dsc_spwebappthrottlingsettings) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spwebappthrottlingsettings[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spwebappthrottlingsettings[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

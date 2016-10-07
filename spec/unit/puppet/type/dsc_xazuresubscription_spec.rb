@@ -73,10 +73,6 @@ describe Puppet::Type.type(:dsc_xazuresubscription) do
     expect{dsc_xazuresubscription[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xazuresubscription[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_azuresubscriptionname is specified' do
     #dsc_xazuresubscription[:dsc_azuresubscriptionname]
     expect { Puppet::Type.type(:dsc_xazuresubscription).new(
@@ -96,10 +92,6 @@ describe Puppet::Type.type(:dsc_xazuresubscription) do
     expect{dsc_xazuresubscription[:dsc_azuresubscriptionname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_azuresubscriptionname' do
-    expect{dsc_xazuresubscription[:dsc_azuresubscriptionname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_azurepublishsettingsfile' do
     expect{dsc_xazuresubscription[:dsc_azurepublishsettingsfile] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -110,10 +102,6 @@ describe Puppet::Type.type(:dsc_xazuresubscription) do
 
   it 'should not accept int for dsc_azurepublishsettingsfile' do
     expect{dsc_xazuresubscription[:dsc_azurepublishsettingsfile] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_azurepublishsettingsfile' do
-    expect{dsc_xazuresubscription[:dsc_azurepublishsettingsfile] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

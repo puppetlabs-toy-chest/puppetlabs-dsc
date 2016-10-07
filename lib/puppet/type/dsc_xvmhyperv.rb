@@ -146,9 +146,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
     def mof_is_embedded?; false end
     desc "Generation - Virtual machine generation"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "Generation")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -164,9 +162,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
     def mof_is_embedded?; false end
     desc "StartupMemory - Startup RAM for the VM."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "StartupMemory")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -182,9 +178,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
     def mof_is_embedded?; false end
     desc "MinimumMemory - Minimum RAM for the VM. This enables dynamic memory."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MinimumMemory")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -200,9 +194,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
     def mof_is_embedded?; false end
     desc "MaximumMemory - Maximum RAM for the VM. This enable dynamic memory."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaximumMemory")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -236,9 +228,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
     def mof_is_embedded?; false end
     desc "ProcessorCount - Processor count for the VM"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ProcessorCount")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -382,9 +372,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
     def mof_is_embedded?; false end
     desc "CPUUsage - CPU Usage of the VM"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "CPUUsage")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -400,9 +388,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
     def mof_is_embedded?; false end
     desc "MemoryAssigned - Memory assigned to the VM"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MemoryAssigned")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

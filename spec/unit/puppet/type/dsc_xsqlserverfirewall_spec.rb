@@ -81,10 +81,6 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     expect{dsc_xsqlserverfirewall[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xsqlserverfirewall[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcepath' do
     expect{dsc_xsqlserverfirewall[:dsc_sourcepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -97,10 +93,6 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     expect{dsc_xsqlserverfirewall[:dsc_sourcepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcepath' do
-    expect{dsc_xsqlserverfirewall[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcefolder' do
     expect{dsc_xsqlserverfirewall[:dsc_sourcefolder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -111,10 +103,6 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
 
   it 'should not accept int for dsc_sourcefolder' do
     expect{dsc_xsqlserverfirewall[:dsc_sourcefolder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sourcefolder' do
-    expect{dsc_xsqlserverfirewall[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_features is specified' do
@@ -137,10 +125,6 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     expect{dsc_xsqlserverfirewall[:dsc_features] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_features' do
-    expect{dsc_xsqlserverfirewall[:dsc_features] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_instancename is specified' do
     #dsc_xsqlserverfirewall[:dsc_instancename]
     expect { Puppet::Type.type(:dsc_xsqlserverfirewall).new(
@@ -159,10 +143,6 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
 
   it 'should not accept int for dsc_instancename' do
     expect{dsc_xsqlserverfirewall[:dsc_instancename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_instancename' do
-    expect{dsc_xsqlserverfirewall[:dsc_instancename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_databaseenginefirewall' do
@@ -203,10 +183,6 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     expect{dsc_xsqlserverfirewall[:dsc_databaseenginefirewall] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databaseenginefirewall' do
-    expect{dsc_xsqlserverfirewall[:dsc_databaseenginefirewall] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_browserfirewall' do
     expect{dsc_xsqlserverfirewall[:dsc_browserfirewall] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -243,10 +219,6 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
 
   it 'should not accept int for dsc_browserfirewall' do
     expect{dsc_xsqlserverfirewall[:dsc_browserfirewall] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_browserfirewall' do
-    expect{dsc_xsqlserverfirewall[:dsc_browserfirewall] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_reportingservicesfirewall' do
@@ -287,10 +259,6 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     expect{dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_reportingservicesfirewall' do
-    expect{dsc_xsqlserverfirewall[:dsc_reportingservicesfirewall] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_analysisservicesfirewall' do
     expect{dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -329,10 +297,6 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
     expect{dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_analysisservicesfirewall' do
-    expect{dsc_xsqlserverfirewall[:dsc_analysisservicesfirewall] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_integrationservicesfirewall' do
     expect{dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -369,10 +333,6 @@ describe Puppet::Type.type(:dsc_xsqlserverfirewall) do
 
   it 'should not accept int for dsc_integrationservicesfirewall' do
     expect{dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_integrationservicesfirewall' do
-    expect{dsc_xsqlserverfirewall[:dsc_integrationservicesfirewall] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

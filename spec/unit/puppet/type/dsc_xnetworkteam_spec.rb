@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_xnetworkteam) do
     expect{dsc_xnetworkteam[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xnetworkteam[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_teamingmode predefined value SwitchIndependent' do
     dsc_xnetworkteam[:dsc_teamingmode] = 'SwitchIndependent'
     expect(dsc_xnetworkteam[:dsc_teamingmode]).to eq('SwitchIndependent')
@@ -96,10 +92,6 @@ describe Puppet::Type.type(:dsc_xnetworkteam) do
 
   it 'should not accept int for dsc_teamingmode' do
     expect{dsc_xnetworkteam[:dsc_teamingmode] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_teamingmode' do
-    expect{dsc_xnetworkteam[:dsc_teamingmode] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_loadbalancingalgorithm predefined value Dynamic' do
@@ -168,10 +160,6 @@ describe Puppet::Type.type(:dsc_xnetworkteam) do
     expect{dsc_xnetworkteam[:dsc_loadbalancingalgorithm] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_loadbalancingalgorithm' do
-    expect{dsc_xnetworkteam[:dsc_loadbalancingalgorithm] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_teammembers' do
     dsc_xnetworkteam[:dsc_teammembers] = ["foo", "bar", "spec"]
     expect(dsc_xnetworkteam[:dsc_teammembers]).to eq(["foo", "bar", "spec"])
@@ -183,10 +171,6 @@ describe Puppet::Type.type(:dsc_xnetworkteam) do
 
   it 'should not accept int for dsc_teammembers' do
     expect{dsc_xnetworkteam[:dsc_teammembers] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_teammembers' do
-    expect{dsc_xnetworkteam[:dsc_teammembers] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -233,10 +217,6 @@ describe Puppet::Type.type(:dsc_xnetworkteam) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xnetworkteam[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xnetworkteam[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

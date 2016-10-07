@@ -50,10 +50,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncconnection) do
     expect{dsc_spuserprofilesyncconnection[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spuserprofilesyncconnection[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_forest' do
     expect{dsc_spuserprofilesyncconnection[:dsc_forest] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -66,10 +62,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncconnection) do
     expect{dsc_spuserprofilesyncconnection[:dsc_forest] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_forest' do
-    expect{dsc_spuserprofilesyncconnection[:dsc_forest] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_userprofileservice' do
     expect{dsc_spuserprofilesyncconnection[:dsc_userprofileservice] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -80,10 +72,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncconnection) do
 
   it 'should not accept int for dsc_userprofileservice' do
     expect{dsc_spuserprofilesyncconnection[:dsc_userprofileservice] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_userprofileservice' do
-    expect{dsc_spuserprofilesyncconnection[:dsc_userprofileservice] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_connectioncredentials" do
@@ -102,10 +90,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncconnection) do
     expect{dsc_spuserprofilesyncconnection[:dsc_connectioncredentials] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_connectioncredentials' do
-    expect{dsc_spuserprofilesyncconnection[:dsc_connectioncredentials] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_includedous' do
     dsc_spuserprofilesyncconnection[:dsc_includedous] = ["foo", "bar", "spec"]
     expect(dsc_spuserprofilesyncconnection[:dsc_includedous]).to eq(["foo", "bar", "spec"])
@@ -117,10 +101,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncconnection) do
 
   it 'should not accept int for dsc_includedous' do
     expect{dsc_spuserprofilesyncconnection[:dsc_includedous] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_includedous' do
-    expect{dsc_spuserprofilesyncconnection[:dsc_includedous] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_excludedous' do
@@ -136,10 +116,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncconnection) do
     expect{dsc_spuserprofilesyncconnection[:dsc_excludedous] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_excludedous' do
-    expect{dsc_spuserprofilesyncconnection[:dsc_excludedous] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_server' do
     expect{dsc_spuserprofilesyncconnection[:dsc_server] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -150,10 +126,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncconnection) do
 
   it 'should not accept int for dsc_server' do
     expect{dsc_spuserprofilesyncconnection[:dsc_server] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_server' do
-    expect{dsc_spuserprofilesyncconnection[:dsc_server] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_usessl' do
@@ -194,10 +166,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncconnection) do
     expect{dsc_spuserprofilesyncconnection[:dsc_usessl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_usessl' do
-    expect{dsc_spuserprofilesyncconnection[:dsc_usessl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_force' do
     expect{dsc_spuserprofilesyncconnection[:dsc_force] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -236,10 +204,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncconnection) do
     expect{dsc_spuserprofilesyncconnection[:dsc_force] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_force' do
-    expect{dsc_spuserprofilesyncconnection[:dsc_force] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_connectiontype predefined value ActiveDirectory' do
     dsc_spuserprofilesyncconnection[:dsc_connectiontype] = 'ActiveDirectory'
     expect(dsc_spuserprofilesyncconnection[:dsc_connectiontype]).to eq('ActiveDirectory')
@@ -276,10 +240,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncconnection) do
     expect{dsc_spuserprofilesyncconnection[:dsc_connectiontype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_connectiontype' do
-    expect{dsc_spuserprofilesyncconnection[:dsc_connectiontype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spuserprofilesyncconnection[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -294,10 +254,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncconnection) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spuserprofilesyncconnection[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spuserprofilesyncconnection[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

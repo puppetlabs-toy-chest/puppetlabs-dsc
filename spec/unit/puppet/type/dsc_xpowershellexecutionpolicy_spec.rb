@@ -94,10 +94,6 @@ describe Puppet::Type.type(:dsc_xpowershellexecutionpolicy) do
     expect{dsc_xpowershellexecutionpolicy[:dsc_executionpolicy] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_executionpolicy' do
-    expect{dsc_xpowershellexecutionpolicy[:dsc_executionpolicy] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   # Configuration PROVIDER TESTS
 
   describe "powershell provider tests" do

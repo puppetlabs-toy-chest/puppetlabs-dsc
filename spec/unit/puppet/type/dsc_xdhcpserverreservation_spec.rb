@@ -51,10 +51,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverreservation) do
     expect{dsc_xdhcpserverreservation[:dsc_scopeid] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_scopeid' do
-    expect{dsc_xdhcpserverreservation[:dsc_scopeid] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_ipaddress is specified' do
     #dsc_xdhcpserverreservation[:dsc_ipaddress]
     expect { Puppet::Type.type(:dsc_xdhcpserverreservation).new(
@@ -75,10 +71,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverreservation) do
     expect{dsc_xdhcpserverreservation[:dsc_ipaddress] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ipaddress' do
-    expect{dsc_xdhcpserverreservation[:dsc_ipaddress] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_clientmacaddress' do
     expect{dsc_xdhcpserverreservation[:dsc_clientmacaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -91,10 +83,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverreservation) do
     expect{dsc_xdhcpserverreservation[:dsc_clientmacaddress] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_clientmacaddress' do
-    expect{dsc_xdhcpserverreservation[:dsc_clientmacaddress] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_name' do
     expect{dsc_xdhcpserverreservation[:dsc_name] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -105,10 +93,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverreservation) do
 
   it 'should not accept int for dsc_name' do
     expect{dsc_xdhcpserverreservation[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xdhcpserverreservation[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_addressfamily predefined value IPv4' do
@@ -135,10 +119,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverreservation) do
 
   it 'should not accept int for dsc_addressfamily' do
     expect{dsc_xdhcpserverreservation[:dsc_addressfamily] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_addressfamily' do
-    expect{dsc_xdhcpserverreservation[:dsc_addressfamily] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -185,10 +165,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverreservation) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xdhcpserverreservation[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdhcpserverreservation[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

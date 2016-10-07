@@ -81,10 +81,6 @@ describe Puppet::Type.type(:dsc_spirmsettings) do
     expect{dsc_spirmsettings[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spirmsettings[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_useadrms' do
     expect{dsc_spirmsettings[:dsc_useadrms] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -123,10 +119,6 @@ describe Puppet::Type.type(:dsc_spirmsettings) do
     expect{dsc_spirmsettings[:dsc_useadrms] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_useadrms' do
-    expect{dsc_spirmsettings[:dsc_useadrms] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_rmsserver' do
     expect{dsc_spirmsettings[:dsc_rmsserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -137,10 +129,6 @@ describe Puppet::Type.type(:dsc_spirmsettings) do
 
   it 'should not accept int for dsc_rmsserver' do
     expect{dsc_spirmsettings[:dsc_rmsserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_rmsserver' do
-    expect{dsc_spirmsettings[:dsc_rmsserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -157,10 +145,6 @@ describe Puppet::Type.type(:dsc_spirmsettings) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spirmsettings[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spirmsettings[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -56,10 +56,6 @@ describe Puppet::Type.type(:dsc_xservice) do
     expect{dsc_xservice[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xservice[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_state predefined value Running' do
     dsc_xservice[:dsc_state] = 'Running'
     expect(dsc_xservice[:dsc_state]).to eq('Running')
@@ -94,10 +90,6 @@ describe Puppet::Type.type(:dsc_xservice) do
 
   it 'should not accept int for dsc_state' do
     expect{dsc_xservice[:dsc_state] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_state' do
-    expect{dsc_xservice[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_startuptype predefined value Automatic' do
@@ -146,10 +138,6 @@ describe Puppet::Type.type(:dsc_xservice) do
     expect{dsc_xservice[:dsc_startuptype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_startuptype' do
-    expect{dsc_xservice[:dsc_startuptype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_builtinaccount predefined value LocalSystem' do
     dsc_xservice[:dsc_builtinaccount] = 'LocalSystem'
     expect(dsc_xservice[:dsc_builtinaccount]).to eq('LocalSystem')
@@ -196,10 +184,6 @@ describe Puppet::Type.type(:dsc_xservice) do
     expect{dsc_xservice[:dsc_builtinaccount] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_builtinaccount' do
-    expect{dsc_xservice[:dsc_builtinaccount] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xservice[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -216,10 +200,6 @@ describe Puppet::Type.type(:dsc_xservice) do
     expect{dsc_xservice[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xservice[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_status' do
     expect{dsc_xservice[:dsc_status] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -230,10 +210,6 @@ describe Puppet::Type.type(:dsc_xservice) do
 
   it 'should not accept int for dsc_status' do
     expect{dsc_xservice[:dsc_status] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_status' do
-    expect{dsc_xservice[:dsc_status] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_displayname' do
@@ -248,10 +224,6 @@ describe Puppet::Type.type(:dsc_xservice) do
     expect{dsc_xservice[:dsc_displayname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_displayname' do
-    expect{dsc_xservice[:dsc_displayname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_xservice[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -264,10 +236,6 @@ describe Puppet::Type.type(:dsc_xservice) do
     expect{dsc_xservice[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xservice[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_path' do
     expect{dsc_xservice[:dsc_path] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -278,10 +246,6 @@ describe Puppet::Type.type(:dsc_xservice) do
 
   it 'should not accept int for dsc_path' do
     expect{dsc_xservice[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xservice[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_dependencies' do
@@ -297,10 +261,6 @@ describe Puppet::Type.type(:dsc_xservice) do
     expect{dsc_xservice[:dsc_dependencies] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dependencies' do
-    expect{dsc_xservice[:dsc_dependencies] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_startuptimeout' do
     expect{dsc_xservice[:dsc_startuptimeout] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -309,64 +269,12 @@ describe Puppet::Type.type(:dsc_xservice) do
     expect{dsc_xservice[:dsc_startuptimeout] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_startuptimeout' do
-    dsc_xservice[:dsc_startuptimeout] = 32
-    expect(dsc_xservice[:dsc_startuptimeout]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_startuptimeout' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xservice[:dsc_startuptimeout] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_startuptimeout' do
-    dsc_xservice[:dsc_startuptimeout] = '16'
-    expect(dsc_xservice[:dsc_startuptimeout]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_startuptimeout' do
-    dsc_xservice[:dsc_startuptimeout] = '32'
-    expect(dsc_xservice[:dsc_startuptimeout]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_startuptimeout' do
-    dsc_xservice[:dsc_startuptimeout] = '64'
-    expect(dsc_xservice[:dsc_startuptimeout]).to eq(64)
-  end
-
   it 'should not accept array for dsc_terminatetimeout' do
     expect{dsc_xservice[:dsc_terminatetimeout] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_terminatetimeout' do
     expect{dsc_xservice[:dsc_terminatetimeout] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_terminatetimeout' do
-    dsc_xservice[:dsc_terminatetimeout] = 32
-    expect(dsc_xservice[:dsc_terminatetimeout]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_terminatetimeout' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xservice[:dsc_terminatetimeout] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_terminatetimeout' do
-    dsc_xservice[:dsc_terminatetimeout] = '16'
-    expect(dsc_xservice[:dsc_terminatetimeout]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_terminatetimeout' do
-    dsc_xservice[:dsc_terminatetimeout] = '32'
-    expect(dsc_xservice[:dsc_terminatetimeout]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_terminatetimeout' do
-    dsc_xservice[:dsc_terminatetimeout] = '64'
-    expect(dsc_xservice[:dsc_terminatetimeout]).to eq(64)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -413,10 +321,6 @@ describe Puppet::Type.type(:dsc_xservice) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xservice[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xservice[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

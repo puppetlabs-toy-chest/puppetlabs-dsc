@@ -77,10 +77,6 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
     expect{dsc_xscspfsetting[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xscspfsetting[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_servername is specified' do
     #dsc_xscspfsetting[:dsc_servername]
     expect { Puppet::Type.type(:dsc_xscspfsetting).new(
@@ -99,10 +95,6 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
 
   it 'should not accept int for dsc_servername' do
     expect{dsc_xscspfsetting[:dsc_servername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_servername' do
-    expect{dsc_xscspfsetting[:dsc_servername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_settingtype predefined value DatabaseConnectionString' do
@@ -141,10 +133,6 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
     expect{dsc_xscspfsetting[:dsc_settingtype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_settingtype' do
-    expect{dsc_xscspfsetting[:dsc_settingtype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_name is specified' do
     #dsc_xscspfsetting[:dsc_name]
     expect { Puppet::Type.type(:dsc_xscspfsetting).new(
@@ -165,10 +153,6 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
     expect{dsc_xscspfsetting[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xscspfsetting[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_value' do
     expect{dsc_xscspfsetting[:dsc_value] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -179,10 +163,6 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
 
   it 'should not accept int for dsc_value' do
     expect{dsc_xscspfsetting[:dsc_value] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_value' do
-    expect{dsc_xscspfsetting[:dsc_value] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_scspfadmincredential" do
@@ -199,10 +179,6 @@ describe Puppet::Type.type(:dsc_xscspfsetting) do
 
   it 'should not accept int for dsc_scspfadmincredential' do
     expect{dsc_xscspfsetting[:dsc_scspfadmincredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_scspfadmincredential' do
-    expect{dsc_xscspfsetting[:dsc_scspfadmincredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

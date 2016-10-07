@@ -109,10 +109,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_catype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_catype' do
-    expect{dsc_xadcscertificationauthority[:dsc_catype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xadcscertificationauthority[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -127,10 +123,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xadcscertificationauthority[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xadcscertificationauthority[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -179,10 +171,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xadcscertificationauthority[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_cacommonname' do
     expect{dsc_xadcscertificationauthority[:dsc_cacommonname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -193,10 +181,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
 
   it 'should not accept int for dsc_cacommonname' do
     expect{dsc_xadcscertificationauthority[:dsc_cacommonname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_cacommonname' do
-    expect{dsc_xadcscertificationauthority[:dsc_cacommonname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_cadistinguishednamesuffix' do
@@ -211,10 +195,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_cadistinguishednamesuffix] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_cadistinguishednamesuffix' do
-    expect{dsc_xadcscertificationauthority[:dsc_cadistinguishednamesuffix] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_certfile' do
     expect{dsc_xadcscertificationauthority[:dsc_certfile] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -225,10 +205,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
 
   it 'should not accept int for dsc_certfile' do
     expect{dsc_xadcscertificationauthority[:dsc_certfile] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_certfile' do
-    expect{dsc_xadcscertificationauthority[:dsc_certfile] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_certfilepassword" do
@@ -247,10 +223,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_certfilepassword] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_certfilepassword' do
-    expect{dsc_xadcscertificationauthority[:dsc_certfilepassword] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_certificateid' do
     expect{dsc_xadcscertificationauthority[:dsc_certificateid] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -261,10 +233,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
 
   it 'should not accept int for dsc_certificateid' do
     expect{dsc_xadcscertificationauthority[:dsc_certificateid] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_certificateid' do
-    expect{dsc_xadcscertificationauthority[:dsc_certificateid] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_cryptoprovidername' do
@@ -279,10 +247,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_cryptoprovidername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_cryptoprovidername' do
-    expect{dsc_xadcscertificationauthority[:dsc_cryptoprovidername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databasedirectory' do
     expect{dsc_xadcscertificationauthority[:dsc_databasedirectory] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -295,10 +259,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_databasedirectory] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databasedirectory' do
-    expect{dsc_xadcscertificationauthority[:dsc_databasedirectory] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_hashalgorithmname' do
     expect{dsc_xadcscertificationauthority[:dsc_hashalgorithmname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -309,10 +269,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
 
   it 'should not accept int for dsc_hashalgorithmname' do
     expect{dsc_xadcscertificationauthority[:dsc_hashalgorithmname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_hashalgorithmname' do
-    expect{dsc_xadcscertificationauthority[:dsc_hashalgorithmname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_ignoreunicode' do
@@ -353,10 +309,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_ignoreunicode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ignoreunicode' do
-    expect{dsc_xadcscertificationauthority[:dsc_ignoreunicode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_keycontainername' do
     expect{dsc_xadcscertificationauthority[:dsc_keycontainername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -369,42 +321,12 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_keycontainername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_keycontainername' do
-    expect{dsc_xadcscertificationauthority[:dsc_keycontainername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_keylength' do
     expect{dsc_xadcscertificationauthority[:dsc_keylength] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_keylength' do
     expect{dsc_xadcscertificationauthority[:dsc_keylength] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_keylength' do
-    dsc_xadcscertificationauthority[:dsc_keylength] = 32
-    expect(dsc_xadcscertificationauthority[:dsc_keylength]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_keylength' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xadcscertificationauthority[:dsc_keylength] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_keylength' do
-    dsc_xadcscertificationauthority[:dsc_keylength] = '16'
-    expect(dsc_xadcscertificationauthority[:dsc_keylength]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_keylength' do
-    dsc_xadcscertificationauthority[:dsc_keylength] = '32'
-    expect(dsc_xadcscertificationauthority[:dsc_keylength]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_keylength' do
-    dsc_xadcscertificationauthority[:dsc_keylength] = '64'
-    expect(dsc_xadcscertificationauthority[:dsc_keylength]).to eq(64)
   end
 
   it 'should not accept array for dsc_logdirectory' do
@@ -419,10 +341,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_logdirectory] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logdirectory' do
-    expect{dsc_xadcscertificationauthority[:dsc_logdirectory] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_outputcertrequestfile' do
     expect{dsc_xadcscertificationauthority[:dsc_outputcertrequestfile] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -433,10 +351,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
 
   it 'should not accept int for dsc_outputcertrequestfile' do
     expect{dsc_xadcscertificationauthority[:dsc_outputcertrequestfile] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_outputcertrequestfile' do
-    expect{dsc_xadcscertificationauthority[:dsc_outputcertrequestfile] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_overwriteexistingcainds' do
@@ -477,10 +391,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_overwriteexistingcainds' do
-    expect{dsc_xadcscertificationauthority[:dsc_overwriteexistingcainds] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_overwriteexistingdatabase' do
     expect{dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -517,10 +427,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
 
   it 'should not accept int for dsc_overwriteexistingdatabase' do
     expect{dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_overwriteexistingdatabase' do
-    expect{dsc_xadcscertificationauthority[:dsc_overwriteexistingdatabase] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_overwriteexistingkey' do
@@ -561,10 +467,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_overwriteexistingkey] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_overwriteexistingkey' do
-    expect{dsc_xadcscertificationauthority[:dsc_overwriteexistingkey] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_parentca' do
     expect{dsc_xadcscertificationauthority[:dsc_parentca] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -575,10 +477,6 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
 
   it 'should not accept int for dsc_parentca' do
     expect{dsc_xadcscertificationauthority[:dsc_parentca] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_parentca' do
-    expect{dsc_xadcscertificationauthority[:dsc_parentca] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_validityperiod predefined value Hours' do
@@ -637,42 +535,12 @@ describe Puppet::Type.type(:dsc_xadcscertificationauthority) do
     expect{dsc_xadcscertificationauthority[:dsc_validityperiod] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_validityperiod' do
-    expect{dsc_xadcscertificationauthority[:dsc_validityperiod] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_validityperiodunits' do
     expect{dsc_xadcscertificationauthority[:dsc_validityperiodunits] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_validityperiodunits' do
     expect{dsc_xadcscertificationauthority[:dsc_validityperiodunits] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_validityperiodunits' do
-    dsc_xadcscertificationauthority[:dsc_validityperiodunits] = 32
-    expect(dsc_xadcscertificationauthority[:dsc_validityperiodunits]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_validityperiodunits' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xadcscertificationauthority[:dsc_validityperiodunits] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_validityperiodunits' do
-    dsc_xadcscertificationauthority[:dsc_validityperiodunits] = '16'
-    expect(dsc_xadcscertificationauthority[:dsc_validityperiodunits]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_validityperiodunits' do
-    dsc_xadcscertificationauthority[:dsc_validityperiodunits] = '32'
-    expect(dsc_xadcscertificationauthority[:dsc_validityperiodunits]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_validityperiodunits' do
-    dsc_xadcscertificationauthority[:dsc_validityperiodunits] = '64'
-    expect(dsc_xadcscertificationauthority[:dsc_validityperiodunits]).to eq(64)
   end
 
   # Configuration PROVIDER TESTS

@@ -50,10 +50,6 @@ describe Puppet::Type.type(:dsc_spdistributedcacheservice) do
     expect{dsc_spdistributedcacheservice[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spdistributedcacheservice[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_spdistributedcacheservice[:dsc_ensure] = 'Present'
     expect(dsc_spdistributedcacheservice[:dsc_ensure]).to eq('Present')
@@ -100,42 +96,12 @@ describe Puppet::Type.type(:dsc_spdistributedcacheservice) do
     expect{dsc_spdistributedcacheservice[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spdistributedcacheservice[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_cachesizeinmb' do
     expect{dsc_spdistributedcacheservice[:dsc_cachesizeinmb] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_cachesizeinmb' do
     expect{dsc_spdistributedcacheservice[:dsc_cachesizeinmb] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_cachesizeinmb' do
-    dsc_spdistributedcacheservice[:dsc_cachesizeinmb] = 32
-    expect(dsc_spdistributedcacheservice[:dsc_cachesizeinmb]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_cachesizeinmb' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spdistributedcacheservice[:dsc_cachesizeinmb] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_cachesizeinmb' do
-    dsc_spdistributedcacheservice[:dsc_cachesizeinmb] = '16'
-    expect(dsc_spdistributedcacheservice[:dsc_cachesizeinmb]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_cachesizeinmb' do
-    dsc_spdistributedcacheservice[:dsc_cachesizeinmb] = '32'
-    expect(dsc_spdistributedcacheservice[:dsc_cachesizeinmb]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_cachesizeinmb' do
-    dsc_spdistributedcacheservice[:dsc_cachesizeinmb] = '64'
-    expect(dsc_spdistributedcacheservice[:dsc_cachesizeinmb]).to eq(64)
   end
 
   it 'should not accept array for dsc_serviceaccount' do
@@ -150,10 +116,6 @@ describe Puppet::Type.type(:dsc_spdistributedcacheservice) do
     expect{dsc_spdistributedcacheservice[:dsc_serviceaccount] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_serviceaccount' do
-    expect{dsc_spdistributedcacheservice[:dsc_serviceaccount] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_serverprovisionorder' do
     dsc_spdistributedcacheservice[:dsc_serverprovisionorder] = ["foo", "bar", "spec"]
     expect(dsc_spdistributedcacheservice[:dsc_serverprovisionorder]).to eq(["foo", "bar", "spec"])
@@ -165,10 +127,6 @@ describe Puppet::Type.type(:dsc_spdistributedcacheservice) do
 
   it 'should not accept int for dsc_serverprovisionorder' do
     expect{dsc_spdistributedcacheservice[:dsc_serverprovisionorder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_serverprovisionorder' do
-    expect{dsc_spdistributedcacheservice[:dsc_serverprovisionorder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_createfirewallrules' do
@@ -209,10 +167,6 @@ describe Puppet::Type.type(:dsc_spdistributedcacheservice) do
     expect{dsc_spdistributedcacheservice[:dsc_createfirewallrules] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_createfirewallrules' do
-    expect{dsc_spdistributedcacheservice[:dsc_createfirewallrules] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spdistributedcacheservice[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -227,10 +181,6 @@ describe Puppet::Type.type(:dsc_spdistributedcacheservice) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spdistributedcacheservice[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spdistributedcacheservice[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

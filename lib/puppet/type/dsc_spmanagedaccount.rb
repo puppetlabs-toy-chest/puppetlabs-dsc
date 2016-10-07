@@ -96,9 +96,7 @@ Puppet::Type.newtype(:dsc_spmanagedaccount) do
     def mof_is_embedded?; false end
     desc "EmailNotification - How many days before a password change should an email be sent"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "EmailNotification")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -114,9 +112,7 @@ Puppet::Type.newtype(:dsc_spmanagedaccount) do
     def mof_is_embedded?; false end
     desc "PreExpireDays - How many days before a password expires should it be changed"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "PreExpireDays")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

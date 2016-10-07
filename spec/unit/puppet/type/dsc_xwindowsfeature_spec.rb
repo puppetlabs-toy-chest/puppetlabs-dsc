@@ -50,10 +50,6 @@ describe Puppet::Type.type(:dsc_xwindowsfeature) do
     expect{dsc_xwindowsfeature[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xwindowsfeature[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xwindowsfeature[:dsc_ensure] = 'Present'
     expect(dsc_xwindowsfeature[:dsc_ensure]).to eq('Present')
@@ -100,10 +96,6 @@ describe Puppet::Type.type(:dsc_xwindowsfeature) do
     expect{dsc_xwindowsfeature[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xwindowsfeature[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_displayname' do
     expect{dsc_xwindowsfeature[:dsc_displayname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -116,10 +108,6 @@ describe Puppet::Type.type(:dsc_xwindowsfeature) do
     expect{dsc_xwindowsfeature[:dsc_displayname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_displayname' do
-    expect{dsc_xwindowsfeature[:dsc_displayname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_source' do
     expect{dsc_xwindowsfeature[:dsc_source] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -130,10 +118,6 @@ describe Puppet::Type.type(:dsc_xwindowsfeature) do
 
   it 'should not accept int for dsc_source' do
     expect{dsc_xwindowsfeature[:dsc_source] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_source' do
-    expect{dsc_xwindowsfeature[:dsc_source] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_includeallsubfeature' do
@@ -174,10 +158,6 @@ describe Puppet::Type.type(:dsc_xwindowsfeature) do
     expect{dsc_xwindowsfeature[:dsc_includeallsubfeature] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_includeallsubfeature' do
-    expect{dsc_xwindowsfeature[:dsc_includeallsubfeature] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_logpath' do
     expect{dsc_xwindowsfeature[:dsc_logpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -188,10 +168,6 @@ describe Puppet::Type.type(:dsc_xwindowsfeature) do
 
   it 'should not accept int for dsc_logpath' do
     expect{dsc_xwindowsfeature[:dsc_logpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_logpath' do
-    expect{dsc_xwindowsfeature[:dsc_logpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_credential" do
@@ -208,10 +184,6 @@ describe Puppet::Type.type(:dsc_xwindowsfeature) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xwindowsfeature[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xwindowsfeature[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -192,9 +192,7 @@ Puppet::Type.newtype(:dsc_xwindowsprocess) do
     def mof_is_embedded?; false end
     desc "PagedMemorySize"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "PagedMemorySize")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -210,9 +208,7 @@ Puppet::Type.newtype(:dsc_xwindowsprocess) do
     def mof_is_embedded?; false end
     desc "NonPagedMemorySize"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "NonPagedMemorySize")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -228,9 +224,7 @@ Puppet::Type.newtype(:dsc_xwindowsprocess) do
     def mof_is_embedded?; false end
     desc "VirtualMemorySize"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "VirtualMemorySize")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -246,9 +240,7 @@ Puppet::Type.newtype(:dsc_xwindowsprocess) do
     def mof_is_embedded?; false end
     desc "HandleCount"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "HandleCount")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -264,9 +256,7 @@ Puppet::Type.newtype(:dsc_xwindowsprocess) do
     def mof_is_embedded?; false end
     desc "ProcessId"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ProcessId")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

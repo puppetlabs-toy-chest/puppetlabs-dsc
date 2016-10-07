@@ -243,9 +243,7 @@ Puppet::Type.newtype(:dsc_spuserprofileproperty) do
     def mof_is_embedded?; false end
     desc "Length - The length of the field"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "Length")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -261,9 +259,7 @@ Puppet::Type.newtype(:dsc_spuserprofileproperty) do
     def mof_is_embedded?; false end
     desc "DisplayOrder - The display order to put the property in to the list at"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "DisplayOrder")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

@@ -50,10 +50,6 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xpendingreboot[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_skipcomponentbasedservicing' do
     expect{dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -90,10 +86,6 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
 
   it 'should not accept int for dsc_skipcomponentbasedservicing' do
     expect{dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_skipcomponentbasedservicing' do
-    expect{dsc_xpendingreboot[:dsc_skipcomponentbasedservicing] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_componentbasedservicing' do
@@ -134,10 +126,6 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_componentbasedservicing] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_componentbasedservicing' do
-    expect{dsc_xpendingreboot[:dsc_componentbasedservicing] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_skipwindowsupdate' do
     expect{dsc_xpendingreboot[:dsc_skipwindowsupdate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -174,10 +162,6 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
 
   it 'should not accept int for dsc_skipwindowsupdate' do
     expect{dsc_xpendingreboot[:dsc_skipwindowsupdate] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_skipwindowsupdate' do
-    expect{dsc_xpendingreboot[:dsc_skipwindowsupdate] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_windowsupdate' do
@@ -218,10 +202,6 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_windowsupdate] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_windowsupdate' do
-    expect{dsc_xpendingreboot[:dsc_windowsupdate] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_skippendingfilerename' do
     expect{dsc_xpendingreboot[:dsc_skippendingfilerename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -258,10 +238,6 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
 
   it 'should not accept int for dsc_skippendingfilerename' do
     expect{dsc_xpendingreboot[:dsc_skippendingfilerename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_skippendingfilerename' do
-    expect{dsc_xpendingreboot[:dsc_skippendingfilerename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_pendingfilerename' do
@@ -302,10 +278,6 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_pendingfilerename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_pendingfilerename' do
-    expect{dsc_xpendingreboot[:dsc_pendingfilerename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_skippendingcomputerrename' do
     expect{dsc_xpendingreboot[:dsc_skippendingcomputerrename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -342,10 +314,6 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
 
   it 'should not accept int for dsc_skippendingcomputerrename' do
     expect{dsc_xpendingreboot[:dsc_skippendingcomputerrename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_skippendingcomputerrename' do
-    expect{dsc_xpendingreboot[:dsc_skippendingcomputerrename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_pendingcomputerrename' do
@@ -386,10 +354,6 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_pendingcomputerrename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_pendingcomputerrename' do
-    expect{dsc_xpendingreboot[:dsc_pendingcomputerrename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_skipccmclientsdk' do
     expect{dsc_xpendingreboot[:dsc_skipccmclientsdk] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -428,10 +392,6 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
     expect{dsc_xpendingreboot[:dsc_skipccmclientsdk] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_skipccmclientsdk' do
-    expect{dsc_xpendingreboot[:dsc_skipccmclientsdk] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_ccmclientsdk' do
     expect{dsc_xpendingreboot[:dsc_ccmclientsdk] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -468,10 +428,6 @@ describe Puppet::Type.type(:dsc_xpendingreboot) do
 
   it 'should not accept int for dsc_ccmclientsdk' do
     expect{dsc_xpendingreboot[:dsc_ccmclientsdk] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ccmclientsdk' do
-    expect{dsc_xpendingreboot[:dsc_ccmclientsdk] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -54,10 +54,6 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
     expect{dsc_xdscwebservice[:dsc_endpointname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_endpointname' do
-    expect{dsc_xdscwebservice[:dsc_endpointname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_certificatethumbprint' do
     expect{dsc_xdscwebservice[:dsc_certificatethumbprint] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -70,42 +66,12 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
     expect{dsc_xdscwebservice[:dsc_certificatethumbprint] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_certificatethumbprint' do
-    expect{dsc_xdscwebservice[:dsc_certificatethumbprint] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_port' do
     expect{dsc_xdscwebservice[:dsc_port] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_port' do
     expect{dsc_xdscwebservice[:dsc_port] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_port' do
-    dsc_xdscwebservice[:dsc_port] = 32
-    expect(dsc_xdscwebservice[:dsc_port]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_port' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xdscwebservice[:dsc_port] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_port' do
-    dsc_xdscwebservice[:dsc_port] = '16'
-    expect(dsc_xdscwebservice[:dsc_port]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_port' do
-    dsc_xdscwebservice[:dsc_port] = '32'
-    expect(dsc_xdscwebservice[:dsc_port]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_port' do
-    dsc_xdscwebservice[:dsc_port] = '64'
-    expect(dsc_xdscwebservice[:dsc_port]).to eq(64)
   end
 
   it 'should not accept array for dsc_physicalpath' do
@@ -118,10 +84,6 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
 
   it 'should not accept int for dsc_physicalpath' do
     expect{dsc_xdscwebservice[:dsc_physicalpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_physicalpath' do
-    expect{dsc_xdscwebservice[:dsc_physicalpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -170,10 +132,6 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
     expect{dsc_xdscwebservice[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdscwebservice[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_state predefined value Started' do
     dsc_xdscwebservice[:dsc_state] = 'Started'
     expect(dsc_xdscwebservice[:dsc_state]).to eq('Started')
@@ -210,10 +168,6 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
     expect{dsc_xdscwebservice[:dsc_state] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_state' do
-    expect{dsc_xdscwebservice[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_modulepath' do
     expect{dsc_xdscwebservice[:dsc_modulepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -224,10 +178,6 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
 
   it 'should not accept int for dsc_modulepath' do
     expect{dsc_xdscwebservice[:dsc_modulepath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_modulepath' do
-    expect{dsc_xdscwebservice[:dsc_modulepath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_configurationpath' do
@@ -242,10 +192,6 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
     expect{dsc_xdscwebservice[:dsc_configurationpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_configurationpath' do
-    expect{dsc_xdscwebservice[:dsc_configurationpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_dscserverurl' do
     expect{dsc_xdscwebservice[:dsc_dscserverurl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -258,10 +204,6 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
     expect{dsc_xdscwebservice[:dsc_dscserverurl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dscserverurl' do
-    expect{dsc_xdscwebservice[:dsc_dscserverurl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_registrationkeypath' do
     expect{dsc_xdscwebservice[:dsc_registrationkeypath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -272,10 +214,6 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
 
   it 'should not accept int for dsc_registrationkeypath' do
     expect{dsc_xdscwebservice[:dsc_registrationkeypath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_registrationkeypath' do
-    expect{dsc_xdscwebservice[:dsc_registrationkeypath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_acceptselfsignedcertificates' do
@@ -314,10 +252,6 @@ describe Puppet::Type.type(:dsc_xdscwebservice) do
 
   it 'should not accept int for dsc_acceptselfsignedcertificates' do
     expect{dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_acceptselfsignedcertificates' do
-    expect{dsc_xdscwebservice[:dsc_acceptselfsignedcertificates] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

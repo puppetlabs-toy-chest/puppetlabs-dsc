@@ -181,9 +181,7 @@ Puppet::Type.newtype(:dsc_xdfsnamespacefolder) do
     def mof_is_embedded?; false end
     desc "ReferralPriorityRank - Specifies the priority rank, as an integer, for a root target of the DFS namespace."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ReferralPriorityRank")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -199,9 +197,7 @@ Puppet::Type.newtype(:dsc_xdfsnamespacefolder) do
     def mof_is_embedded?; false end
     desc "TimeToLiveSec - Specifies a TTL interval, in seconds, for referrals."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "TimeToLiveSec")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

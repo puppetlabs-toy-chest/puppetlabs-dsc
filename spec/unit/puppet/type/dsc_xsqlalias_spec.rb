@@ -49,10 +49,6 @@ describe Puppet::Type.type(:dsc_xsqlalias) do
     expect{dsc_xsqlalias[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xsqlalias[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_protocol predefined value TCP' do
     dsc_xsqlalias[:dsc_protocol] = 'TCP'
     expect(dsc_xsqlalias[:dsc_protocol]).to eq('TCP')
@@ -89,10 +85,6 @@ describe Puppet::Type.type(:dsc_xsqlalias) do
     expect{dsc_xsqlalias[:dsc_protocol] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_protocol' do
-    expect{dsc_xsqlalias[:dsc_protocol] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_servername' do
     expect{dsc_xsqlalias[:dsc_servername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -105,10 +97,6 @@ describe Puppet::Type.type(:dsc_xsqlalias) do
     expect{dsc_xsqlalias[:dsc_servername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_servername' do
-    expect{dsc_xsqlalias[:dsc_servername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_tcpport' do
     expect{dsc_xsqlalias[:dsc_tcpport] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -116,32 +104,6 @@ describe Puppet::Type.type(:dsc_xsqlalias) do
   it 'should not accept boolean for dsc_tcpport' do
     expect{dsc_xsqlalias[:dsc_tcpport] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_tcpport' do
-    dsc_xsqlalias[:dsc_tcpport] = -32
-    expect(dsc_xsqlalias[:dsc_tcpport]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_tcpport' do
-    dsc_xsqlalias[:dsc_tcpport] = '16'
-    expect(dsc_xsqlalias[:dsc_tcpport]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_tcpport' do
-    dsc_xsqlalias[:dsc_tcpport] = '-16'
-    expect(dsc_xsqlalias[:dsc_tcpport]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_tcpport' do
-    dsc_xsqlalias[:dsc_tcpport] = '32'
-    expect(dsc_xsqlalias[:dsc_tcpport]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_tcpport' do
-    dsc_xsqlalias[:dsc_tcpport] = '-32'
-    expect(dsc_xsqlalias[:dsc_tcpport]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_pipename' do
     expect{dsc_xsqlalias[:dsc_pipename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -153,10 +115,6 @@ describe Puppet::Type.type(:dsc_xsqlalias) do
 
   it 'should not accept int for dsc_pipename' do
     expect{dsc_xsqlalias[:dsc_pipename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_pipename' do
-    expect{dsc_xsqlalias[:dsc_pipename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -203,10 +161,6 @@ describe Puppet::Type.type(:dsc_xsqlalias) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xsqlalias[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xsqlalias[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

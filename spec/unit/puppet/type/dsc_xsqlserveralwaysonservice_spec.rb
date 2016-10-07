@@ -80,10 +80,6 @@ describe Puppet::Type.type(:dsc_xsqlserveralwaysonservice) do
     expect{dsc_xsqlserveralwaysonservice[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xsqlserveralwaysonservice[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlserver' do
     expect{dsc_xsqlserveralwaysonservice[:dsc_sqlserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -96,10 +92,6 @@ describe Puppet::Type.type(:dsc_xsqlserveralwaysonservice) do
     expect{dsc_xsqlserveralwaysonservice[:dsc_sqlserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlserver' do
-    expect{dsc_xsqlserveralwaysonservice[:dsc_sqlserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlinstancename' do
     expect{dsc_xsqlserveralwaysonservice[:dsc_sqlinstancename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -110,10 +102,6 @@ describe Puppet::Type.type(:dsc_xsqlserveralwaysonservice) do
 
   it 'should not accept int for dsc_sqlinstancename' do
     expect{dsc_xsqlserveralwaysonservice[:dsc_sqlinstancename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlinstancename' do
-    expect{dsc_xsqlserveralwaysonservice[:dsc_sqlinstancename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

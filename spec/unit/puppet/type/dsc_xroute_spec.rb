@@ -57,10 +57,6 @@ describe Puppet::Type.type(:dsc_xroute) do
     expect{dsc_xroute[:dsc_interfacealias] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_interfacealias' do
-    expect{dsc_xroute[:dsc_interfacealias] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_addressfamily is specified' do
     #dsc_xroute[:dsc_addressfamily]
     expect { Puppet::Type.type(:dsc_xroute).new(
@@ -107,10 +103,6 @@ describe Puppet::Type.type(:dsc_xroute) do
     expect{dsc_xroute[:dsc_addressfamily] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_addressfamily' do
-    expect{dsc_xroute[:dsc_addressfamily] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_destinationprefix is specified' do
     #dsc_xroute[:dsc_destinationprefix]
     expect { Puppet::Type.type(:dsc_xroute).new(
@@ -133,10 +125,6 @@ describe Puppet::Type.type(:dsc_xroute) do
     expect{dsc_xroute[:dsc_destinationprefix] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_destinationprefix' do
-    expect{dsc_xroute[:dsc_destinationprefix] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_nexthop is specified' do
     #dsc_xroute[:dsc_nexthop]
     expect { Puppet::Type.type(:dsc_xroute).new(
@@ -157,10 +145,6 @@ describe Puppet::Type.type(:dsc_xroute) do
 
   it 'should not accept int for dsc_nexthop' do
     expect{dsc_xroute[:dsc_nexthop] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_nexthop' do
-    expect{dsc_xroute[:dsc_nexthop] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -209,42 +193,12 @@ describe Puppet::Type.type(:dsc_xroute) do
     expect{dsc_xroute[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xroute[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_routemetric' do
     expect{dsc_xroute[:dsc_routemetric] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_routemetric' do
     expect{dsc_xroute[:dsc_routemetric] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_routemetric' do
-    dsc_xroute[:dsc_routemetric] = 16
-    expect(dsc_xroute[:dsc_routemetric]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_routemetric' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xroute[:dsc_routemetric] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_routemetric' do
-    dsc_xroute[:dsc_routemetric] = '16'
-    expect(dsc_xroute[:dsc_routemetric]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_routemetric' do
-    dsc_xroute[:dsc_routemetric] = '32'
-    expect(dsc_xroute[:dsc_routemetric]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_routemetric' do
-    dsc_xroute[:dsc_routemetric] = '64'
-    expect(dsc_xroute[:dsc_routemetric]).to eq(64)
   end
 
   it 'should accept dsc_publish predefined value No' do
@@ -293,10 +247,6 @@ describe Puppet::Type.type(:dsc_xroute) do
     expect{dsc_xroute[:dsc_publish] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_publish' do
-    expect{dsc_xroute[:dsc_publish] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_preferredlifetime' do
     expect{dsc_xroute[:dsc_preferredlifetime] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -307,10 +257,6 @@ describe Puppet::Type.type(:dsc_xroute) do
 
   it 'should not accept int for dsc_preferredlifetime' do
     expect{dsc_xroute[:dsc_preferredlifetime] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_preferredlifetime' do
-    expect{dsc_xroute[:dsc_preferredlifetime] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

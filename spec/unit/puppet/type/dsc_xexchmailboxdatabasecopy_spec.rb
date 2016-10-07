@@ -49,10 +49,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexchmailboxdatabasecopy[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -69,10 +65,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchmailboxdatabasecopy[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_mailboxserver' do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_mailboxserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -85,10 +77,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_mailboxserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_mailboxserver' do
-    expect{dsc_xexchmailboxdatabasecopy[:dsc_mailboxserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_adserversettingspreferredserver' do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_adserversettingspreferredserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -99,10 +87,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
 
   it 'should not accept int for dsc_adserversettingspreferredserver' do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_adserversettingspreferredserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_adserversettingspreferredserver' do
-    expect{dsc_xexchmailboxdatabasecopy[:dsc_adserversettingspreferredserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowservicerestart' do
@@ -143,42 +127,12 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_allowservicerestart] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowservicerestart' do
-    expect{dsc_xexchmailboxdatabasecopy[:dsc_allowservicerestart] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_activationpreference' do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_activationpreference' do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_activationpreference' do
-    dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = 32
-    expect(dsc_xexchmailboxdatabasecopy[:dsc_activationpreference]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_activationpreference' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_activationpreference' do
-    dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = '16'
-    expect(dsc_xexchmailboxdatabasecopy[:dsc_activationpreference]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_activationpreference' do
-    dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = '32'
-    expect(dsc_xexchmailboxdatabasecopy[:dsc_activationpreference]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_activationpreference' do
-    dsc_xexchmailboxdatabasecopy[:dsc_activationpreference] = '64'
-    expect(dsc_xexchmailboxdatabasecopy[:dsc_activationpreference]).to eq(64)
   end
 
   it 'should not accept array for dsc_domaincontroller' do
@@ -193,10 +147,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchmailboxdatabasecopy[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_replaylagtime' do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_replaylagtime] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -207,10 +157,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
 
   it 'should not accept int for dsc_replaylagtime' do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_replaylagtime] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_replaylagtime' do
-    expect{dsc_xexchmailboxdatabasecopy[:dsc_replaylagtime] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_seedingpostponed' do
@@ -251,10 +197,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_seedingpostponed] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_seedingpostponed' do
-    expect{dsc_xexchmailboxdatabasecopy[:dsc_seedingpostponed] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_truncationlagtime' do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_truncationlagtime] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -265,10 +207,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabasecopy) do
 
   it 'should not accept int for dsc_truncationlagtime' do
     expect{dsc_xexchmailboxdatabasecopy[:dsc_truncationlagtime] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_truncationlagtime' do
-    expect{dsc_xexchmailboxdatabasecopy[:dsc_truncationlagtime] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

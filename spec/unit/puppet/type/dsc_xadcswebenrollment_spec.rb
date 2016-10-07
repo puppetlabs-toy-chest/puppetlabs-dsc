@@ -40,10 +40,6 @@ describe Puppet::Type.type(:dsc_xadcswebenrollment) do
     expect{dsc_xadcswebenrollment[:dsc_caconfig] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_caconfig' do
-    expect{dsc_xadcswebenrollment[:dsc_caconfig] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xadcswebenrollment[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -58,10 +54,6 @@ describe Puppet::Type.type(:dsc_xadcswebenrollment) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xadcswebenrollment[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xadcswebenrollment[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -110,10 +102,6 @@ describe Puppet::Type.type(:dsc_xadcswebenrollment) do
     expect{dsc_xadcswebenrollment[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xadcswebenrollment[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_name is specified' do
     #dsc_xadcswebenrollment[:dsc_name]
     expect { Puppet::Type.type(:dsc_xadcswebenrollment).new(
@@ -131,10 +119,6 @@ describe Puppet::Type.type(:dsc_xadcswebenrollment) do
 
   it 'should not accept int for dsc_name' do
     expect{dsc_xadcswebenrollment[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xadcswebenrollment[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -51,10 +51,6 @@ describe Puppet::Type.type(:dsc_spfeature) do
     expect{dsc_spfeature[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spfeature[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_featurescope predefined value Farm' do
     dsc_spfeature[:dsc_featurescope] = 'Farm'
     expect(dsc_spfeature[:dsc_featurescope]).to eq('Farm')
@@ -111,10 +107,6 @@ describe Puppet::Type.type(:dsc_spfeature) do
     expect{dsc_spfeature[:dsc_featurescope] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_featurescope' do
-    expect{dsc_spfeature[:dsc_featurescope] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_url is specified' do
     #dsc_spfeature[:dsc_url]
     expect { Puppet::Type.type(:dsc_spfeature).new(
@@ -133,10 +125,6 @@ describe Puppet::Type.type(:dsc_spfeature) do
 
   it 'should not accept int for dsc_url' do
     expect{dsc_spfeature[:dsc_url] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_url' do
-    expect{dsc_spfeature[:dsc_url] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -185,10 +173,6 @@ describe Puppet::Type.type(:dsc_spfeature) do
     expect{dsc_spfeature[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spfeature[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_version' do
     expect{dsc_spfeature[:dsc_version] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -199,10 +183,6 @@ describe Puppet::Type.type(:dsc_spfeature) do
 
   it 'should not accept int for dsc_version' do
     expect{dsc_spfeature[:dsc_version] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_version' do
-    expect{dsc_spfeature[:dsc_version] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -219,10 +199,6 @@ describe Puppet::Type.type(:dsc_spfeature) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spfeature[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spfeature[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

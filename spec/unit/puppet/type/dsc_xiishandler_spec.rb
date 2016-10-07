@@ -45,10 +45,6 @@ describe Puppet::Type.type(:dsc_xiishandler) do
     expect{dsc_xiishandler[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xiishandler[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xiishandler[:dsc_ensure] = 'Present'
     expect(dsc_xiishandler[:dsc_ensure]).to eq('Present')
@@ -93,10 +89,6 @@ describe Puppet::Type.type(:dsc_xiishandler) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xiishandler[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xiishandler[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

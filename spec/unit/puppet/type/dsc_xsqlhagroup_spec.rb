@@ -47,10 +47,6 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
     expect{dsc_xsqlhagroup[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xsqlhagroup[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_database' do
     dsc_xsqlhagroup[:dsc_database] = ["foo", "bar", "spec"]
     expect(dsc_xsqlhagroup[:dsc_database]).to eq(["foo", "bar", "spec"])
@@ -62,10 +58,6 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
 
   it 'should not accept int for dsc_database' do
     expect{dsc_xsqlhagroup[:dsc_database] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_database' do
-    expect{dsc_xsqlhagroup[:dsc_database] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_clustername' do
@@ -80,10 +72,6 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
     expect{dsc_xsqlhagroup[:dsc_clustername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_clustername' do
-    expect{dsc_xsqlhagroup[:dsc_clustername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databasebackuppath' do
     expect{dsc_xsqlhagroup[:dsc_databasebackuppath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -94,10 +82,6 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
 
   it 'should not accept int for dsc_databasebackuppath' do
     expect{dsc_xsqlhagroup[:dsc_databasebackuppath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_databasebackuppath' do
-    expect{dsc_xsqlhagroup[:dsc_databasebackuppath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_instancename' do
@@ -112,10 +96,6 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
     expect{dsc_xsqlhagroup[:dsc_instancename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_instancename' do
-    expect{dsc_xsqlhagroup[:dsc_instancename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_endpointname' do
     expect{dsc_xsqlhagroup[:dsc_endpointname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -126,10 +106,6 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
 
   it 'should not accept int for dsc_endpointname' do
     expect{dsc_xsqlhagroup[:dsc_endpointname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_endpointname' do
-    expect{dsc_xsqlhagroup[:dsc_endpointname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_domaincredential" do
@@ -148,10 +124,6 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
     expect{dsc_xsqlhagroup[:dsc_domaincredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_domaincredential' do
-    expect{dsc_xsqlhagroup[:dsc_domaincredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_sqladministratorcredential" do
     expect{dsc_xsqlhagroup[:dsc_sqladministratorcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -166,10 +138,6 @@ describe Puppet::Type.type(:dsc_xsqlhagroup) do
 
   it 'should not accept int for dsc_sqladministratorcredential' do
     expect{dsc_xsqlhagroup[:dsc_sqladministratorcredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqladministratorcredential' do
-    expect{dsc_xsqlhagroup[:dsc_sqladministratorcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

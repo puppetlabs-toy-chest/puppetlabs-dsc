@@ -50,42 +50,12 @@ describe Puppet::Type.type(:dsc_spquotatemplate) do
     expect{dsc_spquotatemplate[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spquotatemplate[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_storagemaxinmb' do
     expect{dsc_spquotatemplate[:dsc_storagemaxinmb] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_storagemaxinmb' do
     expect{dsc_spquotatemplate[:dsc_storagemaxinmb] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_storagemaxinmb' do
-    dsc_spquotatemplate[:dsc_storagemaxinmb] = 32
-    expect(dsc_spquotatemplate[:dsc_storagemaxinmb]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_storagemaxinmb' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spquotatemplate[:dsc_storagemaxinmb] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_storagemaxinmb' do
-    dsc_spquotatemplate[:dsc_storagemaxinmb] = '16'
-    expect(dsc_spquotatemplate[:dsc_storagemaxinmb]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_storagemaxinmb' do
-    dsc_spquotatemplate[:dsc_storagemaxinmb] = '32'
-    expect(dsc_spquotatemplate[:dsc_storagemaxinmb]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_storagemaxinmb' do
-    dsc_spquotatemplate[:dsc_storagemaxinmb] = '64'
-    expect(dsc_spquotatemplate[:dsc_storagemaxinmb]).to eq(64)
   end
 
   it 'should not accept array for dsc_storagewarninginmb' do
@@ -96,32 +66,6 @@ describe Puppet::Type.type(:dsc_spquotatemplate) do
     expect{dsc_spquotatemplate[:dsc_storagewarninginmb] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_storagewarninginmb' do
-    dsc_spquotatemplate[:dsc_storagewarninginmb] = 32
-    expect(dsc_spquotatemplate[:dsc_storagewarninginmb]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_storagewarninginmb' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spquotatemplate[:dsc_storagewarninginmb] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_storagewarninginmb' do
-    dsc_spquotatemplate[:dsc_storagewarninginmb] = '16'
-    expect(dsc_spquotatemplate[:dsc_storagewarninginmb]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_storagewarninginmb' do
-    dsc_spquotatemplate[:dsc_storagewarninginmb] = '32'
-    expect(dsc_spquotatemplate[:dsc_storagewarninginmb]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_storagewarninginmb' do
-    dsc_spquotatemplate[:dsc_storagewarninginmb] = '64'
-    expect(dsc_spquotatemplate[:dsc_storagewarninginmb]).to eq(64)
-  end
-
   it 'should not accept array for dsc_maximumusagepointssolutions' do
     expect{dsc_spquotatemplate[:dsc_maximumusagepointssolutions] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -130,64 +74,12 @@ describe Puppet::Type.type(:dsc_spquotatemplate) do
     expect{dsc_spquotatemplate[:dsc_maximumusagepointssolutions] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_maximumusagepointssolutions' do
-    dsc_spquotatemplate[:dsc_maximumusagepointssolutions] = 32
-    expect(dsc_spquotatemplate[:dsc_maximumusagepointssolutions]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maximumusagepointssolutions' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spquotatemplate[:dsc_maximumusagepointssolutions] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maximumusagepointssolutions' do
-    dsc_spquotatemplate[:dsc_maximumusagepointssolutions] = '16'
-    expect(dsc_spquotatemplate[:dsc_maximumusagepointssolutions]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maximumusagepointssolutions' do
-    dsc_spquotatemplate[:dsc_maximumusagepointssolutions] = '32'
-    expect(dsc_spquotatemplate[:dsc_maximumusagepointssolutions]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maximumusagepointssolutions' do
-    dsc_spquotatemplate[:dsc_maximumusagepointssolutions] = '64'
-    expect(dsc_spquotatemplate[:dsc_maximumusagepointssolutions]).to eq(64)
-  end
-
   it 'should not accept array for dsc_warningusagepointssolutions' do
     expect{dsc_spquotatemplate[:dsc_warningusagepointssolutions] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_warningusagepointssolutions' do
     expect{dsc_spquotatemplate[:dsc_warningusagepointssolutions] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_warningusagepointssolutions' do
-    dsc_spquotatemplate[:dsc_warningusagepointssolutions] = 32
-    expect(dsc_spquotatemplate[:dsc_warningusagepointssolutions]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_warningusagepointssolutions' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spquotatemplate[:dsc_warningusagepointssolutions] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_warningusagepointssolutions' do
-    dsc_spquotatemplate[:dsc_warningusagepointssolutions] = '16'
-    expect(dsc_spquotatemplate[:dsc_warningusagepointssolutions]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_warningusagepointssolutions' do
-    dsc_spquotatemplate[:dsc_warningusagepointssolutions] = '32'
-    expect(dsc_spquotatemplate[:dsc_warningusagepointssolutions]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_warningusagepointssolutions' do
-    dsc_spquotatemplate[:dsc_warningusagepointssolutions] = '64'
-    expect(dsc_spquotatemplate[:dsc_warningusagepointssolutions]).to eq(64)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -236,10 +128,6 @@ describe Puppet::Type.type(:dsc_spquotatemplate) do
     expect{dsc_spquotatemplate[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spquotatemplate[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spquotatemplate[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -254,10 +142,6 @@ describe Puppet::Type.type(:dsc_spquotatemplate) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spquotatemplate[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spquotatemplate[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

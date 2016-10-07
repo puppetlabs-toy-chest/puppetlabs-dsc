@@ -60,10 +60,6 @@ describe Puppet::Type.type(:dsc_xdhcpclient) do
     expect{dsc_xdhcpclient[:dsc_state] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_state' do
-    expect{dsc_xdhcpclient[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_interfacealias is specified' do
     #dsc_xdhcpclient[:dsc_interfacealias]
     expect { Puppet::Type.type(:dsc_xdhcpclient).new(
@@ -82,10 +78,6 @@ describe Puppet::Type.type(:dsc_xdhcpclient) do
 
   it 'should not accept int for dsc_interfacealias' do
     expect{dsc_xdhcpclient[:dsc_interfacealias] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_interfacealias' do
-    expect{dsc_xdhcpclient[:dsc_interfacealias] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_addressfamily is specified' do
@@ -130,10 +122,6 @@ describe Puppet::Type.type(:dsc_xdhcpclient) do
 
   it 'should not accept int for dsc_addressfamily' do
     expect{dsc_xdhcpclient[:dsc_addressfamily] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_addressfamily' do
-    expect{dsc_xdhcpclient[:dsc_addressfamily] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

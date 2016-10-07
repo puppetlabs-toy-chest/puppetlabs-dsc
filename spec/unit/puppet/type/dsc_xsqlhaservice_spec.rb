@@ -42,10 +42,6 @@ describe Puppet::Type.type(:dsc_xsqlhaservice) do
     expect{dsc_xsqlhaservice[:dsc_instancename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_instancename' do
-    expect{dsc_xsqlhaservice[:dsc_instancename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_sqladministratorcredential" do
     expect{dsc_xsqlhaservice[:dsc_sqladministratorcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -62,10 +58,6 @@ describe Puppet::Type.type(:dsc_xsqlhaservice) do
     expect{dsc_xsqlhaservice[:dsc_sqladministratorcredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqladministratorcredential' do
-    expect{dsc_xsqlhaservice[:dsc_sqladministratorcredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_servicecredential" do
     expect{dsc_xsqlhaservice[:dsc_servicecredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -80,10 +72,6 @@ describe Puppet::Type.type(:dsc_xsqlhaservice) do
 
   it 'should not accept int for dsc_servicecredential' do
     expect{dsc_xsqlhaservice[:dsc_servicecredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_servicecredential' do
-    expect{dsc_xsqlhaservice[:dsc_servicecredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

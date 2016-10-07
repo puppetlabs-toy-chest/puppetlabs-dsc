@@ -47,10 +47,6 @@ describe Puppet::Type.type(:dsc_xexchautodiscovervirtualdirectory) do
     expect{dsc_xexchautodiscovervirtualdirectory[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexchautodiscovervirtualdirectory[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchautodiscovervirtualdirectory[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -65,10 +61,6 @@ describe Puppet::Type.type(:dsc_xexchautodiscovervirtualdirectory) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xexchautodiscovervirtualdirectory[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchautodiscovervirtualdirectory[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowservicerestart' do
@@ -109,10 +101,6 @@ describe Puppet::Type.type(:dsc_xexchautodiscovervirtualdirectory) do
     expect{dsc_xexchautodiscovervirtualdirectory[:dsc_allowservicerestart] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowservicerestart' do
-    expect{dsc_xexchautodiscovervirtualdirectory[:dsc_allowservicerestart] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_basicauthentication' do
     expect{dsc_xexchautodiscovervirtualdirectory[:dsc_basicauthentication] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -149,10 +137,6 @@ describe Puppet::Type.type(:dsc_xexchautodiscovervirtualdirectory) do
 
   it 'should not accept int for dsc_basicauthentication' do
     expect{dsc_xexchautodiscovervirtualdirectory[:dsc_basicauthentication] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_basicauthentication' do
-    expect{dsc_xexchautodiscovervirtualdirectory[:dsc_basicauthentication] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_digestauthentication' do
@@ -193,10 +177,6 @@ describe Puppet::Type.type(:dsc_xexchautodiscovervirtualdirectory) do
     expect{dsc_xexchautodiscovervirtualdirectory[:dsc_digestauthentication] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_digestauthentication' do
-    expect{dsc_xexchautodiscovervirtualdirectory[:dsc_digestauthentication] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchautodiscovervirtualdirectory[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -207,10 +187,6 @@ describe Puppet::Type.type(:dsc_xexchautodiscovervirtualdirectory) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xexchautodiscovervirtualdirectory[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchautodiscovervirtualdirectory[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_windowsauthentication' do
@@ -251,10 +227,6 @@ describe Puppet::Type.type(:dsc_xexchautodiscovervirtualdirectory) do
     expect{dsc_xexchautodiscovervirtualdirectory[:dsc_windowsauthentication] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_windowsauthentication' do
-    expect{dsc_xexchautodiscovervirtualdirectory[:dsc_windowsauthentication] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_wssecurityauthentication' do
     expect{dsc_xexchautodiscovervirtualdirectory[:dsc_wssecurityauthentication] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -291,10 +263,6 @@ describe Puppet::Type.type(:dsc_xexchautodiscovervirtualdirectory) do
 
   it 'should not accept int for dsc_wssecurityauthentication' do
     expect{dsc_xexchautodiscovervirtualdirectory[:dsc_wssecurityauthentication] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_wssecurityauthentication' do
-    expect{dsc_xexchautodiscovervirtualdirectory[:dsc_wssecurityauthentication] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -313,9 +313,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
     def mof_is_embedded?; false end
     desc "IndigoTcpPort - Port for communication with the VMM console."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "IndigoTcpPort")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -331,9 +329,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
     def mof_is_embedded?; false end
     desc "IndigoHTTPSPort - Port for communication with the Windows Preinstallation Environment agents."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "IndigoHTTPSPort")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -349,9 +345,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
     def mof_is_embedded?; false end
     desc "IndigoNETTCPPort - Port for communication with Windows Deployment Services."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "IndigoNETTCPPort")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -367,9 +361,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
     def mof_is_embedded?; false end
     desc "IndigoHTTPPort - Port for communication with Windows PE agent for time synchronization."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "IndigoHTTPPort")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -385,9 +377,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
     def mof_is_embedded?; false end
     desc "WSManTcpPort - Port for communication with agents on hosts and library servers."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "WSManTcpPort")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -403,9 +393,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
     def mof_is_embedded?; false end
     desc "BitsTcpPort - Port for file transfers to agents on hosts and library servers."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "BitsTcpPort")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -526,9 +514,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
     def mof_is_embedded?; false end
     desc "RetainSqlDatabase - 0: Remove the SQL Server database. 1: Do not remove the SQL Server database."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "RetainSqlDatabase")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -544,9 +530,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
     def mof_is_embedded?; false end
     desc "ForceHAVMMUninstall - 0: Do not force uninstallation if setup.exe cannot verify whether this node is the final node of the highly available installation. 1: Force the uninstallation."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ForceHAVMMUninstall")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -562,9 +546,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
     def mof_is_embedded?; false end
     desc "SQMOptIn - 0: Do not opt in to the Customer Experience Improvement Program (CEIP). 1: Opt in to CEIP."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "SQMOptIn")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -580,9 +562,7 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
     def mof_is_embedded?; false end
     desc "MUOptIn - 0: Do not opt in to Microsoft Update. 1: Opt in to Microsoft Update."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MUOptIn")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

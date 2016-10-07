@@ -55,10 +55,6 @@ describe Puppet::Type.type(:dsc_xtimezone) do
     expect{dsc_xtimezone[:dsc_issingleinstance] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_issingleinstance' do
-    expect{dsc_xtimezone[:dsc_issingleinstance] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_timezone' do
     expect{dsc_xtimezone[:dsc_timezone] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -69,10 +65,6 @@ describe Puppet::Type.type(:dsc_xtimezone) do
 
   it 'should not accept int for dsc_timezone' do
     expect{dsc_xtimezone[:dsc_timezone] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_timezone' do
-    expect{dsc_xtimezone[:dsc_timezone] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

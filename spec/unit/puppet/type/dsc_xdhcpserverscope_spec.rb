@@ -54,10 +54,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverscope) do
     expect{dsc_xdhcpserverscope[:dsc_ipstartrange] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ipstartrange' do
-    expect{dsc_xdhcpserverscope[:dsc_ipstartrange] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_ipendrange is specified' do
     #dsc_xdhcpserverscope[:dsc_ipendrange]
     expect { Puppet::Type.type(:dsc_xdhcpserverscope).new(
@@ -78,10 +74,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverscope) do
     expect{dsc_xdhcpserverscope[:dsc_ipendrange] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ipendrange' do
-    expect{dsc_xdhcpserverscope[:dsc_ipendrange] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_name' do
     expect{dsc_xdhcpserverscope[:dsc_name] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -92,10 +84,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverscope) do
 
   it 'should not accept int for dsc_name' do
     expect{dsc_xdhcpserverscope[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xdhcpserverscope[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_subnetmask' do
@@ -110,10 +98,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverscope) do
     expect{dsc_xdhcpserverscope[:dsc_subnetmask] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_subnetmask' do
-    expect{dsc_xdhcpserverscope[:dsc_subnetmask] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_leaseduration' do
     expect{dsc_xdhcpserverscope[:dsc_leaseduration] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -124,10 +108,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverscope) do
 
   it 'should not accept int for dsc_leaseduration' do
     expect{dsc_xdhcpserverscope[:dsc_leaseduration] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_leaseduration' do
-    expect{dsc_xdhcpserverscope[:dsc_leaseduration] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_state predefined value Active' do
@@ -166,10 +146,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverscope) do
     expect{dsc_xdhcpserverscope[:dsc_state] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_state' do
-    expect{dsc_xdhcpserverscope[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_addressfamily predefined value IPv4' do
     dsc_xdhcpserverscope[:dsc_addressfamily] = 'IPv4'
     expect(dsc_xdhcpserverscope[:dsc_addressfamily]).to eq('IPv4')
@@ -194,10 +170,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverscope) do
 
   it 'should not accept int for dsc_addressfamily' do
     expect{dsc_xdhcpserverscope[:dsc_addressfamily] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_addressfamily' do
-    expect{dsc_xdhcpserverscope[:dsc_addressfamily] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -246,10 +218,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverscope) do
     expect{dsc_xdhcpserverscope[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdhcpserverscope[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_scopeid' do
     expect{dsc_xdhcpserverscope[:dsc_scopeid] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -260,10 +228,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverscope) do
 
   it 'should not accept int for dsc_scopeid' do
     expect{dsc_xdhcpserverscope[:dsc_scopeid] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_scopeid' do
-    expect{dsc_xdhcpserverscope[:dsc_scopeid] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

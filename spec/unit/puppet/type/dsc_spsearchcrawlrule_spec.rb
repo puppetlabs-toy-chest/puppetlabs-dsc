@@ -52,10 +52,6 @@ describe Puppet::Type.type(:dsc_spsearchcrawlrule) do
     expect{dsc_spsearchcrawlrule[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_spsearchcrawlrule[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_serviceappname' do
     expect{dsc_spsearchcrawlrule[:dsc_serviceappname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -66,10 +62,6 @@ describe Puppet::Type.type(:dsc_spsearchcrawlrule) do
 
   it 'should not accept int for dsc_serviceappname' do
     expect{dsc_spsearchcrawlrule[:dsc_serviceappname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_serviceappname' do
-    expect{dsc_spsearchcrawlrule[:dsc_serviceappname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_authenticationtype predefined value DefaultRuleAccess' do
@@ -158,10 +150,6 @@ describe Puppet::Type.type(:dsc_spsearchcrawlrule) do
     expect{dsc_spsearchcrawlrule[:dsc_authenticationtype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_authenticationtype' do
-    expect{dsc_spsearchcrawlrule[:dsc_authenticationtype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ruletype predefined value InclusionRule' do
     dsc_spsearchcrawlrule[:dsc_ruletype] = 'InclusionRule'
     expect(dsc_spsearchcrawlrule[:dsc_ruletype]).to eq('InclusionRule')
@@ -196,10 +184,6 @@ describe Puppet::Type.type(:dsc_spsearchcrawlrule) do
 
   it 'should not accept int for dsc_ruletype' do
     expect{dsc_spsearchcrawlrule[:dsc_ruletype] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ruletype' do
-    expect{dsc_spsearchcrawlrule[:dsc_ruletype] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_crawlconfigurationrules predefined value FollowLinksNoPageCrawl' do
@@ -249,10 +233,6 @@ describe Puppet::Type.type(:dsc_spsearchcrawlrule) do
     expect{dsc_spsearchcrawlrule[:dsc_crawlconfigurationrules] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_crawlconfigurationrules' do
-    expect{dsc_spsearchcrawlrule[:dsc_crawlconfigurationrules] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_authenticationcredentials" do
     expect{dsc_spsearchcrawlrule[:dsc_authenticationcredentials] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -269,10 +249,6 @@ describe Puppet::Type.type(:dsc_spsearchcrawlrule) do
     expect{dsc_spsearchcrawlrule[:dsc_authenticationcredentials] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_authenticationcredentials' do
-    expect{dsc_spsearchcrawlrule[:dsc_authenticationcredentials] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_certificatename' do
     expect{dsc_spsearchcrawlrule[:dsc_certificatename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -283,10 +259,6 @@ describe Puppet::Type.type(:dsc_spsearchcrawlrule) do
 
   it 'should not accept int for dsc_certificatename' do
     expect{dsc_spsearchcrawlrule[:dsc_certificatename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_certificatename' do
-    expect{dsc_spsearchcrawlrule[:dsc_certificatename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -335,10 +307,6 @@ describe Puppet::Type.type(:dsc_spsearchcrawlrule) do
     expect{dsc_spsearchcrawlrule[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spsearchcrawlrule[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spsearchcrawlrule[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -353,10 +321,6 @@ describe Puppet::Type.type(:dsc_spsearchcrawlrule) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spsearchcrawlrule[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spsearchcrawlrule[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

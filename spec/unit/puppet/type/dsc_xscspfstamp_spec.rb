@@ -74,10 +74,6 @@ describe Puppet::Type.type(:dsc_xscspfstamp) do
     expect{dsc_xscspfstamp[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xscspfstamp[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_name is specified' do
     #dsc_xscspfstamp[:dsc_name]
     expect { Puppet::Type.type(:dsc_xscspfstamp).new(
@@ -97,10 +93,6 @@ describe Puppet::Type.type(:dsc_xscspfstamp) do
     expect{dsc_xscspfstamp[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xscspfstamp[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_servers' do
     dsc_xscspfstamp[:dsc_servers] = ["foo", "bar", "spec"]
     expect(dsc_xscspfstamp[:dsc_servers]).to eq(["foo", "bar", "spec"])
@@ -112,10 +104,6 @@ describe Puppet::Type.type(:dsc_xscspfstamp) do
 
   it 'should not accept int for dsc_servers' do
     expect{dsc_xscspfstamp[:dsc_servers] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_servers' do
-    expect{dsc_xscspfstamp[:dsc_servers] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_scspfadmincredential" do
@@ -132,10 +120,6 @@ describe Puppet::Type.type(:dsc_xscspfstamp) do
 
   it 'should not accept int for dsc_scspfadmincredential' do
     expect{dsc_xscspfstamp[:dsc_scspfadmincredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_scspfadmincredential' do
-    expect{dsc_xscspfstamp[:dsc_scspfadmincredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -73,10 +73,6 @@ describe Puppet::Type.type(:dsc_xcredssp) do
     expect{dsc_xcredssp[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xcredssp[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_role is specified' do
     #dsc_xcredssp[:dsc_role]
     expect { Puppet::Type.type(:dsc_xcredssp).new(
@@ -120,10 +116,6 @@ describe Puppet::Type.type(:dsc_xcredssp) do
     expect{dsc_xcredssp[:dsc_role] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_role' do
-    expect{dsc_xcredssp[:dsc_role] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_delegatecomputers' do
     dsc_xcredssp[:dsc_delegatecomputers] = ["foo", "bar", "spec"]
     expect(dsc_xcredssp[:dsc_delegatecomputers]).to eq(["foo", "bar", "spec"])
@@ -135,10 +127,6 @@ describe Puppet::Type.type(:dsc_xcredssp) do
 
   it 'should not accept int for dsc_delegatecomputers' do
     expect{dsc_xcredssp[:dsc_delegatecomputers] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_delegatecomputers' do
-    expect{dsc_xcredssp[:dsc_delegatecomputers] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

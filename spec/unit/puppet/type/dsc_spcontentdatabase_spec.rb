@@ -51,10 +51,6 @@ describe Puppet::Type.type(:dsc_spcontentdatabase) do
     expect{dsc_spcontentdatabase[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spcontentdatabase[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databaseserver' do
     expect{dsc_spcontentdatabase[:dsc_databaseserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -67,10 +63,6 @@ describe Puppet::Type.type(:dsc_spcontentdatabase) do
     expect{dsc_spcontentdatabase[:dsc_databaseserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databaseserver' do
-    expect{dsc_spcontentdatabase[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_webappurl' do
     expect{dsc_spcontentdatabase[:dsc_webappurl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -81,10 +73,6 @@ describe Puppet::Type.type(:dsc_spcontentdatabase) do
 
   it 'should not accept int for dsc_webappurl' do
     expect{dsc_spcontentdatabase[:dsc_webappurl] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_webappurl' do
-    expect{dsc_spcontentdatabase[:dsc_webappurl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_enabled' do
@@ -125,10 +113,6 @@ describe Puppet::Type.type(:dsc_spcontentdatabase) do
     expect{dsc_spcontentdatabase[:dsc_enabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enabled' do
-    expect{dsc_spcontentdatabase[:dsc_enabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_warningsitecount' do
     expect{dsc_spcontentdatabase[:dsc_warningsitecount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -137,64 +121,12 @@ describe Puppet::Type.type(:dsc_spcontentdatabase) do
     expect{dsc_spcontentdatabase[:dsc_warningsitecount] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_warningsitecount' do
-    dsc_spcontentdatabase[:dsc_warningsitecount] = 16
-    expect(dsc_spcontentdatabase[:dsc_warningsitecount]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_warningsitecount' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_spcontentdatabase[:dsc_warningsitecount] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_warningsitecount' do
-    dsc_spcontentdatabase[:dsc_warningsitecount] = '16'
-    expect(dsc_spcontentdatabase[:dsc_warningsitecount]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_warningsitecount' do
-    dsc_spcontentdatabase[:dsc_warningsitecount] = '32'
-    expect(dsc_spcontentdatabase[:dsc_warningsitecount]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_warningsitecount' do
-    dsc_spcontentdatabase[:dsc_warningsitecount] = '64'
-    expect(dsc_spcontentdatabase[:dsc_warningsitecount]).to eq(64)
-  end
-
   it 'should not accept array for dsc_maximumsitecount' do
     expect{dsc_spcontentdatabase[:dsc_maximumsitecount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_maximumsitecount' do
     expect{dsc_spcontentdatabase[:dsc_maximumsitecount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_maximumsitecount' do
-    dsc_spcontentdatabase[:dsc_maximumsitecount] = 16
-    expect(dsc_spcontentdatabase[:dsc_maximumsitecount]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maximumsitecount' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_spcontentdatabase[:dsc_maximumsitecount] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maximumsitecount' do
-    dsc_spcontentdatabase[:dsc_maximumsitecount] = '16'
-    expect(dsc_spcontentdatabase[:dsc_maximumsitecount]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maximumsitecount' do
-    dsc_spcontentdatabase[:dsc_maximumsitecount] = '32'
-    expect(dsc_spcontentdatabase[:dsc_maximumsitecount]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maximumsitecount' do
-    dsc_spcontentdatabase[:dsc_maximumsitecount] = '64'
-    expect(dsc_spcontentdatabase[:dsc_maximumsitecount]).to eq(64)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -243,10 +175,6 @@ describe Puppet::Type.type(:dsc_spcontentdatabase) do
     expect{dsc_spcontentdatabase[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spcontentdatabase[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spcontentdatabase[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -261,10 +189,6 @@ describe Puppet::Type.type(:dsc_spcontentdatabase) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spcontentdatabase[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spcontentdatabase[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

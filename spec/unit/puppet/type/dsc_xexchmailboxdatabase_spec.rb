@@ -70,10 +70,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xexchmailboxdatabase[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchmailboxdatabase[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -90,42 +86,12 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchmailboxdatabase[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databasecopycount' do
     expect{dsc_xexchmailboxdatabase[:dsc_databasecopycount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_databasecopycount' do
     expect{dsc_xexchmailboxdatabase[:dsc_databasecopycount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_databasecopycount' do
-    dsc_xexchmailboxdatabase[:dsc_databasecopycount] = 32
-    expect(dsc_xexchmailboxdatabase[:dsc_databasecopycount]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_databasecopycount' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xexchmailboxdatabase[:dsc_databasecopycount] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_databasecopycount' do
-    dsc_xexchmailboxdatabase[:dsc_databasecopycount] = '16'
-    expect(dsc_xexchmailboxdatabase[:dsc_databasecopycount]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_databasecopycount' do
-    dsc_xexchmailboxdatabase[:dsc_databasecopycount] = '32'
-    expect(dsc_xexchmailboxdatabase[:dsc_databasecopycount]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_databasecopycount' do
-    dsc_xexchmailboxdatabase[:dsc_databasecopycount] = '64'
-    expect(dsc_xexchmailboxdatabase[:dsc_databasecopycount]).to eq(64)
   end
 
   it 'should not accept array for dsc_server' do
@@ -140,10 +106,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_server] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_server' do
-    expect{dsc_xexchmailboxdatabase[:dsc_server] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_edbfilepath' do
     expect{dsc_xexchmailboxdatabase[:dsc_edbfilepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -154,10 +116,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept int for dsc_edbfilepath' do
     expect{dsc_xexchmailboxdatabase[:dsc_edbfilepath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_edbfilepath' do
-    expect{dsc_xexchmailboxdatabase[:dsc_edbfilepath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_logfolderpath' do
@@ -172,10 +130,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_logfolderpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logfolderpath' do
-    expect{dsc_xexchmailboxdatabase[:dsc_logfolderpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_adserversettingspreferredserver' do
     expect{dsc_xexchmailboxdatabase[:dsc_adserversettingspreferredserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -186,10 +140,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept int for dsc_adserversettingspreferredserver' do
     expect{dsc_xexchmailboxdatabase[:dsc_adserversettingspreferredserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_adserversettingspreferredserver' do
-    expect{dsc_xexchmailboxdatabase[:dsc_adserversettingspreferredserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_skipinitialdatabasemount' do
@@ -230,10 +180,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_skipinitialdatabasemount' do
-    expect{dsc_xexchmailboxdatabase[:dsc_skipinitialdatabasemount] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_allowservicerestart' do
     expect{dsc_xexchmailboxdatabase[:dsc_allowservicerestart] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -270,10 +216,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept int for dsc_allowservicerestart' do
     expect{dsc_xexchmailboxdatabase[:dsc_allowservicerestart] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_allowservicerestart' do
-    expect{dsc_xexchmailboxdatabase[:dsc_allowservicerestart] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_autodagexcludefrommonitoring' do
@@ -314,10 +256,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_autodagexcludefrommonitoring' do
-    expect{dsc_xexchmailboxdatabase[:dsc_autodagexcludefrommonitoring] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_backgrounddatabasemaintenance' do
     expect{dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -356,10 +294,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_backgrounddatabasemaintenance' do
-    expect{dsc_xexchmailboxdatabase[:dsc_backgrounddatabasemaintenance] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_calendarloggingquota' do
     expect{dsc_xexchmailboxdatabase[:dsc_calendarloggingquota] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -370,10 +304,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept int for dsc_calendarloggingquota' do
     expect{dsc_xexchmailboxdatabase[:dsc_calendarloggingquota] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_calendarloggingquota' do
-    expect{dsc_xexchmailboxdatabase[:dsc_calendarloggingquota] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_circularloggingenabled' do
@@ -412,10 +342,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept int for dsc_circularloggingenabled' do
     expect{dsc_xexchmailboxdatabase[:dsc_circularloggingenabled] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_circularloggingenabled' do
-    expect{dsc_xexchmailboxdatabase[:dsc_circularloggingenabled] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_datamovereplicationconstraint predefined value None' do
@@ -484,10 +410,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_datamovereplicationconstraint] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_datamovereplicationconstraint' do
-    expect{dsc_xexchmailboxdatabase[:dsc_datamovereplicationconstraint] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_deleteditemretention' do
     expect{dsc_xexchmailboxdatabase[:dsc_deleteditemretention] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -498,10 +420,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept int for dsc_deleteditemretention' do
     expect{dsc_xexchmailboxdatabase[:dsc_deleteditemretention] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_deleteditemretention' do
-    expect{dsc_xexchmailboxdatabase[:dsc_deleteditemretention] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_domaincontroller' do
@@ -516,10 +434,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchmailboxdatabase[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_eventhistoryretentionperiod' do
     expect{dsc_xexchmailboxdatabase[:dsc_eventhistoryretentionperiod] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -530,10 +444,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept int for dsc_eventhistoryretentionperiod' do
     expect{dsc_xexchmailboxdatabase[:dsc_eventhistoryretentionperiod] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_eventhistoryretentionperiod' do
-    expect{dsc_xexchmailboxdatabase[:dsc_eventhistoryretentionperiod] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_indexenabled' do
@@ -574,10 +484,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_indexenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_indexenabled' do
-    expect{dsc_xexchmailboxdatabase[:dsc_indexenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_isexcludedfromprovisioning' do
     expect{dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -616,10 +522,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_isexcludedfromprovisioning' do
-    expect{dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioning] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_isexcludedfromprovisioningreason' do
     expect{dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioningreason] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -632,10 +534,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioningreason] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_isexcludedfromprovisioningreason' do
-    expect{dsc_xexchmailboxdatabase[:dsc_isexcludedfromprovisioningreason] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_issuewarningquota' do
     expect{dsc_xexchmailboxdatabase[:dsc_issuewarningquota] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -646,10 +544,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept int for dsc_issuewarningquota' do
     expect{dsc_xexchmailboxdatabase[:dsc_issuewarningquota] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_issuewarningquota' do
-    expect{dsc_xexchmailboxdatabase[:dsc_issuewarningquota] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_issuspendedfromprovisioning' do
@@ -690,10 +584,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_issuspendedfromprovisioning' do
-    expect{dsc_xexchmailboxdatabase[:dsc_issuspendedfromprovisioning] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_journalrecipient' do
     expect{dsc_xexchmailboxdatabase[:dsc_journalrecipient] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -706,10 +596,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_journalrecipient] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_journalrecipient' do
-    expect{dsc_xexchmailboxdatabase[:dsc_journalrecipient] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_mailboxretention' do
     expect{dsc_xexchmailboxdatabase[:dsc_mailboxretention] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -720,10 +606,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept int for dsc_mailboxretention' do
     expect{dsc_xexchmailboxdatabase[:dsc_mailboxretention] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_mailboxretention' do
-    expect{dsc_xexchmailboxdatabase[:dsc_mailboxretention] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_mountatstartup' do
@@ -764,10 +646,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_mountatstartup] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_mountatstartup' do
-    expect{dsc_xexchmailboxdatabase[:dsc_mountatstartup] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_offlineaddressbook' do
     expect{dsc_xexchmailboxdatabase[:dsc_offlineaddressbook] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -778,10 +656,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept int for dsc_offlineaddressbook' do
     expect{dsc_xexchmailboxdatabase[:dsc_offlineaddressbook] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_offlineaddressbook' do
-    expect{dsc_xexchmailboxdatabase[:dsc_offlineaddressbook] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_prohibitsendquota' do
@@ -796,10 +670,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_prohibitsendquota] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_prohibitsendquota' do
-    expect{dsc_xexchmailboxdatabase[:dsc_prohibitsendquota] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_prohibitsendreceivequota' do
     expect{dsc_xexchmailboxdatabase[:dsc_prohibitsendreceivequota] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -810,10 +680,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept int for dsc_prohibitsendreceivequota' do
     expect{dsc_xexchmailboxdatabase[:dsc_prohibitsendreceivequota] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_prohibitsendreceivequota' do
-    expect{dsc_xexchmailboxdatabase[:dsc_prohibitsendreceivequota] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_recoverableitemsquota' do
@@ -828,10 +694,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
     expect{dsc_xexchmailboxdatabase[:dsc_recoverableitemsquota] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_recoverableitemsquota' do
-    expect{dsc_xexchmailboxdatabase[:dsc_recoverableitemsquota] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_recoverableitemswarningquota' do
     expect{dsc_xexchmailboxdatabase[:dsc_recoverableitemswarningquota] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -842,10 +704,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept int for dsc_recoverableitemswarningquota' do
     expect{dsc_xexchmailboxdatabase[:dsc_recoverableitemswarningquota] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_recoverableitemswarningquota' do
-    expect{dsc_xexchmailboxdatabase[:dsc_recoverableitemswarningquota] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_retaindeleteditemsuntilbackup' do
@@ -884,10 +742,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxdatabase) do
 
   it 'should not accept int for dsc_retaindeleteditemsuntilbackup' do
     expect{dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_retaindeleteditemsuntilbackup' do
-    expect{dsc_xexchmailboxdatabase[:dsc_retaindeleteditemsuntilbackup] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

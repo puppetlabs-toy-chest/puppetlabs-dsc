@@ -72,10 +72,6 @@ describe Puppet::Type.type(:dsc_xwefcollector) do
     expect{dsc_xwefcollector[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xwefcollector[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_name is specified' do
     #dsc_xwefcollector[:dsc_name]
     expect { Puppet::Type.type(:dsc_xwefcollector).new(
@@ -93,10 +89,6 @@ describe Puppet::Type.type(:dsc_xwefcollector) do
 
   it 'should not accept int for dsc_name' do
     expect{dsc_xwefcollector[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xwefcollector[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

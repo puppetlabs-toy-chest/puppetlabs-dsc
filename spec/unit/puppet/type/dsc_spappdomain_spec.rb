@@ -42,10 +42,6 @@ describe Puppet::Type.type(:dsc_spappdomain) do
     expect{dsc_spappdomain[:dsc_appdomain] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_appdomain' do
-    expect{dsc_spappdomain[:dsc_appdomain] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_prefix' do
     expect{dsc_spappdomain[:dsc_prefix] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -56,10 +52,6 @@ describe Puppet::Type.type(:dsc_spappdomain) do
 
   it 'should not accept int for dsc_prefix' do
     expect{dsc_spappdomain[:dsc_prefix] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_prefix' do
-    expect{dsc_spappdomain[:dsc_prefix] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -76,10 +68,6 @@ describe Puppet::Type.type(:dsc_spappdomain) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spappdomain[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spappdomain[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

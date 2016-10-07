@@ -47,10 +47,6 @@ describe Puppet::Type.type(:dsc_spserviceapppool) do
     expect{dsc_spserviceapppool[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spserviceapppool[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_serviceaccount' do
     expect{dsc_spserviceapppool[:dsc_serviceaccount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -61,10 +57,6 @@ describe Puppet::Type.type(:dsc_spserviceapppool) do
 
   it 'should not accept int for dsc_serviceaccount' do
     expect{dsc_spserviceapppool[:dsc_serviceaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_serviceaccount' do
-    expect{dsc_spserviceapppool[:dsc_serviceaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -113,10 +105,6 @@ describe Puppet::Type.type(:dsc_spserviceapppool) do
     expect{dsc_spserviceapppool[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spserviceapppool[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spserviceapppool[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -131,10 +119,6 @@ describe Puppet::Type.type(:dsc_spserviceapppool) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spserviceapppool[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spserviceapppool[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

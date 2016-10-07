@@ -50,10 +50,6 @@ describe Puppet::Type.type(:dsc_xclusterpreferredowner) do
     expect{dsc_xclusterpreferredowner[:dsc_clustergroup] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_clustergroup' do
-    expect{dsc_xclusterpreferredowner[:dsc_clustergroup] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_clustername is specified' do
     #dsc_xclusterpreferredowner[:dsc_clustername]
     expect { Puppet::Type.type(:dsc_xclusterpreferredowner).new(
@@ -74,10 +70,6 @@ describe Puppet::Type.type(:dsc_xclusterpreferredowner) do
     expect{dsc_xclusterpreferredowner[:dsc_clustername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_clustername' do
-    expect{dsc_xclusterpreferredowner[:dsc_clustername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_nodes' do
     dsc_xclusterpreferredowner[:dsc_nodes] = ["foo", "bar", "spec"]
     expect(dsc_xclusterpreferredowner[:dsc_nodes]).to eq(["foo", "bar", "spec"])
@@ -91,10 +83,6 @@ describe Puppet::Type.type(:dsc_xclusterpreferredowner) do
     expect{dsc_xclusterpreferredowner[:dsc_nodes] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_nodes' do
-    expect{dsc_xclusterpreferredowner[:dsc_nodes] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_clusterresources' do
     dsc_xclusterpreferredowner[:dsc_clusterresources] = ["foo", "bar", "spec"]
     expect(dsc_xclusterpreferredowner[:dsc_clusterresources]).to eq(["foo", "bar", "spec"])
@@ -106,10 +94,6 @@ describe Puppet::Type.type(:dsc_xclusterpreferredowner) do
 
   it 'should not accept int for dsc_clusterresources' do
     expect{dsc_xclusterpreferredowner[:dsc_clusterresources] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_clusterresources' do
-    expect{dsc_xclusterpreferredowner[:dsc_clusterresources] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -156,10 +140,6 @@ describe Puppet::Type.type(:dsc_xclusterpreferredowner) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xclusterpreferredowner[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xclusterpreferredowner[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

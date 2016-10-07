@@ -55,10 +55,6 @@ describe Puppet::Type.type(:dsc_xvhd) do
     expect{dsc_xvhd[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xvhd[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_path is specified' do
     #dsc_xvhd[:dsc_path]
     expect { Puppet::Type.type(:dsc_xvhd).new(
@@ -79,10 +75,6 @@ describe Puppet::Type.type(:dsc_xvhd) do
     expect{dsc_xvhd[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xvhd[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_parentpath' do
     expect{dsc_xvhd[:dsc_parentpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -95,42 +87,12 @@ describe Puppet::Type.type(:dsc_xvhd) do
     expect{dsc_xvhd[:dsc_parentpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_parentpath' do
-    expect{dsc_xvhd[:dsc_parentpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maximumsizebytes' do
     expect{dsc_xvhd[:dsc_maximumsizebytes] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_maximumsizebytes' do
     expect{dsc_xvhd[:dsc_maximumsizebytes] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_maximumsizebytes' do
-    dsc_xvhd[:dsc_maximumsizebytes] = 64
-    expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maximumsizebytes' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xvhd[:dsc_maximumsizebytes] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maximumsizebytes' do
-    dsc_xvhd[:dsc_maximumsizebytes] = '16'
-    expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maximumsizebytes' do
-    dsc_xvhd[:dsc_maximumsizebytes] = '32'
-    expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maximumsizebytes' do
-    dsc_xvhd[:dsc_maximumsizebytes] = '64'
-    expect(dsc_xvhd[:dsc_maximumsizebytes]).to eq(64)
   end
 
   it 'should accept dsc_generation predefined value Vhd' do
@@ -167,10 +129,6 @@ describe Puppet::Type.type(:dsc_xvhd) do
 
   it 'should not accept int for dsc_generation' do
     expect{dsc_xvhd[:dsc_generation] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_generation' do
-    expect{dsc_xvhd[:dsc_generation] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -219,10 +177,6 @@ describe Puppet::Type.type(:dsc_xvhd) do
     expect{dsc_xvhd[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xvhd[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_id' do
     expect{dsc_xvhd[:dsc_id] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -233,10 +187,6 @@ describe Puppet::Type.type(:dsc_xvhd) do
 
   it 'should not accept int for dsc_id' do
     expect{dsc_xvhd[:dsc_id] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_id' do
-    expect{dsc_xvhd[:dsc_id] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_type' do
@@ -251,42 +201,12 @@ describe Puppet::Type.type(:dsc_xvhd) do
     expect{dsc_xvhd[:dsc_type] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_type' do
-    expect{dsc_xvhd[:dsc_type] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_filesizebytes' do
     expect{dsc_xvhd[:dsc_filesizebytes] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_filesizebytes' do
     expect{dsc_xvhd[:dsc_filesizebytes] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_filesizebytes' do
-    dsc_xvhd[:dsc_filesizebytes] = 64
-    expect(dsc_xvhd[:dsc_filesizebytes]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_filesizebytes' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xvhd[:dsc_filesizebytes] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_filesizebytes' do
-    dsc_xvhd[:dsc_filesizebytes] = '16'
-    expect(dsc_xvhd[:dsc_filesizebytes]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_filesizebytes' do
-    dsc_xvhd[:dsc_filesizebytes] = '32'
-    expect(dsc_xvhd[:dsc_filesizebytes]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_filesizebytes' do
-    dsc_xvhd[:dsc_filesizebytes] = '64'
-    expect(dsc_xvhd[:dsc_filesizebytes]).to eq(64)
   end
 
   it 'should not accept array for dsc_isattached' do
@@ -325,10 +245,6 @@ describe Puppet::Type.type(:dsc_xvhd) do
 
   it 'should not accept int for dsc_isattached' do
     expect{dsc_xvhd[:dsc_isattached] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_isattached' do
-    expect{dsc_xvhd[:dsc_isattached] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

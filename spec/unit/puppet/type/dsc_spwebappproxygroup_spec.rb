@@ -42,10 +42,6 @@ describe Puppet::Type.type(:dsc_spwebappproxygroup) do
     expect{dsc_spwebappproxygroup[:dsc_webappurl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_webappurl' do
-    expect{dsc_spwebappproxygroup[:dsc_webappurl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_serviceappproxygroup' do
     expect{dsc_spwebappproxygroup[:dsc_serviceappproxygroup] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -56,10 +52,6 @@ describe Puppet::Type.type(:dsc_spwebappproxygroup) do
 
   it 'should not accept int for dsc_serviceappproxygroup' do
     expect{dsc_spwebappproxygroup[:dsc_serviceappproxygroup] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_serviceappproxygroup' do
-    expect{dsc_spwebappproxygroup[:dsc_serviceappproxygroup] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -76,10 +68,6 @@ describe Puppet::Type.type(:dsc_spwebappproxygroup) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spwebappproxygroup[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spwebappproxygroup[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

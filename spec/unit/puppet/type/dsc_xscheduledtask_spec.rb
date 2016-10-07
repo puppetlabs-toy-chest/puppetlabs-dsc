@@ -54,10 +54,6 @@ describe Puppet::Type.type(:dsc_xscheduledtask) do
     expect{dsc_xscheduledtask[:dsc_taskname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_taskname' do
-    expect{dsc_xscheduledtask[:dsc_taskname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_taskpath' do
     expect{dsc_xscheduledtask[:dsc_taskpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -68,10 +64,6 @@ describe Puppet::Type.type(:dsc_xscheduledtask) do
 
   it 'should not accept int for dsc_taskpath' do
     expect{dsc_xscheduledtask[:dsc_taskpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_taskpath' do
-    expect{dsc_xscheduledtask[:dsc_taskpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_actionexecutable' do
@@ -86,10 +78,6 @@ describe Puppet::Type.type(:dsc_xscheduledtask) do
     expect{dsc_xscheduledtask[:dsc_actionexecutable] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_actionexecutable' do
-    expect{dsc_xscheduledtask[:dsc_actionexecutable] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_actionarguments' do
     expect{dsc_xscheduledtask[:dsc_actionarguments] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -102,10 +90,6 @@ describe Puppet::Type.type(:dsc_xscheduledtask) do
     expect{dsc_xscheduledtask[:dsc_actionarguments] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_actionarguments' do
-    expect{dsc_xscheduledtask[:dsc_actionarguments] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_actionworkingpath' do
     expect{dsc_xscheduledtask[:dsc_actionworkingpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -116,10 +100,6 @@ describe Puppet::Type.type(:dsc_xscheduledtask) do
 
   it 'should not accept int for dsc_actionworkingpath' do
     expect{dsc_xscheduledtask[:dsc_actionworkingpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_actionworkingpath' do
-    expect{dsc_xscheduledtask[:dsc_actionworkingpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_scheduletype predefined value Minutes' do
@@ -168,42 +148,12 @@ describe Puppet::Type.type(:dsc_xscheduledtask) do
     expect{dsc_xscheduledtask[:dsc_scheduletype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_scheduletype' do
-    expect{dsc_xscheduledtask[:dsc_scheduletype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_repeatinterval' do
     expect{dsc_xscheduledtask[:dsc_repeatinterval] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_repeatinterval' do
     expect{dsc_xscheduledtask[:dsc_repeatinterval] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_repeatinterval' do
-    dsc_xscheduledtask[:dsc_repeatinterval] = 32
-    expect(dsc_xscheduledtask[:dsc_repeatinterval]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_repeatinterval' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xscheduledtask[:dsc_repeatinterval] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_repeatinterval' do
-    dsc_xscheduledtask[:dsc_repeatinterval] = '16'
-    expect(dsc_xscheduledtask[:dsc_repeatinterval]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_repeatinterval' do
-    dsc_xscheduledtask[:dsc_repeatinterval] = '32'
-    expect(dsc_xscheduledtask[:dsc_repeatinterval]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_repeatinterval' do
-    dsc_xscheduledtask[:dsc_repeatinterval] = '64'
-    expect(dsc_xscheduledtask[:dsc_repeatinterval]).to eq(64)
   end
 
   it 'should not accept array for dsc_starttime' do
@@ -216,10 +166,6 @@ describe Puppet::Type.type(:dsc_xscheduledtask) do
 
   it 'should not accept int for dsc_starttime' do
     expect{dsc_xscheduledtask[:dsc_starttime] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_starttime' do
-    expect{dsc_xscheduledtask[:dsc_starttime] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -268,10 +214,6 @@ describe Puppet::Type.type(:dsc_xscheduledtask) do
     expect{dsc_xscheduledtask[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xscheduledtask[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_enable' do
     expect{dsc_xscheduledtask[:dsc_enable] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -310,10 +252,6 @@ describe Puppet::Type.type(:dsc_xscheduledtask) do
     expect{dsc_xscheduledtask[:dsc_enable] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enable' do
-    expect{dsc_xscheduledtask[:dsc_enable] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_executeascredential" do
     expect{dsc_xscheduledtask[:dsc_executeascredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -328,10 +266,6 @@ describe Puppet::Type.type(:dsc_xscheduledtask) do
 
   it 'should not accept int for dsc_executeascredential' do
     expect{dsc_xscheduledtask[:dsc_executeascredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_executeascredential' do
-    expect{dsc_xscheduledtask[:dsc_executeascredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

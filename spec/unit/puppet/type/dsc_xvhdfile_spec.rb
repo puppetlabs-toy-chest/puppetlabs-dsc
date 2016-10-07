@@ -42,10 +42,6 @@ describe Puppet::Type.type(:dsc_xvhdfile) do
     expect{dsc_xvhdfile[:dsc_vhdpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_vhdpath' do
-    expect{dsc_xvhdfile[:dsc_vhdpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept a hash for dsc_filedirectory' do
     dsc_xvhdfile[:dsc_filedirectory] = {"DestinationPath"=>"foo", "SourcePath"=>"foo", "Ensure"=>"Present", "Type"=>"File", "Recurse"=>true, "Force"=>true, "Content"=>"foo", "Attributes"=>"ReadOnly"}
     expect(dsc_xvhdfile[:dsc_filedirectory]).to eq([{"DestinationPath"=>"foo", "SourcePath"=>"foo", "Ensure"=>"Present", "Type"=>"File", "Recurse"=>true, "Force"=>true, "Content"=>"foo", "Attributes"=>"ReadOnly"}])
@@ -62,10 +58,6 @@ describe Puppet::Type.type(:dsc_xvhdfile) do
 
   it 'should not accept int for dsc_filedirectory' do
     expect{dsc_xvhdfile[:dsc_filedirectory] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_filedirectory' do
-    expect{dsc_xvhdfile[:dsc_filedirectory] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_checksum predefined value ModifiedDate' do
@@ -122,10 +114,6 @@ describe Puppet::Type.type(:dsc_xvhdfile) do
 
   it 'should not accept int for dsc_checksum' do
     expect{dsc_xvhdfile[:dsc_checksum] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_checksum' do
-    expect{dsc_xvhdfile[:dsc_checksum] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

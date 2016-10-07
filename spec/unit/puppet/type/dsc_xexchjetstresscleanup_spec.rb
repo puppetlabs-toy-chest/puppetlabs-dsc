@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_xexchjetstresscleanup) do
     expect{dsc_xexchjetstresscleanup[:dsc_jetstresspath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_jetstresspath' do
-    expect{dsc_xexchjetstresscleanup[:dsc_jetstresspath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_configfilepath' do
     expect{dsc_xexchjetstresscleanup[:dsc_configfilepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -60,10 +56,6 @@ describe Puppet::Type.type(:dsc_xexchjetstresscleanup) do
 
   it 'should not accept int for dsc_configfilepath' do
     expect{dsc_xexchjetstresscleanup[:dsc_configfilepath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_configfilepath' do
-    expect{dsc_xexchjetstresscleanup[:dsc_configfilepath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_databasepaths' do
@@ -77,10 +69,6 @@ describe Puppet::Type.type(:dsc_xexchjetstresscleanup) do
 
   it 'should not accept int for dsc_databasepaths' do
     expect{dsc_xexchjetstresscleanup[:dsc_databasepaths] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_databasepaths' do
-    expect{dsc_xexchjetstresscleanup[:dsc_databasepaths] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_deleteassociatedmountpoints' do
@@ -121,10 +109,6 @@ describe Puppet::Type.type(:dsc_xexchjetstresscleanup) do
     expect{dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_deleteassociatedmountpoints' do
-    expect{dsc_xexchjetstresscleanup[:dsc_deleteassociatedmountpoints] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_logpaths' do
     dsc_xexchjetstresscleanup[:dsc_logpaths] = ["foo", "bar", "spec"]
     expect(dsc_xexchjetstresscleanup[:dsc_logpaths]).to eq(["foo", "bar", "spec"])
@@ -138,10 +122,6 @@ describe Puppet::Type.type(:dsc_xexchjetstresscleanup) do
     expect{dsc_xexchjetstresscleanup[:dsc_logpaths] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logpaths' do
-    expect{dsc_xexchjetstresscleanup[:dsc_logpaths] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_outputsavelocation' do
     expect{dsc_xexchjetstresscleanup[:dsc_outputsavelocation] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -152,10 +132,6 @@ describe Puppet::Type.type(:dsc_xexchjetstresscleanup) do
 
   it 'should not accept int for dsc_outputsavelocation' do
     expect{dsc_xexchjetstresscleanup[:dsc_outputsavelocation] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_outputsavelocation' do
-    expect{dsc_xexchjetstresscleanup[:dsc_outputsavelocation] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_removebinaries' do
@@ -194,10 +170,6 @@ describe Puppet::Type.type(:dsc_xexchjetstresscleanup) do
 
   it 'should not accept int for dsc_removebinaries' do
     expect{dsc_xexchjetstresscleanup[:dsc_removebinaries] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_removebinaries' do
-    expect{dsc_xexchjetstresscleanup[:dsc_removebinaries] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -49,10 +49,6 @@ describe Puppet::Type.type(:dsc_spserviceappproxygroup) do
     expect{dsc_spserviceappproxygroup[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spserviceappproxygroup[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_spserviceappproxygroup[:dsc_ensure] = 'Present'
     expect(dsc_spserviceappproxygroup[:dsc_ensure]).to eq('Present')
@@ -99,10 +95,6 @@ describe Puppet::Type.type(:dsc_spserviceappproxygroup) do
     expect{dsc_spserviceappproxygroup[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spserviceappproxygroup[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_serviceappproxies' do
     dsc_spserviceappproxygroup[:dsc_serviceappproxies] = ["foo", "bar", "spec"]
     expect(dsc_spserviceappproxygroup[:dsc_serviceappproxies]).to eq(["foo", "bar", "spec"])
@@ -114,10 +106,6 @@ describe Puppet::Type.type(:dsc_spserviceappproxygroup) do
 
   it 'should not accept int for dsc_serviceappproxies' do
     expect{dsc_spserviceappproxygroup[:dsc_serviceappproxies] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_serviceappproxies' do
-    expect{dsc_spserviceappproxygroup[:dsc_serviceappproxies] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_serviceappproxiestoinclude' do
@@ -133,10 +121,6 @@ describe Puppet::Type.type(:dsc_spserviceappproxygroup) do
     expect{dsc_spserviceappproxygroup[:dsc_serviceappproxiestoinclude] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_serviceappproxiestoinclude' do
-    expect{dsc_spserviceappproxygroup[:dsc_serviceappproxiestoinclude] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_serviceappproxiestoexclude' do
     dsc_spserviceappproxygroup[:dsc_serviceappproxiestoexclude] = ["foo", "bar", "spec"]
     expect(dsc_spserviceappproxygroup[:dsc_serviceappproxiestoexclude]).to eq(["foo", "bar", "spec"])
@@ -148,10 +132,6 @@ describe Puppet::Type.type(:dsc_spserviceappproxygroup) do
 
   it 'should not accept int for dsc_serviceappproxiestoexclude' do
     expect{dsc_spserviceappproxygroup[:dsc_serviceappproxiestoexclude] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_serviceappproxiestoexclude' do
-    expect{dsc_spserviceappproxygroup[:dsc_serviceappproxiestoexclude] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -168,10 +148,6 @@ describe Puppet::Type.type(:dsc_spserviceappproxygroup) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spserviceappproxygroup[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spserviceappproxygroup[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

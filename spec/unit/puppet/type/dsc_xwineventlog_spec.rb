@@ -45,10 +45,6 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
     expect{dsc_xwineventlog[:dsc_logname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logname' do
-    expect{dsc_xwineventlog[:dsc_logname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maximumsizeinbytes' do
     expect{dsc_xwineventlog[:dsc_maximumsizeinbytes] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -56,32 +52,6 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
   it 'should not accept boolean for dsc_maximumsizeinbytes' do
     expect{dsc_xwineventlog[:dsc_maximumsizeinbytes] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_maximumsizeinbytes' do
-    dsc_xwineventlog[:dsc_maximumsizeinbytes] = -64
-    expect(dsc_xwineventlog[:dsc_maximumsizeinbytes]).to eq(-64)
-  end
-
-  it 'should accept string-like int for dsc_maximumsizeinbytes' do
-    dsc_xwineventlog[:dsc_maximumsizeinbytes] = '16'
-    expect(dsc_xwineventlog[:dsc_maximumsizeinbytes]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_maximumsizeinbytes' do
-    dsc_xwineventlog[:dsc_maximumsizeinbytes] = '-16'
-    expect(dsc_xwineventlog[:dsc_maximumsizeinbytes]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_maximumsizeinbytes' do
-    dsc_xwineventlog[:dsc_maximumsizeinbytes] = '32'
-    expect(dsc_xwineventlog[:dsc_maximumsizeinbytes]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_maximumsizeinbytes' do
-    dsc_xwineventlog[:dsc_maximumsizeinbytes] = '-32'
-    expect(dsc_xwineventlog[:dsc_maximumsizeinbytes]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_isenabled' do
     expect{dsc_xwineventlog[:dsc_isenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -119,10 +89,6 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
 
   it 'should not accept int for dsc_isenabled' do
     expect{dsc_xwineventlog[:dsc_isenabled] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_isenabled' do
-    expect{dsc_xwineventlog[:dsc_isenabled] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_logmode predefined value AutoBackup' do
@@ -171,10 +137,6 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
     expect{dsc_xwineventlog[:dsc_logmode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logmode' do
-    expect{dsc_xwineventlog[:dsc_logmode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_securitydescriptor' do
     expect{dsc_xwineventlog[:dsc_securitydescriptor] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -187,10 +149,6 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
     expect{dsc_xwineventlog[:dsc_securitydescriptor] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_securitydescriptor' do
-    expect{dsc_xwineventlog[:dsc_securitydescriptor] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_logfilepath' do
     expect{dsc_xwineventlog[:dsc_logfilepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -201,10 +159,6 @@ describe Puppet::Type.type(:dsc_xwineventlog) do
 
   it 'should not accept int for dsc_logfilepath' do
     expect{dsc_xwineventlog[:dsc_logfilepath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_logfilepath' do
-    expect{dsc_xwineventlog[:dsc_logfilepath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

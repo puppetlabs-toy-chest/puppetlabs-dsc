@@ -597,9 +597,7 @@ Puppet::Type.newtype(:dsc_xexchtransportservice) do
     def mof_is_embedded?; false end
     desc "IntraOrgConnectorSmtpMaxMessagesPerConnection"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "IntraOrgConnectorSmtpMaxMessagesPerConnection")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -691,9 +689,7 @@ Puppet::Type.newtype(:dsc_xexchtransportservice) do
     def mof_is_embedded?; false end
     desc "MaxConcurrentMailboxDeliveries"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaxConcurrentMailboxDeliveries")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -709,9 +705,7 @@ Puppet::Type.newtype(:dsc_xexchtransportservice) do
     def mof_is_embedded?; false end
     desc "MaxConcurrentMailboxSubmissions"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaxConcurrentMailboxSubmissions")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -727,9 +721,7 @@ Puppet::Type.newtype(:dsc_xexchtransportservice) do
     def mof_is_embedded?; false end
     desc "MaxConnectionRatePerMinute"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaxConnectionRatePerMinute")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -927,9 +919,7 @@ Puppet::Type.newtype(:dsc_xexchtransportservice) do
     def mof_is_embedded?; false end
     desc "PickupDirectoryMaxMessagesPerMinute"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "PickupDirectoryMaxMessagesPerMinute")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -945,9 +935,7 @@ Puppet::Type.newtype(:dsc_xexchtransportservice) do
     def mof_is_embedded?; false end
     desc "PickupDirectoryMaxRecipientsPerMessage"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "PickupDirectoryMaxRecipientsPerMessage")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -1040,9 +1028,7 @@ Puppet::Type.newtype(:dsc_xexchtransportservice) do
     def mof_is_embedded?; false end
     desc "PoisonThreshold"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "PoisonThreshold")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -1404,9 +1390,7 @@ Puppet::Type.newtype(:dsc_xexchtransportservice) do
     def mof_is_embedded?; false end
     desc "TransientFailureRetryCount"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "TransientFailureRetryCount")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

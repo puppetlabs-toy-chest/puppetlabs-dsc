@@ -82,9 +82,7 @@ Puppet::Type.newtype(:dsc_xdfsnamespaceserverconfiguration) do
     def mof_is_embedded?; false end
     desc "LdapTimeoutSec - Specifies a time-out value, in seconds, for Lightweight Directory Access Protocol (LDAP) requests for the DFS namespace server."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "LdapTimeoutSec")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -100,9 +98,7 @@ Puppet::Type.newtype(:dsc_xdfsnamespaceserverconfiguration) do
     def mof_is_embedded?; false end
     desc "SyncIntervalSec - This interval controls how often domain-based DFS namespace root servers and domain controllers connect to the PDC emulator to get updates of DFS namespace metadata."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "SyncIntervalSec")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

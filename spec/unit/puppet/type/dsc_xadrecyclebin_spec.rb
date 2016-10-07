@@ -43,10 +43,6 @@ describe Puppet::Type.type(:dsc_xadrecyclebin) do
     expect{dsc_xadrecyclebin[:dsc_forestfqdn] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_forestfqdn' do
-    expect{dsc_xadrecyclebin[:dsc_forestfqdn] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_enterpriseadministratorcredential" do
     expect{dsc_xadrecyclebin[:dsc_enterpriseadministratorcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -63,10 +59,6 @@ describe Puppet::Type.type(:dsc_xadrecyclebin) do
     expect{dsc_xadrecyclebin[:dsc_enterpriseadministratorcredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enterpriseadministratorcredential' do
-    expect{dsc_xadrecyclebin[:dsc_enterpriseadministratorcredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_recyclebinenabled' do
     expect{dsc_xadrecyclebin[:dsc_recyclebinenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -79,10 +71,6 @@ describe Puppet::Type.type(:dsc_xadrecyclebin) do
     expect{dsc_xadrecyclebin[:dsc_recyclebinenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_recyclebinenabled' do
-    expect{dsc_xadrecyclebin[:dsc_recyclebinenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_forestmode' do
     expect{dsc_xadrecyclebin[:dsc_forestmode] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -93,10 +81,6 @@ describe Puppet::Type.type(:dsc_xadrecyclebin) do
 
   it 'should not accept int for dsc_forestmode' do
     expect{dsc_xadrecyclebin[:dsc_forestmode] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_forestmode' do
-    expect{dsc_xadrecyclebin[:dsc_forestmode] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

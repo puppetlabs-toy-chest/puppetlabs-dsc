@@ -265,9 +265,7 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
     def mof_is_embedded?; false end
     desc "queueLength - Indicates the maximum number of requests that HTTP.sys will queue for the application pool. The value must be a valid integer between 10 and 65535."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "queueLength")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -301,9 +299,7 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
     def mof_is_embedded?; false end
     desc "cpuLimit - Configures the maximum percentage of CPU time (in 1/1000ths of one percent) that the worker processes in the application pool are allowed to consume over a period of time as indicated by the cpuResetInterval property. The value must be a valid integer between 0 and 100000."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "cpuLimit")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -350,9 +346,7 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
     def mof_is_embedded?; false end
     desc "cpuSmpProcessorAffinityMask - Indicates the hexadecimal processor mask for multi-processor computers, which indicates to which CPU the worker processes in the application pool should be bound. Before this property takes effect, the cpuSmpAffinitized property must be set to true for the application pool. The value must be a valid integer between 0 and 4294967295."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "cpuSmpProcessorAffinityMask")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -368,9 +362,7 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
     def mof_is_embedded?; false end
     desc "cpuSmpProcessorAffinityMask2 - Indicates the high-order DWORD hexadecimal processor mask for 64-bit multi-processor computers, which indicates to which CPU the worker processes in the application pool should be bound. Before this property takes effect, the cpuSmpAffinitized property must be set to true for the application pool. The value must be a valid integer between 0 and 4294967295."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "cpuSmpProcessorAffinityMask2")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -518,9 +510,7 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
     def mof_is_embedded?; false end
     desc "maxProcesses - Indicates the maximum number of worker processes that would be used for the application pool. The value must be a valid integer between 0 and 2147483647."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "maxProcesses")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -723,9 +713,7 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
     def mof_is_embedded?; false end
     desc "rapidFailProtectionMaxCrashes - Indicates the maximum number of worker process crashes permitted before the application pool is shut down by rapid-fail protection. The value must be a valid integer between 0 and 2147483647."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "rapidFailProtectionMaxCrashes")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -818,9 +806,7 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
     def mof_is_embedded?; false end
     desc "restartMemoryLimit - Indicates the maximum amount of virtual memory (in KB) a worker process can consume before causing the application pool to recycle. The value must be a valid integer between 0 and 4294967295. A value of 0 means there is no limit."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "restartMemoryLimit")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -836,9 +822,7 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
     def mof_is_embedded?; false end
     desc "restartPrivateMemoryLimit - Indicates the maximum amount of private memory (in KB) a worker process can consume before causing the application pool to recycle. The value must be a valid integer between 0 and 4294967295. A value of 0 means there is no limit."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "restartPrivateMemoryLimit")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -854,9 +838,7 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
     def mof_is_embedded?; false end
     desc "restartRequestsLimit - Indicates the maximum number of requests the application pool can process before it is recycled. The value must be a valid integer between 0 and 4294967295. A value of 0 means the application pool can process an unlimited number of requests."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "restartRequestsLimit")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

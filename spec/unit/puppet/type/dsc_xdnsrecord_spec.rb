@@ -52,10 +52,6 @@ describe Puppet::Type.type(:dsc_xdnsrecord) do
     expect{dsc_xdnsrecord[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xdnsrecord[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_zone is specified' do
     #dsc_xdnsrecord[:dsc_zone]
     expect { Puppet::Type.type(:dsc_xdnsrecord).new(
@@ -75,10 +71,6 @@ describe Puppet::Type.type(:dsc_xdnsrecord) do
 
   it 'should not accept int for dsc_zone' do
     expect{dsc_xdnsrecord[:dsc_zone] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_zone' do
-    expect{dsc_xdnsrecord[:dsc_zone] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_type predefined value ARecord' do
@@ -117,10 +109,6 @@ describe Puppet::Type.type(:dsc_xdnsrecord) do
     expect{dsc_xdnsrecord[:dsc_type] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_type' do
-    expect{dsc_xdnsrecord[:dsc_type] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_target is specified' do
     #dsc_xdnsrecord[:dsc_target]
     expect { Puppet::Type.type(:dsc_xdnsrecord).new(
@@ -140,10 +128,6 @@ describe Puppet::Type.type(:dsc_xdnsrecord) do
 
   it 'should not accept int for dsc_target' do
     expect{dsc_xdnsrecord[:dsc_target] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_target' do
-    expect{dsc_xdnsrecord[:dsc_target] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -190,10 +174,6 @@ describe Puppet::Type.type(:dsc_xdnsrecord) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xdnsrecord[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdnsrecord[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

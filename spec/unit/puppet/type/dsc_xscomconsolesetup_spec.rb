@@ -86,10 +86,6 @@ describe Puppet::Type.type(:dsc_xscomconsolesetup) do
     expect{dsc_xscomconsolesetup[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xscomconsolesetup[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcepath' do
     expect{dsc_xscomconsolesetup[:dsc_sourcepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -102,10 +98,6 @@ describe Puppet::Type.type(:dsc_xscomconsolesetup) do
     expect{dsc_xscomconsolesetup[:dsc_sourcepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcepath' do
-    expect{dsc_xscomconsolesetup[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcefolder' do
     expect{dsc_xscomconsolesetup[:dsc_sourcefolder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -116,10 +108,6 @@ describe Puppet::Type.type(:dsc_xscomconsolesetup) do
 
   it 'should not accept int for dsc_sourcefolder' do
     expect{dsc_xscomconsolesetup[:dsc_sourcefolder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sourcefolder' do
-    expect{dsc_xscomconsolesetup[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_setupcredential" do
@@ -138,10 +126,6 @@ describe Puppet::Type.type(:dsc_xscomconsolesetup) do
     expect{dsc_xscomconsolesetup[:dsc_setupcredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_setupcredential' do
-    expect{dsc_xscomconsolesetup[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_installpath' do
     expect{dsc_xscomconsolesetup[:dsc_installpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -154,10 +138,6 @@ describe Puppet::Type.type(:dsc_xscomconsolesetup) do
     expect{dsc_xscomconsolesetup[:dsc_installpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_installpath' do
-    expect{dsc_xscomconsolesetup[:dsc_installpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_usemicrosoftupdate' do
     expect{dsc_xscomconsolesetup[:dsc_usemicrosoftupdate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -166,64 +146,12 @@ describe Puppet::Type.type(:dsc_xscomconsolesetup) do
     expect{dsc_xscomconsolesetup[:dsc_usemicrosoftupdate] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_usemicrosoftupdate' do
-    dsc_xscomconsolesetup[:dsc_usemicrosoftupdate] = 1
-    expect(dsc_xscomconsolesetup[:dsc_usemicrosoftupdate]).to eq(1)
-  end
-
-  it 'should not accept signed (negative) value for dsc_usemicrosoftupdate' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscomconsolesetup[:dsc_usemicrosoftupdate] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_usemicrosoftupdate' do
-    dsc_xscomconsolesetup[:dsc_usemicrosoftupdate] = '16'
-    expect(dsc_xscomconsolesetup[:dsc_usemicrosoftupdate]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_usemicrosoftupdate' do
-    dsc_xscomconsolesetup[:dsc_usemicrosoftupdate] = '32'
-    expect(dsc_xscomconsolesetup[:dsc_usemicrosoftupdate]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_usemicrosoftupdate' do
-    dsc_xscomconsolesetup[:dsc_usemicrosoftupdate] = '64'
-    expect(dsc_xscomconsolesetup[:dsc_usemicrosoftupdate]).to eq(64)
-  end
-
   it 'should not accept array for dsc_sendceipreports' do
     expect{dsc_xscomconsolesetup[:dsc_sendceipreports] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_sendceipreports' do
     expect{dsc_xscomconsolesetup[:dsc_sendceipreports] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_sendceipreports' do
-    dsc_xscomconsolesetup[:dsc_sendceipreports] = 1
-    expect(dsc_xscomconsolesetup[:dsc_sendceipreports]).to eq(1)
-  end
-
-  it 'should not accept signed (negative) value for dsc_sendceipreports' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscomconsolesetup[:dsc_sendceipreports] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_sendceipreports' do
-    dsc_xscomconsolesetup[:dsc_sendceipreports] = '16'
-    expect(dsc_xscomconsolesetup[:dsc_sendceipreports]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_sendceipreports' do
-    dsc_xscomconsolesetup[:dsc_sendceipreports] = '32'
-    expect(dsc_xscomconsolesetup[:dsc_sendceipreports]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_sendceipreports' do
-    dsc_xscomconsolesetup[:dsc_sendceipreports] = '64'
-    expect(dsc_xscomconsolesetup[:dsc_sendceipreports]).to eq(64)
   end
 
   it 'should accept dsc_enableerrorreporting predefined value Never' do
@@ -272,42 +200,12 @@ describe Puppet::Type.type(:dsc_xscomconsolesetup) do
     expect{dsc_xscomconsolesetup[:dsc_enableerrorreporting] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enableerrorreporting' do
-    expect{dsc_xscomconsolesetup[:dsc_enableerrorreporting] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sendodrreports' do
     expect{dsc_xscomconsolesetup[:dsc_sendodrreports] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_sendodrreports' do
     expect{dsc_xscomconsolesetup[:dsc_sendodrreports] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_sendodrreports' do
-    dsc_xscomconsolesetup[:dsc_sendodrreports] = 1
-    expect(dsc_xscomconsolesetup[:dsc_sendodrreports]).to eq(1)
-  end
-
-  it 'should not accept signed (negative) value for dsc_sendodrreports' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscomconsolesetup[:dsc_sendodrreports] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_sendodrreports' do
-    dsc_xscomconsolesetup[:dsc_sendodrreports] = '16'
-    expect(dsc_xscomconsolesetup[:dsc_sendodrreports]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_sendodrreports' do
-    dsc_xscomconsolesetup[:dsc_sendodrreports] = '32'
-    expect(dsc_xscomconsolesetup[:dsc_sendodrreports]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_sendodrreports' do
-    dsc_xscomconsolesetup[:dsc_sendodrreports] = '64'
-    expect(dsc_xscomconsolesetup[:dsc_sendodrreports]).to eq(64)
   end
 
   # Configuration PROVIDER TESTS

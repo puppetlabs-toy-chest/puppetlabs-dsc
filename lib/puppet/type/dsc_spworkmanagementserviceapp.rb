@@ -114,9 +114,7 @@ Puppet::Type.newtype(:dsc_spworkmanagementserviceapp) do
     def mof_is_embedded?; false end
     desc "MinimumTimeBetweenEwsSyncSubscriptionSearches - The minimum amount of time bween EWS sync subscription searches"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MinimumTimeBetweenEwsSyncSubscriptionSearches")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -132,9 +130,7 @@ Puppet::Type.newtype(:dsc_spworkmanagementserviceapp) do
     def mof_is_embedded?; false end
     desc "MinimumTimeBetweenProviderRefreshes - The minimum time between provider refreshes"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MinimumTimeBetweenProviderRefreshes")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -150,9 +146,7 @@ Puppet::Type.newtype(:dsc_spworkmanagementserviceapp) do
     def mof_is_embedded?; false end
     desc "MinimumTimeBetweenSearchQueries - The minimum time between search queries"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MinimumTimeBetweenSearchQueries")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -168,9 +162,7 @@ Puppet::Type.newtype(:dsc_spworkmanagementserviceapp) do
     def mof_is_embedded?; false end
     desc "NumberOfSubscriptionSyncsPerEwsSyncRun - The number of subscription syncronisations per EWS sync run"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "NumberOfSubscriptionSyncsPerEwsSyncRun")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -186,9 +178,7 @@ Puppet::Type.newtype(:dsc_spworkmanagementserviceapp) do
     def mof_is_embedded?; false end
     desc "NumberOfUsersEwsSyncWillProcessAtOnce - How many users will EWS calls include at once"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "NumberOfUsersEwsSyncWillProcessAtOnce")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -204,9 +194,7 @@ Puppet::Type.newtype(:dsc_spworkmanagementserviceapp) do
     def mof_is_embedded?; false end
     desc "NumberOfUsersPerEwsSyncBatch - How many users are included in a batch for EWS"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "NumberOfUsersPerEwsSyncBatch")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

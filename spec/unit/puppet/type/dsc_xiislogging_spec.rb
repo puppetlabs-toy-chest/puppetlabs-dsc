@@ -45,10 +45,6 @@ describe Puppet::Type.type(:dsc_xiislogging) do
     expect{dsc_xiislogging[:dsc_logpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logpath' do
-    expect{dsc_xiislogging[:dsc_logpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_logflags predefined value Date' do
     dsc_xiislogging[:dsc_logflags] = 'Date'
     expect(dsc_xiislogging[:dsc_logflags]).to eq(['Date'])
@@ -286,10 +282,6 @@ describe Puppet::Type.type(:dsc_xiislogging) do
     expect{dsc_xiislogging[:dsc_logflags] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logflags' do
-    expect{dsc_xiislogging[:dsc_logflags] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_logperiod predefined value Hourly' do
     dsc_xiislogging[:dsc_logperiod] = 'Hourly'
     expect(dsc_xiislogging[:dsc_logperiod]).to eq('Hourly')
@@ -356,10 +348,6 @@ describe Puppet::Type.type(:dsc_xiislogging) do
     expect{dsc_xiislogging[:dsc_logperiod] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logperiod' do
-    expect{dsc_xiislogging[:dsc_logperiod] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_logtruncatesize' do
     expect{dsc_xiislogging[:dsc_logtruncatesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -370,10 +358,6 @@ describe Puppet::Type.type(:dsc_xiislogging) do
 
   it 'should not accept int for dsc_logtruncatesize' do
     expect{dsc_xiislogging[:dsc_logtruncatesize] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_logtruncatesize' do
-    expect{dsc_xiislogging[:dsc_logtruncatesize] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_loglocaltimerollover' do
@@ -412,10 +396,6 @@ describe Puppet::Type.type(:dsc_xiislogging) do
 
   it 'should not accept int for dsc_loglocaltimerollover' do
     expect{dsc_xiislogging[:dsc_loglocaltimerollover] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_loglocaltimerollover' do
-    expect{dsc_xiislogging[:dsc_loglocaltimerollover] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_logformat predefined value IIS' do
@@ -462,10 +442,6 @@ describe Puppet::Type.type(:dsc_xiislogging) do
 
   it 'should not accept int for dsc_logformat' do
     expect{dsc_xiislogging[:dsc_logformat] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_logformat' do
-    expect{dsc_xiislogging[:dsc_logformat] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

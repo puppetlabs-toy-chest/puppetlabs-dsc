@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_xclusternetwork) do
     expect{dsc_xclusternetwork[:dsc_address] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_address' do
-    expect{dsc_xclusternetwork[:dsc_address] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_addressmask is specified' do
     #dsc_xclusternetwork[:dsc_addressmask]
     expect { Puppet::Type.type(:dsc_xclusternetwork).new(
@@ -70,10 +66,6 @@ describe Puppet::Type.type(:dsc_xclusternetwork) do
     expect{dsc_xclusternetwork[:dsc_addressmask] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_addressmask' do
-    expect{dsc_xclusternetwork[:dsc_addressmask] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_name' do
     expect{dsc_xclusternetwork[:dsc_name] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -84,10 +76,6 @@ describe Puppet::Type.type(:dsc_xclusternetwork) do
 
   it 'should not accept int for dsc_name' do
     expect{dsc_xclusternetwork[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xclusternetwork[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_role predefined value 0' do
@@ -136,10 +124,6 @@ describe Puppet::Type.type(:dsc_xclusternetwork) do
     expect{dsc_xclusternetwork[:dsc_role] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_role' do
-    expect{dsc_xclusternetwork[:dsc_role] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_metric' do
     expect{dsc_xclusternetwork[:dsc_metric] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -150,10 +134,6 @@ describe Puppet::Type.type(:dsc_xclusternetwork) do
 
   it 'should not accept int for dsc_metric' do
     expect{dsc_xclusternetwork[:dsc_metric] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_metric' do
-    expect{dsc_xclusternetwork[:dsc_metric] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

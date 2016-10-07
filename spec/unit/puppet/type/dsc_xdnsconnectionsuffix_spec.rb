@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_xdnsconnectionsuffix) do
     expect{dsc_xdnsconnectionsuffix[:dsc_interfacealias] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_interfacealias' do
-    expect{dsc_xdnsconnectionsuffix[:dsc_interfacealias] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_connectionspecificsuffix' do
     expect{dsc_xdnsconnectionsuffix[:dsc_connectionspecificsuffix] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -62,10 +58,6 @@ describe Puppet::Type.type(:dsc_xdnsconnectionsuffix) do
 
   it 'should not accept int for dsc_connectionspecificsuffix' do
     expect{dsc_xdnsconnectionsuffix[:dsc_connectionspecificsuffix] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_connectionspecificsuffix' do
-    expect{dsc_xdnsconnectionsuffix[:dsc_connectionspecificsuffix] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_registerthisconnectionsaddress' do
@@ -106,10 +98,6 @@ describe Puppet::Type.type(:dsc_xdnsconnectionsuffix) do
     expect{dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_registerthisconnectionsaddress' do
-    expect{dsc_xdnsconnectionsuffix[:dsc_registerthisconnectionsaddress] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_usesuffixwhenregistering' do
     expect{dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -146,10 +134,6 @@ describe Puppet::Type.type(:dsc_xdnsconnectionsuffix) do
 
   it 'should not accept int for dsc_usesuffixwhenregistering' do
     expect{dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_usesuffixwhenregistering' do
-    expect{dsc_xdnsconnectionsuffix[:dsc_usesuffixwhenregistering] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -196,10 +180,6 @@ describe Puppet::Type.type(:dsc_xdnsconnectionsuffix) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xdnsconnectionsuffix[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdnsconnectionsuffix[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

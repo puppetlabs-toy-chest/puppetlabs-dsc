@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel) do
     expect{dsc_xsqlserverrssecureconnectionlevel[:dsc_instancename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_instancename' do
-    expect{dsc_xsqlserverrssecureconnectionlevel[:dsc_instancename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_secureconnectionlevel is specified' do
     #dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel]
     expect { Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel).new(
@@ -64,32 +60,6 @@ describe Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel) do
     expect{dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_secureconnectionlevel' do
-    dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = 16
-    expect(dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_secureconnectionlevel' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_secureconnectionlevel' do
-    dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = '16'
-    expect(dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_secureconnectionlevel' do
-    dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = '32'
-    expect(dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_secureconnectionlevel' do
-    dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel] = '64'
-    expect(dsc_xsqlserverrssecureconnectionlevel[:dsc_secureconnectionlevel]).to eq(64)
-  end
-
   it "should not accept empty password for dsc_sqladmincredential" do
     expect{dsc_xsqlserverrssecureconnectionlevel[:dsc_sqladmincredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -104,10 +74,6 @@ describe Puppet::Type.type(:dsc_xsqlserverrssecureconnectionlevel) do
 
   it 'should not accept int for dsc_sqladmincredential' do
     expect{dsc_xsqlserverrssecureconnectionlevel[:dsc_sqladmincredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqladmincredential' do
-    expect{dsc_xsqlserverrssecureconnectionlevel[:dsc_sqladmincredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

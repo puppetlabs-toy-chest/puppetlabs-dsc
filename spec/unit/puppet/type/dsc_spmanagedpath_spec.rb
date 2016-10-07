@@ -51,10 +51,6 @@ describe Puppet::Type.type(:dsc_spmanagedpath) do
     expect{dsc_spmanagedpath[:dsc_webappurl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_webappurl' do
-    expect{dsc_spmanagedpath[:dsc_webappurl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_relativeurl is specified' do
     #dsc_spmanagedpath[:dsc_relativeurl]
     expect { Puppet::Type.type(:dsc_spmanagedpath).new(
@@ -73,10 +69,6 @@ describe Puppet::Type.type(:dsc_spmanagedpath) do
 
   it 'should not accept int for dsc_relativeurl' do
     expect{dsc_spmanagedpath[:dsc_relativeurl] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_relativeurl' do
-    expect{dsc_spmanagedpath[:dsc_relativeurl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_explicit' do
@@ -117,10 +109,6 @@ describe Puppet::Type.type(:dsc_spmanagedpath) do
     expect{dsc_spmanagedpath[:dsc_explicit] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_explicit' do
-    expect{dsc_spmanagedpath[:dsc_explicit] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_hostheader' do
     expect{dsc_spmanagedpath[:dsc_hostheader] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -157,10 +145,6 @@ describe Puppet::Type.type(:dsc_spmanagedpath) do
 
   it 'should not accept int for dsc_hostheader' do
     expect{dsc_spmanagedpath[:dsc_hostheader] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_hostheader' do
-    expect{dsc_spmanagedpath[:dsc_hostheader] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -209,10 +193,6 @@ describe Puppet::Type.type(:dsc_spmanagedpath) do
     expect{dsc_spmanagedpath[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spmanagedpath[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spmanagedpath[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -227,10 +207,6 @@ describe Puppet::Type.type(:dsc_spmanagedpath) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spmanagedpath[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spmanagedpath[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

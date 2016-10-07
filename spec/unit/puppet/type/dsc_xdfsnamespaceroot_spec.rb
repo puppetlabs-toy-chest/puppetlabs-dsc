@@ -59,10 +59,6 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
     expect{dsc_xdfsnamespaceroot[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xdfsnamespaceroot[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_targetpath is specified' do
     #dsc_xdfsnamespaceroot[:dsc_targetpath]
     expect { Puppet::Type.type(:dsc_xdfsnamespaceroot).new(
@@ -81,10 +77,6 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
 
   it 'should not accept int for dsc_targetpath' do
     expect{dsc_xdfsnamespaceroot[:dsc_targetpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_targetpath' do
-    expect{dsc_xdfsnamespaceroot[:dsc_targetpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -133,10 +125,6 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
     expect{dsc_xdfsnamespaceroot[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdfsnamespaceroot[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_type predefined value Standalone' do
     dsc_xdfsnamespaceroot[:dsc_type] = 'Standalone'
     expect(dsc_xdfsnamespaceroot[:dsc_type]).to eq('Standalone')
@@ -183,10 +171,6 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
     expect{dsc_xdfsnamespaceroot[:dsc_type] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_type' do
-    expect{dsc_xdfsnamespaceroot[:dsc_type] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_xdfsnamespaceroot[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -197,10 +181,6 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
 
   it 'should not accept int for dsc_description' do
     expect{dsc_xdfsnamespaceroot[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xdfsnamespaceroot[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_enablesitecosting' do
@@ -241,10 +221,6 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
     expect{dsc_xdfsnamespaceroot[:dsc_enablesitecosting] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enablesitecosting' do
-    expect{dsc_xdfsnamespaceroot[:dsc_enablesitecosting] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_enableinsitereferrals' do
     expect{dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -281,10 +257,6 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
 
   it 'should not accept int for dsc_enableinsitereferrals' do
     expect{dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_enableinsitereferrals' do
-    expect{dsc_xdfsnamespaceroot[:dsc_enableinsitereferrals] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_enableaccessbasedenumeration' do
@@ -325,10 +297,6 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
     expect{dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enableaccessbasedenumeration' do
-    expect{dsc_xdfsnamespaceroot[:dsc_enableaccessbasedenumeration] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_enablerootscalability' do
     expect{dsc_xdfsnamespaceroot[:dsc_enablerootscalability] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -367,10 +335,6 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
     expect{dsc_xdfsnamespaceroot[:dsc_enablerootscalability] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enablerootscalability' do
-    expect{dsc_xdfsnamespaceroot[:dsc_enablerootscalability] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_enabletargetfailback' do
     expect{dsc_xdfsnamespaceroot[:dsc_enabletargetfailback] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -407,10 +371,6 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
 
   it 'should not accept int for dsc_enabletargetfailback' do
     expect{dsc_xdfsnamespaceroot[:dsc_enabletargetfailback] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_enabletargetfailback' do
-    expect{dsc_xdfsnamespaceroot[:dsc_enabletargetfailback] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_referralpriorityclass predefined value Global-High' do
@@ -479,10 +439,6 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
     expect{dsc_xdfsnamespaceroot[:dsc_referralpriorityclass] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_referralpriorityclass' do
-    expect{dsc_xdfsnamespaceroot[:dsc_referralpriorityclass] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_referralpriorityrank' do
     expect{dsc_xdfsnamespaceroot[:dsc_referralpriorityrank] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -491,64 +447,12 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
     expect{dsc_xdfsnamespaceroot[:dsc_referralpriorityrank] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_referralpriorityrank' do
-    dsc_xdfsnamespaceroot[:dsc_referralpriorityrank] = 32
-    expect(dsc_xdfsnamespaceroot[:dsc_referralpriorityrank]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_referralpriorityrank' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xdfsnamespaceroot[:dsc_referralpriorityrank] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_referralpriorityrank' do
-    dsc_xdfsnamespaceroot[:dsc_referralpriorityrank] = '16'
-    expect(dsc_xdfsnamespaceroot[:dsc_referralpriorityrank]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_referralpriorityrank' do
-    dsc_xdfsnamespaceroot[:dsc_referralpriorityrank] = '32'
-    expect(dsc_xdfsnamespaceroot[:dsc_referralpriorityrank]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_referralpriorityrank' do
-    dsc_xdfsnamespaceroot[:dsc_referralpriorityrank] = '64'
-    expect(dsc_xdfsnamespaceroot[:dsc_referralpriorityrank]).to eq(64)
-  end
-
   it 'should not accept array for dsc_timetolivesec' do
     expect{dsc_xdfsnamespaceroot[:dsc_timetolivesec] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_timetolivesec' do
     expect{dsc_xdfsnamespaceroot[:dsc_timetolivesec] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_timetolivesec' do
-    dsc_xdfsnamespaceroot[:dsc_timetolivesec] = 32
-    expect(dsc_xdfsnamespaceroot[:dsc_timetolivesec]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_timetolivesec' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xdfsnamespaceroot[:dsc_timetolivesec] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_timetolivesec' do
-    dsc_xdfsnamespaceroot[:dsc_timetolivesec] = '16'
-    expect(dsc_xdfsnamespaceroot[:dsc_timetolivesec]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_timetolivesec' do
-    dsc_xdfsnamespaceroot[:dsc_timetolivesec] = '32'
-    expect(dsc_xdfsnamespaceroot[:dsc_timetolivesec]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_timetolivesec' do
-    dsc_xdfsnamespaceroot[:dsc_timetolivesec] = '64'
-    expect(dsc_xdfsnamespaceroot[:dsc_timetolivesec]).to eq(64)
   end
 
   it 'should not accept array for dsc_state' do
@@ -561,10 +465,6 @@ describe Puppet::Type.type(:dsc_xdfsnamespaceroot) do
 
   it 'should not accept int for dsc_state' do
     expect{dsc_xdfsnamespaceroot[:dsc_state] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_state' do
-    expect{dsc_xdfsnamespaceroot[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

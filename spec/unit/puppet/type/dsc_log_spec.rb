@@ -32,10 +32,6 @@ describe Puppet::Type.type(:dsc_log) do
     expect{dsc_log[:dsc_message] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_message' do
-    expect{dsc_log[:dsc_message] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   # Configuration PROVIDER TESTS
 
   describe "powershell provider tests" do

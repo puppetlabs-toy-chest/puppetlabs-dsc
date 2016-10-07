@@ -45,10 +45,6 @@ describe Puppet::Type.type(:dsc_xsqlserverconfiguration) do
     expect{dsc_xsqlserverconfiguration[:dsc_instancename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_instancename' do
-    expect{dsc_xsqlserverconfiguration[:dsc_instancename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_optionname is specified' do
     #dsc_xsqlserverconfiguration[:dsc_optionname]
     expect { Puppet::Type.type(:dsc_xsqlserverconfiguration).new(
@@ -69,10 +65,6 @@ describe Puppet::Type.type(:dsc_xsqlserverconfiguration) do
     expect{dsc_xsqlserverconfiguration[:dsc_optionname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_optionname' do
-    expect{dsc_xsqlserverconfiguration[:dsc_optionname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_optionvalue' do
     expect{dsc_xsqlserverconfiguration[:dsc_optionvalue] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -80,32 +72,6 @@ describe Puppet::Type.type(:dsc_xsqlserverconfiguration) do
   it 'should not accept boolean for dsc_optionvalue' do
     expect{dsc_xsqlserverconfiguration[:dsc_optionvalue] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_optionvalue' do
-    dsc_xsqlserverconfiguration[:dsc_optionvalue] = -32
-    expect(dsc_xsqlserverconfiguration[:dsc_optionvalue]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_optionvalue' do
-    dsc_xsqlserverconfiguration[:dsc_optionvalue] = '16'
-    expect(dsc_xsqlserverconfiguration[:dsc_optionvalue]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_optionvalue' do
-    dsc_xsqlserverconfiguration[:dsc_optionvalue] = '-16'
-    expect(dsc_xsqlserverconfiguration[:dsc_optionvalue]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_optionvalue' do
-    dsc_xsqlserverconfiguration[:dsc_optionvalue] = '32'
-    expect(dsc_xsqlserverconfiguration[:dsc_optionvalue]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_optionvalue' do
-    dsc_xsqlserverconfiguration[:dsc_optionvalue] = '-32'
-    expect(dsc_xsqlserverconfiguration[:dsc_optionvalue]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_restartservice' do
     expect{dsc_xsqlserverconfiguration[:dsc_restartservice] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -143,10 +109,6 @@ describe Puppet::Type.type(:dsc_xsqlserverconfiguration) do
 
   it 'should not accept int for dsc_restartservice' do
     expect{dsc_xsqlserverconfiguration[:dsc_restartservice] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_restartservice' do
-    expect{dsc_xsqlserverconfiguration[:dsc_restartservice] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

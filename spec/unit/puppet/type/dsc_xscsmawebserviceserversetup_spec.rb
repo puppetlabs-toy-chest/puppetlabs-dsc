@@ -99,10 +99,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     expect{dsc_xscsmawebserviceserversetup[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcepath' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_sourcepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -115,10 +111,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     expect{dsc_xscsmawebserviceserversetup[:dsc_sourcepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcepath' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcefolder' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_sourcefolder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -129,10 +121,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
 
   it 'should not accept int for dsc_sourcefolder' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_sourcefolder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sourcefolder' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_setupcredential" do
@@ -149,10 +137,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
 
   it 'should not accept int for dsc_setupcredential' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_setupcredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_setupcredential' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_firstwebserviceserver' do
@@ -193,10 +177,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     expect{dsc_xscsmawebserviceserversetup[:dsc_firstwebserviceserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_firstwebserviceserver' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_firstwebserviceserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_appool" do
     expect{dsc_xscsmawebserviceserversetup[:dsc_appool] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -213,10 +193,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     expect{dsc_xscsmawebserviceserversetup[:dsc_appool] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_appool' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_appool] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_appoolusername' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_appoolusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -227,10 +203,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
 
   it 'should not accept int for dsc_appoolusername' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_appoolusername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_appoolusername' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_appoolusername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_admingroupmembers' do
@@ -245,10 +217,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     expect{dsc_xscsmawebserviceserversetup[:dsc_admingroupmembers] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_admingroupmembers' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_admingroupmembers] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlserver' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_sqlserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -259,10 +227,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
 
   it 'should not accept int for dsc_sqlserver' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_sqlserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlserver' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_sqlserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sqlinstance' do
@@ -277,10 +241,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     expect{dsc_xscsmawebserviceserversetup[:dsc_sqlinstance] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlinstance' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_sqlinstance] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqldatabase' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_sqldatabase] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -291,10 +251,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
 
   it 'should not accept int for dsc_sqldatabase' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_sqldatabase] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqldatabase' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_sqldatabase] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sitename' do
@@ -309,42 +265,12 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     expect{dsc_xscsmawebserviceserversetup[:dsc_sitename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sitename' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_sitename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_webserviceport' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_webserviceport] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_webserviceport' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_webserviceport] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_webserviceport' do
-    dsc_xscsmawebserviceserversetup[:dsc_webserviceport] = 16
-    expect(dsc_xscsmawebserviceserversetup[:dsc_webserviceport]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_webserviceport' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscsmawebserviceserversetup[:dsc_webserviceport] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_webserviceport' do
-    dsc_xscsmawebserviceserversetup[:dsc_webserviceport] = '16'
-    expect(dsc_xscsmawebserviceserversetup[:dsc_webserviceport]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_webserviceport' do
-    dsc_xscsmawebserviceserversetup[:dsc_webserviceport] = '32'
-    expect(dsc_xscsmawebserviceserversetup[:dsc_webserviceport]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_webserviceport' do
-    dsc_xscsmawebserviceserversetup[:dsc_webserviceport] = '64'
-    expect(dsc_xscsmawebserviceserversetup[:dsc_webserviceport]).to eq(64)
   end
 
   it 'should not accept array for dsc_installfolder' do
@@ -359,10 +285,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     expect{dsc_xscsmawebserviceserversetup[:dsc_installfolder] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_installfolder' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_installfolder] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_usessl' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_usessl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -373,10 +295,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
 
   it 'should not accept int for dsc_usessl' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_usessl] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_usessl' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_usessl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_specifycertificate' do
@@ -391,10 +309,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     expect{dsc_xscsmawebserviceserversetup[:dsc_specifycertificate] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_specifycertificate' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_specifycertificate] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_certificatename' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_certificatename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -405,10 +319,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
 
   it 'should not accept int for dsc_certificatename' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_certificatename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_certificatename' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_certificatename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_etwmanifest' do
@@ -423,10 +333,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     expect{dsc_xscsmawebserviceserversetup[:dsc_etwmanifest] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_etwmanifest' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_etwmanifest] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sendceipreports' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_sendceipreports] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -437,10 +343,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
 
   it 'should not accept int for dsc_sendceipreports' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_sendceipreports] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sendceipreports' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_sendceipreports] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_msupdate' do
@@ -455,10 +357,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
     expect{dsc_xscsmawebserviceserversetup[:dsc_msupdate] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_msupdate' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_msupdate] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_productkey' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_productkey] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -469,10 +367,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
 
   it 'should not accept int for dsc_productkey' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_productkey] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_productkey' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_productkey] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_runbookworkerservers' do
@@ -486,10 +380,6 @@ describe Puppet::Type.type(:dsc_xscsmawebserviceserversetup) do
 
   it 'should not accept int for dsc_runbookworkerservers' do
     expect{dsc_xscsmawebserviceserversetup[:dsc_runbookworkerservers] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_runbookworkerservers' do
-    expect{dsc_xscsmawebserviceserversetup[:dsc_runbookworkerservers] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

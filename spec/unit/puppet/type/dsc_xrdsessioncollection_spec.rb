@@ -45,10 +45,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollection) do
     expect{dsc_xrdsessioncollection[:dsc_collectionname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_collectionname' do
-    expect{dsc_xrdsessioncollection[:dsc_collectionname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_sessionhost is specified' do
     #dsc_xrdsessioncollection[:dsc_sessionhost]
     expect { Puppet::Type.type(:dsc_xrdsessioncollection).new(
@@ -69,10 +65,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollection) do
     expect{dsc_xrdsessioncollection[:dsc_sessionhost] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sessionhost' do
-    expect{dsc_xrdsessioncollection[:dsc_sessionhost] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_collectiondescription' do
     expect{dsc_xrdsessioncollection[:dsc_collectiondescription] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -85,10 +77,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollection) do
     expect{dsc_xrdsessioncollection[:dsc_collectiondescription] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_collectiondescription' do
-    expect{dsc_xrdsessioncollection[:dsc_collectiondescription] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_connectionbroker' do
     expect{dsc_xrdsessioncollection[:dsc_connectionbroker] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -99,10 +87,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollection) do
 
   it 'should not accept int for dsc_connectionbroker' do
     expect{dsc_xrdsessioncollection[:dsc_connectionbroker] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_connectionbroker' do
-    expect{dsc_xrdsessioncollection[:dsc_connectionbroker] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

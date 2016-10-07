@@ -42,10 +42,6 @@ describe Puppet::Type.type(:dsc_xsqldatabaserecoverymodel) do
     expect{dsc_xsqldatabaserecoverymodel[:dsc_databasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databasename' do
-    expect{dsc_xsqldatabaserecoverymodel[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlserverinstance' do
     expect{dsc_xsqldatabaserecoverymodel[:dsc_sqlserverinstance] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -56,10 +52,6 @@ describe Puppet::Type.type(:dsc_xsqldatabaserecoverymodel) do
 
   it 'should not accept int for dsc_sqlserverinstance' do
     expect{dsc_xsqldatabaserecoverymodel[:dsc_sqlserverinstance] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlserverinstance' do
-    expect{dsc_xsqldatabaserecoverymodel[:dsc_sqlserverinstance] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_recoverymodel predefined value Full' do
@@ -106,10 +98,6 @@ describe Puppet::Type.type(:dsc_xsqldatabaserecoverymodel) do
 
   it 'should not accept int for dsc_recoverymodel' do
     expect{dsc_xsqldatabaserecoverymodel[:dsc_recoverymodel] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_recoverymodel' do
-    expect{dsc_xsqldatabaserecoverymodel[:dsc_recoverymodel] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

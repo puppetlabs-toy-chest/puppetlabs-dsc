@@ -92,10 +92,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
     expect{dsc_xscsrserversetup[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xscsrserversetup[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcepath' do
     expect{dsc_xscsrserversetup[:dsc_sourcepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -108,10 +104,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
     expect{dsc_xscsrserversetup[:dsc_sourcepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcepath' do
-    expect{dsc_xscsrserversetup[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcefolder' do
     expect{dsc_xscsrserversetup[:dsc_sourcefolder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -122,10 +114,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
 
   it 'should not accept int for dsc_sourcefolder' do
     expect{dsc_xscsrserversetup[:dsc_sourcefolder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sourcefolder' do
-    expect{dsc_xscsrserversetup[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_setupcredential" do
@@ -142,10 +130,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
 
   it 'should not accept int for dsc_setupcredential' do
     expect{dsc_xscsrserversetup[:dsc_setupcredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_setupcredential' do
-    expect{dsc_xscsrserversetup[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_sendceipreports predefined value Yes' do
@@ -184,10 +168,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
     expect{dsc_xscsrserversetup[:dsc_sendceipreports] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sendceipreports' do
-    expect{dsc_xscsrserversetup[:dsc_sendceipreports] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_usemicrosoftupdate predefined value Yes' do
     dsc_xscsrserversetup[:dsc_usemicrosoftupdate] = 'Yes'
     expect(dsc_xscsrserversetup[:dsc_usemicrosoftupdate]).to eq('Yes')
@@ -224,10 +204,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
     expect{dsc_xscsrserversetup[:dsc_usemicrosoftupdate] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_usemicrosoftupdate' do
-    expect{dsc_xscsrserversetup[:dsc_usemicrosoftupdate] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_installfolder' do
     expect{dsc_xscsrserversetup[:dsc_installfolder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -238,10 +214,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
 
   it 'should not accept int for dsc_installfolder' do
     expect{dsc_xscsrserversetup[:dsc_installfolder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installfolder' do
-    expect{dsc_xscsrserversetup[:dsc_installfolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_databaseserver' do
@@ -256,10 +228,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
     expect{dsc_xscsrserversetup[:dsc_databaseserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databaseserver' do
-    expect{dsc_xscsrserversetup[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databaseserverinstance' do
     expect{dsc_xscsrserversetup[:dsc_databaseserverinstance] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -270,10 +238,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
 
   it 'should not accept int for dsc_databaseserverinstance' do
     expect{dsc_xscsrserversetup[:dsc_databaseserverinstance] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_databaseserverinstance' do
-    expect{dsc_xscsrserversetup[:dsc_databaseserverinstance] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_repositorydatabasename' do
@@ -288,10 +252,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
     expect{dsc_xscsrserversetup[:dsc_repositorydatabasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_repositorydatabasename' do
-    expect{dsc_xscsrserversetup[:dsc_repositorydatabasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_stagingdatabasename' do
     expect{dsc_xscsrserversetup[:dsc_stagingdatabasename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -302,10 +262,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
 
   it 'should not accept int for dsc_stagingdatabasename' do
     expect{dsc_xscsrserversetup[:dsc_stagingdatabasename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_stagingdatabasename' do
-    expect{dsc_xscsrserversetup[:dsc_stagingdatabasename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_dwdatabasename' do
@@ -320,10 +276,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
     expect{dsc_xscsrserversetup[:dsc_dwdatabasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dwdatabasename' do
-    expect{dsc_xscsrserversetup[:dsc_dwdatabasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_analysisdatabaseserver' do
     expect{dsc_xscsrserversetup[:dsc_analysisdatabaseserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -334,10 +286,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
 
   it 'should not accept int for dsc_analysisdatabaseserver' do
     expect{dsc_xscsrserversetup[:dsc_analysisdatabaseserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_analysisdatabaseserver' do
-    expect{dsc_xscsrserversetup[:dsc_analysisdatabaseserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_analysisdatabaseserverinstance' do
@@ -352,10 +300,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
     expect{dsc_xscsrserversetup[:dsc_analysisdatabaseserverinstance] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_analysisdatabaseserverinstance' do
-    expect{dsc_xscsrserversetup[:dsc_analysisdatabaseserverinstance] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_analysisdatabasename' do
     expect{dsc_xscsrserversetup[:dsc_analysisdatabasename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -366,10 +310,6 @@ describe Puppet::Type.type(:dsc_xscsrserversetup) do
 
   it 'should not accept int for dsc_analysisdatabasename' do
     expect{dsc_xscsrserversetup[:dsc_analysisdatabasename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_analysisdatabasename' do
-    expect{dsc_xscsrserversetup[:dsc_analysisdatabasename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

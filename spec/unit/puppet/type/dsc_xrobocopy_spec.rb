@@ -58,10 +58,6 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_source] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_source' do
-    expect{dsc_xrobocopy[:dsc_source] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_destination is specified' do
     #dsc_xrobocopy[:dsc_destination]
     expect { Puppet::Type.type(:dsc_xrobocopy).new(
@@ -82,10 +78,6 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_destination] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_destination' do
-    expect{dsc_xrobocopy[:dsc_destination] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_files' do
     expect{dsc_xrobocopy[:dsc_files] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -98,10 +90,6 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_files] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_files' do
-    expect{dsc_xrobocopy[:dsc_files] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_retry' do
     expect{dsc_xrobocopy[:dsc_retry] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -110,64 +98,12 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_retry] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_retry' do
-    dsc_xrobocopy[:dsc_retry] = 32
-    expect(dsc_xrobocopy[:dsc_retry]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_retry' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xrobocopy[:dsc_retry] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_retry' do
-    dsc_xrobocopy[:dsc_retry] = '16'
-    expect(dsc_xrobocopy[:dsc_retry]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_retry' do
-    dsc_xrobocopy[:dsc_retry] = '32'
-    expect(dsc_xrobocopy[:dsc_retry]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_retry' do
-    dsc_xrobocopy[:dsc_retry] = '64'
-    expect(dsc_xrobocopy[:dsc_retry]).to eq(64)
-  end
-
   it 'should not accept array for dsc_wait' do
     expect{dsc_xrobocopy[:dsc_wait] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_wait' do
     expect{dsc_xrobocopy[:dsc_wait] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_wait' do
-    dsc_xrobocopy[:dsc_wait] = 32
-    expect(dsc_xrobocopy[:dsc_wait]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_wait' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xrobocopy[:dsc_wait] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_wait' do
-    dsc_xrobocopy[:dsc_wait] = '16'
-    expect(dsc_xrobocopy[:dsc_wait]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_wait' do
-    dsc_xrobocopy[:dsc_wait] = '32'
-    expect(dsc_xrobocopy[:dsc_wait]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_wait' do
-    dsc_xrobocopy[:dsc_wait] = '64'
-    expect(dsc_xrobocopy[:dsc_wait]).to eq(64)
   end
 
   it 'should not accept array for dsc_subdirectoriesincludingempty' do
@@ -208,10 +144,6 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_subdirectoriesincludingempty] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_subdirectoriesincludingempty' do
-    expect{dsc_xrobocopy[:dsc_subdirectoriesincludingempty] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_restartable' do
     expect{dsc_xrobocopy[:dsc_restartable] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -248,10 +180,6 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
 
   it 'should not accept int for dsc_restartable' do
     expect{dsc_xrobocopy[:dsc_restartable] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_restartable' do
-    expect{dsc_xrobocopy[:dsc_restartable] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_multithreaded' do
@@ -292,10 +220,6 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_multithreaded] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_multithreaded' do
-    expect{dsc_xrobocopy[:dsc_multithreaded] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_excludefiles' do
     expect{dsc_xrobocopy[:dsc_excludefiles] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -308,10 +232,6 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_excludefiles] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_excludefiles' do
-    expect{dsc_xrobocopy[:dsc_excludefiles] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_logoutput' do
     expect{dsc_xrobocopy[:dsc_logoutput] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -322,10 +242,6 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
 
   it 'should not accept int for dsc_logoutput' do
     expect{dsc_xrobocopy[:dsc_logoutput] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_logoutput' do
-    expect{dsc_xrobocopy[:dsc_logoutput] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_appendlog' do
@@ -366,10 +282,6 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
     expect{dsc_xrobocopy[:dsc_appendlog] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_appendlog' do
-    expect{dsc_xrobocopy[:dsc_appendlog] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_additionalargs' do
     dsc_xrobocopy[:dsc_additionalargs] = ["foo", "bar", "spec"]
     expect(dsc_xrobocopy[:dsc_additionalargs]).to eq(["foo", "bar", "spec"])
@@ -381,10 +293,6 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
 
   it 'should not accept int for dsc_additionalargs' do
     expect{dsc_xrobocopy[:dsc_additionalargs] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_additionalargs' do
-    expect{dsc_xrobocopy[:dsc_additionalargs] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -431,10 +339,6 @@ describe Puppet::Type.type(:dsc_xrobocopy) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xrobocopy[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xrobocopy[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -188,9 +188,7 @@ Puppet::Type.newtype(:dsc_spwordautomationserviceapp) do
     def mof_is_embedded?; false end
     desc "MaximumMemoryUsage - What is the maximum amount of memory the service app should use (in MB)"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaximumMemoryUsage")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -206,9 +204,7 @@ Puppet::Type.newtype(:dsc_spwordautomationserviceapp) do
     def mof_is_embedded?; false end
     desc "RecycleThreshold - What is the recycle threshold for this service app"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "RecycleThreshold")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -240,9 +236,7 @@ Puppet::Type.newtype(:dsc_spwordautomationserviceapp) do
     def mof_is_embedded?; false end
     desc "ConversionProcesses - How many conversion processes can be run at once"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ConversionProcesses")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -258,9 +252,7 @@ Puppet::Type.newtype(:dsc_spwordautomationserviceapp) do
     def mof_is_embedded?; false end
     desc "JobConversionFrequency - How frequently should new jobs be started from the queue (in minutes)"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "JobConversionFrequency")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -276,9 +268,7 @@ Puppet::Type.newtype(:dsc_spwordautomationserviceapp) do
     def mof_is_embedded?; false end
     desc "NumberOfConversionsPerProcess - How many document conversions should be included in a single process"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "NumberOfConversionsPerProcess")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -294,9 +284,7 @@ Puppet::Type.newtype(:dsc_spwordautomationserviceapp) do
     def mof_is_embedded?; false end
     desc "TimeBeforeConversionIsMonitored - How long can a conversion be run before it becomes monitored"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "TimeBeforeConversionIsMonitored")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -312,9 +300,7 @@ Puppet::Type.newtype(:dsc_spwordautomationserviceapp) do
     def mof_is_embedded?; false end
     desc "MaximumConversionAttempts - What is the maximum number of attempts to convert a document"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaximumConversionAttempts")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -330,9 +316,7 @@ Puppet::Type.newtype(:dsc_spwordautomationserviceapp) do
     def mof_is_embedded?; false end
     desc "MaximumSyncConversionRequests - What is the maximum number of sync conversion requests for the service app"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaximumSyncConversionRequests")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -348,9 +332,7 @@ Puppet::Type.newtype(:dsc_spwordautomationserviceapp) do
     def mof_is_embedded?; false end
     desc "KeepAliveTimeout - How long is the keep alive timeout set to for the service app"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "KeepAliveTimeout")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -366,9 +348,7 @@ Puppet::Type.newtype(:dsc_spwordautomationserviceapp) do
     def mof_is_embedded?; false end
     desc "MaximumConversionTime - What is the maximum time in seconds for a document conversion to be allowed to run"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaximumConversionTime")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

@@ -72,10 +72,6 @@ describe Puppet::Type.type(:dsc_xexchmaintenancemode) do
     expect{dsc_xexchmaintenancemode[:dsc_enabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enabled' do
-    expect{dsc_xexchmaintenancemode[:dsc_enabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchmaintenancemode[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -92,10 +88,6 @@ describe Puppet::Type.type(:dsc_xexchmaintenancemode) do
     expect{dsc_xexchmaintenancemode[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchmaintenancemode[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_additionalcomponentstoactivate' do
     dsc_xexchmaintenancemode[:dsc_additionalcomponentstoactivate] = ["foo", "bar", "spec"]
     expect(dsc_xexchmaintenancemode[:dsc_additionalcomponentstoactivate]).to eq(["foo", "bar", "spec"])
@@ -109,10 +101,6 @@ describe Puppet::Type.type(:dsc_xexchmaintenancemode) do
     expect{dsc_xexchmaintenancemode[:dsc_additionalcomponentstoactivate] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_additionalcomponentstoactivate' do
-    expect{dsc_xexchmaintenancemode[:dsc_additionalcomponentstoactivate] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchmaintenancemode[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -123,10 +111,6 @@ describe Puppet::Type.type(:dsc_xexchmaintenancemode) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xexchmaintenancemode[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchmaintenancemode[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_movepreferreddatabasesback' do
@@ -167,10 +151,6 @@ describe Puppet::Type.type(:dsc_xexchmaintenancemode) do
     expect{dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_movepreferreddatabasesback' do
-    expect{dsc_xexchmaintenancemode[:dsc_movepreferreddatabasesback] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_setinactivecomponentsfromanyrequestertoactive' do
     expect{dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -209,10 +189,6 @@ describe Puppet::Type.type(:dsc_xexchmaintenancemode) do
     expect{dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_setinactivecomponentsfromanyrequestertoactive' do
-    expect{dsc_xexchmaintenancemode[:dsc_setinactivecomponentsfromanyrequestertoactive] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_upgradedserverversion' do
     expect{dsc_xexchmaintenancemode[:dsc_upgradedserverversion] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -223,10 +199,6 @@ describe Puppet::Type.type(:dsc_xexchmaintenancemode) do
 
   it 'should not accept int for dsc_upgradedserverversion' do
     expect{dsc_xexchmaintenancemode[:dsc_upgradedserverversion] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_upgradedserverversion' do
-    expect{dsc_xexchmaintenancemode[:dsc_upgradedserverversion] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

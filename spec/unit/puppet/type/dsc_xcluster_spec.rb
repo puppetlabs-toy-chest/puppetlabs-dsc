@@ -42,10 +42,6 @@ describe Puppet::Type.type(:dsc_xcluster) do
     expect{dsc_xcluster[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xcluster[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_staticipaddress' do
     expect{dsc_xcluster[:dsc_staticipaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -56,10 +52,6 @@ describe Puppet::Type.type(:dsc_xcluster) do
 
   it 'should not accept int for dsc_staticipaddress' do
     expect{dsc_xcluster[:dsc_staticipaddress] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_staticipaddress' do
-    expect{dsc_xcluster[:dsc_staticipaddress] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_domainadministratorcredential" do
@@ -76,10 +68,6 @@ describe Puppet::Type.type(:dsc_xcluster) do
 
   it 'should not accept int for dsc_domainadministratorcredential' do
     expect{dsc_xcluster[:dsc_domainadministratorcredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domainadministratorcredential' do
-    expect{dsc_xcluster[:dsc_domainadministratorcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

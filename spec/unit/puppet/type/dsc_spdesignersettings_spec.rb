@@ -49,10 +49,6 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
     expect{dsc_spdesignersettings[:dsc_url] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_url' do
-    expect{dsc_spdesignersettings[:dsc_url] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_settingsscope predefined value WebApplication' do
     dsc_spdesignersettings[:dsc_settingsscope] = 'WebApplication'
     expect(dsc_spdesignersettings[:dsc_settingsscope]).to eq('WebApplication')
@@ -87,10 +83,6 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
 
   it 'should not accept int for dsc_settingsscope' do
     expect{dsc_spdesignersettings[:dsc_settingsscope] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_settingsscope' do
-    expect{dsc_spdesignersettings[:dsc_settingsscope] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowsharepointdesigner' do
@@ -131,10 +123,6 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
     expect{dsc_spdesignersettings[:dsc_allowsharepointdesigner] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowsharepointdesigner' do
-    expect{dsc_spdesignersettings[:dsc_allowsharepointdesigner] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_allowdetachpagesfromdefinition' do
     expect{dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -171,10 +159,6 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
 
   it 'should not accept int for dsc_allowdetachpagesfromdefinition' do
     expect{dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_allowdetachpagesfromdefinition' do
-    expect{dsc_spdesignersettings[:dsc_allowdetachpagesfromdefinition] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowcustomisemasterpage' do
@@ -215,10 +199,6 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
     expect{dsc_spdesignersettings[:dsc_allowcustomisemasterpage] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowcustomisemasterpage' do
-    expect{dsc_spdesignersettings[:dsc_allowcustomisemasterpage] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_allowmanagesiteurlstructure' do
     expect{dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -255,10 +235,6 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
 
   it 'should not accept int for dsc_allowmanagesiteurlstructure' do
     expect{dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_allowmanagesiteurlstructure' do
-    expect{dsc_spdesignersettings[:dsc_allowmanagesiteurlstructure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowcreatedeclarativeworkflow' do
@@ -299,10 +275,6 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
     expect{dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowcreatedeclarativeworkflow' do
-    expect{dsc_spdesignersettings[:dsc_allowcreatedeclarativeworkflow] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_allowsavepublishdeclarativeworkflow' do
     expect{dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -339,10 +311,6 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
 
   it 'should not accept int for dsc_allowsavepublishdeclarativeworkflow' do
     expect{dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_allowsavepublishdeclarativeworkflow' do
-    expect{dsc_spdesignersettings[:dsc_allowsavepublishdeclarativeworkflow] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowsavedeclarativeworkflowastemplate' do
@@ -383,10 +351,6 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
     expect{dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowsavedeclarativeworkflowastemplate' do
-    expect{dsc_spdesignersettings[:dsc_allowsavedeclarativeworkflowastemplate] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spdesignersettings[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -401,10 +365,6 @@ describe Puppet::Type.type(:dsc_spdesignersettings) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spdesignersettings[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spdesignersettings[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

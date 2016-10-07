@@ -50,10 +50,6 @@ describe Puppet::Type.type(:dsc_xdnsserveradzone) do
     expect{dsc_xdnsserveradzone[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xdnsserveradzone[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_dynamicupdate predefined value None' do
     dsc_xdnsserveradzone[:dsc_dynamicupdate] = 'None'
     expect(dsc_xdnsserveradzone[:dsc_dynamicupdate]).to eq('None')
@@ -98,10 +94,6 @@ describe Puppet::Type.type(:dsc_xdnsserveradzone) do
 
   it 'should not accept int for dsc_dynamicupdate' do
     expect{dsc_xdnsserveradzone[:dsc_dynamicupdate] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_dynamicupdate' do
-    expect{dsc_xdnsserveradzone[:dsc_dynamicupdate] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_replicationscope predefined value Custom' do
@@ -160,10 +152,6 @@ describe Puppet::Type.type(:dsc_xdnsserveradzone) do
     expect{dsc_xdnsserveradzone[:dsc_replicationscope] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_replicationscope' do
-    expect{dsc_xdnsserveradzone[:dsc_replicationscope] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_directorypartitionname' do
     expect{dsc_xdnsserveradzone[:dsc_directorypartitionname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -176,10 +164,6 @@ describe Puppet::Type.type(:dsc_xdnsserveradzone) do
     expect{dsc_xdnsserveradzone[:dsc_directorypartitionname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_directorypartitionname' do
-    expect{dsc_xdnsserveradzone[:dsc_directorypartitionname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_computername' do
     expect{dsc_xdnsserveradzone[:dsc_computername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -190,10 +174,6 @@ describe Puppet::Type.type(:dsc_xdnsserveradzone) do
 
   it 'should not accept int for dsc_computername' do
     expect{dsc_xdnsserveradzone[:dsc_computername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_computername' do
-    expect{dsc_xdnsserveradzone[:dsc_computername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_credential" do
@@ -210,10 +190,6 @@ describe Puppet::Type.type(:dsc_xdnsserveradzone) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xdnsserveradzone[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xdnsserveradzone[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -260,10 +236,6 @@ describe Puppet::Type.type(:dsc_xdnsserveradzone) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xdnsserveradzone[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdnsserveradzone[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -44,42 +44,12 @@ describe Puppet::Type.type(:dsc_sppasswordchangesettings) do
     expect{dsc_sppasswordchangesettings[:dsc_mailaddress] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_mailaddress' do
-    expect{dsc_sppasswordchangesettings[:dsc_mailaddress] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_daysbeforeexpiry' do
     expect{dsc_sppasswordchangesettings[:dsc_daysbeforeexpiry] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_daysbeforeexpiry' do
     expect{dsc_sppasswordchangesettings[:dsc_daysbeforeexpiry] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_daysbeforeexpiry' do
-    dsc_sppasswordchangesettings[:dsc_daysbeforeexpiry] = 32
-    expect(dsc_sppasswordchangesettings[:dsc_daysbeforeexpiry]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_daysbeforeexpiry' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_sppasswordchangesettings[:dsc_daysbeforeexpiry] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_daysbeforeexpiry' do
-    dsc_sppasswordchangesettings[:dsc_daysbeforeexpiry] = '16'
-    expect(dsc_sppasswordchangesettings[:dsc_daysbeforeexpiry]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_daysbeforeexpiry' do
-    dsc_sppasswordchangesettings[:dsc_daysbeforeexpiry] = '32'
-    expect(dsc_sppasswordchangesettings[:dsc_daysbeforeexpiry]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_daysbeforeexpiry' do
-    dsc_sppasswordchangesettings[:dsc_daysbeforeexpiry] = '64'
-    expect(dsc_sppasswordchangesettings[:dsc_daysbeforeexpiry]).to eq(64)
   end
 
   it 'should not accept array for dsc_passwordchangewaittimeseconds' do
@@ -90,64 +60,12 @@ describe Puppet::Type.type(:dsc_sppasswordchangesettings) do
     expect{dsc_sppasswordchangesettings[:dsc_passwordchangewaittimeseconds] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_passwordchangewaittimeseconds' do
-    dsc_sppasswordchangesettings[:dsc_passwordchangewaittimeseconds] = 32
-    expect(dsc_sppasswordchangesettings[:dsc_passwordchangewaittimeseconds]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_passwordchangewaittimeseconds' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_sppasswordchangesettings[:dsc_passwordchangewaittimeseconds] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_passwordchangewaittimeseconds' do
-    dsc_sppasswordchangesettings[:dsc_passwordchangewaittimeseconds] = '16'
-    expect(dsc_sppasswordchangesettings[:dsc_passwordchangewaittimeseconds]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_passwordchangewaittimeseconds' do
-    dsc_sppasswordchangesettings[:dsc_passwordchangewaittimeseconds] = '32'
-    expect(dsc_sppasswordchangesettings[:dsc_passwordchangewaittimeseconds]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_passwordchangewaittimeseconds' do
-    dsc_sppasswordchangesettings[:dsc_passwordchangewaittimeseconds] = '64'
-    expect(dsc_sppasswordchangesettings[:dsc_passwordchangewaittimeseconds]).to eq(64)
-  end
-
   it 'should not accept array for dsc_numberofretries' do
     expect{dsc_sppasswordchangesettings[:dsc_numberofretries] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_numberofretries' do
     expect{dsc_sppasswordchangesettings[:dsc_numberofretries] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_numberofretries' do
-    dsc_sppasswordchangesettings[:dsc_numberofretries] = 32
-    expect(dsc_sppasswordchangesettings[:dsc_numberofretries]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_numberofretries' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_sppasswordchangesettings[:dsc_numberofretries] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_numberofretries' do
-    dsc_sppasswordchangesettings[:dsc_numberofretries] = '16'
-    expect(dsc_sppasswordchangesettings[:dsc_numberofretries]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_numberofretries' do
-    dsc_sppasswordchangesettings[:dsc_numberofretries] = '32'
-    expect(dsc_sppasswordchangesettings[:dsc_numberofretries]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_numberofretries' do
-    dsc_sppasswordchangesettings[:dsc_numberofretries] = '64'
-    expect(dsc_sppasswordchangesettings[:dsc_numberofretries]).to eq(64)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -164,10 +82,6 @@ describe Puppet::Type.type(:dsc_sppasswordchangesettings) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_sppasswordchangesettings[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_sppasswordchangesettings[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

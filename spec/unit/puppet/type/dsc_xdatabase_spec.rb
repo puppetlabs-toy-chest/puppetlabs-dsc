@@ -49,10 +49,6 @@ describe Puppet::Type.type(:dsc_xdatabase) do
     expect{dsc_xdatabase[:dsc_credentials] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credentials' do
-    expect{dsc_xdatabase[:dsc_credentials] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xdatabase[:dsc_ensure] = 'Present'
     expect(dsc_xdatabase[:dsc_ensure]).to eq('Present')
@@ -99,10 +95,6 @@ describe Puppet::Type.type(:dsc_xdatabase) do
     expect{dsc_xdatabase[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdatabase[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlserver' do
     expect{dsc_xdatabase[:dsc_sqlserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -113,10 +105,6 @@ describe Puppet::Type.type(:dsc_xdatabase) do
 
   it 'should not accept int for dsc_sqlserver' do
     expect{dsc_xdatabase[:dsc_sqlserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlserver' do
-    expect{dsc_xdatabase[:dsc_sqlserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_sqlserverversion predefined value 2008-R2' do
@@ -165,10 +153,6 @@ describe Puppet::Type.type(:dsc_xdatabase) do
     expect{dsc_xdatabase[:dsc_sqlserverversion] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlserverversion' do
-    expect{dsc_xdatabase[:dsc_sqlserverversion] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_bacpacpath' do
     expect{dsc_xdatabase[:dsc_bacpacpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -179,10 +163,6 @@ describe Puppet::Type.type(:dsc_xdatabase) do
 
   it 'should not accept int for dsc_bacpacpath' do
     expect{dsc_xdatabase[:dsc_bacpacpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_bacpacpath' do
-    expect{dsc_xdatabase[:dsc_bacpacpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_databasename is specified' do
@@ -204,10 +184,6 @@ describe Puppet::Type.type(:dsc_xdatabase) do
     expect{dsc_xdatabase[:dsc_databasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databasename' do
-    expect{dsc_xdatabase[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_dacpacpath' do
     expect{dsc_xdatabase[:dsc_dacpacpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -218,10 +194,6 @@ describe Puppet::Type.type(:dsc_xdatabase) do
 
   it 'should not accept int for dsc_dacpacpath' do
     expect{dsc_xdatabase[:dsc_dacpacpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_dacpacpath' do
-    expect{dsc_xdatabase[:dsc_dacpacpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_dacpacapplicationname' do
@@ -236,10 +208,6 @@ describe Puppet::Type.type(:dsc_xdatabase) do
     expect{dsc_xdatabase[:dsc_dacpacapplicationname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dacpacapplicationname' do
-    expect{dsc_xdatabase[:dsc_dacpacapplicationname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_dacpacapplicationversion' do
     expect{dsc_xdatabase[:dsc_dacpacapplicationversion] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -250,10 +218,6 @@ describe Puppet::Type.type(:dsc_xdatabase) do
 
   it 'should not accept int for dsc_dacpacapplicationversion' do
     expect{dsc_xdatabase[:dsc_dacpacapplicationversion] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_dacpacapplicationversion' do
-    expect{dsc_xdatabase[:dsc_dacpacapplicationversion] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

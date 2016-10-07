@@ -60,42 +60,12 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_url] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_url' do
-    expect{dsc_spwebappgeneralsettings[:dsc_url] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_timezone' do
     expect{dsc_spwebappgeneralsettings[:dsc_timezone] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_timezone' do
     expect{dsc_spwebappgeneralsettings[:dsc_timezone] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_timezone' do
-    dsc_spwebappgeneralsettings[:dsc_timezone] = 32
-    expect(dsc_spwebappgeneralsettings[:dsc_timezone]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_timezone' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwebappgeneralsettings[:dsc_timezone] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_timezone' do
-    dsc_spwebappgeneralsettings[:dsc_timezone] = '16'
-    expect(dsc_spwebappgeneralsettings[:dsc_timezone]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_timezone' do
-    dsc_spwebappgeneralsettings[:dsc_timezone] = '32'
-    expect(dsc_spwebappgeneralsettings[:dsc_timezone]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_timezone' do
-    dsc_spwebappgeneralsettings[:dsc_timezone] = '64'
-    expect(dsc_spwebappgeneralsettings[:dsc_timezone]).to eq(64)
   end
 
   it 'should not accept array for dsc_alerts' do
@@ -136,42 +106,12 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_alerts] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_alerts' do
-    expect{dsc_spwebappgeneralsettings[:dsc_alerts] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_alertslimit' do
     expect{dsc_spwebappgeneralsettings[:dsc_alertslimit] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_alertslimit' do
     expect{dsc_spwebappgeneralsettings[:dsc_alertslimit] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_alertslimit' do
-    dsc_spwebappgeneralsettings[:dsc_alertslimit] = 32
-    expect(dsc_spwebappgeneralsettings[:dsc_alertslimit]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_alertslimit' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwebappgeneralsettings[:dsc_alertslimit] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_alertslimit' do
-    dsc_spwebappgeneralsettings[:dsc_alertslimit] = '16'
-    expect(dsc_spwebappgeneralsettings[:dsc_alertslimit]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_alertslimit' do
-    dsc_spwebappgeneralsettings[:dsc_alertslimit] = '32'
-    expect(dsc_spwebappgeneralsettings[:dsc_alertslimit]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_alertslimit' do
-    dsc_spwebappgeneralsettings[:dsc_alertslimit] = '64'
-    expect(dsc_spwebappgeneralsettings[:dsc_alertslimit]).to eq(64)
   end
 
   it 'should not accept array for dsc_rss' do
@@ -212,10 +152,6 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_rss] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_rss' do
-    expect{dsc_spwebappgeneralsettings[:dsc_rss] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_blogapi' do
     expect{dsc_spwebappgeneralsettings[:dsc_blogapi] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -252,10 +188,6 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
 
   it 'should not accept int for dsc_blogapi' do
     expect{dsc_spwebappgeneralsettings[:dsc_blogapi] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_blogapi' do
-    expect{dsc_spwebappgeneralsettings[:dsc_blogapi] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_blogapiauthenticated' do
@@ -296,10 +228,6 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_blogapiauthenticated' do
-    expect{dsc_spwebappgeneralsettings[:dsc_blogapiauthenticated] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_browserfilehandling predefined value Strict' do
     dsc_spwebappgeneralsettings[:dsc_browserfilehandling] = 'Strict'
     expect(dsc_spwebappgeneralsettings[:dsc_browserfilehandling]).to eq('Strict')
@@ -334,10 +262,6 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
 
   it 'should not accept int for dsc_browserfilehandling' do
     expect{dsc_spwebappgeneralsettings[:dsc_browserfilehandling] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_browserfilehandling' do
-    expect{dsc_spwebappgeneralsettings[:dsc_browserfilehandling] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_securityvalidation' do
@@ -378,10 +302,6 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_securityvalidation] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_securityvalidation' do
-    expect{dsc_spwebappgeneralsettings[:dsc_securityvalidation] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_securityvalidationexpires' do
     expect{dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -420,42 +340,12 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_securityvalidationexpires' do
-    expect{dsc_spwebappgeneralsettings[:dsc_securityvalidationexpires] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_securityvalidationtimeoutminutes' do
     expect{dsc_spwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_securityvalidationtimeoutminutes' do
     expect{dsc_spwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_securityvalidationtimeoutminutes' do
-    dsc_spwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = 32
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_securityvalidationtimeoutminutes' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_securityvalidationtimeoutminutes' do
-    dsc_spwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = '16'
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_securityvalidationtimeoutminutes' do
-    dsc_spwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = '32'
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_securityvalidationtimeoutminutes' do
-    dsc_spwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes] = '64'
-    expect(dsc_spwebappgeneralsettings[:dsc_securityvalidationtimeoutminutes]).to eq(64)
   end
 
   it 'should not accept array for dsc_recyclebinenabled' do
@@ -496,10 +386,6 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_recyclebinenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_recyclebinenabled' do
-    expect{dsc_spwebappgeneralsettings[:dsc_recyclebinenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_recyclebincleanupenabled' do
     expect{dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -538,42 +424,12 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_recyclebincleanupenabled' do
-    expect{dsc_spwebappgeneralsettings[:dsc_recyclebincleanupenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_recyclebinretentionperiod' do
     expect{dsc_spwebappgeneralsettings[:dsc_recyclebinretentionperiod] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_recyclebinretentionperiod' do
     expect{dsc_spwebappgeneralsettings[:dsc_recyclebinretentionperiod] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_recyclebinretentionperiod' do
-    dsc_spwebappgeneralsettings[:dsc_recyclebinretentionperiod] = 32
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinretentionperiod]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_recyclebinretentionperiod' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwebappgeneralsettings[:dsc_recyclebinretentionperiod] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_recyclebinretentionperiod' do
-    dsc_spwebappgeneralsettings[:dsc_recyclebinretentionperiod] = '16'
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinretentionperiod]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_recyclebinretentionperiod' do
-    dsc_spwebappgeneralsettings[:dsc_recyclebinretentionperiod] = '32'
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinretentionperiod]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_recyclebinretentionperiod' do
-    dsc_spwebappgeneralsettings[:dsc_recyclebinretentionperiod] = '64'
-    expect(dsc_spwebappgeneralsettings[:dsc_recyclebinretentionperiod]).to eq(64)
   end
 
   it 'should not accept array for dsc_secondstagerecyclebinquota' do
@@ -584,64 +440,12 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_secondstagerecyclebinquota] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_secondstagerecyclebinquota' do
-    dsc_spwebappgeneralsettings[:dsc_secondstagerecyclebinquota] = 32
-    expect(dsc_spwebappgeneralsettings[:dsc_secondstagerecyclebinquota]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_secondstagerecyclebinquota' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwebappgeneralsettings[:dsc_secondstagerecyclebinquota] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_secondstagerecyclebinquota' do
-    dsc_spwebappgeneralsettings[:dsc_secondstagerecyclebinquota] = '16'
-    expect(dsc_spwebappgeneralsettings[:dsc_secondstagerecyclebinquota]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_secondstagerecyclebinquota' do
-    dsc_spwebappgeneralsettings[:dsc_secondstagerecyclebinquota] = '32'
-    expect(dsc_spwebappgeneralsettings[:dsc_secondstagerecyclebinquota]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_secondstagerecyclebinquota' do
-    dsc_spwebappgeneralsettings[:dsc_secondstagerecyclebinquota] = '64'
-    expect(dsc_spwebappgeneralsettings[:dsc_secondstagerecyclebinquota]).to eq(64)
-  end
-
   it 'should not accept array for dsc_maximumuploadsize' do
     expect{dsc_spwebappgeneralsettings[:dsc_maximumuploadsize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_maximumuploadsize' do
     expect{dsc_spwebappgeneralsettings[:dsc_maximumuploadsize] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_maximumuploadsize' do
-    dsc_spwebappgeneralsettings[:dsc_maximumuploadsize] = 32
-    expect(dsc_spwebappgeneralsettings[:dsc_maximumuploadsize]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maximumuploadsize' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwebappgeneralsettings[:dsc_maximumuploadsize] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maximumuploadsize' do
-    dsc_spwebappgeneralsettings[:dsc_maximumuploadsize] = '16'
-    expect(dsc_spwebappgeneralsettings[:dsc_maximumuploadsize]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maximumuploadsize' do
-    dsc_spwebappgeneralsettings[:dsc_maximumuploadsize] = '32'
-    expect(dsc_spwebappgeneralsettings[:dsc_maximumuploadsize]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maximumuploadsize' do
-    dsc_spwebappgeneralsettings[:dsc_maximumuploadsize] = '64'
-    expect(dsc_spwebappgeneralsettings[:dsc_maximumuploadsize]).to eq(64)
   end
 
   it 'should not accept array for dsc_customerexperienceprogram' do
@@ -682,10 +486,6 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_customerexperienceprogram' do
-    expect{dsc_spwebappgeneralsettings[:dsc_customerexperienceprogram] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_allowonlinewebpartcatalog' do
     expect{dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -722,10 +522,6 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
 
   it 'should not accept int for dsc_allowonlinewebpartcatalog' do
     expect{dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_allowonlinewebpartcatalog' do
-    expect{dsc_spwebappgeneralsettings[:dsc_allowonlinewebpartcatalog] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_selfservicesitecreationenabled' do
@@ -766,10 +562,6 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_selfservicesitecreationenabled' do
-    expect{dsc_spwebappgeneralsettings[:dsc_selfservicesitecreationenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_presenceenabled' do
     expect{dsc_spwebappgeneralsettings[:dsc_presenceenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -808,10 +600,6 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
     expect{dsc_spwebappgeneralsettings[:dsc_presenceenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_presenceenabled' do
-    expect{dsc_spwebappgeneralsettings[:dsc_presenceenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spwebappgeneralsettings[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -826,10 +614,6 @@ describe Puppet::Type.type(:dsc_spwebappgeneralsettings) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spwebappgeneralsettings[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spwebappgeneralsettings[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

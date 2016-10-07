@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_xexchpopsettings) do
     expect{dsc_xexchpopsettings[:dsc_server] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_server' do
-    expect{dsc_xexchpopsettings[:dsc_server] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchpopsettings[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -64,10 +60,6 @@ describe Puppet::Type.type(:dsc_xexchpopsettings) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xexchpopsettings[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchpopsettings[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowservicerestart' do
@@ -108,10 +100,6 @@ describe Puppet::Type.type(:dsc_xexchpopsettings) do
     expect{dsc_xexchpopsettings[:dsc_allowservicerestart] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowservicerestart' do
-    expect{dsc_xexchpopsettings[:dsc_allowservicerestart] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchpopsettings[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -122,10 +110,6 @@ describe Puppet::Type.type(:dsc_xexchpopsettings) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xexchpopsettings[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchpopsettings[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_logintype predefined value PlainTextLogin' do
@@ -174,10 +158,6 @@ describe Puppet::Type.type(:dsc_xexchpopsettings) do
     expect{dsc_xexchpopsettings[:dsc_logintype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logintype' do
-    expect{dsc_xexchpopsettings[:dsc_logintype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_externalconnectionsettings' do
     dsc_xexchpopsettings[:dsc_externalconnectionsettings] = ["foo", "bar", "spec"]
     expect(dsc_xexchpopsettings[:dsc_externalconnectionsettings]).to eq(["foo", "bar", "spec"])
@@ -191,10 +171,6 @@ describe Puppet::Type.type(:dsc_xexchpopsettings) do
     expect{dsc_xexchpopsettings[:dsc_externalconnectionsettings] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_externalconnectionsettings' do
-    expect{dsc_xexchpopsettings[:dsc_externalconnectionsettings] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_x509certificatename' do
     expect{dsc_xexchpopsettings[:dsc_x509certificatename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -205,10 +181,6 @@ describe Puppet::Type.type(:dsc_xexchpopsettings) do
 
   it 'should not accept int for dsc_x509certificatename' do
     expect{dsc_xexchpopsettings[:dsc_x509certificatename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_x509certificatename' do
-    expect{dsc_xexchpopsettings[:dsc_x509certificatename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

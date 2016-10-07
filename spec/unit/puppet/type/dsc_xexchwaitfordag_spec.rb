@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_xexchwaitfordag) do
     expect{dsc_xexchwaitfordag[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexchwaitfordag[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchwaitfordag[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -64,10 +60,6 @@ describe Puppet::Type.type(:dsc_xexchwaitfordag) do
     expect{dsc_xexchwaitfordag[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchwaitfordag[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchwaitfordag[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -80,10 +72,6 @@ describe Puppet::Type.type(:dsc_xexchwaitfordag) do
     expect{dsc_xexchwaitfordag[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchwaitfordag[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_retryintervalsec' do
     expect{dsc_xexchwaitfordag[:dsc_retryintervalsec] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -92,64 +80,12 @@ describe Puppet::Type.type(:dsc_xexchwaitfordag) do
     expect{dsc_xexchwaitfordag[:dsc_retryintervalsec] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_retryintervalsec' do
-    dsc_xexchwaitfordag[:dsc_retryintervalsec] = 32
-    expect(dsc_xexchwaitfordag[:dsc_retryintervalsec]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_retryintervalsec' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xexchwaitfordag[:dsc_retryintervalsec] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_retryintervalsec' do
-    dsc_xexchwaitfordag[:dsc_retryintervalsec] = '16'
-    expect(dsc_xexchwaitfordag[:dsc_retryintervalsec]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_retryintervalsec' do
-    dsc_xexchwaitfordag[:dsc_retryintervalsec] = '32'
-    expect(dsc_xexchwaitfordag[:dsc_retryintervalsec]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_retryintervalsec' do
-    dsc_xexchwaitfordag[:dsc_retryintervalsec] = '64'
-    expect(dsc_xexchwaitfordag[:dsc_retryintervalsec]).to eq(64)
-  end
-
   it 'should not accept array for dsc_retrycount' do
     expect{dsc_xexchwaitfordag[:dsc_retrycount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_retrycount' do
     expect{dsc_xexchwaitfordag[:dsc_retrycount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_retrycount' do
-    dsc_xexchwaitfordag[:dsc_retrycount] = 32
-    expect(dsc_xexchwaitfordag[:dsc_retrycount]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_retrycount' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xexchwaitfordag[:dsc_retrycount] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_retrycount' do
-    dsc_xexchwaitfordag[:dsc_retrycount] = '16'
-    expect(dsc_xexchwaitfordag[:dsc_retrycount]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_retrycount' do
-    dsc_xexchwaitfordag[:dsc_retrycount] = '32'
-    expect(dsc_xexchwaitfordag[:dsc_retrycount]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_retrycount' do
-    dsc_xexchwaitfordag[:dsc_retrycount] = '64'
-    expect(dsc_xexchwaitfordag[:dsc_retrycount]).to eq(64)
   end
 
   # Configuration PROVIDER TESTS

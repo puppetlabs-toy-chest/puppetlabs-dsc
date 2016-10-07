@@ -55,10 +55,6 @@ describe Puppet::Type.type(:dsc_file) do
     expect{dsc_file[:dsc_destinationpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_destinationpath' do
-    expect{dsc_file[:dsc_destinationpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_file[:dsc_ensure] = 'Present'
     expect(dsc_file[:dsc_ensure]).to eq('Present')
@@ -105,10 +101,6 @@ describe Puppet::Type.type(:dsc_file) do
     expect{dsc_file[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_file[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_type predefined value File' do
     dsc_file[:dsc_type] = 'File'
     expect(dsc_file[:dsc_type]).to eq('File')
@@ -145,10 +137,6 @@ describe Puppet::Type.type(:dsc_file) do
     expect{dsc_file[:dsc_type] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_type' do
-    expect{dsc_file[:dsc_type] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcepath' do
     expect{dsc_file[:dsc_sourcepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -161,10 +149,6 @@ describe Puppet::Type.type(:dsc_file) do
     expect{dsc_file[:dsc_sourcepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcepath' do
-    expect{dsc_file[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_contents' do
     expect{dsc_file[:dsc_contents] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -175,10 +159,6 @@ describe Puppet::Type.type(:dsc_file) do
 
   it 'should not accept int for dsc_contents' do
     expect{dsc_file[:dsc_contents] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_contents' do
-    expect{dsc_file[:dsc_contents] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_checksum predefined value SHA-1' do
@@ -247,10 +227,6 @@ describe Puppet::Type.type(:dsc_file) do
     expect{dsc_file[:dsc_checksum] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_checksum' do
-    expect{dsc_file[:dsc_checksum] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_recurse' do
     expect{dsc_file[:dsc_recurse] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -287,10 +263,6 @@ describe Puppet::Type.type(:dsc_file) do
 
   it 'should not accept int for dsc_recurse' do
     expect{dsc_file[:dsc_recurse] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_recurse' do
-    expect{dsc_file[:dsc_recurse] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_force' do
@@ -331,10 +303,6 @@ describe Puppet::Type.type(:dsc_file) do
     expect{dsc_file[:dsc_force] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_force' do
-    expect{dsc_file[:dsc_force] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_file[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -349,10 +317,6 @@ describe Puppet::Type.type(:dsc_file) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_file[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_file[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_attributes predefined value ReadOnly' do
@@ -412,10 +376,6 @@ describe Puppet::Type.type(:dsc_file) do
     expect{dsc_file[:dsc_attributes] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_attributes' do
-    expect{dsc_file[:dsc_attributes] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_dependson' do
     dsc_file[:dsc_dependson] = ["foo", "bar", "spec"]
     expect(dsc_file[:dsc_dependson]).to eq(["foo", "bar", "spec"])
@@ -427,10 +387,6 @@ describe Puppet::Type.type(:dsc_file) do
 
   it 'should not accept int for dsc_dependson' do
     expect{dsc_file[:dsc_dependson] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_dependson' do
-    expect{dsc_file[:dsc_dependson] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_matchsource' do
@@ -469,10 +425,6 @@ describe Puppet::Type.type(:dsc_file) do
 
   it 'should not accept int for dsc_matchsource' do
     expect{dsc_file[:dsc_matchsource] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_matchsource' do
-    expect{dsc_file[:dsc_matchsource] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -58,42 +58,12 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_logpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logpath' do
-    expect{dsc_spdiagnosticloggingsettings[:dsc_logpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_logspaceingb' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_logspaceingb] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_logspaceingb' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_logspaceingb] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_logspaceingb' do
-    dsc_spdiagnosticloggingsettings[:dsc_logspaceingb] = 32
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logspaceingb]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_logspaceingb' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spdiagnosticloggingsettings[:dsc_logspaceingb] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_logspaceingb' do
-    dsc_spdiagnosticloggingsettings[:dsc_logspaceingb] = '16'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logspaceingb]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_logspaceingb' do
-    dsc_spdiagnosticloggingsettings[:dsc_logspaceingb] = '32'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logspaceingb]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_logspaceingb' do
-    dsc_spdiagnosticloggingsettings[:dsc_logspaceingb] = '64'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logspaceingb]).to eq(64)
   end
 
   it 'should not accept array for dsc_appanalyticsautomaticuploadenabled' do
@@ -134,10 +104,6 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_appanalyticsautomaticuploadenabled' do
-    expect{dsc_spdiagnosticloggingsettings[:dsc_appanalyticsautomaticuploadenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_customerexperienceimprovementprogramenabled' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -176,42 +142,12 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_customerexperienceimprovementprogramenabled' do
-    expect{dsc_spdiagnosticloggingsettings[:dsc_customerexperienceimprovementprogramenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_daystokeeplogs' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_daystokeeplogs] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_daystokeeplogs' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_daystokeeplogs] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_daystokeeplogs' do
-    dsc_spdiagnosticloggingsettings[:dsc_daystokeeplogs] = 32
-    expect(dsc_spdiagnosticloggingsettings[:dsc_daystokeeplogs]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_daystokeeplogs' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spdiagnosticloggingsettings[:dsc_daystokeeplogs] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_daystokeeplogs' do
-    dsc_spdiagnosticloggingsettings[:dsc_daystokeeplogs] = '16'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_daystokeeplogs]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_daystokeeplogs' do
-    dsc_spdiagnosticloggingsettings[:dsc_daystokeeplogs] = '32'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_daystokeeplogs]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_daystokeeplogs' do
-    dsc_spdiagnosticloggingsettings[:dsc_daystokeeplogs] = '64'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_daystokeeplogs]).to eq(64)
   end
 
   it 'should not accept array for dsc_downloaderrorreportingupdatesenabled' do
@@ -252,10 +188,6 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_downloaderrorreportingupdatesenabled' do
-    expect{dsc_spdiagnosticloggingsettings[:dsc_downloaderrorreportingupdatesenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_errorreportingautomaticuploadenabled' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -292,10 +224,6 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
 
   it 'should not accept int for dsc_errorreportingautomaticuploadenabled' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_errorreportingautomaticuploadenabled' do
-    expect{dsc_spdiagnosticloggingsettings[:dsc_errorreportingautomaticuploadenabled] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_errorreportingenabled' do
@@ -336,10 +264,6 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_errorreportingenabled' do
-    expect{dsc_spdiagnosticloggingsettings[:dsc_errorreportingenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_eventlogfloodprotectionenabled' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -378,42 +302,12 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_eventlogfloodprotectionenabled' do
-    expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_eventlogfloodprotectionnotifyinterval' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_eventlogfloodprotectionnotifyinterval' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_eventlogfloodprotectionnotifyinterval' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval] = 32
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_eventlogfloodprotectionnotifyinterval' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_eventlogfloodprotectionnotifyinterval' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval] = '16'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_eventlogfloodprotectionnotifyinterval' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval] = '32'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_eventlogfloodprotectionnotifyinterval' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval] = '64'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionnotifyinterval]).to eq(64)
   end
 
   it 'should not accept array for dsc_eventlogfloodprotectionquietperiod' do
@@ -424,64 +318,12 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_eventlogfloodprotectionquietperiod' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod] = 32
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_eventlogfloodprotectionquietperiod' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_eventlogfloodprotectionquietperiod' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod] = '16'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_eventlogfloodprotectionquietperiod' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod] = '32'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_eventlogfloodprotectionquietperiod' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod] = '64'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionquietperiod]).to eq(64)
-  end
-
   it 'should not accept array for dsc_eventlogfloodprotectionthreshold' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_eventlogfloodprotectionthreshold' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_eventlogfloodprotectionthreshold' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold] = 32
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_eventlogfloodprotectionthreshold' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_eventlogfloodprotectionthreshold' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold] = '16'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_eventlogfloodprotectionthreshold' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold] = '32'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_eventlogfloodprotectionthreshold' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold] = '64'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectionthreshold]).to eq(64)
   end
 
   it 'should not accept array for dsc_eventlogfloodprotectiontriggerperiod' do
@@ -492,64 +334,12 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_eventlogfloodprotectiontriggerperiod' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod] = 32
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_eventlogfloodprotectiontriggerperiod' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_eventlogfloodprotectiontriggerperiod' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod] = '16'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_eventlogfloodprotectiontriggerperiod' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod] = '32'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_eventlogfloodprotectiontriggerperiod' do
-    dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod] = '64'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_eventlogfloodprotectiontriggerperiod]).to eq(64)
-  end
-
   it 'should not accept array for dsc_logcutinterval' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_logcutinterval] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_logcutinterval' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_logcutinterval] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_logcutinterval' do
-    dsc_spdiagnosticloggingsettings[:dsc_logcutinterval] = 32
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logcutinterval]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_logcutinterval' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spdiagnosticloggingsettings[:dsc_logcutinterval] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_logcutinterval' do
-    dsc_spdiagnosticloggingsettings[:dsc_logcutinterval] = '16'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logcutinterval]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_logcutinterval' do
-    dsc_spdiagnosticloggingsettings[:dsc_logcutinterval] = '32'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logcutinterval]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_logcutinterval' do
-    dsc_spdiagnosticloggingsettings[:dsc_logcutinterval] = '64'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_logcutinterval]).to eq(64)
   end
 
   it 'should not accept array for dsc_logmaxdiskspaceusageenabled' do
@@ -590,42 +380,12 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logmaxdiskspaceusageenabled' do
-    expect{dsc_spdiagnosticloggingsettings[:dsc_logmaxdiskspaceusageenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_scripterrorreportingdelay' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingdelay] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_scripterrorreportingdelay' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingdelay] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_scripterrorreportingdelay' do
-    dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingdelay] = 32
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingdelay]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_scripterrorreportingdelay' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingdelay] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_scripterrorreportingdelay' do
-    dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingdelay] = '16'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingdelay]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_scripterrorreportingdelay' do
-    dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingdelay] = '32'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingdelay]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_scripterrorreportingdelay' do
-    dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingdelay] = '64'
-    expect(dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingdelay]).to eq(64)
   end
 
   it 'should not accept array for dsc_scripterrorreportingenabled' do
@@ -666,10 +426,6 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_scripterrorreportingenabled' do
-    expect{dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_scripterrorreportingrequireauth' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -708,10 +464,6 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
     expect{dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_scripterrorreportingrequireauth' do
-    expect{dsc_spdiagnosticloggingsettings[:dsc_scripterrorreportingrequireauth] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spdiagnosticloggingsettings[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -726,10 +478,6 @@ describe Puppet::Type.type(:dsc_spdiagnosticloggingsettings) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spdiagnosticloggingsettings[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spdiagnosticloggingsettings[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

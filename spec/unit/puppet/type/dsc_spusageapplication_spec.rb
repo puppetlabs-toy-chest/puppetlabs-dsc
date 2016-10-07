@@ -54,10 +54,6 @@ describe Puppet::Type.type(:dsc_spusageapplication) do
     expect{dsc_spusageapplication[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spusageapplication[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databasename' do
     expect{dsc_spusageapplication[:dsc_databasename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -70,10 +66,6 @@ describe Puppet::Type.type(:dsc_spusageapplication) do
     expect{dsc_spusageapplication[:dsc_databasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databasename' do
-    expect{dsc_spusageapplication[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databaseserver' do
     expect{dsc_spusageapplication[:dsc_databaseserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -84,10 +76,6 @@ describe Puppet::Type.type(:dsc_spusageapplication) do
 
   it 'should not accept int for dsc_databaseserver' do
     expect{dsc_spusageapplication[:dsc_databaseserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_databaseserver' do
-    expect{dsc_spusageapplication[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_databasecredentials" do
@@ -106,10 +94,6 @@ describe Puppet::Type.type(:dsc_spusageapplication) do
     expect{dsc_spusageapplication[:dsc_databasecredentials] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databasecredentials' do
-    expect{dsc_spusageapplication[:dsc_databasecredentials] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_failoverdatabaseserver' do
     expect{dsc_spusageapplication[:dsc_failoverdatabaseserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -122,42 +106,12 @@ describe Puppet::Type.type(:dsc_spusageapplication) do
     expect{dsc_spusageapplication[:dsc_failoverdatabaseserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_failoverdatabaseserver' do
-    expect{dsc_spusageapplication[:dsc_failoverdatabaseserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_usagelogcuttime' do
     expect{dsc_spusageapplication[:dsc_usagelogcuttime] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_usagelogcuttime' do
     expect{dsc_spusageapplication[:dsc_usagelogcuttime] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_usagelogcuttime' do
-    dsc_spusageapplication[:dsc_usagelogcuttime] = 32
-    expect(dsc_spusageapplication[:dsc_usagelogcuttime]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_usagelogcuttime' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spusageapplication[:dsc_usagelogcuttime] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_usagelogcuttime' do
-    dsc_spusageapplication[:dsc_usagelogcuttime] = '16'
-    expect(dsc_spusageapplication[:dsc_usagelogcuttime]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_usagelogcuttime' do
-    dsc_spusageapplication[:dsc_usagelogcuttime] = '32'
-    expect(dsc_spusageapplication[:dsc_usagelogcuttime]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_usagelogcuttime' do
-    dsc_spusageapplication[:dsc_usagelogcuttime] = '64'
-    expect(dsc_spusageapplication[:dsc_usagelogcuttime]).to eq(64)
   end
 
   it 'should not accept array for dsc_usageloglocation' do
@@ -172,10 +126,6 @@ describe Puppet::Type.type(:dsc_spusageapplication) do
     expect{dsc_spusageapplication[:dsc_usageloglocation] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_usageloglocation' do
-    expect{dsc_spusageapplication[:dsc_usageloglocation] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_usagelogmaxfilesizekb' do
     expect{dsc_spusageapplication[:dsc_usagelogmaxfilesizekb] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -184,64 +134,12 @@ describe Puppet::Type.type(:dsc_spusageapplication) do
     expect{dsc_spusageapplication[:dsc_usagelogmaxfilesizekb] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_usagelogmaxfilesizekb' do
-    dsc_spusageapplication[:dsc_usagelogmaxfilesizekb] = 32
-    expect(dsc_spusageapplication[:dsc_usagelogmaxfilesizekb]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_usagelogmaxfilesizekb' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spusageapplication[:dsc_usagelogmaxfilesizekb] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_usagelogmaxfilesizekb' do
-    dsc_spusageapplication[:dsc_usagelogmaxfilesizekb] = '16'
-    expect(dsc_spusageapplication[:dsc_usagelogmaxfilesizekb]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_usagelogmaxfilesizekb' do
-    dsc_spusageapplication[:dsc_usagelogmaxfilesizekb] = '32'
-    expect(dsc_spusageapplication[:dsc_usagelogmaxfilesizekb]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_usagelogmaxfilesizekb' do
-    dsc_spusageapplication[:dsc_usagelogmaxfilesizekb] = '64'
-    expect(dsc_spusageapplication[:dsc_usagelogmaxfilesizekb]).to eq(64)
-  end
-
   it 'should not accept array for dsc_usagelogmaxspacegb' do
     expect{dsc_spusageapplication[:dsc_usagelogmaxspacegb] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_usagelogmaxspacegb' do
     expect{dsc_spusageapplication[:dsc_usagelogmaxspacegb] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_usagelogmaxspacegb' do
-    dsc_spusageapplication[:dsc_usagelogmaxspacegb] = 32
-    expect(dsc_spusageapplication[:dsc_usagelogmaxspacegb]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_usagelogmaxspacegb' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spusageapplication[:dsc_usagelogmaxspacegb] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_usagelogmaxspacegb' do
-    dsc_spusageapplication[:dsc_usagelogmaxspacegb] = '16'
-    expect(dsc_spusageapplication[:dsc_usagelogmaxspacegb]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_usagelogmaxspacegb' do
-    dsc_spusageapplication[:dsc_usagelogmaxspacegb] = '32'
-    expect(dsc_spusageapplication[:dsc_usagelogmaxspacegb]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_usagelogmaxspacegb' do
-    dsc_spusageapplication[:dsc_usagelogmaxspacegb] = '64'
-    expect(dsc_spusageapplication[:dsc_usagelogmaxspacegb]).to eq(64)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -290,10 +188,6 @@ describe Puppet::Type.type(:dsc_spusageapplication) do
     expect{dsc_spusageapplication[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spusageapplication[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spusageapplication[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -308,10 +202,6 @@ describe Puppet::Type.type(:dsc_spusageapplication) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spusageapplication[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spusageapplication[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

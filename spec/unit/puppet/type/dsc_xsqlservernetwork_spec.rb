@@ -45,10 +45,6 @@ describe Puppet::Type.type(:dsc_xsqlservernetwork) do
     expect{dsc_xsqlservernetwork[:dsc_instancename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_instancename' do
-    expect{dsc_xsqlservernetwork[:dsc_instancename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_protocolname predefined value tcp' do
     dsc_xsqlservernetwork[:dsc_protocolname] = 'tcp'
     expect(dsc_xsqlservernetwork[:dsc_protocolname]).to eq('tcp')
@@ -73,10 +69,6 @@ describe Puppet::Type.type(:dsc_xsqlservernetwork) do
 
   it 'should not accept int for dsc_protocolname' do
     expect{dsc_xsqlservernetwork[:dsc_protocolname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_protocolname' do
-    expect{dsc_xsqlservernetwork[:dsc_protocolname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_isenabled' do
@@ -117,10 +109,6 @@ describe Puppet::Type.type(:dsc_xsqlservernetwork) do
     expect{dsc_xsqlservernetwork[:dsc_isenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_isenabled' do
-    expect{dsc_xsqlservernetwork[:dsc_isenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_tcpdynamicports predefined value 0' do
     dsc_xsqlservernetwork[:dsc_tcpdynamicports] = '0'
     expect(dsc_xsqlservernetwork[:dsc_tcpdynamicports]).to eq('0')
@@ -147,10 +135,6 @@ describe Puppet::Type.type(:dsc_xsqlservernetwork) do
     expect{dsc_xsqlservernetwork[:dsc_tcpdynamicports] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_tcpdynamicports' do
-    expect{dsc_xsqlservernetwork[:dsc_tcpdynamicports] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_tcpport' do
     expect{dsc_xsqlservernetwork[:dsc_tcpport] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -161,10 +145,6 @@ describe Puppet::Type.type(:dsc_xsqlservernetwork) do
 
   it 'should not accept int for dsc_tcpport' do
     expect{dsc_xsqlservernetwork[:dsc_tcpport] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_tcpport' do
-    expect{dsc_xsqlservernetwork[:dsc_tcpport] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_restartservice' do
@@ -203,10 +183,6 @@ describe Puppet::Type.type(:dsc_xsqlservernetwork) do
 
   it 'should not accept int for dsc_restartservice' do
     expect{dsc_xsqlservernetwork[:dsc_restartservice] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_restartservice' do
-    expect{dsc_xsqlservernetwork[:dsc_restartservice] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

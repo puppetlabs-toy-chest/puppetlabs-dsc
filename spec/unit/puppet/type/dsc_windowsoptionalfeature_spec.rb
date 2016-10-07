@@ -53,10 +53,6 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
     expect{dsc_windowsoptionalfeature[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_windowsoptionalfeature[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Enable' do
     dsc_windowsoptionalfeature[:dsc_ensure] = 'Enable'
     expect(dsc_windowsoptionalfeature[:dsc_ensure]).to eq('Enable')
@@ -103,10 +99,6 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
     expect{dsc_windowsoptionalfeature[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_windowsoptionalfeature[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_source' do
     dsc_windowsoptionalfeature[:dsc_source] = ["foo", "bar", "spec"]
     expect(dsc_windowsoptionalfeature[:dsc_source]).to eq(["foo", "bar", "spec"])
@@ -118,10 +110,6 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
 
   it 'should not accept int for dsc_source' do
     expect{dsc_windowsoptionalfeature[:dsc_source] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_source' do
-    expect{dsc_windowsoptionalfeature[:dsc_source] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_nowindowsupdatecheck' do
@@ -162,10 +150,6 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
     expect{dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_nowindowsupdatecheck' do
-    expect{dsc_windowsoptionalfeature[:dsc_nowindowsupdatecheck] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_removefilesondisable' do
     expect{dsc_windowsoptionalfeature[:dsc_removefilesondisable] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -202,10 +186,6 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
 
   it 'should not accept int for dsc_removefilesondisable' do
     expect{dsc_windowsoptionalfeature[:dsc_removefilesondisable] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_removefilesondisable' do
-    expect{dsc_windowsoptionalfeature[:dsc_removefilesondisable] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_loglevel predefined value ErrorsOnly' do
@@ -254,10 +234,6 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
     expect{dsc_windowsoptionalfeature[:dsc_loglevel] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_loglevel' do
-    expect{dsc_windowsoptionalfeature[:dsc_loglevel] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_logpath' do
     expect{dsc_windowsoptionalfeature[:dsc_logpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -268,10 +244,6 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
 
   it 'should not accept int for dsc_logpath' do
     expect{dsc_windowsoptionalfeature[:dsc_logpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_logpath' do
-    expect{dsc_windowsoptionalfeature[:dsc_logpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_customproperties' do
@@ -287,10 +259,6 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
     expect{dsc_windowsoptionalfeature[:dsc_customproperties] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_customproperties' do
-    expect{dsc_windowsoptionalfeature[:dsc_customproperties] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_windowsoptionalfeature[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -303,10 +271,6 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
     expect{dsc_windowsoptionalfeature[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_windowsoptionalfeature[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_displayname' do
     expect{dsc_windowsoptionalfeature[:dsc_displayname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -317,10 +281,6 @@ describe Puppet::Type.type(:dsc_windowsoptionalfeature) do
 
   it 'should not accept int for dsc_displayname' do
     expect{dsc_windowsoptionalfeature[:dsc_displayname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_displayname' do
-    expect{dsc_windowsoptionalfeature[:dsc_displayname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

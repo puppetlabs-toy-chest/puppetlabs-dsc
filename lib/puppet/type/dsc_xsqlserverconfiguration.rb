@@ -96,9 +96,7 @@ Puppet::Type.newtype(:dsc_xsqlserverconfiguration) do
     def mof_is_embedded?; false end
     desc "OptionValue - Configuration option value to be set"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "OptionValue")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

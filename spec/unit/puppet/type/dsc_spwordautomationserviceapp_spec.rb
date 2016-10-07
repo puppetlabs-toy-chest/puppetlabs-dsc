@@ -62,10 +62,6 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
     expect{dsc_spwordautomationserviceapp[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spwordautomationserviceapp[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_spwordautomationserviceapp[:dsc_ensure] = 'Present'
     expect(dsc_spwordautomationserviceapp[:dsc_ensure]).to eq('Present')
@@ -112,10 +108,6 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
     expect{dsc_spwordautomationserviceapp[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spwordautomationserviceapp[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_applicationpool' do
     expect{dsc_spwordautomationserviceapp[:dsc_applicationpool] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -126,10 +118,6 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
 
   it 'should not accept int for dsc_applicationpool' do
     expect{dsc_spwordautomationserviceapp[:dsc_applicationpool] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_applicationpool' do
-    expect{dsc_spwordautomationserviceapp[:dsc_applicationpool] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_databasename' do
@@ -144,10 +132,6 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
     expect{dsc_spwordautomationserviceapp[:dsc_databasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databasename' do
-    expect{dsc_spwordautomationserviceapp[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databaseserver' do
     expect{dsc_spwordautomationserviceapp[:dsc_databaseserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -158,10 +142,6 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
 
   it 'should not accept int for dsc_databaseserver' do
     expect{dsc_spwordautomationserviceapp[:dsc_databaseserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_databaseserver' do
-    expect{dsc_spwordautomationserviceapp[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_supportedfileformats predefined value docx' do
@@ -231,10 +211,6 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
     expect{dsc_spwordautomationserviceapp[:dsc_supportedfileformats] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_supportedfileformats' do
-    expect{dsc_spwordautomationserviceapp[:dsc_supportedfileformats] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_disableembeddedfonts' do
     expect{dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -273,10 +249,6 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
     expect{dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_disableembeddedfonts' do
-    expect{dsc_spwordautomationserviceapp[:dsc_disableembeddedfonts] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maximummemoryusage' do
     expect{dsc_spwordautomationserviceapp[:dsc_maximummemoryusage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -285,64 +257,12 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
     expect{dsc_spwordautomationserviceapp[:dsc_maximummemoryusage] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_maximummemoryusage' do
-    dsc_spwordautomationserviceapp[:dsc_maximummemoryusage] = 32
-    expect(dsc_spwordautomationserviceapp[:dsc_maximummemoryusage]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maximummemoryusage' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwordautomationserviceapp[:dsc_maximummemoryusage] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maximummemoryusage' do
-    dsc_spwordautomationserviceapp[:dsc_maximummemoryusage] = '16'
-    expect(dsc_spwordautomationserviceapp[:dsc_maximummemoryusage]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maximummemoryusage' do
-    dsc_spwordautomationserviceapp[:dsc_maximummemoryusage] = '32'
-    expect(dsc_spwordautomationserviceapp[:dsc_maximummemoryusage]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maximummemoryusage' do
-    dsc_spwordautomationserviceapp[:dsc_maximummemoryusage] = '64'
-    expect(dsc_spwordautomationserviceapp[:dsc_maximummemoryusage]).to eq(64)
-  end
-
   it 'should not accept array for dsc_recyclethreshold' do
     expect{dsc_spwordautomationserviceapp[:dsc_recyclethreshold] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_recyclethreshold' do
     expect{dsc_spwordautomationserviceapp[:dsc_recyclethreshold] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_recyclethreshold' do
-    dsc_spwordautomationserviceapp[:dsc_recyclethreshold] = 32
-    expect(dsc_spwordautomationserviceapp[:dsc_recyclethreshold]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_recyclethreshold' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwordautomationserviceapp[:dsc_recyclethreshold] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_recyclethreshold' do
-    dsc_spwordautomationserviceapp[:dsc_recyclethreshold] = '16'
-    expect(dsc_spwordautomationserviceapp[:dsc_recyclethreshold]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_recyclethreshold' do
-    dsc_spwordautomationserviceapp[:dsc_recyclethreshold] = '32'
-    expect(dsc_spwordautomationserviceapp[:dsc_recyclethreshold]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_recyclethreshold' do
-    dsc_spwordautomationserviceapp[:dsc_recyclethreshold] = '64'
-    expect(dsc_spwordautomationserviceapp[:dsc_recyclethreshold]).to eq(64)
   end
 
   it 'should not accept array for dsc_disablebinaryfilescan' do
@@ -383,42 +303,12 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
     expect{dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_disablebinaryfilescan' do
-    expect{dsc_spwordautomationserviceapp[:dsc_disablebinaryfilescan] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_conversionprocesses' do
     expect{dsc_spwordautomationserviceapp[:dsc_conversionprocesses] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_conversionprocesses' do
     expect{dsc_spwordautomationserviceapp[:dsc_conversionprocesses] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_conversionprocesses' do
-    dsc_spwordautomationserviceapp[:dsc_conversionprocesses] = 32
-    expect(dsc_spwordautomationserviceapp[:dsc_conversionprocesses]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_conversionprocesses' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwordautomationserviceapp[:dsc_conversionprocesses] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_conversionprocesses' do
-    dsc_spwordautomationserviceapp[:dsc_conversionprocesses] = '16'
-    expect(dsc_spwordautomationserviceapp[:dsc_conversionprocesses]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_conversionprocesses' do
-    dsc_spwordautomationserviceapp[:dsc_conversionprocesses] = '32'
-    expect(dsc_spwordautomationserviceapp[:dsc_conversionprocesses]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_conversionprocesses' do
-    dsc_spwordautomationserviceapp[:dsc_conversionprocesses] = '64'
-    expect(dsc_spwordautomationserviceapp[:dsc_conversionprocesses]).to eq(64)
   end
 
   it 'should not accept array for dsc_jobconversionfrequency' do
@@ -429,64 +319,12 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
     expect{dsc_spwordautomationserviceapp[:dsc_jobconversionfrequency] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_jobconversionfrequency' do
-    dsc_spwordautomationserviceapp[:dsc_jobconversionfrequency] = 32
-    expect(dsc_spwordautomationserviceapp[:dsc_jobconversionfrequency]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_jobconversionfrequency' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwordautomationserviceapp[:dsc_jobconversionfrequency] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_jobconversionfrequency' do
-    dsc_spwordautomationserviceapp[:dsc_jobconversionfrequency] = '16'
-    expect(dsc_spwordautomationserviceapp[:dsc_jobconversionfrequency]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_jobconversionfrequency' do
-    dsc_spwordautomationserviceapp[:dsc_jobconversionfrequency] = '32'
-    expect(dsc_spwordautomationserviceapp[:dsc_jobconversionfrequency]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_jobconversionfrequency' do
-    dsc_spwordautomationserviceapp[:dsc_jobconversionfrequency] = '64'
-    expect(dsc_spwordautomationserviceapp[:dsc_jobconversionfrequency]).to eq(64)
-  end
-
   it 'should not accept array for dsc_numberofconversionsperprocess' do
     expect{dsc_spwordautomationserviceapp[:dsc_numberofconversionsperprocess] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_numberofconversionsperprocess' do
     expect{dsc_spwordautomationserviceapp[:dsc_numberofconversionsperprocess] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_numberofconversionsperprocess' do
-    dsc_spwordautomationserviceapp[:dsc_numberofconversionsperprocess] = 32
-    expect(dsc_spwordautomationserviceapp[:dsc_numberofconversionsperprocess]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_numberofconversionsperprocess' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwordautomationserviceapp[:dsc_numberofconversionsperprocess] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_numberofconversionsperprocess' do
-    dsc_spwordautomationserviceapp[:dsc_numberofconversionsperprocess] = '16'
-    expect(dsc_spwordautomationserviceapp[:dsc_numberofconversionsperprocess]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_numberofconversionsperprocess' do
-    dsc_spwordautomationserviceapp[:dsc_numberofconversionsperprocess] = '32'
-    expect(dsc_spwordautomationserviceapp[:dsc_numberofconversionsperprocess]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_numberofconversionsperprocess' do
-    dsc_spwordautomationserviceapp[:dsc_numberofconversionsperprocess] = '64'
-    expect(dsc_spwordautomationserviceapp[:dsc_numberofconversionsperprocess]).to eq(64)
   end
 
   it 'should not accept array for dsc_timebeforeconversionismonitored' do
@@ -497,64 +335,12 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
     expect{dsc_spwordautomationserviceapp[:dsc_timebeforeconversionismonitored] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_timebeforeconversionismonitored' do
-    dsc_spwordautomationserviceapp[:dsc_timebeforeconversionismonitored] = 32
-    expect(dsc_spwordautomationserviceapp[:dsc_timebeforeconversionismonitored]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_timebeforeconversionismonitored' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwordautomationserviceapp[:dsc_timebeforeconversionismonitored] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_timebeforeconversionismonitored' do
-    dsc_spwordautomationserviceapp[:dsc_timebeforeconversionismonitored] = '16'
-    expect(dsc_spwordautomationserviceapp[:dsc_timebeforeconversionismonitored]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_timebeforeconversionismonitored' do
-    dsc_spwordautomationserviceapp[:dsc_timebeforeconversionismonitored] = '32'
-    expect(dsc_spwordautomationserviceapp[:dsc_timebeforeconversionismonitored]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_timebeforeconversionismonitored' do
-    dsc_spwordautomationserviceapp[:dsc_timebeforeconversionismonitored] = '64'
-    expect(dsc_spwordautomationserviceapp[:dsc_timebeforeconversionismonitored]).to eq(64)
-  end
-
   it 'should not accept array for dsc_maximumconversionattempts' do
     expect{dsc_spwordautomationserviceapp[:dsc_maximumconversionattempts] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_maximumconversionattempts' do
     expect{dsc_spwordautomationserviceapp[:dsc_maximumconversionattempts] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_maximumconversionattempts' do
-    dsc_spwordautomationserviceapp[:dsc_maximumconversionattempts] = 32
-    expect(dsc_spwordautomationserviceapp[:dsc_maximumconversionattempts]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maximumconversionattempts' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwordautomationserviceapp[:dsc_maximumconversionattempts] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maximumconversionattempts' do
-    dsc_spwordautomationserviceapp[:dsc_maximumconversionattempts] = '16'
-    expect(dsc_spwordautomationserviceapp[:dsc_maximumconversionattempts]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maximumconversionattempts' do
-    dsc_spwordautomationserviceapp[:dsc_maximumconversionattempts] = '32'
-    expect(dsc_spwordautomationserviceapp[:dsc_maximumconversionattempts]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maximumconversionattempts' do
-    dsc_spwordautomationserviceapp[:dsc_maximumconversionattempts] = '64'
-    expect(dsc_spwordautomationserviceapp[:dsc_maximumconversionattempts]).to eq(64)
   end
 
   it 'should not accept array for dsc_maximumsyncconversionrequests' do
@@ -565,32 +351,6 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
     expect{dsc_spwordautomationserviceapp[:dsc_maximumsyncconversionrequests] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_maximumsyncconversionrequests' do
-    dsc_spwordautomationserviceapp[:dsc_maximumsyncconversionrequests] = 32
-    expect(dsc_spwordautomationserviceapp[:dsc_maximumsyncconversionrequests]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maximumsyncconversionrequests' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwordautomationserviceapp[:dsc_maximumsyncconversionrequests] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maximumsyncconversionrequests' do
-    dsc_spwordautomationserviceapp[:dsc_maximumsyncconversionrequests] = '16'
-    expect(dsc_spwordautomationserviceapp[:dsc_maximumsyncconversionrequests]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maximumsyncconversionrequests' do
-    dsc_spwordautomationserviceapp[:dsc_maximumsyncconversionrequests] = '32'
-    expect(dsc_spwordautomationserviceapp[:dsc_maximumsyncconversionrequests]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maximumsyncconversionrequests' do
-    dsc_spwordautomationserviceapp[:dsc_maximumsyncconversionrequests] = '64'
-    expect(dsc_spwordautomationserviceapp[:dsc_maximumsyncconversionrequests]).to eq(64)
-  end
-
   it 'should not accept array for dsc_keepalivetimeout' do
     expect{dsc_spwordautomationserviceapp[:dsc_keepalivetimeout] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -599,64 +359,12 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
     expect{dsc_spwordautomationserviceapp[:dsc_keepalivetimeout] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_keepalivetimeout' do
-    dsc_spwordautomationserviceapp[:dsc_keepalivetimeout] = 32
-    expect(dsc_spwordautomationserviceapp[:dsc_keepalivetimeout]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_keepalivetimeout' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwordautomationserviceapp[:dsc_keepalivetimeout] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_keepalivetimeout' do
-    dsc_spwordautomationserviceapp[:dsc_keepalivetimeout] = '16'
-    expect(dsc_spwordautomationserviceapp[:dsc_keepalivetimeout]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_keepalivetimeout' do
-    dsc_spwordautomationserviceapp[:dsc_keepalivetimeout] = '32'
-    expect(dsc_spwordautomationserviceapp[:dsc_keepalivetimeout]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_keepalivetimeout' do
-    dsc_spwordautomationserviceapp[:dsc_keepalivetimeout] = '64'
-    expect(dsc_spwordautomationserviceapp[:dsc_keepalivetimeout]).to eq(64)
-  end
-
   it 'should not accept array for dsc_maximumconversiontime' do
     expect{dsc_spwordautomationserviceapp[:dsc_maximumconversiontime] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_maximumconversiontime' do
     expect{dsc_spwordautomationserviceapp[:dsc_maximumconversiontime] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_maximumconversiontime' do
-    dsc_spwordautomationserviceapp[:dsc_maximumconversiontime] = 32
-    expect(dsc_spwordautomationserviceapp[:dsc_maximumconversiontime]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maximumconversiontime' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwordautomationserviceapp[:dsc_maximumconversiontime] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maximumconversiontime' do
-    dsc_spwordautomationserviceapp[:dsc_maximumconversiontime] = '16'
-    expect(dsc_spwordautomationserviceapp[:dsc_maximumconversiontime]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maximumconversiontime' do
-    dsc_spwordautomationserviceapp[:dsc_maximumconversiontime] = '32'
-    expect(dsc_spwordautomationserviceapp[:dsc_maximumconversiontime]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maximumconversiontime' do
-    dsc_spwordautomationserviceapp[:dsc_maximumconversiontime] = '64'
-    expect(dsc_spwordautomationserviceapp[:dsc_maximumconversiontime]).to eq(64)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -673,10 +381,6 @@ describe Puppet::Type.type(:dsc_spwordautomationserviceapp) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spwordautomationserviceapp[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spwordautomationserviceapp[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

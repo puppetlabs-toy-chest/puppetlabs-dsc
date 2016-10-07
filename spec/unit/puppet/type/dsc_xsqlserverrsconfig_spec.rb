@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_xsqlserverrsconfig) do
     expect{dsc_xsqlserverrsconfig[:dsc_instancename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_instancename' do
-    expect{dsc_xsqlserverrsconfig[:dsc_instancename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_rssqlserver' do
     expect{dsc_xsqlserverrsconfig[:dsc_rssqlserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -60,10 +56,6 @@ describe Puppet::Type.type(:dsc_xsqlserverrsconfig) do
     expect{dsc_xsqlserverrsconfig[:dsc_rssqlserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_rssqlserver' do
-    expect{dsc_xsqlserverrsconfig[:dsc_rssqlserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_rssqlinstancename' do
     expect{dsc_xsqlserverrsconfig[:dsc_rssqlinstancename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -74,10 +66,6 @@ describe Puppet::Type.type(:dsc_xsqlserverrsconfig) do
 
   it 'should not accept int for dsc_rssqlinstancename' do
     expect{dsc_xsqlserverrsconfig[:dsc_rssqlinstancename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_rssqlinstancename' do
-    expect{dsc_xsqlserverrsconfig[:dsc_rssqlinstancename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_sqladmincredential" do
@@ -94,10 +82,6 @@ describe Puppet::Type.type(:dsc_xsqlserverrsconfig) do
 
   it 'should not accept int for dsc_sqladmincredential' do
     expect{dsc_xsqlserverrsconfig[:dsc_sqladmincredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqladmincredential' do
-    expect{dsc_xsqlserverrsconfig[:dsc_sqladmincredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_isinitialized' do
@@ -136,10 +120,6 @@ describe Puppet::Type.type(:dsc_xsqlserverrsconfig) do
 
   it 'should not accept int for dsc_isinitialized' do
     expect{dsc_xsqlserverrsconfig[:dsc_isinitialized] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_isinitialized' do
-    expect{dsc_xsqlserverrsconfig[:dsc_isinitialized] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

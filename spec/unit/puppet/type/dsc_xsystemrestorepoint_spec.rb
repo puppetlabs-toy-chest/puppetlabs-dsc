@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_xsystemrestorepoint) do
     expect{dsc_xsystemrestorepoint[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xsystemrestorepoint[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_restorepointtype predefined value APPLICATION_INSTALL' do
     dsc_xsystemrestorepoint[:dsc_restorepointtype] = 'APPLICATION_INSTALL'
     expect(dsc_xsystemrestorepoint[:dsc_restorepointtype]).to eq('APPLICATION_INSTALL')
@@ -116,10 +112,6 @@ describe Puppet::Type.type(:dsc_xsystemrestorepoint) do
     expect{dsc_xsystemrestorepoint[:dsc_restorepointtype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_restorepointtype' do
-    expect{dsc_xsystemrestorepoint[:dsc_restorepointtype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xsystemrestorepoint[:dsc_ensure] = 'Present'
     expect(dsc_xsystemrestorepoint[:dsc_ensure]).to eq('Present')
@@ -164,10 +156,6 @@ describe Puppet::Type.type(:dsc_xsystemrestorepoint) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xsystemrestorepoint[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xsystemrestorepoint[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

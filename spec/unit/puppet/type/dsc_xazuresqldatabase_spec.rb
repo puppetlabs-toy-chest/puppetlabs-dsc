@@ -52,42 +52,12 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
     expect{dsc_xazuresqldatabase[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xazuresqldatabase[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maximumsizeingb' do
     expect{dsc_xazuresqldatabase[:dsc_maximumsizeingb] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_maximumsizeingb' do
     expect{dsc_xazuresqldatabase[:dsc_maximumsizeingb] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_maximumsizeingb' do
-    dsc_xazuresqldatabase[:dsc_maximumsizeingb] = 32
-    expect(dsc_xazuresqldatabase[:dsc_maximumsizeingb]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maximumsizeingb' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xazuresqldatabase[:dsc_maximumsizeingb] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maximumsizeingb' do
-    dsc_xazuresqldatabase[:dsc_maximumsizeingb] = '16'
-    expect(dsc_xazuresqldatabase[:dsc_maximumsizeingb]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maximumsizeingb' do
-    dsc_xazuresqldatabase[:dsc_maximumsizeingb] = '32'
-    expect(dsc_xazuresqldatabase[:dsc_maximumsizeingb]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maximumsizeingb' do
-    dsc_xazuresqldatabase[:dsc_maximumsizeingb] = '64'
-    expect(dsc_xazuresqldatabase[:dsc_maximumsizeingb]).to eq(64)
   end
 
   it 'should not accept array for dsc_collation' do
@@ -102,10 +72,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
     expect{dsc_xazuresqldatabase[:dsc_collation] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_collation' do
-    expect{dsc_xazuresqldatabase[:dsc_collation] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_edition' do
     expect{dsc_xazuresqldatabase[:dsc_edition] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -116,10 +82,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
 
   it 'should not accept int for dsc_edition' do
     expect{dsc_xazuresqldatabase[:dsc_edition] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_edition' do
-    expect{dsc_xazuresqldatabase[:dsc_edition] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_servercredential" do
@@ -138,10 +100,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
     expect{dsc_xazuresqldatabase[:dsc_servercredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_servercredential' do
-    expect{dsc_xazuresqldatabase[:dsc_servercredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_servername' do
     expect{dsc_xazuresqldatabase[:dsc_servername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -152,10 +110,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
 
   it 'should not accept int for dsc_servername' do
     expect{dsc_xazuresqldatabase[:dsc_servername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_servername' do
-    expect{dsc_xazuresqldatabase[:dsc_servername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_azuresubscriptionname' do
@@ -170,10 +124,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
     expect{dsc_xazuresqldatabase[:dsc_azuresubscriptionname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_azuresubscriptionname' do
-    expect{dsc_xazuresqldatabase[:dsc_azuresubscriptionname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_azurepublishsettingsfile' do
     expect{dsc_xazuresqldatabase[:dsc_azurepublishsettingsfile] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -184,10 +134,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
 
   it 'should not accept int for dsc_azurepublishsettingsfile' do
     expect{dsc_xazuresqldatabase[:dsc_azurepublishsettingsfile] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_azurepublishsettingsfile' do
-    expect{dsc_xazuresqldatabase[:dsc_azurepublishsettingsfile] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -234,10 +180,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabase) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xazuresqldatabase[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xazuresqldatabase[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

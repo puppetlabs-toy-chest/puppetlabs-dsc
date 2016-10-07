@@ -49,10 +49,6 @@ describe Puppet::Type.type(:dsc_xpsendpoint) do
     expect{dsc_xpsendpoint[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xpsendpoint[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xpsendpoint[:dsc_ensure] = 'Present'
     expect(dsc_xpsendpoint[:dsc_ensure]).to eq('Present')
@@ -99,10 +95,6 @@ describe Puppet::Type.type(:dsc_xpsendpoint) do
     expect{dsc_xpsendpoint[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xpsendpoint[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_startupscript' do
     expect{dsc_xpsendpoint[:dsc_startupscript] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -113,10 +105,6 @@ describe Puppet::Type.type(:dsc_xpsendpoint) do
 
   it 'should not accept int for dsc_startupscript' do
     expect{dsc_xpsendpoint[:dsc_startupscript] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_startupscript' do
-    expect{dsc_xpsendpoint[:dsc_startupscript] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_runascredential" do
@@ -135,10 +123,6 @@ describe Puppet::Type.type(:dsc_xpsendpoint) do
     expect{dsc_xpsendpoint[:dsc_runascredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_runascredential' do
-    expect{dsc_xpsendpoint[:dsc_runascredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_securitydescriptorsddl' do
     expect{dsc_xpsendpoint[:dsc_securitydescriptorsddl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -149,10 +133,6 @@ describe Puppet::Type.type(:dsc_xpsendpoint) do
 
   it 'should not accept int for dsc_securitydescriptorsddl' do
     expect{dsc_xpsendpoint[:dsc_securitydescriptorsddl] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_securitydescriptorsddl' do
-    expect{dsc_xpsendpoint[:dsc_securitydescriptorsddl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_accessmode predefined value Local' do
@@ -199,10 +179,6 @@ describe Puppet::Type.type(:dsc_xpsendpoint) do
 
   it 'should not accept int for dsc_accessmode' do
     expect{dsc_xpsendpoint[:dsc_accessmode] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_accessmode' do
-    expect{dsc_xpsendpoint[:dsc_accessmode] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

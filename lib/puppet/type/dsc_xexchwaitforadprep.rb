@@ -95,9 +95,7 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
     def mof_is_embedded?; false end
     desc "SchemaVersion - Specifies that the Active Directory schema should have been prepared using Exchange 2013 'setup /PrepareSchema', and should be at the specified version"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "SchemaVersion")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -113,9 +111,7 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
     def mof_is_embedded?; false end
     desc "OrganizationVersion - Specifies that the Exchange Organization should have been prepared using Exchange 2013 'setup /PrepareAD', and should be at the specified version"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "OrganizationVersion")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -131,9 +127,7 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
     def mof_is_embedded?; false end
     desc "DomainVersion - Specifies that the domain containing the target Exchange 2013 server was prepared using setup /PrepareAD, /PrepareDomain, or /PrepareAllDomains, and should be at the specified version"
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "DomainVersion")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -167,9 +161,7 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
     def mof_is_embedded?; false end
     desc "RetryIntervalSec - How many seconds to wait between retries when checking whether AD has been prepped. Defaults to 60."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "RetryIntervalSec")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -185,9 +177,7 @@ Puppet::Type.newtype(:dsc_xexchwaitforadprep) do
     def mof_is_embedded?; false end
     desc "RetryCount - How many retry attempts should be made to see if AD has been prepped before an exception is thrown. Defaults to 30."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "RetryCount")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

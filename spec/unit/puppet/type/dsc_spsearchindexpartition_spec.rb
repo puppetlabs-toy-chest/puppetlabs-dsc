@@ -40,32 +40,6 @@ describe Puppet::Type.type(:dsc_spsearchindexpartition) do
     expect{dsc_spsearchindexpartition[:dsc_index] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_index' do
-    dsc_spsearchindexpartition[:dsc_index] = 32
-    expect(dsc_spsearchindexpartition[:dsc_index]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_index' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spsearchindexpartition[:dsc_index] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_index' do
-    dsc_spsearchindexpartition[:dsc_index] = '16'
-    expect(dsc_spsearchindexpartition[:dsc_index]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_index' do
-    dsc_spsearchindexpartition[:dsc_index] = '32'
-    expect(dsc_spsearchindexpartition[:dsc_index]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_index' do
-    dsc_spsearchindexpartition[:dsc_index] = '64'
-    expect(dsc_spsearchindexpartition[:dsc_index]).to eq(64)
-  end
-
   it 'should accept array for dsc_servers' do
     dsc_spsearchindexpartition[:dsc_servers] = ["foo", "bar", "spec"]
     expect(dsc_spsearchindexpartition[:dsc_servers]).to eq(["foo", "bar", "spec"])
@@ -77,10 +51,6 @@ describe Puppet::Type.type(:dsc_spsearchindexpartition) do
 
   it 'should not accept int for dsc_servers' do
     expect{dsc_spsearchindexpartition[:dsc_servers] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_servers' do
-    expect{dsc_spsearchindexpartition[:dsc_servers] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_rootdirectory' do
@@ -95,10 +65,6 @@ describe Puppet::Type.type(:dsc_spsearchindexpartition) do
     expect{dsc_spsearchindexpartition[:dsc_rootdirectory] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_rootdirectory' do
-    expect{dsc_spsearchindexpartition[:dsc_rootdirectory] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_serviceappname' do
     expect{dsc_spsearchindexpartition[:dsc_serviceappname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -109,10 +75,6 @@ describe Puppet::Type.type(:dsc_spsearchindexpartition) do
 
   it 'should not accept int for dsc_serviceappname' do
     expect{dsc_spsearchindexpartition[:dsc_serviceappname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_serviceappname' do
-    expect{dsc_spsearchindexpartition[:dsc_serviceappname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -129,10 +91,6 @@ describe Puppet::Type.type(:dsc_spsearchindexpartition) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spsearchindexpartition[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spsearchindexpartition[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

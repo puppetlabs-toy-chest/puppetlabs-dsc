@@ -59,10 +59,6 @@ describe Puppet::Type.type(:dsc_spsearchcontentsource) do
     expect{dsc_spsearchcontentsource[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spsearchcontentsource[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_serviceappname is specified' do
     #dsc_spsearchcontentsource[:dsc_serviceappname]
     expect { Puppet::Type.type(:dsc_spsearchcontentsource).new(
@@ -81,10 +77,6 @@ describe Puppet::Type.type(:dsc_spsearchcontentsource) do
 
   it 'should not accept int for dsc_serviceappname' do
     expect{dsc_spsearchcontentsource[:dsc_serviceappname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_serviceappname' do
-    expect{dsc_spsearchcontentsource[:dsc_serviceappname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_contentsourcetype predefined value SharePoint' do
@@ -133,10 +125,6 @@ describe Puppet::Type.type(:dsc_spsearchcontentsource) do
     expect{dsc_spsearchcontentsource[:dsc_contentsourcetype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_contentsourcetype' do
-    expect{dsc_spsearchcontentsource[:dsc_contentsourcetype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_addresses' do
     dsc_spsearchcontentsource[:dsc_addresses] = ["foo", "bar", "spec"]
     expect(dsc_spsearchcontentsource[:dsc_addresses]).to eq(["foo", "bar", "spec"])
@@ -148,10 +136,6 @@ describe Puppet::Type.type(:dsc_spsearchcontentsource) do
 
   it 'should not accept int for dsc_addresses' do
     expect{dsc_spsearchcontentsource[:dsc_addresses] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_addresses' do
-    expect{dsc_spsearchcontentsource[:dsc_addresses] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_crawlsetting predefined value CrawlEverything' do
@@ -200,10 +184,6 @@ describe Puppet::Type.type(:dsc_spsearchcontentsource) do
     expect{dsc_spsearchcontentsource[:dsc_crawlsetting] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_crawlsetting' do
-    expect{dsc_spsearchcontentsource[:dsc_crawlsetting] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_continuouscrawl' do
     expect{dsc_spsearchcontentsource[:dsc_continuouscrawl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -242,10 +222,6 @@ describe Puppet::Type.type(:dsc_spsearchcontentsource) do
     expect{dsc_spsearchcontentsource[:dsc_continuouscrawl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_continuouscrawl' do
-    expect{dsc_spsearchcontentsource[:dsc_continuouscrawl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_incrementalschedule' do
     expect{dsc_spsearchcontentsource[:dsc_incrementalschedule] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -258,10 +234,6 @@ describe Puppet::Type.type(:dsc_spsearchcontentsource) do
     expect{dsc_spsearchcontentsource[:dsc_incrementalschedule] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_incrementalschedule' do
-    expect{dsc_spsearchcontentsource[:dsc_incrementalschedule] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_fullschedule' do
     expect{dsc_spsearchcontentsource[:dsc_fullschedule] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -272,10 +244,6 @@ describe Puppet::Type.type(:dsc_spsearchcontentsource) do
 
   it 'should not accept int for dsc_fullschedule' do
     expect{dsc_spsearchcontentsource[:dsc_fullschedule] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_fullschedule' do
-    expect{dsc_spsearchcontentsource[:dsc_fullschedule] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_priority predefined value Normal' do
@@ -314,10 +282,6 @@ describe Puppet::Type.type(:dsc_spsearchcontentsource) do
     expect{dsc_spsearchcontentsource[:dsc_priority] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_priority' do
-    expect{dsc_spsearchcontentsource[:dsc_priority] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_limitpagedepth' do
     expect{dsc_spsearchcontentsource[:dsc_limitpagedepth] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -326,64 +290,12 @@ describe Puppet::Type.type(:dsc_spsearchcontentsource) do
     expect{dsc_spsearchcontentsource[:dsc_limitpagedepth] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_limitpagedepth' do
-    dsc_spsearchcontentsource[:dsc_limitpagedepth] = 32
-    expect(dsc_spsearchcontentsource[:dsc_limitpagedepth]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_limitpagedepth' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spsearchcontentsource[:dsc_limitpagedepth] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_limitpagedepth' do
-    dsc_spsearchcontentsource[:dsc_limitpagedepth] = '16'
-    expect(dsc_spsearchcontentsource[:dsc_limitpagedepth]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_limitpagedepth' do
-    dsc_spsearchcontentsource[:dsc_limitpagedepth] = '32'
-    expect(dsc_spsearchcontentsource[:dsc_limitpagedepth]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_limitpagedepth' do
-    dsc_spsearchcontentsource[:dsc_limitpagedepth] = '64'
-    expect(dsc_spsearchcontentsource[:dsc_limitpagedepth]).to eq(64)
-  end
-
   it 'should not accept array for dsc_limitserverhops' do
     expect{dsc_spsearchcontentsource[:dsc_limitserverhops] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_limitserverhops' do
     expect{dsc_spsearchcontentsource[:dsc_limitserverhops] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_limitserverhops' do
-    dsc_spsearchcontentsource[:dsc_limitserverhops] = 32
-    expect(dsc_spsearchcontentsource[:dsc_limitserverhops]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_limitserverhops' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spsearchcontentsource[:dsc_limitserverhops] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_limitserverhops' do
-    dsc_spsearchcontentsource[:dsc_limitserverhops] = '16'
-    expect(dsc_spsearchcontentsource[:dsc_limitserverhops]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_limitserverhops' do
-    dsc_spsearchcontentsource[:dsc_limitserverhops] = '32'
-    expect(dsc_spsearchcontentsource[:dsc_limitserverhops]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_limitserverhops' do
-    dsc_spsearchcontentsource[:dsc_limitserverhops] = '64'
-    expect(dsc_spsearchcontentsource[:dsc_limitserverhops]).to eq(64)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -432,10 +344,6 @@ describe Puppet::Type.type(:dsc_spsearchcontentsource) do
     expect{dsc_spsearchcontentsource[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spsearchcontentsource[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_force' do
     expect{dsc_spsearchcontentsource[:dsc_force] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -474,10 +382,6 @@ describe Puppet::Type.type(:dsc_spsearchcontentsource) do
     expect{dsc_spsearchcontentsource[:dsc_force] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_force' do
-    expect{dsc_spsearchcontentsource[:dsc_force] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spsearchcontentsource[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -492,10 +396,6 @@ describe Puppet::Type.type(:dsc_spsearchcontentsource) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spsearchcontentsource[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spsearchcontentsource[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

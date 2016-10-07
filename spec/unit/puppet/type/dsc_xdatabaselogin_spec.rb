@@ -76,10 +76,6 @@ describe Puppet::Type.type(:dsc_xdatabaselogin) do
     expect{dsc_xdatabaselogin[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdatabaselogin[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_loginname is specified' do
     #dsc_xdatabaselogin[:dsc_loginname]
     expect { Puppet::Type.type(:dsc_xdatabaselogin).new(
@@ -99,10 +95,6 @@ describe Puppet::Type.type(:dsc_xdatabaselogin) do
     expect{dsc_xdatabaselogin[:dsc_loginname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_loginname' do
-    expect{dsc_xdatabaselogin[:dsc_loginname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_loginpassword' do
     expect{dsc_xdatabaselogin[:dsc_loginpassword] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -113,10 +105,6 @@ describe Puppet::Type.type(:dsc_xdatabaselogin) do
 
   it 'should not accept int for dsc_loginpassword' do
     expect{dsc_xdatabaselogin[:dsc_loginpassword] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_loginpassword' do
-    expect{dsc_xdatabaselogin[:dsc_loginpassword] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_sqlauthtype predefined value Windows' do
@@ -155,10 +143,6 @@ describe Puppet::Type.type(:dsc_xdatabaselogin) do
     expect{dsc_xdatabaselogin[:dsc_sqlauthtype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlauthtype' do
-    expect{dsc_xdatabaselogin[:dsc_sqlauthtype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlserver' do
     expect{dsc_xdatabaselogin[:dsc_sqlserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -169,10 +153,6 @@ describe Puppet::Type.type(:dsc_xdatabaselogin) do
 
   it 'should not accept int for dsc_sqlserver' do
     expect{dsc_xdatabaselogin[:dsc_sqlserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlserver' do
-    expect{dsc_xdatabaselogin[:dsc_sqlserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_sqlconnectioncredential" do
@@ -189,10 +169,6 @@ describe Puppet::Type.type(:dsc_xdatabaselogin) do
 
   it 'should not accept int for dsc_sqlconnectioncredential' do
     expect{dsc_xdatabaselogin[:dsc_sqlconnectioncredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlconnectioncredential' do
-    expect{dsc_xdatabaselogin[:dsc_sqlconnectioncredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

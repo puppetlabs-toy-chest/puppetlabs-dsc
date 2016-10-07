@@ -60,10 +60,6 @@ describe Puppet::Type.type(:dsc_xadcsonlineresponder) do
     expect{dsc_xadcsonlineresponder[:dsc_issingleinstance] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_issingleinstance' do
-    expect{dsc_xadcsonlineresponder[:dsc_issingleinstance] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xadcsonlineresponder[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -78,10 +74,6 @@ describe Puppet::Type.type(:dsc_xadcsonlineresponder) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xadcsonlineresponder[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xadcsonlineresponder[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -128,10 +120,6 @@ describe Puppet::Type.type(:dsc_xadcsonlineresponder) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xadcsonlineresponder[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xadcsonlineresponder[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

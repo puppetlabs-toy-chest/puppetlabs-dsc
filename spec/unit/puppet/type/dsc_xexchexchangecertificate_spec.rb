@@ -51,10 +51,6 @@ describe Puppet::Type.type(:dsc_xexchexchangecertificate) do
     expect{dsc_xexchexchangecertificate[:dsc_thumbprint] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_thumbprint' do
-    expect{dsc_xexchexchangecertificate[:dsc_thumbprint] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchexchangecertificate[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -69,10 +65,6 @@ describe Puppet::Type.type(:dsc_xexchexchangecertificate) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xexchexchangecertificate[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchexchangecertificate[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -121,10 +113,6 @@ describe Puppet::Type.type(:dsc_xexchexchangecertificate) do
     expect{dsc_xexchexchangecertificate[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xexchexchangecertificate[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_allowextraservices' do
     expect{dsc_xexchexchangecertificate[:dsc_allowextraservices] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -163,10 +151,6 @@ describe Puppet::Type.type(:dsc_xexchexchangecertificate) do
     expect{dsc_xexchexchangecertificate[:dsc_allowextraservices] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowextraservices' do
-    expect{dsc_xexchexchangecertificate[:dsc_allowextraservices] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_certcreds" do
     expect{dsc_xexchexchangecertificate[:dsc_certcreds] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -183,10 +167,6 @@ describe Puppet::Type.type(:dsc_xexchexchangecertificate) do
     expect{dsc_xexchexchangecertificate[:dsc_certcreds] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_certcreds' do
-    expect{dsc_xexchexchangecertificate[:dsc_certcreds] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_certfilepath' do
     expect{dsc_xexchexchangecertificate[:dsc_certfilepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -197,10 +177,6 @@ describe Puppet::Type.type(:dsc_xexchexchangecertificate) do
 
   it 'should not accept int for dsc_certfilepath' do
     expect{dsc_xexchexchangecertificate[:dsc_certfilepath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_certfilepath' do
-    expect{dsc_xexchexchangecertificate[:dsc_certfilepath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_domaincontroller' do
@@ -215,10 +191,6 @@ describe Puppet::Type.type(:dsc_xexchexchangecertificate) do
     expect{dsc_xexchexchangecertificate[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchexchangecertificate[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_services' do
     dsc_xexchexchangecertificate[:dsc_services] = ["foo", "bar", "spec"]
     expect(dsc_xexchexchangecertificate[:dsc_services]).to eq(["foo", "bar", "spec"])
@@ -230,10 +202,6 @@ describe Puppet::Type.type(:dsc_xexchexchangecertificate) do
 
   it 'should not accept int for dsc_services' do
     expect{dsc_xexchexchangecertificate[:dsc_services] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_services' do
-    expect{dsc_xexchexchangecertificate[:dsc_services] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

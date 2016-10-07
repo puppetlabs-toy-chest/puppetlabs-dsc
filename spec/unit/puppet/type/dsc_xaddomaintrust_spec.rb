@@ -77,10 +77,6 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
     expect{dsc_xaddomaintrust[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xaddomaintrust[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_targetdomainadministratorcredential" do
     expect{dsc_xaddomaintrust[:dsc_targetdomainadministratorcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -95,10 +91,6 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
 
   it 'should not accept int for dsc_targetdomainadministratorcredential' do
     expect{dsc_xaddomaintrust[:dsc_targetdomainadministratorcredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_targetdomainadministratorcredential' do
-    expect{dsc_xaddomaintrust[:dsc_targetdomainadministratorcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_targetdomainname is specified' do
@@ -119,10 +111,6 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
 
   it 'should not accept int for dsc_targetdomainname' do
     expect{dsc_xaddomaintrust[:dsc_targetdomainname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_targetdomainname' do
-    expect{dsc_xaddomaintrust[:dsc_targetdomainname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_trusttype predefined value External' do
@@ -159,10 +147,6 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
 
   it 'should not accept int for dsc_trusttype' do
     expect{dsc_xaddomaintrust[:dsc_trusttype] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_trusttype' do
-    expect{dsc_xaddomaintrust[:dsc_trusttype] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_trustdirection predefined value Bidirectional' do
@@ -211,10 +195,6 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
     expect{dsc_xaddomaintrust[:dsc_trustdirection] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_trustdirection' do
-    expect{dsc_xaddomaintrust[:dsc_trustdirection] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_sourcedomainname is specified' do
     #dsc_xaddomaintrust[:dsc_sourcedomainname]
     expect { Puppet::Type.type(:dsc_xaddomaintrust).new(
@@ -233,10 +213,6 @@ describe Puppet::Type.type(:dsc_xaddomaintrust) do
 
   it 'should not accept int for dsc_sourcedomainname' do
     expect{dsc_xaddomaintrust[:dsc_sourcedomainname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sourcedomainname' do
-    expect{dsc_xaddomaintrust[:dsc_sourcedomainname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

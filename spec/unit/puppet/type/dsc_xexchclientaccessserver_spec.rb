@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_xexchclientaccessserver) do
     expect{dsc_xexchclientaccessserver[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexchclientaccessserver[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchclientaccessserver[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -64,10 +60,6 @@ describe Puppet::Type.type(:dsc_xexchclientaccessserver) do
     expect{dsc_xexchclientaccessserver[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchclientaccessserver[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_autodiscoverserviceinternaluri' do
     expect{dsc_xexchclientaccessserver[:dsc_autodiscoverserviceinternaluri] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -78,10 +70,6 @@ describe Puppet::Type.type(:dsc_xexchclientaccessserver) do
 
   it 'should not accept int for dsc_autodiscoverserviceinternaluri' do
     expect{dsc_xexchclientaccessserver[:dsc_autodiscoverserviceinternaluri] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_autodiscoverserviceinternaluri' do
-    expect{dsc_xexchclientaccessserver[:dsc_autodiscoverserviceinternaluri] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_autodiscoversitescope' do
@@ -97,10 +85,6 @@ describe Puppet::Type.type(:dsc_xexchclientaccessserver) do
     expect{dsc_xexchclientaccessserver[:dsc_autodiscoversitescope] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_autodiscoversitescope' do
-    expect{dsc_xexchclientaccessserver[:dsc_autodiscoversitescope] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchclientaccessserver[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -111,10 +95,6 @@ describe Puppet::Type.type(:dsc_xexchclientaccessserver) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xexchclientaccessserver[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchclientaccessserver[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -72,10 +72,6 @@ describe Puppet::Type.type(:dsc_spantivirussettings) do
     expect{dsc_spantivirussettings[:dsc_scanondownload] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_scanondownload' do
-    expect{dsc_spantivirussettings[:dsc_scanondownload] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_scanonupload' do
     expect{dsc_spantivirussettings[:dsc_scanonupload] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -112,10 +108,6 @@ describe Puppet::Type.type(:dsc_spantivirussettings) do
 
   it 'should not accept int for dsc_scanonupload' do
     expect{dsc_spantivirussettings[:dsc_scanonupload] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_scanonupload' do
-    expect{dsc_spantivirussettings[:dsc_scanonupload] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowdownloadinfected' do
@@ -156,10 +148,6 @@ describe Puppet::Type.type(:dsc_spantivirussettings) do
     expect{dsc_spantivirussettings[:dsc_allowdownloadinfected] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowdownloadinfected' do
-    expect{dsc_spantivirussettings[:dsc_allowdownloadinfected] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_attempttoclean' do
     expect{dsc_spantivirussettings[:dsc_attempttoclean] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -198,10 +186,6 @@ describe Puppet::Type.type(:dsc_spantivirussettings) do
     expect{dsc_spantivirussettings[:dsc_attempttoclean] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_attempttoclean' do
-    expect{dsc_spantivirussettings[:dsc_attempttoclean] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_timeoutduration' do
     expect{dsc_spantivirussettings[:dsc_timeoutduration] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -210,64 +194,12 @@ describe Puppet::Type.type(:dsc_spantivirussettings) do
     expect{dsc_spantivirussettings[:dsc_timeoutduration] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_timeoutduration' do
-    dsc_spantivirussettings[:dsc_timeoutduration] = 16
-    expect(dsc_spantivirussettings[:dsc_timeoutduration]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_timeoutduration' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_spantivirussettings[:dsc_timeoutduration] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_timeoutduration' do
-    dsc_spantivirussettings[:dsc_timeoutduration] = '16'
-    expect(dsc_spantivirussettings[:dsc_timeoutduration]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_timeoutduration' do
-    dsc_spantivirussettings[:dsc_timeoutduration] = '32'
-    expect(dsc_spantivirussettings[:dsc_timeoutduration]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_timeoutduration' do
-    dsc_spantivirussettings[:dsc_timeoutduration] = '64'
-    expect(dsc_spantivirussettings[:dsc_timeoutduration]).to eq(64)
-  end
-
   it 'should not accept array for dsc_numberofthreads' do
     expect{dsc_spantivirussettings[:dsc_numberofthreads] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_numberofthreads' do
     expect{dsc_spantivirussettings[:dsc_numberofthreads] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_numberofthreads' do
-    dsc_spantivirussettings[:dsc_numberofthreads] = 16
-    expect(dsc_spantivirussettings[:dsc_numberofthreads]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_numberofthreads' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_spantivirussettings[:dsc_numberofthreads] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_numberofthreads' do
-    dsc_spantivirussettings[:dsc_numberofthreads] = '16'
-    expect(dsc_spantivirussettings[:dsc_numberofthreads]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_numberofthreads' do
-    dsc_spantivirussettings[:dsc_numberofthreads] = '32'
-    expect(dsc_spantivirussettings[:dsc_numberofthreads]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_numberofthreads' do
-    dsc_spantivirussettings[:dsc_numberofthreads] = '64'
-    expect(dsc_spantivirussettings[:dsc_numberofthreads]).to eq(64)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -284,10 +216,6 @@ describe Puppet::Type.type(:dsc_spantivirussettings) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spantivirussettings[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spantivirussettings[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

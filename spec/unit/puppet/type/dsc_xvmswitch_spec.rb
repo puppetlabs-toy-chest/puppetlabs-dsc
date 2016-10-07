@@ -53,10 +53,6 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
     expect{dsc_xvmswitch[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xvmswitch[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_type is specified' do
     #dsc_xvmswitch[:dsc_type]
     expect { Puppet::Type.type(:dsc_xvmswitch).new(
@@ -111,10 +107,6 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
     expect{dsc_xvmswitch[:dsc_type] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_type' do
-    expect{dsc_xvmswitch[:dsc_type] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_netadaptername' do
     expect{dsc_xvmswitch[:dsc_netadaptername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -125,10 +117,6 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
 
   it 'should not accept int for dsc_netadaptername' do
     expect{dsc_xvmswitch[:dsc_netadaptername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_netadaptername' do
-    expect{dsc_xvmswitch[:dsc_netadaptername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowmanagementos' do
@@ -167,10 +155,6 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
 
   it 'should not accept int for dsc_allowmanagementos' do
     expect{dsc_xvmswitch[:dsc_allowmanagementos] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_allowmanagementos' do
-    expect{dsc_xvmswitch[:dsc_allowmanagementos] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_bandwidthreservationmode predefined value Default' do
@@ -239,10 +223,6 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
     expect{dsc_xvmswitch[:dsc_bandwidthreservationmode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_bandwidthreservationmode' do
-    expect{dsc_xvmswitch[:dsc_bandwidthreservationmode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xvmswitch[:dsc_ensure] = 'Present'
     expect(dsc_xvmswitch[:dsc_ensure]).to eq('Present')
@@ -289,10 +269,6 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
     expect{dsc_xvmswitch[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xvmswitch[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_id' do
     expect{dsc_xvmswitch[:dsc_id] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -305,10 +281,6 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
     expect{dsc_xvmswitch[:dsc_id] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_id' do
-    expect{dsc_xvmswitch[:dsc_id] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_netadapterinterfacedescription' do
     expect{dsc_xvmswitch[:dsc_netadapterinterfacedescription] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -319,10 +291,6 @@ describe Puppet::Type.type(:dsc_xvmswitch) do
 
   it 'should not accept int for dsc_netadapterinterfacedescription' do
     expect{dsc_xvmswitch[:dsc_netadapterinterfacedescription] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_netadapterinterfacedescription' do
-    expect{dsc_xvmswitch[:dsc_netadapterinterfacedescription] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

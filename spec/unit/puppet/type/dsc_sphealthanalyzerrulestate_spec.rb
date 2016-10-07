@@ -45,10 +45,6 @@ describe Puppet::Type.type(:dsc_sphealthanalyzerrulestate) do
     expect{dsc_sphealthanalyzerrulestate[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_sphealthanalyzerrulestate[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_enabled' do
     expect{dsc_sphealthanalyzerrulestate[:dsc_enabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -87,10 +83,6 @@ describe Puppet::Type.type(:dsc_sphealthanalyzerrulestate) do
     expect{dsc_sphealthanalyzerrulestate[:dsc_enabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enabled' do
-    expect{dsc_sphealthanalyzerrulestate[:dsc_enabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_rulescope predefined value All Servers' do
     dsc_sphealthanalyzerrulestate[:dsc_rulescope] = 'All Servers'
     expect(dsc_sphealthanalyzerrulestate[:dsc_rulescope]).to eq('All Servers')
@@ -125,10 +117,6 @@ describe Puppet::Type.type(:dsc_sphealthanalyzerrulestate) do
 
   it 'should not accept int for dsc_rulescope' do
     expect{dsc_sphealthanalyzerrulestate[:dsc_rulescope] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_rulescope' do
-    expect{dsc_sphealthanalyzerrulestate[:dsc_rulescope] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_schedule predefined value Hourly' do
@@ -197,10 +185,6 @@ describe Puppet::Type.type(:dsc_sphealthanalyzerrulestate) do
     expect{dsc_sphealthanalyzerrulestate[:dsc_schedule] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_schedule' do
-    expect{dsc_sphealthanalyzerrulestate[:dsc_schedule] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_fixautomatically' do
     expect{dsc_sphealthanalyzerrulestate[:dsc_fixautomatically] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -239,10 +223,6 @@ describe Puppet::Type.type(:dsc_sphealthanalyzerrulestate) do
     expect{dsc_sphealthanalyzerrulestate[:dsc_fixautomatically] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_fixautomatically' do
-    expect{dsc_sphealthanalyzerrulestate[:dsc_fixautomatically] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_sphealthanalyzerrulestate[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -257,10 +237,6 @@ describe Puppet::Type.type(:dsc_sphealthanalyzerrulestate) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_sphealthanalyzerrulestate[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_sphealthanalyzerrulestate[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

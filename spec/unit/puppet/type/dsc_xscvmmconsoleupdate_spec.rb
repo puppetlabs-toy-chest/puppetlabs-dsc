@@ -82,10 +82,6 @@ describe Puppet::Type.type(:dsc_xscvmmconsoleupdate) do
     expect{dsc_xscvmmconsoleupdate[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xscvmmconsoleupdate[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcepath' do
     expect{dsc_xscvmmconsoleupdate[:dsc_sourcepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -98,10 +94,6 @@ describe Puppet::Type.type(:dsc_xscvmmconsoleupdate) do
     expect{dsc_xscvmmconsoleupdate[:dsc_sourcepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcepath' do
-    expect{dsc_xscvmmconsoleupdate[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcefolder' do
     expect{dsc_xscvmmconsoleupdate[:dsc_sourcefolder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -112,10 +104,6 @@ describe Puppet::Type.type(:dsc_xscvmmconsoleupdate) do
 
   it 'should not accept int for dsc_sourcefolder' do
     expect{dsc_xscvmmconsoleupdate[:dsc_sourcefolder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sourcefolder' do
-    expect{dsc_xscvmmconsoleupdate[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_setupcredential" do
@@ -134,10 +122,6 @@ describe Puppet::Type.type(:dsc_xscvmmconsoleupdate) do
     expect{dsc_xscvmmconsoleupdate[:dsc_setupcredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_setupcredential' do
-    expect{dsc_xscvmmconsoleupdate[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_update' do
     expect{dsc_xscvmmconsoleupdate[:dsc_update] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -148,10 +132,6 @@ describe Puppet::Type.type(:dsc_xscvmmconsoleupdate) do
 
   it 'should not accept int for dsc_update' do
     expect{dsc_xscvmmconsoleupdate[:dsc_update] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_update' do
-    expect{dsc_xscvmmconsoleupdate[:dsc_update] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

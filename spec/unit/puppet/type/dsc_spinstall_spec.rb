@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_spinstall) do
     expect{dsc_spinstall[:dsc_binarydir] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_binarydir' do
-    expect{dsc_spinstall[:dsc_binarydir] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_productkey' do
     expect{dsc_spinstall[:dsc_productkey] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -62,10 +58,6 @@ describe Puppet::Type.type(:dsc_spinstall) do
 
   it 'should not accept int for dsc_productkey' do
     expect{dsc_spinstall[:dsc_productkey] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_productkey' do
-    expect{dsc_spinstall[:dsc_productkey] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_installpath' do
@@ -80,10 +72,6 @@ describe Puppet::Type.type(:dsc_spinstall) do
     expect{dsc_spinstall[:dsc_installpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_installpath' do
-    expect{dsc_spinstall[:dsc_installpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_datapath' do
     expect{dsc_spinstall[:dsc_datapath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -94,10 +82,6 @@ describe Puppet::Type.type(:dsc_spinstall) do
 
   it 'should not accept int for dsc_datapath' do
     expect{dsc_spinstall[:dsc_datapath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_datapath' do
-    expect{dsc_spinstall[:dsc_datapath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -144,10 +128,6 @@ describe Puppet::Type.type(:dsc_spinstall) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_spinstall[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spinstall[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -45,10 +45,6 @@ describe Puppet::Type.type(:dsc_spwebappsiteuseanddeletion) do
     expect{dsc_spwebappsiteuseanddeletion[:dsc_url] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_url' do
-    expect{dsc_spwebappsiteuseanddeletion[:dsc_url] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sendunusedsitecollectionnotifications' do
     expect{dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -87,42 +83,12 @@ describe Puppet::Type.type(:dsc_spwebappsiteuseanddeletion) do
     expect{dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sendunusedsitecollectionnotifications' do
-    expect{dsc_spwebappsiteuseanddeletion[:dsc_sendunusedsitecollectionnotifications] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_unusedsitenotificationperiod' do
     expect{dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationperiod] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_unusedsitenotificationperiod' do
     expect{dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationperiod] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_unusedsitenotificationperiod' do
-    dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationperiod] = 32
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationperiod]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_unusedsitenotificationperiod' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationperiod] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_unusedsitenotificationperiod' do
-    dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationperiod] = '16'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationperiod]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_unusedsitenotificationperiod' do
-    dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationperiod] = '32'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationperiod]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_unusedsitenotificationperiod' do
-    dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationperiod] = '64'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationperiod]).to eq(64)
   end
 
   it 'should not accept array for dsc_automaticallydeleteunusedsitecollections' do
@@ -163,42 +129,12 @@ describe Puppet::Type.type(:dsc_spwebappsiteuseanddeletion) do
     expect{dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_automaticallydeleteunusedsitecollections' do
-    expect{dsc_spwebappsiteuseanddeletion[:dsc_automaticallydeleteunusedsitecollections] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_unusedsitenotificationsbeforedeletion' do
     expect{dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationsbeforedeletion] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_unusedsitenotificationsbeforedeletion' do
     expect{dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationsbeforedeletion] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_unusedsitenotificationsbeforedeletion' do
-    dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationsbeforedeletion] = 32
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationsbeforedeletion]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_unusedsitenotificationsbeforedeletion' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationsbeforedeletion] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_unusedsitenotificationsbeforedeletion' do
-    dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationsbeforedeletion] = '16'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationsbeforedeletion]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_unusedsitenotificationsbeforedeletion' do
-    dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationsbeforedeletion] = '32'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationsbeforedeletion]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_unusedsitenotificationsbeforedeletion' do
-    dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationsbeforedeletion] = '64'
-    expect(dsc_spwebappsiteuseanddeletion[:dsc_unusedsitenotificationsbeforedeletion]).to eq(64)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -215,10 +151,6 @@ describe Puppet::Type.type(:dsc_spwebappsiteuseanddeletion) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spwebappsiteuseanddeletion[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spwebappsiteuseanddeletion[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

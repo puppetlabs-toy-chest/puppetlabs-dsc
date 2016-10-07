@@ -54,10 +54,6 @@ describe Puppet::Type.type(:dsc_spweb) do
     expect{dsc_spweb[:dsc_url] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_url' do
-    expect{dsc_spweb[:dsc_url] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_spweb[:dsc_ensure] = 'Present'
     expect(dsc_spweb[:dsc_ensure]).to eq('Present')
@@ -104,10 +100,6 @@ describe Puppet::Type.type(:dsc_spweb) do
     expect{dsc_spweb[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spweb[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_spweb[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -118,10 +110,6 @@ describe Puppet::Type.type(:dsc_spweb) do
 
   it 'should not accept int for dsc_description' do
     expect{dsc_spweb[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_spweb[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_name' do
@@ -136,42 +124,12 @@ describe Puppet::Type.type(:dsc_spweb) do
     expect{dsc_spweb[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spweb[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_language' do
     expect{dsc_spweb[:dsc_language] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_language' do
     expect{dsc_spweb[:dsc_language] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_language' do
-    dsc_spweb[:dsc_language] = 32
-    expect(dsc_spweb[:dsc_language]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_language' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spweb[:dsc_language] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_language' do
-    dsc_spweb[:dsc_language] = '16'
-    expect(dsc_spweb[:dsc_language]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_language' do
-    dsc_spweb[:dsc_language] = '32'
-    expect(dsc_spweb[:dsc_language]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_language' do
-    dsc_spweb[:dsc_language] = '64'
-    expect(dsc_spweb[:dsc_language]).to eq(64)
   end
 
   it 'should not accept array for dsc_template' do
@@ -184,10 +142,6 @@ describe Puppet::Type.type(:dsc_spweb) do
 
   it 'should not accept int for dsc_template' do
     expect{dsc_spweb[:dsc_template] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_template' do
-    expect{dsc_spweb[:dsc_template] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_uniquepermissions' do
@@ -228,10 +182,6 @@ describe Puppet::Type.type(:dsc_spweb) do
     expect{dsc_spweb[:dsc_uniquepermissions] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_uniquepermissions' do
-    expect{dsc_spweb[:dsc_uniquepermissions] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_useparenttopnav' do
     expect{dsc_spweb[:dsc_useparenttopnav] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -268,10 +218,6 @@ describe Puppet::Type.type(:dsc_spweb) do
 
   it 'should not accept int for dsc_useparenttopnav' do
     expect{dsc_spweb[:dsc_useparenttopnav] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_useparenttopnav' do
-    expect{dsc_spweb[:dsc_useparenttopnav] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_addtoquicklaunch' do
@@ -312,10 +258,6 @@ describe Puppet::Type.type(:dsc_spweb) do
     expect{dsc_spweb[:dsc_addtoquicklaunch] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_addtoquicklaunch' do
-    expect{dsc_spweb[:dsc_addtoquicklaunch] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_addtotopnav' do
     expect{dsc_spweb[:dsc_addtotopnav] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -354,10 +296,6 @@ describe Puppet::Type.type(:dsc_spweb) do
     expect{dsc_spweb[:dsc_addtotopnav] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_addtotopnav' do
-    expect{dsc_spweb[:dsc_addtotopnav] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spweb[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -372,10 +310,6 @@ describe Puppet::Type.type(:dsc_spweb) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spweb[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spweb[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

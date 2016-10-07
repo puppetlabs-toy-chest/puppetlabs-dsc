@@ -63,10 +63,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_subscriptionid] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_subscriptionid' do
-    expect{dsc_xwefsubscription[:dsc_subscriptionid] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xwefsubscription[:dsc_ensure] = 'Present'
     expect(dsc_xwefsubscription[:dsc_ensure]).to eq('Present')
@@ -113,10 +109,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xwefsubscription[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_subscriptiontype predefined value CollectorInitiated' do
     dsc_xwefsubscription[:dsc_subscriptiontype] = 'CollectorInitiated'
     expect(dsc_xwefsubscription[:dsc_subscriptiontype]).to eq('CollectorInitiated')
@@ -153,10 +145,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_subscriptiontype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_subscriptiontype' do
-    expect{dsc_xwefsubscription[:dsc_subscriptiontype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_xwefsubscription[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -167,10 +155,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
 
   it 'should not accept int for dsc_description' do
     expect{dsc_xwefsubscription[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xwefsubscription[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_enabled predefined value true' do
@@ -209,10 +193,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_enabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enabled' do
-    expect{dsc_xwefsubscription[:dsc_enabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_deliverymode predefined value Push' do
     dsc_xwefsubscription[:dsc_deliverymode] = 'Push'
     expect(dsc_xwefsubscription[:dsc_deliverymode]).to eq('Push')
@@ -249,10 +229,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_deliverymode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_deliverymode' do
-    expect{dsc_xwefsubscription[:dsc_deliverymode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maxitems' do
     expect{dsc_xwefsubscription[:dsc_maxitems] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -260,32 +236,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
   it 'should not accept boolean for dsc_maxitems' do
     expect{dsc_xwefsubscription[:dsc_maxitems] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_maxitems' do
-    dsc_xwefsubscription[:dsc_maxitems] = -32
-    expect(dsc_xwefsubscription[:dsc_maxitems]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_maxitems' do
-    dsc_xwefsubscription[:dsc_maxitems] = '16'
-    expect(dsc_xwefsubscription[:dsc_maxitems]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_maxitems' do
-    dsc_xwefsubscription[:dsc_maxitems] = '-16'
-    expect(dsc_xwefsubscription[:dsc_maxitems]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_maxitems' do
-    dsc_xwefsubscription[:dsc_maxitems] = '32'
-    expect(dsc_xwefsubscription[:dsc_maxitems]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_maxitems' do
-    dsc_xwefsubscription[:dsc_maxitems] = '-32'
-    expect(dsc_xwefsubscription[:dsc_maxitems]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_maxlatencytime' do
     expect{dsc_xwefsubscription[:dsc_maxlatencytime] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -295,64 +245,12 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_maxlatencytime] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_maxlatencytime' do
-    dsc_xwefsubscription[:dsc_maxlatencytime] = 64
-    expect(dsc_xwefsubscription[:dsc_maxlatencytime]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maxlatencytime' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xwefsubscription[:dsc_maxlatencytime] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maxlatencytime' do
-    dsc_xwefsubscription[:dsc_maxlatencytime] = '16'
-    expect(dsc_xwefsubscription[:dsc_maxlatencytime]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maxlatencytime' do
-    dsc_xwefsubscription[:dsc_maxlatencytime] = '32'
-    expect(dsc_xwefsubscription[:dsc_maxlatencytime]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maxlatencytime' do
-    dsc_xwefsubscription[:dsc_maxlatencytime] = '64'
-    expect(dsc_xwefsubscription[:dsc_maxlatencytime]).to eq(64)
-  end
-
   it 'should not accept array for dsc_heartbeatinterval' do
     expect{dsc_xwefsubscription[:dsc_heartbeatinterval] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_heartbeatinterval' do
     expect{dsc_xwefsubscription[:dsc_heartbeatinterval] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_heartbeatinterval' do
-    dsc_xwefsubscription[:dsc_heartbeatinterval] = 64
-    expect(dsc_xwefsubscription[:dsc_heartbeatinterval]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_heartbeatinterval' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xwefsubscription[:dsc_heartbeatinterval] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_heartbeatinterval' do
-    dsc_xwefsubscription[:dsc_heartbeatinterval] = '16'
-    expect(dsc_xwefsubscription[:dsc_heartbeatinterval]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_heartbeatinterval' do
-    dsc_xwefsubscription[:dsc_heartbeatinterval] = '32'
-    expect(dsc_xwefsubscription[:dsc_heartbeatinterval]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_heartbeatinterval' do
-    dsc_xwefsubscription[:dsc_heartbeatinterval] = '64'
-    expect(dsc_xwefsubscription[:dsc_heartbeatinterval]).to eq(64)
   end
 
   it 'should accept dsc_readexistingevents predefined value true' do
@@ -391,10 +289,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_readexistingevents] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_readexistingevents' do
-    expect{dsc_xwefsubscription[:dsc_readexistingevents] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_transportname predefined value HTTP' do
     dsc_xwefsubscription[:dsc_transportname] = 'HTTP'
     expect(dsc_xwefsubscription[:dsc_transportname]).to eq('HTTP')
@@ -431,10 +325,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_transportname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_transportname' do
-    expect{dsc_xwefsubscription[:dsc_transportname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_transportport' do
     expect{dsc_xwefsubscription[:dsc_transportport] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -445,10 +335,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
 
   it 'should not accept int for dsc_transportport' do
     expect{dsc_xwefsubscription[:dsc_transportport] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_transportport' do
-    expect{dsc_xwefsubscription[:dsc_transportport] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_contentformat' do
@@ -463,10 +349,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_contentformat] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_contentformat' do
-    expect{dsc_xwefsubscription[:dsc_contentformat] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_locale' do
     expect{dsc_xwefsubscription[:dsc_locale] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -479,10 +361,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_locale] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_locale' do
-    expect{dsc_xwefsubscription[:dsc_locale] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_logfile' do
     expect{dsc_xwefsubscription[:dsc_logfile] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -493,10 +371,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
 
   it 'should not accept int for dsc_logfile' do
     expect{dsc_xwefsubscription[:dsc_logfile] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_logfile' do
-    expect{dsc_xwefsubscription[:dsc_logfile] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_credentialstype predefined value Default' do
@@ -555,10 +429,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_credentialstype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credentialstype' do
-    expect{dsc_xwefsubscription[:dsc_credentialstype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_allowedsourcenondomaincomputers' do
     dsc_xwefsubscription[:dsc_allowedsourcenondomaincomputers] = ["foo", "bar", "spec"]
     expect(dsc_xwefsubscription[:dsc_allowedsourcenondomaincomputers]).to eq(["foo", "bar", "spec"])
@@ -572,10 +442,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_allowedsourcenondomaincomputers] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowedsourcenondomaincomputers' do
-    expect{dsc_xwefsubscription[:dsc_allowedsourcenondomaincomputers] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_allowedsourcedomaincomputers' do
     expect{dsc_xwefsubscription[:dsc_allowedsourcedomaincomputers] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -586,10 +452,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
 
   it 'should not accept int for dsc_allowedsourcedomaincomputers' do
     expect{dsc_xwefsubscription[:dsc_allowedsourcedomaincomputers] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_allowedsourcedomaincomputers' do
-    expect{dsc_xwefsubscription[:dsc_allowedsourcedomaincomputers] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_query' do
@@ -605,10 +467,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
     expect{dsc_xwefsubscription[:dsc_query] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_query' do
-    expect{dsc_xwefsubscription[:dsc_query] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_address' do
     dsc_xwefsubscription[:dsc_address] = ["foo", "bar", "spec"]
     expect(dsc_xwefsubscription[:dsc_address]).to eq(["foo", "bar", "spec"])
@@ -620,10 +478,6 @@ describe Puppet::Type.type(:dsc_xwefsubscription) do
 
   it 'should not accept int for dsc_address' do
     expect{dsc_xwefsubscription[:dsc_address] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_address' do
-    expect{dsc_xwefsubscription[:dsc_address] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

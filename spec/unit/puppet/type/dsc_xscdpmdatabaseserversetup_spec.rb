@@ -74,10 +74,6 @@ describe Puppet::Type.type(:dsc_xscdpmdatabaseserversetup) do
     expect{dsc_xscdpmdatabaseserversetup[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xscdpmdatabaseserversetup[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_sourcepath is specified' do
     #dsc_xscdpmdatabaseserversetup[:dsc_sourcepath]
     expect { Puppet::Type.type(:dsc_xscdpmdatabaseserversetup).new(
@@ -97,10 +93,6 @@ describe Puppet::Type.type(:dsc_xscdpmdatabaseserversetup) do
     expect{dsc_xscdpmdatabaseserversetup[:dsc_sourcepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcepath' do
-    expect{dsc_xscdpmdatabaseserversetup[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcefolder' do
     expect{dsc_xscdpmdatabaseserversetup[:dsc_sourcefolder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -111,10 +103,6 @@ describe Puppet::Type.type(:dsc_xscdpmdatabaseserversetup) do
 
   it 'should not accept int for dsc_sourcefolder' do
     expect{dsc_xscdpmdatabaseserversetup[:dsc_sourcefolder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sourcefolder' do
-    expect{dsc_xscdpmdatabaseserversetup[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_setupcredential" do
@@ -131,10 +119,6 @@ describe Puppet::Type.type(:dsc_xscdpmdatabaseserversetup) do
 
   it 'should not accept int for dsc_setupcredential' do
     expect{dsc_xscdpmdatabaseserversetup[:dsc_setupcredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_setupcredential' do
-    expect{dsc_xscdpmdatabaseserversetup[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -36,10 +36,6 @@ describe Puppet::Type.type(:dsc_xdefaultgatewayaddress) do
     expect{dsc_xdefaultgatewayaddress[:dsc_address] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_address' do
-    expect{dsc_xdefaultgatewayaddress[:dsc_address] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_interfacealias is specified' do
     #dsc_xdefaultgatewayaddress[:dsc_interfacealias]
     expect { Puppet::Type.type(:dsc_xdefaultgatewayaddress).new(
@@ -58,10 +54,6 @@ describe Puppet::Type.type(:dsc_xdefaultgatewayaddress) do
 
   it 'should not accept int for dsc_interfacealias' do
     expect{dsc_xdefaultgatewayaddress[:dsc_interfacealias] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_interfacealias' do
-    expect{dsc_xdefaultgatewayaddress[:dsc_interfacealias] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_addressfamily is specified' do
@@ -106,10 +98,6 @@ describe Puppet::Type.type(:dsc_xdefaultgatewayaddress) do
 
   it 'should not accept int for dsc_addressfamily' do
     expect{dsc_xdefaultgatewayaddress[:dsc_addressfamily] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_addressfamily' do
-    expect{dsc_xdefaultgatewayaddress[:dsc_addressfamily] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

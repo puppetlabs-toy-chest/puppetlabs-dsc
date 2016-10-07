@@ -75,10 +75,6 @@ describe Puppet::Type.type(:dsc_xsqlservermaxdop) do
     expect{dsc_xsqlservermaxdop[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xsqlservermaxdop[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_dynamicalloc is specified' do
     #dsc_xsqlservermaxdop[:dsc_dynamicalloc]
     expect { Puppet::Type.type(:dsc_xsqlservermaxdop).new(
@@ -124,10 +120,6 @@ describe Puppet::Type.type(:dsc_xsqlservermaxdop) do
     expect{dsc_xsqlservermaxdop[:dsc_dynamicalloc] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dynamicalloc' do
-    expect{dsc_xsqlservermaxdop[:dsc_dynamicalloc] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maxdop' do
     expect{dsc_xsqlservermaxdop[:dsc_maxdop] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -135,32 +127,6 @@ describe Puppet::Type.type(:dsc_xsqlservermaxdop) do
   it 'should not accept boolean for dsc_maxdop' do
     expect{dsc_xsqlservermaxdop[:dsc_maxdop] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_maxdop' do
-    dsc_xsqlservermaxdop[:dsc_maxdop] = -32
-    expect(dsc_xsqlservermaxdop[:dsc_maxdop]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_maxdop' do
-    dsc_xsqlservermaxdop[:dsc_maxdop] = '16'
-    expect(dsc_xsqlservermaxdop[:dsc_maxdop]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_maxdop' do
-    dsc_xsqlservermaxdop[:dsc_maxdop] = '-16'
-    expect(dsc_xsqlservermaxdop[:dsc_maxdop]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_maxdop' do
-    dsc_xsqlservermaxdop[:dsc_maxdop] = '32'
-    expect(dsc_xsqlservermaxdop[:dsc_maxdop]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_maxdop' do
-    dsc_xsqlservermaxdop[:dsc_maxdop] = '-32'
-    expect(dsc_xsqlservermaxdop[:dsc_maxdop]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_sqlserver' do
     expect{dsc_xsqlservermaxdop[:dsc_sqlserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -174,10 +140,6 @@ describe Puppet::Type.type(:dsc_xsqlservermaxdop) do
     expect{dsc_xsqlservermaxdop[:dsc_sqlserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlserver' do
-    expect{dsc_xsqlservermaxdop[:dsc_sqlserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlinstancename' do
     expect{dsc_xsqlservermaxdop[:dsc_sqlinstancename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -188,10 +150,6 @@ describe Puppet::Type.type(:dsc_xsqlservermaxdop) do
 
   it 'should not accept int for dsc_sqlinstancename' do
     expect{dsc_xsqlservermaxdop[:dsc_sqlinstancename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlinstancename' do
-    expect{dsc_xsqlservermaxdop[:dsc_sqlinstancename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

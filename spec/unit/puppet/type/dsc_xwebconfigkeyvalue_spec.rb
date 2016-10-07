@@ -53,10 +53,6 @@ describe Puppet::Type.type(:dsc_xwebconfigkeyvalue) do
     expect{dsc_xwebconfigkeyvalue[:dsc_websitepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_websitepath' do
-    expect{dsc_xwebconfigkeyvalue[:dsc_websitepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_configsection is specified' do
     #dsc_xwebconfigkeyvalue[:dsc_configsection]
     expect { Puppet::Type.type(:dsc_xwebconfigkeyvalue).new(
@@ -90,10 +86,6 @@ describe Puppet::Type.type(:dsc_xwebconfigkeyvalue) do
 
   it 'should not accept int for dsc_configsection' do
     expect{dsc_xwebconfigkeyvalue[:dsc_configsection] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_configsection' do
-    expect{dsc_xwebconfigkeyvalue[:dsc_configsection] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -142,10 +134,6 @@ describe Puppet::Type.type(:dsc_xwebconfigkeyvalue) do
     expect{dsc_xwebconfigkeyvalue[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xwebconfigkeyvalue[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_key is specified' do
     #dsc_xwebconfigkeyvalue[:dsc_key]
     expect { Puppet::Type.type(:dsc_xwebconfigkeyvalue).new(
@@ -167,10 +155,6 @@ describe Puppet::Type.type(:dsc_xwebconfigkeyvalue) do
     expect{dsc_xwebconfigkeyvalue[:dsc_key] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_key' do
-    expect{dsc_xwebconfigkeyvalue[:dsc_key] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_value' do
     expect{dsc_xwebconfigkeyvalue[:dsc_value] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -181,10 +165,6 @@ describe Puppet::Type.type(:dsc_xwebconfigkeyvalue) do
 
   it 'should not accept int for dsc_value' do
     expect{dsc_xwebconfigkeyvalue[:dsc_value] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_value' do
-    expect{dsc_xwebconfigkeyvalue[:dsc_value] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_isattribute' do
@@ -223,10 +203,6 @@ describe Puppet::Type.type(:dsc_xwebconfigkeyvalue) do
 
   it 'should not accept int for dsc_isattribute' do
     expect{dsc_xwebconfigkeyvalue[:dsc_isattribute] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_isattribute' do
-    expect{dsc_xwebconfigkeyvalue[:dsc_isattribute] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

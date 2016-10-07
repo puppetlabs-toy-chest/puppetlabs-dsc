@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_spsearchtopology) do
     expect{dsc_spsearchtopology[:dsc_serviceappname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_serviceappname' do
-    expect{dsc_spsearchtopology[:dsc_serviceappname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_admin' do
     dsc_spsearchtopology[:dsc_admin] = ["foo", "bar", "spec"]
     expect(dsc_spsearchtopology[:dsc_admin]).to eq(["foo", "bar", "spec"])
@@ -63,10 +59,6 @@ describe Puppet::Type.type(:dsc_spsearchtopology) do
 
   it 'should not accept int for dsc_admin' do
     expect{dsc_spsearchtopology[:dsc_admin] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_admin' do
-    expect{dsc_spsearchtopology[:dsc_admin] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_crawler' do
@@ -82,10 +74,6 @@ describe Puppet::Type.type(:dsc_spsearchtopology) do
     expect{dsc_spsearchtopology[:dsc_crawler] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_crawler' do
-    expect{dsc_spsearchtopology[:dsc_crawler] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_contentprocessing' do
     dsc_spsearchtopology[:dsc_contentprocessing] = ["foo", "bar", "spec"]
     expect(dsc_spsearchtopology[:dsc_contentprocessing]).to eq(["foo", "bar", "spec"])
@@ -97,10 +85,6 @@ describe Puppet::Type.type(:dsc_spsearchtopology) do
 
   it 'should not accept int for dsc_contentprocessing' do
     expect{dsc_spsearchtopology[:dsc_contentprocessing] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_contentprocessing' do
-    expect{dsc_spsearchtopology[:dsc_contentprocessing] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_analyticsprocessing' do
@@ -116,10 +100,6 @@ describe Puppet::Type.type(:dsc_spsearchtopology) do
     expect{dsc_spsearchtopology[:dsc_analyticsprocessing] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_analyticsprocessing' do
-    expect{dsc_spsearchtopology[:dsc_analyticsprocessing] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_queryprocessing' do
     dsc_spsearchtopology[:dsc_queryprocessing] = ["foo", "bar", "spec"]
     expect(dsc_spsearchtopology[:dsc_queryprocessing]).to eq(["foo", "bar", "spec"])
@@ -131,10 +111,6 @@ describe Puppet::Type.type(:dsc_spsearchtopology) do
 
   it 'should not accept int for dsc_queryprocessing' do
     expect{dsc_spsearchtopology[:dsc_queryprocessing] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_queryprocessing' do
-    expect{dsc_spsearchtopology[:dsc_queryprocessing] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_indexpartition' do
@@ -150,10 +126,6 @@ describe Puppet::Type.type(:dsc_spsearchtopology) do
     expect{dsc_spsearchtopology[:dsc_indexpartition] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_indexpartition' do
-    expect{dsc_spsearchtopology[:dsc_indexpartition] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_firstpartitiondirectory' do
     expect{dsc_spsearchtopology[:dsc_firstpartitiondirectory] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -164,10 +136,6 @@ describe Puppet::Type.type(:dsc_spsearchtopology) do
 
   it 'should not accept int for dsc_firstpartitiondirectory' do
     expect{dsc_spsearchtopology[:dsc_firstpartitiondirectory] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_firstpartitiondirectory' do
-    expect{dsc_spsearchtopology[:dsc_firstpartitiondirectory] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -184,10 +152,6 @@ describe Puppet::Type.type(:dsc_spsearchtopology) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spsearchtopology[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spsearchtopology[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

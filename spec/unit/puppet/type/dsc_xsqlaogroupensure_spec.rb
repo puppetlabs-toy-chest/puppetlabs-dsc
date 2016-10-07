@@ -90,10 +90,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupensure) do
     expect{dsc_xsqlaogroupensure[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xsqlaogroupensure[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_availabilitygroupname is specified' do
     #dsc_xsqlaogroupensure[:dsc_availabilitygroupname]
     expect { Puppet::Type.type(:dsc_xsqlaogroupensure).new(
@@ -114,10 +110,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupensure) do
     expect{dsc_xsqlaogroupensure[:dsc_availabilitygroupname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_availabilitygroupname' do
-    expect{dsc_xsqlaogroupensure[:dsc_availabilitygroupname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_availabilitygroupnamelistener' do
     expect{dsc_xsqlaogroupensure[:dsc_availabilitygroupnamelistener] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -128,10 +120,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupensure) do
 
   it 'should not accept int for dsc_availabilitygroupnamelistener' do
     expect{dsc_xsqlaogroupensure[:dsc_availabilitygroupnamelistener] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_availabilitygroupnamelistener' do
-    expect{dsc_xsqlaogroupensure[:dsc_availabilitygroupnamelistener] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_availabilitygroupnameip' do
@@ -147,10 +135,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupensure) do
     expect{dsc_xsqlaogroupensure[:dsc_availabilitygroupnameip] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_availabilitygroupnameip' do
-    expect{dsc_xsqlaogroupensure[:dsc_availabilitygroupnameip] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_availabilitygroupsubmask' do
     dsc_xsqlaogroupensure[:dsc_availabilitygroupsubmask] = ["foo", "bar", "spec"]
     expect(dsc_xsqlaogroupensure[:dsc_availabilitygroupsubmask]).to eq(["foo", "bar", "spec"])
@@ -164,42 +148,12 @@ describe Puppet::Type.type(:dsc_xsqlaogroupensure) do
     expect{dsc_xsqlaogroupensure[:dsc_availabilitygroupsubmask] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_availabilitygroupsubmask' do
-    expect{dsc_xsqlaogroupensure[:dsc_availabilitygroupsubmask] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_availabilitygroupport' do
     expect{dsc_xsqlaogroupensure[:dsc_availabilitygroupport] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_availabilitygroupport' do
     expect{dsc_xsqlaogroupensure[:dsc_availabilitygroupport] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_availabilitygroupport' do
-    dsc_xsqlaogroupensure[:dsc_availabilitygroupport] = 32
-    expect(dsc_xsqlaogroupensure[:dsc_availabilitygroupport]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_availabilitygroupport' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xsqlaogroupensure[:dsc_availabilitygroupport] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_availabilitygroupport' do
-    dsc_xsqlaogroupensure[:dsc_availabilitygroupport] = '16'
-    expect(dsc_xsqlaogroupensure[:dsc_availabilitygroupport]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_availabilitygroupport' do
-    dsc_xsqlaogroupensure[:dsc_availabilitygroupport] = '32'
-    expect(dsc_xsqlaogroupensure[:dsc_availabilitygroupport]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_availabilitygroupport' do
-    dsc_xsqlaogroupensure[:dsc_availabilitygroupport] = '64'
-    expect(dsc_xsqlaogroupensure[:dsc_availabilitygroupport]).to eq(64)
   end
 
   it 'should accept dsc_readablesecondary predefined value None' do
@@ -248,10 +202,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupensure) do
     expect{dsc_xsqlaogroupensure[:dsc_readablesecondary] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_readablesecondary' do
-    expect{dsc_xsqlaogroupensure[:dsc_readablesecondary] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_autobackupprefernce predefined value Primary' do
     dsc_xsqlaogroupensure[:dsc_autobackupprefernce] = 'Primary'
     expect(dsc_xsqlaogroupensure[:dsc_autobackupprefernce]).to eq('Primary')
@@ -288,10 +238,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupensure) do
     expect{dsc_xsqlaogroupensure[:dsc_autobackupprefernce] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_autobackupprefernce' do
-    expect{dsc_xsqlaogroupensure[:dsc_autobackupprefernce] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlserver' do
     expect{dsc_xsqlaogroupensure[:dsc_sqlserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -304,10 +250,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupensure) do
     expect{dsc_xsqlaogroupensure[:dsc_sqlserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlserver' do
-    expect{dsc_xsqlaogroupensure[:dsc_sqlserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlinstancename' do
     expect{dsc_xsqlaogroupensure[:dsc_sqlinstancename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -318,10 +260,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupensure) do
 
   it 'should not accept int for dsc_sqlinstancename' do
     expect{dsc_xsqlaogroupensure[:dsc_sqlinstancename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlinstancename' do
-    expect{dsc_xsqlaogroupensure[:dsc_sqlinstancename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_setupcredential" do
@@ -338,10 +276,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupensure) do
 
   it 'should not accept int for dsc_setupcredential' do
     expect{dsc_xsqlaogroupensure[:dsc_setupcredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_setupcredential' do
-    expect{dsc_xsqlaogroupensure[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

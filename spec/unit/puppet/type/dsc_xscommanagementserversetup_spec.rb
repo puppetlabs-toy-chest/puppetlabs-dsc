@@ -104,10 +104,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xscommanagementserversetup[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcepath' do
     expect{dsc_xscommanagementserversetup[:dsc_sourcepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -120,10 +116,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_sourcepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcepath' do
-    expect{dsc_xscommanagementserversetup[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcefolder' do
     expect{dsc_xscommanagementserversetup[:dsc_sourcefolder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -134,10 +126,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
 
   it 'should not accept int for dsc_sourcefolder' do
     expect{dsc_xscommanagementserversetup[:dsc_sourcefolder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sourcefolder' do
-    expect{dsc_xscommanagementserversetup[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_setupcredential" do
@@ -156,10 +144,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_setupcredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_setupcredential' do
-    expect{dsc_xscommanagementserversetup[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_productkey' do
     expect{dsc_xscommanagementserversetup[:dsc_productkey] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -170,10 +154,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
 
   it 'should not accept int for dsc_productkey' do
     expect{dsc_xscommanagementserversetup[:dsc_productkey] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_productkey' do
-    expect{dsc_xscommanagementserversetup[:dsc_productkey] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_installpath' do
@@ -188,10 +168,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_installpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_installpath' do
-    expect{dsc_xscommanagementserversetup[:dsc_installpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_managementgroupname' do
     expect{dsc_xscommanagementserversetup[:dsc_managementgroupname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -202,10 +178,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
 
   it 'should not accept int for dsc_managementgroupname' do
     expect{dsc_xscommanagementserversetup[:dsc_managementgroupname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_managementgroupname' do
-    expect{dsc_xscommanagementserversetup[:dsc_managementgroupname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_firstmanagementserver' do
@@ -246,42 +218,12 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_firstmanagementserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_firstmanagementserver' do
-    expect{dsc_xscommanagementserversetup[:dsc_firstmanagementserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_managementserviceport' do
     expect{dsc_xscommanagementserversetup[:dsc_managementserviceport] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_managementserviceport' do
     expect{dsc_xscommanagementserversetup[:dsc_managementserviceport] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_managementserviceport' do
-    dsc_xscommanagementserversetup[:dsc_managementserviceport] = 16
-    expect(dsc_xscommanagementserversetup[:dsc_managementserviceport]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_managementserviceport' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscommanagementserversetup[:dsc_managementserviceport] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_managementserviceport' do
-    dsc_xscommanagementserversetup[:dsc_managementserviceport] = '16'
-    expect(dsc_xscommanagementserversetup[:dsc_managementserviceport]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_managementserviceport' do
-    dsc_xscommanagementserversetup[:dsc_managementserviceport] = '32'
-    expect(dsc_xscommanagementserversetup[:dsc_managementserviceport]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_managementserviceport' do
-    dsc_xscommanagementserversetup[:dsc_managementserviceport] = '64'
-    expect(dsc_xscommanagementserversetup[:dsc_managementserviceport]).to eq(64)
   end
 
   it "should not accept empty password for dsc_actionaccount" do
@@ -300,10 +242,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_actionaccount] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_actionaccount' do
-    expect{dsc_xscommanagementserversetup[:dsc_actionaccount] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_actionaccountusername' do
     expect{dsc_xscommanagementserversetup[:dsc_actionaccountusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -314,10 +252,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
 
   it 'should not accept int for dsc_actionaccountusername' do
     expect{dsc_xscommanagementserversetup[:dsc_actionaccountusername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_actionaccountusername' do
-    expect{dsc_xscommanagementserversetup[:dsc_actionaccountusername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_dasaccount" do
@@ -336,10 +270,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_dasaccount] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dasaccount' do
-    expect{dsc_xscommanagementserversetup[:dsc_dasaccount] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_dasaccountusername' do
     expect{dsc_xscommanagementserversetup[:dsc_dasaccountusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -350,10 +280,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
 
   it 'should not accept int for dsc_dasaccountusername' do
     expect{dsc_xscommanagementserversetup[:dsc_dasaccountusername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_dasaccountusername' do
-    expect{dsc_xscommanagementserversetup[:dsc_dasaccountusername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_datareader" do
@@ -372,10 +298,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_datareader] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_datareader' do
-    expect{dsc_xscommanagementserversetup[:dsc_datareader] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_datareaderusername' do
     expect{dsc_xscommanagementserversetup[:dsc_datareaderusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -386,10 +308,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
 
   it 'should not accept int for dsc_datareaderusername' do
     expect{dsc_xscommanagementserversetup[:dsc_datareaderusername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_datareaderusername' do
-    expect{dsc_xscommanagementserversetup[:dsc_datareaderusername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_datawriter" do
@@ -408,10 +326,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_datawriter] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_datawriter' do
-    expect{dsc_xscommanagementserversetup[:dsc_datawriter] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_datawriterusername' do
     expect{dsc_xscommanagementserversetup[:dsc_datawriterusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -422,10 +336,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
 
   it 'should not accept int for dsc_datawriterusername' do
     expect{dsc_xscommanagementserversetup[:dsc_datawriterusername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_datawriterusername' do
-    expect{dsc_xscommanagementserversetup[:dsc_datawriterusername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sqlserverinstance' do
@@ -440,10 +350,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_sqlserverinstance] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlserverinstance' do
-    expect{dsc_xscommanagementserversetup[:dsc_sqlserverinstance] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databasename' do
     expect{dsc_xscommanagementserversetup[:dsc_databasename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -456,42 +362,12 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_databasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databasename' do
-    expect{dsc_xscommanagementserversetup[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databasesize' do
     expect{dsc_xscommanagementserversetup[:dsc_databasesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_databasesize' do
     expect{dsc_xscommanagementserversetup[:dsc_databasesize] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_databasesize' do
-    dsc_xscommanagementserversetup[:dsc_databasesize] = 16
-    expect(dsc_xscommanagementserversetup[:dsc_databasesize]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_databasesize' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscommanagementserversetup[:dsc_databasesize] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_databasesize' do
-    dsc_xscommanagementserversetup[:dsc_databasesize] = '16'
-    expect(dsc_xscommanagementserversetup[:dsc_databasesize]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_databasesize' do
-    dsc_xscommanagementserversetup[:dsc_databasesize] = '32'
-    expect(dsc_xscommanagementserversetup[:dsc_databasesize]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_databasesize' do
-    dsc_xscommanagementserversetup[:dsc_databasesize] = '64'
-    expect(dsc_xscommanagementserversetup[:dsc_databasesize]).to eq(64)
   end
 
   it 'should not accept array for dsc_dwsqlserverinstance' do
@@ -506,10 +382,6 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_dwsqlserverinstance] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dwsqlserverinstance' do
-    expect{dsc_xscommanagementserversetup[:dsc_dwsqlserverinstance] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_dwdatabasename' do
     expect{dsc_xscommanagementserversetup[:dsc_dwdatabasename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -522,42 +394,12 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_dwdatabasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dwdatabasename' do
-    expect{dsc_xscommanagementserversetup[:dsc_dwdatabasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_dwdatabasesize' do
     expect{dsc_xscommanagementserversetup[:dsc_dwdatabasesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_dwdatabasesize' do
     expect{dsc_xscommanagementserversetup[:dsc_dwdatabasesize] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_dwdatabasesize' do
-    dsc_xscommanagementserversetup[:dsc_dwdatabasesize] = 16
-    expect(dsc_xscommanagementserversetup[:dsc_dwdatabasesize]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_dwdatabasesize' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscommanagementserversetup[:dsc_dwdatabasesize] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_dwdatabasesize' do
-    dsc_xscommanagementserversetup[:dsc_dwdatabasesize] = '16'
-    expect(dsc_xscommanagementserversetup[:dsc_dwdatabasesize]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_dwdatabasesize' do
-    dsc_xscommanagementserversetup[:dsc_dwdatabasesize] = '32'
-    expect(dsc_xscommanagementserversetup[:dsc_dwdatabasesize]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_dwdatabasesize' do
-    dsc_xscommanagementserversetup[:dsc_dwdatabasesize] = '64'
-    expect(dsc_xscommanagementserversetup[:dsc_dwdatabasesize]).to eq(64)
   end
 
   it 'should not accept array for dsc_usemicrosoftupdate' do
@@ -568,64 +410,12 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_usemicrosoftupdate' do
-    dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate] = 1
-    expect(dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate]).to eq(1)
-  end
-
-  it 'should not accept signed (negative) value for dsc_usemicrosoftupdate' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_usemicrosoftupdate' do
-    dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate] = '16'
-    expect(dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_usemicrosoftupdate' do
-    dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate] = '32'
-    expect(dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_usemicrosoftupdate' do
-    dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate] = '64'
-    expect(dsc_xscommanagementserversetup[:dsc_usemicrosoftupdate]).to eq(64)
-  end
-
   it 'should not accept array for dsc_sendceipreports' do
     expect{dsc_xscommanagementserversetup[:dsc_sendceipreports] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_sendceipreports' do
     expect{dsc_xscommanagementserversetup[:dsc_sendceipreports] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_sendceipreports' do
-    dsc_xscommanagementserversetup[:dsc_sendceipreports] = 1
-    expect(dsc_xscommanagementserversetup[:dsc_sendceipreports]).to eq(1)
-  end
-
-  it 'should not accept signed (negative) value for dsc_sendceipreports' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscommanagementserversetup[:dsc_sendceipreports] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_sendceipreports' do
-    dsc_xscommanagementserversetup[:dsc_sendceipreports] = '16'
-    expect(dsc_xscommanagementserversetup[:dsc_sendceipreports]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_sendceipreports' do
-    dsc_xscommanagementserversetup[:dsc_sendceipreports] = '32'
-    expect(dsc_xscommanagementserversetup[:dsc_sendceipreports]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_sendceipreports' do
-    dsc_xscommanagementserversetup[:dsc_sendceipreports] = '64'
-    expect(dsc_xscommanagementserversetup[:dsc_sendceipreports]).to eq(64)
   end
 
   it 'should accept dsc_enableerrorreporting predefined value Never' do
@@ -674,42 +464,12 @@ describe Puppet::Type.type(:dsc_xscommanagementserversetup) do
     expect{dsc_xscommanagementserversetup[:dsc_enableerrorreporting] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enableerrorreporting' do
-    expect{dsc_xscommanagementserversetup[:dsc_enableerrorreporting] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sendodrreports' do
     expect{dsc_xscommanagementserversetup[:dsc_sendodrreports] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_sendodrreports' do
     expect{dsc_xscommanagementserversetup[:dsc_sendodrreports] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_sendodrreports' do
-    dsc_xscommanagementserversetup[:dsc_sendodrreports] = 1
-    expect(dsc_xscommanagementserversetup[:dsc_sendodrreports]).to eq(1)
-  end
-
-  it 'should not accept signed (negative) value for dsc_sendodrreports' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscommanagementserversetup[:dsc_sendodrreports] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_sendodrreports' do
-    dsc_xscommanagementserversetup[:dsc_sendodrreports] = '16'
-    expect(dsc_xscommanagementserversetup[:dsc_sendodrreports]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_sendodrreports' do
-    dsc_xscommanagementserversetup[:dsc_sendodrreports] = '32'
-    expect(dsc_xscommanagementserversetup[:dsc_sendodrreports]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_sendodrreports' do
-    dsc_xscommanagementserversetup[:dsc_sendodrreports] = '64'
-    expect(dsc_xscommanagementserversetup[:dsc_sendodrreports]).to eq(64)
   end
 
   # Configuration PROVIDER TESTS

@@ -45,10 +45,6 @@ describe Puppet::Type.type(:dsc_spoutgoingemailsettings) do
     expect{dsc_spoutgoingemailsettings[:dsc_webappurl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_webappurl' do
-    expect{dsc_spoutgoingemailsettings[:dsc_webappurl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_smtpserver' do
     expect{dsc_spoutgoingemailsettings[:dsc_smtpserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -59,10 +55,6 @@ describe Puppet::Type.type(:dsc_spoutgoingemailsettings) do
 
   it 'should not accept int for dsc_smtpserver' do
     expect{dsc_spoutgoingemailsettings[:dsc_smtpserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_smtpserver' do
-    expect{dsc_spoutgoingemailsettings[:dsc_smtpserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_fromaddress' do
@@ -77,10 +69,6 @@ describe Puppet::Type.type(:dsc_spoutgoingemailsettings) do
     expect{dsc_spoutgoingemailsettings[:dsc_fromaddress] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_fromaddress' do
-    expect{dsc_spoutgoingemailsettings[:dsc_fromaddress] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_replytoaddress' do
     expect{dsc_spoutgoingemailsettings[:dsc_replytoaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -93,10 +81,6 @@ describe Puppet::Type.type(:dsc_spoutgoingemailsettings) do
     expect{dsc_spoutgoingemailsettings[:dsc_replytoaddress] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_replytoaddress' do
-    expect{dsc_spoutgoingemailsettings[:dsc_replytoaddress] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_characterset' do
     expect{dsc_spoutgoingemailsettings[:dsc_characterset] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -107,10 +91,6 @@ describe Puppet::Type.type(:dsc_spoutgoingemailsettings) do
 
   it 'should not accept int for dsc_characterset' do
     expect{dsc_spoutgoingemailsettings[:dsc_characterset] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_characterset' do
-    expect{dsc_spoutgoingemailsettings[:dsc_characterset] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -127,10 +107,6 @@ describe Puppet::Type.type(:dsc_spoutgoingemailsettings) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spoutgoingemailsettings[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spoutgoingemailsettings[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

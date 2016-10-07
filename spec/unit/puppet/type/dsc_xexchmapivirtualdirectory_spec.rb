@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_xexchmapivirtualdirectory) do
     expect{dsc_xexchmapivirtualdirectory[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexchmapivirtualdirectory[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchmapivirtualdirectory[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -64,10 +60,6 @@ describe Puppet::Type.type(:dsc_xexchmapivirtualdirectory) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xexchmapivirtualdirectory[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchmapivirtualdirectory[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowservicerestart' do
@@ -108,10 +100,6 @@ describe Puppet::Type.type(:dsc_xexchmapivirtualdirectory) do
     expect{dsc_xexchmapivirtualdirectory[:dsc_allowservicerestart] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowservicerestart' do
-    expect{dsc_xexchmapivirtualdirectory[:dsc_allowservicerestart] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchmapivirtualdirectory[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -124,10 +112,6 @@ describe Puppet::Type.type(:dsc_xexchmapivirtualdirectory) do
     expect{dsc_xexchmapivirtualdirectory[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchmapivirtualdirectory[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_externalurl' do
     expect{dsc_xexchmapivirtualdirectory[:dsc_externalurl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -138,10 +122,6 @@ describe Puppet::Type.type(:dsc_xexchmapivirtualdirectory) do
 
   it 'should not accept int for dsc_externalurl' do
     expect{dsc_xexchmapivirtualdirectory[:dsc_externalurl] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_externalurl' do
-    expect{dsc_xexchmapivirtualdirectory[:dsc_externalurl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_iisauthenticationmethods' do
@@ -157,10 +137,6 @@ describe Puppet::Type.type(:dsc_xexchmapivirtualdirectory) do
     expect{dsc_xexchmapivirtualdirectory[:dsc_iisauthenticationmethods] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_iisauthenticationmethods' do
-    expect{dsc_xexchmapivirtualdirectory[:dsc_iisauthenticationmethods] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_internalurl' do
     expect{dsc_xexchmapivirtualdirectory[:dsc_internalurl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -171,10 +147,6 @@ describe Puppet::Type.type(:dsc_xexchmapivirtualdirectory) do
 
   it 'should not accept int for dsc_internalurl' do
     expect{dsc_xexchmapivirtualdirectory[:dsc_internalurl] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_internalurl' do
-    expect{dsc_xexchmapivirtualdirectory[:dsc_internalurl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

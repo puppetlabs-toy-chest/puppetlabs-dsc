@@ -68,10 +68,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_authenticationsite] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_authenticationsite' do
-    expect{dsc_xazurepackresourceprovider[:dsc_authenticationsite] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_adminuri' do
     expect{dsc_xazurepackresourceprovider[:dsc_adminuri] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -82,10 +78,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
 
   it 'should not accept int for dsc_adminuri' do
     expect{dsc_xazurepackresourceprovider[:dsc_adminuri] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_adminuri' do
-    expect{dsc_xazurepackresourceprovider[:dsc_adminuri] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_name is specified' do
@@ -107,10 +99,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xazurepackresourceprovider[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_azurepackadmincredential" do
     expect{dsc_xazurepackresourceprovider[:dsc_azurepackadmincredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -127,10 +115,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_azurepackadmincredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_azurepackadmincredential' do
-    expect{dsc_xazurepackresourceprovider[:dsc_azurepackadmincredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_displayname' do
     expect{dsc_xazurepackresourceprovider[:dsc_displayname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -141,10 +125,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
 
   it 'should not accept int for dsc_displayname' do
     expect{dsc_xazurepackresourceprovider[:dsc_displayname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_displayname' do
-    expect{dsc_xazurepackresourceprovider[:dsc_displayname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_enabled' do
@@ -185,10 +165,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_enabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enabled' do
-    expect{dsc_xazurepackresourceprovider[:dsc_enabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_passthroughenabled' do
     expect{dsc_xazurepackresourceprovider[:dsc_passthroughenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -225,10 +201,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
 
   it 'should not accept int for dsc_passthroughenabled' do
     expect{dsc_xazurepackresourceprovider[:dsc_passthroughenabled] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_passthroughenabled' do
-    expect{dsc_xazurepackresourceprovider[:dsc_passthroughenabled] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowanonymousaccess' do
@@ -269,10 +241,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowanonymousaccess' do
-    expect{dsc_xazurepackresourceprovider[:dsc_allowanonymousaccess] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_allowmultipleinstances' do
     expect{dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -311,10 +279,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowmultipleinstances' do
-    expect{dsc_xazurepackresourceprovider[:dsc_allowmultipleinstances] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_adminforwardingaddress' do
     expect{dsc_xazurepackresourceprovider[:dsc_adminforwardingaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -325,10 +289,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
 
   it 'should not accept int for dsc_adminforwardingaddress' do
     expect{dsc_xazurepackresourceprovider[:dsc_adminforwardingaddress] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_adminforwardingaddress' do
-    expect{dsc_xazurepackresourceprovider[:dsc_adminforwardingaddress] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_adminauthenticationmode predefined value None' do
@@ -377,10 +337,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_adminauthenticationmode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_adminauthenticationmode' do
-    expect{dsc_xazurepackresourceprovider[:dsc_adminauthenticationmode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_adminauthenticationuser" do
     expect{dsc_xazurepackresourceprovider[:dsc_adminauthenticationuser] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -397,10 +353,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_adminauthenticationuser] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_adminauthenticationuser' do
-    expect{dsc_xazurepackresourceprovider[:dsc_adminauthenticationuser] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_adminauthenticationusername' do
     expect{dsc_xazurepackresourceprovider[:dsc_adminauthenticationusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -413,10 +365,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_adminauthenticationusername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_adminauthenticationusername' do
-    expect{dsc_xazurepackresourceprovider[:dsc_adminauthenticationusername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_tenantforwardingaddress' do
     expect{dsc_xazurepackresourceprovider[:dsc_tenantforwardingaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -427,10 +375,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
 
   it 'should not accept int for dsc_tenantforwardingaddress' do
     expect{dsc_xazurepackresourceprovider[:dsc_tenantforwardingaddress] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_tenantforwardingaddress' do
-    expect{dsc_xazurepackresourceprovider[:dsc_tenantforwardingaddress] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_tenantauthenticationmode predefined value None' do
@@ -479,10 +423,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_tenantauthenticationmode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_tenantauthenticationmode' do
-    expect{dsc_xazurepackresourceprovider[:dsc_tenantauthenticationmode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_tenantauthenticationuser" do
     expect{dsc_xazurepackresourceprovider[:dsc_tenantauthenticationuser] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -499,10 +439,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_tenantauthenticationuser] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_tenantauthenticationuser' do
-    expect{dsc_xazurepackresourceprovider[:dsc_tenantauthenticationuser] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_tenantauthenticationusername' do
     expect{dsc_xazurepackresourceprovider[:dsc_tenantauthenticationusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -513,10 +449,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
 
   it 'should not accept int for dsc_tenantauthenticationusername' do
     expect{dsc_xazurepackresourceprovider[:dsc_tenantauthenticationusername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_tenantauthenticationusername' do
-    expect{dsc_xazurepackresourceprovider[:dsc_tenantauthenticationusername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_tenantsourceuritemplate' do
@@ -531,10 +463,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_tenantsourceuritemplate] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_tenantsourceuritemplate' do
-    expect{dsc_xazurepackresourceprovider[:dsc_tenantsourceuritemplate] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_tenanttargeturitemplate' do
     expect{dsc_xazurepackresourceprovider[:dsc_tenanttargeturitemplate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -547,10 +475,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_tenanttargeturitemplate] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_tenanttargeturitemplate' do
-    expect{dsc_xazurepackresourceprovider[:dsc_tenanttargeturitemplate] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_usageforwardingaddress' do
     expect{dsc_xazurepackresourceprovider[:dsc_usageforwardingaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -561,10 +485,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
 
   it 'should not accept int for dsc_usageforwardingaddress' do
     expect{dsc_xazurepackresourceprovider[:dsc_usageforwardingaddress] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_usageforwardingaddress' do
-    expect{dsc_xazurepackresourceprovider[:dsc_usageforwardingaddress] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_usageauthenticationmode predefined value None' do
@@ -613,10 +533,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_usageauthenticationmode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_usageauthenticationmode' do
-    expect{dsc_xazurepackresourceprovider[:dsc_usageauthenticationmode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_usageauthenticationuser" do
     expect{dsc_xazurepackresourceprovider[:dsc_usageauthenticationuser] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -633,10 +549,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_usageauthenticationuser] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_usageauthenticationuser' do
-    expect{dsc_xazurepackresourceprovider[:dsc_usageauthenticationuser] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_usageauthenticationusername' do
     expect{dsc_xazurepackresourceprovider[:dsc_usageauthenticationusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -649,10 +561,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_usageauthenticationusername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_usageauthenticationusername' do
-    expect{dsc_xazurepackresourceprovider[:dsc_usageauthenticationusername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_healthcheckforwardingaddress' do
     expect{dsc_xazurepackresourceprovider[:dsc_healthcheckforwardingaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -663,10 +571,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
 
   it 'should not accept int for dsc_healthcheckforwardingaddress' do
     expect{dsc_xazurepackresourceprovider[:dsc_healthcheckforwardingaddress] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_healthcheckforwardingaddress' do
-    expect{dsc_xazurepackresourceprovider[:dsc_healthcheckforwardingaddress] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_healthcheckauthenticationmode predefined value None' do
@@ -715,10 +619,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_healthcheckauthenticationmode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_healthcheckauthenticationmode' do
-    expect{dsc_xazurepackresourceprovider[:dsc_healthcheckauthenticationmode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_healthcheckauthenticationuser" do
     expect{dsc_xazurepackresourceprovider[:dsc_healthcheckauthenticationuser] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -735,10 +635,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_healthcheckauthenticationuser] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_healthcheckauthenticationuser' do
-    expect{dsc_xazurepackresourceprovider[:dsc_healthcheckauthenticationuser] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_healthcheckauthenticationusername' do
     expect{dsc_xazurepackresourceprovider[:dsc_healthcheckauthenticationusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -751,10 +647,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_healthcheckauthenticationusername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_healthcheckauthenticationusername' do
-    expect{dsc_xazurepackresourceprovider[:dsc_healthcheckauthenticationusername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_notificationforwardingaddress' do
     expect{dsc_xazurepackresourceprovider[:dsc_notificationforwardingaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -765,10 +657,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
 
   it 'should not accept int for dsc_notificationforwardingaddress' do
     expect{dsc_xazurepackresourceprovider[:dsc_notificationforwardingaddress] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_notificationforwardingaddress' do
-    expect{dsc_xazurepackresourceprovider[:dsc_notificationforwardingaddress] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_notificationauthenticationmode predefined value None' do
@@ -817,10 +705,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_notificationauthenticationmode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_notificationauthenticationmode' do
-    expect{dsc_xazurepackresourceprovider[:dsc_notificationauthenticationmode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_notificationauthenticationuser" do
     expect{dsc_xazurepackresourceprovider[:dsc_notificationauthenticationuser] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -837,10 +721,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_notificationauthenticationuser] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_notificationauthenticationuser' do
-    expect{dsc_xazurepackresourceprovider[:dsc_notificationauthenticationuser] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_notificationauthenticationusername' do
     expect{dsc_xazurepackresourceprovider[:dsc_notificationauthenticationusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -851,10 +731,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
 
   it 'should not accept int for dsc_notificationauthenticationusername' do
     expect{dsc_xazurepackresourceprovider[:dsc_notificationauthenticationusername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_notificationauthenticationusername' do
-    expect{dsc_xazurepackresourceprovider[:dsc_notificationauthenticationusername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_instanceid' do
@@ -869,10 +745,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_instanceid] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_instanceid' do
-    expect{dsc_xazurepackresourceprovider[:dsc_instanceid] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_instancedisplayname' do
     expect{dsc_xazurepackresourceprovider[:dsc_instancedisplayname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -883,10 +755,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
 
   it 'should not accept int for dsc_instancedisplayname' do
     expect{dsc_xazurepackresourceprovider[:dsc_instancedisplayname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_instancedisplayname' do
-    expect{dsc_xazurepackresourceprovider[:dsc_instancedisplayname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_maxquotaupdatebatchsize' do
@@ -901,10 +769,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
     expect{dsc_xazurepackresourceprovider[:dsc_maxquotaupdatebatchsize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_maxquotaupdatebatchsize' do
-    expect{dsc_xazurepackresourceprovider[:dsc_maxquotaupdatebatchsize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_subscriptionstatuspollinginterval' do
     expect{dsc_xazurepackresourceprovider[:dsc_subscriptionstatuspollinginterval] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -915,10 +779,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
 
   it 'should not accept int for dsc_subscriptionstatuspollinginterval' do
     expect{dsc_xazurepackresourceprovider[:dsc_subscriptionstatuspollinginterval] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_subscriptionstatuspollinginterval' do
-    expect{dsc_xazurepackresourceprovider[:dsc_subscriptionstatuspollinginterval] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_type predefined value Standard' do
@@ -965,10 +825,6 @@ describe Puppet::Type.type(:dsc_xazurepackresourceprovider) do
 
   it 'should not accept int for dsc_type' do
     expect{dsc_xazurepackresourceprovider[:dsc_type] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_type' do
-    expect{dsc_xazurepackresourceprovider[:dsc_type] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

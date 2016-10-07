@@ -51,10 +51,6 @@ describe Puppet::Type.type(:dsc_xaddomaindefaultpasswordpolicy) do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_domainname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_domainname' do
-    expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_domainname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_complexityenabled' do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -93,42 +89,12 @@ describe Puppet::Type.type(:dsc_xaddomaindefaultpasswordpolicy) do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_complexityenabled' do
-    expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_complexityenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_lockoutduration' do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutduration] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_lockoutduration' do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutduration] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_lockoutduration' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutduration] = 32
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutduration]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_lockoutduration' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutduration] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_lockoutduration' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutduration] = '16'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutduration]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_lockoutduration' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutduration] = '32'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutduration]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_lockoutduration' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutduration] = '64'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutduration]).to eq(64)
   end
 
   it 'should not accept array for dsc_lockoutobservationwindow' do
@@ -139,64 +105,12 @@ describe Puppet::Type.type(:dsc_xaddomaindefaultpasswordpolicy) do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutobservationwindow] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_lockoutobservationwindow' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutobservationwindow] = 32
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutobservationwindow]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_lockoutobservationwindow' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutobservationwindow] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_lockoutobservationwindow' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutobservationwindow] = '16'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutobservationwindow]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_lockoutobservationwindow' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutobservationwindow] = '32'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutobservationwindow]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_lockoutobservationwindow' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutobservationwindow] = '64'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutobservationwindow]).to eq(64)
-  end
-
   it 'should not accept array for dsc_lockoutthreshold' do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutthreshold] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_lockoutthreshold' do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutthreshold] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_lockoutthreshold' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutthreshold] = 32
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutthreshold]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_lockoutthreshold' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutthreshold] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_lockoutthreshold' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutthreshold] = '16'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutthreshold]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_lockoutthreshold' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutthreshold] = '32'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutthreshold]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_lockoutthreshold' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutthreshold] = '64'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_lockoutthreshold]).to eq(64)
   end
 
   it 'should not accept array for dsc_minpasswordage' do
@@ -207,64 +121,12 @@ describe Puppet::Type.type(:dsc_xaddomaindefaultpasswordpolicy) do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordage] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_minpasswordage' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordage] = 32
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordage]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_minpasswordage' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordage] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_minpasswordage' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordage] = '16'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordage]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_minpasswordage' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordage] = '32'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordage]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_minpasswordage' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordage] = '64'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordage]).to eq(64)
-  end
-
   it 'should not accept array for dsc_maxpasswordage' do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_maxpasswordage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_maxpasswordage' do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_maxpasswordage] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_maxpasswordage' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_maxpasswordage] = 32
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_maxpasswordage]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maxpasswordage' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_maxpasswordage] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maxpasswordage' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_maxpasswordage] = '16'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_maxpasswordage]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maxpasswordage' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_maxpasswordage] = '32'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_maxpasswordage]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maxpasswordage' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_maxpasswordage] = '64'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_maxpasswordage]).to eq(64)
   end
 
   it 'should not accept array for dsc_minpasswordlength' do
@@ -275,64 +137,12 @@ describe Puppet::Type.type(:dsc_xaddomaindefaultpasswordpolicy) do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordlength] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_minpasswordlength' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordlength] = 32
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordlength]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_minpasswordlength' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordlength] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_minpasswordlength' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordlength] = '16'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordlength]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_minpasswordlength' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordlength] = '32'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordlength]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_minpasswordlength' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordlength] = '64'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_minpasswordlength]).to eq(64)
-  end
-
   it 'should not accept array for dsc_passwordhistorycount' do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_passwordhistorycount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_passwordhistorycount' do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_passwordhistorycount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_passwordhistorycount' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_passwordhistorycount] = 32
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_passwordhistorycount]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_passwordhistorycount' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_passwordhistorycount] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_passwordhistorycount' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_passwordhistorycount] = '16'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_passwordhistorycount]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_passwordhistorycount' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_passwordhistorycount] = '32'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_passwordhistorycount]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_passwordhistorycount' do
-    dsc_xaddomaindefaultpasswordpolicy[:dsc_passwordhistorycount] = '64'
-    expect(dsc_xaddomaindefaultpasswordpolicy[:dsc_passwordhistorycount]).to eq(64)
   end
 
   it 'should not accept array for dsc_reversibleencryptionenabled' do
@@ -373,10 +183,6 @@ describe Puppet::Type.type(:dsc_xaddomaindefaultpasswordpolicy) do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_reversibleencryptionenabled' do
-    expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_reversibleencryptionenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -387,10 +193,6 @@ describe Puppet::Type.type(:dsc_xaddomaindefaultpasswordpolicy) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_credential" do
@@ -407,10 +209,6 @@ describe Puppet::Type.type(:dsc_xaddomaindefaultpasswordpolicy) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xaddomaindefaultpasswordpolicy[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

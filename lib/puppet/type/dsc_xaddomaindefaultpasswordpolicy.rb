@@ -95,9 +95,7 @@ Puppet::Type.newtype(:dsc_xaddomaindefaultpasswordpolicy) do
     def mof_is_embedded?; false end
     desc "LockoutDuration - Length of time that an account is locked after the number of failed login attempts (minutes)"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "LockoutDuration")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -113,9 +111,7 @@ Puppet::Type.newtype(:dsc_xaddomaindefaultpasswordpolicy) do
     def mof_is_embedded?; false end
     desc "LockoutObservationWindow - Maximum time between two unsuccessful login attempts before the counter is reset to 0 (minutes)"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "LockoutObservationWindow")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -131,9 +127,7 @@ Puppet::Type.newtype(:dsc_xaddomaindefaultpasswordpolicy) do
     def mof_is_embedded?; false end
     desc "LockoutThreshold - Number of unsuccessful login attempts that are permitted before an account is locked out"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "LockoutThreshold")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -149,9 +143,7 @@ Puppet::Type.newtype(:dsc_xaddomaindefaultpasswordpolicy) do
     def mof_is_embedded?; false end
     desc "MinPasswordAge - Minimum length of time that you can have the same password (minutes)"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MinPasswordAge")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -167,9 +159,7 @@ Puppet::Type.newtype(:dsc_xaddomaindefaultpasswordpolicy) do
     def mof_is_embedded?; false end
     desc "MaxPasswordAge - Maximum length of time that you can have the same password (minutes)"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaxPasswordAge")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -185,9 +175,7 @@ Puppet::Type.newtype(:dsc_xaddomaindefaultpasswordpolicy) do
     def mof_is_embedded?; false end
     desc "MinPasswordLength - Minimum number of characters that a password must contain"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MinPasswordLength")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -203,9 +191,7 @@ Puppet::Type.newtype(:dsc_xaddomaindefaultpasswordpolicy) do
     def mof_is_embedded?; false end
     desc "PasswordHistoryCount - Number of previous passwords to remember"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "PasswordHistoryCount")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

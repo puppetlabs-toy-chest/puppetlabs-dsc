@@ -50,10 +50,6 @@ describe Puppet::Type.type(:dsc_spcreatefarm) do
     expect{dsc_spcreatefarm[:dsc_farmconfigdatabasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_farmconfigdatabasename' do
-    expect{dsc_spcreatefarm[:dsc_farmconfigdatabasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_databaseserver is specified' do
     #dsc_spcreatefarm[:dsc_databaseserver]
     expect { Puppet::Type.type(:dsc_spcreatefarm).new(
@@ -74,10 +70,6 @@ describe Puppet::Type.type(:dsc_spcreatefarm) do
     expect{dsc_spcreatefarm[:dsc_databaseserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databaseserver' do
-    expect{dsc_spcreatefarm[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_farmaccount" do
     expect{dsc_spcreatefarm[:dsc_farmaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -92,10 +84,6 @@ describe Puppet::Type.type(:dsc_spcreatefarm) do
 
   it 'should not accept int for dsc_farmaccount' do
     expect{dsc_spcreatefarm[:dsc_farmaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_farmaccount' do
-    expect{dsc_spcreatefarm[:dsc_farmaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_passphrase" do
@@ -114,10 +102,6 @@ describe Puppet::Type.type(:dsc_spcreatefarm) do
     expect{dsc_spcreatefarm[:dsc_passphrase] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_passphrase' do
-    expect{dsc_spcreatefarm[:dsc_passphrase] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_admincontentdatabasename' do
     expect{dsc_spcreatefarm[:dsc_admincontentdatabasename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -130,42 +114,12 @@ describe Puppet::Type.type(:dsc_spcreatefarm) do
     expect{dsc_spcreatefarm[:dsc_admincontentdatabasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_admincontentdatabasename' do
-    expect{dsc_spcreatefarm[:dsc_admincontentdatabasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_centraladministrationport' do
     expect{dsc_spcreatefarm[:dsc_centraladministrationport] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_centraladministrationport' do
     expect{dsc_spcreatefarm[:dsc_centraladministrationport] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_centraladministrationport' do
-    dsc_spcreatefarm[:dsc_centraladministrationport] = 32
-    expect(dsc_spcreatefarm[:dsc_centraladministrationport]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_centraladministrationport' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spcreatefarm[:dsc_centraladministrationport] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_centraladministrationport' do
-    dsc_spcreatefarm[:dsc_centraladministrationport] = '16'
-    expect(dsc_spcreatefarm[:dsc_centraladministrationport]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_centraladministrationport' do
-    dsc_spcreatefarm[:dsc_centraladministrationport] = '32'
-    expect(dsc_spcreatefarm[:dsc_centraladministrationport]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_centraladministrationport' do
-    dsc_spcreatefarm[:dsc_centraladministrationport] = '64'
-    expect(dsc_spcreatefarm[:dsc_centraladministrationport]).to eq(64)
   end
 
   it 'should accept dsc_centraladministrationauth predefined value NTLM' do
@@ -202,10 +156,6 @@ describe Puppet::Type.type(:dsc_spcreatefarm) do
 
   it 'should not accept int for dsc_centraladministrationauth' do
     expect{dsc_spcreatefarm[:dsc_centraladministrationauth] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_centraladministrationauth' do
-    expect{dsc_spcreatefarm[:dsc_centraladministrationauth] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_serverrole predefined value Application' do
@@ -304,10 +254,6 @@ describe Puppet::Type.type(:dsc_spcreatefarm) do
     expect{dsc_spcreatefarm[:dsc_serverrole] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_serverrole' do
-    expect{dsc_spcreatefarm[:dsc_serverrole] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spcreatefarm[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -322,10 +268,6 @@ describe Puppet::Type.type(:dsc_spcreatefarm) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spcreatefarm[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spcreatefarm[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -151,9 +151,7 @@ Puppet::Type.newtype(:dsc_xmppreference) do
     def mof_is_embedded?; false end
     desc "QuarantinePurgeItemsAfterDelay - Specifies the number of days to keep items in the Quarantine folder. If you specify a value of zero or do not specify a value for this parameter, items stay in the Quarantine folder indefinitely."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "QuarantinePurgeItemsAfterDelay")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -202,9 +200,7 @@ Puppet::Type.newtype(:dsc_xmppreference) do
     def mof_is_embedded?; false end
     desc "ReportingAdditionalActionTimeOut - Specifies the number of minutes before a detection in the additional action state changes to the cleared state."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ReportingAdditionalActionTimeOut")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -220,9 +216,7 @@ Puppet::Type.newtype(:dsc_xmppreference) do
     def mof_is_embedded?; false end
     desc "ReportingNonCriticalTimeOut - Specifies the number of minutes before a detection in the non-critically failed state changes to the cleared state."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ReportingNonCriticalTimeOut")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -238,9 +232,7 @@ Puppet::Type.newtype(:dsc_xmppreference) do
     def mof_is_embedded?; false end
     desc "ReportingCriticalFailureTimeOut - Specifies the number of minutes before a detection in the critically failed state changes to either the additional action state or the cleared state."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ReportingCriticalFailureTimeOut")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -256,9 +248,7 @@ Puppet::Type.newtype(:dsc_xmppreference) do
     def mof_is_embedded?; false end
     desc "ScanAvgCPULoadFactor - Specifies the maxium percentage CPU usage for a scan. The acceptable values for this parameter are:  integers from 5 through 100, and the value 0, which disables CPU throttling. Windows Defender does not exceed the percentage of CPU usage that you specify. The default value is 50."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ScanAvgCPULoadFactor")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -290,9 +280,7 @@ Puppet::Type.newtype(:dsc_xmppreference) do
     def mof_is_embedded?; false end
     desc "ScanPurgeItemsAfterDelay - Specifies the number of days to keep items in the scan history folder. After this time, Windows Defender removes the items. If you specify a value of zero, Windows Defender does not remove items. If you do not specify a value, Windows Defender removes items from the scan history folder after the default length of time, which is 30 days."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ScanPurgeItemsAfterDelay")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -390,9 +378,7 @@ Puppet::Type.newtype(:dsc_xmppreference) do
     def mof_is_embedded?; false end
     desc "SignatureFirstAuGracePeriod - Specifies a grace period, in minutes, for the definition. If a definition successfully updates within this period, Windows Defender abandons any service initiated updates. This parameter overrides the value of the CheckForSignaturesBeforeRunningScan parameter."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "SignatureFirstAuGracePeriod")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -408,9 +394,7 @@ Puppet::Type.newtype(:dsc_xmppreference) do
     def mof_is_embedded?; false end
     desc "SignatureAuGracePeriod - Specifies a grace period, in minutes, for the definition. If a definition successfully updates within this period, Windows Defender abandons any service initiated updates."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "SignatureAuGracePeriod")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -505,9 +489,7 @@ Puppet::Type.newtype(:dsc_xmppreference) do
     def mof_is_embedded?; false end
     desc "SignatureUpdateCatchupInterval - Specifies the number of days after which Windows Defender requires a catch-up definition update. If you do not specify a value for this parameter, Windows Defender requires a catch-up definition update after the default value of one day."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "SignatureUpdateCatchupInterval")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -523,9 +505,7 @@ Puppet::Type.newtype(:dsc_xmppreference) do
     def mof_is_embedded?; false end
     desc "SignatureUpdateInterval - Specifies the interval, in hours, at which to check for definition updates. The acceptable values for this parameter are:  integers from 1 through 24. If you do not specify a value for this parameter, Windows Defender checks at the default interval. You can use this parameter instead of the SignatureScheduleDay parameter and SignatureScheduleTime parameter. "
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "SignatureUpdateInterval")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -831,9 +811,7 @@ Puppet::Type.newtype(:dsc_xmppreference) do
     def mof_is_embedded?; false end
     desc "ThreatIDDefaultAction_Ids - Specifies an array of the actions to take for the IDs specified by using the ThreatIDDefaultAction_Ids parameter."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ThreatIDDefaultAction_Ids")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

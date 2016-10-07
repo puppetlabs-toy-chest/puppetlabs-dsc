@@ -49,10 +49,6 @@ describe Puppet::Type.type(:dsc_xjeaendpoint) do
     expect{dsc_xjeaendpoint[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xjeaendpoint[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_toolkit' do
     dsc_xjeaendpoint[:dsc_toolkit] = ["foo", "bar", "spec"]
     expect(dsc_xjeaendpoint[:dsc_toolkit]).to eq(["foo", "bar", "spec"])
@@ -64,10 +60,6 @@ describe Puppet::Type.type(:dsc_xjeaendpoint) do
 
   it 'should not accept int for dsc_toolkit' do
     expect{dsc_xjeaendpoint[:dsc_toolkit] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_toolkit' do
-    expect{dsc_xjeaendpoint[:dsc_toolkit] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_securitydescriptorsddl' do
@@ -82,10 +74,6 @@ describe Puppet::Type.type(:dsc_xjeaendpoint) do
     expect{dsc_xjeaendpoint[:dsc_securitydescriptorsddl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_securitydescriptorsddl' do
-    expect{dsc_xjeaendpoint[:dsc_securitydescriptorsddl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_group' do
     dsc_xjeaendpoint[:dsc_group] = ["foo", "bar", "spec"]
     expect(dsc_xjeaendpoint[:dsc_group]).to eq(["foo", "bar", "spec"])
@@ -97,10 +85,6 @@ describe Puppet::Type.type(:dsc_xjeaendpoint) do
 
   it 'should not accept int for dsc_group' do
     expect{dsc_xjeaendpoint[:dsc_group] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_group' do
-    expect{dsc_xjeaendpoint[:dsc_group] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -149,10 +133,6 @@ describe Puppet::Type.type(:dsc_xjeaendpoint) do
     expect{dsc_xjeaendpoint[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xjeaendpoint[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_cleanall' do
     expect{dsc_xjeaendpoint[:dsc_cleanall] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -189,10 +169,6 @@ describe Puppet::Type.type(:dsc_xjeaendpoint) do
 
   it 'should not accept int for dsc_cleanall' do
     expect{dsc_xjeaendpoint[:dsc_cleanall] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_cleanall' do
-    expect{dsc_xjeaendpoint[:dsc_cleanall] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

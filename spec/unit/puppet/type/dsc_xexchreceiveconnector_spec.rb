@@ -97,10 +97,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexchreceiveconnector[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchreceiveconnector[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -115,10 +111,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xexchreceiveconnector[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchreceiveconnector[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -167,10 +159,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xexchreceiveconnector[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_advertiseclientsettings' do
     expect{dsc_xexchreceiveconnector[:dsc_advertiseclientsettings] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -209,10 +197,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_advertiseclientsettings] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_advertiseclientsettings' do
-    expect{dsc_xexchreceiveconnector[:dsc_advertiseclientsettings] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_authmechanism' do
     dsc_xexchreceiveconnector[:dsc_authmechanism] = ["foo", "bar", "spec"]
     expect(dsc_xexchreceiveconnector[:dsc_authmechanism]).to eq(["foo", "bar", "spec"])
@@ -226,10 +210,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_authmechanism] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_authmechanism' do
-    expect{dsc_xexchreceiveconnector[:dsc_authmechanism] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_banner' do
     expect{dsc_xexchreceiveconnector[:dsc_banner] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -240,10 +220,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_banner' do
     expect{dsc_xexchreceiveconnector[:dsc_banner] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_banner' do
-    expect{dsc_xexchreceiveconnector[:dsc_banner] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_barelinefeedrejectionenabled' do
@@ -284,10 +260,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_barelinefeedrejectionenabled' do
-    expect{dsc_xexchreceiveconnector[:dsc_barelinefeedrejectionenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_binarymimeenabled' do
     expect{dsc_xexchreceiveconnector[:dsc_binarymimeenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -326,10 +298,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_binarymimeenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_binarymimeenabled' do
-    expect{dsc_xexchreceiveconnector[:dsc_binarymimeenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_bindings' do
     dsc_xexchreceiveconnector[:dsc_bindings] = ["foo", "bar", "spec"]
     expect(dsc_xexchreceiveconnector[:dsc_bindings]).to eq(["foo", "bar", "spec"])
@@ -341,10 +309,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_bindings' do
     expect{dsc_xexchreceiveconnector[:dsc_bindings] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_bindings' do
-    expect{dsc_xexchreceiveconnector[:dsc_bindings] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_chunkingenabled' do
@@ -385,10 +349,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_chunkingenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_chunkingenabled' do
-    expect{dsc_xexchreceiveconnector[:dsc_chunkingenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_comment' do
     expect{dsc_xexchreceiveconnector[:dsc_comment] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -399,10 +359,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_comment' do
     expect{dsc_xexchreceiveconnector[:dsc_comment] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_comment' do
-    expect{dsc_xexchreceiveconnector[:dsc_comment] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_connectioninactivitytimeout' do
@@ -417,10 +373,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_connectioninactivitytimeout] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_connectioninactivitytimeout' do
-    expect{dsc_xexchreceiveconnector[:dsc_connectioninactivitytimeout] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_connectiontimeout' do
     expect{dsc_xexchreceiveconnector[:dsc_connectiontimeout] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -433,10 +385,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_connectiontimeout] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_connectiontimeout' do
-    expect{dsc_xexchreceiveconnector[:dsc_connectiontimeout] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_defaultdomain' do
     expect{dsc_xexchreceiveconnector[:dsc_defaultdomain] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -447,10 +395,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_defaultdomain' do
     expect{dsc_xexchreceiveconnector[:dsc_defaultdomain] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_defaultdomain' do
-    expect{dsc_xexchreceiveconnector[:dsc_defaultdomain] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_deliverystatusnotificationenabled' do
@@ -491,10 +435,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_deliverystatusnotificationenabled' do
-    expect{dsc_xexchreceiveconnector[:dsc_deliverystatusnotificationenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchreceiveconnector[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -505,10 +445,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xexchreceiveconnector[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchreceiveconnector[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_domainsecureenabled' do
@@ -549,10 +485,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_domainsecureenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_domainsecureenabled' do
-    expect{dsc_xexchreceiveconnector[:dsc_domainsecureenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_eightbitmimeenabled' do
     expect{dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -589,10 +521,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_eightbitmimeenabled' do
     expect{dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_eightbitmimeenabled' do
-    expect{dsc_xexchreceiveconnector[:dsc_eightbitmimeenabled] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_enableauthgssapi' do
@@ -633,10 +561,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_enableauthgssapi] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enableauthgssapi' do
-    expect{dsc_xexchreceiveconnector[:dsc_enableauthgssapi] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_enabled' do
     expect{dsc_xexchreceiveconnector[:dsc_enabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -673,10 +597,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_enabled' do
     expect{dsc_xexchreceiveconnector[:dsc_enabled] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_enabled' do
-    expect{dsc_xexchreceiveconnector[:dsc_enabled] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_enhancedstatuscodesenabled' do
@@ -717,10 +637,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enhancedstatuscodesenabled' do
-    expect{dsc_xexchreceiveconnector[:dsc_enhancedstatuscodesenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept a hash for dsc_extendedrightallowentries' do
     dsc_xexchreceiveconnector[:dsc_extendedrightallowentries] = {"somekey"=>"somevalue", "somekey2"=>"somevalue2"}
     expect(dsc_xexchreceiveconnector[:dsc_extendedrightallowentries]).to eq({"somekey"=>"somevalue", "somekey2"=>"somevalue2"})
@@ -734,10 +650,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_extendedrightallowentries] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_extendedrightallowentries' do
-    expect{dsc_xexchreceiveconnector[:dsc_extendedrightallowentries] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept a hash for dsc_extendedrightdenyentries' do
     dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries] = {"somekey"=>"somevalue", "somekey2"=>"somevalue2"}
     expect(dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries]).to eq({"somekey"=>"somevalue", "somekey2"=>"somevalue2"})
@@ -749,10 +661,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_extendedrightdenyentries' do
     expect{dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_extendedrightdenyentries' do
-    expect{dsc_xexchreceiveconnector[:dsc_extendedrightdenyentries] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_extendedprotectionpolicy predefined value None' do
@@ -801,10 +709,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_extendedprotectionpolicy] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_extendedprotectionpolicy' do
-    expect{dsc_xexchreceiveconnector[:dsc_extendedprotectionpolicy] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_fqdn' do
     expect{dsc_xexchreceiveconnector[:dsc_fqdn] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -815,10 +719,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_fqdn' do
     expect{dsc_xexchreceiveconnector[:dsc_fqdn] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_fqdn' do
-    expect{dsc_xexchreceiveconnector[:dsc_fqdn] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_longaddressesenabled' do
@@ -859,10 +759,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_longaddressesenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_longaddressesenabled' do
-    expect{dsc_xexchreceiveconnector[:dsc_longaddressesenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maxacknowledgementdelay' do
     expect{dsc_xexchreceiveconnector[:dsc_maxacknowledgementdelay] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -873,10 +769,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_maxacknowledgementdelay' do
     expect{dsc_xexchreceiveconnector[:dsc_maxacknowledgementdelay] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_maxacknowledgementdelay' do
-    expect{dsc_xexchreceiveconnector[:dsc_maxacknowledgementdelay] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_maxheadersize' do
@@ -891,10 +783,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_maxheadersize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_maxheadersize' do
-    expect{dsc_xexchreceiveconnector[:dsc_maxheadersize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maxhopcount' do
     expect{dsc_xexchreceiveconnector[:dsc_maxhopcount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -902,32 +790,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
   it 'should not accept boolean for dsc_maxhopcount' do
     expect{dsc_xexchreceiveconnector[:dsc_maxhopcount] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_maxhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxhopcount] = -32
-    expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_maxhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxhopcount] = '16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_maxhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxhopcount] = '-16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_maxhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxhopcount] = '32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_maxhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxhopcount] = '-32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxhopcount]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_maxinboundconnection' do
     expect{dsc_xexchreceiveconnector[:dsc_maxinboundconnection] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -941,10 +803,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_maxinboundconnection] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_maxinboundconnection' do
-    expect{dsc_xexchreceiveconnector[:dsc_maxinboundconnection] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maxinboundconnectionpercentagepersource' do
     expect{dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -952,32 +810,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
   it 'should not accept boolean for dsc_maxinboundconnectionpercentagepersource' do
     expect{dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_maxinboundconnectionpercentagepersource' do
-    dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = -32
-    expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_maxinboundconnectionpercentagepersource' do
-    dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = '16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_maxinboundconnectionpercentagepersource' do
-    dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = '-16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_maxinboundconnectionpercentagepersource' do
-    dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = '32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_maxinboundconnectionpercentagepersource' do
-    dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource] = '-32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpercentagepersource]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_maxinboundconnectionpersource' do
     expect{dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpersource] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -991,10 +823,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpersource] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_maxinboundconnectionpersource' do
-    expect{dsc_xexchreceiveconnector[:dsc_maxinboundconnectionpersource] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maxlocalhopcount' do
     expect{dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1003,32 +831,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept int for dsc_maxlocalhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = -32
-    expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_maxlocalhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = '16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_maxlocalhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = '-16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_maxlocalhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = '32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_maxlocalhopcount' do
-    dsc_xexchreceiveconnector[:dsc_maxlocalhopcount] = '-32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlocalhopcount]).to eq(-32)
-  end
-
-
   it 'should not accept array for dsc_maxlogonfailures' do
     expect{dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1036,32 +838,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
   it 'should not accept boolean for dsc_maxlogonfailures' do
     expect{dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_maxlogonfailures' do
-    dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = -32
-    expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_maxlogonfailures' do
-    dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = '16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_maxlogonfailures' do
-    dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = '-16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_maxlogonfailures' do
-    dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = '32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_maxlogonfailures' do
-    dsc_xexchreceiveconnector[:dsc_maxlogonfailures] = '-32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxlogonfailures]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_maxmessagesize' do
     expect{dsc_xexchreceiveconnector[:dsc_maxmessagesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -1073,10 +849,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_maxmessagesize' do
     expect{dsc_xexchreceiveconnector[:dsc_maxmessagesize] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_maxmessagesize' do
-    expect{dsc_xexchreceiveconnector[:dsc_maxmessagesize] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_maxprotocolerrors' do
@@ -1091,10 +863,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_maxprotocolerrors] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_maxprotocolerrors' do
-    expect{dsc_xexchreceiveconnector[:dsc_maxprotocolerrors] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maxrecipientspermessage' do
     expect{dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1102,32 +870,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
   it 'should not accept boolean for dsc_maxrecipientspermessage' do
     expect{dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_maxrecipientspermessage' do
-    dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = -32
-    expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_maxrecipientspermessage' do
-    dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = '16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_maxrecipientspermessage' do
-    dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = '-16'
-    expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_maxrecipientspermessage' do
-    dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = '32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_maxrecipientspermessage' do
-    dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage] = '-32'
-    expect(dsc_xexchreceiveconnector[:dsc_maxrecipientspermessage]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_messageratelimit' do
     expect{dsc_xexchreceiveconnector[:dsc_messageratelimit] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -1139,10 +881,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_messageratelimit' do
     expect{dsc_xexchreceiveconnector[:dsc_messageratelimit] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_messageratelimit' do
-    expect{dsc_xexchreceiveconnector[:dsc_messageratelimit] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_messageratesource predefined value None' do
@@ -1201,10 +939,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_messageratesource] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_messageratesource' do
-    expect{dsc_xexchreceiveconnector[:dsc_messageratesource] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_orarenabled' do
     expect{dsc_xexchreceiveconnector[:dsc_orarenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1243,10 +977,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_orarenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_orarenabled' do
-    expect{dsc_xexchreceiveconnector[:dsc_orarenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_permissiongroups' do
     dsc_xexchreceiveconnector[:dsc_permissiongroups] = ["foo", "bar", "spec"]
     expect(dsc_xexchreceiveconnector[:dsc_permissiongroups]).to eq(["foo", "bar", "spec"])
@@ -1258,10 +988,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_permissiongroups' do
     expect{dsc_xexchreceiveconnector[:dsc_permissiongroups] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_permissiongroups' do
-    expect{dsc_xexchreceiveconnector[:dsc_permissiongroups] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_pipeliningenabled' do
@@ -1302,10 +1028,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_pipeliningenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_pipeliningenabled' do
-    expect{dsc_xexchreceiveconnector[:dsc_pipeliningenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_protocollogginglevel predefined value None' do
     dsc_xexchreceiveconnector[:dsc_protocollogginglevel] = 'None'
     expect(dsc_xexchreceiveconnector[:dsc_protocollogginglevel]).to eq('None')
@@ -1342,10 +1064,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_protocollogginglevel] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_protocollogginglevel' do
-    expect{dsc_xexchreceiveconnector[:dsc_protocollogginglevel] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_remoteipranges' do
     dsc_xexchreceiveconnector[:dsc_remoteipranges] = ["foo", "bar", "spec"]
     expect(dsc_xexchreceiveconnector[:dsc_remoteipranges]).to eq(["foo", "bar", "spec"])
@@ -1357,10 +1075,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_remoteipranges' do
     expect{dsc_xexchreceiveconnector[:dsc_remoteipranges] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_remoteipranges' do
-    expect{dsc_xexchreceiveconnector[:dsc_remoteipranges] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_requireehlodomain' do
@@ -1401,10 +1115,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_requireehlodomain] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_requireehlodomain' do
-    expect{dsc_xexchreceiveconnector[:dsc_requireehlodomain] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_requiretls' do
     expect{dsc_xexchreceiveconnector[:dsc_requiretls] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1443,10 +1153,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_requiretls] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_requiretls' do
-    expect{dsc_xexchreceiveconnector[:dsc_requiretls] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_servicediscoveryfqdn' do
     expect{dsc_xexchreceiveconnector[:dsc_servicediscoveryfqdn] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1457,10 +1163,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_servicediscoveryfqdn' do
     expect{dsc_xexchreceiveconnector[:dsc_servicediscoveryfqdn] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_servicediscoveryfqdn' do
-    expect{dsc_xexchreceiveconnector[:dsc_servicediscoveryfqdn] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_sizeenabled predefined value Enabled' do
@@ -1509,10 +1211,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_sizeenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sizeenabled' do
-    expect{dsc_xexchreceiveconnector[:dsc_sizeenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_suppressxanonymoustls' do
     expect{dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1551,10 +1249,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_suppressxanonymoustls' do
-    expect{dsc_xexchreceiveconnector[:dsc_suppressxanonymoustls] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_tarpitinterval' do
     expect{dsc_xexchreceiveconnector[:dsc_tarpitinterval] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1565,10 +1259,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_tarpitinterval' do
     expect{dsc_xexchreceiveconnector[:dsc_tarpitinterval] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_tarpitinterval' do
-    expect{dsc_xexchreceiveconnector[:dsc_tarpitinterval] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_tlscertificatename' do
@@ -1583,10 +1273,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
     expect{dsc_xexchreceiveconnector[:dsc_tlscertificatename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_tlscertificatename' do
-    expect{dsc_xexchreceiveconnector[:dsc_tlscertificatename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_tlsdomaincapabilities' do
     dsc_xexchreceiveconnector[:dsc_tlsdomaincapabilities] = ["foo", "bar", "spec"]
     expect(dsc_xexchreceiveconnector[:dsc_tlsdomaincapabilities]).to eq(["foo", "bar", "spec"])
@@ -1598,10 +1284,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_tlsdomaincapabilities' do
     expect{dsc_xexchreceiveconnector[:dsc_tlsdomaincapabilities] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_tlsdomaincapabilities' do
-    expect{dsc_xexchreceiveconnector[:dsc_tlsdomaincapabilities] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_transportrole predefined value FrontendTransport' do
@@ -1638,10 +1320,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_transportrole' do
     expect{dsc_xexchreceiveconnector[:dsc_transportrole] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_transportrole' do
-    expect{dsc_xexchreceiveconnector[:dsc_transportrole] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_usage predefined value Client' do
@@ -1708,10 +1386,6 @@ describe Puppet::Type.type(:dsc_xexchreceiveconnector) do
 
   it 'should not accept int for dsc_usage' do
     expect{dsc_xexchreceiveconnector[:dsc_usage] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_usage' do
-    expect{dsc_xexchreceiveconnector[:dsc_usage] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

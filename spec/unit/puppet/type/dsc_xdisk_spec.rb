@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_xdisk) do
     expect{dsc_xdisk[:dsc_driveletter] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_driveletter' do
-    expect{dsc_xdisk[:dsc_driveletter] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_disknumber' do
     expect{dsc_xdisk[:dsc_disknumber] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -56,64 +52,12 @@ describe Puppet::Type.type(:dsc_xdisk) do
     expect{dsc_xdisk[:dsc_disknumber] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_disknumber' do
-    dsc_xdisk[:dsc_disknumber] = 32
-    expect(dsc_xdisk[:dsc_disknumber]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_disknumber' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xdisk[:dsc_disknumber] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_disknumber' do
-    dsc_xdisk[:dsc_disknumber] = '16'
-    expect(dsc_xdisk[:dsc_disknumber]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_disknumber' do
-    dsc_xdisk[:dsc_disknumber] = '32'
-    expect(dsc_xdisk[:dsc_disknumber]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_disknumber' do
-    dsc_xdisk[:dsc_disknumber] = '64'
-    expect(dsc_xdisk[:dsc_disknumber]).to eq(64)
-  end
-
   it 'should not accept array for dsc_size' do
     expect{dsc_xdisk[:dsc_size] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_size' do
     expect{dsc_xdisk[:dsc_size] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_size' do
-    dsc_xdisk[:dsc_size] = 64
-    expect(dsc_xdisk[:dsc_size]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_size' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xdisk[:dsc_size] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_size' do
-    dsc_xdisk[:dsc_size] = '16'
-    expect(dsc_xdisk[:dsc_size]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_size' do
-    dsc_xdisk[:dsc_size] = '32'
-    expect(dsc_xdisk[:dsc_size]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_size' do
-    dsc_xdisk[:dsc_size] = '64'
-    expect(dsc_xdisk[:dsc_size]).to eq(64)
   end
 
   it 'should not accept array for dsc_fslabel' do
@@ -128,42 +72,12 @@ describe Puppet::Type.type(:dsc_xdisk) do
     expect{dsc_xdisk[:dsc_fslabel] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_fslabel' do
-    expect{dsc_xdisk[:dsc_fslabel] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_allocationunitsize' do
     expect{dsc_xdisk[:dsc_allocationunitsize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_allocationunitsize' do
     expect{dsc_xdisk[:dsc_allocationunitsize] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_allocationunitsize' do
-    dsc_xdisk[:dsc_allocationunitsize] = 32
-    expect(dsc_xdisk[:dsc_allocationunitsize]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_allocationunitsize' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xdisk[:dsc_allocationunitsize] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_allocationunitsize' do
-    dsc_xdisk[:dsc_allocationunitsize] = '16'
-    expect(dsc_xdisk[:dsc_allocationunitsize]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_allocationunitsize' do
-    dsc_xdisk[:dsc_allocationunitsize] = '32'
-    expect(dsc_xdisk[:dsc_allocationunitsize]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_allocationunitsize' do
-    dsc_xdisk[:dsc_allocationunitsize] = '64'
-    expect(dsc_xdisk[:dsc_allocationunitsize]).to eq(64)
   end
 
   # Configuration PROVIDER TESTS

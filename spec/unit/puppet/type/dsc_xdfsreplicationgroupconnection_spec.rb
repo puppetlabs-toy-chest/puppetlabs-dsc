@@ -55,10 +55,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupconnection) do
     expect{dsc_xdfsreplicationgroupconnection[:dsc_groupname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_groupname' do
-    expect{dsc_xdfsreplicationgroupconnection[:dsc_groupname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_sourcecomputername is specified' do
     #dsc_xdfsreplicationgroupconnection[:dsc_sourcecomputername]
     expect { Puppet::Type.type(:dsc_xdfsreplicationgroupconnection).new(
@@ -80,10 +76,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupconnection) do
     expect{dsc_xdfsreplicationgroupconnection[:dsc_sourcecomputername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcecomputername' do
-    expect{dsc_xdfsreplicationgroupconnection[:dsc_sourcecomputername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_destinationcomputername is specified' do
     #dsc_xdfsreplicationgroupconnection[:dsc_destinationcomputername]
     expect { Puppet::Type.type(:dsc_xdfsreplicationgroupconnection).new(
@@ -103,10 +95,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupconnection) do
 
   it 'should not accept int for dsc_destinationcomputername' do
     expect{dsc_xdfsreplicationgroupconnection[:dsc_destinationcomputername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_destinationcomputername' do
-    expect{dsc_xdfsreplicationgroupconnection[:dsc_destinationcomputername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -155,10 +143,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupconnection) do
     expect{dsc_xdfsreplicationgroupconnection[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdfsreplicationgroupconnection[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_xdfsreplicationgroupconnection[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -169,10 +153,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupconnection) do
 
   it 'should not accept int for dsc_description' do
     expect{dsc_xdfsreplicationgroupconnection[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xdfsreplicationgroupconnection[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensureenabled predefined value Enabled' do
@@ -211,10 +191,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupconnection) do
     expect{dsc_xdfsreplicationgroupconnection[:dsc_ensureenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensureenabled' do
-    expect{dsc_xdfsreplicationgroupconnection[:dsc_ensureenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensurerdcenabled predefined value Enabled' do
     dsc_xdfsreplicationgroupconnection[:dsc_ensurerdcenabled] = 'Enabled'
     expect(dsc_xdfsreplicationgroupconnection[:dsc_ensurerdcenabled]).to eq('Enabled')
@@ -251,10 +227,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupconnection) do
     expect{dsc_xdfsreplicationgroupconnection[:dsc_ensurerdcenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensurerdcenabled' do
-    expect{dsc_xdfsreplicationgroupconnection[:dsc_ensurerdcenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domainname' do
     expect{dsc_xdfsreplicationgroupconnection[:dsc_domainname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -265,10 +237,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupconnection) do
 
   it 'should not accept int for dsc_domainname' do
     expect{dsc_xdfsreplicationgroupconnection[:dsc_domainname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domainname' do
-    expect{dsc_xdfsreplicationgroupconnection[:dsc_domainname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

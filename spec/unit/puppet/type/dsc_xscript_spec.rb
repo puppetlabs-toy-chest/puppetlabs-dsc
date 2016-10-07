@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_xscript) do
     expect{dsc_xscript[:dsc_getscript] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_getscript' do
-    expect{dsc_xscript[:dsc_getscript] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_setscript is specified' do
     #dsc_xscript[:dsc_setscript]
     expect { Puppet::Type.type(:dsc_xscript).new(
@@ -71,10 +67,6 @@ describe Puppet::Type.type(:dsc_xscript) do
 
   it 'should not accept int for dsc_setscript' do
     expect{dsc_xscript[:dsc_setscript] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_setscript' do
-    expect{dsc_xscript[:dsc_setscript] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_testscript is specified' do
@@ -98,10 +90,6 @@ describe Puppet::Type.type(:dsc_xscript) do
     expect{dsc_xscript[:dsc_testscript] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_testscript' do
-    expect{dsc_xscript[:dsc_testscript] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xscript[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -118,10 +106,6 @@ describe Puppet::Type.type(:dsc_xscript) do
     expect{dsc_xscript[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xscript[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_result' do
     expect{dsc_xscript[:dsc_result] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -132,10 +116,6 @@ describe Puppet::Type.type(:dsc_xscript) do
 
   it 'should not accept int for dsc_result' do
     expect{dsc_xscript[:dsc_result] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_result' do
-    expect{dsc_xscript[:dsc_result] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

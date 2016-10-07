@@ -56,10 +56,6 @@ describe Puppet::Type.type(:dsc_xwebapppooldefaults) do
     expect{dsc_xwebapppooldefaults[:dsc_applyto] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_applyto' do
-    expect{dsc_xwebapppooldefaults[:dsc_applyto] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_managedruntimeversion predefined value ' do
     dsc_xwebapppooldefaults[:dsc_managedruntimeversion] = ''
     expect(dsc_xwebapppooldefaults[:dsc_managedruntimeversion]).to eq('')
@@ -104,10 +100,6 @@ describe Puppet::Type.type(:dsc_xwebapppooldefaults) do
 
   it 'should not accept int for dsc_managedruntimeversion' do
     expect{dsc_xwebapppooldefaults[:dsc_managedruntimeversion] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_managedruntimeversion' do
-    expect{dsc_xwebapppooldefaults[:dsc_managedruntimeversion] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_identitytype predefined value ApplicationPoolIdentity' do
@@ -164,10 +156,6 @@ describe Puppet::Type.type(:dsc_xwebapppooldefaults) do
 
   it 'should not accept int for dsc_identitytype' do
     expect{dsc_xwebapppooldefaults[:dsc_identitytype] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_identitytype' do
-    expect{dsc_xwebapppooldefaults[:dsc_identitytype] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

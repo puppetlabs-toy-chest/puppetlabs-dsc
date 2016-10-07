@@ -60,10 +60,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
     expect{dsc_xexchowavirtualdirectory[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchowavirtualdirectory[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -78,10 +74,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xexchowavirtualdirectory[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_adfsauthentication' do
@@ -122,10 +114,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
     expect{dsc_xexchowavirtualdirectory[:dsc_adfsauthentication] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_adfsauthentication' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_adfsauthentication] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_allowservicerestart' do
     expect{dsc_xexchowavirtualdirectory[:dsc_allowservicerestart] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -162,10 +150,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
 
   it 'should not accept int for dsc_allowservicerestart' do
     expect{dsc_xexchowavirtualdirectory[:dsc_allowservicerestart] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_allowservicerestart' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_allowservicerestart] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_basicauthentication' do
@@ -206,10 +190,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
     expect{dsc_xexchowavirtualdirectory[:dsc_basicauthentication] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_basicauthentication' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_basicauthentication] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_changepasswordenabled' do
     expect{dsc_xexchowavirtualdirectory[:dsc_changepasswordenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -246,10 +226,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
 
   it 'should not accept int for dsc_changepasswordenabled' do
     expect{dsc_xexchowavirtualdirectory[:dsc_changepasswordenabled] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_changepasswordenabled' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_changepasswordenabled] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_digestauthentication' do
@@ -290,10 +266,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
     expect{dsc_xexchowavirtualdirectory[:dsc_digestauthentication] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_digestauthentication' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_digestauthentication] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchowavirtualdirectory[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -304,10 +276,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xexchowavirtualdirectory[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_externalauthenticationmethods' do
@@ -323,10 +291,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
     expect{dsc_xexchowavirtualdirectory[:dsc_externalauthenticationmethods] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_externalauthenticationmethods' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_externalauthenticationmethods] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_externalurl' do
     expect{dsc_xexchowavirtualdirectory[:dsc_externalurl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -337,10 +301,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
 
   it 'should not accept int for dsc_externalurl' do
     expect{dsc_xexchowavirtualdirectory[:dsc_externalurl] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_externalurl' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_externalurl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_formsauthentication' do
@@ -381,10 +341,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
     expect{dsc_xexchowavirtualdirectory[:dsc_formsauthentication] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_formsauthentication' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_formsauthentication] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_internalurl' do
     expect{dsc_xexchowavirtualdirectory[:dsc_internalurl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -395,10 +351,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
 
   it 'should not accept int for dsc_internalurl' do
     expect{dsc_xexchowavirtualdirectory[:dsc_internalurl] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_internalurl' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_internalurl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_instantmessagingenabled' do
@@ -439,10 +391,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
     expect{dsc_xexchowavirtualdirectory[:dsc_instantmessagingenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_instantmessagingenabled' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_instantmessagingenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_instantmessagingcertificatethumbprint' do
     expect{dsc_xexchowavirtualdirectory[:dsc_instantmessagingcertificatethumbprint] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -455,10 +403,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
     expect{dsc_xexchowavirtualdirectory[:dsc_instantmessagingcertificatethumbprint] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_instantmessagingcertificatethumbprint' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_instantmessagingcertificatethumbprint] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_instantmessagingservername' do
     expect{dsc_xexchowavirtualdirectory[:dsc_instantmessagingservername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -469,10 +413,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
 
   it 'should not accept int for dsc_instantmessagingservername' do
     expect{dsc_xexchowavirtualdirectory[:dsc_instantmessagingservername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_instantmessagingservername' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_instantmessagingservername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_instantmessagingtype predefined value None' do
@@ -509,10 +449,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
 
   it 'should not accept int for dsc_instantmessagingtype' do
     expect{dsc_xexchowavirtualdirectory[:dsc_instantmessagingtype] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_instantmessagingtype' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_instantmessagingtype] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_logonpagepublicprivateselectionenabled' do
@@ -553,10 +489,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
     expect{dsc_xexchowavirtualdirectory[:dsc_logonpagepublicprivateselectionenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logonpagepublicprivateselectionenabled' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_logonpagepublicprivateselectionenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_logonpagelightselectionenabled' do
     expect{dsc_xexchowavirtualdirectory[:dsc_logonpagelightselectionenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -595,10 +527,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
     expect{dsc_xexchowavirtualdirectory[:dsc_logonpagelightselectionenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logonpagelightselectionenabled' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_logonpagelightselectionenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_windowsauthentication' do
     expect{dsc_xexchowavirtualdirectory[:dsc_windowsauthentication] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -635,10 +563,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
 
   it 'should not accept int for dsc_windowsauthentication' do
     expect{dsc_xexchowavirtualdirectory[:dsc_windowsauthentication] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_windowsauthentication' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_windowsauthentication] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_logonformat predefined value FullDomain' do
@@ -687,10 +611,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
     expect{dsc_xexchowavirtualdirectory[:dsc_logonformat] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logonformat' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_logonformat] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_defaultdomain' do
     expect{dsc_xexchowavirtualdirectory[:dsc_defaultdomain] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -701,10 +621,6 @@ describe Puppet::Type.type(:dsc_xexchowavirtualdirectory) do
 
   it 'should not accept int for dsc_defaultdomain' do
     expect{dsc_xexchowavirtualdirectory[:dsc_defaultdomain] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_defaultdomain' do
-    expect{dsc_xexchowavirtualdirectory[:dsc_defaultdomain] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

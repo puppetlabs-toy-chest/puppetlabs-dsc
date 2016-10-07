@@ -55,10 +55,6 @@ describe Puppet::Type.type(:dsc_xofflinedomainjoin) do
     expect{dsc_xofflinedomainjoin[:dsc_issingleinstance] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_issingleinstance' do
-    expect{dsc_xofflinedomainjoin[:dsc_issingleinstance] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_requestfile' do
     expect{dsc_xofflinedomainjoin[:dsc_requestfile] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -69,10 +65,6 @@ describe Puppet::Type.type(:dsc_xofflinedomainjoin) do
 
   it 'should not accept int for dsc_requestfile' do
     expect{dsc_xofflinedomainjoin[:dsc_requestfile] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_requestfile' do
-    expect{dsc_xofflinedomainjoin[:dsc_requestfile] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -51,10 +51,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork) do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -71,10 +67,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork) do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databaseavailabilitygroup' do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_databaseavailabilitygroup] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -85,10 +77,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork) do
 
   it 'should not accept int for dsc_databaseavailabilitygroup' do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_databaseavailabilitygroup] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_databaseavailabilitygroup' do
-    expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_databaseavailabilitygroup] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -137,10 +125,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork) do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -151,10 +135,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_ignorenetwork' do
@@ -195,10 +175,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork) do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ignorenetwork' do
-    expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_ignorenetwork] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_replicationenabled' do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -237,10 +213,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork) do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_replicationenabled' do
-    expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_replicationenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_subnets' do
     dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_subnets] = ["foo", "bar", "spec"]
     expect(dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_subnets]).to eq(["foo", "bar", "spec"])
@@ -252,10 +224,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupnetwork) do
 
   it 'should not accept int for dsc_subnets' do
     expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_subnets] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_subnets' do
-    expect{dsc_xexchdatabaseavailabilitygroupnetwork[:dsc_subnets] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

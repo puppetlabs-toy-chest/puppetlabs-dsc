@@ -52,10 +52,6 @@ describe Puppet::Type.type(:dsc_xregistry) do
     expect{dsc_xregistry[:dsc_key] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_key' do
-    expect{dsc_xregistry[:dsc_key] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_valuename is specified' do
     #dsc_xregistry[:dsc_valuename]
     expect { Puppet::Type.type(:dsc_xregistry).new(
@@ -76,10 +72,6 @@ describe Puppet::Type.type(:dsc_xregistry) do
     expect{dsc_xregistry[:dsc_valuename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_valuename' do
-    expect{dsc_xregistry[:dsc_valuename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_valuedata' do
     dsc_xregistry[:dsc_valuedata] = ["foo", "bar", "spec"]
     expect(dsc_xregistry[:dsc_valuedata]).to eq(["foo", "bar", "spec"])
@@ -91,10 +83,6 @@ describe Puppet::Type.type(:dsc_xregistry) do
 
   it 'should not accept int for dsc_valuedata' do
     expect{dsc_xregistry[:dsc_valuedata] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_valuedata' do
-    expect{dsc_xregistry[:dsc_valuedata] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_valuetype predefined value String' do
@@ -173,10 +161,6 @@ describe Puppet::Type.type(:dsc_xregistry) do
     expect{dsc_xregistry[:dsc_valuetype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_valuetype' do
-    expect{dsc_xregistry[:dsc_valuetype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xregistry[:dsc_ensure] = 'Present'
     expect(dsc_xregistry[:dsc_ensure]).to eq('Present')
@@ -223,10 +207,6 @@ describe Puppet::Type.type(:dsc_xregistry) do
     expect{dsc_xregistry[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xregistry[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_hex' do
     expect{dsc_xregistry[:dsc_hex] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -265,10 +245,6 @@ describe Puppet::Type.type(:dsc_xregistry) do
     expect{dsc_xregistry[:dsc_hex] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_hex' do
-    expect{dsc_xregistry[:dsc_hex] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_force' do
     expect{dsc_xregistry[:dsc_force] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -305,10 +281,6 @@ describe Puppet::Type.type(:dsc_xregistry) do
 
   it 'should not accept int for dsc_force' do
     expect{dsc_xregistry[:dsc_force] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_force' do
-    expect{dsc_xregistry[:dsc_force] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

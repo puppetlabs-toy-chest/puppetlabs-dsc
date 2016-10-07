@@ -54,10 +54,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     expect{dsc_xexchoutlookanywhere[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexchoutlookanywhere[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchoutlookanywhere[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -72,10 +68,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xexchoutlookanywhere[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchoutlookanywhere[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowservicerestart' do
@@ -116,10 +108,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     expect{dsc_xexchoutlookanywhere[:dsc_allowservicerestart] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowservicerestart' do
-    expect{dsc_xexchoutlookanywhere[:dsc_allowservicerestart] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchoutlookanywhere[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -130,10 +118,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xexchoutlookanywhere[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchoutlookanywhere[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_externalclientsrequiressl' do
@@ -174,10 +158,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     expect{dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_externalclientsrequiressl' do
-    expect{dsc_xexchoutlookanywhere[:dsc_externalclientsrequiressl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_extendedprotectionflags' do
     dsc_xexchoutlookanywhere[:dsc_extendedprotectionflags] = ["foo", "bar", "spec"]
     expect(dsc_xexchoutlookanywhere[:dsc_extendedprotectionflags]).to eq(["foo", "bar", "spec"])
@@ -191,10 +171,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     expect{dsc_xexchoutlookanywhere[:dsc_extendedprotectionflags] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_extendedprotectionflags' do
-    expect{dsc_xexchoutlookanywhere[:dsc_extendedprotectionflags] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_extendedprotectionspnlist' do
     dsc_xexchoutlookanywhere[:dsc_extendedprotectionspnlist] = ["foo", "bar", "spec"]
     expect(dsc_xexchoutlookanywhere[:dsc_extendedprotectionspnlist]).to eq(["foo", "bar", "spec"])
@@ -206,10 +182,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
 
   it 'should not accept int for dsc_extendedprotectionspnlist' do
     expect{dsc_xexchoutlookanywhere[:dsc_extendedprotectionspnlist] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_extendedprotectionspnlist' do
-    expect{dsc_xexchoutlookanywhere[:dsc_extendedprotectionspnlist] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_extendedprotectiontokenchecking predefined value Allow' do
@@ -258,10 +230,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     expect{dsc_xexchoutlookanywhere[:dsc_extendedprotectiontokenchecking] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_extendedprotectiontokenchecking' do
-    expect{dsc_xexchoutlookanywhere[:dsc_extendedprotectiontokenchecking] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_externalclientauthenticationmethod predefined value Ntlm' do
     dsc_xexchoutlookanywhere[:dsc_externalclientauthenticationmethod] = 'Ntlm'
     expect(dsc_xexchoutlookanywhere[:dsc_externalclientauthenticationmethod]).to eq('Ntlm')
@@ -308,10 +276,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     expect{dsc_xexchoutlookanywhere[:dsc_externalclientauthenticationmethod] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_externalclientauthenticationmethod' do
-    expect{dsc_xexchoutlookanywhere[:dsc_externalclientauthenticationmethod] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_externalhostname' do
     expect{dsc_xexchoutlookanywhere[:dsc_externalhostname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -322,10 +286,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
 
   it 'should not accept int for dsc_externalhostname' do
     expect{dsc_xexchoutlookanywhere[:dsc_externalhostname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_externalhostname' do
-    expect{dsc_xexchoutlookanywhere[:dsc_externalhostname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_iisauthenticationmethods' do
@@ -339,10 +299,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
 
   it 'should not accept int for dsc_iisauthenticationmethods' do
     expect{dsc_xexchoutlookanywhere[:dsc_iisauthenticationmethods] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_iisauthenticationmethods' do
-    expect{dsc_xexchoutlookanywhere[:dsc_iisauthenticationmethods] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_internalclientauthenticationmethod predefined value Ntlm' do
@@ -391,10 +347,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     expect{dsc_xexchoutlookanywhere[:dsc_internalclientauthenticationmethod] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_internalclientauthenticationmethod' do
-    expect{dsc_xexchoutlookanywhere[:dsc_internalclientauthenticationmethod] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_internalclientsrequiressl' do
     expect{dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -433,10 +385,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
     expect{dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_internalclientsrequiressl' do
-    expect{dsc_xexchoutlookanywhere[:dsc_internalclientsrequiressl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_internalhostname' do
     expect{dsc_xexchoutlookanywhere[:dsc_internalhostname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -447,10 +395,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
 
   it 'should not accept int for dsc_internalhostname' do
     expect{dsc_xexchoutlookanywhere[:dsc_internalhostname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_internalhostname' do
-    expect{dsc_xexchoutlookanywhere[:dsc_internalhostname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_ssloffloading' do
@@ -489,10 +433,6 @@ describe Puppet::Type.type(:dsc_xexchoutlookanywhere) do
 
   it 'should not accept int for dsc_ssloffloading' do
     expect{dsc_xexchoutlookanywhere[:dsc_ssloffloading] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ssloffloading' do
-    expect{dsc_xexchoutlookanywhere[:dsc_ssloffloading] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

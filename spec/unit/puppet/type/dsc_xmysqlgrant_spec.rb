@@ -53,10 +53,6 @@ describe Puppet::Type.type(:dsc_xmysqlgrant) do
     expect{dsc_xmysqlgrant[:dsc_username] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_username' do
-    expect{dsc_xmysqlgrant[:dsc_username] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_databasename is specified' do
     #dsc_xmysqlgrant[:dsc_databasename]
     expect { Puppet::Type.type(:dsc_xmysqlgrant).new(
@@ -78,10 +74,6 @@ describe Puppet::Type.type(:dsc_xmysqlgrant) do
     expect{dsc_xmysqlgrant[:dsc_databasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databasename' do
-    expect{dsc_xmysqlgrant[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_rootcredential" do
     expect{dsc_xmysqlgrant[:dsc_rootcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -96,10 +88,6 @@ describe Puppet::Type.type(:dsc_xmysqlgrant) do
 
   it 'should not accept int for dsc_rootcredential' do
     expect{dsc_xmysqlgrant[:dsc_rootcredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_rootcredential' do
-    expect{dsc_xmysqlgrant[:dsc_rootcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_permissiontype is specified' do
@@ -207,10 +195,6 @@ describe Puppet::Type.type(:dsc_xmysqlgrant) do
     expect{dsc_xmysqlgrant[:dsc_permissiontype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_permissiontype' do
-    expect{dsc_xmysqlgrant[:dsc_permissiontype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xmysqlgrant[:dsc_ensure] = 'Present'
     expect(dsc_xmysqlgrant[:dsc_ensure]).to eq('Present')
@@ -257,10 +241,6 @@ describe Puppet::Type.type(:dsc_xmysqlgrant) do
     expect{dsc_xmysqlgrant[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xmysqlgrant[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_mysqlversion' do
     expect{dsc_xmysqlgrant[:dsc_mysqlversion] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -271,10 +251,6 @@ describe Puppet::Type.type(:dsc_xmysqlgrant) do
 
   it 'should not accept int for dsc_mysqlversion' do
     expect{dsc_xmysqlgrant[:dsc_mysqlversion] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_mysqlversion' do
-    expect{dsc_xmysqlgrant[:dsc_mysqlversion] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

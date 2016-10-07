@@ -126,9 +126,7 @@ Puppet::Type.newtype(:dsc_spcontentdatabase) do
     def mof_is_embedded?; false end
     desc "WarningSiteCount - Specify the site collection warning limit for the content database"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "WarningSiteCount")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -144,9 +142,7 @@ Puppet::Type.newtype(:dsc_spcontentdatabase) do
     def mof_is_embedded?; false end
     desc "MaximumSiteCount - Specify the site collection maximum limit for the content database"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaximumSiteCount")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

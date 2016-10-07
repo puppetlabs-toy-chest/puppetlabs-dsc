@@ -52,10 +52,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabaseserverfirewallrule) do
     expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_rulename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_rulename' do
-    expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_rulename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_servername is specified' do
     #dsc_xazuresqldatabaseserverfirewallrule[:dsc_servername]
     expect { Puppet::Type.type(:dsc_xazuresqldatabaseserverfirewallrule).new(
@@ -76,10 +72,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabaseserverfirewallrule) do
     expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_servername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_servername' do
-    expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_servername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_startipaddress' do
     expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_startipaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -90,10 +82,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabaseserverfirewallrule) do
 
   it 'should not accept int for dsc_startipaddress' do
     expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_startipaddress] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_startipaddress' do
-    expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_startipaddress] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_endipaddress' do
@@ -108,10 +96,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabaseserverfirewallrule) do
     expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_endipaddress] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_endipaddress' do
-    expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_endipaddress] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_azuresubscriptionname' do
     expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_azuresubscriptionname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -124,10 +108,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabaseserverfirewallrule) do
     expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_azuresubscriptionname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_azuresubscriptionname' do
-    expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_azuresubscriptionname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_azurepublishsettingsfile' do
     expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_azurepublishsettingsfile] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -138,10 +118,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabaseserverfirewallrule) do
 
   it 'should not accept int for dsc_azurepublishsettingsfile' do
     expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_azurepublishsettingsfile] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_azurepublishsettingsfile' do
-    expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_azurepublishsettingsfile] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -188,10 +164,6 @@ describe Puppet::Type.type(:dsc_xazuresqldatabaseserverfirewallrule) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xazuresqldatabaseserverfirewallrule[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

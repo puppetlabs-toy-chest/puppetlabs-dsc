@@ -145,9 +145,7 @@ Puppet::Type.newtype(:dsc_xscvmmconsolesetup) do
     def mof_is_embedded?; false end
     desc "IndigoTcpPort - Port for communication with the VMM management server."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "IndigoTcpPort")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -163,9 +161,7 @@ Puppet::Type.newtype(:dsc_xscvmmconsolesetup) do
     def mof_is_embedded?; false end
     desc "MUOptIn - 0: Do not opt in to Microsoft Update. 1: Opt in to Microsoft Update."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MUOptIn")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

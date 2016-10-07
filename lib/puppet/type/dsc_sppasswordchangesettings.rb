@@ -79,9 +79,7 @@ Puppet::Type.newtype(:dsc_sppasswordchangesettings) do
     def mof_is_embedded?; false end
     desc "DaysBeforeExpiry - The number of days before password expiry to send send emails"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "DaysBeforeExpiry")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -97,9 +95,7 @@ Puppet::Type.newtype(:dsc_sppasswordchangesettings) do
     def mof_is_embedded?; false end
     desc "PasswordChangeWaitTimeSeconds - The duration that a password reset will wait for before it times out"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "PasswordChangeWaitTimeSeconds")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -115,9 +111,7 @@ Puppet::Type.newtype(:dsc_sppasswordchangesettings) do
     def mof_is_embedded?; false end
     desc "NumberOfRetries - How many retries if the password change fails"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "NumberOfRetries")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

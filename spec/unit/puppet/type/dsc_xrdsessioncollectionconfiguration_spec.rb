@@ -58,42 +58,12 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_collectionname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_collectionname' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_collectionname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_activesessionlimitmin' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_activesessionlimitmin' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_activesessionlimitmin' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = 32
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_activesessionlimitmin' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_activesessionlimitmin' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = '16'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_activesessionlimitmin' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = '32'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_activesessionlimitmin' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin] = '64'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_activesessionlimitmin]).to eq(64)
   end
 
   it 'should not accept array for dsc_authenticateusingnla' do
@@ -134,10 +104,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_authenticateusingnla' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_authenticateusingnla] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_automaticreconnectionenabled' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -176,10 +142,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_automaticreconnectionenabled' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_automaticreconnectionenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_brokenconnectionaction' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_brokenconnectionaction] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -192,10 +154,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_brokenconnectionaction] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_brokenconnectionaction' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_brokenconnectionaction] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_clientdeviceredirectionoptions' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_clientdeviceredirectionoptions] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -206,10 +164,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
 
   it 'should not accept int for dsc_clientdeviceredirectionoptions' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_clientdeviceredirectionoptions] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_clientdeviceredirectionoptions' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_clientdeviceredirectionoptions] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_clientprinterasdefault' do
@@ -250,10 +204,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_clientprinterasdefault' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterasdefault] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_clientprinterredirected' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -292,10 +242,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_clientprinterredirected' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_clientprinterredirected] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_collectiondescription' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_collectiondescription] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -306,10 +252,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
 
   it 'should not accept int for dsc_collectiondescription' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_collectiondescription] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_collectiondescription' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_collectiondescription] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_connectionbroker' do
@@ -324,10 +266,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_connectionbroker] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_connectionbroker' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_connectionbroker] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_customrdpproperty' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_customrdpproperty] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -340,42 +278,12 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_customrdpproperty] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_customrdpproperty' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_customrdpproperty] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_disconnectedsessionlimitmin' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_disconnectedsessionlimitmin' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_disconnectedsessionlimitmin' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = 32
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_disconnectedsessionlimitmin' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_disconnectedsessionlimitmin' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = '16'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_disconnectedsessionlimitmin' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = '32'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_disconnectedsessionlimitmin' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin] = '64'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_disconnectedsessionlimitmin]).to eq(64)
   end
 
   it 'should not accept array for dsc_encryptionlevel' do
@@ -390,10 +298,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_encryptionlevel] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_encryptionlevel' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_encryptionlevel] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_idlesessionlimitmin' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -402,64 +306,12 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_idlesessionlimitmin' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = 32
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_idlesessionlimitmin' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_idlesessionlimitmin' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = '16'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_idlesessionlimitmin' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = '32'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_idlesessionlimitmin' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin] = '64'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_idlesessionlimitmin]).to eq(64)
-  end
-
   it 'should not accept array for dsc_maxredirectedmonitors' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_maxredirectedmonitors' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_maxredirectedmonitors' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = 32
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maxredirectedmonitors' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maxredirectedmonitors' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = '16'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maxredirectedmonitors' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = '32'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maxredirectedmonitors' do
-    dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors] = '64'
-    expect(dsc_xrdsessioncollectionconfiguration[:dsc_maxredirectedmonitors]).to eq(64)
   end
 
   it 'should not accept array for dsc_rdeasyprintdriverenabled' do
@@ -500,10 +352,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_rdeasyprintdriverenabled' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_rdeasyprintdriverenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_securitylayer' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_securitylayer] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -514,10 +362,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
 
   it 'should not accept int for dsc_securitylayer' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_securitylayer] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_securitylayer' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_securitylayer] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_temporaryfoldersdeletedonexit' do
@@ -558,10 +402,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_temporaryfoldersdeletedonexit' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_temporaryfoldersdeletedonexit] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_usergroup' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_usergroup] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -572,10 +412,6 @@ describe Puppet::Type.type(:dsc_xrdsessioncollectionconfiguration) do
 
   it 'should not accept int for dsc_usergroup' do
     expect{dsc_xrdsessioncollectionconfiguration[:dsc_usergroup] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_usergroup' do
-    expect{dsc_xrdsessioncollectionconfiguration[:dsc_usergroup] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

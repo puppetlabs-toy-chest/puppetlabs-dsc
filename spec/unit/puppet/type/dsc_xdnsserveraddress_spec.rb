@@ -38,10 +38,6 @@ describe Puppet::Type.type(:dsc_xdnsserveraddress) do
     expect{dsc_xdnsserveraddress[:dsc_address] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_address' do
-    expect{dsc_xdnsserveraddress[:dsc_address] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_interfacealias is specified' do
     #dsc_xdnsserveraddress[:dsc_interfacealias]
     expect { Puppet::Type.type(:dsc_xdnsserveraddress).new(
@@ -60,10 +56,6 @@ describe Puppet::Type.type(:dsc_xdnsserveraddress) do
 
   it 'should not accept int for dsc_interfacealias' do
     expect{dsc_xdnsserveraddress[:dsc_interfacealias] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_interfacealias' do
-    expect{dsc_xdnsserveraddress[:dsc_interfacealias] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_addressfamily is specified' do
@@ -110,10 +102,6 @@ describe Puppet::Type.type(:dsc_xdnsserveraddress) do
     expect{dsc_xdnsserveraddress[:dsc_addressfamily] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_addressfamily' do
-    expect{dsc_xdnsserveraddress[:dsc_addressfamily] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_validate' do
     expect{dsc_xdnsserveraddress[:dsc_validate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -150,10 +138,6 @@ describe Puppet::Type.type(:dsc_xdnsserveraddress) do
 
   it 'should not accept int for dsc_validate' do
     expect{dsc_xdnsserveraddress[:dsc_validate] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_validate' do
-    expect{dsc_xdnsserveraddress[:dsc_validate] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

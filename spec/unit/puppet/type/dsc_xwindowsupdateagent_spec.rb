@@ -61,10 +61,6 @@ describe Puppet::Type.type(:dsc_xwindowsupdateagent) do
     expect{dsc_xwindowsupdateagent[:dsc_issingleinstance] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_issingleinstance' do
-    expect{dsc_xwindowsupdateagent[:dsc_issingleinstance] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_category predefined value Security' do
     dsc_xwindowsupdateagent[:dsc_category] = 'Security'
     expect(dsc_xwindowsupdateagent[:dsc_category]).to eq(['Security'])
@@ -112,10 +108,6 @@ describe Puppet::Type.type(:dsc_xwindowsupdateagent) do
     expect{dsc_xwindowsupdateagent[:dsc_category] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_category' do
-    expect{dsc_xwindowsupdateagent[:dsc_category] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_notifications predefined value Disabled' do
     dsc_xwindowsupdateagent[:dsc_notifications] = 'Disabled'
     expect(dsc_xwindowsupdateagent[:dsc_notifications]).to eq('Disabled')
@@ -150,10 +142,6 @@ describe Puppet::Type.type(:dsc_xwindowsupdateagent) do
 
   it 'should not accept int for dsc_notifications' do
     expect{dsc_xwindowsupdateagent[:dsc_notifications] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_notifications' do
-    expect{dsc_xwindowsupdateagent[:dsc_notifications] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_source predefined value WindowsUpdate' do
@@ -202,10 +190,6 @@ describe Puppet::Type.type(:dsc_xwindowsupdateagent) do
     expect{dsc_xwindowsupdateagent[:dsc_source] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_source' do
-    expect{dsc_xwindowsupdateagent[:dsc_source] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_updatenow' do
     expect{dsc_xwindowsupdateagent[:dsc_updatenow] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -244,10 +228,6 @@ describe Puppet::Type.type(:dsc_xwindowsupdateagent) do
     expect{dsc_xwindowsupdateagent[:dsc_updatenow] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_updatenow' do
-    expect{dsc_xwindowsupdateagent[:dsc_updatenow] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_automaticupdatesnotificationsetting' do
     expect{dsc_xwindowsupdateagent[:dsc_automaticupdatesnotificationsetting] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -260,42 +240,12 @@ describe Puppet::Type.type(:dsc_xwindowsupdateagent) do
     expect{dsc_xwindowsupdateagent[:dsc_automaticupdatesnotificationsetting] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_automaticupdatesnotificationsetting' do
-    expect{dsc_xwindowsupdateagent[:dsc_automaticupdatesnotificationsetting] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_totalupdatesnotinstalled' do
     expect{dsc_xwindowsupdateagent[:dsc_totalupdatesnotinstalled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_totalupdatesnotinstalled' do
     expect{dsc_xwindowsupdateagent[:dsc_totalupdatesnotinstalled] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_totalupdatesnotinstalled' do
-    dsc_xwindowsupdateagent[:dsc_totalupdatesnotinstalled] = 32
-    expect(dsc_xwindowsupdateagent[:dsc_totalupdatesnotinstalled]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_totalupdatesnotinstalled' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xwindowsupdateagent[:dsc_totalupdatesnotinstalled] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_totalupdatesnotinstalled' do
-    dsc_xwindowsupdateagent[:dsc_totalupdatesnotinstalled] = '16'
-    expect(dsc_xwindowsupdateagent[:dsc_totalupdatesnotinstalled]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_totalupdatesnotinstalled' do
-    dsc_xwindowsupdateagent[:dsc_totalupdatesnotinstalled] = '32'
-    expect(dsc_xwindowsupdateagent[:dsc_totalupdatesnotinstalled]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_totalupdatesnotinstalled' do
-    dsc_xwindowsupdateagent[:dsc_totalupdatesnotinstalled] = '64'
-    expect(dsc_xwindowsupdateagent[:dsc_totalupdatesnotinstalled]).to eq(64)
   end
 
   it 'should not accept array for dsc_rebootrequired' do
@@ -334,10 +284,6 @@ describe Puppet::Type.type(:dsc_xwindowsupdateagent) do
 
   it 'should not accept int for dsc_rebootrequired' do
     expect{dsc_xwindowsupdateagent[:dsc_rebootrequired] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_rebootrequired' do
-    expect{dsc_xwindowsupdateagent[:dsc_rebootrequired] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

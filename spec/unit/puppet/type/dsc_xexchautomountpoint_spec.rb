@@ -51,10 +51,6 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     expect{dsc_xexchautomountpoint[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexchautomountpoint[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_autodagdatabasesrootfolderpath' do
     expect{dsc_xexchautomountpoint[:dsc_autodagdatabasesrootfolderpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -67,10 +63,6 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     expect{dsc_xexchautomountpoint[:dsc_autodagdatabasesrootfolderpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_autodagdatabasesrootfolderpath' do
-    expect{dsc_xexchautomountpoint[:dsc_autodagdatabasesrootfolderpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_autodagvolumesrootfolderpath' do
     expect{dsc_xexchautomountpoint[:dsc_autodagvolumesrootfolderpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -81,10 +73,6 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
 
   it 'should not accept int for dsc_autodagvolumesrootfolderpath' do
     expect{dsc_xexchautomountpoint[:dsc_autodagvolumesrootfolderpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_autodagvolumesrootfolderpath' do
-    expect{dsc_xexchautomountpoint[:dsc_autodagvolumesrootfolderpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_disktodbmap' do
@@ -100,42 +88,12 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     expect{dsc_xexchautomountpoint[:dsc_disktodbmap] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_disktodbmap' do
-    expect{dsc_xexchautomountpoint[:dsc_disktodbmap] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sparevolumecount' do
     expect{dsc_xexchautomountpoint[:dsc_sparevolumecount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_sparevolumecount' do
     expect{dsc_xexchautomountpoint[:dsc_sparevolumecount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_sparevolumecount' do
-    dsc_xexchautomountpoint[:dsc_sparevolumecount] = 32
-    expect(dsc_xexchautomountpoint[:dsc_sparevolumecount]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_sparevolumecount' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xexchautomountpoint[:dsc_sparevolumecount] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_sparevolumecount' do
-    dsc_xexchautomountpoint[:dsc_sparevolumecount] = '16'
-    expect(dsc_xexchautomountpoint[:dsc_sparevolumecount]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_sparevolumecount' do
-    dsc_xexchautomountpoint[:dsc_sparevolumecount] = '32'
-    expect(dsc_xexchautomountpoint[:dsc_sparevolumecount]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_sparevolumecount' do
-    dsc_xexchautomountpoint[:dsc_sparevolumecount] = '64'
-    expect(dsc_xexchautomountpoint[:dsc_sparevolumecount]).to eq(64)
   end
 
   it 'should not accept array for dsc_ensureexchangevolumemountpointislast' do
@@ -176,10 +134,6 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     expect{dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensureexchangevolumemountpointislast' do
-    expect{dsc_xexchautomountpoint[:dsc_ensureexchangevolumemountpointislast] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_createsubfolders' do
     expect{dsc_xexchautomountpoint[:dsc_createsubfolders] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -218,10 +172,6 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     expect{dsc_xexchautomountpoint[:dsc_createsubfolders] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_createsubfolders' do
-    expect{dsc_xexchautomountpoint[:dsc_createsubfolders] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_filesystem predefined value NTFS' do
     dsc_xexchautomountpoint[:dsc_filesystem] = 'NTFS'
     expect(dsc_xexchautomountpoint[:dsc_filesystem]).to eq('NTFS')
@@ -258,10 +208,6 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     expect{dsc_xexchautomountpoint[:dsc_filesystem] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_filesystem' do
-    expect{dsc_xexchautomountpoint[:dsc_filesystem] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_mindisksize' do
     expect{dsc_xexchautomountpoint[:dsc_mindisksize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -272,10 +218,6 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
 
   it 'should not accept int for dsc_mindisksize' do
     expect{dsc_xexchautomountpoint[:dsc_mindisksize] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_mindisksize' do
-    expect{dsc_xexchautomountpoint[:dsc_mindisksize] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_partitioningscheme predefined value MBR' do
@@ -314,10 +256,6 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     expect{dsc_xexchautomountpoint[:dsc_partitioningscheme] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_partitioningscheme' do
-    expect{dsc_xexchautomountpoint[:dsc_partitioningscheme] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_unitsize' do
     expect{dsc_xexchautomountpoint[:dsc_unitsize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -330,10 +268,6 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
     expect{dsc_xexchautomountpoint[:dsc_unitsize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_unitsize' do
-    expect{dsc_xexchautomountpoint[:dsc_unitsize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_volumeprefix' do
     expect{dsc_xexchautomountpoint[:dsc_volumeprefix] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -344,10 +278,6 @@ describe Puppet::Type.type(:dsc_xexchautomountpoint) do
 
   it 'should not accept int for dsc_volumeprefix' do
     expect{dsc_xexchautomountpoint[:dsc_volumeprefix] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_volumeprefix' do
-    expect{dsc_xexchautomountpoint[:dsc_volumeprefix] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

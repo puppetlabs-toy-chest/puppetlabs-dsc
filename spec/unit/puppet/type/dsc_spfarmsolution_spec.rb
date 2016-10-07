@@ -51,10 +51,6 @@ describe Puppet::Type.type(:dsc_spfarmsolution) do
     expect{dsc_spfarmsolution[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spfarmsolution[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_literalpath' do
     expect{dsc_spfarmsolution[:dsc_literalpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -65,10 +61,6 @@ describe Puppet::Type.type(:dsc_spfarmsolution) do
 
   it 'should not accept int for dsc_literalpath' do
     expect{dsc_spfarmsolution[:dsc_literalpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_literalpath' do
-    expect{dsc_spfarmsolution[:dsc_literalpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_webapplications' do
@@ -82,10 +74,6 @@ describe Puppet::Type.type(:dsc_spfarmsolution) do
 
   it 'should not accept int for dsc_webapplications' do
     expect{dsc_spfarmsolution[:dsc_webapplications] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_webapplications' do
-    expect{dsc_spfarmsolution[:dsc_webapplications] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -134,10 +122,6 @@ describe Puppet::Type.type(:dsc_spfarmsolution) do
     expect{dsc_spfarmsolution[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spfarmsolution[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_version' do
     expect{dsc_spfarmsolution[:dsc_version] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -148,10 +132,6 @@ describe Puppet::Type.type(:dsc_spfarmsolution) do
 
   it 'should not accept int for dsc_version' do
     expect{dsc_spfarmsolution[:dsc_version] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_version' do
-    expect{dsc_spfarmsolution[:dsc_version] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_deployed' do
@@ -190,10 +170,6 @@ describe Puppet::Type.type(:dsc_spfarmsolution) do
 
   it 'should not accept int for dsc_deployed' do
     expect{dsc_spfarmsolution[:dsc_deployed] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_deployed' do
-    expect{dsc_spfarmsolution[:dsc_deployed] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_solutionlevel predefined value 14' do
@@ -242,10 +218,6 @@ describe Puppet::Type.type(:dsc_spfarmsolution) do
     expect{dsc_spfarmsolution[:dsc_solutionlevel] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_solutionlevel' do
-    expect{dsc_spfarmsolution[:dsc_solutionlevel] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spfarmsolution[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -260,10 +232,6 @@ describe Puppet::Type.type(:dsc_spfarmsolution) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spfarmsolution[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spfarmsolution[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

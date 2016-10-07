@@ -78,10 +78,6 @@ describe Puppet::Type.type(:dsc_xsqlserverpowerplan) do
     expect{dsc_xsqlserverpowerplan[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xsqlserverpowerplan[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   # Configuration PROVIDER TESTS
 
   describe "powershell provider tests" do

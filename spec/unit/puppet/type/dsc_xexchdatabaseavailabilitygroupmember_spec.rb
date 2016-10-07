@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupmember) do
     expect{dsc_xexchdatabaseavailabilitygroupmember[:dsc_mailboxserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_mailboxserver' do
-    expect{dsc_xexchdatabaseavailabilitygroupmember[:dsc_mailboxserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchdatabaseavailabilitygroupmember[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -64,10 +60,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupmember) do
     expect{dsc_xexchdatabaseavailabilitygroupmember[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchdatabaseavailabilitygroupmember[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_dagname' do
     expect{dsc_xexchdatabaseavailabilitygroupmember[:dsc_dagname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -80,10 +72,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupmember) do
     expect{dsc_xexchdatabaseavailabilitygroupmember[:dsc_dagname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dagname' do
-    expect{dsc_xexchdatabaseavailabilitygroupmember[:dsc_dagname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchdatabaseavailabilitygroupmember[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -94,10 +82,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupmember) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xexchdatabaseavailabilitygroupmember[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchdatabaseavailabilitygroupmember[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_skipdagvalidation' do
@@ -136,10 +120,6 @@ describe Puppet::Type.type(:dsc_xexchdatabaseavailabilitygroupmember) do
 
   it 'should not accept int for dsc_skipdagvalidation' do
     expect{dsc_xexchdatabaseavailabilitygroupmember[:dsc_skipdagvalidation] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_skipdagvalidation' do
-    expect{dsc_xexchdatabaseavailabilitygroupmember[:dsc_skipdagvalidation] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

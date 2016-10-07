@@ -53,10 +53,6 @@ describe Puppet::Type.type(:dsc_xazurequickvm) do
     expect{dsc_xazurequickvm[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xazurequickvm[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xazurequickvm[:dsc_ensure] = 'Present'
     expect(dsc_xazurequickvm[:dsc_ensure]).to eq('Present')
@@ -103,10 +99,6 @@ describe Puppet::Type.type(:dsc_xazurequickvm) do
     expect{dsc_xazurequickvm[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xazurequickvm[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_imagename' do
     expect{dsc_xazurequickvm[:dsc_imagename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -119,10 +111,6 @@ describe Puppet::Type.type(:dsc_xazurequickvm) do
     expect{dsc_xazurequickvm[:dsc_imagename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_imagename' do
-    expect{dsc_xazurequickvm[:dsc_imagename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_servicename' do
     expect{dsc_xazurequickvm[:dsc_servicename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -133,10 +121,6 @@ describe Puppet::Type.type(:dsc_xazurequickvm) do
 
   it 'should not accept int for dsc_servicename' do
     expect{dsc_xazurequickvm[:dsc_servicename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_servicename' do
-    expect{dsc_xazurequickvm[:dsc_servicename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_linux' do
@@ -177,10 +161,6 @@ describe Puppet::Type.type(:dsc_xazurequickvm) do
     expect{dsc_xazurequickvm[:dsc_linux] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_linux' do
-    expect{dsc_xazurequickvm[:dsc_linux] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_linuxuser' do
     expect{dsc_xazurequickvm[:dsc_linuxuser] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -191,10 +171,6 @@ describe Puppet::Type.type(:dsc_xazurequickvm) do
 
   it 'should not accept int for dsc_linuxuser' do
     expect{dsc_xazurequickvm[:dsc_linuxuser] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_linuxuser' do
-    expect{dsc_xazurequickvm[:dsc_linuxuser] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_windows' do
@@ -235,10 +211,6 @@ describe Puppet::Type.type(:dsc_xazurequickvm) do
     expect{dsc_xazurequickvm[:dsc_windows] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_windows' do
-    expect{dsc_xazurequickvm[:dsc_windows] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_adminusername' do
     expect{dsc_xazurequickvm[:dsc_adminusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -249,10 +221,6 @@ describe Puppet::Type.type(:dsc_xazurequickvm) do
 
   it 'should not accept int for dsc_adminusername' do
     expect{dsc_xazurequickvm[:dsc_adminusername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_adminusername' do
-    expect{dsc_xazurequickvm[:dsc_adminusername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_password' do
@@ -267,10 +235,6 @@ describe Puppet::Type.type(:dsc_xazurequickvm) do
     expect{dsc_xazurequickvm[:dsc_password] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_password' do
-    expect{dsc_xazurequickvm[:dsc_password] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_instancesize' do
     expect{dsc_xazurequickvm[:dsc_instancesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -281,10 +245,6 @@ describe Puppet::Type.type(:dsc_xazurequickvm) do
 
   it 'should not accept int for dsc_instancesize' do
     expect{dsc_xazurequickvm[:dsc_instancesize] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_instancesize' do
-    expect{dsc_xazurequickvm[:dsc_instancesize] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -57,10 +57,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
     expect{dsc_spwebapplication[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spwebapplication[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_applicationpool' do
     expect{dsc_spwebapplication[:dsc_applicationpool] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -71,10 +67,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
 
   it 'should not accept int for dsc_applicationpool' do
     expect{dsc_spwebapplication[:dsc_applicationpool] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_applicationpool' do
-    expect{dsc_spwebapplication[:dsc_applicationpool] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_applicationpoolaccount' do
@@ -89,10 +81,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
     expect{dsc_spwebapplication[:dsc_applicationpoolaccount] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_applicationpoolaccount' do
-    expect{dsc_spwebapplication[:dsc_applicationpoolaccount] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_url' do
     expect{dsc_spwebapplication[:dsc_url] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -103,10 +91,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
 
   it 'should not accept int for dsc_url' do
     expect{dsc_spwebapplication[:dsc_url] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_url' do
-    expect{dsc_spwebapplication[:dsc_url] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowanonymous' do
@@ -147,10 +131,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
     expect{dsc_spwebapplication[:dsc_allowanonymous] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowanonymous' do
-    expect{dsc_spwebapplication[:dsc_allowanonymous] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_authenticationmethod predefined value NTLM' do
     dsc_spwebapplication[:dsc_authenticationmethod] = 'NTLM'
     expect(dsc_spwebapplication[:dsc_authenticationmethod]).to eq('NTLM')
@@ -187,10 +167,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
     expect{dsc_spwebapplication[:dsc_authenticationmethod] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_authenticationmethod' do
-    expect{dsc_spwebapplication[:dsc_authenticationmethod] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databasename' do
     expect{dsc_spwebapplication[:dsc_databasename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -201,10 +177,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
 
   it 'should not accept int for dsc_databasename' do
     expect{dsc_spwebapplication[:dsc_databasename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_databasename' do
-    expect{dsc_spwebapplication[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_databaseserver' do
@@ -219,10 +191,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
     expect{dsc_spwebapplication[:dsc_databaseserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databaseserver' do
-    expect{dsc_spwebapplication[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_hostheader' do
     expect{dsc_spwebapplication[:dsc_hostheader] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -233,10 +201,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
 
   it 'should not accept int for dsc_hostheader' do
     expect{dsc_spwebapplication[:dsc_hostheader] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_hostheader' do
-    expect{dsc_spwebapplication[:dsc_hostheader] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_path' do
@@ -251,10 +215,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
     expect{dsc_spwebapplication[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_spwebapplication[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_port' do
     expect{dsc_spwebapplication[:dsc_port] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -265,10 +225,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
 
   it 'should not accept int for dsc_port' do
     expect{dsc_spwebapplication[:dsc_port] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_port' do
-    expect{dsc_spwebapplication[:dsc_port] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_usessl' do
@@ -307,10 +263,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
 
   it 'should not accept int for dsc_usessl' do
     expect{dsc_spwebapplication[:dsc_usessl] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_usessl' do
-    expect{dsc_spwebapplication[:dsc_usessl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -359,10 +311,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
     expect{dsc_spwebapplication[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spwebapplication[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spwebapplication[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -377,10 +325,6 @@ describe Puppet::Type.type(:dsc_spwebapplication) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spwebapplication[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spwebapplication[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

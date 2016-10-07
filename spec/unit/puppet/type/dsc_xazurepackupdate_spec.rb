@@ -137,10 +137,6 @@ describe Puppet::Type.type(:dsc_xazurepackupdate) do
     expect{dsc_xazurepackupdate[:dsc_role] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_role' do
-    expect{dsc_xazurepackupdate[:dsc_role] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcepath' do
     expect{dsc_xazurepackupdate[:dsc_sourcepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -153,10 +149,6 @@ describe Puppet::Type.type(:dsc_xazurepackupdate) do
     expect{dsc_xazurepackupdate[:dsc_sourcepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcepath' do
-    expect{dsc_xazurepackupdate[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcefolder' do
     expect{dsc_xazurepackupdate[:dsc_sourcefolder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -167,10 +159,6 @@ describe Puppet::Type.type(:dsc_xazurepackupdate) do
 
   it 'should not accept int for dsc_sourcefolder' do
     expect{dsc_xazurepackupdate[:dsc_sourcefolder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sourcefolder' do
-    expect{dsc_xazurepackupdate[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_setupcredential" do
@@ -187,10 +175,6 @@ describe Puppet::Type.type(:dsc_xazurepackupdate) do
 
   it 'should not accept int for dsc_setupcredential' do
     expect{dsc_xazurepackupdate[:dsc_setupcredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_setupcredential' do
-    expect{dsc_xazurepackupdate[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

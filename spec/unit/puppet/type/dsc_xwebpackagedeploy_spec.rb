@@ -39,10 +39,6 @@ describe Puppet::Type.type(:dsc_xwebpackagedeploy) do
     expect{dsc_xwebpackagedeploy[:dsc_sourcepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcepath' do
-    expect{dsc_xwebpackagedeploy[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_destination is specified' do
     #dsc_xwebpackagedeploy[:dsc_destination]
     expect { Puppet::Type.type(:dsc_xwebpackagedeploy).new(
@@ -60,10 +56,6 @@ describe Puppet::Type.type(:dsc_xwebpackagedeploy) do
 
   it 'should not accept int for dsc_destination' do
     expect{dsc_xwebpackagedeploy[:dsc_destination] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_destination' do
-    expect{dsc_xwebpackagedeploy[:dsc_destination] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -110,10 +102,6 @@ describe Puppet::Type.type(:dsc_xwebpackagedeploy) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xwebpackagedeploy[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xwebpackagedeploy[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

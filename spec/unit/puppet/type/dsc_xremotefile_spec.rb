@@ -53,10 +53,6 @@ describe Puppet::Type.type(:dsc_xremotefile) do
     expect{dsc_xremotefile[:dsc_destinationpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_destinationpath' do
-    expect{dsc_xremotefile[:dsc_destinationpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_uri' do
     expect{dsc_xremotefile[:dsc_uri] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -67,10 +63,6 @@ describe Puppet::Type.type(:dsc_xremotefile) do
 
   it 'should not accept int for dsc_uri' do
     expect{dsc_xremotefile[:dsc_uri] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_uri' do
-    expect{dsc_xremotefile[:dsc_uri] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_useragent' do
@@ -85,10 +77,6 @@ describe Puppet::Type.type(:dsc_xremotefile) do
     expect{dsc_xremotefile[:dsc_useragent] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_useragent' do
-    expect{dsc_xremotefile[:dsc_useragent] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept a hash for dsc_headers' do
     dsc_xremotefile[:dsc_headers] = {"somekey"=>"somevalue", "somekey2"=>"somevalue2"}
     expect(dsc_xremotefile[:dsc_headers]).to eq({"somekey"=>"somevalue", "somekey2"=>"somevalue2"})
@@ -100,10 +88,6 @@ describe Puppet::Type.type(:dsc_xremotefile) do
 
   it 'should not accept int for dsc_headers' do
     expect{dsc_xremotefile[:dsc_headers] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_headers' do
-    expect{dsc_xremotefile[:dsc_headers] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_credential" do
@@ -120,10 +104,6 @@ describe Puppet::Type.type(:dsc_xremotefile) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xremotefile[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xremotefile[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_matchsource' do
@@ -164,42 +144,12 @@ describe Puppet::Type.type(:dsc_xremotefile) do
     expect{dsc_xremotefile[:dsc_matchsource] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_matchsource' do
-    expect{dsc_xremotefile[:dsc_matchsource] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_timeoutsec' do
     expect{dsc_xremotefile[:dsc_timeoutsec] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_timeoutsec' do
     expect{dsc_xremotefile[:dsc_timeoutsec] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_timeoutsec' do
-    dsc_xremotefile[:dsc_timeoutsec] = 32
-    expect(dsc_xremotefile[:dsc_timeoutsec]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_timeoutsec' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xremotefile[:dsc_timeoutsec] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_timeoutsec' do
-    dsc_xremotefile[:dsc_timeoutsec] = '16'
-    expect(dsc_xremotefile[:dsc_timeoutsec]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_timeoutsec' do
-    dsc_xremotefile[:dsc_timeoutsec] = '32'
-    expect(dsc_xremotefile[:dsc_timeoutsec]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_timeoutsec' do
-    dsc_xremotefile[:dsc_timeoutsec] = '64'
-    expect(dsc_xremotefile[:dsc_timeoutsec]).to eq(64)
   end
 
   it 'should not accept array for dsc_proxy' do
@@ -212,10 +162,6 @@ describe Puppet::Type.type(:dsc_xremotefile) do
 
   it 'should not accept int for dsc_proxy' do
     expect{dsc_xremotefile[:dsc_proxy] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_proxy' do
-    expect{dsc_xremotefile[:dsc_proxy] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_proxycredential" do
@@ -232,10 +178,6 @@ describe Puppet::Type.type(:dsc_xremotefile) do
 
   it 'should not accept int for dsc_proxycredential' do
     expect{dsc_xremotefile[:dsc_proxycredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_proxycredential' do
-    expect{dsc_xremotefile[:dsc_proxycredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -282,10 +224,6 @@ describe Puppet::Type.type(:dsc_xremotefile) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xremotefile[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xremotefile[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

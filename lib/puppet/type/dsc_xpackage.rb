@@ -162,9 +162,7 @@ Puppet::Type.newtype(:dsc_xpackage) do
     def mof_is_embedded?; false end
     desc "ReturnCode"
     validate do |value|
-      unless value.kind_of?(Array) || (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-        fail("Invalid value '#{value}'. Should be an integer or an array of integers")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ReturnCode")
     end
     munge do |value|
       v = PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -241,9 +239,7 @@ Puppet::Type.newtype(:dsc_xpackage) do
     def mof_is_embedded?; false end
     desc "Size"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "Size")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

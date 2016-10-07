@@ -74,10 +74,6 @@ describe Puppet::Type.type(:dsc_xscspfserver) do
     expect{dsc_xscspfserver[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xscspfserver[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_name is specified' do
     #dsc_xscspfserver[:dsc_name]
     expect { Puppet::Type.type(:dsc_xscspfserver).new(
@@ -95,10 +91,6 @@ describe Puppet::Type.type(:dsc_xscspfserver) do
 
   it 'should not accept int for dsc_name' do
     expect{dsc_xscspfserver[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xscspfserver[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_servertype predefined value VMM' do
@@ -187,10 +179,6 @@ describe Puppet::Type.type(:dsc_xscspfserver) do
     expect{dsc_xscspfserver[:dsc_servertype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_servertype' do
-    expect{dsc_xscspfserver[:dsc_servertype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_scspfadmincredential" do
     expect{dsc_xscspfserver[:dsc_scspfadmincredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -205,10 +193,6 @@ describe Puppet::Type.type(:dsc_xscspfserver) do
 
   it 'should not accept int for dsc_scspfadmincredential' do
     expect{dsc_xscspfserver[:dsc_scspfadmincredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_scspfadmincredential' do
-    expect{dsc_xscspfserver[:dsc_scspfadmincredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

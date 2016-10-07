@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupfolder) do
     expect{dsc_xdfsreplicationgroupfolder[:dsc_groupname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_groupname' do
-    expect{dsc_xdfsreplicationgroupfolder[:dsc_groupname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_foldername is specified' do
     #dsc_xdfsreplicationgroupfolder[:dsc_foldername]
     expect { Puppet::Type.type(:dsc_xdfsreplicationgroupfolder).new(
@@ -72,10 +68,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupfolder) do
     expect{dsc_xdfsreplicationgroupfolder[:dsc_foldername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_foldername' do
-    expect{dsc_xdfsreplicationgroupfolder[:dsc_foldername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_xdfsreplicationgroupfolder[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -86,10 +78,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupfolder) do
 
   it 'should not accept int for dsc_description' do
     expect{dsc_xdfsreplicationgroupfolder[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xdfsreplicationgroupfolder[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_filenametoexclude' do
@@ -105,10 +93,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupfolder) do
     expect{dsc_xdfsreplicationgroupfolder[:dsc_filenametoexclude] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_filenametoexclude' do
-    expect{dsc_xdfsreplicationgroupfolder[:dsc_filenametoexclude] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_directorynametoexclude' do
     dsc_xdfsreplicationgroupfolder[:dsc_directorynametoexclude] = ["foo", "bar", "spec"]
     expect(dsc_xdfsreplicationgroupfolder[:dsc_directorynametoexclude]).to eq(["foo", "bar", "spec"])
@@ -120,10 +104,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupfolder) do
 
   it 'should not accept int for dsc_directorynametoexclude' do
     expect{dsc_xdfsreplicationgroupfolder[:dsc_directorynametoexclude] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_directorynametoexclude' do
-    expect{dsc_xdfsreplicationgroupfolder[:dsc_directorynametoexclude] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_dfsnpath' do
@@ -138,10 +118,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupfolder) do
     expect{dsc_xdfsreplicationgroupfolder[:dsc_dfsnpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dfsnpath' do
-    expect{dsc_xdfsreplicationgroupfolder[:dsc_dfsnpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domainname' do
     expect{dsc_xdfsreplicationgroupfolder[:dsc_domainname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -152,10 +128,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupfolder) do
 
   it 'should not accept int for dsc_domainname' do
     expect{dsc_xdfsreplicationgroupfolder[:dsc_domainname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domainname' do
-    expect{dsc_xdfsreplicationgroupfolder[:dsc_domainname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

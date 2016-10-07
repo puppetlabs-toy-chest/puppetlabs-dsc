@@ -79,9 +79,7 @@ Puppet::Type.newtype(:dsc_xdisk) do
     def mof_is_embedded?; false end
     desc "DiskNumber"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "DiskNumber")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -97,9 +95,7 @@ Puppet::Type.newtype(:dsc_xdisk) do
     def mof_is_embedded?; false end
     desc "Size"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "Size")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -130,9 +126,7 @@ Puppet::Type.newtype(:dsc_xdisk) do
     def mof_is_embedded?; false end
     desc "AllocationUnitSize"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "AllocationUnitSize")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

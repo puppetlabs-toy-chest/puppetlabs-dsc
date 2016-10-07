@@ -152,9 +152,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
     def mof_is_embedded?; false end
     desc "AvailabilityGroupPort"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "AvailabilityGroupPort")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

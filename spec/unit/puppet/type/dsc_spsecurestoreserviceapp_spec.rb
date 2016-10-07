@@ -56,10 +56,6 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
     expect{dsc_spsecurestoreserviceapp[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spsecurestoreserviceapp[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_applicationpool' do
     expect{dsc_spsecurestoreserviceapp[:dsc_applicationpool] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -70,10 +66,6 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
 
   it 'should not accept int for dsc_applicationpool' do
     expect{dsc_spsecurestoreserviceapp[:dsc_applicationpool] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_applicationpool' do
-    expect{dsc_spsecurestoreserviceapp[:dsc_applicationpool] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_auditingenabled' do
@@ -114,42 +106,12 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
     expect{dsc_spsecurestoreserviceapp[:dsc_auditingenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_auditingenabled' do
-    expect{dsc_spsecurestoreserviceapp[:dsc_auditingenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_auditlogmaxsize' do
     expect{dsc_spsecurestoreserviceapp[:dsc_auditlogmaxsize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_auditlogmaxsize' do
     expect{dsc_spsecurestoreserviceapp[:dsc_auditlogmaxsize] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_auditlogmaxsize' do
-    dsc_spsecurestoreserviceapp[:dsc_auditlogmaxsize] = 32
-    expect(dsc_spsecurestoreserviceapp[:dsc_auditlogmaxsize]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_auditlogmaxsize' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spsecurestoreserviceapp[:dsc_auditlogmaxsize] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_auditlogmaxsize' do
-    dsc_spsecurestoreserviceapp[:dsc_auditlogmaxsize] = '16'
-    expect(dsc_spsecurestoreserviceapp[:dsc_auditlogmaxsize]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_auditlogmaxsize' do
-    dsc_spsecurestoreserviceapp[:dsc_auditlogmaxsize] = '32'
-    expect(dsc_spsecurestoreserviceapp[:dsc_auditlogmaxsize]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_auditlogmaxsize' do
-    dsc_spsecurestoreserviceapp[:dsc_auditlogmaxsize] = '64'
-    expect(dsc_spsecurestoreserviceapp[:dsc_auditlogmaxsize]).to eq(64)
   end
 
   it "should not accept empty password for dsc_databasecredentials" do
@@ -168,10 +130,6 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
     expect{dsc_spsecurestoreserviceapp[:dsc_databasecredentials] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databasecredentials' do
-    expect{dsc_spsecurestoreserviceapp[:dsc_databasecredentials] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databasename' do
     expect{dsc_spsecurestoreserviceapp[:dsc_databasename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -184,10 +142,6 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
     expect{dsc_spsecurestoreserviceapp[:dsc_databasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databasename' do
-    expect{dsc_spsecurestoreserviceapp[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databaseserver' do
     expect{dsc_spsecurestoreserviceapp[:dsc_databaseserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -198,10 +152,6 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
 
   it 'should not accept int for dsc_databaseserver' do
     expect{dsc_spsecurestoreserviceapp[:dsc_databaseserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_databaseserver' do
-    expect{dsc_spsecurestoreserviceapp[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_databaseauthenticationtype predefined value Windows' do
@@ -240,10 +190,6 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
     expect{dsc_spsecurestoreserviceapp[:dsc_databaseauthenticationtype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databaseauthenticationtype' do
-    expect{dsc_spsecurestoreserviceapp[:dsc_databaseauthenticationtype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_failoverdatabaseserver' do
     expect{dsc_spsecurestoreserviceapp[:dsc_failoverdatabaseserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -254,10 +200,6 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
 
   it 'should not accept int for dsc_failoverdatabaseserver' do
     expect{dsc_spsecurestoreserviceapp[:dsc_failoverdatabaseserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_failoverdatabaseserver' do
-    expect{dsc_spsecurestoreserviceapp[:dsc_failoverdatabaseserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_partitionmode' do
@@ -298,10 +240,6 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
     expect{dsc_spsecurestoreserviceapp[:dsc_partitionmode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_partitionmode' do
-    expect{dsc_spsecurestoreserviceapp[:dsc_partitionmode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sharing' do
     expect{dsc_spsecurestoreserviceapp[:dsc_sharing] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -338,10 +276,6 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
 
   it 'should not accept int for dsc_sharing' do
     expect{dsc_spsecurestoreserviceapp[:dsc_sharing] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sharing' do
-    expect{dsc_spsecurestoreserviceapp[:dsc_sharing] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -390,10 +324,6 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
     expect{dsc_spsecurestoreserviceapp[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spsecurestoreserviceapp[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spsecurestoreserviceapp[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -408,10 +338,6 @@ describe Puppet::Type.type(:dsc_spsecurestoreserviceapp) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spsecurestoreserviceapp[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spsecurestoreserviceapp[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

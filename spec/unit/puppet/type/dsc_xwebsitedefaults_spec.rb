@@ -59,10 +59,6 @@ describe Puppet::Type.type(:dsc_xwebsitedefaults) do
     expect{dsc_xwebsitedefaults[:dsc_applyto] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_applyto' do
-    expect{dsc_xwebsitedefaults[:dsc_applyto] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_logformat predefined value W3C' do
     dsc_xwebsitedefaults[:dsc_logformat] = 'W3C'
     expect(dsc_xwebsitedefaults[:dsc_logformat]).to eq('W3C')
@@ -119,10 +115,6 @@ describe Puppet::Type.type(:dsc_xwebsitedefaults) do
     expect{dsc_xwebsitedefaults[:dsc_logformat] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logformat' do
-    expect{dsc_xwebsitedefaults[:dsc_logformat] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_logdirectory' do
     expect{dsc_xwebsitedefaults[:dsc_logdirectory] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -133,10 +125,6 @@ describe Puppet::Type.type(:dsc_xwebsitedefaults) do
 
   it 'should not accept int for dsc_logdirectory' do
     expect{dsc_xwebsitedefaults[:dsc_logdirectory] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_logdirectory' do
-    expect{dsc_xwebsitedefaults[:dsc_logdirectory] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_tracelogdirectory' do
@@ -151,10 +139,6 @@ describe Puppet::Type.type(:dsc_xwebsitedefaults) do
     expect{dsc_xwebsitedefaults[:dsc_tracelogdirectory] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_tracelogdirectory' do
-    expect{dsc_xwebsitedefaults[:dsc_tracelogdirectory] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_defaultapplicationpool' do
     expect{dsc_xwebsitedefaults[:dsc_defaultapplicationpool] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -165,10 +149,6 @@ describe Puppet::Type.type(:dsc_xwebsitedefaults) do
 
   it 'should not accept int for dsc_defaultapplicationpool' do
     expect{dsc_xwebsitedefaults[:dsc_defaultapplicationpool] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_defaultapplicationpool' do
-    expect{dsc_xwebsitedefaults[:dsc_defaultapplicationpool] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_allowsubdirconfig predefined value true' do
@@ -205,10 +185,6 @@ describe Puppet::Type.type(:dsc_xwebsitedefaults) do
 
   it 'should not accept int for dsc_allowsubdirconfig' do
     expect{dsc_xwebsitedefaults[:dsc_allowsubdirconfig] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_allowsubdirconfig' do
-    expect{dsc_xwebsitedefaults[:dsc_allowsubdirconfig] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

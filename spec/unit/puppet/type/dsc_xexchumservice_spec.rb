@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_xexchumservice) do
     expect{dsc_xexchumservice[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexchumservice[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchumservice[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -62,10 +58,6 @@ describe Puppet::Type.type(:dsc_xexchumservice) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xexchumservice[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchumservice[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_umstartupmode predefined value TCP' do
@@ -114,10 +106,6 @@ describe Puppet::Type.type(:dsc_xexchumservice) do
     expect{dsc_xexchumservice[:dsc_umstartupmode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_umstartupmode' do
-    expect{dsc_xexchumservice[:dsc_umstartupmode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_dialplans' do
     dsc_xexchumservice[:dsc_dialplans] = ["foo", "bar", "spec"]
     expect(dsc_xexchumservice[:dsc_dialplans]).to eq(["foo", "bar", "spec"])
@@ -131,10 +119,6 @@ describe Puppet::Type.type(:dsc_xexchumservice) do
     expect{dsc_xexchumservice[:dsc_dialplans] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dialplans' do
-    expect{dsc_xexchumservice[:dsc_dialplans] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchumservice[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -145,10 +129,6 @@ describe Puppet::Type.type(:dsc_xexchumservice) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xexchumservice[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchumservice[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

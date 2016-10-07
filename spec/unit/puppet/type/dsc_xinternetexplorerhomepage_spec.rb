@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_xinternetexplorerhomepage) do
     expect{dsc_xinternetexplorerhomepage[:dsc_startpage] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_startpage' do
-    expect{dsc_xinternetexplorerhomepage[:dsc_startpage] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_secondarystartpages' do
     expect{dsc_xinternetexplorerhomepage[:dsc_secondarystartpages] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -60,10 +56,6 @@ describe Puppet::Type.type(:dsc_xinternetexplorerhomepage) do
 
   it 'should not accept int for dsc_secondarystartpages' do
     expect{dsc_xinternetexplorerhomepage[:dsc_secondarystartpages] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_secondarystartpages' do
-    expect{dsc_xinternetexplorerhomepage[:dsc_secondarystartpages] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -110,10 +102,6 @@ describe Puppet::Type.type(:dsc_xinternetexplorerhomepage) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xinternetexplorerhomepage[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xinternetexplorerhomepage[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

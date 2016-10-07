@@ -77,10 +77,6 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
     expect{dsc_xazurepackadmin[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xazurepackadmin[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_principal is specified' do
     #dsc_xazurepackadmin[:dsc_principal]
     expect { Puppet::Type.type(:dsc_xazurepackadmin).new(
@@ -101,10 +97,6 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
     expect{dsc_xazurepackadmin[:dsc_principal] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_principal' do
-    expect{dsc_xazurepackadmin[:dsc_principal] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_azurepackadmincredential" do
     expect{dsc_xazurepackadmin[:dsc_azurepackadmincredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -119,10 +111,6 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
 
   it 'should not accept int for dsc_azurepackadmincredential' do
     expect{dsc_xazurepackadmin[:dsc_azurepackadmincredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_azurepackadmincredential' do
-    expect{dsc_xazurepackadmin[:dsc_azurepackadmincredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_sqlserver is specified' do
@@ -145,10 +133,6 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
     expect{dsc_xazurepackadmin[:dsc_sqlserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlserver' do
-    expect{dsc_xazurepackadmin[:dsc_sqlserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlinstance' do
     expect{dsc_xazurepackadmin[:dsc_sqlinstance] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -159,10 +143,6 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
 
   it 'should not accept int for dsc_sqlinstance' do
     expect{dsc_xazurepackadmin[:dsc_sqlinstance] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlinstance' do
-    expect{dsc_xazurepackadmin[:dsc_sqlinstance] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_dbuser" do
@@ -179,10 +159,6 @@ describe Puppet::Type.type(:dsc_xazurepackadmin) do
 
   it 'should not accept int for dsc_dbuser' do
     expect{dsc_xazurepackadmin[:dsc_dbuser] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_dbuser' do
-    expect{dsc_xazurepackadmin[:dsc_dbuser] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

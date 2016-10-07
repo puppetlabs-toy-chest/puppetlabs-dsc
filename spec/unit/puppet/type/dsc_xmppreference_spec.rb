@@ -93,10 +93,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xmppreference[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_exclusionpath' do
     dsc_xmppreference[:dsc_exclusionpath] = ["foo", "bar", "spec"]
     expect(dsc_xmppreference[:dsc_exclusionpath]).to eq(["foo", "bar", "spec"])
@@ -108,10 +104,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_exclusionpath' do
     expect{dsc_xmppreference[:dsc_exclusionpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_exclusionpath' do
-    expect{dsc_xmppreference[:dsc_exclusionpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_exclusionextension' do
@@ -127,10 +119,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_exclusionextension] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_exclusionextension' do
-    expect{dsc_xmppreference[:dsc_exclusionextension] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_exclusionprocess' do
     dsc_xmppreference[:dsc_exclusionprocess] = ["foo", "bar", "spec"]
     expect(dsc_xmppreference[:dsc_exclusionprocess]).to eq(["foo", "bar", "spec"])
@@ -142,10 +130,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_exclusionprocess' do
     expect{dsc_xmppreference[:dsc_exclusionprocess] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_exclusionprocess' do
-    expect{dsc_xmppreference[:dsc_exclusionprocess] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_realtimescandirection predefined value Both' do
@@ -194,42 +178,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_realtimescandirection] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_realtimescandirection' do
-    expect{dsc_xmppreference[:dsc_realtimescandirection] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_quarantinepurgeitemsafterdelay' do
     expect{dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_quarantinepurgeitemsafterdelay' do
     expect{dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_quarantinepurgeitemsafterdelay' do
-    dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay] = 32
-    expect(dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_quarantinepurgeitemsafterdelay' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_quarantinepurgeitemsafterdelay' do
-    dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay] = '16'
-    expect(dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_quarantinepurgeitemsafterdelay' do
-    dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay] = '32'
-    expect(dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_quarantinepurgeitemsafterdelay' do
-    dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay] = '64'
-    expect(dsc_xmppreference[:dsc_quarantinepurgeitemsafterdelay]).to eq(64)
   end
 
   it 'should accept dsc_remediationscheduleday predefined value Everyday' do
@@ -338,10 +292,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_remediationscheduleday] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_remediationscheduleday' do
-    expect{dsc_xmppreference[:dsc_remediationscheduleday] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_remediationscheduletime' do
     expect{dsc_xmppreference[:dsc_remediationscheduletime] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -354,42 +304,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_remediationscheduletime] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_remediationscheduletime' do
-    expect{dsc_xmppreference[:dsc_remediationscheduletime] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_reportingadditionalactiontimeout' do
     expect{dsc_xmppreference[:dsc_reportingadditionalactiontimeout] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_reportingadditionalactiontimeout' do
     expect{dsc_xmppreference[:dsc_reportingadditionalactiontimeout] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_reportingadditionalactiontimeout' do
-    dsc_xmppreference[:dsc_reportingadditionalactiontimeout] = 32
-    expect(dsc_xmppreference[:dsc_reportingadditionalactiontimeout]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_reportingadditionalactiontimeout' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xmppreference[:dsc_reportingadditionalactiontimeout] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_reportingadditionalactiontimeout' do
-    dsc_xmppreference[:dsc_reportingadditionalactiontimeout] = '16'
-    expect(dsc_xmppreference[:dsc_reportingadditionalactiontimeout]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_reportingadditionalactiontimeout' do
-    dsc_xmppreference[:dsc_reportingadditionalactiontimeout] = '32'
-    expect(dsc_xmppreference[:dsc_reportingadditionalactiontimeout]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_reportingadditionalactiontimeout' do
-    dsc_xmppreference[:dsc_reportingadditionalactiontimeout] = '64'
-    expect(dsc_xmppreference[:dsc_reportingadditionalactiontimeout]).to eq(64)
   end
 
   it 'should not accept array for dsc_reportingnoncriticaltimeout' do
@@ -400,32 +320,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_reportingnoncriticaltimeout] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_reportingnoncriticaltimeout' do
-    dsc_xmppreference[:dsc_reportingnoncriticaltimeout] = 32
-    expect(dsc_xmppreference[:dsc_reportingnoncriticaltimeout]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_reportingnoncriticaltimeout' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xmppreference[:dsc_reportingnoncriticaltimeout] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_reportingnoncriticaltimeout' do
-    dsc_xmppreference[:dsc_reportingnoncriticaltimeout] = '16'
-    expect(dsc_xmppreference[:dsc_reportingnoncriticaltimeout]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_reportingnoncriticaltimeout' do
-    dsc_xmppreference[:dsc_reportingnoncriticaltimeout] = '32'
-    expect(dsc_xmppreference[:dsc_reportingnoncriticaltimeout]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_reportingnoncriticaltimeout' do
-    dsc_xmppreference[:dsc_reportingnoncriticaltimeout] = '64'
-    expect(dsc_xmppreference[:dsc_reportingnoncriticaltimeout]).to eq(64)
-  end
-
   it 'should not accept array for dsc_reportingcriticalfailuretimeout' do
     expect{dsc_xmppreference[:dsc_reportingcriticalfailuretimeout] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -434,64 +328,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_reportingcriticalfailuretimeout] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_reportingcriticalfailuretimeout' do
-    dsc_xmppreference[:dsc_reportingcriticalfailuretimeout] = 32
-    expect(dsc_xmppreference[:dsc_reportingcriticalfailuretimeout]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_reportingcriticalfailuretimeout' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xmppreference[:dsc_reportingcriticalfailuretimeout] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_reportingcriticalfailuretimeout' do
-    dsc_xmppreference[:dsc_reportingcriticalfailuretimeout] = '16'
-    expect(dsc_xmppreference[:dsc_reportingcriticalfailuretimeout]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_reportingcriticalfailuretimeout' do
-    dsc_xmppreference[:dsc_reportingcriticalfailuretimeout] = '32'
-    expect(dsc_xmppreference[:dsc_reportingcriticalfailuretimeout]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_reportingcriticalfailuretimeout' do
-    dsc_xmppreference[:dsc_reportingcriticalfailuretimeout] = '64'
-    expect(dsc_xmppreference[:dsc_reportingcriticalfailuretimeout]).to eq(64)
-  end
-
   it 'should not accept array for dsc_scanavgcpuloadfactor' do
     expect{dsc_xmppreference[:dsc_scanavgcpuloadfactor] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_scanavgcpuloadfactor' do
     expect{dsc_xmppreference[:dsc_scanavgcpuloadfactor] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_scanavgcpuloadfactor' do
-    dsc_xmppreference[:dsc_scanavgcpuloadfactor] = 32
-    expect(dsc_xmppreference[:dsc_scanavgcpuloadfactor]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_scanavgcpuloadfactor' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xmppreference[:dsc_scanavgcpuloadfactor] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_scanavgcpuloadfactor' do
-    dsc_xmppreference[:dsc_scanavgcpuloadfactor] = '16'
-    expect(dsc_xmppreference[:dsc_scanavgcpuloadfactor]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_scanavgcpuloadfactor' do
-    dsc_xmppreference[:dsc_scanavgcpuloadfactor] = '32'
-    expect(dsc_xmppreference[:dsc_scanavgcpuloadfactor]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_scanavgcpuloadfactor' do
-    dsc_xmppreference[:dsc_scanavgcpuloadfactor] = '64'
-    expect(dsc_xmppreference[:dsc_scanavgcpuloadfactor]).to eq(64)
   end
 
   it 'should not accept array for dsc_checkforsignaturesbeforerunningscan' do
@@ -532,42 +374,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_checkforsignaturesbeforerunningscan' do
-    expect{dsc_xmppreference[:dsc_checkforsignaturesbeforerunningscan] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_scanpurgeitemsafterdelay' do
     expect{dsc_xmppreference[:dsc_scanpurgeitemsafterdelay] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_scanpurgeitemsafterdelay' do
     expect{dsc_xmppreference[:dsc_scanpurgeitemsafterdelay] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_scanpurgeitemsafterdelay' do
-    dsc_xmppreference[:dsc_scanpurgeitemsafterdelay] = 32
-    expect(dsc_xmppreference[:dsc_scanpurgeitemsafterdelay]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_scanpurgeitemsafterdelay' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xmppreference[:dsc_scanpurgeitemsafterdelay] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_scanpurgeitemsafterdelay' do
-    dsc_xmppreference[:dsc_scanpurgeitemsafterdelay] = '16'
-    expect(dsc_xmppreference[:dsc_scanpurgeitemsafterdelay]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_scanpurgeitemsafterdelay' do
-    dsc_xmppreference[:dsc_scanpurgeitemsafterdelay] = '32'
-    expect(dsc_xmppreference[:dsc_scanpurgeitemsafterdelay]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_scanpurgeitemsafterdelay' do
-    dsc_xmppreference[:dsc_scanpurgeitemsafterdelay] = '64'
-    expect(dsc_xmppreference[:dsc_scanpurgeitemsafterdelay]).to eq(64)
   end
 
   it 'should not accept array for dsc_scanonlyifidleenabled' do
@@ -608,10 +420,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_scanonlyifidleenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_scanonlyifidleenabled' do
-    expect{dsc_xmppreference[:dsc_scanonlyifidleenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_scanparameters predefined value FullSCan' do
     dsc_xmppreference[:dsc_scanparameters] = 'FullSCan'
     expect(dsc_xmppreference[:dsc_scanparameters]).to eq('FullSCan')
@@ -646,10 +454,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_scanparameters' do
     expect{dsc_xmppreference[:dsc_scanparameters] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_scanparameters' do
-    expect{dsc_xmppreference[:dsc_scanparameters] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_scanscheduleday predefined value Everyday' do
@@ -758,10 +562,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_scanscheduleday] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_scanscheduleday' do
-    expect{dsc_xmppreference[:dsc_scanscheduleday] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_scanschedulequickscantime' do
     expect{dsc_xmppreference[:dsc_scanschedulequickscantime] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -772,10 +572,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_scanschedulequickscantime' do
     expect{dsc_xmppreference[:dsc_scanschedulequickscantime] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_scanschedulequickscantime' do
-    expect{dsc_xmppreference[:dsc_scanschedulequickscantime] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_scanscheduletime' do
@@ -790,10 +586,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_scanscheduletime] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_scanscheduletime' do
-    expect{dsc_xmppreference[:dsc_scanscheduletime] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_signaturefirstaugraceperiod' do
     expect{dsc_xmppreference[:dsc_signaturefirstaugraceperiod] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -802,64 +594,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_signaturefirstaugraceperiod] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_signaturefirstaugraceperiod' do
-    dsc_xmppreference[:dsc_signaturefirstaugraceperiod] = 32
-    expect(dsc_xmppreference[:dsc_signaturefirstaugraceperiod]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_signaturefirstaugraceperiod' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xmppreference[:dsc_signaturefirstaugraceperiod] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_signaturefirstaugraceperiod' do
-    dsc_xmppreference[:dsc_signaturefirstaugraceperiod] = '16'
-    expect(dsc_xmppreference[:dsc_signaturefirstaugraceperiod]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_signaturefirstaugraceperiod' do
-    dsc_xmppreference[:dsc_signaturefirstaugraceperiod] = '32'
-    expect(dsc_xmppreference[:dsc_signaturefirstaugraceperiod]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_signaturefirstaugraceperiod' do
-    dsc_xmppreference[:dsc_signaturefirstaugraceperiod] = '64'
-    expect(dsc_xmppreference[:dsc_signaturefirstaugraceperiod]).to eq(64)
-  end
-
   it 'should not accept array for dsc_signatureaugraceperiod' do
     expect{dsc_xmppreference[:dsc_signatureaugraceperiod] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_signatureaugraceperiod' do
     expect{dsc_xmppreference[:dsc_signatureaugraceperiod] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_signatureaugraceperiod' do
-    dsc_xmppreference[:dsc_signatureaugraceperiod] = 32
-    expect(dsc_xmppreference[:dsc_signatureaugraceperiod]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_signatureaugraceperiod' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xmppreference[:dsc_signatureaugraceperiod] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_signatureaugraceperiod' do
-    dsc_xmppreference[:dsc_signatureaugraceperiod] = '16'
-    expect(dsc_xmppreference[:dsc_signatureaugraceperiod]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_signatureaugraceperiod' do
-    dsc_xmppreference[:dsc_signatureaugraceperiod] = '32'
-    expect(dsc_xmppreference[:dsc_signatureaugraceperiod]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_signatureaugraceperiod' do
-    dsc_xmppreference[:dsc_signatureaugraceperiod] = '64'
-    expect(dsc_xmppreference[:dsc_signatureaugraceperiod]).to eq(64)
   end
 
   it 'should not accept array for dsc_signaturedefinitionupdatefilesharessources' do
@@ -872,10 +612,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_signaturedefinitionupdatefilesharessources' do
     expect{dsc_xmppreference[:dsc_signaturedefinitionupdatefilesharessources] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_signaturedefinitionupdatefilesharessources' do
-    expect{dsc_xmppreference[:dsc_signaturedefinitionupdatefilesharessources] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_signaturedisableupdateonstartupwithoutengine' do
@@ -916,10 +652,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_signaturedisableupdateonstartupwithoutengine' do
-    expect{dsc_xmppreference[:dsc_signaturedisableupdateonstartupwithoutengine] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_signaturefallbackorder' do
     expect{dsc_xmppreference[:dsc_signaturefallbackorder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -930,10 +662,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_signaturefallbackorder' do
     expect{dsc_xmppreference[:dsc_signaturefallbackorder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_signaturefallbackorder' do
-    expect{dsc_xmppreference[:dsc_signaturefallbackorder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_signaturescheduleday predefined value Everyday' do
@@ -1042,10 +770,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_signaturescheduleday] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_signaturescheduleday' do
-    expect{dsc_xmppreference[:dsc_signaturescheduleday] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_signaturescheduletime' do
     expect{dsc_xmppreference[:dsc_signaturescheduletime] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1058,10 +782,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_signaturescheduletime] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_signaturescheduletime' do
-    expect{dsc_xmppreference[:dsc_signaturescheduletime] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_signatureupdatecatchupinterval' do
     expect{dsc_xmppreference[:dsc_signatureupdatecatchupinterval] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1070,64 +790,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_signatureupdatecatchupinterval] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_signatureupdatecatchupinterval' do
-    dsc_xmppreference[:dsc_signatureupdatecatchupinterval] = 32
-    expect(dsc_xmppreference[:dsc_signatureupdatecatchupinterval]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_signatureupdatecatchupinterval' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xmppreference[:dsc_signatureupdatecatchupinterval] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_signatureupdatecatchupinterval' do
-    dsc_xmppreference[:dsc_signatureupdatecatchupinterval] = '16'
-    expect(dsc_xmppreference[:dsc_signatureupdatecatchupinterval]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_signatureupdatecatchupinterval' do
-    dsc_xmppreference[:dsc_signatureupdatecatchupinterval] = '32'
-    expect(dsc_xmppreference[:dsc_signatureupdatecatchupinterval]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_signatureupdatecatchupinterval' do
-    dsc_xmppreference[:dsc_signatureupdatecatchupinterval] = '64'
-    expect(dsc_xmppreference[:dsc_signatureupdatecatchupinterval]).to eq(64)
-  end
-
   it 'should not accept array for dsc_signatureupdateinterval' do
     expect{dsc_xmppreference[:dsc_signatureupdateinterval] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_signatureupdateinterval' do
     expect{dsc_xmppreference[:dsc_signatureupdateinterval] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_signatureupdateinterval' do
-    dsc_xmppreference[:dsc_signatureupdateinterval] = 32
-    expect(dsc_xmppreference[:dsc_signatureupdateinterval]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_signatureupdateinterval' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xmppreference[:dsc_signatureupdateinterval] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_signatureupdateinterval' do
-    dsc_xmppreference[:dsc_signatureupdateinterval] = '16'
-    expect(dsc_xmppreference[:dsc_signatureupdateinterval]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_signatureupdateinterval' do
-    dsc_xmppreference[:dsc_signatureupdateinterval] = '32'
-    expect(dsc_xmppreference[:dsc_signatureupdateinterval]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_signatureupdateinterval' do
-    dsc_xmppreference[:dsc_signatureupdateinterval] = '64'
-    expect(dsc_xmppreference[:dsc_signatureupdateinterval]).to eq(64)
   end
 
   it 'should accept dsc_mapsreporting predefined value Advanced' do
@@ -1176,10 +844,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_mapsreporting] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_mapsreporting' do
-    expect{dsc_xmppreference[:dsc_mapsreporting] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_disableprivacymode' do
     expect{dsc_xmppreference[:dsc_disableprivacymode] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1216,10 +880,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_disableprivacymode' do
     expect{dsc_xmppreference[:dsc_disableprivacymode] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_disableprivacymode' do
-    expect{dsc_xmppreference[:dsc_disableprivacymode] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_randomizescheduletasktimes' do
@@ -1260,10 +920,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_randomizescheduletasktimes] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_randomizescheduletasktimes' do
-    expect{dsc_xmppreference[:dsc_randomizescheduletasktimes] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_disablebehaviormonitoring' do
     expect{dsc_xmppreference[:dsc_disablebehaviormonitoring] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1300,10 +956,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_disablebehaviormonitoring' do
     expect{dsc_xmppreference[:dsc_disablebehaviormonitoring] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_disablebehaviormonitoring' do
-    expect{dsc_xmppreference[:dsc_disablebehaviormonitoring] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_disableintrusionpreventionsystem' do
@@ -1344,10 +996,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disableintrusionpreventionsystem] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_disableintrusionpreventionsystem' do
-    expect{dsc_xmppreference[:dsc_disableintrusionpreventionsystem] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_disableioavprotection' do
     expect{dsc_xmppreference[:dsc_disableioavprotection] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1384,10 +1032,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_disableioavprotection' do
     expect{dsc_xmppreference[:dsc_disableioavprotection] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_disableioavprotection' do
-    expect{dsc_xmppreference[:dsc_disableioavprotection] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_disablerealtimemonitoring' do
@@ -1428,10 +1072,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablerealtimemonitoring] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_disablerealtimemonitoring' do
-    expect{dsc_xmppreference[:dsc_disablerealtimemonitoring] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_disablescriptscanning' do
     expect{dsc_xmppreference[:dsc_disablescriptscanning] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1468,10 +1108,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_disablescriptscanning' do
     expect{dsc_xmppreference[:dsc_disablescriptscanning] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_disablescriptscanning' do
-    expect{dsc_xmppreference[:dsc_disablescriptscanning] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_disablearchivescanning' do
@@ -1512,10 +1148,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablearchivescanning] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_disablearchivescanning' do
-    expect{dsc_xmppreference[:dsc_disablearchivescanning] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_disableautoexclusions' do
     expect{dsc_xmppreference[:dsc_disableautoexclusions] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1552,10 +1184,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_disableautoexclusions' do
     expect{dsc_xmppreference[:dsc_disableautoexclusions] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_disableautoexclusions' do
-    expect{dsc_xmppreference[:dsc_disableautoexclusions] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_disablecatchupfullscan' do
@@ -1596,10 +1224,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablecatchupfullscan] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_disablecatchupfullscan' do
-    expect{dsc_xmppreference[:dsc_disablecatchupfullscan] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_disablecatchupquickscan' do
     expect{dsc_xmppreference[:dsc_disablecatchupquickscan] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1636,10 +1260,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_disablecatchupquickscan' do
     expect{dsc_xmppreference[:dsc_disablecatchupquickscan] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_disablecatchupquickscan' do
-    expect{dsc_xmppreference[:dsc_disablecatchupquickscan] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_disableemailscanning' do
@@ -1680,10 +1300,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disableemailscanning] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_disableemailscanning' do
-    expect{dsc_xmppreference[:dsc_disableemailscanning] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_disableremovabledrivescanning' do
     expect{dsc_xmppreference[:dsc_disableremovabledrivescanning] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1720,10 +1336,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_disableremovabledrivescanning' do
     expect{dsc_xmppreference[:dsc_disableremovabledrivescanning] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_disableremovabledrivescanning' do
-    expect{dsc_xmppreference[:dsc_disableremovabledrivescanning] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_disablerestorepoint' do
@@ -1764,10 +1376,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablerestorepoint] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_disablerestorepoint' do
-    expect{dsc_xmppreference[:dsc_disablerestorepoint] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_disablescanningmappednetworkdrivesforfullscan' do
     expect{dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1804,10 +1412,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_disablescanningmappednetworkdrivesforfullscan' do
     expect{dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_disablescanningmappednetworkdrivesforfullscan' do
-    expect{dsc_xmppreference[:dsc_disablescanningmappednetworkdrivesforfullscan] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_disablescanningnetworkfiles' do
@@ -1848,10 +1452,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_disablescanningnetworkfiles] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_disablescanningnetworkfiles' do
-    expect{dsc_xmppreference[:dsc_disablescanningnetworkfiles] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_uilockdown' do
     expect{dsc_xmppreference[:dsc_uilockdown] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1890,42 +1490,12 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_uilockdown] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_uilockdown' do
-    expect{dsc_xmppreference[:dsc_uilockdown] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_threatiddefaultaction_ids' do
     expect{dsc_xmppreference[:dsc_threatiddefaultaction_ids] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_threatiddefaultaction_ids' do
     expect{dsc_xmppreference[:dsc_threatiddefaultaction_ids] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_threatiddefaultaction_ids' do
-    dsc_xmppreference[:dsc_threatiddefaultaction_ids] = 64
-    expect(dsc_xmppreference[:dsc_threatiddefaultaction_ids]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_threatiddefaultaction_ids' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xmppreference[:dsc_threatiddefaultaction_ids] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_threatiddefaultaction_ids' do
-    dsc_xmppreference[:dsc_threatiddefaultaction_ids] = '16'
-    expect(dsc_xmppreference[:dsc_threatiddefaultaction_ids]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_threatiddefaultaction_ids' do
-    dsc_xmppreference[:dsc_threatiddefaultaction_ids] = '32'
-    expect(dsc_xmppreference[:dsc_threatiddefaultaction_ids]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_threatiddefaultaction_ids' do
-    dsc_xmppreference[:dsc_threatiddefaultaction_ids] = '64'
-    expect(dsc_xmppreference[:dsc_threatiddefaultaction_ids]).to eq(64)
   end
 
   it 'should accept dsc_threatiddefaultaction_actions predefined value Allow' do
@@ -2014,10 +1584,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_threatiddefaultaction_actions] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_threatiddefaultaction_actions' do
-    expect{dsc_xmppreference[:dsc_threatiddefaultaction_actions] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_unknownthreatdefaultaction predefined value Allow' do
     dsc_xmppreference[:dsc_unknownthreatdefaultaction] = 'Allow'
     expect(dsc_xmppreference[:dsc_unknownthreatdefaultaction]).to eq('Allow')
@@ -2102,10 +1668,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_unknownthreatdefaultaction' do
     expect{dsc_xmppreference[:dsc_unknownthreatdefaultaction] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_unknownthreatdefaultaction' do
-    expect{dsc_xmppreference[:dsc_unknownthreatdefaultaction] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_lowthreatdefaultaction predefined value Allow' do
@@ -2194,10 +1756,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_lowthreatdefaultaction] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_lowthreatdefaultaction' do
-    expect{dsc_xmppreference[:dsc_lowthreatdefaultaction] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_moderatethreatdefaultaction predefined value Allow' do
     dsc_xmppreference[:dsc_moderatethreatdefaultaction] = 'Allow'
     expect(dsc_xmppreference[:dsc_moderatethreatdefaultaction]).to eq('Allow')
@@ -2282,10 +1840,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_moderatethreatdefaultaction' do
     expect{dsc_xmppreference[:dsc_moderatethreatdefaultaction] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_moderatethreatdefaultaction' do
-    expect{dsc_xmppreference[:dsc_moderatethreatdefaultaction] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_highthreatdefaultaction predefined value Allow' do
@@ -2374,10 +1928,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_highthreatdefaultaction] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_highthreatdefaultaction' do
-    expect{dsc_xmppreference[:dsc_highthreatdefaultaction] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_severethreatdefaultaction predefined value Allow' do
     dsc_xmppreference[:dsc_severethreatdefaultaction] = 'Allow'
     expect(dsc_xmppreference[:dsc_severethreatdefaultaction]).to eq('Allow')
@@ -2464,10 +2014,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
     expect{dsc_xmppreference[:dsc_severethreatdefaultaction] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_severethreatdefaultaction' do
-    expect{dsc_xmppreference[:dsc_severethreatdefaultaction] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_submitsamplesconsent predefined value Allways Prompt' do
     dsc_xmppreference[:dsc_submitsamplesconsent] = 'Allways Prompt'
     expect(dsc_xmppreference[:dsc_submitsamplesconsent]).to eq('Allways Prompt')
@@ -2522,10 +2068,6 @@ describe Puppet::Type.type(:dsc_xmppreference) do
 
   it 'should not accept int for dsc_submitsamplesconsent' do
     expect{dsc_xmppreference[:dsc_submitsamplesconsent] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_submitsamplesconsent' do
-    expect{dsc_xmppreference[:dsc_submitsamplesconsent] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

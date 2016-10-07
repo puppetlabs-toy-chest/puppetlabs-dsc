@@ -79,9 +79,7 @@ Puppet::Type.newtype(:dsc_spdiagnosticloggingsettings) do
     def mof_is_embedded?; false end
     desc "LogSpaceInGB - The space in GB that should be used to store ULS logs"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "LogSpaceInGB")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -129,9 +127,7 @@ Puppet::Type.newtype(:dsc_spdiagnosticloggingsettings) do
     def mof_is_embedded?; false end
     desc "DaysToKeepLogs - How many days should ULS logs be kept for"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "DaysToKeepLogs")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -211,9 +207,7 @@ Puppet::Type.newtype(:dsc_spdiagnosticloggingsettings) do
     def mof_is_embedded?; false end
     desc "EventLogFloodProtectionNotifyInterval - What interval should the event logs report a flood event"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "EventLogFloodProtectionNotifyInterval")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -229,9 +223,7 @@ Puppet::Type.newtype(:dsc_spdiagnosticloggingsettings) do
     def mof_is_embedded?; false end
     desc "EventLogFloodProtectionQuietPeriod - What quiet period should reset the event log flood protection thresholds"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "EventLogFloodProtectionQuietPeriod")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -247,9 +239,7 @@ Puppet::Type.newtype(:dsc_spdiagnosticloggingsettings) do
     def mof_is_embedded?; false end
     desc "EventLogFloodProtectionThreshold - What is the event log flood protection threshold"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "EventLogFloodProtectionThreshold")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -265,9 +255,7 @@ Puppet::Type.newtype(:dsc_spdiagnosticloggingsettings) do
     def mof_is_embedded?; false end
     desc "EventLogFloodProtectionTriggerPeriod - What is the time period that will trigger event log flood protection"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "EventLogFloodProtectionTriggerPeriod")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -283,9 +271,7 @@ Puppet::Type.newtype(:dsc_spdiagnosticloggingsettings) do
     def mof_is_embedded?; false end
     desc "LogCutInterval - How many minutes of activity will a ULS log file leep in an individual file"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "LogCutInterval")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -317,9 +303,7 @@ Puppet::Type.newtype(:dsc_spdiagnosticloggingsettings) do
     def mof_is_embedded?; false end
     desc "ScriptErrorReportingDelay - What delay will be set before script error reporting is triggered"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ScriptErrorReportingDelay")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

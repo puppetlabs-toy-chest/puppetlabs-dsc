@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_xwordpresssite) do
     expect{dsc_xwordpresssite[:dsc_uri] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_uri' do
-    expect{dsc_xwordpresssite[:dsc_uri] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_title' do
     expect{dsc_xwordpresssite[:dsc_title] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -62,10 +58,6 @@ describe Puppet::Type.type(:dsc_xwordpresssite) do
 
   it 'should not accept int for dsc_title' do
     expect{dsc_xwordpresssite[:dsc_title] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_title' do
-    expect{dsc_xwordpresssite[:dsc_title] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_administratorcredential" do
@@ -84,10 +76,6 @@ describe Puppet::Type.type(:dsc_xwordpresssite) do
     expect{dsc_xwordpresssite[:dsc_administratorcredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_administratorcredential' do
-    expect{dsc_xwordpresssite[:dsc_administratorcredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_administratoremail' do
     expect{dsc_xwordpresssite[:dsc_administratoremail] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -98,10 +86,6 @@ describe Puppet::Type.type(:dsc_xwordpresssite) do
 
   it 'should not accept int for dsc_administratoremail' do
     expect{dsc_xwordpresssite[:dsc_administratoremail] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_administratoremail' do
-    expect{dsc_xwordpresssite[:dsc_administratoremail] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -148,10 +132,6 @@ describe Puppet::Type.type(:dsc_xwordpresssite) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xwordpresssite[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xwordpresssite[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

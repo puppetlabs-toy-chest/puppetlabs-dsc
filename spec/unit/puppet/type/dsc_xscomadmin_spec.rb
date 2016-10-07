@@ -75,10 +75,6 @@ describe Puppet::Type.type(:dsc_xscomadmin) do
     expect{dsc_xscomadmin[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xscomadmin[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_principal is specified' do
     #dsc_xscomadmin[:dsc_principal]
     expect { Puppet::Type.type(:dsc_xscomadmin).new(
@@ -97,10 +93,6 @@ describe Puppet::Type.type(:dsc_xscomadmin) do
 
   it 'should not accept int for dsc_principal' do
     expect{dsc_xscomadmin[:dsc_principal] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_principal' do
-    expect{dsc_xscomadmin[:dsc_principal] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_userrole is specified' do
@@ -123,10 +115,6 @@ describe Puppet::Type.type(:dsc_xscomadmin) do
     expect{dsc_xscomadmin[:dsc_userrole] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_userrole' do
-    expect{dsc_xscomadmin[:dsc_userrole] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_scomadmincredential" do
     expect{dsc_xscomadmin[:dsc_scomadmincredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -141,10 +129,6 @@ describe Puppet::Type.type(:dsc_xscomadmin) do
 
   it 'should not accept int for dsc_scomadmincredential' do
     expect{dsc_xscomadmin[:dsc_scomadmincredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_scomadmincredential' do
-    expect{dsc_xscomadmin[:dsc_scomadmincredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

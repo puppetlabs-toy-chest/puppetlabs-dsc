@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_xsslsettings) do
     expect{dsc_xsslsettings[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xsslsettings[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_bindings predefined value ' do
     dsc_xsslsettings[:dsc_bindings] = ''
     expect(dsc_xsslsettings[:dsc_bindings]).to eq([''])
@@ -117,10 +113,6 @@ describe Puppet::Type.type(:dsc_xsslsettings) do
     expect{dsc_xsslsettings[:dsc_bindings] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_bindings' do
-    expect{dsc_xsslsettings[:dsc_bindings] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xsslsettings[:dsc_ensure] = 'Present'
     expect(dsc_xsslsettings[:dsc_ensure]).to eq('Present')
@@ -165,10 +157,6 @@ describe Puppet::Type.type(:dsc_xsslsettings) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xsslsettings[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xsslsettings[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_xazureaffinitygroup) do
     expect{dsc_xazureaffinitygroup[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xazureaffinitygroup[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xazureaffinitygroup[:dsc_ensure] = 'Present'
     expect(dsc_xazureaffinitygroup[:dsc_ensure]).to eq('Present')
@@ -98,10 +94,6 @@ describe Puppet::Type.type(:dsc_xazureaffinitygroup) do
     expect{dsc_xazureaffinitygroup[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xazureaffinitygroup[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_location' do
     expect{dsc_xazureaffinitygroup[:dsc_location] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -112,10 +104,6 @@ describe Puppet::Type.type(:dsc_xazureaffinitygroup) do
 
   it 'should not accept int for dsc_location' do
     expect{dsc_xazureaffinitygroup[:dsc_location] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_location' do
-    expect{dsc_xazureaffinitygroup[:dsc_location] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_description' do
@@ -130,10 +118,6 @@ describe Puppet::Type.type(:dsc_xazureaffinitygroup) do
     expect{dsc_xazureaffinitygroup[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xazureaffinitygroup[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_label' do
     expect{dsc_xazureaffinitygroup[:dsc_label] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -144,10 +128,6 @@ describe Puppet::Type.type(:dsc_xazureaffinitygroup) do
 
   it 'should not accept int for dsc_label' do
     expect{dsc_xazureaffinitygroup[:dsc_label] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_label' do
-    expect{dsc_xazureaffinitygroup[:dsc_label] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

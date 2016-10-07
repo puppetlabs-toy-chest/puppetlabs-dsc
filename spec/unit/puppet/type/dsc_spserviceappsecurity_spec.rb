@@ -47,10 +47,6 @@ describe Puppet::Type.type(:dsc_spserviceappsecurity) do
     expect{dsc_spserviceappsecurity[:dsc_serviceappname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_serviceappname' do
-    expect{dsc_spserviceappsecurity[:dsc_serviceappname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_securitytype is specified' do
     #dsc_spserviceappsecurity[:dsc_securitytype]
     expect { Puppet::Type.type(:dsc_spserviceappsecurity).new(
@@ -95,10 +91,6 @@ describe Puppet::Type.type(:dsc_spserviceappsecurity) do
     expect{dsc_spserviceappsecurity[:dsc_securitytype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_securitytype' do
-    expect{dsc_spserviceappsecurity[:dsc_securitytype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept a hash for dsc_members' do
     dsc_spserviceappsecurity[:dsc_members] = {"Username"=>"foo", "AccessLevel"=>"Change Permissions"}
     expect(dsc_spserviceappsecurity[:dsc_members]).to eq([{"Username"=>"foo", "AccessLevel"=>"Change Permissions"}])
@@ -115,10 +107,6 @@ describe Puppet::Type.type(:dsc_spserviceappsecurity) do
 
   it 'should not accept int for dsc_members' do
     expect{dsc_spserviceappsecurity[:dsc_members] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_members' do
-    expect{dsc_spserviceappsecurity[:dsc_members] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept a hash for dsc_memberstoinclude' do
@@ -139,10 +127,6 @@ describe Puppet::Type.type(:dsc_spserviceappsecurity) do
     expect{dsc_spserviceappsecurity[:dsc_memberstoinclude] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_memberstoinclude' do
-    expect{dsc_spserviceappsecurity[:dsc_memberstoinclude] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_memberstoexclude' do
     dsc_spserviceappsecurity[:dsc_memberstoexclude] = ["foo", "bar", "spec"]
     expect(dsc_spserviceappsecurity[:dsc_memberstoexclude]).to eq(["foo", "bar", "spec"])
@@ -154,10 +138,6 @@ describe Puppet::Type.type(:dsc_spserviceappsecurity) do
 
   it 'should not accept int for dsc_memberstoexclude' do
     expect{dsc_spserviceappsecurity[:dsc_memberstoexclude] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_memberstoexclude' do
-    expect{dsc_spserviceappsecurity[:dsc_memberstoexclude] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -174,10 +154,6 @@ describe Puppet::Type.type(:dsc_spserviceappsecurity) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spserviceappsecurity[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spserviceappsecurity[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

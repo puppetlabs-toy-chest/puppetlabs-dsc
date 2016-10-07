@@ -79,9 +79,7 @@ Puppet::Type.newtype(:dsc_spwebappgeneralsettings) do
     def mof_is_embedded?; false end
     desc "TimeZone - The timezone code to use for this web app. A full list is at https://msdn.microsoft.com/en-us/library/office/microsoft.sharepoint.spregionalsettings.timezones.aspx"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "TimeZone")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -113,9 +111,7 @@ Puppet::Type.newtype(:dsc_spwebappgeneralsettings) do
     def mof_is_embedded?; false end
     desc "AlertsLimit - What is the maximum number of alerts that a user can create in this web app"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "AlertsLimit")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -229,9 +225,7 @@ Puppet::Type.newtype(:dsc_spwebappgeneralsettings) do
     def mof_is_embedded?; false end
     desc "SecurityValidationTimeOutMinutes - Number of minutes security validation will expire if securityvalidationexpires is set"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "SecurityValidationTimeOutMinutes")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -279,9 +273,7 @@ Puppet::Type.newtype(:dsc_spwebappgeneralsettings) do
     def mof_is_embedded?; false end
     desc "RecycleBinRetentionPeriod - How many days does the recycle bin keep content for"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "RecycleBinRetentionPeriod")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -297,9 +289,7 @@ Puppet::Type.newtype(:dsc_spwebappgeneralsettings) do
     def mof_is_embedded?; false end
     desc "SecondStageRecycleBinQuota - How much content does the second stage recycle bin keep content for"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "SecondStageRecycleBinQuota")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -315,9 +305,7 @@ Puppet::Type.newtype(:dsc_spwebappgeneralsettings) do
     def mof_is_embedded?; false end
     desc "MaximumUploadSize - What is the maximum file upload size for this web app (in MB)"
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaximumUploadSize")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

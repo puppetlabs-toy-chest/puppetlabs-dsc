@@ -51,10 +51,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroup) do
     expect{dsc_xdfsreplicationgroup[:dsc_groupname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_groupname' do
-    expect{dsc_xdfsreplicationgroup[:dsc_groupname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xdfsreplicationgroup[:dsc_ensure] = 'Present'
     expect(dsc_xdfsreplicationgroup[:dsc_ensure]).to eq('Present')
@@ -101,10 +97,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroup) do
     expect{dsc_xdfsreplicationgroup[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdfsreplicationgroup[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_xdfsreplicationgroup[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -115,10 +107,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroup) do
 
   it 'should not accept int for dsc_description' do
     expect{dsc_xdfsreplicationgroup[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xdfsreplicationgroup[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_members' do
@@ -134,10 +122,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroup) do
     expect{dsc_xdfsreplicationgroup[:dsc_members] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_members' do
-    expect{dsc_xdfsreplicationgroup[:dsc_members] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_folders' do
     dsc_xdfsreplicationgroup[:dsc_folders] = ["foo", "bar", "spec"]
     expect(dsc_xdfsreplicationgroup[:dsc_folders]).to eq(["foo", "bar", "spec"])
@@ -149,10 +133,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroup) do
 
   it 'should not accept int for dsc_folders' do
     expect{dsc_xdfsreplicationgroup[:dsc_folders] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_folders' do
-    expect{dsc_xdfsreplicationgroup[:dsc_folders] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_topology predefined value Fullmesh' do
@@ -191,10 +171,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroup) do
     expect{dsc_xdfsreplicationgroup[:dsc_topology] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_topology' do
-    expect{dsc_xdfsreplicationgroup[:dsc_topology] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_contentpaths' do
     dsc_xdfsreplicationgroup[:dsc_contentpaths] = ["foo", "bar", "spec"]
     expect(dsc_xdfsreplicationgroup[:dsc_contentpaths]).to eq(["foo", "bar", "spec"])
@@ -208,10 +184,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroup) do
     expect{dsc_xdfsreplicationgroup[:dsc_contentpaths] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_contentpaths' do
-    expect{dsc_xdfsreplicationgroup[:dsc_contentpaths] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domainname' do
     expect{dsc_xdfsreplicationgroup[:dsc_domainname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -222,10 +194,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroup) do
 
   it 'should not accept int for dsc_domainname' do
     expect{dsc_xdfsreplicationgroup[:dsc_domainname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domainname' do
-    expect{dsc_xdfsreplicationgroup[:dsc_domainname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

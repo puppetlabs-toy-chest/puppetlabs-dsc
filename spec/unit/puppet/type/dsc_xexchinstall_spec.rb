@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_xexchinstall) do
     expect{dsc_xexchinstall[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xexchinstall[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_arguments is specified' do
     #dsc_xexchinstall[:dsc_arguments]
     expect { Puppet::Type.type(:dsc_xexchinstall).new(
@@ -68,10 +64,6 @@ describe Puppet::Type.type(:dsc_xexchinstall) do
     expect{dsc_xexchinstall[:dsc_arguments] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_arguments' do
-    expect{dsc_xexchinstall[:dsc_arguments] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchinstall[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -86,10 +78,6 @@ describe Puppet::Type.type(:dsc_xexchinstall) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xexchinstall[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchinstall[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

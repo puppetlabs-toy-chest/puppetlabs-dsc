@@ -45,10 +45,6 @@ describe Puppet::Type.type(:dsc_spwebapppolicy) do
     expect{dsc_spwebapppolicy[:dsc_webappurl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_webappurl' do
-    expect{dsc_spwebapppolicy[:dsc_webappurl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept a hash for dsc_members' do
     dsc_spwebapppolicy[:dsc_members] = {"Username"=>"foo", "PermissionLevel"=>"Deny All", "IdentityType"=>"Claims", "ActAsSystemAccount"=>true}
     expect(dsc_spwebapppolicy[:dsc_members]).to eq([{"Username"=>"foo", "PermissionLevel"=>"Deny All", "IdentityType"=>"Claims", "ActAsSystemAccount"=>true}])
@@ -65,10 +61,6 @@ describe Puppet::Type.type(:dsc_spwebapppolicy) do
 
   it 'should not accept int for dsc_members' do
     expect{dsc_spwebapppolicy[:dsc_members] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_members' do
-    expect{dsc_spwebapppolicy[:dsc_members] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept a hash for dsc_memberstoinclude' do
@@ -89,10 +81,6 @@ describe Puppet::Type.type(:dsc_spwebapppolicy) do
     expect{dsc_spwebapppolicy[:dsc_memberstoinclude] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_memberstoinclude' do
-    expect{dsc_spwebapppolicy[:dsc_memberstoinclude] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept a hash for dsc_memberstoexclude' do
     dsc_spwebapppolicy[:dsc_memberstoexclude] = {"Username"=>"foo", "PermissionLevel"=>"Deny All", "IdentityType"=>"Claims", "ActAsSystemAccount"=>true}
     expect(dsc_spwebapppolicy[:dsc_memberstoexclude]).to eq([{"Username"=>"foo", "PermissionLevel"=>"Deny All", "IdentityType"=>"Claims", "ActAsSystemAccount"=>true}])
@@ -109,10 +97,6 @@ describe Puppet::Type.type(:dsc_spwebapppolicy) do
 
   it 'should not accept int for dsc_memberstoexclude' do
     expect{dsc_spwebapppolicy[:dsc_memberstoexclude] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_memberstoexclude' do
-    expect{dsc_spwebapppolicy[:dsc_memberstoexclude] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_setcacheaccountspolicy' do
@@ -153,10 +137,6 @@ describe Puppet::Type.type(:dsc_spwebapppolicy) do
     expect{dsc_spwebapppolicy[:dsc_setcacheaccountspolicy] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_setcacheaccountspolicy' do
-    expect{dsc_spwebapppolicy[:dsc_setcacheaccountspolicy] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spwebapppolicy[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -171,10 +151,6 @@ describe Puppet::Type.type(:dsc_spwebapppolicy) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spwebapppolicy[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spwebapppolicy[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

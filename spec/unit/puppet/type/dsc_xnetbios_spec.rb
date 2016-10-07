@@ -41,10 +41,6 @@ describe Puppet::Type.type(:dsc_xnetbios) do
     expect{dsc_xnetbios[:dsc_interfacealias] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_interfacealias' do
-    expect{dsc_xnetbios[:dsc_interfacealias] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_setting predefined value Default' do
     dsc_xnetbios[:dsc_setting] = 'Default'
     expect(dsc_xnetbios[:dsc_setting]).to eq('Default')
@@ -89,10 +85,6 @@ describe Puppet::Type.type(:dsc_xnetbios) do
 
   it 'should not accept int for dsc_setting' do
     expect{dsc_xnetbios[:dsc_setting] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_setting' do
-    expect{dsc_xnetbios[:dsc_setting] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

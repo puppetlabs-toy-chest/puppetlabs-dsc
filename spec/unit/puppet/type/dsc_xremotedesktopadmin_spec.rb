@@ -79,10 +79,6 @@ describe Puppet::Type.type(:dsc_xremotedesktopadmin) do
     expect{dsc_xremotedesktopadmin[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xremotedesktopadmin[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_userauthentication predefined value Secure' do
     dsc_xremotedesktopadmin[:dsc_userauthentication] = 'Secure'
     expect(dsc_xremotedesktopadmin[:dsc_userauthentication]).to eq('Secure')
@@ -117,10 +113,6 @@ describe Puppet::Type.type(:dsc_xremotedesktopadmin) do
 
   it 'should not accept int for dsc_userauthentication' do
     expect{dsc_xremotedesktopadmin[:dsc_userauthentication] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_userauthentication' do
-    expect{dsc_xremotedesktopadmin[:dsc_userauthentication] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

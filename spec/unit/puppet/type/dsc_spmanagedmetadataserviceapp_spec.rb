@@ -50,10 +50,6 @@ describe Puppet::Type.type(:dsc_spmanagedmetadataserviceapp) do
     expect{dsc_spmanagedmetadataserviceapp[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spmanagedmetadataserviceapp[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_applicationpool' do
     expect{dsc_spmanagedmetadataserviceapp[:dsc_applicationpool] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -64,10 +60,6 @@ describe Puppet::Type.type(:dsc_spmanagedmetadataserviceapp) do
 
   it 'should not accept int for dsc_applicationpool' do
     expect{dsc_spmanagedmetadataserviceapp[:dsc_applicationpool] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_applicationpool' do
-    expect{dsc_spmanagedmetadataserviceapp[:dsc_applicationpool] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_databaseserver' do
@@ -82,10 +74,6 @@ describe Puppet::Type.type(:dsc_spmanagedmetadataserviceapp) do
     expect{dsc_spmanagedmetadataserviceapp[:dsc_databaseserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databaseserver' do
-    expect{dsc_spmanagedmetadataserviceapp[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databasename' do
     expect{dsc_spmanagedmetadataserviceapp[:dsc_databasename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -96,10 +84,6 @@ describe Puppet::Type.type(:dsc_spmanagedmetadataserviceapp) do
 
   it 'should not accept int for dsc_databasename' do
     expect{dsc_spmanagedmetadataserviceapp[:dsc_databasename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_databasename' do
-    expect{dsc_spmanagedmetadataserviceapp[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -148,10 +132,6 @@ describe Puppet::Type.type(:dsc_spmanagedmetadataserviceapp) do
     expect{dsc_spmanagedmetadataserviceapp[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spmanagedmetadataserviceapp[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_contenttypehuburl' do
     expect{dsc_spmanagedmetadataserviceapp[:dsc_contenttypehuburl] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -162,10 +142,6 @@ describe Puppet::Type.type(:dsc_spmanagedmetadataserviceapp) do
 
   it 'should not accept int for dsc_contenttypehuburl' do
     expect{dsc_spmanagedmetadataserviceapp[:dsc_contenttypehuburl] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_contenttypehuburl' do
-    expect{dsc_spmanagedmetadataserviceapp[:dsc_contenttypehuburl] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -182,10 +158,6 @@ describe Puppet::Type.type(:dsc_spmanagedmetadataserviceapp) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spmanagedmetadataserviceapp[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spmanagedmetadataserviceapp[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

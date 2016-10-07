@@ -90,10 +90,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_domainname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_domainname' do
-    expect{dsc_xaduser[:dsc_domainname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_username is specified' do
     #dsc_xaduser[:dsc_username]
     expect { Puppet::Type.type(:dsc_xaduser).new(
@@ -114,10 +110,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_username] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_username' do
-    expect{dsc_xaduser[:dsc_username] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_password" do
     expect{dsc_xaduser[:dsc_password] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -132,10 +124,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_password' do
     expect{dsc_xaduser[:dsc_password] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_password' do
-    expect{dsc_xaduser[:dsc_password] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -184,10 +172,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xaduser[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_commonname' do
     expect{dsc_xaduser[:dsc_commonname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -198,10 +182,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_commonname' do
     expect{dsc_xaduser[:dsc_commonname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_commonname' do
-    expect{dsc_xaduser[:dsc_commonname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_userprincipalname' do
@@ -216,10 +196,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_userprincipalname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_userprincipalname' do
-    expect{dsc_xaduser[:dsc_userprincipalname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_displayname' do
     expect{dsc_xaduser[:dsc_displayname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -230,10 +206,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_displayname' do
     expect{dsc_xaduser[:dsc_displayname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_displayname' do
-    expect{dsc_xaduser[:dsc_displayname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_path' do
@@ -248,10 +220,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xaduser[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_givenname' do
     expect{dsc_xaduser[:dsc_givenname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -262,10 +230,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_givenname' do
     expect{dsc_xaduser[:dsc_givenname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_givenname' do
-    expect{dsc_xaduser[:dsc_givenname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_initials' do
@@ -280,10 +244,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_initials] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_initials' do
-    expect{dsc_xaduser[:dsc_initials] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_surname' do
     expect{dsc_xaduser[:dsc_surname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -294,10 +254,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_surname' do
     expect{dsc_xaduser[:dsc_surname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_surname' do
-    expect{dsc_xaduser[:dsc_surname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_description' do
@@ -312,10 +268,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xaduser[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_streetaddress' do
     expect{dsc_xaduser[:dsc_streetaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -326,10 +278,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_streetaddress' do
     expect{dsc_xaduser[:dsc_streetaddress] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_streetaddress' do
-    expect{dsc_xaduser[:dsc_streetaddress] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_pobox' do
@@ -344,10 +292,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_pobox] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_pobox' do
-    expect{dsc_xaduser[:dsc_pobox] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_city' do
     expect{dsc_xaduser[:dsc_city] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -358,10 +302,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_city' do
     expect{dsc_xaduser[:dsc_city] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_city' do
-    expect{dsc_xaduser[:dsc_city] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_state' do
@@ -376,10 +316,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_state] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_state' do
-    expect{dsc_xaduser[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_postalcode' do
     expect{dsc_xaduser[:dsc_postalcode] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -390,10 +326,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_postalcode' do
     expect{dsc_xaduser[:dsc_postalcode] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_postalcode' do
-    expect{dsc_xaduser[:dsc_postalcode] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_country' do
@@ -408,10 +340,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_country] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_country' do
-    expect{dsc_xaduser[:dsc_country] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_department' do
     expect{dsc_xaduser[:dsc_department] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -422,10 +350,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_department' do
     expect{dsc_xaduser[:dsc_department] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_department' do
-    expect{dsc_xaduser[:dsc_department] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_division' do
@@ -440,10 +364,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_division] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_division' do
-    expect{dsc_xaduser[:dsc_division] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_company' do
     expect{dsc_xaduser[:dsc_company] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -454,10 +374,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_company' do
     expect{dsc_xaduser[:dsc_company] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_company' do
-    expect{dsc_xaduser[:dsc_company] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_office' do
@@ -472,10 +388,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_office] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_office' do
-    expect{dsc_xaduser[:dsc_office] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_jobtitle' do
     expect{dsc_xaduser[:dsc_jobtitle] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -486,10 +398,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_jobtitle' do
     expect{dsc_xaduser[:dsc_jobtitle] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_jobtitle' do
-    expect{dsc_xaduser[:dsc_jobtitle] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_emailaddress' do
@@ -504,10 +412,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_emailaddress] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_emailaddress' do
-    expect{dsc_xaduser[:dsc_emailaddress] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_employeeid' do
     expect{dsc_xaduser[:dsc_employeeid] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -518,10 +422,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_employeeid' do
     expect{dsc_xaduser[:dsc_employeeid] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_employeeid' do
-    expect{dsc_xaduser[:dsc_employeeid] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_employeenumber' do
@@ -536,10 +436,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_employeenumber] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_employeenumber' do
-    expect{dsc_xaduser[:dsc_employeenumber] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_homedirectory' do
     expect{dsc_xaduser[:dsc_homedirectory] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -550,10 +446,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_homedirectory' do
     expect{dsc_xaduser[:dsc_homedirectory] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_homedirectory' do
-    expect{dsc_xaduser[:dsc_homedirectory] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_homedrive' do
@@ -568,10 +460,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_homedrive] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_homedrive' do
-    expect{dsc_xaduser[:dsc_homedrive] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_homepage' do
     expect{dsc_xaduser[:dsc_homepage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -582,10 +470,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_homepage' do
     expect{dsc_xaduser[:dsc_homepage] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_homepage' do
-    expect{dsc_xaduser[:dsc_homepage] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_profilepath' do
@@ -600,10 +484,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_profilepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_profilepath' do
-    expect{dsc_xaduser[:dsc_profilepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_logonscript' do
     expect{dsc_xaduser[:dsc_logonscript] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -614,10 +494,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_logonscript' do
     expect{dsc_xaduser[:dsc_logonscript] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_logonscript' do
-    expect{dsc_xaduser[:dsc_logonscript] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_notes' do
@@ -632,10 +508,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_notes] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_notes' do
-    expect{dsc_xaduser[:dsc_notes] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_officephone' do
     expect{dsc_xaduser[:dsc_officephone] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -646,10 +518,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_officephone' do
     expect{dsc_xaduser[:dsc_officephone] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_officephone' do
-    expect{dsc_xaduser[:dsc_officephone] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_mobilephone' do
@@ -664,10 +532,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_mobilephone] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_mobilephone' do
-    expect{dsc_xaduser[:dsc_mobilephone] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_fax' do
     expect{dsc_xaduser[:dsc_fax] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -678,10 +542,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_fax' do
     expect{dsc_xaduser[:dsc_fax] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_fax' do
-    expect{dsc_xaduser[:dsc_fax] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_homephone' do
@@ -696,10 +556,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_homephone] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_homephone' do
-    expect{dsc_xaduser[:dsc_homephone] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_pager' do
     expect{dsc_xaduser[:dsc_pager] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -710,10 +566,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_pager' do
     expect{dsc_xaduser[:dsc_pager] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_pager' do
-    expect{dsc_xaduser[:dsc_pager] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_ipphone' do
@@ -728,10 +580,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_ipphone] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ipphone' do
-    expect{dsc_xaduser[:dsc_ipphone] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_manager' do
     expect{dsc_xaduser[:dsc_manager] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -742,10 +590,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_manager' do
     expect{dsc_xaduser[:dsc_manager] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_manager' do
-    expect{dsc_xaduser[:dsc_manager] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_enabled' do
@@ -786,10 +630,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_enabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enabled' do
-    expect{dsc_xaduser[:dsc_enabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_cannotchangepassword' do
     expect{dsc_xaduser[:dsc_cannotchangepassword] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -826,10 +666,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_cannotchangepassword' do
     expect{dsc_xaduser[:dsc_cannotchangepassword] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_cannotchangepassword' do
-    expect{dsc_xaduser[:dsc_cannotchangepassword] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_passwordneverexpires' do
@@ -870,10 +706,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_passwordneverexpires] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_passwordneverexpires' do
-    expect{dsc_xaduser[:dsc_passwordneverexpires] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xaduser[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -884,10 +716,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xaduser[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xaduser[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_domainadministratorcredential" do
@@ -906,10 +734,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
     expect{dsc_xaduser[:dsc_domainadministratorcredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_domainadministratorcredential' do
-    expect{dsc_xaduser[:dsc_domainadministratorcredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_distinguishedname' do
     expect{dsc_xaduser[:dsc_distinguishedname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -920,10 +744,6 @@ describe Puppet::Type.type(:dsc_xaduser) do
 
   it 'should not accept int for dsc_distinguishedname' do
     expect{dsc_xaduser[:dsc_distinguishedname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_distinguishedname' do
-    expect{dsc_xaduser[:dsc_distinguishedname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

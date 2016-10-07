@@ -79,9 +79,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
     def mof_is_embedded?; false end
     desc "ActiveSessionLimitMin - Specifies the maximum time, in minutes, an active session runs. After this period, the RD Session Host server ends the session. "
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "ActiveSessionLimitMin")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -236,9 +234,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
     def mof_is_embedded?; false end
     desc "DisconnectedSessionLimitMin - Specifies a length of time, in minutes. After client disconnection from a session for this period, the RD Session Host ends the session."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "DisconnectedSessionLimitMin")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -269,9 +265,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
     def mof_is_embedded?; false end
     desc "IdleSessionLimitMin - Specifies the length of time, in minutes, to wait before an RD Session Host logs off or disconnects an idle session. The BrokenConnectionAction parameter determines whether to log off or disconnect. "
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "IdleSessionLimitMin")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
@@ -287,9 +281,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
     def mof_is_embedded?; false end
     desc "MaxRedirectedMonitors - Specifies the maximum number of client monitors that an RD Session Host server can redirect to a remote session. The highest value for this parameter is 16."
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "MaxRedirectedMonitors")
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)

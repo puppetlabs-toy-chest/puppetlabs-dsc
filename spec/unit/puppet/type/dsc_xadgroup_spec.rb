@@ -58,10 +58,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
     expect{dsc_xadgroup[:dsc_groupname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_groupname' do
-    expect{dsc_xadgroup[:dsc_groupname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_groupscope predefined value DomainLocal' do
     dsc_xadgroup[:dsc_groupscope] = 'DomainLocal'
     expect(dsc_xadgroup[:dsc_groupscope]).to eq('DomainLocal')
@@ -108,10 +104,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
     expect{dsc_xadgroup[:dsc_groupscope] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_groupscope' do
-    expect{dsc_xadgroup[:dsc_groupscope] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_category predefined value Security' do
     dsc_xadgroup[:dsc_category] = 'Security'
     expect(dsc_xadgroup[:dsc_category]).to eq('Security')
@@ -148,10 +140,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
     expect{dsc_xadgroup[:dsc_category] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_category' do
-    expect{dsc_xadgroup[:dsc_category] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_path' do
     expect{dsc_xadgroup[:dsc_path] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -162,10 +150,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
 
   it 'should not accept int for dsc_path' do
     expect{dsc_xadgroup[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xadgroup[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -214,10 +198,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
     expect{dsc_xadgroup[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xadgroup[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_xadgroup[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -230,10 +210,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
     expect{dsc_xadgroup[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xadgroup[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_displayname' do
     expect{dsc_xadgroup[:dsc_displayname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -244,10 +220,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
 
   it 'should not accept int for dsc_displayname' do
     expect{dsc_xadgroup[:dsc_displayname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_displayname' do
-    expect{dsc_xadgroup[:dsc_displayname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_credential" do
@@ -266,10 +238,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
     expect{dsc_xadgroup[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xadgroup[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xadgroup[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -280,10 +248,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xadgroup[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xadgroup[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_members' do
@@ -299,10 +263,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
     expect{dsc_xadgroup[:dsc_members] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_members' do
-    expect{dsc_xadgroup[:dsc_members] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_memberstoinclude' do
     dsc_xadgroup[:dsc_memberstoinclude] = ["foo", "bar", "spec"]
     expect(dsc_xadgroup[:dsc_memberstoinclude]).to eq(["foo", "bar", "spec"])
@@ -316,10 +276,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
     expect{dsc_xadgroup[:dsc_memberstoinclude] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_memberstoinclude' do
-    expect{dsc_xadgroup[:dsc_memberstoinclude] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_memberstoexclude' do
     dsc_xadgroup[:dsc_memberstoexclude] = ["foo", "bar", "spec"]
     expect(dsc_xadgroup[:dsc_memberstoexclude]).to eq(["foo", "bar", "spec"])
@@ -331,10 +287,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
 
   it 'should not accept int for dsc_memberstoexclude' do
     expect{dsc_xadgroup[:dsc_memberstoexclude] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_memberstoexclude' do
-    expect{dsc_xadgroup[:dsc_memberstoexclude] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_membershipattribute predefined value SamAccountName' do
@@ -393,10 +345,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
     expect{dsc_xadgroup[:dsc_membershipattribute] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_membershipattribute' do
-    expect{dsc_xadgroup[:dsc_membershipattribute] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_managedby' do
     expect{dsc_xadgroup[:dsc_managedby] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -409,10 +357,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
     expect{dsc_xadgroup[:dsc_managedby] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_managedby' do
-    expect{dsc_xadgroup[:dsc_managedby] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_notes' do
     expect{dsc_xadgroup[:dsc_notes] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -423,10 +367,6 @@ describe Puppet::Type.type(:dsc_xadgroup) do
 
   it 'should not accept int for dsc_notes' do
     expect{dsc_xadgroup[:dsc_notes] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_notes' do
-    expect{dsc_xadgroup[:dsc_notes] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

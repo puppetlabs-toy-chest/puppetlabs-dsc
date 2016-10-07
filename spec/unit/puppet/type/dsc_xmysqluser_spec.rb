@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_xmysqluser) do
     expect{dsc_xmysqluser[:dsc_username] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_username' do
-    expect{dsc_xmysqluser[:dsc_username] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_usercredential" do
     expect{dsc_xmysqluser[:dsc_usercredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -68,10 +64,6 @@ describe Puppet::Type.type(:dsc_xmysqluser) do
     expect{dsc_xmysqluser[:dsc_usercredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_usercredential' do
-    expect{dsc_xmysqluser[:dsc_usercredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_rootcredential" do
     expect{dsc_xmysqluser[:dsc_rootcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -86,10 +78,6 @@ describe Puppet::Type.type(:dsc_xmysqluser) do
 
   it 'should not accept int for dsc_rootcredential' do
     expect{dsc_xmysqluser[:dsc_rootcredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_rootcredential' do
-    expect{dsc_xmysqluser[:dsc_rootcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -138,10 +126,6 @@ describe Puppet::Type.type(:dsc_xmysqluser) do
     expect{dsc_xmysqluser[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xmysqluser[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_mysqlversion' do
     expect{dsc_xmysqluser[:dsc_mysqlversion] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -152,10 +136,6 @@ describe Puppet::Type.type(:dsc_xmysqluser) do
 
   it 'should not accept int for dsc_mysqlversion' do
     expect{dsc_xmysqluser[:dsc_mysqlversion] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_mysqlversion' do
-    expect{dsc_xmysqluser[:dsc_mysqlversion] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

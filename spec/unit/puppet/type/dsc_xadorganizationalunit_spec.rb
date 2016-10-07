@@ -51,10 +51,6 @@ describe Puppet::Type.type(:dsc_xadorganizationalunit) do
     expect{dsc_xadorganizationalunit[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xadorganizationalunit[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_path is specified' do
     #dsc_xadorganizationalunit[:dsc_path]
     expect { Puppet::Type.type(:dsc_xadorganizationalunit).new(
@@ -73,10 +69,6 @@ describe Puppet::Type.type(:dsc_xadorganizationalunit) do
 
   it 'should not accept int for dsc_path' do
     expect{dsc_xadorganizationalunit[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xadorganizationalunit[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -125,10 +117,6 @@ describe Puppet::Type.type(:dsc_xadorganizationalunit) do
     expect{dsc_xadorganizationalunit[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xadorganizationalunit[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xadorganizationalunit[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -143,10 +131,6 @@ describe Puppet::Type.type(:dsc_xadorganizationalunit) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xadorganizationalunit[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xadorganizationalunit[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_protectedfromaccidentaldeletion' do
@@ -187,10 +171,6 @@ describe Puppet::Type.type(:dsc_xadorganizationalunit) do
     expect{dsc_xadorganizationalunit[:dsc_protectedfromaccidentaldeletion] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_protectedfromaccidentaldeletion' do
-    expect{dsc_xadorganizationalunit[:dsc_protectedfromaccidentaldeletion] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_xadorganizationalunit[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -201,10 +181,6 @@ describe Puppet::Type.type(:dsc_xadorganizationalunit) do
 
   it 'should not accept int for dsc_description' do
     expect{dsc_xadorganizationalunit[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xadorganizationalunit[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

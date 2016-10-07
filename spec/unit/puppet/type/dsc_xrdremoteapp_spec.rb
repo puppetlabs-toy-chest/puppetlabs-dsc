@@ -57,10 +57,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
     expect{dsc_xrdremoteapp[:dsc_alias] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_alias' do
-    expect{dsc_xrdremoteapp[:dsc_alias] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_collectionname is specified' do
     #dsc_xrdremoteapp[:dsc_collectionname]
     expect { Puppet::Type.type(:dsc_xrdremoteapp).new(
@@ -81,10 +77,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
 
   it 'should not accept int for dsc_collectionname' do
     expect{dsc_xrdremoteapp[:dsc_collectionname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_collectionname' do
-    expect{dsc_xrdremoteapp[:dsc_collectionname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_displayname is specified' do
@@ -109,10 +101,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
     expect{dsc_xrdremoteapp[:dsc_displayname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_displayname' do
-    expect{dsc_xrdremoteapp[:dsc_displayname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_filepath is specified' do
     #dsc_xrdremoteapp[:dsc_filepath]
     expect { Puppet::Type.type(:dsc_xrdremoteapp).new(
@@ -135,10 +123,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
     expect{dsc_xrdremoteapp[:dsc_filepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_filepath' do
-    expect{dsc_xrdremoteapp[:dsc_filepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_filevirtualpath' do
     expect{dsc_xrdremoteapp[:dsc_filevirtualpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -149,10 +133,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
 
   it 'should not accept int for dsc_filevirtualpath' do
     expect{dsc_xrdremoteapp[:dsc_filevirtualpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_filevirtualpath' do
-    expect{dsc_xrdremoteapp[:dsc_filevirtualpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_foldername' do
@@ -167,10 +147,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
     expect{dsc_xrdremoteapp[:dsc_foldername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_foldername' do
-    expect{dsc_xrdremoteapp[:dsc_foldername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_commandlinesetting' do
     expect{dsc_xrdremoteapp[:dsc_commandlinesetting] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -181,10 +157,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
 
   it 'should not accept int for dsc_commandlinesetting' do
     expect{dsc_xrdremoteapp[:dsc_commandlinesetting] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_commandlinesetting' do
-    expect{dsc_xrdremoteapp[:dsc_commandlinesetting] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_requiredcommandline' do
@@ -199,42 +171,12 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
     expect{dsc_xrdremoteapp[:dsc_requiredcommandline] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_requiredcommandline' do
-    expect{dsc_xrdremoteapp[:dsc_requiredcommandline] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_iconindex' do
     expect{dsc_xrdremoteapp[:dsc_iconindex] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_iconindex' do
     expect{dsc_xrdremoteapp[:dsc_iconindex] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_iconindex' do
-    dsc_xrdremoteapp[:dsc_iconindex] = 32
-    expect(dsc_xrdremoteapp[:dsc_iconindex]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_iconindex' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xrdremoteapp[:dsc_iconindex] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_iconindex' do
-    dsc_xrdremoteapp[:dsc_iconindex] = '16'
-    expect(dsc_xrdremoteapp[:dsc_iconindex]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_iconindex' do
-    dsc_xrdremoteapp[:dsc_iconindex] = '32'
-    expect(dsc_xrdremoteapp[:dsc_iconindex]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_iconindex' do
-    dsc_xrdremoteapp[:dsc_iconindex] = '64'
-    expect(dsc_xrdremoteapp[:dsc_iconindex]).to eq(64)
   end
 
   it 'should not accept array for dsc_iconpath' do
@@ -249,10 +191,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
     expect{dsc_xrdremoteapp[:dsc_iconpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_iconpath' do
-    expect{dsc_xrdremoteapp[:dsc_iconpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_usergroups' do
     expect{dsc_xrdremoteapp[:dsc_usergroups] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -263,10 +201,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
 
   it 'should not accept int for dsc_usergroups' do
     expect{dsc_xrdremoteapp[:dsc_usergroups] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_usergroups' do
-    expect{dsc_xrdremoteapp[:dsc_usergroups] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_showinwebaccess' do
@@ -305,10 +239,6 @@ describe Puppet::Type.type(:dsc_xrdremoteapp) do
 
   it 'should not accept int for dsc_showinwebaccess' do
     expect{dsc_xrdremoteapp[:dsc_showinwebaccess] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_showinwebaccess' do
-    expect{dsc_xrdremoteapp[:dsc_showinwebaccess] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -83,10 +83,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     expect{dsc_xblautobitlocker[:dsc_drivetype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_drivetype' do
-    expect{dsc_xblautobitlocker[:dsc_drivetype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_mindiskcapacitygb' do
     expect{dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -94,32 +90,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
   it 'should not accept boolean for dsc_mindiskcapacitygb' do
     expect{dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_mindiskcapacitygb' do
-    dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = -32
-    expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_mindiskcapacitygb' do
-    dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = '16'
-    expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_mindiskcapacitygb' do
-    dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = '-16'
-    expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_mindiskcapacitygb' do
-    dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = '32'
-    expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_mindiskcapacitygb' do
-    dsc_xblautobitlocker[:dsc_mindiskcapacitygb] = '-32'
-    expect(dsc_xblautobitlocker[:dsc_mindiskcapacitygb]).to eq(-32)
-  end
-
 
   it 'should accept dsc_primaryprotector predefined value PasswordProtector' do
     dsc_xblautobitlocker[:dsc_primaryprotector] = 'PasswordProtector'
@@ -177,10 +147,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     expect{dsc_xblautobitlocker[:dsc_primaryprotector] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_primaryprotector' do
-    expect{dsc_xblautobitlocker[:dsc_primaryprotector] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_autounlock' do
     expect{dsc_xblautobitlocker[:dsc_autounlock] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -219,10 +185,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     expect{dsc_xblautobitlocker[:dsc_autounlock] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_autounlock' do
-    expect{dsc_xblautobitlocker[:dsc_autounlock] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_adaccountorgroup' do
     expect{dsc_xblautobitlocker[:dsc_adaccountorgroup] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -233,10 +195,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
 
   it 'should not accept int for dsc_adaccountorgroup' do
     expect{dsc_xblautobitlocker[:dsc_adaccountorgroup] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_adaccountorgroup' do
-    expect{dsc_xblautobitlocker[:dsc_adaccountorgroup] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_adaccountorgroupprotector' do
@@ -277,10 +235,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     expect{dsc_xblautobitlocker[:dsc_adaccountorgroupprotector] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_adaccountorgroupprotector' do
-    expect{dsc_xblautobitlocker[:dsc_adaccountorgroupprotector] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_encryptionmethod predefined value Aes128' do
     dsc_xblautobitlocker[:dsc_encryptionmethod] = 'Aes128'
     expect(dsc_xblautobitlocker[:dsc_encryptionmethod]).to eq('Aes128')
@@ -315,10 +269,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
 
   it 'should not accept int for dsc_encryptionmethod' do
     expect{dsc_xblautobitlocker[:dsc_encryptionmethod] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_encryptionmethod' do
-    expect{dsc_xblautobitlocker[:dsc_encryptionmethod] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_hardwareencryption' do
@@ -359,10 +309,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     expect{dsc_xblautobitlocker[:dsc_hardwareencryption] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_hardwareencryption' do
-    expect{dsc_xblautobitlocker[:dsc_hardwareencryption] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_password" do
     expect{dsc_xblautobitlocker[:dsc_password] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -377,10 +323,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
 
   it 'should not accept int for dsc_password' do
     expect{dsc_xblautobitlocker[:dsc_password] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_password' do
-    expect{dsc_xblautobitlocker[:dsc_password] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_passwordprotector' do
@@ -421,10 +363,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     expect{dsc_xblautobitlocker[:dsc_passwordprotector] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_passwordprotector' do
-    expect{dsc_xblautobitlocker[:dsc_passwordprotector] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_pin" do
     expect{dsc_xblautobitlocker[:dsc_pin] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -441,10 +379,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     expect{dsc_xblautobitlocker[:dsc_pin] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_pin' do
-    expect{dsc_xblautobitlocker[:dsc_pin] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_recoverykeypath' do
     expect{dsc_xblautobitlocker[:dsc_recoverykeypath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -455,10 +389,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
 
   it 'should not accept int for dsc_recoverykeypath' do
     expect{dsc_xblautobitlocker[:dsc_recoverykeypath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_recoverykeypath' do
-    expect{dsc_xblautobitlocker[:dsc_recoverykeypath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_recoverykeyprotector' do
@@ -499,10 +429,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     expect{dsc_xblautobitlocker[:dsc_recoverykeyprotector] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_recoverykeyprotector' do
-    expect{dsc_xblautobitlocker[:dsc_recoverykeyprotector] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_recoverypasswordprotector' do
     expect{dsc_xblautobitlocker[:dsc_recoverypasswordprotector] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -539,10 +465,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
 
   it 'should not accept int for dsc_recoverypasswordprotector' do
     expect{dsc_xblautobitlocker[:dsc_recoverypasswordprotector] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_recoverypasswordprotector' do
-    expect{dsc_xblautobitlocker[:dsc_recoverypasswordprotector] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_service' do
@@ -583,10 +505,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     expect{dsc_xblautobitlocker[:dsc_service] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_service' do
-    expect{dsc_xblautobitlocker[:dsc_service] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_skiphardwaretest' do
     expect{dsc_xblautobitlocker[:dsc_skiphardwaretest] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -625,10 +543,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     expect{dsc_xblautobitlocker[:dsc_skiphardwaretest] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_skiphardwaretest' do
-    expect{dsc_xblautobitlocker[:dsc_skiphardwaretest] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_startupkeypath' do
     expect{dsc_xblautobitlocker[:dsc_startupkeypath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -639,10 +553,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
 
   it 'should not accept int for dsc_startupkeypath' do
     expect{dsc_xblautobitlocker[:dsc_startupkeypath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_startupkeypath' do
-    expect{dsc_xblautobitlocker[:dsc_startupkeypath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_startupkeyprotector' do
@@ -683,10 +593,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     expect{dsc_xblautobitlocker[:dsc_startupkeyprotector] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_startupkeyprotector' do
-    expect{dsc_xblautobitlocker[:dsc_startupkeyprotector] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_tpmprotector' do
     expect{dsc_xblautobitlocker[:dsc_tpmprotector] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -725,10 +631,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
     expect{dsc_xblautobitlocker[:dsc_tpmprotector] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_tpmprotector' do
-    expect{dsc_xblautobitlocker[:dsc_tpmprotector] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_usedspaceonly' do
     expect{dsc_xblautobitlocker[:dsc_usedspaceonly] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -765,10 +667,6 @@ describe Puppet::Type.type(:dsc_xblautobitlocker) do
 
   it 'should not accept int for dsc_usedspaceonly' do
     expect{dsc_xblautobitlocker[:dsc_usedspaceonly] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_usedspaceonly' do
-    expect{dsc_xblautobitlocker[:dsc_usedspaceonly] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

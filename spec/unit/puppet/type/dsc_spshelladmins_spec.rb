@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_spshelladmins) do
     expect{dsc_spshelladmins[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spshelladmins[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_members' do
     dsc_spshelladmins[:dsc_members] = ["foo", "bar", "spec"]
     expect(dsc_spshelladmins[:dsc_members]).to eq(["foo", "bar", "spec"])
@@ -61,10 +57,6 @@ describe Puppet::Type.type(:dsc_spshelladmins) do
 
   it 'should not accept int for dsc_members' do
     expect{dsc_spshelladmins[:dsc_members] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_members' do
-    expect{dsc_spshelladmins[:dsc_members] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_memberstoinclude' do
@@ -80,10 +72,6 @@ describe Puppet::Type.type(:dsc_spshelladmins) do
     expect{dsc_spshelladmins[:dsc_memberstoinclude] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_memberstoinclude' do
-    expect{dsc_spshelladmins[:dsc_memberstoinclude] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_memberstoexclude' do
     dsc_spshelladmins[:dsc_memberstoexclude] = ["foo", "bar", "spec"]
     expect(dsc_spshelladmins[:dsc_memberstoexclude]).to eq(["foo", "bar", "spec"])
@@ -95,10 +83,6 @@ describe Puppet::Type.type(:dsc_spshelladmins) do
 
   it 'should not accept int for dsc_memberstoexclude' do
     expect{dsc_spshelladmins[:dsc_memberstoexclude] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_memberstoexclude' do
-    expect{dsc_spshelladmins[:dsc_memberstoexclude] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept a hash for dsc_contentdatabases' do
@@ -117,10 +101,6 @@ describe Puppet::Type.type(:dsc_spshelladmins) do
 
   it 'should not accept int for dsc_contentdatabases' do
     expect{dsc_spshelladmins[:dsc_contentdatabases] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_contentdatabases' do
-    expect{dsc_spshelladmins[:dsc_contentdatabases] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allcontentdatabases' do
@@ -161,10 +141,6 @@ describe Puppet::Type.type(:dsc_spshelladmins) do
     expect{dsc_spshelladmins[:dsc_allcontentdatabases] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allcontentdatabases' do
-    expect{dsc_spshelladmins[:dsc_allcontentdatabases] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spshelladmins[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -179,10 +155,6 @@ describe Puppet::Type.type(:dsc_spshelladmins) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spshelladmins[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spshelladmins[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

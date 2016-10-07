@@ -63,10 +63,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
     expect{dsc_spinstallprereqs[:dsc_installerpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_installerpath' do
-    expect{dsc_spinstallprereqs[:dsc_installerpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_onlinemode' do
     expect{dsc_spinstallprereqs[:dsc_onlinemode] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -105,10 +101,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
     expect{dsc_spinstallprereqs[:dsc_onlinemode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_onlinemode' do
-    expect{dsc_spinstallprereqs[:dsc_onlinemode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sxspath' do
     expect{dsc_spinstallprereqs[:dsc_sxspath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -119,10 +111,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
 
   it 'should not accept int for dsc_sxspath' do
     expect{dsc_spinstallprereqs[:dsc_sxspath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sxspath' do
-    expect{dsc_spinstallprereqs[:dsc_sxspath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sqlncli' do
@@ -137,10 +125,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
     expect{dsc_spinstallprereqs[:dsc_sqlncli] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlncli' do
-    expect{dsc_spinstallprereqs[:dsc_sqlncli] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_powershell' do
     expect{dsc_spinstallprereqs[:dsc_powershell] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -151,10 +135,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
 
   it 'should not accept int for dsc_powershell' do
     expect{dsc_spinstallprereqs[:dsc_powershell] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_powershell' do
-    expect{dsc_spinstallprereqs[:dsc_powershell] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_netfx' do
@@ -169,10 +149,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
     expect{dsc_spinstallprereqs[:dsc_netfx] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_netfx' do
-    expect{dsc_spinstallprereqs[:dsc_netfx] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_idfx' do
     expect{dsc_spinstallprereqs[:dsc_idfx] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -183,10 +159,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
 
   it 'should not accept int for dsc_idfx' do
     expect{dsc_spinstallprereqs[:dsc_idfx] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_idfx' do
-    expect{dsc_spinstallprereqs[:dsc_idfx] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sync' do
@@ -201,10 +173,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
     expect{dsc_spinstallprereqs[:dsc_sync] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sync' do
-    expect{dsc_spinstallprereqs[:dsc_sync] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_appfabric' do
     expect{dsc_spinstallprereqs[:dsc_appfabric] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -215,10 +183,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
 
   it 'should not accept int for dsc_appfabric' do
     expect{dsc_spinstallprereqs[:dsc_appfabric] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_appfabric' do
-    expect{dsc_spinstallprereqs[:dsc_appfabric] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_idfx11' do
@@ -233,10 +197,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
     expect{dsc_spinstallprereqs[:dsc_idfx11] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_idfx11' do
-    expect{dsc_spinstallprereqs[:dsc_idfx11] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_msipcclient' do
     expect{dsc_spinstallprereqs[:dsc_msipcclient] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -247,10 +207,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
 
   it 'should not accept int for dsc_msipcclient' do
     expect{dsc_spinstallprereqs[:dsc_msipcclient] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_msipcclient' do
-    expect{dsc_spinstallprereqs[:dsc_msipcclient] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_wcfdataservices' do
@@ -265,10 +221,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
     expect{dsc_spinstallprereqs[:dsc_wcfdataservices] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_wcfdataservices' do
-    expect{dsc_spinstallprereqs[:dsc_wcfdataservices] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_kb2671763' do
     expect{dsc_spinstallprereqs[:dsc_kb2671763] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -279,10 +231,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
 
   it 'should not accept int for dsc_kb2671763' do
     expect{dsc_spinstallprereqs[:dsc_kb2671763] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_kb2671763' do
-    expect{dsc_spinstallprereqs[:dsc_kb2671763] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_wcfdataservices56' do
@@ -297,10 +245,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
     expect{dsc_spinstallprereqs[:dsc_wcfdataservices56] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_wcfdataservices56' do
-    expect{dsc_spinstallprereqs[:dsc_wcfdataservices56] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_msvcrt11' do
     expect{dsc_spinstallprereqs[:dsc_msvcrt11] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -311,10 +255,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
 
   it 'should not accept int for dsc_msvcrt11' do
     expect{dsc_spinstallprereqs[:dsc_msvcrt11] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_msvcrt11' do
-    expect{dsc_spinstallprereqs[:dsc_msvcrt11] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_msvcrt14' do
@@ -329,10 +269,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
     expect{dsc_spinstallprereqs[:dsc_msvcrt14] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_msvcrt14' do
-    expect{dsc_spinstallprereqs[:dsc_msvcrt14] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_kb3092423' do
     expect{dsc_spinstallprereqs[:dsc_kb3092423] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -343,10 +279,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
 
   it 'should not accept int for dsc_kb3092423' do
     expect{dsc_spinstallprereqs[:dsc_kb3092423] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_kb3092423' do
-    expect{dsc_spinstallprereqs[:dsc_kb3092423] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_odbc' do
@@ -361,10 +293,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
     expect{dsc_spinstallprereqs[:dsc_odbc] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_odbc' do
-    expect{dsc_spinstallprereqs[:dsc_odbc] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_dotnetfx' do
     expect{dsc_spinstallprereqs[:dsc_dotnetfx] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -375,10 +303,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
 
   it 'should not accept int for dsc_dotnetfx' do
     expect{dsc_spinstallprereqs[:dsc_dotnetfx] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_dotnetfx' do
-    expect{dsc_spinstallprereqs[:dsc_dotnetfx] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -425,10 +349,6 @@ describe Puppet::Type.type(:dsc_spinstallprereqs) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_spinstallprereqs[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spinstallprereqs[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

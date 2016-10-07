@@ -70,10 +70,6 @@ describe Puppet::Type.type(:dsc_xazurepackidentityprovider) do
     expect{dsc_xazurepackidentityprovider[:dsc_target] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_target' do
-    expect{dsc_xazurepackidentityprovider[:dsc_target] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_fullyqualifieddomainname' do
     expect{dsc_xazurepackidentityprovider[:dsc_fullyqualifieddomainname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -86,42 +82,12 @@ describe Puppet::Type.type(:dsc_xazurepackidentityprovider) do
     expect{dsc_xazurepackidentityprovider[:dsc_fullyqualifieddomainname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_fullyqualifieddomainname' do
-    expect{dsc_xazurepackidentityprovider[:dsc_fullyqualifieddomainname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_port' do
     expect{dsc_xazurepackidentityprovider[:dsc_port] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_port' do
     expect{dsc_xazurepackidentityprovider[:dsc_port] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_port' do
-    dsc_xazurepackidentityprovider[:dsc_port] = 16
-    expect(dsc_xazurepackidentityprovider[:dsc_port]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_port' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xazurepackidentityprovider[:dsc_port] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_port' do
-    dsc_xazurepackidentityprovider[:dsc_port] = '16'
-    expect(dsc_xazurepackidentityprovider[:dsc_port]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_port' do
-    dsc_xazurepackidentityprovider[:dsc_port] = '32'
-    expect(dsc_xazurepackidentityprovider[:dsc_port]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_port' do
-    dsc_xazurepackidentityprovider[:dsc_port] = '64'
-    expect(dsc_xazurepackidentityprovider[:dsc_port]).to eq(64)
   end
 
   it "should not accept empty password for dsc_azurepackadmincredential" do
@@ -140,10 +106,6 @@ describe Puppet::Type.type(:dsc_xazurepackidentityprovider) do
     expect{dsc_xazurepackidentityprovider[:dsc_azurepackadmincredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_azurepackadmincredential' do
-    expect{dsc_xazurepackidentityprovider[:dsc_azurepackadmincredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlserver' do
     expect{dsc_xazurepackidentityprovider[:dsc_sqlserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -156,10 +118,6 @@ describe Puppet::Type.type(:dsc_xazurepackidentityprovider) do
     expect{dsc_xazurepackidentityprovider[:dsc_sqlserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlserver' do
-    expect{dsc_xazurepackidentityprovider[:dsc_sqlserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlinstance' do
     expect{dsc_xazurepackidentityprovider[:dsc_sqlinstance] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -170,10 +128,6 @@ describe Puppet::Type.type(:dsc_xazurepackidentityprovider) do
 
   it 'should not accept int for dsc_sqlinstance' do
     expect{dsc_xazurepackidentityprovider[:dsc_sqlinstance] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlinstance' do
-    expect{dsc_xazurepackidentityprovider[:dsc_sqlinstance] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_dbuser" do
@@ -190,10 +144,6 @@ describe Puppet::Type.type(:dsc_xazurepackidentityprovider) do
 
   it 'should not accept int for dsc_dbuser' do
     expect{dsc_xazurepackidentityprovider[:dsc_dbuser] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_dbuser' do
-    expect{dsc_xazurepackidentityprovider[:dsc_dbuser] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

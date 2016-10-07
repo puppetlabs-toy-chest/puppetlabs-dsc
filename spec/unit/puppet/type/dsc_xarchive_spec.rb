@@ -52,10 +52,6 @@ describe Puppet::Type.type(:dsc_xarchive) do
     expect{dsc_xarchive[:dsc_destination] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_destination' do
-    expect{dsc_xarchive[:dsc_destination] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_path is specified' do
     #dsc_xarchive[:dsc_path]
     expect { Puppet::Type.type(:dsc_xarchive).new(
@@ -74,10 +70,6 @@ describe Puppet::Type.type(:dsc_xarchive) do
 
   it 'should not accept int for dsc_path' do
     expect{dsc_xarchive[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xarchive[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -126,10 +118,6 @@ describe Puppet::Type.type(:dsc_xarchive) do
     expect{dsc_xarchive[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xarchive[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_validate' do
     expect{dsc_xarchive[:dsc_validate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -166,10 +154,6 @@ describe Puppet::Type.type(:dsc_xarchive) do
 
   it 'should not accept int for dsc_validate' do
     expect{dsc_xarchive[:dsc_validate] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_validate' do
-    expect{dsc_xarchive[:dsc_validate] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_checksum predefined value SHA-1' do
@@ -238,10 +222,6 @@ describe Puppet::Type.type(:dsc_xarchive) do
     expect{dsc_xarchive[:dsc_checksum] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_checksum' do
-    expect{dsc_xarchive[:dsc_checksum] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_force' do
     expect{dsc_xarchive[:dsc_force] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -280,10 +260,6 @@ describe Puppet::Type.type(:dsc_xarchive) do
     expect{dsc_xarchive[:dsc_force] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_force' do
-    expect{dsc_xarchive[:dsc_force] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xarchive[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -298,10 +274,6 @@ describe Puppet::Type.type(:dsc_xarchive) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xarchive[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xarchive[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -174,28 +174,16 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
       PuppetX::Dsc::TypeHelpers.validate_<%= property.embeddedinstance_class_name %>(<%= !property.credential? ? 'mof_type_map, ' : '' %>"<%= property.name %>", value)
 <%      end -%>
 <%    when property.array? -%>
-<%      if property.int_array? -%>
-      unless value.kind_of?(Array) || value.kind_of?(Numeric) || value.to_i.to_s == value
-        fail("Invalid value '#{value}'. Should be an integer or an array of integers")
-      end
-<%      elsif property.uint_array? -%>
-      unless value.kind_of?(Array) || (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-        fail("Invalid value '#{value}'. Should be an integer or an array of integers")
-      end
+<%      if property.int_array? || property.uint_array? -%>
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "<%= property.name %>")
 <%      else -%>
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
 <%      end -%>
 <%    when property.bool? -%>
-<%    when property.int? -%>
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
-      end
-<%    when property.uint? -%>
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
+<%    when property.int? || property.uint? -%>
+      PuppetX::Dsc::TypeHelpers.validate_type_value(mof_type, value, "<%= property.name %>")
 <%    else -%>
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -52,10 +52,6 @@ describe Puppet::Type.type(:dsc_xuser) do
     expect{dsc_xuser[:dsc_username] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_username' do
-    expect{dsc_xuser[:dsc_username] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xuser[:dsc_ensure] = 'Present'
     expect(dsc_xuser[:dsc_ensure]).to eq('Present')
@@ -102,10 +98,6 @@ describe Puppet::Type.type(:dsc_xuser) do
     expect{dsc_xuser[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xuser[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_fullname' do
     expect{dsc_xuser[:dsc_fullname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -118,10 +110,6 @@ describe Puppet::Type.type(:dsc_xuser) do
     expect{dsc_xuser[:dsc_fullname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_fullname' do
-    expect{dsc_xuser[:dsc_fullname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_xuser[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -132,10 +120,6 @@ describe Puppet::Type.type(:dsc_xuser) do
 
   it 'should not accept int for dsc_description' do
     expect{dsc_xuser[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xuser[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_password" do
@@ -152,10 +136,6 @@ describe Puppet::Type.type(:dsc_xuser) do
 
   it 'should not accept int for dsc_password' do
     expect{dsc_xuser[:dsc_password] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_password' do
-    expect{dsc_xuser[:dsc_password] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_disabled' do
@@ -196,10 +176,6 @@ describe Puppet::Type.type(:dsc_xuser) do
     expect{dsc_xuser[:dsc_disabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_disabled' do
-    expect{dsc_xuser[:dsc_disabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_passwordneverexpires' do
     expect{dsc_xuser[:dsc_passwordneverexpires] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -236,10 +212,6 @@ describe Puppet::Type.type(:dsc_xuser) do
 
   it 'should not accept int for dsc_passwordneverexpires' do
     expect{dsc_xuser[:dsc_passwordneverexpires] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_passwordneverexpires' do
-    expect{dsc_xuser[:dsc_passwordneverexpires] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_passwordchangerequired' do
@@ -280,10 +252,6 @@ describe Puppet::Type.type(:dsc_xuser) do
     expect{dsc_xuser[:dsc_passwordchangerequired] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_passwordchangerequired' do
-    expect{dsc_xuser[:dsc_passwordchangerequired] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_passwordchangenotallowed' do
     expect{dsc_xuser[:dsc_passwordchangenotallowed] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -320,10 +288,6 @@ describe Puppet::Type.type(:dsc_xuser) do
 
   it 'should not accept int for dsc_passwordchangenotallowed' do
     expect{dsc_xuser[:dsc_passwordchangenotallowed] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_passwordchangenotallowed' do
-    expect{dsc_xuser[:dsc_passwordchangenotallowed] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

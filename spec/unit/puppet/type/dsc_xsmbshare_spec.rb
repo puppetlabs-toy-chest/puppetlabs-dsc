@@ -58,10 +58,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     expect{dsc_xsmbshare[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xsmbshare[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_path' do
     expect{dsc_xsmbshare[:dsc_path] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -74,10 +70,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     expect{dsc_xsmbshare[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xsmbshare[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_xsmbshare[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -88,10 +80,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
 
   it 'should not accept int for dsc_description' do
     expect{dsc_xsmbshare[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xsmbshare[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_changeaccess' do
@@ -107,42 +95,12 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     expect{dsc_xsmbshare[:dsc_changeaccess] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_changeaccess' do
-    expect{dsc_xsmbshare[:dsc_changeaccess] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_concurrentuserlimit' do
     expect{dsc_xsmbshare[:dsc_concurrentuserlimit] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_concurrentuserlimit' do
     expect{dsc_xsmbshare[:dsc_concurrentuserlimit] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_concurrentuserlimit' do
-    dsc_xsmbshare[:dsc_concurrentuserlimit] = 32
-    expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_concurrentuserlimit' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xsmbshare[:dsc_concurrentuserlimit] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_concurrentuserlimit' do
-    dsc_xsmbshare[:dsc_concurrentuserlimit] = '16'
-    expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_concurrentuserlimit' do
-    dsc_xsmbshare[:dsc_concurrentuserlimit] = '32'
-    expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_concurrentuserlimit' do
-    dsc_xsmbshare[:dsc_concurrentuserlimit] = '64'
-    expect(dsc_xsmbshare[:dsc_concurrentuserlimit]).to eq(64)
   end
 
   it 'should not accept array for dsc_encryptdata' do
@@ -183,10 +141,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     expect{dsc_xsmbshare[:dsc_encryptdata] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_encryptdata' do
-    expect{dsc_xsmbshare[:dsc_encryptdata] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_folderenumerationmode predefined value AccessBased' do
     dsc_xsmbshare[:dsc_folderenumerationmode] = 'AccessBased'
     expect(dsc_xsmbshare[:dsc_folderenumerationmode]).to eq('AccessBased')
@@ -223,10 +177,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     expect{dsc_xsmbshare[:dsc_folderenumerationmode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_folderenumerationmode' do
-    expect{dsc_xsmbshare[:dsc_folderenumerationmode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_fullaccess' do
     dsc_xsmbshare[:dsc_fullaccess] = ["foo", "bar", "spec"]
     expect(dsc_xsmbshare[:dsc_fullaccess]).to eq(["foo", "bar", "spec"])
@@ -238,10 +188,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
 
   it 'should not accept int for dsc_fullaccess' do
     expect{dsc_xsmbshare[:dsc_fullaccess] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_fullaccess' do
-    expect{dsc_xsmbshare[:dsc_fullaccess] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_noaccess' do
@@ -257,10 +203,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     expect{dsc_xsmbshare[:dsc_noaccess] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_noaccess' do
-    expect{dsc_xsmbshare[:dsc_noaccess] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_readaccess' do
     dsc_xsmbshare[:dsc_readaccess] = ["foo", "bar", "spec"]
     expect(dsc_xsmbshare[:dsc_readaccess]).to eq(["foo", "bar", "spec"])
@@ -272,10 +214,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
 
   it 'should not accept int for dsc_readaccess' do
     expect{dsc_xsmbshare[:dsc_readaccess] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_readaccess' do
-    expect{dsc_xsmbshare[:dsc_readaccess] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -324,10 +262,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     expect{dsc_xsmbshare[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xsmbshare[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sharestate' do
     expect{dsc_xsmbshare[:dsc_sharestate] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -338,10 +272,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
 
   it 'should not accept int for dsc_sharestate' do
     expect{dsc_xsmbshare[:dsc_sharestate] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sharestate' do
-    expect{dsc_xsmbshare[:dsc_sharestate] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sharetype' do
@@ -356,10 +286,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     expect{dsc_xsmbshare[:dsc_sharetype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sharetype' do
-    expect{dsc_xsmbshare[:dsc_sharetype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_shadowcopy' do
     expect{dsc_xsmbshare[:dsc_shadowcopy] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -372,10 +298,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
     expect{dsc_xsmbshare[:dsc_shadowcopy] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_shadowcopy' do
-    expect{dsc_xsmbshare[:dsc_shadowcopy] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_special' do
     expect{dsc_xsmbshare[:dsc_special] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -386,10 +308,6 @@ describe Puppet::Type.type(:dsc_xsmbshare) do
 
   it 'should not accept int for dsc_special' do
     expect{dsc_xsmbshare[:dsc_special] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_special' do
-    expect{dsc_xsmbshare[:dsc_special] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

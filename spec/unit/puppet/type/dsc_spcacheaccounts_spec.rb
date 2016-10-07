@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_spcacheaccounts) do
     expect{dsc_spcacheaccounts[:dsc_webappurl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_webappurl' do
-    expect{dsc_spcacheaccounts[:dsc_webappurl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_superuseralias' do
     expect{dsc_spcacheaccounts[:dsc_superuseralias] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -60,10 +56,6 @@ describe Puppet::Type.type(:dsc_spcacheaccounts) do
     expect{dsc_spcacheaccounts[:dsc_superuseralias] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_superuseralias' do
-    expect{dsc_spcacheaccounts[:dsc_superuseralias] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_superreaderalias' do
     expect{dsc_spcacheaccounts[:dsc_superreaderalias] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -74,10 +66,6 @@ describe Puppet::Type.type(:dsc_spcacheaccounts) do
 
   it 'should not accept int for dsc_superreaderalias' do
     expect{dsc_spcacheaccounts[:dsc_superreaderalias] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_superreaderalias' do
-    expect{dsc_spcacheaccounts[:dsc_superreaderalias] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_setwebapppolicy' do
@@ -118,10 +106,6 @@ describe Puppet::Type.type(:dsc_spcacheaccounts) do
     expect{dsc_spcacheaccounts[:dsc_setwebapppolicy] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_setwebapppolicy' do
-    expect{dsc_spcacheaccounts[:dsc_setwebapppolicy] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spcacheaccounts[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -136,10 +120,6 @@ describe Puppet::Type.type(:dsc_spcacheaccounts) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spcacheaccounts[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spcacheaccounts[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

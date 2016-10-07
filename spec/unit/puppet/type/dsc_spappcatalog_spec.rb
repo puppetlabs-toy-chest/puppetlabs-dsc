@@ -41,10 +41,6 @@ describe Puppet::Type.type(:dsc_spappcatalog) do
     expect{dsc_spappcatalog[:dsc_siteurl] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_siteurl' do
-    expect{dsc_spappcatalog[:dsc_siteurl] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spappcatalog[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -59,10 +55,6 @@ describe Puppet::Type.type(:dsc_spappcatalog) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spappcatalog[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spappcatalog[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

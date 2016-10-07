@@ -47,10 +47,6 @@ describe Puppet::Type.type(:dsc_xdnsserversecondaryzone) do
     expect{dsc_xdnsserversecondaryzone[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xdnsserversecondaryzone[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_masterservers' do
     dsc_xdnsserversecondaryzone[:dsc_masterservers] = ["foo", "bar", "spec"]
     expect(dsc_xdnsserversecondaryzone[:dsc_masterservers]).to eq(["foo", "bar", "spec"])
@@ -62,10 +58,6 @@ describe Puppet::Type.type(:dsc_xdnsserversecondaryzone) do
 
   it 'should not accept int for dsc_masterservers' do
     expect{dsc_xdnsserversecondaryzone[:dsc_masterservers] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_masterservers' do
-    expect{dsc_xdnsserversecondaryzone[:dsc_masterservers] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -114,10 +106,6 @@ describe Puppet::Type.type(:dsc_xdnsserversecondaryzone) do
     expect{dsc_xdnsserversecondaryzone[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdnsserversecondaryzone[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_type' do
     expect{dsc_xdnsserversecondaryzone[:dsc_type] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -128,10 +116,6 @@ describe Puppet::Type.type(:dsc_xdnsserversecondaryzone) do
 
   it 'should not accept int for dsc_type' do
     expect{dsc_xdnsserversecondaryzone[:dsc_type] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_type' do
-    expect{dsc_xdnsserversecondaryzone[:dsc_type] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

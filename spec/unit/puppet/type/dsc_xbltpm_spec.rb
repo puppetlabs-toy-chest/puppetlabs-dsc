@@ -43,10 +43,6 @@ describe Puppet::Type.type(:dsc_xbltpm) do
     expect{dsc_xbltpm[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xbltpm[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_allowclear' do
     expect{dsc_xbltpm[:dsc_allowclear] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -83,10 +79,6 @@ describe Puppet::Type.type(:dsc_xbltpm) do
 
   it 'should not accept int for dsc_allowclear' do
     expect{dsc_xbltpm[:dsc_allowclear] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_allowclear' do
-    expect{dsc_xbltpm[:dsc_allowclear] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowphysicalpresence' do
@@ -127,10 +119,6 @@ describe Puppet::Type.type(:dsc_xbltpm) do
     expect{dsc_xbltpm[:dsc_allowphysicalpresence] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowphysicalpresence' do
-    expect{dsc_xbltpm[:dsc_allowphysicalpresence] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_allowimmediatereboot' do
     expect{dsc_xbltpm[:dsc_allowimmediatereboot] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -167,10 +155,6 @@ describe Puppet::Type.type(:dsc_xbltpm) do
 
   it 'should not accept int for dsc_allowimmediatereboot' do
     expect{dsc_xbltpm[:dsc_allowimmediatereboot] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_allowimmediatereboot' do
-    expect{dsc_xbltpm[:dsc_allowimmediatereboot] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

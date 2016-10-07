@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_xiismimetypemapping) do
     expect{dsc_xiismimetypemapping[:dsc_extension] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_extension' do
-    expect{dsc_xiismimetypemapping[:dsc_extension] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_mimetype is specified' do
     #dsc_xiismimetypemapping[:dsc_mimetype]
     expect { Puppet::Type.type(:dsc_xiismimetypemapping).new(
@@ -70,10 +66,6 @@ describe Puppet::Type.type(:dsc_xiismimetypemapping) do
 
   it 'should not accept int for dsc_mimetype' do
     expect{dsc_xiismimetypemapping[:dsc_mimetype] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_mimetype' do
-    expect{dsc_xiismimetypemapping[:dsc_mimetype] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -120,10 +112,6 @@ describe Puppet::Type.type(:dsc_xiismimetypemapping) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xiismimetypemapping[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xiismimetypemapping[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

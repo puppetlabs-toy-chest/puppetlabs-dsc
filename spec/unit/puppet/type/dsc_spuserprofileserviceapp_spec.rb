@@ -55,10 +55,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapp) do
     expect{dsc_spuserprofileserviceapp[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spuserprofileserviceapp[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_applicationpool' do
     expect{dsc_spuserprofileserviceapp[:dsc_applicationpool] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -69,10 +65,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapp) do
 
   it 'should not accept int for dsc_applicationpool' do
     expect{dsc_spuserprofileserviceapp[:dsc_applicationpool] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_applicationpool' do
-    expect{dsc_spuserprofileserviceapp[:dsc_applicationpool] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_farmaccount" do
@@ -91,10 +83,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapp) do
     expect{dsc_spuserprofileserviceapp[:dsc_farmaccount] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_farmaccount' do
-    expect{dsc_spuserprofileserviceapp[:dsc_farmaccount] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_mysitehostlocation' do
     expect{dsc_spuserprofileserviceapp[:dsc_mysitehostlocation] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -105,10 +93,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapp) do
 
   it 'should not accept int for dsc_mysitehostlocation' do
     expect{dsc_spuserprofileserviceapp[:dsc_mysitehostlocation] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_mysitehostlocation' do
-    expect{dsc_spuserprofileserviceapp[:dsc_mysitehostlocation] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_profiledbname' do
@@ -123,10 +107,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapp) do
     expect{dsc_spuserprofileserviceapp[:dsc_profiledbname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_profiledbname' do
-    expect{dsc_spuserprofileserviceapp[:dsc_profiledbname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_profiledbserver' do
     expect{dsc_spuserprofileserviceapp[:dsc_profiledbserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -137,10 +117,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapp) do
 
   it 'should not accept int for dsc_profiledbserver' do
     expect{dsc_spuserprofileserviceapp[:dsc_profiledbserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_profiledbserver' do
-    expect{dsc_spuserprofileserviceapp[:dsc_profiledbserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_socialdbname' do
@@ -155,10 +131,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapp) do
     expect{dsc_spuserprofileserviceapp[:dsc_socialdbname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_socialdbname' do
-    expect{dsc_spuserprofileserviceapp[:dsc_socialdbname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_socialdbserver' do
     expect{dsc_spuserprofileserviceapp[:dsc_socialdbserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -169,10 +141,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapp) do
 
   it 'should not accept int for dsc_socialdbserver' do
     expect{dsc_spuserprofileserviceapp[:dsc_socialdbserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_socialdbserver' do
-    expect{dsc_spuserprofileserviceapp[:dsc_socialdbserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_syncdbname' do
@@ -187,10 +155,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapp) do
     expect{dsc_spuserprofileserviceapp[:dsc_syncdbname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_syncdbname' do
-    expect{dsc_spuserprofileserviceapp[:dsc_syncdbname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_syncdbserver' do
     expect{dsc_spuserprofileserviceapp[:dsc_syncdbserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -201,10 +165,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapp) do
 
   it 'should not accept int for dsc_syncdbserver' do
     expect{dsc_spuserprofileserviceapp[:dsc_syncdbserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_syncdbserver' do
-    expect{dsc_spuserprofileserviceapp[:dsc_syncdbserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -253,10 +213,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapp) do
     expect{dsc_spuserprofileserviceapp[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spuserprofileserviceapp[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spuserprofileserviceapp[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -271,10 +227,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapp) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spuserprofileserviceapp[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spuserprofileserviceapp[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

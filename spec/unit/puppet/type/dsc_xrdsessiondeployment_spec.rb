@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_xrdsessiondeployment) do
     expect{dsc_xrdsessiondeployment[:dsc_sessionhost] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sessionhost' do
-    expect{dsc_xrdsessiondeployment[:dsc_sessionhost] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_connectionbroker is specified' do
     #dsc_xrdsessiondeployment[:dsc_connectionbroker]
     expect { Puppet::Type.type(:dsc_xrdsessiondeployment).new(
@@ -71,10 +67,6 @@ describe Puppet::Type.type(:dsc_xrdsessiondeployment) do
     expect{dsc_xrdsessiondeployment[:dsc_connectionbroker] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_connectionbroker' do
-    expect{dsc_xrdsessiondeployment[:dsc_connectionbroker] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_webaccessserver is specified' do
     #dsc_xrdsessiondeployment[:dsc_webaccessserver]
     expect { Puppet::Type.type(:dsc_xrdsessiondeployment).new(
@@ -94,10 +86,6 @@ describe Puppet::Type.type(:dsc_xrdsessiondeployment) do
 
   it 'should not accept int for dsc_webaccessserver' do
     expect{dsc_xrdsessiondeployment[:dsc_webaccessserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_webaccessserver' do
-    expect{dsc_xrdsessiondeployment[:dsc_webaccessserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

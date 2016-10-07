@@ -49,10 +49,6 @@ describe Puppet::Type.type(:dsc_xazurestorageaccount) do
     expect{dsc_xazurestorageaccount[:dsc_storageaccountname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_storageaccountname' do
-    expect{dsc_xazurestorageaccount[:dsc_storageaccountname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xazurestorageaccount[:dsc_ensure] = 'Present'
     expect(dsc_xazurestorageaccount[:dsc_ensure]).to eq('Present')
@@ -99,10 +95,6 @@ describe Puppet::Type.type(:dsc_xazurestorageaccount) do
     expect{dsc_xazurestorageaccount[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xazurestorageaccount[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_affinitygroup' do
     expect{dsc_xazurestorageaccount[:dsc_affinitygroup] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -113,10 +105,6 @@ describe Puppet::Type.type(:dsc_xazurestorageaccount) do
 
   it 'should not accept int for dsc_affinitygroup' do
     expect{dsc_xazurestorageaccount[:dsc_affinitygroup] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_affinitygroup' do
-    expect{dsc_xazurestorageaccount[:dsc_affinitygroup] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_container' do
@@ -131,10 +119,6 @@ describe Puppet::Type.type(:dsc_xazurestorageaccount) do
     expect{dsc_xazurestorageaccount[:dsc_container] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_container' do
-    expect{dsc_xazurestorageaccount[:dsc_container] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_folder' do
     expect{dsc_xazurestorageaccount[:dsc_folder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -147,10 +131,6 @@ describe Puppet::Type.type(:dsc_xazurestorageaccount) do
     expect{dsc_xazurestorageaccount[:dsc_folder] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_folder' do
-    expect{dsc_xazurestorageaccount[:dsc_folder] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_label' do
     expect{dsc_xazurestorageaccount[:dsc_label] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -161,10 +141,6 @@ describe Puppet::Type.type(:dsc_xazurestorageaccount) do
 
   it 'should not accept int for dsc_label' do
     expect{dsc_xazurestorageaccount[:dsc_label] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_label' do
-    expect{dsc_xazurestorageaccount[:dsc_label] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_xcertreq) do
     expect{dsc_xcertreq[:dsc_subject] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_subject' do
-    expect{dsc_xcertreq[:dsc_subject] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_caserverfqdn' do
     expect{dsc_xcertreq[:dsc_caserverfqdn] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -60,10 +56,6 @@ describe Puppet::Type.type(:dsc_xcertreq) do
     expect{dsc_xcertreq[:dsc_caserverfqdn] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_caserverfqdn' do
-    expect{dsc_xcertreq[:dsc_caserverfqdn] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_carootname' do
     expect{dsc_xcertreq[:dsc_carootname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -74,10 +66,6 @@ describe Puppet::Type.type(:dsc_xcertreq) do
 
   it 'should not accept int for dsc_carootname' do
     expect{dsc_xcertreq[:dsc_carootname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_carootname' do
-    expect{dsc_xcertreq[:dsc_carootname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_credential" do
@@ -94,10 +82,6 @@ describe Puppet::Type.type(:dsc_xcertreq) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xcertreq[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xcertreq[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_autorenew' do
@@ -136,10 +120,6 @@ describe Puppet::Type.type(:dsc_xcertreq) do
 
   it 'should not accept int for dsc_autorenew' do
     expect{dsc_xcertreq[:dsc_autorenew] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_autorenew' do
-    expect{dsc_xcertreq[:dsc_autorenew] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

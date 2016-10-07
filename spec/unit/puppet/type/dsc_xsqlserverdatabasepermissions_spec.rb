@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_xsqlserverdatabasepermissions) do
     expect{dsc_xsqlserverdatabasepermissions[:dsc_database] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_database' do
-    expect{dsc_xsqlserverdatabasepermissions[:dsc_database] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_name' do
     expect{dsc_xsqlserverdatabasepermissions[:dsc_name] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -58,10 +54,6 @@ describe Puppet::Type.type(:dsc_xsqlserverdatabasepermissions) do
 
   it 'should not accept int for dsc_name' do
     expect{dsc_xsqlserverdatabasepermissions[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xsqlserverdatabasepermissions[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_permissions' do
@@ -77,10 +69,6 @@ describe Puppet::Type.type(:dsc_xsqlserverdatabasepermissions) do
     expect{dsc_xsqlserverdatabasepermissions[:dsc_permissions] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_permissions' do
-    expect{dsc_xsqlserverdatabasepermissions[:dsc_permissions] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlserver' do
     expect{dsc_xsqlserverdatabasepermissions[:dsc_sqlserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -93,10 +81,6 @@ describe Puppet::Type.type(:dsc_xsqlserverdatabasepermissions) do
     expect{dsc_xsqlserverdatabasepermissions[:dsc_sqlserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlserver' do
-    expect{dsc_xsqlserverdatabasepermissions[:dsc_sqlserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlinstancename' do
     expect{dsc_xsqlserverdatabasepermissions[:dsc_sqlinstancename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -107,10 +91,6 @@ describe Puppet::Type.type(:dsc_xsqlserverdatabasepermissions) do
 
   it 'should not accept int for dsc_sqlinstancename' do
     expect{dsc_xsqlserverdatabasepermissions[:dsc_sqlinstancename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlinstancename' do
-    expect{dsc_xsqlserverdatabasepermissions[:dsc_sqlinstancename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

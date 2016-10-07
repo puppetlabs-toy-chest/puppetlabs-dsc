@@ -79,10 +79,6 @@ describe Puppet::Type.type(:dsc_xsystemrestore) do
     expect{dsc_xsystemrestore[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xsystemrestore[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_drive' do
     dsc_xsystemrestore[:dsc_drive] = ["foo", "bar", "spec"]
     expect(dsc_xsystemrestore[:dsc_drive]).to eq(["foo", "bar", "spec"])
@@ -94,10 +90,6 @@ describe Puppet::Type.type(:dsc_xsystemrestore) do
 
   it 'should not accept int for dsc_drive' do
     expect{dsc_xsystemrestore[:dsc_drive] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_drive' do
-    expect{dsc_xsystemrestore[:dsc_drive] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

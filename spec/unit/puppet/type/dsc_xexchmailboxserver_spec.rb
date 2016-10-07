@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxserver) do
     expect{dsc_xexchmailboxserver[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexchmailboxserver[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchmailboxserver[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -66,10 +62,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxserver) do
     expect{dsc_xexchmailboxserver[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchmailboxserver[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchmailboxserver[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -80,10 +72,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxserver) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xexchmailboxserver[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchmailboxserver[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_databasecopyactivationdisabledandmovenow' do
@@ -122,10 +110,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxserver) do
 
   it 'should not accept int for dsc_databasecopyactivationdisabledandmovenow' do
     expect{dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_databasecopyactivationdisabledandmovenow' do
-    expect{dsc_xexchmailboxserver[:dsc_databasecopyactivationdisabledandmovenow] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_databasecopyautoactivationpolicy predefined value Blocked' do
@@ -174,10 +158,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxserver) do
     expect{dsc_xexchmailboxserver[:dsc_databasecopyautoactivationpolicy] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databasecopyautoactivationpolicy' do
-    expect{dsc_xexchmailboxserver[:dsc_databasecopyautoactivationpolicy] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maximumactivedatabases' do
     expect{dsc_xexchmailboxserver[:dsc_maximumactivedatabases] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -190,10 +170,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxserver) do
     expect{dsc_xexchmailboxserver[:dsc_maximumactivedatabases] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_maximumactivedatabases' do
-    expect{dsc_xexchmailboxserver[:dsc_maximumactivedatabases] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maximumpreferredactivedatabases' do
     expect{dsc_xexchmailboxserver[:dsc_maximumpreferredactivedatabases] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -204,10 +180,6 @@ describe Puppet::Type.type(:dsc_xexchmailboxserver) do
 
   it 'should not accept int for dsc_maximumpreferredactivedatabases' do
     expect{dsc_xexchmailboxserver[:dsc_maximumpreferredactivedatabases] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_maximumpreferredactivedatabases' do
-    expect{dsc_xexchmailboxserver[:dsc_maximumpreferredactivedatabases] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

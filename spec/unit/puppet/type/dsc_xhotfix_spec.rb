@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_xhotfix) do
     expect{dsc_xhotfix[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xhotfix[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_id' do
     expect{dsc_xhotfix[:dsc_id] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -64,10 +60,6 @@ describe Puppet::Type.type(:dsc_xhotfix) do
     expect{dsc_xhotfix[:dsc_id] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_id' do
-    expect{dsc_xhotfix[:dsc_id] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_log' do
     expect{dsc_xhotfix[:dsc_log] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -78,10 +70,6 @@ describe Puppet::Type.type(:dsc_xhotfix) do
 
   it 'should not accept int for dsc_log' do
     expect{dsc_xhotfix[:dsc_log] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_log' do
-    expect{dsc_xhotfix[:dsc_log] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -130,10 +118,6 @@ describe Puppet::Type.type(:dsc_xhotfix) do
     expect{dsc_xhotfix[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xhotfix[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xhotfix[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -148,10 +132,6 @@ describe Puppet::Type.type(:dsc_xhotfix) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xhotfix[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xhotfix[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

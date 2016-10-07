@@ -55,10 +55,6 @@ describe Puppet::Type.type(:dsc_xazurevm) do
     expect{dsc_xazurevm[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xazurevm[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xazurevm[:dsc_ensure] = 'Present'
     expect(dsc_xazurevm[:dsc_ensure]).to eq('Present')
@@ -105,10 +101,6 @@ describe Puppet::Type.type(:dsc_xazurevm) do
     expect{dsc_xazurevm[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xazurevm[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_imagename' do
     expect{dsc_xazurevm[:dsc_imagename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -119,10 +111,6 @@ describe Puppet::Type.type(:dsc_xazurevm) do
 
   it 'should not accept int for dsc_imagename' do
     expect{dsc_xazurevm[:dsc_imagename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_imagename' do
-    expect{dsc_xazurevm[:dsc_imagename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_servicename' do
@@ -137,10 +125,6 @@ describe Puppet::Type.type(:dsc_xazurevm) do
     expect{dsc_xazurevm[:dsc_servicename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_servicename' do
-    expect{dsc_xazurevm[:dsc_servicename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_storageaccountname' do
     expect{dsc_xazurevm[:dsc_storageaccountname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -153,10 +137,6 @@ describe Puppet::Type.type(:dsc_xazurevm) do
     expect{dsc_xazurevm[:dsc_storageaccountname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_storageaccountname' do
-    expect{dsc_xazurevm[:dsc_storageaccountname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_instancesize' do
     expect{dsc_xazurevm[:dsc_instancesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -167,10 +147,6 @@ describe Puppet::Type.type(:dsc_xazurevm) do
 
   it 'should not accept int for dsc_instancesize' do
     expect{dsc_xazurevm[:dsc_instancesize] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_instancesize' do
-    expect{dsc_xazurevm[:dsc_instancesize] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_linux' do
@@ -211,10 +187,6 @@ describe Puppet::Type.type(:dsc_xazurevm) do
     expect{dsc_xazurevm[:dsc_linux] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_linux' do
-    expect{dsc_xazurevm[:dsc_linux] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_windows' do
     expect{dsc_xazurevm[:dsc_windows] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -253,10 +225,6 @@ describe Puppet::Type.type(:dsc_xazurevm) do
     expect{dsc_xazurevm[:dsc_windows] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_windows' do
-    expect{dsc_xazurevm[:dsc_windows] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xazurevm[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -273,10 +241,6 @@ describe Puppet::Type.type(:dsc_xazurevm) do
     expect{dsc_xazurevm[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xazurevm[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_extensioncontainername' do
     expect{dsc_xazurevm[:dsc_extensioncontainername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -287,10 +251,6 @@ describe Puppet::Type.type(:dsc_xazurevm) do
 
   it 'should not accept int for dsc_extensioncontainername' do
     expect{dsc_xazurevm[:dsc_extensioncontainername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_extensioncontainername' do
-    expect{dsc_xazurevm[:dsc_extensioncontainername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_extensionfilelist' do
@@ -305,10 +265,6 @@ describe Puppet::Type.type(:dsc_xazurevm) do
     expect{dsc_xazurevm[:dsc_extensionfilelist] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_extensionfilelist' do
-    expect{dsc_xazurevm[:dsc_extensionfilelist] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_extensionscriptname' do
     expect{dsc_xazurevm[:dsc_extensionscriptname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -319,10 +275,6 @@ describe Puppet::Type.type(:dsc_xazurevm) do
 
   it 'should not accept int for dsc_extensionscriptname' do
     expect{dsc_xazurevm[:dsc_extensionscriptname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_extensionscriptname' do
-    expect{dsc_xazurevm[:dsc_extensionscriptname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

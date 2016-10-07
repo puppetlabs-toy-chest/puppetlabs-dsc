@@ -52,10 +52,6 @@ describe Puppet::Type.type(:dsc_xwebvirtualdirectory) do
     expect{dsc_xwebvirtualdirectory[:dsc_website] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_website' do
-    expect{dsc_xwebvirtualdirectory[:dsc_website] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_webapplication is specified' do
     #dsc_xwebvirtualdirectory[:dsc_webapplication]
     expect { Puppet::Type.type(:dsc_xwebvirtualdirectory).new(
@@ -75,10 +71,6 @@ describe Puppet::Type.type(:dsc_xwebvirtualdirectory) do
 
   it 'should not accept int for dsc_webapplication' do
     expect{dsc_xwebvirtualdirectory[:dsc_webapplication] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_webapplication' do
-    expect{dsc_xwebvirtualdirectory[:dsc_webapplication] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_name is specified' do
@@ -102,10 +94,6 @@ describe Puppet::Type.type(:dsc_xwebvirtualdirectory) do
     expect{dsc_xwebvirtualdirectory[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xwebvirtualdirectory[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_physicalpath' do
     expect{dsc_xwebvirtualdirectory[:dsc_physicalpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -116,10 +104,6 @@ describe Puppet::Type.type(:dsc_xwebvirtualdirectory) do
 
   it 'should not accept int for dsc_physicalpath' do
     expect{dsc_xwebvirtualdirectory[:dsc_physicalpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_physicalpath' do
-    expect{dsc_xwebvirtualdirectory[:dsc_physicalpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -166,10 +150,6 @@ describe Puppet::Type.type(:dsc_xwebvirtualdirectory) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xwebvirtualdirectory[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xwebvirtualdirectory[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

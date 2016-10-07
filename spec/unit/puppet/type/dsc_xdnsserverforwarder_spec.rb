@@ -55,10 +55,6 @@ describe Puppet::Type.type(:dsc_xdnsserverforwarder) do
     expect{dsc_xdnsserverforwarder[:dsc_issingleinstance] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_issingleinstance' do
-    expect{dsc_xdnsserverforwarder[:dsc_issingleinstance] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_ipaddresses' do
     dsc_xdnsserverforwarder[:dsc_ipaddresses] = ["foo", "bar", "spec"]
     expect(dsc_xdnsserverforwarder[:dsc_ipaddresses]).to eq(["foo", "bar", "spec"])
@@ -70,10 +66,6 @@ describe Puppet::Type.type(:dsc_xdnsserverforwarder) do
 
   it 'should not accept int for dsc_ipaddresses' do
     expect{dsc_xdnsserverforwarder[:dsc_ipaddresses] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ipaddresses' do
-    expect{dsc_xdnsserverforwarder[:dsc_ipaddresses] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

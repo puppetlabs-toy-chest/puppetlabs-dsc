@@ -45,10 +45,6 @@ describe Puppet::Type.type(:dsc_xipaddress) do
     expect{dsc_xipaddress[:dsc_ipaddress] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ipaddress' do
-    expect{dsc_xipaddress[:dsc_ipaddress] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_interfacealias is specified' do
     #dsc_xipaddress[:dsc_interfacealias]
     expect { Puppet::Type.type(:dsc_xipaddress).new(
@@ -69,42 +65,12 @@ describe Puppet::Type.type(:dsc_xipaddress) do
     expect{dsc_xipaddress[:dsc_interfacealias] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_interfacealias' do
-    expect{dsc_xipaddress[:dsc_interfacealias] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_subnetmask' do
     expect{dsc_xipaddress[:dsc_subnetmask] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_subnetmask' do
     expect{dsc_xipaddress[:dsc_subnetmask] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_subnetmask' do
-    dsc_xipaddress[:dsc_subnetmask] = 32
-    expect(dsc_xipaddress[:dsc_subnetmask]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_subnetmask' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xipaddress[:dsc_subnetmask] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_subnetmask' do
-    dsc_xipaddress[:dsc_subnetmask] = '16'
-    expect(dsc_xipaddress[:dsc_subnetmask]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_subnetmask' do
-    dsc_xipaddress[:dsc_subnetmask] = '32'
-    expect(dsc_xipaddress[:dsc_subnetmask]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_subnetmask' do
-    dsc_xipaddress[:dsc_subnetmask] = '64'
-    expect(dsc_xipaddress[:dsc_subnetmask]).to eq(64)
   end
 
   it 'should accept dsc_addressfamily predefined value IPv4' do
@@ -141,10 +107,6 @@ describe Puppet::Type.type(:dsc_xipaddress) do
 
   it 'should not accept int for dsc_addressfamily' do
     expect{dsc_xipaddress[:dsc_addressfamily] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_addressfamily' do
-    expect{dsc_xipaddress[:dsc_addressfamily] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

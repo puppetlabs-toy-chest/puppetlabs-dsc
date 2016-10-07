@@ -43,10 +43,6 @@ describe Puppet::Type.type(:dsc_xiisfeaturedelegation) do
     expect{dsc_xiisfeaturedelegation[:dsc_sectionname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sectionname' do
-    expect{dsc_xiisfeaturedelegation[:dsc_sectionname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_overridemode is specified' do
     #dsc_xiisfeaturedelegation[:dsc_overridemode]
     expect { Puppet::Type.type(:dsc_xiisfeaturedelegation).new(
@@ -89,10 +85,6 @@ describe Puppet::Type.type(:dsc_xiisfeaturedelegation) do
 
   it 'should not accept int for dsc_overridemode' do
     expect{dsc_xiisfeaturedelegation[:dsc_overridemode] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_overridemode' do
-    expect{dsc_xiisfeaturedelegation[:dsc_overridemode] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

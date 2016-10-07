@@ -91,10 +91,6 @@ describe Puppet::Type.type(:dsc_runbookdirectory) do
     expect{dsc_runbookdirectory[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_runbookdirectory[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_runbookpath is specified' do
     #dsc_runbookdirectory[:dsc_runbookpath]
     expect { Puppet::Type.type(:dsc_runbookdirectory).new(
@@ -113,10 +109,6 @@ describe Puppet::Type.type(:dsc_runbookdirectory) do
 
   it 'should not accept int for dsc_runbookpath' do
     expect{dsc_runbookdirectory[:dsc_runbookpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_runbookpath' do
-    expect{dsc_runbookdirectory[:dsc_runbookpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_matches' do
@@ -157,10 +149,6 @@ describe Puppet::Type.type(:dsc_runbookdirectory) do
     expect{dsc_runbookdirectory[:dsc_matches] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_matches' do
-    expect{dsc_runbookdirectory[:dsc_matches] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_webserviceendpoint is specified' do
     #dsc_runbookdirectory[:dsc_webserviceendpoint]
     expect { Puppet::Type.type(:dsc_runbookdirectory).new(
@@ -181,42 +169,12 @@ describe Puppet::Type.type(:dsc_runbookdirectory) do
     expect{dsc_runbookdirectory[:dsc_webserviceendpoint] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_webserviceendpoint' do
-    expect{dsc_runbookdirectory[:dsc_webserviceendpoint] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_port' do
     expect{dsc_runbookdirectory[:dsc_port] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_port' do
     expect{dsc_runbookdirectory[:dsc_port] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_port' do
-    dsc_runbookdirectory[:dsc_port] = 32
-    expect(dsc_runbookdirectory[:dsc_port]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_port' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_runbookdirectory[:dsc_port] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_port' do
-    dsc_runbookdirectory[:dsc_port] = '16'
-    expect(dsc_runbookdirectory[:dsc_port]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_port' do
-    dsc_runbookdirectory[:dsc_port] = '32'
-    expect(dsc_runbookdirectory[:dsc_port]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_port' do
-    dsc_runbookdirectory[:dsc_port] = '64'
-    expect(dsc_runbookdirectory[:dsc_port]).to eq(64)
   end
 
   # Configuration PROVIDER TESTS

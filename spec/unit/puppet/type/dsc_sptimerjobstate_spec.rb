@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_sptimerjobstate) do
     expect{dsc_sptimerjobstate[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_sptimerjobstate[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_webapplication' do
     expect{dsc_sptimerjobstate[:dsc_webapplication] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -58,10 +54,6 @@ describe Puppet::Type.type(:dsc_sptimerjobstate) do
 
   it 'should not accept int for dsc_webapplication' do
     expect{dsc_sptimerjobstate[:dsc_webapplication] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_webapplication' do
-    expect{dsc_sptimerjobstate[:dsc_webapplication] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_enabled' do
@@ -102,10 +94,6 @@ describe Puppet::Type.type(:dsc_sptimerjobstate) do
     expect{dsc_sptimerjobstate[:dsc_enabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enabled' do
-    expect{dsc_sptimerjobstate[:dsc_enabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_schedule' do
     expect{dsc_sptimerjobstate[:dsc_schedule] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -116,10 +104,6 @@ describe Puppet::Type.type(:dsc_sptimerjobstate) do
 
   it 'should not accept int for dsc_schedule' do
     expect{dsc_sptimerjobstate[:dsc_schedule] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_schedule' do
-    expect{dsc_sptimerjobstate[:dsc_schedule] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -136,10 +120,6 @@ describe Puppet::Type.type(:dsc_sptimerjobstate) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_sptimerjobstate[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_sptimerjobstate[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -96,10 +96,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xpackage[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_name is specified' do
     #dsc_xpackage[:dsc_name]
     expect { Puppet::Type.type(:dsc_xpackage).new(
@@ -120,10 +116,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xpackage[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_path' do
     expect{dsc_xpackage[:dsc_path] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -134,10 +126,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept int for dsc_path' do
     expect{dsc_xpackage[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xpackage[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_productid is specified' do
@@ -160,10 +148,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_productid] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_productid' do
-    expect{dsc_xpackage[:dsc_productid] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_arguments' do
     expect{dsc_xpackage[:dsc_arguments] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -174,10 +158,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept int for dsc_arguments' do
     expect{dsc_xpackage[:dsc_arguments] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_arguments' do
-    expect{dsc_xpackage[:dsc_arguments] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_credential" do
@@ -196,10 +176,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xpackage[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_returncode' do
     dsc_xpackage[:dsc_returncode] = [32, 64, 128]
     expect(dsc_xpackage[:dsc_returncode]).to eq([32, 64, 128])
@@ -207,42 +183,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept boolean for dsc_returncode' do
     expect{dsc_xpackage[:dsc_returncode] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_returncode' do
-    dsc_xpackage[:dsc_returncode] = 32
-    expect(dsc_xpackage[:dsc_returncode]).to eq([32])
-  end
-
-  it 'should not accept signed (negative) value for dsc_returncode' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xpackage[:dsc_returncode] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_returncode' do
-    dsc_xpackage[:dsc_returncode] = '16'
-    expect(dsc_xpackage[:dsc_returncode]).to eq([16])
-  end
-
-  it 'should accept string-like uint for dsc_returncode' do
-    dsc_xpackage[:dsc_returncode] = '32'
-    expect(dsc_xpackage[:dsc_returncode]).to eq([32])
-  end
-
-  it 'should accept string-like uint for dsc_returncode' do
-    dsc_xpackage[:dsc_returncode] = '64'
-    expect(dsc_xpackage[:dsc_returncode]).to eq([64])
-  end
-
-  it 'should accept uint[] for dsc_returncode' do
-    dsc_xpackage[:dsc_returncode] = [32, 64, 128]
-    expect(dsc_xpackage[:dsc_returncode]).to eq([32, 64, 128])
-  end
-
-  it 'should accept string-like uint[] for dsc_returncode' do
-    dsc_xpackage[:dsc_returncode] = ["16", "32", "64"]
-    expect(dsc_xpackage[:dsc_returncode]).to eq([16, 32, 64])
   end
 
   it 'should not accept array for dsc_logpath' do
@@ -257,10 +197,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_logpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logpath' do
-    expect{dsc_xpackage[:dsc_logpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_packagedescription' do
     expect{dsc_xpackage[:dsc_packagedescription] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -271,10 +207,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept int for dsc_packagedescription' do
     expect{dsc_xpackage[:dsc_packagedescription] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_packagedescription' do
-    expect{dsc_xpackage[:dsc_packagedescription] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_publisher' do
@@ -289,10 +221,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_publisher] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_publisher' do
-    expect{dsc_xpackage[:dsc_publisher] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_installedon' do
     expect{dsc_xpackage[:dsc_installedon] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -305,42 +233,12 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_installedon] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_installedon' do
-    expect{dsc_xpackage[:dsc_installedon] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_size' do
     expect{dsc_xpackage[:dsc_size] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_size' do
     expect{dsc_xpackage[:dsc_size] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_size' do
-    dsc_xpackage[:dsc_size] = 32
-    expect(dsc_xpackage[:dsc_size]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_size' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xpackage[:dsc_size] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_size' do
-    dsc_xpackage[:dsc_size] = '16'
-    expect(dsc_xpackage[:dsc_size]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_size' do
-    dsc_xpackage[:dsc_size] = '32'
-    expect(dsc_xpackage[:dsc_size]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_size' do
-    dsc_xpackage[:dsc_size] = '64'
-    expect(dsc_xpackage[:dsc_size]).to eq(64)
   end
 
   it 'should not accept array for dsc_version' do
@@ -353,10 +251,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept int for dsc_version' do
     expect{dsc_xpackage[:dsc_version] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_version' do
-    expect{dsc_xpackage[:dsc_version] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_installed' do
@@ -397,10 +291,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_installed] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_installed' do
-    expect{dsc_xpackage[:dsc_installed] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_runascredential" do
     expect{dsc_xpackage[:dsc_runascredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -417,10 +307,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_runascredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_runascredential' do
-    expect{dsc_xpackage[:dsc_runascredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_filehash' do
     expect{dsc_xpackage[:dsc_filehash] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -431,10 +317,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept int for dsc_filehash' do
     expect{dsc_xpackage[:dsc_filehash] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_filehash' do
-    expect{dsc_xpackage[:dsc_filehash] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_hashalgorithm predefined value SHA1' do
@@ -513,10 +395,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_hashalgorithm] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_hashalgorithm' do
-    expect{dsc_xpackage[:dsc_hashalgorithm] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_signersubject' do
     expect{dsc_xpackage[:dsc_signersubject] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -527,10 +405,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept int for dsc_signersubject' do
     expect{dsc_xpackage[:dsc_signersubject] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_signersubject' do
-    expect{dsc_xpackage[:dsc_signersubject] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_signerthumbprint' do
@@ -545,10 +419,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_signerthumbprint] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_signerthumbprint' do
-    expect{dsc_xpackage[:dsc_signerthumbprint] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_servercertificatevalidationcallback' do
     expect{dsc_xpackage[:dsc_servercertificatevalidationcallback] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -559,10 +429,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept int for dsc_servercertificatevalidationcallback' do
     expect{dsc_xpackage[:dsc_servercertificatevalidationcallback] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_servercertificatevalidationcallback' do
-    expect{dsc_xpackage[:dsc_servercertificatevalidationcallback] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_installedcheckreghive predefined value LocalMachine' do
@@ -601,10 +467,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_installedcheckreghive] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_installedcheckreghive' do
-    expect{dsc_xpackage[:dsc_installedcheckreghive] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_installedcheckregkey' do
     expect{dsc_xpackage[:dsc_installedcheckregkey] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -615,10 +477,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept int for dsc_installedcheckregkey' do
     expect{dsc_xpackage[:dsc_installedcheckregkey] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installedcheckregkey' do
-    expect{dsc_xpackage[:dsc_installedcheckregkey] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_installedcheckregvaluename' do
@@ -633,10 +491,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
     expect{dsc_xpackage[:dsc_installedcheckregvaluename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_installedcheckregvaluename' do
-    expect{dsc_xpackage[:dsc_installedcheckregvaluename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_installedcheckregvaluedata' do
     expect{dsc_xpackage[:dsc_installedcheckregvaluedata] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -647,10 +501,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept int for dsc_installedcheckregvaluedata' do
     expect{dsc_xpackage[:dsc_installedcheckregvaluedata] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installedcheckregvaluedata' do
-    expect{dsc_xpackage[:dsc_installedcheckregvaluedata] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_createcheckregvalue' do
@@ -689,10 +539,6 @@ describe Puppet::Type.type(:dsc_xpackage) do
 
   it 'should not accept int for dsc_createcheckregvalue' do
     expect{dsc_xpackage[:dsc_createcheckregvalue] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_createcheckregvalue' do
-    expect{dsc_xpackage[:dsc_createcheckregvalue] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

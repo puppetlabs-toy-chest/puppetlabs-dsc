@@ -64,10 +64,6 @@ describe Puppet::Type.type(:dsc_xdatabaseserver) do
     expect{dsc_xdatabaseserver[:dsc_loginmode] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_loginmode' do
-    expect{dsc_xdatabaseserver[:dsc_loginmode] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   # Configuration PROVIDER TESTS
 
   describe "powershell provider tests" do

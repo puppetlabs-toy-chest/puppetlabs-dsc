@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_xjeatoolkit) do
     expect{dsc_xjeatoolkit[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xjeatoolkit[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_commandspecs' do
     expect{dsc_xjeatoolkit[:dsc_commandspecs] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -62,10 +58,6 @@ describe Puppet::Type.type(:dsc_xjeatoolkit) do
 
   it 'should not accept int for dsc_commandspecs' do
     expect{dsc_xjeatoolkit[:dsc_commandspecs] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_commandspecs' do
-    expect{dsc_xjeatoolkit[:dsc_commandspecs] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_scriptdirectory' do
@@ -81,10 +73,6 @@ describe Puppet::Type.type(:dsc_xjeatoolkit) do
     expect{dsc_xjeatoolkit[:dsc_scriptdirectory] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_scriptdirectory' do
-    expect{dsc_xjeatoolkit[:dsc_scriptdirectory] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_applications' do
     dsc_xjeatoolkit[:dsc_applications] = ["foo", "bar", "spec"]
     expect(dsc_xjeatoolkit[:dsc_applications]).to eq(["foo", "bar", "spec"])
@@ -96,10 +84,6 @@ describe Puppet::Type.type(:dsc_xjeatoolkit) do
 
   it 'should not accept int for dsc_applications' do
     expect{dsc_xjeatoolkit[:dsc_applications] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_applications' do
-    expect{dsc_xjeatoolkit[:dsc_applications] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -146,10 +130,6 @@ describe Puppet::Type.type(:dsc_xjeatoolkit) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xjeatoolkit[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xjeatoolkit[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

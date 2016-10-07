@@ -58,10 +58,6 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect{dsc_xwindowsprocess[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xwindowsprocess[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_arguments is specified' do
     #dsc_xwindowsprocess[:dsc_arguments]
     expect { Puppet::Type.type(:dsc_xwindowsprocess).new(
@@ -82,10 +78,6 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect{dsc_xwindowsprocess[:dsc_arguments] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_arguments' do
-    expect{dsc_xwindowsprocess[:dsc_arguments] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xwindowsprocess[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -100,10 +92,6 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xwindowsprocess[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xwindowsprocess[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -152,10 +140,6 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect{dsc_xwindowsprocess[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xwindowsprocess[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_standardoutputpath' do
     expect{dsc_xwindowsprocess[:dsc_standardoutputpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -166,10 +150,6 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
 
   it 'should not accept int for dsc_standardoutputpath' do
     expect{dsc_xwindowsprocess[:dsc_standardoutputpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_standardoutputpath' do
-    expect{dsc_xwindowsprocess[:dsc_standardoutputpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_standarderrorpath' do
@@ -184,10 +164,6 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect{dsc_xwindowsprocess[:dsc_standarderrorpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_standarderrorpath' do
-    expect{dsc_xwindowsprocess[:dsc_standarderrorpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_standardinputpath' do
     expect{dsc_xwindowsprocess[:dsc_standardinputpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -198,10 +174,6 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
 
   it 'should not accept int for dsc_standardinputpath' do
     expect{dsc_xwindowsprocess[:dsc_standardinputpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_standardinputpath' do
-    expect{dsc_xwindowsprocess[:dsc_standardinputpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_workingdirectory' do
@@ -216,42 +188,12 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect{dsc_xwindowsprocess[:dsc_workingdirectory] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_workingdirectory' do
-    expect{dsc_xwindowsprocess[:dsc_workingdirectory] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_pagedmemorysize' do
     expect{dsc_xwindowsprocess[:dsc_pagedmemorysize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_pagedmemorysize' do
     expect{dsc_xwindowsprocess[:dsc_pagedmemorysize] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_pagedmemorysize' do
-    dsc_xwindowsprocess[:dsc_pagedmemorysize] = 64
-    expect(dsc_xwindowsprocess[:dsc_pagedmemorysize]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_pagedmemorysize' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xwindowsprocess[:dsc_pagedmemorysize] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_pagedmemorysize' do
-    dsc_xwindowsprocess[:dsc_pagedmemorysize] = '16'
-    expect(dsc_xwindowsprocess[:dsc_pagedmemorysize]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_pagedmemorysize' do
-    dsc_xwindowsprocess[:dsc_pagedmemorysize] = '32'
-    expect(dsc_xwindowsprocess[:dsc_pagedmemorysize]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_pagedmemorysize' do
-    dsc_xwindowsprocess[:dsc_pagedmemorysize] = '64'
-    expect(dsc_xwindowsprocess[:dsc_pagedmemorysize]).to eq(64)
   end
 
   it 'should not accept array for dsc_nonpagedmemorysize' do
@@ -262,64 +204,12 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect{dsc_xwindowsprocess[:dsc_nonpagedmemorysize] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_nonpagedmemorysize' do
-    dsc_xwindowsprocess[:dsc_nonpagedmemorysize] = 64
-    expect(dsc_xwindowsprocess[:dsc_nonpagedmemorysize]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_nonpagedmemorysize' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xwindowsprocess[:dsc_nonpagedmemorysize] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_nonpagedmemorysize' do
-    dsc_xwindowsprocess[:dsc_nonpagedmemorysize] = '16'
-    expect(dsc_xwindowsprocess[:dsc_nonpagedmemorysize]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_nonpagedmemorysize' do
-    dsc_xwindowsprocess[:dsc_nonpagedmemorysize] = '32'
-    expect(dsc_xwindowsprocess[:dsc_nonpagedmemorysize]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_nonpagedmemorysize' do
-    dsc_xwindowsprocess[:dsc_nonpagedmemorysize] = '64'
-    expect(dsc_xwindowsprocess[:dsc_nonpagedmemorysize]).to eq(64)
-  end
-
   it 'should not accept array for dsc_virtualmemorysize' do
     expect{dsc_xwindowsprocess[:dsc_virtualmemorysize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_virtualmemorysize' do
     expect{dsc_xwindowsprocess[:dsc_virtualmemorysize] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_virtualmemorysize' do
-    dsc_xwindowsprocess[:dsc_virtualmemorysize] = 64
-    expect(dsc_xwindowsprocess[:dsc_virtualmemorysize]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_virtualmemorysize' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xwindowsprocess[:dsc_virtualmemorysize] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_virtualmemorysize' do
-    dsc_xwindowsprocess[:dsc_virtualmemorysize] = '16'
-    expect(dsc_xwindowsprocess[:dsc_virtualmemorysize]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_virtualmemorysize' do
-    dsc_xwindowsprocess[:dsc_virtualmemorysize] = '32'
-    expect(dsc_xwindowsprocess[:dsc_virtualmemorysize]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_virtualmemorysize' do
-    dsc_xwindowsprocess[:dsc_virtualmemorysize] = '64'
-    expect(dsc_xwindowsprocess[:dsc_virtualmemorysize]).to eq(64)
   end
 
   it 'should not accept array for dsc_handlecount' do
@@ -330,32 +220,6 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
     expect{dsc_xwindowsprocess[:dsc_handlecount] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept int for dsc_handlecount' do
-    dsc_xwindowsprocess[:dsc_handlecount] = -32
-    expect(dsc_xwindowsprocess[:dsc_handlecount]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_handlecount' do
-    dsc_xwindowsprocess[:dsc_handlecount] = '16'
-    expect(dsc_xwindowsprocess[:dsc_handlecount]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_handlecount' do
-    dsc_xwindowsprocess[:dsc_handlecount] = '-16'
-    expect(dsc_xwindowsprocess[:dsc_handlecount]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_handlecount' do
-    dsc_xwindowsprocess[:dsc_handlecount] = '32'
-    expect(dsc_xwindowsprocess[:dsc_handlecount]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_handlecount' do
-    dsc_xwindowsprocess[:dsc_handlecount] = '-32'
-    expect(dsc_xwindowsprocess[:dsc_handlecount]).to eq(-32)
-  end
-
-
   it 'should not accept array for dsc_processid' do
     expect{dsc_xwindowsprocess[:dsc_processid] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -363,32 +227,6 @@ describe Puppet::Type.type(:dsc_xwindowsprocess) do
   it 'should not accept boolean for dsc_processid' do
     expect{dsc_xwindowsprocess[:dsc_processid] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_processid' do
-    dsc_xwindowsprocess[:dsc_processid] = -32
-    expect(dsc_xwindowsprocess[:dsc_processid]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_processid' do
-    dsc_xwindowsprocess[:dsc_processid] = '16'
-    expect(dsc_xwindowsprocess[:dsc_processid]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_processid' do
-    dsc_xwindowsprocess[:dsc_processid] = '-16'
-    expect(dsc_xwindowsprocess[:dsc_processid]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_processid' do
-    dsc_xwindowsprocess[:dsc_processid] = '32'
-    expect(dsc_xwindowsprocess[:dsc_processid]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_processid' do
-    dsc_xwindowsprocess[:dsc_processid] = '-32'
-    expect(dsc_xwindowsprocess[:dsc_processid]).to eq(-32)
-  end
-
 
   # Configuration PROVIDER TESTS
 

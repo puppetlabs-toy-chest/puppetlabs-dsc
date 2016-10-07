@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_xcomputer) do
     expect{dsc_xcomputer[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xcomputer[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domainname' do
     expect{dsc_xcomputer[:dsc_domainname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -60,10 +56,6 @@ describe Puppet::Type.type(:dsc_xcomputer) do
 
   it 'should not accept int for dsc_domainname' do
     expect{dsc_xcomputer[:dsc_domainname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domainname' do
-    expect{dsc_xcomputer[:dsc_domainname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_joinou' do
@@ -78,10 +70,6 @@ describe Puppet::Type.type(:dsc_xcomputer) do
     expect{dsc_xcomputer[:dsc_joinou] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_joinou' do
-    expect{dsc_xcomputer[:dsc_joinou] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_currentou' do
     expect{dsc_xcomputer[:dsc_currentou] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -92,10 +80,6 @@ describe Puppet::Type.type(:dsc_xcomputer) do
 
   it 'should not accept int for dsc_currentou' do
     expect{dsc_xcomputer[:dsc_currentou] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_currentou' do
-    expect{dsc_xcomputer[:dsc_currentou] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_credential" do
@@ -114,10 +98,6 @@ describe Puppet::Type.type(:dsc_xcomputer) do
     expect{dsc_xcomputer[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xcomputer[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_unjoincredential" do
     expect{dsc_xcomputer[:dsc_unjoincredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -134,10 +114,6 @@ describe Puppet::Type.type(:dsc_xcomputer) do
     expect{dsc_xcomputer[:dsc_unjoincredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_unjoincredential' do
-    expect{dsc_xcomputer[:dsc_unjoincredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_workgroupname' do
     expect{dsc_xcomputer[:dsc_workgroupname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -148,10 +124,6 @@ describe Puppet::Type.type(:dsc_xcomputer) do
 
   it 'should not accept int for dsc_workgroupname' do
     expect{dsc_xcomputer[:dsc_workgroupname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_workgroupname' do
-    expect{dsc_xcomputer[:dsc_workgroupname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

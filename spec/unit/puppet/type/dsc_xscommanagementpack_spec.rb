@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_xscommanagementpack) do
     expect{dsc_xscommanagementpack[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xscommanagementpack[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_version' do
     expect{dsc_xscommanagementpack[:dsc_version] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -62,10 +58,6 @@ describe Puppet::Type.type(:dsc_xscommanagementpack) do
     expect{dsc_xscommanagementpack[:dsc_version] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_version' do
-    expect{dsc_xscommanagementpack[:dsc_version] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_minversion' do
     expect{dsc_xscommanagementpack[:dsc_minversion] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -76,10 +68,6 @@ describe Puppet::Type.type(:dsc_xscommanagementpack) do
 
   it 'should not accept int for dsc_minversion' do
     expect{dsc_xscommanagementpack[:dsc_minversion] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_minversion' do
-    expect{dsc_xscommanagementpack[:dsc_minversion] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_scomadmincredential" do
@@ -98,10 +86,6 @@ describe Puppet::Type.type(:dsc_xscommanagementpack) do
     expect{dsc_xscommanagementpack[:dsc_scomadmincredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_scomadmincredential' do
-    expect{dsc_xscommanagementpack[:dsc_scomadmincredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcepath' do
     expect{dsc_xscommanagementpack[:dsc_sourcepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -112,10 +96,6 @@ describe Puppet::Type.type(:dsc_xscommanagementpack) do
 
   it 'should not accept int for dsc_sourcepath' do
     expect{dsc_xscommanagementpack[:dsc_sourcepath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sourcepath' do
-    expect{dsc_xscommanagementpack[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sourcefolder' do
@@ -130,10 +110,6 @@ describe Puppet::Type.type(:dsc_xscommanagementpack) do
     expect{dsc_xscommanagementpack[:dsc_sourcefolder] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcefolder' do
-    expect{dsc_xscommanagementpack[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcefile' do
     expect{dsc_xscommanagementpack[:dsc_sourcefile] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -144,10 +120,6 @@ describe Puppet::Type.type(:dsc_xscommanagementpack) do
 
   it 'should not accept int for dsc_sourcefile' do
     expect{dsc_xscommanagementpack[:dsc_sourcefile] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sourcefile' do
-    expect{dsc_xscommanagementpack[:dsc_sourcefile] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

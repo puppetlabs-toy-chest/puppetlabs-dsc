@@ -53,10 +53,6 @@ describe Puppet::Type.type(:dsc_spworkmanagementserviceapp) do
     expect{dsc_spworkmanagementserviceapp[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spworkmanagementserviceapp[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_spworkmanagementserviceapp[:dsc_ensure] = 'Present'
     expect(dsc_spworkmanagementserviceapp[:dsc_ensure]).to eq('Present')
@@ -103,10 +99,6 @@ describe Puppet::Type.type(:dsc_spworkmanagementserviceapp) do
     expect{dsc_spworkmanagementserviceapp[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spworkmanagementserviceapp[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_applicationpool' do
     expect{dsc_spworkmanagementserviceapp[:dsc_applicationpool] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -119,42 +111,12 @@ describe Puppet::Type.type(:dsc_spworkmanagementserviceapp) do
     expect{dsc_spworkmanagementserviceapp[:dsc_applicationpool] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_applicationpool' do
-    expect{dsc_spworkmanagementserviceapp[:dsc_applicationpool] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_minimumtimebetweenewssyncsubscriptionsearches' do
     expect{dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenewssyncsubscriptionsearches] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_minimumtimebetweenewssyncsubscriptionsearches' do
     expect{dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenewssyncsubscriptionsearches] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_minimumtimebetweenewssyncsubscriptionsearches' do
-    dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenewssyncsubscriptionsearches] = 32
-    expect(dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenewssyncsubscriptionsearches]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_minimumtimebetweenewssyncsubscriptionsearches' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenewssyncsubscriptionsearches] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_minimumtimebetweenewssyncsubscriptionsearches' do
-    dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenewssyncsubscriptionsearches] = '16'
-    expect(dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenewssyncsubscriptionsearches]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_minimumtimebetweenewssyncsubscriptionsearches' do
-    dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenewssyncsubscriptionsearches] = '32'
-    expect(dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenewssyncsubscriptionsearches]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_minimumtimebetweenewssyncsubscriptionsearches' do
-    dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenewssyncsubscriptionsearches] = '64'
-    expect(dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenewssyncsubscriptionsearches]).to eq(64)
   end
 
   it 'should not accept array for dsc_minimumtimebetweenproviderrefreshes' do
@@ -165,64 +127,12 @@ describe Puppet::Type.type(:dsc_spworkmanagementserviceapp) do
     expect{dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenproviderrefreshes] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_minimumtimebetweenproviderrefreshes' do
-    dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenproviderrefreshes] = 32
-    expect(dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenproviderrefreshes]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_minimumtimebetweenproviderrefreshes' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenproviderrefreshes] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_minimumtimebetweenproviderrefreshes' do
-    dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenproviderrefreshes] = '16'
-    expect(dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenproviderrefreshes]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_minimumtimebetweenproviderrefreshes' do
-    dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenproviderrefreshes] = '32'
-    expect(dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenproviderrefreshes]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_minimumtimebetweenproviderrefreshes' do
-    dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenproviderrefreshes] = '64'
-    expect(dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweenproviderrefreshes]).to eq(64)
-  end
-
   it 'should not accept array for dsc_minimumtimebetweensearchqueries' do
     expect{dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweensearchqueries] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_minimumtimebetweensearchqueries' do
     expect{dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweensearchqueries] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_minimumtimebetweensearchqueries' do
-    dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweensearchqueries] = 32
-    expect(dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweensearchqueries]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_minimumtimebetweensearchqueries' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweensearchqueries] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_minimumtimebetweensearchqueries' do
-    dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweensearchqueries] = '16'
-    expect(dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweensearchqueries]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_minimumtimebetweensearchqueries' do
-    dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweensearchqueries] = '32'
-    expect(dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweensearchqueries]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_minimumtimebetweensearchqueries' do
-    dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweensearchqueries] = '64'
-    expect(dsc_spworkmanagementserviceapp[:dsc_minimumtimebetweensearchqueries]).to eq(64)
   end
 
   it 'should not accept array for dsc_numberofsubscriptionsyncsperewssyncrun' do
@@ -233,32 +143,6 @@ describe Puppet::Type.type(:dsc_spworkmanagementserviceapp) do
     expect{dsc_spworkmanagementserviceapp[:dsc_numberofsubscriptionsyncsperewssyncrun] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_numberofsubscriptionsyncsperewssyncrun' do
-    dsc_spworkmanagementserviceapp[:dsc_numberofsubscriptionsyncsperewssyncrun] = 32
-    expect(dsc_spworkmanagementserviceapp[:dsc_numberofsubscriptionsyncsperewssyncrun]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_numberofsubscriptionsyncsperewssyncrun' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spworkmanagementserviceapp[:dsc_numberofsubscriptionsyncsperewssyncrun] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_numberofsubscriptionsyncsperewssyncrun' do
-    dsc_spworkmanagementserviceapp[:dsc_numberofsubscriptionsyncsperewssyncrun] = '16'
-    expect(dsc_spworkmanagementserviceapp[:dsc_numberofsubscriptionsyncsperewssyncrun]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_numberofsubscriptionsyncsperewssyncrun' do
-    dsc_spworkmanagementserviceapp[:dsc_numberofsubscriptionsyncsperewssyncrun] = '32'
-    expect(dsc_spworkmanagementserviceapp[:dsc_numberofsubscriptionsyncsperewssyncrun]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_numberofsubscriptionsyncsperewssyncrun' do
-    dsc_spworkmanagementserviceapp[:dsc_numberofsubscriptionsyncsperewssyncrun] = '64'
-    expect(dsc_spworkmanagementserviceapp[:dsc_numberofsubscriptionsyncsperewssyncrun]).to eq(64)
-  end
-
   it 'should not accept array for dsc_numberofusersewssyncwillprocessatonce' do
     expect{dsc_spworkmanagementserviceapp[:dsc_numberofusersewssyncwillprocessatonce] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -267,64 +151,12 @@ describe Puppet::Type.type(:dsc_spworkmanagementserviceapp) do
     expect{dsc_spworkmanagementserviceapp[:dsc_numberofusersewssyncwillprocessatonce] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_numberofusersewssyncwillprocessatonce' do
-    dsc_spworkmanagementserviceapp[:dsc_numberofusersewssyncwillprocessatonce] = 32
-    expect(dsc_spworkmanagementserviceapp[:dsc_numberofusersewssyncwillprocessatonce]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_numberofusersewssyncwillprocessatonce' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spworkmanagementserviceapp[:dsc_numberofusersewssyncwillprocessatonce] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_numberofusersewssyncwillprocessatonce' do
-    dsc_spworkmanagementserviceapp[:dsc_numberofusersewssyncwillprocessatonce] = '16'
-    expect(dsc_spworkmanagementserviceapp[:dsc_numberofusersewssyncwillprocessatonce]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_numberofusersewssyncwillprocessatonce' do
-    dsc_spworkmanagementserviceapp[:dsc_numberofusersewssyncwillprocessatonce] = '32'
-    expect(dsc_spworkmanagementserviceapp[:dsc_numberofusersewssyncwillprocessatonce]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_numberofusersewssyncwillprocessatonce' do
-    dsc_spworkmanagementserviceapp[:dsc_numberofusersewssyncwillprocessatonce] = '64'
-    expect(dsc_spworkmanagementserviceapp[:dsc_numberofusersewssyncwillprocessatonce]).to eq(64)
-  end
-
   it 'should not accept array for dsc_numberofusersperewssyncbatch' do
     expect{dsc_spworkmanagementserviceapp[:dsc_numberofusersperewssyncbatch] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_numberofusersperewssyncbatch' do
     expect{dsc_spworkmanagementserviceapp[:dsc_numberofusersperewssyncbatch] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_numberofusersperewssyncbatch' do
-    dsc_spworkmanagementserviceapp[:dsc_numberofusersperewssyncbatch] = 32
-    expect(dsc_spworkmanagementserviceapp[:dsc_numberofusersperewssyncbatch]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_numberofusersperewssyncbatch' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spworkmanagementserviceapp[:dsc_numberofusersperewssyncbatch] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_numberofusersperewssyncbatch' do
-    dsc_spworkmanagementserviceapp[:dsc_numberofusersperewssyncbatch] = '16'
-    expect(dsc_spworkmanagementserviceapp[:dsc_numberofusersperewssyncbatch]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_numberofusersperewssyncbatch' do
-    dsc_spworkmanagementserviceapp[:dsc_numberofusersperewssyncbatch] = '32'
-    expect(dsc_spworkmanagementserviceapp[:dsc_numberofusersperewssyncbatch]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_numberofusersperewssyncbatch' do
-    dsc_spworkmanagementserviceapp[:dsc_numberofusersperewssyncbatch] = '64'
-    expect(dsc_spworkmanagementserviceapp[:dsc_numberofusersperewssyncbatch]).to eq(64)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -341,10 +173,6 @@ describe Puppet::Type.type(:dsc_spworkmanagementserviceapp) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spworkmanagementserviceapp[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spworkmanagementserviceapp[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

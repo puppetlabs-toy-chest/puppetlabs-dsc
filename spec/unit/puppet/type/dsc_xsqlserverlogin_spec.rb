@@ -76,10 +76,6 @@ describe Puppet::Type.type(:dsc_xsqlserverlogin) do
     expect{dsc_xsqlserverlogin[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xsqlserverlogin[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_name is specified' do
     #dsc_xsqlserverlogin[:dsc_name]
     expect { Puppet::Type.type(:dsc_xsqlserverlogin).new(
@@ -99,10 +95,6 @@ describe Puppet::Type.type(:dsc_xsqlserverlogin) do
     expect{dsc_xsqlserverlogin[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xsqlserverlogin[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_logincredential" do
     expect{dsc_xsqlserverlogin[:dsc_logincredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -117,10 +109,6 @@ describe Puppet::Type.type(:dsc_xsqlserverlogin) do
 
   it 'should not accept int for dsc_logincredential' do
     expect{dsc_xsqlserverlogin[:dsc_logincredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_logincredential' do
-    expect{dsc_xsqlserverlogin[:dsc_logincredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_logintype predefined value SqlLogin' do
@@ -169,10 +157,6 @@ describe Puppet::Type.type(:dsc_xsqlserverlogin) do
     expect{dsc_xsqlserverlogin[:dsc_logintype] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_logintype' do
-    expect{dsc_xsqlserverlogin[:dsc_logintype] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlserver' do
     expect{dsc_xsqlserverlogin[:dsc_sqlserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -185,10 +169,6 @@ describe Puppet::Type.type(:dsc_xsqlserverlogin) do
     expect{dsc_xsqlserverlogin[:dsc_sqlserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlserver' do
-    expect{dsc_xsqlserverlogin[:dsc_sqlserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlinstancename' do
     expect{dsc_xsqlserverlogin[:dsc_sqlinstancename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -199,10 +179,6 @@ describe Puppet::Type.type(:dsc_xsqlserverlogin) do
 
   it 'should not accept int for dsc_sqlinstancename' do
     expect{dsc_xsqlserverlogin[:dsc_sqlinstancename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlinstancename' do
-    expect{dsc_xsqlserverlogin[:dsc_sqlinstancename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

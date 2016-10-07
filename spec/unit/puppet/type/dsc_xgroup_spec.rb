@@ -50,10 +50,6 @@ describe Puppet::Type.type(:dsc_xgroup) do
     expect{dsc_xgroup[:dsc_groupname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_groupname' do
-    expect{dsc_xgroup[:dsc_groupname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_xgroup[:dsc_ensure] = 'Present'
     expect(dsc_xgroup[:dsc_ensure]).to eq('Present')
@@ -100,10 +96,6 @@ describe Puppet::Type.type(:dsc_xgroup) do
     expect{dsc_xgroup[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xgroup[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_xgroup[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -114,10 +106,6 @@ describe Puppet::Type.type(:dsc_xgroup) do
 
   it 'should not accept int for dsc_description' do
     expect{dsc_xgroup[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xgroup[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_members' do
@@ -133,10 +121,6 @@ describe Puppet::Type.type(:dsc_xgroup) do
     expect{dsc_xgroup[:dsc_members] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_members' do
-    expect{dsc_xgroup[:dsc_members] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_memberstoinclude' do
     dsc_xgroup[:dsc_memberstoinclude] = ["foo", "bar", "spec"]
     expect(dsc_xgroup[:dsc_memberstoinclude]).to eq(["foo", "bar", "spec"])
@@ -150,10 +134,6 @@ describe Puppet::Type.type(:dsc_xgroup) do
     expect{dsc_xgroup[:dsc_memberstoinclude] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_memberstoinclude' do
-    expect{dsc_xgroup[:dsc_memberstoinclude] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_memberstoexclude' do
     dsc_xgroup[:dsc_memberstoexclude] = ["foo", "bar", "spec"]
     expect(dsc_xgroup[:dsc_memberstoexclude]).to eq(["foo", "bar", "spec"])
@@ -165,10 +145,6 @@ describe Puppet::Type.type(:dsc_xgroup) do
 
   it 'should not accept int for dsc_memberstoexclude' do
     expect{dsc_xgroup[:dsc_memberstoexclude] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_memberstoexclude' do
-    expect{dsc_xgroup[:dsc_memberstoexclude] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_credential" do
@@ -185,10 +161,6 @@ describe Puppet::Type.type(:dsc_xgroup) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xgroup[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xgroup[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

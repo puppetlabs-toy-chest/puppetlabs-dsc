@@ -128,10 +128,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexchtransportservice[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchtransportservice[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -146,10 +142,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xexchtransportservice[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchtransportservice[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowservicerestart' do
@@ -190,10 +182,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_allowservicerestart] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowservicerestart' do
-    expect{dsc_xexchtransportservice[:dsc_allowservicerestart] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_activeuserstatisticslogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_activeuserstatisticslogmaxage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -204,10 +192,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_activeuserstatisticslogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_activeuserstatisticslogmaxage] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_activeuserstatisticslogmaxage' do
-    expect{dsc_xexchtransportservice[:dsc_activeuserstatisticslogmaxage] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_activeuserstatisticslogmaxdirectorysize' do
@@ -222,10 +206,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_activeuserstatisticslogmaxdirectorysize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_activeuserstatisticslogmaxdirectorysize' do
-    expect{dsc_xexchtransportservice[:dsc_activeuserstatisticslogmaxdirectorysize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_activeuserstatisticslogmaxfilesize' do
     expect{dsc_xexchtransportservice[:dsc_activeuserstatisticslogmaxfilesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -238,10 +218,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_activeuserstatisticslogmaxfilesize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_activeuserstatisticslogmaxfilesize' do
-    expect{dsc_xexchtransportservice[:dsc_activeuserstatisticslogmaxfilesize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_activeuserstatisticslogpath' do
     expect{dsc_xexchtransportservice[:dsc_activeuserstatisticslogpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -252,10 +228,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_activeuserstatisticslogpath' do
     expect{dsc_xexchtransportservice[:dsc_activeuserstatisticslogpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_activeuserstatisticslogpath' do
-    expect{dsc_xexchtransportservice[:dsc_activeuserstatisticslogpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_agentlogenabled' do
@@ -296,10 +268,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_agentlogenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_agentlogenabled' do
-    expect{dsc_xexchtransportservice[:dsc_agentlogenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_agentlogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_agentlogmaxage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -310,10 +278,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_agentlogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_agentlogmaxage] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_agentlogmaxage' do
-    expect{dsc_xexchtransportservice[:dsc_agentlogmaxage] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_agentlogmaxdirectorysize' do
@@ -328,10 +292,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_agentlogmaxdirectorysize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_agentlogmaxdirectorysize' do
-    expect{dsc_xexchtransportservice[:dsc_agentlogmaxdirectorysize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_agentlogmaxfilesize' do
     expect{dsc_xexchtransportservice[:dsc_agentlogmaxfilesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -344,10 +304,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_agentlogmaxfilesize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_agentlogmaxfilesize' do
-    expect{dsc_xexchtransportservice[:dsc_agentlogmaxfilesize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_agentlogpath' do
     expect{dsc_xexchtransportservice[:dsc_agentlogpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -358,10 +314,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_agentlogpath' do
     expect{dsc_xexchtransportservice[:dsc_agentlogpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_agentlogpath' do
-    expect{dsc_xexchtransportservice[:dsc_agentlogpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_connectivitylogenabled' do
@@ -402,10 +354,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_connectivitylogenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_connectivitylogenabled' do
-    expect{dsc_xexchtransportservice[:dsc_connectivitylogenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_connectivitylogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_connectivitylogmaxage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -416,10 +364,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_connectivitylogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_connectivitylogmaxage] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_connectivitylogmaxage' do
-    expect{dsc_xexchtransportservice[:dsc_connectivitylogmaxage] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_connectivitylogmaxdirectorysize' do
@@ -434,10 +378,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_connectivitylogmaxdirectorysize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_connectivitylogmaxdirectorysize' do
-    expect{dsc_xexchtransportservice[:dsc_connectivitylogmaxdirectorysize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_connectivitylogmaxfilesize' do
     expect{dsc_xexchtransportservice[:dsc_connectivitylogmaxfilesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -450,10 +390,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_connectivitylogmaxfilesize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_connectivitylogmaxfilesize' do
-    expect{dsc_xexchtransportservice[:dsc_connectivitylogmaxfilesize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_connectivitylogpath' do
     expect{dsc_xexchtransportservice[:dsc_connectivitylogpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -464,10 +400,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_connectivitylogpath' do
     expect{dsc_xexchtransportservice[:dsc_connectivitylogpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_connectivitylogpath' do
-    expect{dsc_xexchtransportservice[:dsc_connectivitylogpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_contentconversiontracingenabled' do
@@ -508,10 +440,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_contentconversiontracingenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_contentconversiontracingenabled' do
-    expect{dsc_xexchtransportservice[:dsc_contentconversiontracingenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_delaynotificationtimeout' do
     expect{dsc_xexchtransportservice[:dsc_delaynotificationtimeout] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -522,10 +450,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_delaynotificationtimeout' do
     expect{dsc_xexchtransportservice[:dsc_delaynotificationtimeout] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_delaynotificationtimeout' do
-    expect{dsc_xexchtransportservice[:dsc_delaynotificationtimeout] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_dnslogenabled' do
@@ -566,10 +490,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_dnslogenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dnslogenabled' do
-    expect{dsc_xexchtransportservice[:dsc_dnslogenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_dnslogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_dnslogmaxage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -580,10 +500,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_dnslogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_dnslogmaxage] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_dnslogmaxage' do
-    expect{dsc_xexchtransportservice[:dsc_dnslogmaxage] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_dnslogmaxdirectorysize' do
@@ -598,10 +514,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_dnslogmaxdirectorysize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dnslogmaxdirectorysize' do
-    expect{dsc_xexchtransportservice[:dsc_dnslogmaxdirectorysize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_dnslogmaxfilesize' do
     expect{dsc_xexchtransportservice[:dsc_dnslogmaxfilesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -614,10 +526,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_dnslogmaxfilesize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dnslogmaxfilesize' do
-    expect{dsc_xexchtransportservice[:dsc_dnslogmaxfilesize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_dnslogpath' do
     expect{dsc_xexchtransportservice[:dsc_dnslogpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -628,10 +536,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_dnslogpath' do
     expect{dsc_xexchtransportservice[:dsc_dnslogpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_dnslogpath' do
-    expect{dsc_xexchtransportservice[:dsc_dnslogpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_externaldnsadapterenabled' do
@@ -672,10 +576,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_externaldnsadapterenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_externaldnsadapterenabled' do
-    expect{dsc_xexchtransportservice[:dsc_externaldnsadapterenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_externaldnsadapterguid' do
     expect{dsc_xexchtransportservice[:dsc_externaldnsadapterguid] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -686,10 +586,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_externaldnsadapterguid' do
     expect{dsc_xexchtransportservice[:dsc_externaldnsadapterguid] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_externaldnsadapterguid' do
-    expect{dsc_xexchtransportservice[:dsc_externaldnsadapterguid] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_externaldnsprotocoloption predefined value Any' do
@@ -738,10 +634,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_externaldnsprotocoloption] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_externaldnsprotocoloption' do
-    expect{dsc_xexchtransportservice[:dsc_externaldnsprotocoloption] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_externaldnsservers' do
     dsc_xexchtransportservice[:dsc_externaldnsservers] = ["foo", "bar", "spec"]
     expect(dsc_xexchtransportservice[:dsc_externaldnsservers]).to eq(["foo", "bar", "spec"])
@@ -755,10 +647,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_externaldnsservers] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_externaldnsservers' do
-    expect{dsc_xexchtransportservice[:dsc_externaldnsservers] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_externalipaddress' do
     expect{dsc_xexchtransportservice[:dsc_externalipaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -769,10 +657,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_externalipaddress' do
     expect{dsc_xexchtransportservice[:dsc_externalipaddress] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_externalipaddress' do
-    expect{dsc_xexchtransportservice[:dsc_externalipaddress] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_internaldnsadapterenabled' do
@@ -813,10 +697,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_internaldnsadapterenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_internaldnsadapterenabled' do
-    expect{dsc_xexchtransportservice[:dsc_internaldnsadapterenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_internaldnsadapterguid' do
     expect{dsc_xexchtransportservice[:dsc_internaldnsadapterguid] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -827,10 +707,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_internaldnsadapterguid' do
     expect{dsc_xexchtransportservice[:dsc_internaldnsadapterguid] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_internaldnsadapterguid' do
-    expect{dsc_xexchtransportservice[:dsc_internaldnsadapterguid] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_internaldnsprotocoloption predefined value Any' do
@@ -879,10 +755,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_internaldnsprotocoloption] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_internaldnsprotocoloption' do
-    expect{dsc_xexchtransportservice[:dsc_internaldnsprotocoloption] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_internaldnsservers' do
     dsc_xexchtransportservice[:dsc_internaldnsservers] = ["foo", "bar", "spec"]
     expect(dsc_xexchtransportservice[:dsc_internaldnsservers]).to eq(["foo", "bar", "spec"])
@@ -894,10 +766,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_internaldnsservers' do
     expect{dsc_xexchtransportservice[:dsc_internaldnsservers] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_internaldnsservers' do
-    expect{dsc_xexchtransportservice[:dsc_internaldnsservers] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_intraorgconnectorprotocollogginglevel predefined value None' do
@@ -936,10 +804,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_intraorgconnectorprotocollogginglevel] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_intraorgconnectorprotocollogginglevel' do
-    expect{dsc_xexchtransportservice[:dsc_intraorgconnectorprotocollogginglevel] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_intraorgconnectorsmtpmaxmessagesperconnection' do
     expect{dsc_xexchtransportservice[:dsc_intraorgconnectorsmtpmaxmessagesperconnection] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -947,32 +811,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
   it 'should not accept boolean for dsc_intraorgconnectorsmtpmaxmessagesperconnection' do
     expect{dsc_xexchtransportservice[:dsc_intraorgconnectorsmtpmaxmessagesperconnection] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_intraorgconnectorsmtpmaxmessagesperconnection' do
-    dsc_xexchtransportservice[:dsc_intraorgconnectorsmtpmaxmessagesperconnection] = -32
-    expect(dsc_xexchtransportservice[:dsc_intraorgconnectorsmtpmaxmessagesperconnection]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_intraorgconnectorsmtpmaxmessagesperconnection' do
-    dsc_xexchtransportservice[:dsc_intraorgconnectorsmtpmaxmessagesperconnection] = '16'
-    expect(dsc_xexchtransportservice[:dsc_intraorgconnectorsmtpmaxmessagesperconnection]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_intraorgconnectorsmtpmaxmessagesperconnection' do
-    dsc_xexchtransportservice[:dsc_intraorgconnectorsmtpmaxmessagesperconnection] = '-16'
-    expect(dsc_xexchtransportservice[:dsc_intraorgconnectorsmtpmaxmessagesperconnection]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_intraorgconnectorsmtpmaxmessagesperconnection' do
-    dsc_xexchtransportservice[:dsc_intraorgconnectorsmtpmaxmessagesperconnection] = '32'
-    expect(dsc_xexchtransportservice[:dsc_intraorgconnectorsmtpmaxmessagesperconnection]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_intraorgconnectorsmtpmaxmessagesperconnection' do
-    dsc_xexchtransportservice[:dsc_intraorgconnectorsmtpmaxmessagesperconnection] = '-32'
-    expect(dsc_xexchtransportservice[:dsc_intraorgconnectorsmtpmaxmessagesperconnection]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_irmlogenabled' do
     expect{dsc_xexchtransportservice[:dsc_irmlogenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -1012,10 +850,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_irmlogenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_irmlogenabled' do
-    expect{dsc_xexchtransportservice[:dsc_irmlogenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_irmlogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_irmlogmaxage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1026,10 +860,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_irmlogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_irmlogmaxage] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_irmlogmaxage' do
-    expect{dsc_xexchtransportservice[:dsc_irmlogmaxage] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_irmlogmaxdirectorysize' do
@@ -1044,10 +874,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_irmlogmaxdirectorysize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_irmlogmaxdirectorysize' do
-    expect{dsc_xexchtransportservice[:dsc_irmlogmaxdirectorysize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_irmlogmaxfilesize' do
     expect{dsc_xexchtransportservice[:dsc_irmlogmaxfilesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1058,10 +884,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_irmlogmaxfilesize' do
     expect{dsc_xexchtransportservice[:dsc_irmlogmaxfilesize] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_irmlogmaxfilesize' do
-    expect{dsc_xexchtransportservice[:dsc_irmlogmaxfilesize] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_irmlogpath' do
@@ -1076,10 +898,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_irmlogpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_irmlogpath' do
-    expect{dsc_xexchtransportservice[:dsc_irmlogpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_maxconcurrentmailboxdeliveries' do
     expect{dsc_xexchtransportservice[:dsc_maxconcurrentmailboxdeliveries] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1087,32 +905,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
   it 'should not accept boolean for dsc_maxconcurrentmailboxdeliveries' do
     expect{dsc_xexchtransportservice[:dsc_maxconcurrentmailboxdeliveries] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_maxconcurrentmailboxdeliveries' do
-    dsc_xexchtransportservice[:dsc_maxconcurrentmailboxdeliveries] = -32
-    expect(dsc_xexchtransportservice[:dsc_maxconcurrentmailboxdeliveries]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_maxconcurrentmailboxdeliveries' do
-    dsc_xexchtransportservice[:dsc_maxconcurrentmailboxdeliveries] = '16'
-    expect(dsc_xexchtransportservice[:dsc_maxconcurrentmailboxdeliveries]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_maxconcurrentmailboxdeliveries' do
-    dsc_xexchtransportservice[:dsc_maxconcurrentmailboxdeliveries] = '-16'
-    expect(dsc_xexchtransportservice[:dsc_maxconcurrentmailboxdeliveries]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_maxconcurrentmailboxdeliveries' do
-    dsc_xexchtransportservice[:dsc_maxconcurrentmailboxdeliveries] = '32'
-    expect(dsc_xexchtransportservice[:dsc_maxconcurrentmailboxdeliveries]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_maxconcurrentmailboxdeliveries' do
-    dsc_xexchtransportservice[:dsc_maxconcurrentmailboxdeliveries] = '-32'
-    expect(dsc_xexchtransportservice[:dsc_maxconcurrentmailboxdeliveries]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_maxconcurrentmailboxsubmissions' do
     expect{dsc_xexchtransportservice[:dsc_maxconcurrentmailboxsubmissions] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -1122,32 +914,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_maxconcurrentmailboxsubmissions] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept int for dsc_maxconcurrentmailboxsubmissions' do
-    dsc_xexchtransportservice[:dsc_maxconcurrentmailboxsubmissions] = -32
-    expect(dsc_xexchtransportservice[:dsc_maxconcurrentmailboxsubmissions]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_maxconcurrentmailboxsubmissions' do
-    dsc_xexchtransportservice[:dsc_maxconcurrentmailboxsubmissions] = '16'
-    expect(dsc_xexchtransportservice[:dsc_maxconcurrentmailboxsubmissions]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_maxconcurrentmailboxsubmissions' do
-    dsc_xexchtransportservice[:dsc_maxconcurrentmailboxsubmissions] = '-16'
-    expect(dsc_xexchtransportservice[:dsc_maxconcurrentmailboxsubmissions]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_maxconcurrentmailboxsubmissions' do
-    dsc_xexchtransportservice[:dsc_maxconcurrentmailboxsubmissions] = '32'
-    expect(dsc_xexchtransportservice[:dsc_maxconcurrentmailboxsubmissions]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_maxconcurrentmailboxsubmissions' do
-    dsc_xexchtransportservice[:dsc_maxconcurrentmailboxsubmissions] = '-32'
-    expect(dsc_xexchtransportservice[:dsc_maxconcurrentmailboxsubmissions]).to eq(-32)
-  end
-
-
   it 'should not accept array for dsc_maxconnectionrateperminute' do
     expect{dsc_xexchtransportservice[:dsc_maxconnectionrateperminute] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1155,32 +921,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
   it 'should not accept boolean for dsc_maxconnectionrateperminute' do
     expect{dsc_xexchtransportservice[:dsc_maxconnectionrateperminute] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_maxconnectionrateperminute' do
-    dsc_xexchtransportservice[:dsc_maxconnectionrateperminute] = -32
-    expect(dsc_xexchtransportservice[:dsc_maxconnectionrateperminute]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_maxconnectionrateperminute' do
-    dsc_xexchtransportservice[:dsc_maxconnectionrateperminute] = '16'
-    expect(dsc_xexchtransportservice[:dsc_maxconnectionrateperminute]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_maxconnectionrateperminute' do
-    dsc_xexchtransportservice[:dsc_maxconnectionrateperminute] = '-16'
-    expect(dsc_xexchtransportservice[:dsc_maxconnectionrateperminute]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_maxconnectionrateperminute' do
-    dsc_xexchtransportservice[:dsc_maxconnectionrateperminute] = '32'
-    expect(dsc_xexchtransportservice[:dsc_maxconnectionrateperminute]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_maxconnectionrateperminute' do
-    dsc_xexchtransportservice[:dsc_maxconnectionrateperminute] = '-32'
-    expect(dsc_xexchtransportservice[:dsc_maxconnectionrateperminute]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_maxoutboundconnections' do
     expect{dsc_xexchtransportservice[:dsc_maxoutboundconnections] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -1192,10 +932,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_maxoutboundconnections' do
     expect{dsc_xexchtransportservice[:dsc_maxoutboundconnections] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_maxoutboundconnections' do
-    expect{dsc_xexchtransportservice[:dsc_maxoutboundconnections] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_maxperdomainoutboundconnections' do
@@ -1210,10 +946,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_maxperdomainoutboundconnections] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_maxperdomainoutboundconnections' do
-    expect{dsc_xexchtransportservice[:dsc_maxperdomainoutboundconnections] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_messageexpirationtimeout' do
     expect{dsc_xexchtransportservice[:dsc_messageexpirationtimeout] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1226,10 +958,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_messageexpirationtimeout] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_messageexpirationtimeout' do
-    expect{dsc_xexchtransportservice[:dsc_messageexpirationtimeout] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_messageretryinterval' do
     expect{dsc_xexchtransportservice[:dsc_messageretryinterval] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1240,10 +968,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_messageretryinterval' do
     expect{dsc_xexchtransportservice[:dsc_messageretryinterval] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_messageretryinterval' do
-    expect{dsc_xexchtransportservice[:dsc_messageretryinterval] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_messagetrackinglogenabled' do
@@ -1284,10 +1008,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_messagetrackinglogenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_messagetrackinglogenabled' do
-    expect{dsc_xexchtransportservice[:dsc_messagetrackinglogenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_messagetrackinglogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_messagetrackinglogmaxage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1298,10 +1018,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_messagetrackinglogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_messagetrackinglogmaxage] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_messagetrackinglogmaxage' do
-    expect{dsc_xexchtransportservice[:dsc_messagetrackinglogmaxage] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_messagetrackinglogmaxdirectorysize' do
@@ -1316,10 +1032,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_messagetrackinglogmaxdirectorysize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_messagetrackinglogmaxdirectorysize' do
-    expect{dsc_xexchtransportservice[:dsc_messagetrackinglogmaxdirectorysize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_messagetrackinglogmaxfilesize' do
     expect{dsc_xexchtransportservice[:dsc_messagetrackinglogmaxfilesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1332,10 +1044,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_messagetrackinglogmaxfilesize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_messagetrackinglogmaxfilesize' do
-    expect{dsc_xexchtransportservice[:dsc_messagetrackinglogmaxfilesize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_messagetrackinglogpath' do
     expect{dsc_xexchtransportservice[:dsc_messagetrackinglogpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1346,10 +1054,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_messagetrackinglogpath' do
     expect{dsc_xexchtransportservice[:dsc_messagetrackinglogpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_messagetrackinglogpath' do
-    expect{dsc_xexchtransportservice[:dsc_messagetrackinglogpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_messagetrackinglogsubjectloggingenabled' do
@@ -1390,10 +1094,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_messagetrackinglogsubjectloggingenabled' do
-    expect{dsc_xexchtransportservice[:dsc_messagetrackinglogsubjectloggingenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_outboundconnectionfailureretryinterval' do
     expect{dsc_xexchtransportservice[:dsc_outboundconnectionfailureretryinterval] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1404,10 +1104,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_outboundconnectionfailureretryinterval' do
     expect{dsc_xexchtransportservice[:dsc_outboundconnectionfailureretryinterval] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_outboundconnectionfailureretryinterval' do
-    expect{dsc_xexchtransportservice[:dsc_outboundconnectionfailureretryinterval] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_pickupdirectorymaxheadersize' do
@@ -1422,10 +1118,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_pickupdirectorymaxheadersize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_pickupdirectorymaxheadersize' do
-    expect{dsc_xexchtransportservice[:dsc_pickupdirectorymaxheadersize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_pickupdirectorymaxmessagesperminute' do
     expect{dsc_xexchtransportservice[:dsc_pickupdirectorymaxmessagesperminute] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1434,32 +1126,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_pickupdirectorymaxmessagesperminute] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept int for dsc_pickupdirectorymaxmessagesperminute' do
-    dsc_xexchtransportservice[:dsc_pickupdirectorymaxmessagesperminute] = -32
-    expect(dsc_xexchtransportservice[:dsc_pickupdirectorymaxmessagesperminute]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_pickupdirectorymaxmessagesperminute' do
-    dsc_xexchtransportservice[:dsc_pickupdirectorymaxmessagesperminute] = '16'
-    expect(dsc_xexchtransportservice[:dsc_pickupdirectorymaxmessagesperminute]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_pickupdirectorymaxmessagesperminute' do
-    dsc_xexchtransportservice[:dsc_pickupdirectorymaxmessagesperminute] = '-16'
-    expect(dsc_xexchtransportservice[:dsc_pickupdirectorymaxmessagesperminute]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_pickupdirectorymaxmessagesperminute' do
-    dsc_xexchtransportservice[:dsc_pickupdirectorymaxmessagesperminute] = '32'
-    expect(dsc_xexchtransportservice[:dsc_pickupdirectorymaxmessagesperminute]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_pickupdirectorymaxmessagesperminute' do
-    dsc_xexchtransportservice[:dsc_pickupdirectorymaxmessagesperminute] = '-32'
-    expect(dsc_xexchtransportservice[:dsc_pickupdirectorymaxmessagesperminute]).to eq(-32)
-  end
-
-
   it 'should not accept array for dsc_pickupdirectorymaxrecipientspermessage' do
     expect{dsc_xexchtransportservice[:dsc_pickupdirectorymaxrecipientspermessage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1467,32 +1133,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
   it 'should not accept boolean for dsc_pickupdirectorymaxrecipientspermessage' do
     expect{dsc_xexchtransportservice[:dsc_pickupdirectorymaxrecipientspermessage] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_pickupdirectorymaxrecipientspermessage' do
-    dsc_xexchtransportservice[:dsc_pickupdirectorymaxrecipientspermessage] = -32
-    expect(dsc_xexchtransportservice[:dsc_pickupdirectorymaxrecipientspermessage]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_pickupdirectorymaxrecipientspermessage' do
-    dsc_xexchtransportservice[:dsc_pickupdirectorymaxrecipientspermessage] = '16'
-    expect(dsc_xexchtransportservice[:dsc_pickupdirectorymaxrecipientspermessage]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_pickupdirectorymaxrecipientspermessage' do
-    dsc_xexchtransportservice[:dsc_pickupdirectorymaxrecipientspermessage] = '-16'
-    expect(dsc_xexchtransportservice[:dsc_pickupdirectorymaxrecipientspermessage]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_pickupdirectorymaxrecipientspermessage' do
-    dsc_xexchtransportservice[:dsc_pickupdirectorymaxrecipientspermessage] = '32'
-    expect(dsc_xexchtransportservice[:dsc_pickupdirectorymaxrecipientspermessage]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_pickupdirectorymaxrecipientspermessage' do
-    dsc_xexchtransportservice[:dsc_pickupdirectorymaxrecipientspermessage] = '-32'
-    expect(dsc_xexchtransportservice[:dsc_pickupdirectorymaxrecipientspermessage]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_pickupdirectorypath' do
     expect{dsc_xexchtransportservice[:dsc_pickupdirectorypath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -1504,10 +1144,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_pickupdirectorypath' do
     expect{dsc_xexchtransportservice[:dsc_pickupdirectorypath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_pickupdirectorypath' do
-    expect{dsc_xexchtransportservice[:dsc_pickupdirectorypath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_pipelinetracingenabled' do
@@ -1548,10 +1184,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_pipelinetracingenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_pipelinetracingenabled' do
-    expect{dsc_xexchtransportservice[:dsc_pipelinetracingenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_pipelinetracingpath' do
     expect{dsc_xexchtransportservice[:dsc_pipelinetracingpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1564,10 +1196,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_pipelinetracingpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_pipelinetracingpath' do
-    expect{dsc_xexchtransportservice[:dsc_pipelinetracingpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_pipelinetracingsenderaddress' do
     expect{dsc_xexchtransportservice[:dsc_pipelinetracingsenderaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1578,10 +1206,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_pipelinetracingsenderaddress' do
     expect{dsc_xexchtransportservice[:dsc_pipelinetracingsenderaddress] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_pipelinetracingsenderaddress' do
-    expect{dsc_xexchtransportservice[:dsc_pipelinetracingsenderaddress] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_poisonmessagedetectionenabled' do
@@ -1622,10 +1246,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_poisonmessagedetectionenabled' do
-    expect{dsc_xexchtransportservice[:dsc_poisonmessagedetectionenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_poisonthreshold' do
     expect{dsc_xexchtransportservice[:dsc_poisonthreshold] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1633,32 +1253,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
   it 'should not accept boolean for dsc_poisonthreshold' do
     expect{dsc_xexchtransportservice[:dsc_poisonthreshold] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_poisonthreshold' do
-    dsc_xexchtransportservice[:dsc_poisonthreshold] = -32
-    expect(dsc_xexchtransportservice[:dsc_poisonthreshold]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_poisonthreshold' do
-    dsc_xexchtransportservice[:dsc_poisonthreshold] = '16'
-    expect(dsc_xexchtransportservice[:dsc_poisonthreshold]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_poisonthreshold' do
-    dsc_xexchtransportservice[:dsc_poisonthreshold] = '-16'
-    expect(dsc_xexchtransportservice[:dsc_poisonthreshold]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_poisonthreshold' do
-    dsc_xexchtransportservice[:dsc_poisonthreshold] = '32'
-    expect(dsc_xexchtransportservice[:dsc_poisonthreshold]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_poisonthreshold' do
-    dsc_xexchtransportservice[:dsc_poisonthreshold] = '-32'
-    expect(dsc_xexchtransportservice[:dsc_poisonthreshold]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_queuelogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_queuelogmaxage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -1670,10 +1264,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_queuelogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_queuelogmaxage] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_queuelogmaxage' do
-    expect{dsc_xexchtransportservice[:dsc_queuelogmaxage] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_queuelogmaxdirectorysize' do
@@ -1688,10 +1278,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_queuelogmaxdirectorysize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_queuelogmaxdirectorysize' do
-    expect{dsc_xexchtransportservice[:dsc_queuelogmaxdirectorysize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_queuelogmaxfilesize' do
     expect{dsc_xexchtransportservice[:dsc_queuelogmaxfilesize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1702,10 +1288,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_queuelogmaxfilesize' do
     expect{dsc_xexchtransportservice[:dsc_queuelogmaxfilesize] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_queuelogmaxfilesize' do
-    expect{dsc_xexchtransportservice[:dsc_queuelogmaxfilesize] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_queuelogpath' do
@@ -1720,10 +1302,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_queuelogpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_queuelogpath' do
-    expect{dsc_xexchtransportservice[:dsc_queuelogpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_queuemaxidletime' do
     expect{dsc_xexchtransportservice[:dsc_queuemaxidletime] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1734,10 +1312,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_queuemaxidletime' do
     expect{dsc_xexchtransportservice[:dsc_queuemaxidletime] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_queuemaxidletime' do
-    expect{dsc_xexchtransportservice[:dsc_queuemaxidletime] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_receiveprotocollogmaxage' do
@@ -1752,10 +1326,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_receiveprotocollogmaxage] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_receiveprotocollogmaxage' do
-    expect{dsc_xexchtransportservice[:dsc_receiveprotocollogmaxage] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_receiveprotocollogmaxdirectorysize' do
     expect{dsc_xexchtransportservice[:dsc_receiveprotocollogmaxdirectorysize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1766,10 +1336,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_receiveprotocollogmaxdirectorysize' do
     expect{dsc_xexchtransportservice[:dsc_receiveprotocollogmaxdirectorysize] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_receiveprotocollogmaxdirectorysize' do
-    expect{dsc_xexchtransportservice[:dsc_receiveprotocollogmaxdirectorysize] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_receiveprotocollogmaxfilesize' do
@@ -1784,10 +1350,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_receiveprotocollogmaxfilesize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_receiveprotocollogmaxfilesize' do
-    expect{dsc_xexchtransportservice[:dsc_receiveprotocollogmaxfilesize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_receiveprotocollogpath' do
     expect{dsc_xexchtransportservice[:dsc_receiveprotocollogpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1798,10 +1360,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_receiveprotocollogpath' do
     expect{dsc_xexchtransportservice[:dsc_receiveprotocollogpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_receiveprotocollogpath' do
-    expect{dsc_xexchtransportservice[:dsc_receiveprotocollogpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_recipientvalidationcacheenabled' do
@@ -1842,10 +1400,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_recipientvalidationcacheenabled' do
-    expect{dsc_xexchtransportservice[:dsc_recipientvalidationcacheenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_replaydirectorypath' do
     expect{dsc_xexchtransportservice[:dsc_replaydirectorypath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1856,10 +1410,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_replaydirectorypath' do
     expect{dsc_xexchtransportservice[:dsc_replaydirectorypath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_replaydirectorypath' do
-    expect{dsc_xexchtransportservice[:dsc_replaydirectorypath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_rootdropdirectorypath' do
@@ -1874,10 +1424,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_rootdropdirectorypath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_rootdropdirectorypath' do
-    expect{dsc_xexchtransportservice[:dsc_rootdropdirectorypath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_routingtablelogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_routingtablelogmaxage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1888,10 +1434,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_routingtablelogmaxage' do
     expect{dsc_xexchtransportservice[:dsc_routingtablelogmaxage] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_routingtablelogmaxage' do
-    expect{dsc_xexchtransportservice[:dsc_routingtablelogmaxage] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_routingtablelogmaxdirectorysize' do
@@ -1906,10 +1448,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_routingtablelogmaxdirectorysize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_routingtablelogmaxdirectorysize' do
-    expect{dsc_xexchtransportservice[:dsc_routingtablelogmaxdirectorysize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_routingtablelogpath' do
     expect{dsc_xexchtransportservice[:dsc_routingtablelogpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1920,10 +1458,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_routingtablelogpath' do
     expect{dsc_xexchtransportservice[:dsc_routingtablelogpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_routingtablelogpath' do
-    expect{dsc_xexchtransportservice[:dsc_routingtablelogpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sendprotocollogmaxage' do
@@ -1938,10 +1472,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_sendprotocollogmaxage] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sendprotocollogmaxage' do
-    expect{dsc_xexchtransportservice[:dsc_sendprotocollogmaxage] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sendprotocollogmaxdirectorysize' do
     expect{dsc_xexchtransportservice[:dsc_sendprotocollogmaxdirectorysize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1952,10 +1482,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_sendprotocollogmaxdirectorysize' do
     expect{dsc_xexchtransportservice[:dsc_sendprotocollogmaxdirectorysize] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sendprotocollogmaxdirectorysize' do
-    expect{dsc_xexchtransportservice[:dsc_sendprotocollogmaxdirectorysize] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sendprotocollogmaxfilesize' do
@@ -1970,10 +1496,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_sendprotocollogmaxfilesize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sendprotocollogmaxfilesize' do
-    expect{dsc_xexchtransportservice[:dsc_sendprotocollogmaxfilesize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sendprotocollogpath' do
     expect{dsc_xexchtransportservice[:dsc_sendprotocollogpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -1984,10 +1506,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_sendprotocollogpath' do
     expect{dsc_xexchtransportservice[:dsc_sendprotocollogpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sendprotocollogpath' do
-    expect{dsc_xexchtransportservice[:dsc_sendprotocollogpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_serverstatisticslogmaxage' do
@@ -2002,10 +1520,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_serverstatisticslogmaxage] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_serverstatisticslogmaxage' do
-    expect{dsc_xexchtransportservice[:dsc_serverstatisticslogmaxage] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_serverstatisticslogmaxdirectorysize' do
     expect{dsc_xexchtransportservice[:dsc_serverstatisticslogmaxdirectorysize] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -2016,10 +1530,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_serverstatisticslogmaxdirectorysize' do
     expect{dsc_xexchtransportservice[:dsc_serverstatisticslogmaxdirectorysize] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_serverstatisticslogmaxdirectorysize' do
-    expect{dsc_xexchtransportservice[:dsc_serverstatisticslogmaxdirectorysize] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_serverstatisticslogmaxfilesize' do
@@ -2034,10 +1544,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_serverstatisticslogmaxfilesize] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_serverstatisticslogmaxfilesize' do
-    expect{dsc_xexchtransportservice[:dsc_serverstatisticslogmaxfilesize] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_serverstatisticslogpath' do
     expect{dsc_xexchtransportservice[:dsc_serverstatisticslogpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -2050,10 +1556,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
     expect{dsc_xexchtransportservice[:dsc_serverstatisticslogpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_serverstatisticslogpath' do
-    expect{dsc_xexchtransportservice[:dsc_serverstatisticslogpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_transientfailureretrycount' do
     expect{dsc_xexchtransportservice[:dsc_transientfailureretrycount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -2061,32 +1563,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
   it 'should not accept boolean for dsc_transientfailureretrycount' do
     expect{dsc_xexchtransportservice[:dsc_transientfailureretrycount] = true}.to raise_error(Puppet::ResourceError)
   end
-
-  it 'should accept int for dsc_transientfailureretrycount' do
-    dsc_xexchtransportservice[:dsc_transientfailureretrycount] = -32
-    expect(dsc_xexchtransportservice[:dsc_transientfailureretrycount]).to eq(-32)
-  end
-
-  it 'should accept string-like int for dsc_transientfailureretrycount' do
-    dsc_xexchtransportservice[:dsc_transientfailureretrycount] = '16'
-    expect(dsc_xexchtransportservice[:dsc_transientfailureretrycount]).to eq(16)
-  end
-
-  it 'should accept string-like int for dsc_transientfailureretrycount' do
-    dsc_xexchtransportservice[:dsc_transientfailureretrycount] = '-16'
-    expect(dsc_xexchtransportservice[:dsc_transientfailureretrycount]).to eq(-16)
-  end
-
-  it 'should accept string-like int for dsc_transientfailureretrycount' do
-    dsc_xexchtransportservice[:dsc_transientfailureretrycount] = '32'
-    expect(dsc_xexchtransportservice[:dsc_transientfailureretrycount]).to eq(32)
-  end
-
-  it 'should accept string-like int for dsc_transientfailureretrycount' do
-    dsc_xexchtransportservice[:dsc_transientfailureretrycount] = '-32'
-    expect(dsc_xexchtransportservice[:dsc_transientfailureretrycount]).to eq(-32)
-  end
-
 
   it 'should not accept array for dsc_transientfailureretryinterval' do
     expect{dsc_xexchtransportservice[:dsc_transientfailureretryinterval] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
@@ -2098,10 +1574,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_transientfailureretryinterval' do
     expect{dsc_xexchtransportservice[:dsc_transientfailureretryinterval] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_transientfailureretryinterval' do
-    expect{dsc_xexchtransportservice[:dsc_transientfailureretryinterval] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_usedowngradedexchangeserverauth' do
@@ -2140,10 +1612,6 @@ describe Puppet::Type.type(:dsc_xexchtransportservice) do
 
   it 'should not accept int for dsc_usedowngradedexchangeserverauth' do
     expect{dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_usedowngradedexchangeserverauth' do
-    expect{dsc_xexchtransportservice[:dsc_usedowngradedexchangeserverauth] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

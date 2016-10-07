@@ -53,10 +53,6 @@ describe Puppet::Type.type(:dsc_spsite) do
     expect{dsc_spsite[:dsc_url] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_url' do
-    expect{dsc_spsite[:dsc_url] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_owneralias' do
     expect{dsc_spsite[:dsc_owneralias] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -69,42 +65,12 @@ describe Puppet::Type.type(:dsc_spsite) do
     expect{dsc_spsite[:dsc_owneralias] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_owneralias' do
-    expect{dsc_spsite[:dsc_owneralias] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_compatibilitylevel' do
     expect{dsc_spsite[:dsc_compatibilitylevel] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_compatibilitylevel' do
     expect{dsc_spsite[:dsc_compatibilitylevel] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_compatibilitylevel' do
-    dsc_spsite[:dsc_compatibilitylevel] = 32
-    expect(dsc_spsite[:dsc_compatibilitylevel]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_compatibilitylevel' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spsite[:dsc_compatibilitylevel] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_compatibilitylevel' do
-    dsc_spsite[:dsc_compatibilitylevel] = '16'
-    expect(dsc_spsite[:dsc_compatibilitylevel]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_compatibilitylevel' do
-    dsc_spsite[:dsc_compatibilitylevel] = '32'
-    expect(dsc_spsite[:dsc_compatibilitylevel]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_compatibilitylevel' do
-    dsc_spsite[:dsc_compatibilitylevel] = '64'
-    expect(dsc_spsite[:dsc_compatibilitylevel]).to eq(64)
   end
 
   it 'should not accept array for dsc_contentdatabase' do
@@ -119,10 +85,6 @@ describe Puppet::Type.type(:dsc_spsite) do
     expect{dsc_spsite[:dsc_contentdatabase] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_contentdatabase' do
-    expect{dsc_spsite[:dsc_contentdatabase] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_spsite[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -133,10 +95,6 @@ describe Puppet::Type.type(:dsc_spsite) do
 
   it 'should not accept int for dsc_description' do
     expect{dsc_spsite[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_spsite[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_hostheaderwebapplication' do
@@ -151,42 +109,12 @@ describe Puppet::Type.type(:dsc_spsite) do
     expect{dsc_spsite[:dsc_hostheaderwebapplication] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_hostheaderwebapplication' do
-    expect{dsc_spsite[:dsc_hostheaderwebapplication] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_language' do
     expect{dsc_spsite[:dsc_language] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_language' do
     expect{dsc_spsite[:dsc_language] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_language' do
-    dsc_spsite[:dsc_language] = 32
-    expect(dsc_spsite[:dsc_language]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_language' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spsite[:dsc_language] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_language' do
-    dsc_spsite[:dsc_language] = '16'
-    expect(dsc_spsite[:dsc_language]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_language' do
-    dsc_spsite[:dsc_language] = '32'
-    expect(dsc_spsite[:dsc_language]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_language' do
-    dsc_spsite[:dsc_language] = '64'
-    expect(dsc_spsite[:dsc_language]).to eq(64)
   end
 
   it 'should not accept array for dsc_name' do
@@ -201,10 +129,6 @@ describe Puppet::Type.type(:dsc_spsite) do
     expect{dsc_spsite[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spsite[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_owneremail' do
     expect{dsc_spsite[:dsc_owneremail] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -215,10 +139,6 @@ describe Puppet::Type.type(:dsc_spsite) do
 
   it 'should not accept int for dsc_owneremail' do
     expect{dsc_spsite[:dsc_owneremail] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_owneremail' do
-    expect{dsc_spsite[:dsc_owneremail] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_quotatemplate' do
@@ -233,10 +153,6 @@ describe Puppet::Type.type(:dsc_spsite) do
     expect{dsc_spsite[:dsc_quotatemplate] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_quotatemplate' do
-    expect{dsc_spsite[:dsc_quotatemplate] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_secondaryemail' do
     expect{dsc_spsite[:dsc_secondaryemail] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -247,10 +163,6 @@ describe Puppet::Type.type(:dsc_spsite) do
 
   it 'should not accept int for dsc_secondaryemail' do
     expect{dsc_spsite[:dsc_secondaryemail] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_secondaryemail' do
-    expect{dsc_spsite[:dsc_secondaryemail] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_secondaryowneralias' do
@@ -265,10 +177,6 @@ describe Puppet::Type.type(:dsc_spsite) do
     expect{dsc_spsite[:dsc_secondaryowneralias] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_secondaryowneralias' do
-    expect{dsc_spsite[:dsc_secondaryowneralias] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_template' do
     expect{dsc_spsite[:dsc_template] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -279,10 +187,6 @@ describe Puppet::Type.type(:dsc_spsite) do
 
   it 'should not accept int for dsc_template' do
     expect{dsc_spsite[:dsc_template] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_template' do
-    expect{dsc_spsite[:dsc_template] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -299,10 +203,6 @@ describe Puppet::Type.type(:dsc_spsite) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spsite[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spsite[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

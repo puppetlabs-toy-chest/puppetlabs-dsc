@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_xnetadapterbinding) do
     expect{dsc_xnetadapterbinding[:dsc_interfacealias] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_interfacealias' do
-    expect{dsc_xnetadapterbinding[:dsc_interfacealias] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_componentid is specified' do
     #dsc_xnetadapterbinding[:dsc_componentid]
     expect { Puppet::Type.type(:dsc_xnetadapterbinding).new(
@@ -66,10 +62,6 @@ describe Puppet::Type.type(:dsc_xnetadapterbinding) do
 
   it 'should not accept int for dsc_componentid' do
     expect{dsc_xnetadapterbinding[:dsc_componentid] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_componentid' do
-    expect{dsc_xnetadapterbinding[:dsc_componentid] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_state predefined value Enabled' do
@@ -106,10 +98,6 @@ describe Puppet::Type.type(:dsc_xnetadapterbinding) do
 
   it 'should not accept int for dsc_state' do
     expect{dsc_xnetadapterbinding[:dsc_state] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_state' do
-    expect{dsc_xnetadapterbinding[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

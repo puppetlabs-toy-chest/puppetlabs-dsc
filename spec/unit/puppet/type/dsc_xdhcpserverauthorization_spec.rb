@@ -39,10 +39,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverauthorization) do
     expect{dsc_xdhcpserverauthorization[:dsc_dnsname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_dnsname' do
-    expect{dsc_xdhcpserverauthorization[:dsc_dnsname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_ipaddress' do
     expect{dsc_xdhcpserverauthorization[:dsc_ipaddress] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -53,10 +49,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverauthorization) do
 
   it 'should not accept int for dsc_ipaddress' do
     expect{dsc_xdhcpserverauthorization[:dsc_ipaddress] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ipaddress' do
-    expect{dsc_xdhcpserverauthorization[:dsc_ipaddress] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_ensure is specified' do
@@ -110,10 +102,6 @@ describe Puppet::Type.type(:dsc_xdhcpserverauthorization) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xdhcpserverauthorization[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdhcpserverauthorization[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

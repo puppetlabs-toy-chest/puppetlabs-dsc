@@ -91,10 +91,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcepath' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_sourcepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -107,10 +103,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_sourcepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcepath' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcefolder' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_sourcefolder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -121,10 +113,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
 
   it 'should not accept int for dsc_sourcefolder' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_sourcefolder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sourcefolder' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_setupcredential" do
@@ -143,10 +131,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_setupcredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_setupcredential' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_service" do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_service] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -163,10 +147,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_service] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_service' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_service] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_serviceusername' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_serviceusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -177,10 +157,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
 
   it 'should not accept int for dsc_serviceusername' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_serviceusername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_serviceusername' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_serviceusername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sqlserver' do
@@ -195,10 +171,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_sqlserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlserver' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_sqlserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlinstance' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_sqlinstance] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -209,10 +181,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
 
   it 'should not accept int for dsc_sqlinstance' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_sqlinstance] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlinstance' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_sqlinstance] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sqldatabase' do
@@ -227,10 +195,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_sqldatabase] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqldatabase' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_sqldatabase] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_installfolder' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_installfolder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -241,10 +205,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
 
   it 'should not accept int for dsc_installfolder' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_installfolder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installfolder' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_installfolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_etwmanifest' do
@@ -259,10 +219,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_etwmanifest] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_etwmanifest' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_etwmanifest] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sendceipreports' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_sendceipreports] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -273,10 +229,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
 
   it 'should not accept int for dsc_sendceipreports' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_sendceipreports] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sendceipreports' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_sendceipreports] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_msupdate' do
@@ -291,10 +243,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_msupdate] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_msupdate' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_msupdate] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_productkey' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_productkey] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -305,10 +253,6 @@ describe Puppet::Type.type(:dsc_xscsmarunbookworkerserversetup) do
 
   it 'should not accept int for dsc_productkey' do
     expect{dsc_xscsmarunbookworkerserversetup[:dsc_productkey] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_productkey' do
-    expect{dsc_xscsmarunbookworkerserversetup[:dsc_productkey] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

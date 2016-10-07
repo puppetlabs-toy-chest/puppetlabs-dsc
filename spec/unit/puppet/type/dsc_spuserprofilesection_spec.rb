@@ -49,10 +49,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesection) do
     expect{dsc_spuserprofilesection[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spuserprofilesection[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_spuserprofilesection[:dsc_ensure] = 'Present'
     expect(dsc_spuserprofilesection[:dsc_ensure]).to eq('Present')
@@ -99,10 +95,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesection) do
     expect{dsc_spuserprofilesection[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spuserprofilesection[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_userprofileservice' do
     expect{dsc_spuserprofilesection[:dsc_userprofileservice] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -113,10 +105,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesection) do
 
   it 'should not accept int for dsc_userprofileservice' do
     expect{dsc_spuserprofilesection[:dsc_userprofileservice] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_userprofileservice' do
-    expect{dsc_spuserprofilesection[:dsc_userprofileservice] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_displayname' do
@@ -131,42 +119,12 @@ describe Puppet::Type.type(:dsc_spuserprofilesection) do
     expect{dsc_spuserprofilesection[:dsc_displayname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_displayname' do
-    expect{dsc_spuserprofilesection[:dsc_displayname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_displayorder' do
     expect{dsc_spuserprofilesection[:dsc_displayorder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_displayorder' do
     expect{dsc_spuserprofilesection[:dsc_displayorder] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_displayorder' do
-    dsc_spuserprofilesection[:dsc_displayorder] = 32
-    expect(dsc_spuserprofilesection[:dsc_displayorder]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_displayorder' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_spuserprofilesection[:dsc_displayorder] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_displayorder' do
-    dsc_spuserprofilesection[:dsc_displayorder] = '16'
-    expect(dsc_spuserprofilesection[:dsc_displayorder]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_displayorder' do
-    dsc_spuserprofilesection[:dsc_displayorder] = '32'
-    expect(dsc_spuserprofilesection[:dsc_displayorder]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_displayorder' do
-    dsc_spuserprofilesection[:dsc_displayorder] = '64'
-    expect(dsc_spuserprofilesection[:dsc_displayorder]).to eq(64)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -183,10 +141,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesection) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spuserprofilesection[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spuserprofilesection[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

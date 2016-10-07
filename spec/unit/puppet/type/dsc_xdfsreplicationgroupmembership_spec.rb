@@ -52,10 +52,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupmembership) do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_groupname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_groupname' do
-    expect{dsc_xdfsreplicationgroupmembership[:dsc_groupname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_foldername is specified' do
     #dsc_xdfsreplicationgroupmembership[:dsc_foldername]
     expect { Puppet::Type.type(:dsc_xdfsreplicationgroupmembership).new(
@@ -75,10 +71,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupmembership) do
 
   it 'should not accept int for dsc_foldername' do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_foldername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_foldername' do
-    expect{dsc_xdfsreplicationgroupmembership[:dsc_foldername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should require that dsc_computername is specified' do
@@ -102,10 +94,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupmembership) do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_computername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_computername' do
-    expect{dsc_xdfsreplicationgroupmembership[:dsc_computername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_contentpath' do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_contentpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -116,10 +104,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupmembership) do
 
   it 'should not accept int for dsc_contentpath' do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_contentpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_contentpath' do
-    expect{dsc_xdfsreplicationgroupmembership[:dsc_contentpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_stagingpath' do
@@ -134,10 +118,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupmembership) do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_stagingpath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_stagingpath' do
-    expect{dsc_xdfsreplicationgroupmembership[:dsc_stagingpath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_conflictanddeletedpath' do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_conflictanddeletedpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -148,10 +128,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupmembership) do
 
   it 'should not accept int for dsc_conflictanddeletedpath' do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_conflictanddeletedpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_conflictanddeletedpath' do
-    expect{dsc_xdfsreplicationgroupmembership[:dsc_conflictanddeletedpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_readonly' do
@@ -192,10 +168,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupmembership) do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_readonly] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_readonly' do
-    expect{dsc_xdfsreplicationgroupmembership[:dsc_readonly] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_primarymember' do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_primarymember] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -234,10 +206,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupmembership) do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_primarymember] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_primarymember' do
-    expect{dsc_xdfsreplicationgroupmembership[:dsc_primarymember] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domainname' do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_domainname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -248,10 +216,6 @@ describe Puppet::Type.type(:dsc_xdfsreplicationgroupmembership) do
 
   it 'should not accept int for dsc_domainname' do
     expect{dsc_xdfsreplicationgroupmembership[:dsc_domainname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domainname' do
-    expect{dsc_xdfsreplicationgroupmembership[:dsc_domainname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

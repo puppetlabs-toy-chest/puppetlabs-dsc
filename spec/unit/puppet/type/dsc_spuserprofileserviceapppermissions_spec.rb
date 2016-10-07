@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapppermissions) do
     expect{dsc_spuserprofileserviceapppermissions[:dsc_proxyname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_proxyname' do
-    expect{dsc_spuserprofileserviceapppermissions[:dsc_proxyname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_createpersonalsite' do
     dsc_spuserprofileserviceapppermissions[:dsc_createpersonalsite] = ["foo", "bar", "spec"]
     expect(dsc_spuserprofileserviceapppermissions[:dsc_createpersonalsite]).to eq(["foo", "bar", "spec"])
@@ -59,10 +55,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapppermissions) do
 
   it 'should not accept int for dsc_createpersonalsite' do
     expect{dsc_spuserprofileserviceapppermissions[:dsc_createpersonalsite] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_createpersonalsite' do
-    expect{dsc_spuserprofileserviceapppermissions[:dsc_createpersonalsite] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_followandeditprofile' do
@@ -78,10 +70,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapppermissions) do
     expect{dsc_spuserprofileserviceapppermissions[:dsc_followandeditprofile] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_followandeditprofile' do
-    expect{dsc_spuserprofileserviceapppermissions[:dsc_followandeditprofile] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_usetagsandnotes' do
     dsc_spuserprofileserviceapppermissions[:dsc_usetagsandnotes] = ["foo", "bar", "spec"]
     expect(dsc_spuserprofileserviceapppermissions[:dsc_usetagsandnotes]).to eq(["foo", "bar", "spec"])
@@ -93,10 +81,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapppermissions) do
 
   it 'should not accept int for dsc_usetagsandnotes' do
     expect{dsc_spuserprofileserviceapppermissions[:dsc_usetagsandnotes] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_usetagsandnotes' do
-    expect{dsc_spuserprofileserviceapppermissions[:dsc_usetagsandnotes] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -113,10 +97,6 @@ describe Puppet::Type.type(:dsc_spuserprofileserviceapppermissions) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spuserprofileserviceapppermissions[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spuserprofileserviceapppermissions[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

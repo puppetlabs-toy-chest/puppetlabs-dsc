@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_xwaitforsqlhagroup) do
     expect{dsc_xwaitforsqlhagroup[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xwaitforsqlhagroup[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_clustername' do
     expect{dsc_xwaitforsqlhagroup[:dsc_clustername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -62,10 +58,6 @@ describe Puppet::Type.type(:dsc_xwaitforsqlhagroup) do
     expect{dsc_xwaitforsqlhagroup[:dsc_clustername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_clustername' do
-    expect{dsc_xwaitforsqlhagroup[:dsc_clustername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_retryintervalsec' do
     expect{dsc_xwaitforsqlhagroup[:dsc_retryintervalsec] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -74,64 +66,12 @@ describe Puppet::Type.type(:dsc_xwaitforsqlhagroup) do
     expect{dsc_xwaitforsqlhagroup[:dsc_retryintervalsec] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_retryintervalsec' do
-    dsc_xwaitforsqlhagroup[:dsc_retryintervalsec] = 64
-    expect(dsc_xwaitforsqlhagroup[:dsc_retryintervalsec]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_retryintervalsec' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xwaitforsqlhagroup[:dsc_retryintervalsec] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_retryintervalsec' do
-    dsc_xwaitforsqlhagroup[:dsc_retryintervalsec] = '16'
-    expect(dsc_xwaitforsqlhagroup[:dsc_retryintervalsec]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_retryintervalsec' do
-    dsc_xwaitforsqlhagroup[:dsc_retryintervalsec] = '32'
-    expect(dsc_xwaitforsqlhagroup[:dsc_retryintervalsec]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_retryintervalsec' do
-    dsc_xwaitforsqlhagroup[:dsc_retryintervalsec] = '64'
-    expect(dsc_xwaitforsqlhagroup[:dsc_retryintervalsec]).to eq(64)
-  end
-
   it 'should not accept array for dsc_retrycount' do
     expect{dsc_xwaitforsqlhagroup[:dsc_retrycount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_retrycount' do
     expect{dsc_xwaitforsqlhagroup[:dsc_retrycount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_retrycount' do
-    dsc_xwaitforsqlhagroup[:dsc_retrycount] = 32
-    expect(dsc_xwaitforsqlhagroup[:dsc_retrycount]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_retrycount' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xwaitforsqlhagroup[:dsc_retrycount] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_retrycount' do
-    dsc_xwaitforsqlhagroup[:dsc_retrycount] = '16'
-    expect(dsc_xwaitforsqlhagroup[:dsc_retrycount]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_retrycount' do
-    dsc_xwaitforsqlhagroup[:dsc_retrycount] = '32'
-    expect(dsc_xwaitforsqlhagroup[:dsc_retrycount]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_retrycount' do
-    dsc_xwaitforsqlhagroup[:dsc_retrycount] = '64'
-    expect(dsc_xwaitforsqlhagroup[:dsc_retrycount]).to eq(64)
   end
 
   it 'should not accept array for dsc_instancename' do
@@ -144,10 +84,6 @@ describe Puppet::Type.type(:dsc_xwaitforsqlhagroup) do
 
   it 'should not accept int for dsc_instancename' do
     expect{dsc_xwaitforsqlhagroup[:dsc_instancename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_instancename' do
-    expect{dsc_xwaitforsqlhagroup[:dsc_instancename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_domaincredential" do
@@ -166,10 +102,6 @@ describe Puppet::Type.type(:dsc_xwaitforsqlhagroup) do
     expect{dsc_xwaitforsqlhagroup[:dsc_domaincredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_domaincredential' do
-    expect{dsc_xwaitforsqlhagroup[:dsc_domaincredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_sqladministratorcredential" do
     expect{dsc_xwaitforsqlhagroup[:dsc_sqladministratorcredential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -184,10 +116,6 @@ describe Puppet::Type.type(:dsc_xwaitforsqlhagroup) do
 
   it 'should not accept int for dsc_sqladministratorcredential' do
     expect{dsc_xwaitforsqlhagroup[:dsc_sqladministratorcredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqladministratorcredential' do
-    expect{dsc_xwaitforsqlhagroup[:dsc_sqladministratorcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

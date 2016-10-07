@@ -100,12 +100,12 @@ module PuppetX
           # munging has not yet occurred to convert these values prior to validation
           values = Array(value)
           unless values.all? { |v| v.is_a?(Numeric) || v =~ /^[-+]?\d+$/ }
-            fail "#{display_name} is not a numeric value: invalid value #{value}"
+            fail "#{display_name} is not a #{signed ? '' : 'un'}signed #{type_name} numeric value: invalid value #{value}"
           end
 
           values = values.map { |v| v.to_i }
           unless values.all? { |v| (min <= v) && (v <= max) }
-            fail "#{display_name} is outside the valid range of values: #{min} to #{max}: invalid value #{value}"
+            fail "#{display_name} is outside the valid range of #{type_name} values: #{min} to #{max}: invalid value #{value}"
           end
 
           if allowed_values && !values.all? { |v| allowed_values.include?(v) }

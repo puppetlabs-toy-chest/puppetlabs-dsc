@@ -58,10 +58,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
     expect{dsc_xadcomputer[:dsc_computername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_computername' do
-    expect{dsc_xadcomputer[:dsc_computername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_location' do
     expect{dsc_xadcomputer[:dsc_location] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -74,10 +70,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
     expect{dsc_xadcomputer[:dsc_location] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_location' do
-    expect{dsc_xadcomputer[:dsc_location] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_dnshostname' do
     expect{dsc_xadcomputer[:dsc_dnshostname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -88,10 +80,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
 
   it 'should not accept int for dsc_dnshostname' do
     expect{dsc_xadcomputer[:dsc_dnshostname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_dnshostname' do
-    expect{dsc_xadcomputer[:dsc_dnshostname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_serviceprincipalnames' do
@@ -107,10 +95,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
     expect{dsc_xadcomputer[:dsc_serviceprincipalnames] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_serviceprincipalnames' do
-    expect{dsc_xadcomputer[:dsc_serviceprincipalnames] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_userprincipalname' do
     expect{dsc_xadcomputer[:dsc_userprincipalname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -121,10 +105,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
 
   it 'should not accept int for dsc_userprincipalname' do
     expect{dsc_xadcomputer[:dsc_userprincipalname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_userprincipalname' do
-    expect{dsc_xadcomputer[:dsc_userprincipalname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_displayname' do
@@ -139,10 +119,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
     expect{dsc_xadcomputer[:dsc_displayname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_displayname' do
-    expect{dsc_xadcomputer[:dsc_displayname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_path' do
     expect{dsc_xadcomputer[:dsc_path] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -155,10 +131,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
     expect{dsc_xadcomputer[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xadcomputer[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_description' do
     expect{dsc_xadcomputer[:dsc_description] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -169,10 +141,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
 
   it 'should not accept int for dsc_description' do
     expect{dsc_xadcomputer[:dsc_description] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_description' do
-    expect{dsc_xadcomputer[:dsc_description] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_enabled' do
@@ -213,10 +181,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
     expect{dsc_xadcomputer[:dsc_enabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enabled' do
-    expect{dsc_xadcomputer[:dsc_enabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_manager' do
     expect{dsc_xadcomputer[:dsc_manager] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -229,10 +193,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
     expect{dsc_xadcomputer[:dsc_manager] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_manager' do
-    expect{dsc_xadcomputer[:dsc_manager] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xadcomputer[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -243,10 +203,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xadcomputer[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xadcomputer[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_domainadministratorcredential" do
@@ -263,10 +219,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
 
   it 'should not accept int for dsc_domainadministratorcredential' do
     expect{dsc_xadcomputer[:dsc_domainadministratorcredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domainadministratorcredential' do
-    expect{dsc_xadcomputer[:dsc_domainadministratorcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -315,10 +267,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
     expect{dsc_xadcomputer[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xadcomputer[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_distinguishedname' do
     expect{dsc_xadcomputer[:dsc_distinguishedname] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -331,10 +279,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
     expect{dsc_xadcomputer[:dsc_distinguishedname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_distinguishedname' do
-    expect{dsc_xadcomputer[:dsc_distinguishedname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sid' do
     expect{dsc_xadcomputer[:dsc_sid] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -345,10 +289,6 @@ describe Puppet::Type.type(:dsc_xadcomputer) do
 
   it 'should not accept int for dsc_sid' do
     expect{dsc_xadcomputer[:dsc_sid] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sid' do
-    expect{dsc_xadcomputer[:dsc_sid] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

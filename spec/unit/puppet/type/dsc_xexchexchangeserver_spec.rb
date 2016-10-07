@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_xexchexchangeserver) do
     expect{dsc_xexchexchangeserver[:dsc_identity] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_identity' do
-    expect{dsc_xexchexchangeserver[:dsc_identity] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_credential" do
     expect{dsc_xexchexchangeserver[:dsc_credential] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -66,10 +62,6 @@ describe Puppet::Type.type(:dsc_xexchexchangeserver) do
 
   it 'should not accept int for dsc_credential' do
     expect{dsc_xexchexchangeserver[:dsc_credential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_credential' do
-    expect{dsc_xexchexchangeserver[:dsc_credential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_allowservicerestart' do
@@ -110,10 +102,6 @@ describe Puppet::Type.type(:dsc_xexchexchangeserver) do
     expect{dsc_xexchexchangeserver[:dsc_allowservicerestart] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_allowservicerestart' do
-    expect{dsc_xexchexchangeserver[:dsc_allowservicerestart] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_customerfeedbackenabled' do
     expect{dsc_xexchexchangeserver[:dsc_customerfeedbackenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -152,10 +140,6 @@ describe Puppet::Type.type(:dsc_xexchexchangeserver) do
     expect{dsc_xexchexchangeserver[:dsc_customerfeedbackenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_customerfeedbackenabled' do
-    expect{dsc_xexchexchangeserver[:dsc_customerfeedbackenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_domaincontroller' do
     expect{dsc_xexchexchangeserver[:dsc_domaincontroller] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -166,10 +150,6 @@ describe Puppet::Type.type(:dsc_xexchexchangeserver) do
 
   it 'should not accept int for dsc_domaincontroller' do
     expect{dsc_xexchexchangeserver[:dsc_domaincontroller] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_domaincontroller' do
-    expect{dsc_xexchexchangeserver[:dsc_domaincontroller] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_internetwebproxy' do
@@ -184,10 +164,6 @@ describe Puppet::Type.type(:dsc_xexchexchangeserver) do
     expect{dsc_xexchexchangeserver[:dsc_internetwebproxy] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_internetwebproxy' do
-    expect{dsc_xexchexchangeserver[:dsc_internetwebproxy] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_monitoringgroup' do
     expect{dsc_xexchexchangeserver[:dsc_monitoringgroup] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -198,10 +174,6 @@ describe Puppet::Type.type(:dsc_xexchexchangeserver) do
 
   it 'should not accept int for dsc_monitoringgroup' do
     expect{dsc_xexchexchangeserver[:dsc_monitoringgroup] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_monitoringgroup' do
-    expect{dsc_xexchexchangeserver[:dsc_monitoringgroup] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_productkey' do
@@ -216,10 +188,6 @@ describe Puppet::Type.type(:dsc_xexchexchangeserver) do
     expect{dsc_xexchexchangeserver[:dsc_productkey] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_productkey' do
-    expect{dsc_xexchexchangeserver[:dsc_productkey] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_workloadmanagementpolicy' do
     expect{dsc_xexchexchangeserver[:dsc_workloadmanagementpolicy] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -230,10 +198,6 @@ describe Puppet::Type.type(:dsc_xexchexchangeserver) do
 
   it 'should not accept int for dsc_workloadmanagementpolicy' do
     expect{dsc_xexchexchangeserver[:dsc_workloadmanagementpolicy] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_workloadmanagementpolicy' do
-    expect{dsc_xexchexchangeserver[:dsc_workloadmanagementpolicy] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

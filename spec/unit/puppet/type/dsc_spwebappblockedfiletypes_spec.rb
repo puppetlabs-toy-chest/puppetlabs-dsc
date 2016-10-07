@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_spwebappblockedfiletypes) do
     expect{dsc_spwebappblockedfiletypes[:dsc_url] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_url' do
-    expect{dsc_spwebappblockedfiletypes[:dsc_url] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_blocked' do
     dsc_spwebappblockedfiletypes[:dsc_blocked] = ["foo", "bar", "spec"]
     expect(dsc_spwebappblockedfiletypes[:dsc_blocked]).to eq(["foo", "bar", "spec"])
@@ -59,10 +55,6 @@ describe Puppet::Type.type(:dsc_spwebappblockedfiletypes) do
 
   it 'should not accept int for dsc_blocked' do
     expect{dsc_spwebappblockedfiletypes[:dsc_blocked] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_blocked' do
-    expect{dsc_spwebappblockedfiletypes[:dsc_blocked] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_ensureblocked' do
@@ -78,10 +70,6 @@ describe Puppet::Type.type(:dsc_spwebappblockedfiletypes) do
     expect{dsc_spwebappblockedfiletypes[:dsc_ensureblocked] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensureblocked' do
-    expect{dsc_spwebappblockedfiletypes[:dsc_ensureblocked] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_ensureallowed' do
     dsc_spwebappblockedfiletypes[:dsc_ensureallowed] = ["foo", "bar", "spec"]
     expect(dsc_spwebappblockedfiletypes[:dsc_ensureallowed]).to eq(["foo", "bar", "spec"])
@@ -93,10 +81,6 @@ describe Puppet::Type.type(:dsc_spwebappblockedfiletypes) do
 
   it 'should not accept int for dsc_ensureallowed' do
     expect{dsc_spwebappblockedfiletypes[:dsc_ensureallowed] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensureallowed' do
-    expect{dsc_spwebappblockedfiletypes[:dsc_ensureallowed] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_installaccount" do
@@ -113,10 +97,6 @@ describe Puppet::Type.type(:dsc_spwebappblockedfiletypes) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spwebappblockedfiletypes[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spwebappblockedfiletypes[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

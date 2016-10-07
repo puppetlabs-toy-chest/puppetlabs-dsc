@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_spserviceinstance) do
     expect{dsc_spserviceinstance[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spserviceinstance[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_spserviceinstance[:dsc_ensure] = 'Present'
     expect(dsc_spserviceinstance[:dsc_ensure]).to eq('Present')
@@ -96,10 +92,6 @@ describe Puppet::Type.type(:dsc_spserviceinstance) do
     expect{dsc_spserviceinstance[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spserviceinstance[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spserviceinstance[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -114,10 +106,6 @@ describe Puppet::Type.type(:dsc_spserviceinstance) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spserviceinstance[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spserviceinstance[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

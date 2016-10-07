@@ -51,10 +51,6 @@ describe Puppet::Type.type(:dsc_xiismodule) do
     expect{dsc_xiismodule[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xiismodule[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_name' do
     expect{dsc_xiismodule[:dsc_name] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -67,10 +63,6 @@ describe Puppet::Type.type(:dsc_xiismodule) do
     expect{dsc_xiismodule[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xiismodule[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_requestpath' do
     expect{dsc_xiismodule[:dsc_requestpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -81,10 +73,6 @@ describe Puppet::Type.type(:dsc_xiismodule) do
 
   it 'should not accept int for dsc_requestpath' do
     expect{dsc_xiismodule[:dsc_requestpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_requestpath' do
-    expect{dsc_xiismodule[:dsc_requestpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_verb' do
@@ -100,10 +88,6 @@ describe Puppet::Type.type(:dsc_xiismodule) do
     expect{dsc_xiismodule[:dsc_verb] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_verb' do
-    expect{dsc_xiismodule[:dsc_verb] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sitename' do
     expect{dsc_xiismodule[:dsc_sitename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -114,10 +98,6 @@ describe Puppet::Type.type(:dsc_xiismodule) do
 
   it 'should not accept int for dsc_sitename' do
     expect{dsc_xiismodule[:dsc_sitename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sitename' do
-    expect{dsc_xiismodule[:dsc_sitename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -166,10 +146,6 @@ describe Puppet::Type.type(:dsc_xiismodule) do
     expect{dsc_xiismodule[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xiismodule[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_moduletype predefined value FastCgiModule' do
     dsc_xiismodule[:dsc_moduletype] = 'FastCgiModule'
     expect(dsc_xiismodule[:dsc_moduletype]).to eq('FastCgiModule')
@@ -194,10 +170,6 @@ describe Puppet::Type.type(:dsc_xiismodule) do
 
   it 'should not accept int for dsc_moduletype' do
     expect{dsc_xiismodule[:dsc_moduletype] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_moduletype' do
-    expect{dsc_xiismodule[:dsc_moduletype] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_endpointsetup' do
@@ -236,10 +208,6 @@ describe Puppet::Type.type(:dsc_xiismodule) do
 
   it 'should not accept int for dsc_endpointsetup' do
     expect{dsc_xiismodule[:dsc_endpointsetup] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_endpointsetup' do
-    expect{dsc_xiismodule[:dsc_endpointsetup] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

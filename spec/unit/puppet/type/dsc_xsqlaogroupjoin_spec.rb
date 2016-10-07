@@ -84,10 +84,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupjoin) do
     expect{dsc_xsqlaogroupjoin[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xsqlaogroupjoin[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_availabilitygroupname is specified' do
     #dsc_xsqlaogroupjoin[:dsc_availabilitygroupname]
     expect { Puppet::Type.type(:dsc_xsqlaogroupjoin).new(
@@ -108,10 +104,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupjoin) do
     expect{dsc_xsqlaogroupjoin[:dsc_availabilitygroupname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_availabilitygroupname' do
-    expect{dsc_xsqlaogroupjoin[:dsc_availabilitygroupname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlserver' do
     expect{dsc_xsqlaogroupjoin[:dsc_sqlserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -124,10 +116,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupjoin) do
     expect{dsc_xsqlaogroupjoin[:dsc_sqlserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlserver' do
-    expect{dsc_xsqlaogroupjoin[:dsc_sqlserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlinstancename' do
     expect{dsc_xsqlaogroupjoin[:dsc_sqlinstancename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -138,10 +126,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupjoin) do
 
   it 'should not accept int for dsc_sqlinstancename' do
     expect{dsc_xsqlaogroupjoin[:dsc_sqlinstancename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlinstancename' do
-    expect{dsc_xsqlaogroupjoin[:dsc_sqlinstancename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_setupcredential" do
@@ -158,10 +142,6 @@ describe Puppet::Type.type(:dsc_xsqlaogroupjoin) do
 
   it 'should not accept int for dsc_setupcredential' do
     expect{dsc_xsqlaogroupjoin[:dsc_setupcredential] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_setupcredential' do
-    expect{dsc_xsqlaogroupjoin[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

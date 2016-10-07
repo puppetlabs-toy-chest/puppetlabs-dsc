@@ -48,10 +48,6 @@ describe Puppet::Type.type(:dsc_xhostsfile) do
     expect{dsc_xhostsfile[:dsc_hostname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_hostname' do
-    expect{dsc_xhostsfile[:dsc_hostname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_ipaddress is specified' do
     #dsc_xhostsfile[:dsc_ipaddress]
     expect { Puppet::Type.type(:dsc_xhostsfile).new(
@@ -70,10 +66,6 @@ describe Puppet::Type.type(:dsc_xhostsfile) do
 
   it 'should not accept int for dsc_ipaddress' do
     expect{dsc_xhostsfile[:dsc_ipaddress] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ipaddress' do
-    expect{dsc_xhostsfile[:dsc_ipaddress] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -120,10 +112,6 @@ describe Puppet::Type.type(:dsc_xhostsfile) do
 
   it 'should not accept int for dsc_ensure' do
     expect{dsc_xhostsfile[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xhostsfile[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

@@ -68,10 +68,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xvmhyperv[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_vhdpath' do
     expect{dsc_xvmhyperv[:dsc_vhdpath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -82,10 +78,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
 
   it 'should not accept int for dsc_vhdpath' do
     expect{dsc_xvmhyperv[:dsc_vhdpath] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_vhdpath' do
-    expect{dsc_xvmhyperv[:dsc_vhdpath] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept array for dsc_switchname' do
@@ -99,10 +91,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
 
   it 'should not accept int for dsc_switchname' do
     expect{dsc_xvmhyperv[:dsc_switchname] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_switchname' do
-    expect{dsc_xvmhyperv[:dsc_switchname] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_state predefined value Running' do
@@ -151,10 +139,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_state] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_state' do
-    expect{dsc_xvmhyperv[:dsc_state] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_path' do
     expect{dsc_xvmhyperv[:dsc_path] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -167,42 +151,12 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_path] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_path' do
-    expect{dsc_xvmhyperv[:dsc_path] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_generation' do
     expect{dsc_xvmhyperv[:dsc_generation] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_generation' do
     expect{dsc_xvmhyperv[:dsc_generation] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_generation' do
-    dsc_xvmhyperv[:dsc_generation] = 32
-    expect(dsc_xvmhyperv[:dsc_generation]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_generation' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xvmhyperv[:dsc_generation] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_generation' do
-    dsc_xvmhyperv[:dsc_generation] = '16'
-    expect(dsc_xvmhyperv[:dsc_generation]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_generation' do
-    dsc_xvmhyperv[:dsc_generation] = '32'
-    expect(dsc_xvmhyperv[:dsc_generation]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_generation' do
-    dsc_xvmhyperv[:dsc_generation] = '64'
-    expect(dsc_xvmhyperv[:dsc_generation]).to eq(64)
   end
 
   it 'should not accept array for dsc_startupmemory' do
@@ -213,32 +167,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_startupmemory] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_startupmemory' do
-    dsc_xvmhyperv[:dsc_startupmemory] = 64
-    expect(dsc_xvmhyperv[:dsc_startupmemory]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_startupmemory' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xvmhyperv[:dsc_startupmemory] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_startupmemory' do
-    dsc_xvmhyperv[:dsc_startupmemory] = '16'
-    expect(dsc_xvmhyperv[:dsc_startupmemory]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_startupmemory' do
-    dsc_xvmhyperv[:dsc_startupmemory] = '32'
-    expect(dsc_xvmhyperv[:dsc_startupmemory]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_startupmemory' do
-    dsc_xvmhyperv[:dsc_startupmemory] = '64'
-    expect(dsc_xvmhyperv[:dsc_startupmemory]).to eq(64)
-  end
-
   it 'should not accept array for dsc_minimummemory' do
     expect{dsc_xvmhyperv[:dsc_minimummemory] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -247,64 +175,12 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_minimummemory] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_minimummemory' do
-    dsc_xvmhyperv[:dsc_minimummemory] = 64
-    expect(dsc_xvmhyperv[:dsc_minimummemory]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_minimummemory' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xvmhyperv[:dsc_minimummemory] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_minimummemory' do
-    dsc_xvmhyperv[:dsc_minimummemory] = '16'
-    expect(dsc_xvmhyperv[:dsc_minimummemory]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_minimummemory' do
-    dsc_xvmhyperv[:dsc_minimummemory] = '32'
-    expect(dsc_xvmhyperv[:dsc_minimummemory]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_minimummemory' do
-    dsc_xvmhyperv[:dsc_minimummemory] = '64'
-    expect(dsc_xvmhyperv[:dsc_minimummemory]).to eq(64)
-  end
-
   it 'should not accept array for dsc_maximummemory' do
     expect{dsc_xvmhyperv[:dsc_maximummemory] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_maximummemory' do
     expect{dsc_xvmhyperv[:dsc_maximummemory] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_maximummemory' do
-    dsc_xvmhyperv[:dsc_maximummemory] = 64
-    expect(dsc_xvmhyperv[:dsc_maximummemory]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_maximummemory' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xvmhyperv[:dsc_maximummemory] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_maximummemory' do
-    dsc_xvmhyperv[:dsc_maximummemory] = '16'
-    expect(dsc_xvmhyperv[:dsc_maximummemory]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_maximummemory' do
-    dsc_xvmhyperv[:dsc_maximummemory] = '32'
-    expect(dsc_xvmhyperv[:dsc_maximummemory]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_maximummemory' do
-    dsc_xvmhyperv[:dsc_maximummemory] = '64'
-    expect(dsc_xvmhyperv[:dsc_maximummemory]).to eq(64)
   end
 
   it 'should accept array for dsc_macaddress' do
@@ -320,42 +196,12 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_macaddress] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_macaddress' do
-    expect{dsc_xvmhyperv[:dsc_macaddress] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_processorcount' do
     expect{dsc_xvmhyperv[:dsc_processorcount] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_processorcount' do
     expect{dsc_xvmhyperv[:dsc_processorcount] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_processorcount' do
-    dsc_xvmhyperv[:dsc_processorcount] = 32
-    expect(dsc_xvmhyperv[:dsc_processorcount]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_processorcount' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xvmhyperv[:dsc_processorcount] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_processorcount' do
-    dsc_xvmhyperv[:dsc_processorcount] = '16'
-    expect(dsc_xvmhyperv[:dsc_processorcount]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_processorcount' do
-    dsc_xvmhyperv[:dsc_processorcount] = '32'
-    expect(dsc_xvmhyperv[:dsc_processorcount]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_processorcount' do
-    dsc_xvmhyperv[:dsc_processorcount] = '64'
-    expect(dsc_xvmhyperv[:dsc_processorcount]).to eq(64)
   end
 
   it 'should not accept array for dsc_waitforip' do
@@ -396,10 +242,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_waitforip] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_waitforip' do
-    expect{dsc_xvmhyperv[:dsc_waitforip] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_restartifneeded' do
     expect{dsc_xvmhyperv[:dsc_restartifneeded] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -436,10 +278,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
 
   it 'should not accept int for dsc_restartifneeded' do
     expect{dsc_xvmhyperv[:dsc_restartifneeded] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_restartifneeded' do
-    expect{dsc_xvmhyperv[:dsc_restartifneeded] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -488,10 +326,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xvmhyperv[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_notes' do
     expect{dsc_xvmhyperv[:dsc_notes] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -502,10 +336,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
 
   it 'should not accept int for dsc_notes' do
     expect{dsc_xvmhyperv[:dsc_notes] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_notes' do
-    expect{dsc_xvmhyperv[:dsc_notes] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_secureboot' do
@@ -546,10 +376,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_secureboot] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_secureboot' do
-    expect{dsc_xvmhyperv[:dsc_secureboot] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_enableguestservice' do
     expect{dsc_xvmhyperv[:dsc_enableguestservice] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -588,10 +414,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_enableguestservice] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_enableguestservice' do
-    expect{dsc_xvmhyperv[:dsc_enableguestservice] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_id' do
     expect{dsc_xvmhyperv[:dsc_id] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -602,10 +424,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
 
   it 'should not accept int for dsc_id' do
     expect{dsc_xvmhyperv[:dsc_id] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_id' do
-    expect{dsc_xvmhyperv[:dsc_id] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_status' do
@@ -620,10 +438,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_status] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_status' do
-    expect{dsc_xvmhyperv[:dsc_status] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_cpuusage' do
     expect{dsc_xvmhyperv[:dsc_cpuusage] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -632,64 +446,12 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_cpuusage] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_cpuusage' do
-    dsc_xvmhyperv[:dsc_cpuusage] = 32
-    expect(dsc_xvmhyperv[:dsc_cpuusage]).to eq(32)
-  end
-
-  it 'should not accept signed (negative) value for dsc_cpuusage' do
-    value = -32
-    expect(value).to be < 0
-    expect{dsc_xvmhyperv[:dsc_cpuusage] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_cpuusage' do
-    dsc_xvmhyperv[:dsc_cpuusage] = '16'
-    expect(dsc_xvmhyperv[:dsc_cpuusage]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_cpuusage' do
-    dsc_xvmhyperv[:dsc_cpuusage] = '32'
-    expect(dsc_xvmhyperv[:dsc_cpuusage]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_cpuusage' do
-    dsc_xvmhyperv[:dsc_cpuusage] = '64'
-    expect(dsc_xvmhyperv[:dsc_cpuusage]).to eq(64)
-  end
-
   it 'should not accept array for dsc_memoryassigned' do
     expect{dsc_xvmhyperv[:dsc_memoryassigned] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_memoryassigned' do
     expect{dsc_xvmhyperv[:dsc_memoryassigned] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_memoryassigned' do
-    dsc_xvmhyperv[:dsc_memoryassigned] = 64
-    expect(dsc_xvmhyperv[:dsc_memoryassigned]).to eq(64)
-  end
-
-  it 'should not accept signed (negative) value for dsc_memoryassigned' do
-    value = -64
-    expect(value).to be < 0
-    expect{dsc_xvmhyperv[:dsc_memoryassigned] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_memoryassigned' do
-    dsc_xvmhyperv[:dsc_memoryassigned] = '16'
-    expect(dsc_xvmhyperv[:dsc_memoryassigned]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_memoryassigned' do
-    dsc_xvmhyperv[:dsc_memoryassigned] = '32'
-    expect(dsc_xvmhyperv[:dsc_memoryassigned]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_memoryassigned' do
-    dsc_xvmhyperv[:dsc_memoryassigned] = '64'
-    expect(dsc_xvmhyperv[:dsc_memoryassigned]).to eq(64)
   end
 
   it 'should not accept array for dsc_uptime' do
@@ -704,10 +466,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_uptime] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_uptime' do
-    expect{dsc_xvmhyperv[:dsc_uptime] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_creationtime' do
     expect{dsc_xvmhyperv[:dsc_creationtime] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -718,10 +476,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
 
   it 'should not accept int for dsc_creationtime' do
     expect{dsc_xvmhyperv[:dsc_creationtime] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_creationtime' do
-    expect{dsc_xvmhyperv[:dsc_creationtime] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_hasdynamicmemory' do
@@ -762,10 +516,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
     expect{dsc_xvmhyperv[:dsc_hasdynamicmemory] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_hasdynamicmemory' do
-    expect{dsc_xvmhyperv[:dsc_hasdynamicmemory] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept array for dsc_networkadapters' do
     dsc_xvmhyperv[:dsc_networkadapters] = ["foo", "bar", "spec"]
     expect(dsc_xvmhyperv[:dsc_networkadapters]).to eq(["foo", "bar", "spec"])
@@ -777,10 +527,6 @@ describe Puppet::Type.type(:dsc_xvmhyperv) do
 
   it 'should not accept int for dsc_networkadapters' do
     expect{dsc_xvmhyperv[:dsc_networkadapters] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_networkadapters' do
-    expect{dsc_xvmhyperv[:dsc_networkadapters] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

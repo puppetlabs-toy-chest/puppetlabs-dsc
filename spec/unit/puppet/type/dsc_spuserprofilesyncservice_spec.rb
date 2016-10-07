@@ -47,10 +47,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncservice) do
     expect{dsc_spuserprofilesyncservice[:dsc_userprofileserviceappname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_userprofileserviceappname' do
-    expect{dsc_spuserprofilesyncservice[:dsc_userprofileserviceappname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should accept dsc_ensure predefined value Present' do
     dsc_spuserprofilesyncservice[:dsc_ensure] = 'Present'
     expect(dsc_spuserprofilesyncservice[:dsc_ensure]).to eq('Present')
@@ -97,10 +93,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncservice) do
     expect{dsc_spuserprofilesyncservice[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spuserprofilesyncservice[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_farmaccount" do
     expect{dsc_spuserprofilesyncservice[:dsc_farmaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -117,10 +109,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncservice) do
     expect{dsc_spuserprofilesyncservice[:dsc_farmaccount] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_farmaccount' do
-    expect{dsc_spuserprofilesyncservice[:dsc_farmaccount] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spuserprofilesyncservice[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -135,10 +123,6 @@ describe Puppet::Type.type(:dsc_spuserprofilesyncservice) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spuserprofilesyncservice[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spuserprofilesyncservice[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

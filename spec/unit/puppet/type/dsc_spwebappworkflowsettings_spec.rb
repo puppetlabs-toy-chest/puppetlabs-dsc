@@ -44,10 +44,6 @@ describe Puppet::Type.type(:dsc_spwebappworkflowsettings) do
     expect{dsc_spwebappworkflowsettings[:dsc_url] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_url' do
-    expect{dsc_spwebappworkflowsettings[:dsc_url] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_externalworkflowparticipantsenabled' do
     expect{dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -84,10 +80,6 @@ describe Puppet::Type.type(:dsc_spwebappworkflowsettings) do
 
   it 'should not accept int for dsc_externalworkflowparticipantsenabled' do
     expect{dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_externalworkflowparticipantsenabled' do
-    expect{dsc_spwebappworkflowsettings[:dsc_externalworkflowparticipantsenabled] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_userdefinedworkflowsenabled' do
@@ -128,10 +120,6 @@ describe Puppet::Type.type(:dsc_spwebappworkflowsettings) do
     expect{dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_userdefinedworkflowsenabled' do
-    expect{dsc_spwebappworkflowsettings[:dsc_userdefinedworkflowsenabled] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_emailtonopermissionworkflowparticipantsenable' do
     expect{dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -170,10 +158,6 @@ describe Puppet::Type.type(:dsc_spwebappworkflowsettings) do
     expect{dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_emailtonopermissionworkflowparticipantsenable' do
-    expect{dsc_spwebappworkflowsettings[:dsc_emailtonopermissionworkflowparticipantsenable] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spwebappworkflowsettings[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -188,10 +172,6 @@ describe Puppet::Type.type(:dsc_spwebappworkflowsettings) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spwebappworkflowsettings[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spwebappworkflowsettings[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

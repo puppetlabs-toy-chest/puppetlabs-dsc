@@ -73,10 +73,6 @@ describe Puppet::Type.type(:dsc_xdismfeature) do
     expect{dsc_xdismfeature[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xdismfeature[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_name is specified' do
     #dsc_xdismfeature[:dsc_name]
     expect { Puppet::Type.type(:dsc_xdismfeature).new(
@@ -96,10 +92,6 @@ describe Puppet::Type.type(:dsc_xdismfeature) do
     expect{dsc_xdismfeature[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_xdismfeature[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_source' do
     expect{dsc_xdismfeature[:dsc_source] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -110,10 +102,6 @@ describe Puppet::Type.type(:dsc_xdismfeature) do
 
   it 'should not accept int for dsc_source' do
     expect{dsc_xdismfeature[:dsc_source] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_source' do
-    expect{dsc_xdismfeature[:dsc_source] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

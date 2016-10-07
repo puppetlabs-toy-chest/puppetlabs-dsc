@@ -49,10 +49,6 @@ describe Puppet::Type.type(:dsc_spstateserviceapp) do
     expect{dsc_spstateserviceapp[:dsc_name] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_name' do
-    expect{dsc_spstateserviceapp[:dsc_name] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_databasecredentials" do
     expect{dsc_spstateserviceapp[:dsc_databasecredentials] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -69,10 +65,6 @@ describe Puppet::Type.type(:dsc_spstateserviceapp) do
     expect{dsc_spstateserviceapp[:dsc_databasecredentials] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databasecredentials' do
-    expect{dsc_spstateserviceapp[:dsc_databasecredentials] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databasename' do
     expect{dsc_spstateserviceapp[:dsc_databasename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -85,10 +77,6 @@ describe Puppet::Type.type(:dsc_spstateserviceapp) do
     expect{dsc_spstateserviceapp[:dsc_databasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databasename' do
-    expect{dsc_spstateserviceapp[:dsc_databasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_databaseserver' do
     expect{dsc_spstateserviceapp[:dsc_databaseserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -99,10 +87,6 @@ describe Puppet::Type.type(:dsc_spstateserviceapp) do
 
   it 'should not accept int for dsc_databaseserver' do
     expect{dsc_spstateserviceapp[:dsc_databaseserver] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_databaseserver' do
-    expect{dsc_spstateserviceapp[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_ensure predefined value Present' do
@@ -151,10 +135,6 @@ describe Puppet::Type.type(:dsc_spstateserviceapp) do
     expect{dsc_spstateserviceapp[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_spstateserviceapp[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spstateserviceapp[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -169,10 +149,6 @@ describe Puppet::Type.type(:dsc_spstateserviceapp) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spstateserviceapp[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spstateserviceapp[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS

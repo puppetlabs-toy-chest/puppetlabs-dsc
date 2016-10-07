@@ -110,10 +110,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_ensure] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_ensure' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_ensure] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcepath' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_sourcepath] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -126,10 +122,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_sourcepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sourcepath' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_sourcepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sourcefolder' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_sourcefolder] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -140,10 +132,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
 
   it 'should not accept int for dsc_sourcefolder' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_sourcefolder] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sourcefolder' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_sourcefolder] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it "should not accept empty password for dsc_setupcredential" do
@@ -162,10 +150,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_setupcredential] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_setupcredential' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_setupcredential] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_vmmservice" do
     expect{dsc_xscvmmmanagementserversetup[:dsc_vmmservice] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -182,10 +166,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_vmmservice] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_vmmservice' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_vmmservice] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_vmmserviceusername' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_vmmserviceusername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -196,10 +176,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
 
   it 'should not accept int for dsc_vmmserviceusername' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_vmmserviceusername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_vmmserviceusername' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_vmmserviceusername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_productkey' do
@@ -214,10 +190,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_productkey] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_productkey' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_productkey] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_username' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_username] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -228,10 +200,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
 
   it 'should not accept int for dsc_username' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_username] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_username' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_username] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_companyname' do
@@ -246,10 +214,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_companyname] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_companyname' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_companyname] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_programfiles' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_programfiles] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -260,10 +224,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
 
   it 'should not accept int for dsc_programfiles' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_programfiles] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_programfiles' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_programfiles] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_clustermanagementserver' do
@@ -304,10 +264,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_clustermanagementserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_clustermanagementserver' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_clustermanagementserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_firstmanagementserver' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_firstmanagementserver] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -346,10 +302,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_firstmanagementserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_firstmanagementserver' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_firstmanagementserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_createnewsqldatabase' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_createnewsqldatabase] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -360,10 +312,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
 
   it 'should not accept int for dsc_createnewsqldatabase' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_createnewsqldatabase] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_createnewsqldatabase' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_createnewsqldatabase] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sqlmachinename' do
@@ -378,10 +326,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_sqlmachinename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqlmachinename' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_sqlmachinename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_sqlinstancename' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_sqlinstancename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -392,10 +336,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
 
   it 'should not accept int for dsc_sqlinstancename' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_sqlinstancename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_sqlinstancename' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_sqlinstancename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_sqldatabasename' do
@@ -410,42 +350,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_sqldatabasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_sqldatabasename' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_sqldatabasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_indigotcpport' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_indigotcpport' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_indigotcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = 16
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigotcpport]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_indigotcpport' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_indigotcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = '16'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigotcpport]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_indigotcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = '32'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigotcpport]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_indigotcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigotcpport] = '64'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigotcpport]).to eq(64)
   end
 
   it 'should not accept array for dsc_indigohttpsport' do
@@ -456,64 +366,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_indigohttpsport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = 16
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_indigohttpsport' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_indigohttpsport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = '16'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_indigohttpsport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = '32'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_indigohttpsport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport] = '64'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpsport]).to eq(64)
-  end
-
   it 'should not accept array for dsc_indigonettcpport' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_indigonettcpport' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_indigonettcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = 16
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_indigonettcpport' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_indigonettcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = '16'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_indigonettcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = '32'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_indigonettcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport] = '64'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigonettcpport]).to eq(64)
   end
 
   it 'should not accept array for dsc_indigohttpport' do
@@ -524,32 +382,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_indigohttpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = 16
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpport]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_indigohttpport' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_indigohttpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = '16'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpport]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_indigohttpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = '32'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpport]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_indigohttpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_indigohttpport] = '64'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_indigohttpport]).to eq(64)
-  end
-
   it 'should not accept array for dsc_wsmantcpport' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -558,64 +390,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_wsmantcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = 16
-    expect(dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_wsmantcpport' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_wsmantcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = '16'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_wsmantcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = '32'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_wsmantcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport] = '64'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_wsmantcpport]).to eq(64)
-  end
-
   it 'should not accept array for dsc_bitstcpport' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_bitstcpport' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_bitstcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = 16
-    expect(dsc_xscvmmmanagementserversetup[:dsc_bitstcpport]).to eq(16)
-  end
-
-  it 'should not accept signed (negative) value for dsc_bitstcpport' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_bitstcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = '16'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_bitstcpport]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_bitstcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = '32'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_bitstcpport]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_bitstcpport' do
-    dsc_xscvmmmanagementserversetup[:dsc_bitstcpport] = '64'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_bitstcpport]).to eq(64)
   end
 
   it 'should not accept array for dsc_createnewlibraryshare' do
@@ -630,10 +410,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_createnewlibraryshare] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_createnewlibraryshare' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_createnewlibraryshare] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_librarysharename' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_librarysharename] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -644,10 +420,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
 
   it 'should not accept int for dsc_librarysharename' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_librarysharename] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_librarysharename' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_librarysharename] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_librarysharepath' do
@@ -662,10 +434,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_librarysharepath] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_librarysharepath' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_librarysharepath] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_librarysharedescription' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_librarysharedescription] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -676,10 +444,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
 
   it 'should not accept int for dsc_librarysharedescription' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_librarysharedescription] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_librarysharedescription' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_librarysharedescription] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_topcontainername' do
@@ -694,10 +458,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_topcontainername] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_topcontainername' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_topcontainername] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_vmmservername' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_vmmservername] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -708,10 +468,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
 
   it 'should not accept int for dsc_vmmservername' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_vmmservername] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_vmmservername' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_vmmservername] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept array for dsc_vmmstaticipaddress' do
@@ -726,42 +482,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_vmmstaticipaddress] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_vmmstaticipaddress' do
-    expect{dsc_xscvmmmanagementserversetup[:dsc_vmmstaticipaddress] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should not accept array for dsc_retainsqldatabase' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_retainsqldatabase' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_retainsqldatabase' do
-    dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = 1
-    expect(dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase]).to eq(1)
-  end
-
-  it 'should not accept signed (negative) value for dsc_retainsqldatabase' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_retainsqldatabase' do
-    dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = '16'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_retainsqldatabase' do
-    dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = '32'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_retainsqldatabase' do
-    dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase] = '64'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_retainsqldatabase]).to eq(64)
   end
 
   it 'should not accept array for dsc_forcehavmmuninstall' do
@@ -772,32 +498,6 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_forcehavmmuninstall' do
-    dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = 1
-    expect(dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall]).to eq(1)
-  end
-
-  it 'should not accept signed (negative) value for dsc_forcehavmmuninstall' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_forcehavmmuninstall' do
-    dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = '16'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_forcehavmmuninstall' do
-    dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = '32'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_forcehavmmuninstall' do
-    dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall] = '64'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_forcehavmmuninstall]).to eq(64)
-  end
-
   it 'should not accept array for dsc_sqmoptin' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
@@ -806,64 +506,12 @@ describe Puppet::Type.type(:dsc_xscvmmmanagementserversetup) do
     expect{dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = true}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should accept uint for dsc_sqmoptin' do
-    dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = 1
-    expect(dsc_xscvmmmanagementserversetup[:dsc_sqmoptin]).to eq(1)
-  end
-
-  it 'should not accept signed (negative) value for dsc_sqmoptin' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_sqmoptin' do
-    dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = '16'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_sqmoptin]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_sqmoptin' do
-    dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = '32'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_sqmoptin]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_sqmoptin' do
-    dsc_xscvmmmanagementserversetup[:dsc_sqmoptin] = '64'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_sqmoptin]).to eq(64)
-  end
-
   it 'should not accept array for dsc_muoptin' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_muoptin] = ["foo", "bar", "spec"]}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should not accept boolean for dsc_muoptin' do
     expect{dsc_xscvmmmanagementserversetup[:dsc_muoptin] = true}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept uint for dsc_muoptin' do
-    dsc_xscvmmmanagementserversetup[:dsc_muoptin] = 1
-    expect(dsc_xscvmmmanagementserversetup[:dsc_muoptin]).to eq(1)
-  end
-
-  it 'should not accept signed (negative) value for dsc_muoptin' do
-    value = -16
-    expect(value).to be < 0
-    expect{dsc_xscvmmmanagementserversetup[:dsc_muoptin] = value}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should accept string-like uint for dsc_muoptin' do
-    dsc_xscvmmmanagementserversetup[:dsc_muoptin] = '16'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_muoptin]).to eq(16)
-  end
-
-  it 'should accept string-like uint for dsc_muoptin' do
-    dsc_xscvmmmanagementserversetup[:dsc_muoptin] = '32'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_muoptin]).to eq(32)
-  end
-
-  it 'should accept string-like uint for dsc_muoptin' do
-    dsc_xscvmmmanagementserversetup[:dsc_muoptin] = '64'
-    expect(dsc_xscvmmmanagementserversetup[:dsc_muoptin]).to eq(64)
   end
 
   # Configuration PROVIDER TESTS

@@ -46,10 +46,6 @@ describe Puppet::Type.type(:dsc_spjoinfarm) do
     expect{dsc_spjoinfarm[:dsc_farmconfigdatabasename] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_farmconfigdatabasename' do
-    expect{dsc_spjoinfarm[:dsc_farmconfigdatabasename] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it 'should require that dsc_databaseserver is specified' do
     #dsc_spjoinfarm[:dsc_databaseserver]
     expect { Puppet::Type.type(:dsc_spjoinfarm).new(
@@ -70,10 +66,6 @@ describe Puppet::Type.type(:dsc_spjoinfarm) do
     expect{dsc_spjoinfarm[:dsc_databaseserver] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_databaseserver' do
-    expect{dsc_spjoinfarm[:dsc_databaseserver] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_passphrase" do
     expect{dsc_spjoinfarm[:dsc_passphrase] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -88,10 +80,6 @@ describe Puppet::Type.type(:dsc_spjoinfarm) do
 
   it 'should not accept int for dsc_passphrase' do
     expect{dsc_spjoinfarm[:dsc_passphrase] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_passphrase' do
-    expect{dsc_spjoinfarm[:dsc_passphrase] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   it 'should accept dsc_serverrole predefined value Application' do
@@ -190,10 +178,6 @@ describe Puppet::Type.type(:dsc_spjoinfarm) do
     expect{dsc_spjoinfarm[:dsc_serverrole] = -16}.to raise_error(Puppet::ResourceError)
   end
 
-  it 'should not accept uint for dsc_serverrole' do
-    expect{dsc_spjoinfarm[:dsc_serverrole] = 16}.to raise_error(Puppet::ResourceError)
-  end
-
   it "should not accept empty password for dsc_installaccount" do
     expect{dsc_spjoinfarm[:dsc_installaccount] = {"user"=>"user", "password"=>""}}.to raise_error(Puppet::ResourceError)
   end
@@ -208,10 +192,6 @@ describe Puppet::Type.type(:dsc_spjoinfarm) do
 
   it 'should not accept int for dsc_installaccount' do
     expect{dsc_spjoinfarm[:dsc_installaccount] = -16}.to raise_error(Puppet::ResourceError)
-  end
-
-  it 'should not accept uint for dsc_installaccount' do
-    expect{dsc_spjoinfarm[:dsc_installaccount] = 16}.to raise_error(Puppet::ResourceError)
   end
 
   # Configuration PROVIDER TESTS
