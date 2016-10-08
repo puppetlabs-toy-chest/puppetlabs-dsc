@@ -42,7 +42,12 @@ $invokeParams = @{
       vals = vals.collect do |v|
         "(New-CimInstance -ClassName '#{p.mof_type.gsub('[]','')}' -ClientOnly -Property #{format_dsc_value(v)})"
       end
-      value = "[CimInstance[]]@(#{vals.join(',')})"
+      # Ensure that we pass a single CimInstance or array correctly based on MOF schema definition
+      if p.value.is_a?(Hash)
+        value = "[CimInstance]#{vals.first}"
+      else
+        value = "[CimInstance[]]@(#{vals.join(',')})"
+      end
     else
       value = format_dsc_value(p.value)
     end
