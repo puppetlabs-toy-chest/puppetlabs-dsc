@@ -427,6 +427,10 @@ Error: Try 'puppet help module install' for usage
    - Microsoft SharePoint Server 2010
    - System Center 2012 Virtual Machine Manager
 
+- The `Registry` DSC Resource continually changes state, even if the system state matches the desired state, when using a HEX value. See issue [#237](https://github.com/puppetlabs/puppetlabs-dsc/issues/237) for more information.
+
+- The Puppet DSC module hangs on systems with WMF 5.1 installed. This is being addressed in [MODULES-3690](https://tickets.puppetlabs.com/browse/MODULES-3690)
+
 ### Running Puppet and DSC without Administrative Privileges
 
 While there are avenues for using Puppet with a non-administrative account, DSC is limited to only accounts with administrative privileges. The underlying CIM implementation DSC uses for DSC Resource invocation requires administrative credentials to function.
