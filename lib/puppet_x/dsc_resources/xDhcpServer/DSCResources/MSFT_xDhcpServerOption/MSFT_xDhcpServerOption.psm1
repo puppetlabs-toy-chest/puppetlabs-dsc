@@ -66,6 +66,7 @@ function Get-TargetResource
             $dnsDomain = (($dhcpOption | Where-Object Name -like 'DNS Domain Name').value)[0]
             $ensure = 'Present'
             $dnsServerIP = ($dhcpOption | Where-Object Name -like 'DNS Servers').value
+            $Router = ($dhcpOption | Where-Object OptionId -Like 3).value
         }
     }
     catch
@@ -78,6 +79,7 @@ function Get-TargetResource
         AddressFamily = 'IPv4'
         Ensure = $ensure
         DnsServerIPAddress = $dnsServerIP
+        Router = $Router
     }
 }
 
@@ -259,7 +261,7 @@ function ValidateResourceProperties
                 $checkPropertyMessage = $($LocalizedData.CheckPropertyMessage) -f 'Dns server ip'
                 Write-Verbose -Message $checkPropertyMessage
                 
-                $dnsServerIP = ($dhcpOption | Where-Object Name -like 'DNS Servers').value
+                $dnsServerIP = ($DhcpOption | Where-Object OptionId -eq 6).Value
                 # If comparison return something, they are not equal
                 if((-not $dnsServerIP) -or (Compare-Object $dnsServerIP $DnsServerIPAddress))
                 {
@@ -294,7 +296,7 @@ function ValidateResourceProperties
                 $checkPropertyMessage = $($LocalizedData.CheckPropertyMessage) -f 'Dns domain name'
                 Write-Verbose -Message $checkPropertyMessage
 
-                $dnsDomainName = ($DhcpOption | Where-Object Name -like 'DNS Domain Name').value
+                $dnsDomainName = ($DhcpOption | Where-Object OptionId -eq 15).Value
                 if($dnsDomainName -ne $DnsDomain) 
                 {
                     $notDesiredPropertyMessage = $($LocalizedData.NotDesiredPropertyMessage) -f 'DNS domain name', $DnsDomain, ($dnsDomainName -join ', ')
@@ -329,7 +331,7 @@ function ValidateResourceProperties
                 $checkPropertyMessage = $($LocalizedData.CheckPropertyMessage) -f 'Router ip addresses'
                 Write-Verbose -Message $checkPropertyMessage
 
-                $routerIP = ($DhcpOption | Where-Object OptionId -eq 3).value
+                $routerIP = ($DhcpOption | Where-Object OptionId -eq 3).Value
 
                 if((-not $routerIP) -or (Compare-Object $routerIP $Router))
                 {

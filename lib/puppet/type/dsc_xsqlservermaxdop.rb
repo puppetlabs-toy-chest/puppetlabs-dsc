@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xsqlservermaxdop) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xSQLServerMaxDop resource type.
     Automatically generated from
@@ -21,13 +20,14 @@ Puppet::Type.newtype(:dsc_xsqlservermaxdop) do
   }
 
   validate do
-      fail('dsc_dynamicalloc is a required attribute') if self[:dsc_dynamicalloc].nil?
+      fail('dsc_sqlinstancename is a required attribute') if self[:dsc_sqlinstancename].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerMaxDop' end
   def dscmeta_resource_name; 'MSFT_xSQLServerMaxDop' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '2.0.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end
@@ -76,13 +76,12 @@ Puppet::Type.newtype(:dsc_xsqlservermaxdop) do
 
   # Name:         DynamicAlloc
   # Type:         boolean
-  # IsMandatory:  True
+  # IsMandatory:  False
   # Values:       None
   newparam(:dsc_dynamicalloc) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
     desc "DynamicAlloc - Flag to Dynamically allocate Maxdop based on Best Practices"
-    isrequired
     validate do |value|
     end
     newvalues(true, false)
@@ -126,12 +125,13 @@ Puppet::Type.newtype(:dsc_xsqlservermaxdop) do
 
   # Name:         SQLInstanceName
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "SQLInstanceName - SQL Instance to configure Maxdop on"
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

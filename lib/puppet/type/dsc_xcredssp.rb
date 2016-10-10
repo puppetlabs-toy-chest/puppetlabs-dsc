@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xcredssp) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xCredSSP resource type.
     Automatically generated from
@@ -28,6 +27,7 @@ Puppet::Type.newtype(:dsc_xcredssp) do
   def dscmeta_resource_name; 'MSFT_xCredSSP' end
   def dscmeta_module_name; 'xCredSSP' end
   def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

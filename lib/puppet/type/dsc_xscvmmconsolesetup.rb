@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xscvmmconsolesetup) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xSCVMMConsoleSetup resource type.
     Automatically generated from
@@ -28,6 +27,7 @@ Puppet::Type.newtype(:dsc_xscvmmconsolesetup) do
   def dscmeta_resource_name; 'MSFT_xSCVMMConsoleSetup' end
   def dscmeta_module_name; 'xSCVMM' end
   def dscmeta_module_version; '1.2.4.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

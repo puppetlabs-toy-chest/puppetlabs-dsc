@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '0.2.0.0'
+ModuleVersion = '1.0.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'f8ddd7fc-c6d6-469e-8a80-c96efabe2fcc'
@@ -47,7 +47,18 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '* Moved Examples folder into root.
+* Removed legacy xCertificateServices folder.
+* Prevented Unit tests from Violating PSSA rules.
+* MSFT_xAdcsWebEnrollment: Created unit tests based on v1.0 Test Template.
+                           Update to meet Style Guidelines and ensure consistency.
+                           Updated to IsSingleInstance model. **Breaking change**
+* MSFT_xAdcsOnlineResponder: Update Unit tests to use v1.0 Test Template.
+                             Unit tests can be run without AD CS installed.
+                             Update to meet Style Guidelines and ensure consistency.
+* Usage of WinRm.exe replaced in Config-SetupActiveDirectory.ps1 example file with Set-WSManQuickConfig cmdlet. 
+
+'
 
     } # End of PSData hashtable
 

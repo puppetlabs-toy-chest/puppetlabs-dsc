@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xExchInstall resource type.
     Automatically generated from
@@ -28,7 +27,8 @@ Puppet::Type.newtype(:dsc_xexchinstall) do
   def dscmeta_resource_friendly_name; 'xExchInstall' end
   def dscmeta_resource_name; 'MSFT_xExchInstall' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '1.10.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

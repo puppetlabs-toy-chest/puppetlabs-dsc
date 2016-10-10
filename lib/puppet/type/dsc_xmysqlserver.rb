@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xMySqlServer resource type.
     Automatically generated from
@@ -28,6 +27,7 @@ Puppet::Type.newtype(:dsc_xmysqlserver) do
   def dscmeta_resource_name; 'MSFT_xMySqlServer' end
   def dscmeta_module_name; 'xMySql' end
   def dscmeta_module_version; '2.1.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

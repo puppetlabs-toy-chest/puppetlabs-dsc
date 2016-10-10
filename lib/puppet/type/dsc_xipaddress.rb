@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xIPAddress resource type.
     Automatically generated from
@@ -28,7 +27,8 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   def dscmeta_resource_friendly_name; 'xIPAddress' end
   def dscmeta_resource_name; 'MSFT_xIPAddress' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '2.10.0.0' end
+  def dscmeta_module_version; '2.12.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

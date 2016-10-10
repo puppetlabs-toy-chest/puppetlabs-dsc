@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_windowsoptionalfeature) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC WindowsOptionalFeature resource type.
     Automatically generated from
@@ -27,6 +26,8 @@ Puppet::Type.newtype(:dsc_windowsoptionalfeature) do
   def dscmeta_resource_friendly_name; 'WindowsOptionalFeature' end
   def dscmeta_resource_name; 'MSFT_WindowsOptionalFeature' end
   def dscmeta_module_name; 'PSDesiredStateConfiguration' end
+  def dscmeta_module_version; '1.1' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

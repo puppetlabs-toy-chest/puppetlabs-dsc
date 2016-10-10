@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xWebConfigKeyValue resource type.
     Automatically generated from
@@ -29,7 +28,8 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
   def dscmeta_resource_friendly_name; 'xWebConfigKeyValue' end
   def dscmeta_resource_name; 'MSFT_xWebConfigKeyValue' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.12.0.0' end
+  def dscmeta_module_version; '1.14.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end
@@ -92,6 +92,22 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
     end
   end
 
+  # Name:         Key
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_key) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Key - Key for AppSettings"
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
   # Name:         Ensure
   # Type:         string
   # IsMandatory:  False
@@ -107,22 +123,6 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
       end
       unless ['Present', 'present', 'Absent', 'absent'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Present, Absent")
-      end
-    end
-  end
-
-  # Name:         Key
-  # Type:         string
-  # IsMandatory:  True
-  # Values:       None
-  newparam(:dsc_key) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "Key - Key for AppSettings"
-    isrequired
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end

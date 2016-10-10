@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '2.10.0.0'
+ModuleVersion = '2.12.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'e6647cc3-ce9c-4c86-9eb8-2ee8919bf358'
@@ -49,9 +49,11 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Added the following resources:
-    * MSFT_xNetAdapterBinding resource to enable/disable network adapter bindings.
-* Updated Sample_xIPAddress_*.ps1 examples to show correct usage of setting a Static IP address to prevent issue when DHCP assigned IP address already matches staticly assigned IP address.
+        ReleaseNotes = '* Fixed bug in MSFT_xIPAddress resource when xIPAddress follows xVMSwitch.
+
+* Added the following resources:
+    * MSFT_xNetworkTeamInterface resource to add/remove network team interfaces
+* Added conditional loading of LocalizedData to MSFT_xHostsFile and MSFT_xNetworkTeam to prevent failures while loading those resources on systems with $PSUICulture other than en-US
 
 '
 
@@ -59,4 +61,6 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
+
 

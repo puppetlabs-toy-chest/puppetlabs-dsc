@@ -53,6 +53,7 @@ group :system_tests do
 end
 
 group :build do
+  gem 'docopt', '~> 0.5.0', :require => false
   gem 'cim',                :require => false
   gem 'mof',                :require => false, :git => 'https://github.com/puppetlabs/mof.git', :ref => 'f50581901c53ff6a40c54b72ef5f4fcaed9679a1'
   gem 'charlock_holmes',    :require => false

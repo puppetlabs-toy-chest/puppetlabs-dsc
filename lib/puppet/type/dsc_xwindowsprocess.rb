@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xwindowsprocess) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xWindowsProcess resource type.
     Automatically generated from
@@ -28,7 +27,8 @@ Puppet::Type.newtype(:dsc_xwindowsprocess) do
   def dscmeta_resource_friendly_name; 'xWindowsProcess' end
   def dscmeta_resource_name; 'MSFT_xProcessResource' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '3.12.0.0' end
+  def dscmeta_module_version; '4.0.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

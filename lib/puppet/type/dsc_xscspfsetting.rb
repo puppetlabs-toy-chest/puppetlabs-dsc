@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xscspfsetting) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xSCSPFSetting resource type.
     Automatically generated from
@@ -29,6 +28,7 @@ Puppet::Type.newtype(:dsc_xscspfsetting) do
   def dscmeta_resource_name; 'MSFT_xSCSPFSetting' end
   def dscmeta_module_name; 'xSCSPF' end
   def dscmeta_module_version; '1.3.1.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

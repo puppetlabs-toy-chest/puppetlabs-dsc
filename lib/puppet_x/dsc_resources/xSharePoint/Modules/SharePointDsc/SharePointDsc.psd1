@@ -12,7 +12,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.1.0.0'
+ModuleVersion = '1.3.0.0'
 
 # ID used to uniquely identify this module
 GUID = '6c1176a0-4fac-4134-8ca2-3fa8a21a7b90'
@@ -66,7 +66,7 @@ Description = 'This DSC module is used to deploy and configure SharePoint Server
 NestedModules = @("modules\SharePointDsc.Util\SharePointDsc.Util.psm1")
 
 # Functions to export from this module
-FunctionsToExport = '*'
+#FunctionsToExport = '*'
 
 # Cmdlets to export from this module
 CmdletsToExport = @("Invoke-SPDSCCommand",
@@ -78,18 +78,22 @@ CmdletsToExport = @("Invoke-SPDSCCommand",
                     "Test-SPDSCObjectHasProperty",
                     "Test-SPDSCRunAsCredential",
                     "Test-SPDSCUserIsLocalAdmin",
-                    "Test-SPDSCSpecificParameters",
+                    "Test-SPDscParameterState",
                     "Test-SPDSCIsADUser",
                     "Test-SPDSCRunningAsFarmAccount",
-                    "Set-SPDSCObjectPropertyIfValueExists",
+                    "Set-SPDscObjectPropertyIfValuePresent",
                     "Get-SPDSCUserProfileSubTypeManager",
-                    "Get-SPDscOSVersion")
+                    "Get-SPDscOSVersion",
+                    "Get-SPDSCRegistryKey",
+                    "Resolve-SPDscSecurityIdentifier",
+                    "Get-SPDscFarmProductsInfo",
+                    "Get-SPDscFarmVersionInfo")
 
 # Variables to export from this module
-VariablesToExport = '*'
+#VariablesToExport = '*'
 
 # Aliases to export from this module
-AliasesToExport = '*'
+#AliasesToExport = '*'
 
 # List of all modules packaged with this module
 # ModuleList = @()
@@ -122,18 +126,21 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = '
- * Added SPBlobCacheSettings, SPOfficeOnlineServerBinding, SPWebAppPermissions, SPServiceAppProxyGroup, SPWebAppProxyGroup and SPUserProfileServiceAppPermissions resources
- * SPUserProfileSyncService Remove Status field from Get-TargResource: not in MOF, redundant with Ensure
- * Improvement with SPInstallPrereqs on SPS2013 to accept 2008 R2 or 2012 SQL native client not only 2008 R2
- * Fixed a bug with SPTimerJobState that prevented a custom schedule being applied to a timer job
- * Fixed a bug with the detection of group principals vs. user principals in SPServiceAppSecurity and SPWebAppPolicy
- * Removed redundant value for KB2898850 from SPInstallPrereqs, also fixed old property name for DotNetFX
- * Fixed a bug with SPAlternateUrl that prevented the test method from returning "true" when a URL was absent if the optional URL property was specified in the config
- * Fixed bugs in SPAccessServiceApp and SPPerformancePointServiceApp with type names not being identified correctly
- * Added support for custom database name and server to SPPerformancePointServiceApp
- * Added solution level property to SPFarmSolution
- * Fixed a bug with SPSearchServiceApp that prevents the default crawl account from being managed after it is initially set
- * Removed dependency on Win32_Prouct from SPInstallPrereqs
+ * Fixed typo on return value in SPServiceAppProxyGroup
+ * Fixed SPJoinFarm to not write output during successful farm join
+ * Fixed issue with SPSearchTopology to keep array of strings in the hashtable returned by Get-Target  
+ * Fixed issue with SPSearchTopology that prevented topology from updating where ServerName was not returned on each component
+ * Added ProxyName parameter to all service application resources
+ * Changed SPServiceInstance to look for object type names instead of the display name to ensure consistency with language packs
+ * Fixed typos in documentation for InstallAccount parameter on most resources
+ * Fixed a bug where SPQuotaTemplate would not allow warning and limit values to be equal
+ * New resources: SPConfigWizard, SPProductUpdate and SPPublishServiceApplication
+ * Updated style of all script in module to align with PowerShell team standards
+ * Changed parameter ClaimsMappings in SPTrustedIdentityTokenIssuer to consume an array of custom object MSFT_SPClaimTypeMapping
+ * Changed SPTrustedIdentityTokenIssuer to throw an exception if certificate specified has a private key, since SharePoint doesn''t accept it
+ * Fixed issue with SPTrustedIdentityTokenIssuer to stop if cmdlet New-SPTrustedIdentityTokenIssuer returns null
+ * Fixed issue with SPTrustedIdentityTokenIssuer to correctly get parameters ClaimProviderName and ProviderSignOutUri
+ * Fixed issue with SPTrustedIdentityTokenIssuer to effectively remove the SPTrustedAuthenticationProvider from all zones before deleting the SPTrustedIdentityTokenIssuer
 '
 
     } # End of PSData hashtable

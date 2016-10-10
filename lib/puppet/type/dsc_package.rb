@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_package) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC Package resource type.
     Automatically generated from
@@ -28,6 +27,8 @@ Puppet::Type.newtype(:dsc_package) do
   def dscmeta_resource_friendly_name; 'Package' end
   def dscmeta_resource_name; 'MSFT_PackageResource' end
   def dscmeta_module_name; 'PSDesiredStateConfiguration' end
+  def dscmeta_module_version; '1.1' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

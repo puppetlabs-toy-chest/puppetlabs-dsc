@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xPackage resource type.
     Automatically generated from
@@ -28,7 +27,8 @@ Puppet::Type.newtype(:dsc_xpackage) do
   def dscmeta_resource_friendly_name; 'xPackage' end
   def dscmeta_resource_name; 'MSFT_xPackageResource' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '3.12.0.0' end
+  def dscmeta_module_version; '4.0.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end
@@ -278,22 +278,6 @@ Puppet::Type.newtype(:dsc_xpackage) do
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-  end
-
-  # Name:         RunAsCredential
-  # Type:         MSFT_Credential
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_runascredential) do
-    def mof_type; 'MSFT_Credential' end
-    def mof_is_embedded?; true end
-    desc "RunAsCredential"
-    validate do |value|
-      unless value.kind_of?(Hash)
-        fail("Invalid value '#{value}'. Should be a hash")
-      end
-      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("RunAsCredential", value)
     end
   end
 

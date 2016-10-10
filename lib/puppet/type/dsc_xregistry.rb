@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xregistry) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xRegistry resource type.
     Automatically generated from
@@ -28,7 +27,8 @@ Puppet::Type.newtype(:dsc_xregistry) do
   def dscmeta_resource_friendly_name; 'xRegistry' end
   def dscmeta_resource_name; 'MSFT_xRegistryResource' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '3.12.0.0' end
+  def dscmeta_module_version; '4.0.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end
@@ -109,17 +109,17 @@ Puppet::Type.newtype(:dsc_xregistry) do
   # Name:         ValueType
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["String", "Binary", "Dword", "Qword", "MultiString", "ExpandString"]
+  # Values:       ["String", "Binary", "DWord", "QWord", "MultiString", "ExpandString"]
   newparam(:dsc_valuetype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ValueType - Valid values are String, Binary, Dword, Qword, MultiString, ExpandString."
+    desc "ValueType - Valid values are String, Binary, DWord, QWord, MultiString, ExpandString."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['String', 'string', 'Binary', 'binary', 'Dword', 'dword', 'Qword', 'qword', 'MultiString', 'multistring', 'ExpandString', 'expandstring'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are String, Binary, Dword, Qword, MultiString, ExpandString")
+      unless ['String', 'string', 'Binary', 'binary', 'DWord', 'dword', 'QWord', 'qword', 'MultiString', 'multistring', 'ExpandString', 'expandstring'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are String, Binary, DWord, QWord, MultiString, ExpandString")
       end
     end
   end

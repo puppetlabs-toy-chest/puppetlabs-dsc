@@ -1,0 +1,23 @@
+---
+default_source_repository:
+  name: DSCResourceKit
+  url: 'https://github.com/powershell/DscResources.git'
+  branch: 'master'
+  release_tag_suffix: '-PSGallery'
+  update_versions: false
+
+# Blacklisted DSC modules
+# default: empty array
+blacklist:
+  - xDSCResourceDesigner
+  - xDscDiagnostics
+  - xChrome
+  - xFirefox
+  - xSafeHarbor
+  - xSystemSecurity
+  # Blacklisting the Hight Quality Modules for now as they are not included in the current puppetlabs-dsc bundle.
+  # Removing this entries will include them in the generated types. More infos on:
+  # https://github.com/PowerShell/DscResources/blob/8e447cd90da1f6e127c8eff805c4d30ad10e00e4/HighQualityModuleGuidelines.md
+  - OfficeOnlineServerDsc
+  - SharePointDsc
+  - SystemLocaleDsc

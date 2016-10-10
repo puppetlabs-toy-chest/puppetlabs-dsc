@@ -3,7 +3,6 @@ require 'pathname'
 Puppet::Type.newtype(:dsc_xwebapplication) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
-
     class PuppetX::Dsc::TypeHelpers
       def self.validate_MSFT_xWebApplicationAuthenticationInformation(mof_type_map, name, value)
         required = []
@@ -51,7 +50,8 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
   def dscmeta_resource_friendly_name; 'xWebApplication' end
   def dscmeta_resource_name; 'MSFT_xWebApplication' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.12.0.0' end
+  def dscmeta_module_version; '1.14.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

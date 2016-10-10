@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xdfsnamespacefolder) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xDFSNamespaceFolder resource type.
     Automatically generated from
@@ -29,6 +28,7 @@ Puppet::Type.newtype(:dsc_xdfsnamespacefolder) do
   def dscmeta_resource_name; 'MSFT_xDFSNamespaceFolder' end
   def dscmeta_module_name; 'xDFS' end
   def dscmeta_module_version; '3.1.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

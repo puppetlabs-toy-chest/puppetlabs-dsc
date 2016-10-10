@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xDSCWebService resource type.
     Automatically generated from
@@ -27,7 +26,8 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   def dscmeta_resource_friendly_name; 'xDSCWebService' end
   def dscmeta_resource_name; 'MSFT_xDSCWebService' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '3.12.0.0' end
+  def dscmeta_module_version; '4.0.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end
@@ -224,6 +224,22 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
     desc "AcceptSelfSignedCertificates"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         UseUpToDateSecuritySettings
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_useuptodatesecuritysettings) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "UseUpToDateSecuritySettings"
     validate do |value|
     end
     newvalues(true, false)

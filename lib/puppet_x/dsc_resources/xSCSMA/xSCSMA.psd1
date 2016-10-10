@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '1.3.0.0'
+ModuleVersion = '1.4.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'dada748e-cf1e-43ed-a4ff-3530c01afd53'
@@ -47,10 +47,16 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '* Converted appveyor.yml to install Pester from PSGallery instead of from Chocolatey.
+
+* Added new example to show how to use xRunbookDirectory to remove all SMA sample Runbooks
+* Added new resource xSmaCredential.
+
+'
 
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
 }
+
 

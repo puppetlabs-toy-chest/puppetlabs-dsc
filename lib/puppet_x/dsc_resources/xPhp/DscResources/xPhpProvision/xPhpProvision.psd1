@@ -46,7 +46,7 @@ Copyright = '(c) 2014 Microsoft. All rights reserved.'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-# RequiredModules = @()
+RequiredModules = @( 'xPsDesiredStateConfiguration', 'xWebAdministration' )
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()

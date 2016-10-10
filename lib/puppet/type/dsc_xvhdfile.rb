@@ -3,7 +3,6 @@ require 'pathname'
 Puppet::Type.newtype(:dsc_xvhdfile) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
-
     class PuppetX::Dsc::TypeHelpers
       def self.validate_MSFT_xFileDirectory(mof_type_map, name, value)
         required = ['destinationpath']
@@ -50,7 +49,8 @@ Puppet::Type.newtype(:dsc_xvhdfile) do
   def dscmeta_resource_friendly_name; 'xVhdFile' end
   def dscmeta_resource_name; 'MSFT_xVhdFileDirectory' end
   def dscmeta_module_name; 'xHyper-V' end
-  def dscmeta_module_version; '3.4.0.0' end
+  def dscmeta_module_version; '3.5.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

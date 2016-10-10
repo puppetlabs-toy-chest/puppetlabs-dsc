@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xservice) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xService resource type.
     Automatically generated from
@@ -27,7 +26,8 @@ Puppet::Type.newtype(:dsc_xservice) do
   def dscmeta_resource_friendly_name; 'xService' end
   def dscmeta_resource_name; 'MSFT_xServiceResource' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '3.12.0.0' end
+  def dscmeta_module_version; '4.0.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - Indicates the service name. Note that sometimes this is different from the display name. You can get a list of the services and their current state with the Get-Service cmdlet."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -71,20 +71,36 @@ Puppet::Type.newtype(:dsc_xservice) do
     end
   end
 
-  # Name:         State
+  # Name:         Ensure
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["Running", "Stopped"]
-  newparam(:dsc_state) do
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "State - Valid values are Running, Stopped."
+    desc "Ensure - Ensures that the service is present or absent. Defaults to Present. Valid values are Present, Absent."
     validate do |value|
+      resource[:ensure] = value.downcase
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['Running', 'running', 'Stopped', 'stopped'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Running, Stopped")
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      end
+    end
+  end
+
+  # Name:         Path
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_path) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Path - The path to the service executable file."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end
@@ -96,7 +112,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_startuptype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "StartupType - Valid values are Automatic, Manual, Disabled."
+    desc "StartupType - Indicates the startup type for the service. Valid values are Automatic, Manual, Disabled."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -114,7 +130,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_builtinaccount) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "BuiltInAccount - Valid values are LocalSystem, LocalService, NetworkService."
+    desc "BuiltInAccount - Indicates the sign-in account to use for the service. Valid values are LocalSystem, LocalService, NetworkService."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -132,7 +148,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
+    desc "Credential - The credential to run the service under."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -141,17 +157,36 @@ Puppet::Type.newtype(:dsc_xservice) do
     end
   end
 
-  # Name:         Status
-  # Type:         string
+  # Name:         DesktopInteract
+  # Type:         boolean
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_status) do
+  newparam(:dsc_desktopinteract) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "DesktopInteract - The service can create or communicate with a window on the desktop. Must be false for services not running as LocalSystem. Defaults to False."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         State
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Running", "Stopped"]
+  newparam(:dsc_state) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Status"
+    desc "State - Indicates the state you want to ensure for the service. Defaults to Running. Valid values are Running, Stopped."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Running', 'running', 'Stopped', 'stopped'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Running, Stopped")
       end
     end
   end
@@ -163,7 +198,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_displayname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DisplayName"
+    desc "DisplayName - The display name of the service."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -178,22 +213,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Description"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         Path
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_path) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "Path"
+    desc "Description - The description of the service."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -208,7 +228,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_dependencies, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Dependencies"
+    desc "Dependencies - An array of strings indicating the names of the dependencies of the service."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -226,7 +246,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_startuptimeout) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "StartupTimeout"
+    desc "StartupTimeout - The time to wait for the service to start in milliseconds. Defaults to 30000."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -244,7 +264,7 @@ Puppet::Type.newtype(:dsc_xservice) do
   newparam(:dsc_terminatetimeout) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "TerminateTimeout"
+    desc "TerminateTimeout - The time to wait for the service to stop in milliseconds. Defaults to 30000."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -255,21 +275,17 @@ Puppet::Type.newtype(:dsc_xservice) do
     end
   end
 
-  # Name:         Ensure
+  # Name:         Status
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["Present", "Absent"]
-  newparam(:dsc_ensure) do
+  # Values:       None
+  newparam(:dsc_status) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Status - The current status of the service."
     validate do |value|
-      resource[:ensure] = value.downcase
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
-      end
-      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Present, Absent")
       end
     end
   end

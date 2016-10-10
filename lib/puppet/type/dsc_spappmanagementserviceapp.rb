@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_spappmanagementserviceapp) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC SPAppManagementServiceApp resource type.
     Automatically generated from
@@ -27,7 +26,8 @@ Puppet::Type.newtype(:dsc_spappmanagementserviceapp) do
   def dscmeta_resource_friendly_name; 'SPAppManagementServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPAppManagementServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.3.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,6 +64,21 @@ Puppet::Type.newtype(:dsc_spappmanagementserviceapp) do
     def mof_is_embedded?; false end
     desc "Name - The name of the app management service application"
     isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ProxyName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_proxyname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ProxyName - The proxy name, if not specified will be /Name of service app/ Proxy"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -142,7 +157,7 @@ Puppet::Type.newtype(:dsc_spappmanagementserviceapp) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsCredential if using PowerShell 5"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

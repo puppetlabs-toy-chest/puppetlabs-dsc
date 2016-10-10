@@ -161,7 +161,7 @@ function Set-TargetResource
 
         [ValidateSet("Present","Absent")]
         [System.String]
-        $Ensure
+        $Ensure = 'Present'
     )
 
     $psboundparameters.Remove("Debug")
@@ -312,7 +312,7 @@ function Test-TargetResource
 
         [ValidateSet("Present","Absent")]
         [System.String]
-        $Ensure
+        $Ensure = 'Present'
     )
     $testResult = $false;
     $share = Get-TargetResource -Name $Name -Path $Path -ErrorAction SilentlyContinue -ErrorVariable ev

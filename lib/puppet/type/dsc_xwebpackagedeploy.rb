@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xwebpackagedeploy) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xWebPackageDeploy resource type.
     Automatically generated from
@@ -28,6 +27,7 @@ Puppet::Type.newtype(:dsc_xwebpackagedeploy) do
   def dscmeta_resource_name; 'xWebPackageDeploy' end
   def dscmeta_module_name; 'xWebDeploy' end
   def dscmeta_module_version; '1.2.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

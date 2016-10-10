@@ -49,9 +49,10 @@ $invokeParams = @{
     -%>
     <%= name %> = <%= value %>
 <% end -%>
-  }<% if resource.respond_to?(:dscmeta_module_version) %>
+  }<% if resource.dscmeta_module_name != 'PSDesiredStateConfiguration' %>
   ModuleName = @{
-    ModuleName      = <%= "\"#{vendored_modules_path}/#{resource.dscmeta_module_name}/#{resource.dscmeta_module_name}.psd1\"" %>
+<% module_name = resource.dscmeta_module_embedded ? "\"#{vendored_modules_path}/#{resource.dscmeta_module_name}/#{resource.dscmeta_module_name}.psd1\"" : "\"#{resource.dscmeta_module_name}\"" -%>
+    ModuleName      = <%= module_name %>
     RequiredVersion = <%= "\"#{resource.dscmeta_module_version}\"" %>
   }
 <% else %>

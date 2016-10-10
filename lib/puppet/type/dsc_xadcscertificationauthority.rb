@@ -4,11 +4,10 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xAdcsCertificationAuthority resource type.
     Automatically generated from
-    'xAdcsDeployment/xCertificateServices/DSCResources/MSFT_xAdcsCertificationAuthority/MSFT_xAdcsCertificationAuthority.schema.mof'
+    'xAdcsDeployment/DSCResources/MSFT_xAdcsCertificationAuthority/MSFT_xAdcsCertificationAuthority.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -26,8 +25,9 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
 
   def dscmeta_resource_friendly_name; 'xAdcsCertificationAuthority' end
   def dscmeta_resource_name; 'MSFT_xAdcsCertificationAuthority' end
-  def dscmeta_module_name; 'xCertificateServices' end
-  def dscmeta_module_version; '0.1.0.0' end
+  def dscmeta_module_name; 'xAdcsDeployment' end
+  def dscmeta_module_version; '1.0.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

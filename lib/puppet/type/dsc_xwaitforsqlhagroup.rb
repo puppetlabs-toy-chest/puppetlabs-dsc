@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xWaitForSqlHAGroup resource type.
     Automatically generated from
@@ -27,7 +26,8 @@ Puppet::Type.newtype(:dsc_xwaitforsqlhagroup) do
   def dscmeta_resource_friendly_name; 'xWaitForSqlHAGroup' end
   def dscmeta_resource_name; 'MSFT_xWaitForSqlHAGroup' end
   def dscmeta_module_name; 'xSqlPs' end
-  def dscmeta_module_version; '1.3.0.0' end
+  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end

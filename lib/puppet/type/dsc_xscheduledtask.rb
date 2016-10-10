@@ -4,7 +4,6 @@ Puppet::Type.newtype(:dsc_xscheduledtask) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
-
   @doc = %q{
     The DSC xScheduledTask resource type.
     Automatically generated from
@@ -27,7 +26,8 @@ Puppet::Type.newtype(:dsc_xscheduledtask) do
   def dscmeta_resource_friendly_name; 'xScheduledTask' end
   def dscmeta_resource_name; 'MSFT_xScheduledTask' end
   def dscmeta_module_name; 'xComputerManagement' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_embedded; true end
 
   newparam(:name, :namevar => true ) do
   end
