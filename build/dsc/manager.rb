@@ -100,6 +100,7 @@ module Dsc
       elsif source_location
         mod_name = source_location.split('/').last
         is_git_repo = File.exists? File.expand_path("#{source_location}/.git")
+        FileUtils.mkdir_p(@import_folder)
         FileUtils.cp_r "#{source_location}", "#{@dsc_modules_folder_tmp}" unless Dir.exist? @dsc_modules_folder_tmp
       end
 
