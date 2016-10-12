@@ -21,3 +21,23 @@ blacklist:
   - OfficeOnlineServerDsc
   - SharePointDsc
   - SystemLocaleDsc
+
+spec_whitelist:
+  - archive
+  - environment
+  - file
+  - group
+  - groupset
+  - log
+  - package
+  - processset
+  - registry
+  - script
+  - service
+  - serviceset
+  - user
+  - windowsfeature
+  - windowsfeatureset
+  - windowsoptionalfeature
+  - windowsoptionalfeatureset
+  - windowsprocess

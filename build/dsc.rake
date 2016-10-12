@@ -23,6 +23,7 @@ namespace :dsc do
 
   default_repository = config.has_key?('default_source_repository') ? config['default_source_repository'] : {}
   blacklist = config.has_key?('blacklist') ? config['blacklist'] : []
+  spec_whitelist = config.has_key?('spec_whitelist') ? config['spec_whitelist'] : []
 
   desc <<-DOCOPT
 Build Puppet types from DSC Resources
@@ -292,7 +293,7 @@ DOCOPT
 
       wait_for_resources = Dir["#{dsc_manager.module_path}/**/MSFT_WaitFor*"]
       fail "MSFT_WaitFor* resources found - aborting type building! Please remove the following MSFT_WaitFor* DSC Resources and run the build again.\n\n#{wait_for_resources}\n" if !wait_for_resources.empty?
-      dsc_manager.build_dsc_types
+      dsc_manager.build_dsc_types(spec_whitelist)
     end
 
     desc <<-DOCOPT

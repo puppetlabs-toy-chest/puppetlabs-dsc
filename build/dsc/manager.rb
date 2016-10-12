@@ -208,7 +208,6 @@ module Dsc
         '.pmtignore',
         'LICENSE',
         'README.md',
-        'Repofile',
         'spec/*.rb',
       ]
       ext_module_files.each do |module_pathes|
@@ -235,80 +234,59 @@ module Dsc
         end
       end
 
-
-      unless File.exists?("#{@target_module_location}/Puppetfile")
-        puts "Creating #{@target_module_location}/Puppetfile"
-        # Generate Puppetfile with dependency on this dsc module
-        puppetfile_content = <<-eos
-forge 'https://forgeapi.puppetlabs.com'
-mod '#{@base_module_name}', :git => '#{@base_module_repo_url}', :ref => '#{@base_module_branch}'
-eos
-        File.open("#{@target_module_location}/Puppetfile", 'w') do |file|
-          file.write puppetfile_content
-        end
-      end
-
-      # Generate metadata.json
-      unless File.exists?("#{@target_module_location}/metadata.json")
-        puts "Creating #{@target_module_location}/metadata.json"
-        root_dsc_metadata = JSON.parse(File.read('metadata.json'))
-        module_metadata = root_dsc_metadata.dup
-        module_metadata["name"] = module_name
-        module_metadata["operatingsystem_support"] = root_dsc_metadata["operatingsystem_support"]
-        module_metadata["requirements"] = root_dsc_metadata["requirements"]
-        module_metadata["dependencies"] = [
-          {
-            "name"=> root_dsc_metadata['name'].sub('-','/'),
-            "version_requirement" => root_dsc_metadata['version']
-          }
-        ]
-        File.open("#{@target_module_location}/metadata.json", 'w') do |file|
-          file.write JSON.pretty_generate(module_metadata)
-        end
+    # Generate metadata.json
+      puts "Creating #{@target_module_location}/metadata.json"
+      root_dsc_metadata = JSON.parse(File.read('metadata.json'))
+      module_metadata = root_dsc_metadata.dup
+      module_metadata["name"] = module_name
+      module_metadata["operatingsystem_support"] = root_dsc_metadata["operatingsystem_support"]
+      module_metadata["requirements"] = root_dsc_metadata["requirements"]
+      module_metadata["dependencies"] = [
+        {
+          "name"=> root_dsc_metadata['name'].sub('-','/'),
+          "version_requirement" => root_dsc_metadata['version']
+        }
+      ]
+      File.open("#{@target_module_location}/metadata.json", 'w') do |file|
+        file.write JSON.pretty_generate(module_metadata)
       end
 
       # Generate .fixtures.yml with dependencies on base dsc module
-      unless File.exists?("#{@target_module_location}/.fixtures.yml")
 
-        fixture_hash = {
-          'fixtures' => {
-            'repositories' => {
-              @base_module_name.to_s => {
-                'repo' => @base_module_repo_url,
-              }
-            },
-            'symlinks'=> {
-              module_name => '#{source_dir}'
+      fixture_hash = {
+        'fixtures' => {
+          'repositories' => {
+            @base_module_name.to_s => {
+              'repo' => @base_module_repo_url,
             }
+          },
+          'symlinks'=> {
+            module_name => '#{source_dir}'
           }
         }
+      }
 
-        if @base_module_branch
-          fixture_hash['fixtures']['repositories'][@base_module_name.to_s]['ref'] = @base_module_branch
-        end
-
-        File.open("#{@target_module_location}/.fixtures.yml", 'w') do |file|
-          file.write fixture_hash.to_yaml
-        end
+      if @base_module_branch
+        fixture_hash['fixtures']['repositories'][@base_module_name.to_s]['ref'] = @base_module_branch
       end
 
-      # Generate Gemfile without any groups
-      unless File.exists?("#{@target_module_location}/Gemfile")
-        puts "Creating #{@target_module_location}/Gemfile"
-        gemfile_content = File.read('Gemfile')
-        File.open("#{@target_module_location}/Gemfile", 'w') do |file|
-          #file.write gemfile_content.gsub(/^group.*^end$/m,'')
-          file.write gemfile_content
-        end
+      File.open("#{@target_module_location}/.fixtures.yml", 'w') do |file|
+        file.write fixture_hash.to_yaml
       end
 
-      # Generate Rakefile
-      unless File.exists?("#{@target_module_location}/Rakefile")
-        puts "Creating #{@target_module_location}/Rakefile"
-        rakefile_content = File.read('Rakefile')
-        File.open("#{@target_module_location}/Rakefile", 'w') do |file|
-          file.write rakefile_content.gsub(/\/spec\/fixtures\/modules\/dsc/, "/spec/fixtures/modules/#{module_name.split('-').last}")
-        end
+    # Generate Gemfile without any groups
+      puts "Creating #{@target_module_location}/Gemfile"
+      gemfile_content = File.read('Gemfile')
+      File.open("#{@target_module_location}/Gemfile", 'w') do |file|
+        #file.write gemfile_content.gsub(/^group.*^end$/m,'')
+        file.write gemfile_content
+      end
+
+    # Generate Rakefile
+      puts "Creating #{@target_module_location}/Rakefile"
+      rakefile_content = File.read('Rakefile')
+      File.open("#{@target_module_location}/Rakefile", 'w') do |file|
+        file.write rakefile_content.gsub(/\/spec\/fixtures\/modules\/dsc/, "/spec/fixtures/modules/#{module_name.split('-').last}")
       end
 
     end
@@ -443,9 +421,8 @@ eos
       cim_classes_with_path.select{|cc| embedded_class_names.include?(cc[:klass].name) }.collect{|cc| cc[:klass] }
     end
 
-    def build_dsc_types
+    def build_dsc_types(whitelist=[])
       type_pathes = []
-      whitelist = ['archive','environment','file','group','groupset','log','package','processset','registry','script','service','serviceset','user','windowsfeature','windowsfeatureset','windowsoptionalfeature','windowsoptionalfeatureset','windowsprocess']
       resources.each do |resource|
         type_template = File.open(@type_template_file, 'r').read
         type_erb = ERB.new(type_template, nil, '-')
@@ -461,7 +438,7 @@ eos
           end
           puppet_type_spec_path = "#{@target_module_location}/#{@puppet_type_spec_subpath}"
           FileUtils.mkdir_p(puppet_type_spec_path) unless File.exists?(puppet_type_spec_path)
-          if whitelist.include?(resource.friendlyname.downcase)
+          if whitelist.empty? || whitelist.include?(resource.friendlyname.downcase)
             File.open("#{puppet_type_spec_path}/dsc_#{resource.friendlyname.downcase}_spec.rb", 'w+') do |file|
               file.write(type_spec_erb.result(binding))
               pn = Pathname.new(file.path).expand_path.relative_path_from(@module_path)
