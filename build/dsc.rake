@@ -95,16 +95,22 @@ eod
         Dir.exists?(f)
       end
 
-      vendor_subdir = is_custom_resource ? '' : '/xDscResources' # Case sensitive
-      puts "Copying vendored resources from #{dsc_resources_path_tmp}#{vendor_subdir} to #{vendor_dsc_resources_path}"
+      puts "Copying vendored resources from #{dsc_resources_path_tmp} to #{vendor_dsc_resources_path}"
 
       # remove destination path, copy everything in from the filtered list
       puts "Adding custom types to '#{default_dsc_resources_path}'" if is_custom_resource
       FileUtils.rm_rf(vendor_dsc_resources_path) if Dir.exists?(vendor_dsc_resources_path)
-      vendor_root = "#{dsc_resources_path_tmp}#{vendor_subdir}"
+      community_dsc_resources_root = "#{dsc_resources_path_tmp}/xDscResources"
+      official_dsc_resources_root = "#{dsc_resources_path_tmp}/dscresources"
       valid_files.each do |f|
-        if f.start_with?("#{vendor_root}/")
-          dest = Pathname.new(f.sub(vendor_root, vendor_dsc_resources_path))
+        if f.start_with?("#{community_dsc_resources_root}/")
+          dest = Pathname.new(f.sub(community_dsc_resources_root, vendor_dsc_resources_path))
+
+          FileUtils.mkdir_p(dest.dirname)
+          FileUtils.cp(f, dest)
+        end
+        if f.start_with?("#{official_dsc_resources_root}/")
+          dest = Pathname.new(f.sub(official_dsc_resources_root, vendor_dsc_resources_path))
 
           FileUtils.mkdir_p(dest.dirname)
           FileUtils.cp(f, dest)
@@ -115,7 +121,8 @@ eod
           FileUtils.cp(f, dest)
         end
       end
-      # and duplicate the vendor_subdir files
+
+      # and duplicate the vendored files
       FileUtils.cp_r vendor_dsc_resources_path, dsc_resources_path
 
       if !is_custom_resource
