@@ -1,0 +1,7 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("OfficeOnlineServerInstall")]
+class MSFT_OfficeOnlineServerInstall : OMI_BaseResource
+{
+    [Key, Description("Set to 'present' to specificy that the product should be installed."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Required, Description("Path to setup.exe")] String Path;
+};
