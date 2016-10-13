@@ -3,18 +3,14 @@ require 'pathname'
 Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 <% if @is_external_module -%>
   # This section is needed for testing the module with rspec.
-  base_module_lib_path = File.expand_path(File.join(__FILE__, '..', '..', '..', '..', 'spec', 'fixtures', 'modules', '<%= @base_module_name %>', 'lib'))
+  base_module_lib_path = File.expand_path(File.join(__FILE__, '..', '..', '..', '..', '..', '<%= @base_module_name %>', 'lib'))
   if File.directory?(base_module_lib_path)
-    # add base module lib path to the Ruby library paths so that the external
-    # module can also load the needed classes from the base dsc module
     $:.push(base_module_lib_path)
+    require "puppet/type/base_dsc"
+    require "puppet_x/puppetlabs/dsc_type_helpers"
   else
-    # add lib path to the Ruby library paths so that classes can be loaded
-    $:.push(Pathname.new(__FILE__).dirname + '../../')
+    raise "Error: Shared lib folder #{base_module_lib_path} not found !"
   end
-
-  require 'puppet/type/base_dsc'
-  require 'puppet_x/puppetlabs/dsc_type_helpers'
 <% else -%>
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
