@@ -78,52 +78,8 @@ eod
       puts "Cleaning out black-listed DSC resources: #{blacklist}"
       blacklist.each { |res| FileUtils.rm_rf("#{dsc_resources_path_tmp}/xDscResources/#{res}") }
 
-      resource_tags = {}
-      resource_tags = YAML::load_file("#{dsc_resources_file}") if File.exist? dsc_resources_file
-
-      puts "Getting latest release tags for DSC resources..."
-      Dir["#{dsc_resources_path_tmp}/xDscResources/*"].each do |dsc_resource_path|
-        dsc_resource_name = Pathname.new(dsc_resource_path).basename
-        FileUtils.cd(dsc_resource_path) do
-          # --date-order probably doesn't matter
-          # Requires git version 2.2.0 or higher - https://github.com/git/git/commit/9271095cc5571e306d709ebf8eb7f0a388254d9d
-          tags_raw = %x{ git log --tags --pretty=format:'%D' --simplify-by-decoration --date-order }
-          # If the conversion of string to version starts to result in errors,
-          # we should explore pushing this out out to a method where we can
-          # clean up the tags that may have prerelease versions in them
-          # similar to what was done in the Chocolatey module
-          versions = tags_raw.scan(/(\S+)\-PSGallery/).map { | ver | Gem::Version.new(ver[0]) }
-          if versions.empty?
-            raise "#{dsc_resource_name} does not have any '*-PSGallery' tags. Appears it has not been released yet. Tags found #{tags_raw.to_s}"
-          end
-
-          latest_version = versions.max.to_s + "-PSGallery"
-          tracked_version = resource_tags["#{dsc_resource_name}"]
-
-          update_version = tracked_version.nil? ? true : update_versions
-
-          if update_version
-            puts "Using the latest/available reference of #{latest_version} for #{dsc_resource_name}."
-            checkout_version = latest_version
-          else
-            puts "Using the specified reference of #{tracked_version} for #{dsc_resource_name}."
-            checkout_version = tracked_version
-          end
-
-          # If the checkout_version does not yet exist in the current repo source
-          # then re-fetch the upstream repository
-          tag_exists = begin sh "git rev-parse #{checkout_version}" rescue false end
-          if !tag_exists
-            puts "#{checkout_version} is not a PSGallery tag. Fetching from git remote"
-            sh "git fetch"
-          end
-
-          sh "git checkout #{checkout_version}"
-          resource_tags["#{dsc_resource_name}"] = checkout_version.encode("UTF-8")
-        end
-      end
-
-      File.open("#{dsc_resources_file}", 'w+') {|f| f.write resource_tags.to_yaml }
+      Rake::Task['dsc:resources:checkout'].invoke("#{dsc_resources_path_tmp}/xDscResources", update_versions)
+      Rake::Task['dsc:resources:checkout'].invoke("#{dsc_resources_path_tmp}/dscresources", update_versions)
 
       # filter out unwanted files
       valid_files = Dir.glob("#{dsc_resources_path_tmp}/**/*").reject do |f|
@@ -164,6 +120,58 @@ eod
         puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{dsc_resources_path}"
         FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{dsc_resources_path}/"
       end
+    end
+    
+    task :checkout, [:dsc_resources_path, :update_versions] do |t, args|
+      dsc_resources_path = args[:dsc_resources_path]
+      update_versions    = args[:update_versions]
+      puts "Getting latest release tags for DSC resources in #{dsc_resources_path}..."
+      
+      resource_tags = {}
+      resource_tags = YAML::load_file("#{dsc_resources_file}") if File.exist? dsc_resources_file
+
+      Dir["#{dsc_resources_path}/*"].each do |dsc_resource_path|
+        dsc_resource_name = Pathname.new(dsc_resource_path).basename
+        FileUtils.cd(dsc_resource_path) do
+          # --date-order probably doesn't matter
+          # Requires git version 2.2.0 or higher - https://github.com/git/git/commit/9271095cc5571e306d709ebf8eb7f0a388254d9d
+          tags_raw = %x{ git log --tags --pretty=format:'%D' --simplify-by-decoration --date-order }
+          # If the conversion of string to version starts to result in errors,
+          # we should explore pushing this out out to a method where we can
+          # clean up the tags that may have prerelease versions in them
+          # similar to what was done in the Chocolatey module
+          versions = tags_raw.scan(/(\S+)\-PSGallery/).map { | ver | Gem::Version.new(ver[0]) }
+          if versions.empty?
+            raise "#{dsc_resource_name} does not have any '*-PSGallery' tags. Appears it has not been released yet. Tags found #{tags_raw.to_s}"
+          end
+
+          latest_version = versions.max.to_s + "-PSGallery"
+          tracked_version = resource_tags["#{dsc_resource_name}"]
+
+          update_version = tracked_version.nil? ? true : update_versions
+
+          if update_version
+            puts "Using the latest/available reference of #{latest_version} for #{dsc_resource_name}."
+            checkout_version = latest_version
+          else
+            puts "Using the specified reference of #{tracked_version} for #{dsc_resource_name}."
+            checkout_version = tracked_version
+          end
+
+          # If the checkout_version does not yet exist in the current repo source
+          # then re-fetch the upstream repository
+          tag_exists = begin sh "git rev-parse #{checkout_version}" rescue false end
+          if !tag_exists
+            puts "#{checkout_version} is not a PSGallery tag. Fetching from git remote"
+            sh "git fetch"
+          end
+
+          sh "git checkout #{checkout_version}"
+          resource_tags["#{dsc_resource_name}"] = checkout_version.encode("UTF-8")
+        end
+      end
+      
+      File.open("#{dsc_resources_file}", 'w+') {|f| f.write resource_tags.to_yaml }
     end
 
     desc <<-eod
