@@ -73,13 +73,13 @@ eod
         FileUtils.cp_r "#{dsc_resources_path}/.", "#{dsc_resources_path_tmp}/"
       end
 
-      blacklist = ['xChrome', 'xDSCResourceDesigner', 'xDscDiagnostics',
-                   'xFirefox', 'xSafeHarbor', 'xSystemSecurity'] # Case sensitive
-      puts "Cleaning out black-listed DSC resources: #{blacklist}"
-      blacklist.each { |res| FileUtils.rm_rf("#{dsc_resources_path_tmp}/xDscResources/#{res}") }
+      composite_resources = [ 'xChrome','xDSCResourceDesigner','xDscDiagnostics',
+        'xFirefox','xSafeHarbor','xSystemSecurity' ]
 
-      Rake::Task['dsc:resources:checkout'].invoke("#{dsc_resources_path_tmp}/xDscResources", update_versions)
-      Rake::Task['dsc:resources:checkout'].invoke("#{dsc_resources_path_tmp}/dscresources", update_versions)
+      Rake::Task['dsc:resources:checkout'].invoke(
+        "#{dsc_resources_path_tmp}/xDscResources", update_versions, composite_resources)
+      Rake::Task['dsc:resources:checkout'].invoke(
+        "#{dsc_resources_path_tmp}/dscresources", update_versions, composite_resources)
 
       # filter out unwanted files
       valid_files = Dir.glob("#{dsc_resources_path_tmp}/**/*").reject do |f|
@@ -89,6 +89,8 @@ eod
         f =~ /\.(pptx|docx|sln|cmd|xml|pssproj|pfx|html|txt|xlsm|csv|png|git|yml|md)$/i ||
         # reject test / sample / example code
         f =~ /\/.*([Ss]ample|[Ee]xample|[Tt]est).*/ ||
+        # reject stuff that is a Composite DSC Resource
+        f =~ /(xChrome|xDSCResourceDesigner|xDscDiagnostics|xFirefox|xSafeHarbor|xSystemSecurity).*/ ||
         # and don't keep track of dirs
         Dir.exists?(f)
       end
@@ -122,9 +124,10 @@ eod
       end
     end
     
-    task :checkout, [:dsc_resources_path, :update_versions] do |t, args|
+    task :checkout, [:dsc_resources_path, :update_versions, :blacklist] do |t, args|
       dsc_resources_path = args[:dsc_resources_path]
       update_versions    = args[:update_versions]
+      blacklist          = args[:blacklist]
       puts "Getting latest release tags for DSC resources in #{dsc_resources_path}..."
       
       resource_tags = {}
@@ -171,7 +174,11 @@ eod
         end
       end
       
-      File.open("#{dsc_resources_file}", 'w+') {|f| f.write resource_tags.to_yaml }
+      resource_tags = resource_tags.reject do |r|
+        blacklist.include?(r)
+      end
+
+      File.open("#{dsc_resources_file}", 'w+') { |f| f.write resource_tags.to_yaml }
     end
 
     desc <<-eod
