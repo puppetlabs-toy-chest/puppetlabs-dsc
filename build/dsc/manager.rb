@@ -128,6 +128,15 @@ module Dsc
 
           # track the paths where this CIM name has already shown up
           if dsc_resources.include?(resource.name)
+            if resource.relative_mof_path.split(/\//)[2] == dsc_resources[resource.name].relative_mof_path.split(/\//)[2]
+              # we don't care if the module or dsc resource is inside the folder containing the DSC resources
+              # if it's inside the folder, then it's only used by the dsc resource, not externally, so we
+              # don't have to parse it and shouldn't throw an error
+              # we can't blacklist this, because it's internal to a dsc resource, and not part of the main repo.
+              # for example, the xAdcsDeployment DSC Resource had xCertificateServices internalized in the 1.0.0 tag,
+              # causing duplicate MOFs to be parsed
+              next
+            end
             duplicate_imports[resource.name] ||= [dsc_resources[resource.name].relative_mof_path]
             duplicate_imports[resource.name] << resource.relative_mof_path
             next
