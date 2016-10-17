@@ -120,11 +120,25 @@ module Dsc
 
     def resources
       unless @resources
-        dsc_resources = []
+        dsc_resources = {}
+        duplicate_imports = {}
         cim_classes_with_path.select{|cc| cc[:klass].superclass == "OMI_BaseResource" }.each do |cim_class_with_path|
-          dsc_resources << Dsc::Resource.new(cim_class_with_path[:klass], cim_class_with_path[:path])
+          klass = cim_class_with_path[:klass]
+          resource = Dsc::Resource.new(klass, cim_class_with_path[:path])
+
+          # track the paths where this CIM name has already shown up
+          if dsc_resources.include?(resource.name)
+            duplicate_imports[resource.name] ||= [dsc_resources[resource.name].relative_mof_path]
+            duplicate_imports[resource.name] << resource.relative_mof_path
+            next
+          end
+          dsc_resources[resource.name] = resource
         end
-        @resources = dsc_resources
+        if !duplicate_imports.empty?
+          msg =  duplicate_imports.map { |k,v| "Duplicate definitions of #{k} found at:\n#{v.join("\n")}" }
+          raise "Catastrophic Failure - Found duplication CIM definitions:\n" + msg.join("\n\n")
+        end
+        @resources = dsc_resources.values
       end
       @resources
     end
