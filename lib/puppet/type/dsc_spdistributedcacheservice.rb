@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spdistributedcacheservice) do
   @doc = %q{
     The DSC SPDistributedCacheService resource type.
     Automatically generated from
-    'xSharePoint/Modules/SharePointDsc/DSCResources/MSFT_SPDistributedCacheService/MSFT_SPDistributedCacheService.schema.mof'
+    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPDistributedCacheService/MSFT_SPDistributedCacheService.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spdistributedcacheservice) do
   def dscmeta_resource_friendly_name; 'SPDistributedCacheService' end
   def dscmeta_resource_name; 'MSFT_SPDistributedCacheService' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -164,7 +164,7 @@ Puppet::Type.newtype(:dsc_spdistributedcacheservice) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsCredential if using PowerShell 5"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

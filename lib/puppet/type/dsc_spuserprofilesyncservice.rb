@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncservice) do
   @doc = %q{
     The DSC SPUserProfileSyncService resource type.
     Automatically generated from
-    'xSharePoint/Modules/SharePointDsc/DSCResources/MSFT_SPUserProfileSyncService/MSFT_SPUserProfileSyncService.schema.mof'
+    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPUserProfileSyncService/MSFT_SPUserProfileSyncService.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncservice) do
   def dscmeta_resource_friendly_name; 'SPUserProfileSyncService' end
   def dscmeta_resource_name; 'MSFT_SPUserProfileSyncService' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -106,6 +106,22 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncservice) do
     end
   end
 
+  # Name:         RunOnlyWhenWriteable
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_runonlywhenwriteable) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "RunOnlyWhenWriteable - Should the sync service only run when the user profile database is in a writeable state?"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
   # Name:         InstallAccount
   # Type:         MSFT_Credential
   # IsMandatory:  False
@@ -113,7 +129,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncservice) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsCredential if using PowerShell 5"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   @doc = %q{
     The DSC SPInstallPrereqs resource type.
     Automatically generated from
-    'xSharePoint/Modules/SharePointDsc/DSCResources/MSFT_SPInstallPrereqs/MSFT_SPInstallPrereqs.schema.mof'
+    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPInstallPrereqs/MSFT_SPInstallPrereqs.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   def dscmeta_resource_friendly_name; 'SPInstallPrereqs' end
   def dscmeta_resource_name; 'MSFT_SPInstallPrereqs' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

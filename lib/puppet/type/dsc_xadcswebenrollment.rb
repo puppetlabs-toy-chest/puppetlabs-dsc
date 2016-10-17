@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
   @doc = %q{
     The DSC xAdcsWebEnrollment resource type.
     Automatically generated from
-    'xAdcsDeployment/xCertificateServices/DSCResources/MSFT_xAdcsWebEnrollment/MSFT_xAdcsWebEnrollment.schema.mof'
+    'xAdcsDeployment/DSCResources/MSFT_xAdcsWebEnrollment/MSFT_xAdcsWebEnrollment.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -26,8 +26,8 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
 
   def dscmeta_resource_friendly_name; 'xAdcsWebEnrollment' end
   def dscmeta_resource_name; 'MSFT_xAdcsWebEnrollment' end
-  def dscmeta_module_name; 'xCertificateServices' end
-  def dscmeta_module_version; '0.1.0.0' end
+  def dscmeta_module_name; 'xAdcsDeployment' end
+  def dscmeta_module_version; '0.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
