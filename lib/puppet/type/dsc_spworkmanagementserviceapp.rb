@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spworkmanagementserviceapp) do
   @doc = %q{
     The DSC SPWorkManagementServiceApp resource type.
     Automatically generated from
-    'xSharePoint/Modules/SharePointDsc/DSCResources/MSFT_SPWorkManagementServiceApp/MSFT_SPWorkManagementServiceApp.schema.mof'
+    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPWorkManagementServiceApp/MSFT_SPWorkManagementServiceApp.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spworkmanagementserviceapp) do
   def dscmeta_resource_friendly_name; 'SPWorkManagementServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPWorkManagementServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,6 +64,21 @@ Puppet::Type.newtype(:dsc_spworkmanagementserviceapp) do
     def mof_is_embedded?; false end
     desc "Name - The name of the work management service application"
     isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ProxyName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_proxyname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ProxyName - The proxy name, if not specified will be /Name of service app/ Proxy"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -220,7 +235,7 @@ Puppet::Type.newtype(:dsc_spworkmanagementserviceapp) do
   newparam(:dsc_installaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsAccount if using PowerShell 5"
+    desc "InstallAccount - POWERSHELL 4 ONLY: The account to run this resource as, use PsDscRunAsCredential if using PowerShell 5"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

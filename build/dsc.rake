@@ -73,16 +73,76 @@ eod
         FileUtils.cp_r "#{dsc_resources_path}/.", "#{dsc_resources_path_tmp}/"
       end
 
-      blacklist = ['xChrome', 'xDSCResourceDesigner', 'xDscDiagnostics',
-                   'xFirefox', 'xSafeHarbor', 'xSystemSecurity'] # Case sensitive
-      puts "Cleaning out black-listed DSC resources: #{blacklist}"
-      blacklist.each { |res| FileUtils.rm_rf("#{dsc_resources_path_tmp}/xDscResources/#{res}") }
+      composite_resources = [ 'xChrome','xDSCResourceDesigner','xDscDiagnostics',
+        'xFirefox','xSafeHarbor','xSystemSecurity' ]
 
+      Rake::Task['dsc:resources:checkout'].invoke(
+        "#{dsc_resources_path_tmp}/xDscResources", update_versions, composite_resources)
+      Rake::Task['dsc:resources:checkout'].invoke(
+        "#{dsc_resources_path_tmp}/dscresources", update_versions, composite_resources)
+
+      # filter out unwanted files
+      valid_files = Dir.glob("#{dsc_resources_path_tmp}/**/*").reject do |f|
+        # reject the .git folder or special git files
+        f =~ /\/\.(git|gitattributes|gitignore|gitmodules)/ ||
+        # reject binary and other file extensions
+        f =~ /\.(pptx|docx|sln|cmd|xml|pssproj|pfx|html|txt|xlsm|csv|png|git|yml|md)$/i ||
+        # reject test / sample / example code
+        f =~ /\/.*([Ss]ample|[Ee]xample|[Tt]est).*/ ||
+        # reject stuff that is a Composite DSC Resource
+        f =~ /(xChrome|xDSCResourceDesigner|xDscDiagnostics|xFirefox|xSafeHarbor|xSystemSecurity).*/ ||
+        # reject duplicated resources
+        f =~ /(xSharePoint).*/ ||
+        # and don't keep track of dirs
+        Dir.exists?(f)
+      end
+
+      puts "Copying vendored resources from #{dsc_resources_path_tmp} to #{vendor_dsc_resources_path}"
+
+      # remove destination path, copy everything in from the filtered list
+      puts "Adding custom types to '#{default_dsc_resources_path}'" if is_custom_resource
+      FileUtils.rm_rf(vendor_dsc_resources_path) if Dir.exists?(vendor_dsc_resources_path)
+      community_dsc_resources_root = "#{dsc_resources_path_tmp}/xDscResources"
+      official_dsc_resources_root = "#{dsc_resources_path_tmp}/dscresources"
+      valid_files.each do |f|
+        if f.start_with?("#{community_dsc_resources_root}/")
+          dest = Pathname.new(f.sub(community_dsc_resources_root, vendor_dsc_resources_path))
+
+          FileUtils.mkdir_p(dest.dirname)
+          FileUtils.cp(f, dest)
+        end
+        if f.start_with?("#{official_dsc_resources_root}/")
+          dest = Pathname.new(f.sub(official_dsc_resources_root, vendor_dsc_resources_path))
+
+          FileUtils.mkdir_p(dest.dirname)
+          FileUtils.cp(f, dest)
+        end
+        if is_custom_resource
+          dest = Pathname.new(f.sub(dsc_resources_path_tmp, default_dsc_resources_path))
+          FileUtils.mkdir_p(dest.dirname)
+          FileUtils.cp(f, dest)
+        end
+      end
+
+      # and duplicate the vendored files
+      FileUtils.cp_r vendor_dsc_resources_path, dsc_resources_path
+
+      if !is_custom_resource
+        puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{dsc_resources_path}"
+        FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{dsc_resources_path}/"
+      end
+    end
+    
+    task :checkout, [:dsc_resources_path, :update_versions, :blacklist] do |t, args|
+      dsc_resources_path = args[:dsc_resources_path]
+      update_versions    = args[:update_versions]
+      blacklist          = args[:blacklist]
+      puts "Getting latest release tags for DSC resources in #{dsc_resources_path}..."
+      
       resource_tags = {}
       resource_tags = YAML::load_file("#{dsc_resources_file}") if File.exist? dsc_resources_file
 
-      puts "Getting latest release tags for DSC resources..."
-      Dir["#{dsc_resources_path_tmp}/xDscResources/*"].each do |dsc_resource_path|
+      Dir["#{dsc_resources_path}/*"].each do |dsc_resource_path|
         dsc_resource_name = Pathname.new(dsc_resource_path).basename
         FileUtils.cd(dsc_resource_path) do
           # --date-order probably doesn't matter
@@ -122,48 +182,12 @@ eod
           resource_tags["#{dsc_resource_name}"] = checkout_version.encode("UTF-8")
         end
       end
-
-      File.open("#{dsc_resources_file}", 'w+') {|f| f.write resource_tags.to_yaml }
-
-      # filter out unwanted files
-      valid_files = Dir.glob("#{dsc_resources_path_tmp}/**/*").reject do |f|
-        # reject the .git folder or special git files
-        f =~ /\/\.(git|gitattributes|gitignore|gitmodules)/ ||
-        # reject binary and other file extensions
-        f =~ /\.(pptx|docx|sln|cmd|xml|pssproj|pfx|html|txt|xlsm|csv|png|git|yml|md)$/i ||
-        # reject test / sample / example code
-        f =~ /\/.*([Ss]ample|[Ee]xample|[Tt]est).*/ ||
-        # and don't keep track of dirs
-        Dir.exists?(f)
+      
+      resource_tags = resource_tags.reject do |r|
+        blacklist.include?(r)
       end
 
-      vendor_subdir = is_custom_resource ? '' : '/xDscResources' # Case sensitive
-      puts "Copying vendored resources from #{dsc_resources_path_tmp}#{vendor_subdir} to #{vendor_dsc_resources_path}"
-
-      # remove destination path, copy everything in from the filtered list
-      puts "Adding custom types to '#{default_dsc_resources_path}'" if is_custom_resource
-      FileUtils.rm_rf(vendor_dsc_resources_path) if Dir.exists?(vendor_dsc_resources_path)
-      vendor_root = "#{dsc_resources_path_tmp}#{vendor_subdir}"
-      valid_files.each do |f|
-        if f.start_with?("#{vendor_root}/")
-          dest = Pathname.new(f.sub(vendor_root, vendor_dsc_resources_path))
-
-          FileUtils.mkdir_p(dest.dirname)
-          FileUtils.cp(f, dest)
-        end
-        if is_custom_resource
-          dest = Pathname.new(f.sub(dsc_resources_path_tmp, default_dsc_resources_path))
-          FileUtils.mkdir_p(dest.dirname)
-          FileUtils.cp(f, dest)
-        end
-      end
-      # and duplicate the vendor_subdir files
-      FileUtils.cp_r vendor_dsc_resources_path, dsc_resources_path
-
-      if !is_custom_resource
-        puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{dsc_resources_path}"
-        FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{dsc_resources_path}/"
-      end
+      File.open("#{dsc_resources_file}", 'w+') { |f| f.write resource_tags.to_yaml }
     end
 
     desc <<-eod
