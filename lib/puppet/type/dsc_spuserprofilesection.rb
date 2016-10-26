@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesection) do
   @doc = %q{
     The DSC SPUserProfileSection resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPUserProfileSection/MSFT_SPUserProfileSection.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPUserProfileSection/MSFT_SPUserProfileSection.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

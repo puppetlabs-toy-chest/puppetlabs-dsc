@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spsearchtopology) do
   @doc = %q{
     The DSC SPSearchTopology resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPSearchTopology/MSFT_SPSearchTopology.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPSearchTopology/MSFT_SPSearchTopology.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spmanagedmetadataserviceapp) do
   @doc = %q{
     The DSC SPManagedMetaDataServiceApp resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPManagedMetadataServiceApp/MSFT_SPManagedMetaDataServiceApp.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPManagedMetadataServiceApp/MSFT_SPManagedMetaDataServiceApp.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

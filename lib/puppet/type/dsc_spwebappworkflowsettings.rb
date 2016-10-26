@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spwebappworkflowsettings) do
   @doc = %q{
     The DSC SPWebAppWorkflowSettings resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPWebAppWorkflowSettings/MSFT_SPWebAppWorkflowSettings.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPWebAppWorkflowSettings/MSFT_SPWebAppWorkflowSettings.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

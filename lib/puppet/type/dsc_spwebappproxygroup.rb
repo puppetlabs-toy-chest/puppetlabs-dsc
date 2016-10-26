@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spwebappproxygroup) do
   @doc = %q{
     The DSC SPWebAppProxyGroup resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPWebAppProxyGroup/MSFT_SPWebAppProxyGroup.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPWebAppProxyGroup/MSFT_SPWebAppProxyGroup.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

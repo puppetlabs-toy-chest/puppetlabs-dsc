@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spsearchserviceapp) do
   @doc = %q{
     The DSC SPSearchServiceApp resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPSearchServiceApp/MSFT_SPSearchServiceApp.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPSearchServiceApp/MSFT_SPSearchServiceApp.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

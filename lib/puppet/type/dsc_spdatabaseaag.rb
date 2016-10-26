@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spdatabaseaag) do
   @doc = %q{
     The DSC SPDatabaseAAG resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPDatabaseAAG/MSFT_SPDatabaseAAG.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPDatabaseAAG/MSFT_SPDatabaseAAG.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

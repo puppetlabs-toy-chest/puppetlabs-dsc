@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spusageapplication) do
   @doc = %q{
     The DSC SPUsageApplication resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPUsageApplication/MSFT_SPUsageApplication.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPUsageApplication/MSFT_SPUsageApplication.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

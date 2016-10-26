@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spaccessserviceapp) do
   @doc = %q{
     The DSC SPAccessServiceApp resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPAccessServiceApp/MSFT_SPAccessServiceApp.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPAccessServiceApp/MSFT_SPAccessServiceApp.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

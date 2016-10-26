@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spwebappblockedfiletypes) do
   @doc = %q{
     The DSC SPWebAppBlockedFileTypes resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPWebAppBlockedFileTypes/MSFT_SPWebAppBlockedFileTypes.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPWebAppBlockedFileTypes/MSFT_SPWebAppBlockedFileTypes.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

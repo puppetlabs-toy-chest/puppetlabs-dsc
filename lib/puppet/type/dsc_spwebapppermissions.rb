@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spwebapppermissions) do
   @doc = %q{
     The DSC SPWebAppPermissions resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPWebAppPermissions/MSFT_SPWebAppPermissions.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPWebAppPermissions/MSFT_SPWebAppPermissions.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

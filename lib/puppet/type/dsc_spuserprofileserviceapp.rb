@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spuserprofileserviceapp) do
   @doc = %q{
     The DSC SPUserProfileServiceApp resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPUserProfileServiceApp/MSFT_SPUserProfileServiceApp.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPUserProfileServiceApp/MSFT_SPUserProfileServiceApp.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
