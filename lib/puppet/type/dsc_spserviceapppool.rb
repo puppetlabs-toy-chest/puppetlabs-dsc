@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spserviceapppool) do
   @doc = %q{
     The DSC SPServiceAppPool resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPServiceAppPool/MSFT_SPServiceAppPool.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPServiceAppPool/MSFT_SPServiceAppPool.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

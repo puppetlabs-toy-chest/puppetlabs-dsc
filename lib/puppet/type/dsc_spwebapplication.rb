@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spwebapplication) do
   @doc = %q{
     The DSC SPWebApplication resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPWebApplication/MSFT_SPWebApplication.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPWebApplication/MSFT_SPWebApplication.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

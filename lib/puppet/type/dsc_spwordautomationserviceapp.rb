@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spwordautomationserviceapp) do
   @doc = %q{
     The DSC SPWordAutomationServiceApp resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPWordAutomationServiceApp/MSFT_SPWordAutomationServiceApp.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPWordAutomationServiceApp/MSFT_SPWordAutomationServiceApp.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

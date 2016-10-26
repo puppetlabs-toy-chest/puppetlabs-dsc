@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spfarmadministrators) do
   @doc = %q{
     The DSC SPFarmAdministrators resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPFarmAdministrators/MSFT_SPFarmAdministrators.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPFarmAdministrators/MSFT_SPFarmAdministrators.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

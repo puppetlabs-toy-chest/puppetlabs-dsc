@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_officeonlineserverwebappsmachine) do
   @doc = %q{
     The DSC OfficeOnlineServerWebAppsMachine resource type.
     Automatically generated from
-    'OfficeOnlineServerDsc/Modules/OfficeOnlineServerDsc/DSCResources/MSFT_OfficeOnlineServerWebAppsMachine/MSFT_OfficeOnlineServerWebAppsMachine.schema.mof'
+    'OfficeOnlineServerDsc/DSCResources/MSFT_OfficeOnlineServerWebAppsMachine/MSFT_OfficeOnlineServerWebAppsMachine.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

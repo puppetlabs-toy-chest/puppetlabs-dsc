@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_officeonlineserverinstall) do
   @doc = %q{
     The DSC OfficeOnlineServerInstall resource type.
     Automatically generated from
-    'OfficeOnlineServerDsc/Modules/OfficeOnlineServerDsc/DSCResources/MSFT_OfficeOnlineServerInstall/MSFT_OfficeOnlineServerInstall.schema.mof'
+    'OfficeOnlineServerDsc/DSCResources/MSFT_OfficeOnlineServerInstall/MSFT_OfficeOnlineServerInstall.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

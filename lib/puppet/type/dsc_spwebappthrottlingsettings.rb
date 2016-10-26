@@ -31,7 +31,7 @@ Puppet::Type.newtype(:dsc_spwebappthrottlingsettings) do
   @doc = %q{
     The DSC SPWebAppThrottlingSettings resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPWebAppThrottlingSettings/MSFT_SPWebAppThrottlingSettings.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPWebAppThrottlingSettings/MSFT_SPWebAppThrottlingSettings.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

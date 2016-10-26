@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spdiagnosticloggingsettings) do
   @doc = %q{
     The DSC SPDiagnosticLoggingSettings resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPDiagnosticLoggingSettings/MSFT_SPDiagnosticLoggingSettings.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPDiagnosticLoggingSettings/MSFT_SPDiagnosticLoggingSettings.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

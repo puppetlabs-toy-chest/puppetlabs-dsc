@@ -106,13 +106,25 @@ eod
       official_dsc_resources_root = "#{dsc_resources_path_tmp}/dscresources"
       valid_files.each do |f|
         if f.start_with?("#{community_dsc_resources_root}/")
-          dest = Pathname.new(f.sub(community_dsc_resources_root, vendor_dsc_resources_path))
+          dscresource_name = f.split(community_dsc_resources_root)[1].split("/")[1]
+          if f.include?("/#{dscresource_name}/Modules/#{dscresource_name}")
+            d = f.sub("#{dscresource_name}/Modules/#{dscresource_name}", "#{dscresource_name}")
+            dest = Pathname.new(d.sub(community_dsc_resources_root, vendor_dsc_resources_path))
+          else
+            dest = Pathname.new(f.sub(community_dsc_resources_root, vendor_dsc_resources_path))
+          end
 
           FileUtils.mkdir_p(dest.dirname)
           FileUtils.cp(f, dest)
         end
         if f.start_with?("#{official_dsc_resources_root}/")
-          dest = Pathname.new(f.sub(official_dsc_resources_root, vendor_dsc_resources_path))
+          dscresource_name = f.split(official_dsc_resources_root)[1].split("/")[1]
+          if f.include?("/#{dscresource_name}/Modules/#{dscresource_name}")
+            d = f.sub("#{dscresource_name}/Modules/#{dscresource_name}", "#{dscresource_name}")
+            dest = Pathname.new(d.sub(official_dsc_resources_root, vendor_dsc_resources_path))
+          else
+            dest = Pathname.new(f.sub(official_dsc_resources_root, vendor_dsc_resources_path))
+          end
 
           FileUtils.mkdir_p(dest.dirname)
           FileUtils.cp(f, dest)

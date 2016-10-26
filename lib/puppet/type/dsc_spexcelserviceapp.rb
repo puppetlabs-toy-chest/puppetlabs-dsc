@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spexcelserviceapp) do
   @doc = %q{
     The DSC SPExcelServiceApp resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPExcelServiceApp/MSFT_SPExcelServiceApp.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPExcelServiceApp/MSFT_SPExcelServiceApp.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

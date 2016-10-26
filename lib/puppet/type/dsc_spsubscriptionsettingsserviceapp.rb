@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spsubscriptionsettingsserviceapp) do
   @doc = %q{
     The DSC SPSubscriptionSettingsServiceApp resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPSubscriptionSettingsServiceApp/MSFT_SPSubscriptionSettingsServiceApp.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPSubscriptionSettingsServiceApp/MSFT_SPSubscriptionSettingsServiceApp.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

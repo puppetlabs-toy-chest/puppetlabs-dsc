@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_spcontentdatabase) do
   @doc = %q{
     The DSC SPContentDatabase resource type.
     Automatically generated from
-    'SharePointDsc/Modules/SharePointDsc/DSCResources/MSFT_SPContentDatabase/MSFT_SPContentDatabase.schema.mof'
+    'SharePointDsc/DSCResources/MSFT_SPContentDatabase/MSFT_SPContentDatabase.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
