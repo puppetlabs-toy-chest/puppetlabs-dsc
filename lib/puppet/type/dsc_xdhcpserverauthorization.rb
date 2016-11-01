@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdhcpserverauthorization) do
   def dscmeta_resource_friendly_name; 'xDhcpServerAuthorization' end
   def dscmeta_resource_name; 'MSFT_xDhcpServerAuthorization' end
   def dscmeta_module_name; 'xDhcpServer' end
-  def dscmeta_module_version; '1.3.0.0' end
+  def dscmeta_module_version; '1.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
