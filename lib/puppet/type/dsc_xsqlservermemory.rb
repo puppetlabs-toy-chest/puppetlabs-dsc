@@ -22,12 +22,13 @@ Puppet::Type.newtype(:dsc_xsqlservermemory) do
 
   validate do
       fail('dsc_dynamicalloc is a required attribute') if self[:dsc_dynamicalloc].nil?
+      fail('dsc_sqlinstancename is a required attribute') if self[:dsc_sqlinstancename].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerMemory' end
   def dscmeta_resource_name; 'MSFT_xSQLServerMemory' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '2.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -144,12 +145,13 @@ Puppet::Type.newtype(:dsc_xsqlservermemory) do
 
   # Name:         SQLInstanceName
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "SQLInstanceName - SQL Instance to configure memory on"
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

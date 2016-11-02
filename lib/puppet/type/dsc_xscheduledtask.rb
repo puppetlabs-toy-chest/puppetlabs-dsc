@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xscheduledtask) do
   def dscmeta_resource_friendly_name; 'xScheduledTask' end
   def dscmeta_resource_name; 'MSFT_xScheduledTask' end
   def dscmeta_module_name; 'xComputerManagement' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

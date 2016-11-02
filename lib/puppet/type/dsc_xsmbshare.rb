@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   def dscmeta_resource_friendly_name; 'xSmbShare' end
   def dscmeta_resource_name; 'MSFT_xSmbShare' end
   def dscmeta_module_name; 'xSmbShare' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '2.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

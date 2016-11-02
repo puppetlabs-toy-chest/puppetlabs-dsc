@@ -22,13 +22,12 @@ Puppet::Type.newtype(:dsc_xhostsfile) do
 
   validate do
       fail('dsc_hostname is a required attribute') if self[:dsc_hostname].nil?
-      fail('dsc_ipaddress is a required attribute') if self[:dsc_ipaddress].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xHostsFile' end
   def dscmeta_resource_name; 'MSFT_xHostsFile' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '2.10.0.0' end
+  def dscmeta_module_version; '2.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -56,14 +55,14 @@ Puppet::Type.newtype(:dsc_xhostsfile) do
     end
   end
 
-  # Name:         hostName
+  # Name:         HostName
   # Type:         string
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_hostname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "hostName"
+    desc "HostName - The host name to check the local host file for"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,15 +71,14 @@ Puppet::Type.newtype(:dsc_xhostsfile) do
     end
   end
 
-  # Name:         ipAddress
+  # Name:         IPAddress
   # Type:         string
-  # IsMandatory:  True
+  # IsMandatory:  False
   # Values:       None
   newparam(:dsc_ipaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ipAddress"
-    isrequired
+    desc "IPAddress - The IP address that the host entry should be pointing to if the entry should exist"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -95,7 +93,7 @@ Puppet::Type.newtype(:dsc_xhostsfile) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Present if the host entry should exist, Absent if it should be removed Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

@@ -12,7 +12,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.8.0.0'
+ModuleVersion = '1.10.0.0'
 
 # ID used to uniquely identify this module
 GUID = '9a908ca3-8a67-485c-a014-66ba37fcc2a4'
@@ -101,30 +101,10 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Fixed PSSA issues in:
-    * MSFT_xExchClientAccessServer
-    * MSFT_xExchAntiMalwareScanning
-    * MSFT_xExchWaitForMailboxDatabase
-    * MSFT_xExchWebServicesVirtualDirectory
-    * MSFT_xExchExchangeCertificate
-    * MSFT_xExchWaitForDAG
-    * MSFT_xExchUMService
-    * MSFT_xExchUMCallRouterSettings
-    * MSFT_xExchReceiveConnector
-    * MSFT_xExchPowershellVirtualDirectory
-    * MSFT_xExchPopSettings
-    * MSFT_xExchOwaVirtualDirectory
-    * MSFT_xExchOutlookAnywhere
-    * MSFT_xExchOabVirtualDirectory
-    * MSFT_xExchMapiVirtualDirectory
-    * MSFT_xExchMailboxServer
-    * MSFT_xExchImapSettings
-    * MSFT_xExchExchangeServer
-    * MSFT_xExchEventLogLevel
-    * MSFT_xExchEcpVirtualDirectory
-    * MSFT_xExchDatabaseAvailabilityGroupNetwork
-    * MSFT_xExchDatabaseAvailabilityGroupMember
-    * MSFT_xExchDatabaseAvailabilityGroup
+        ReleaseNotes = '* xExchAutoMountPoint: Fix malformed dash/hyphen characters
+* Fix PSPossibleIncorrectComparisonWithNull issues from PowerShell Script Analyzer
+* Suppress PSDSCUseVerboseMessageInDSCResource Warnings from PowerShell Script Analyzer
+
 '
 
     } # End of PSData hashtable
@@ -138,6 +118,8 @@ PrivateData = @{
 # DefaultCommandPrefix = ''
 
 }
+
+
 
 
 

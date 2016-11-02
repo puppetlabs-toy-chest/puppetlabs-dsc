@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xadorganizationalunit) do
   def dscmeta_resource_friendly_name; 'xADOrganizationalUnit' end
   def dscmeta_resource_name; 'MSFT_xADOrganizationalUnit' end
   def dscmeta_module_name; 'xActiveDirectory' end
-  def dscmeta_module_version; '2.12.0.0' end
+  def dscmeta_module_version; '2.13.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

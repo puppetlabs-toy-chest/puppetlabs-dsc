@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   def dscmeta_resource_friendly_name; 'xADUser' end
   def dscmeta_resource_name; 'MSFT_xADUser' end
   def dscmeta_module_name; 'xActiveDirectory' end
-  def dscmeta_module_version; '2.12.0.0' end
+  def dscmeta_module_version; '2.13.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -63,7 +63,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_domainname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainName"
+    desc "DomainName - Name of the domain where the user account is located (only used if password is managed)"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -79,7 +79,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_username) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UserName"
+    desc "UserName - Specifies the Security Account Manager (SAM) account name of the user (ldapDisplayName 'sAMAccountName')"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -95,7 +95,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_password) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Password"
+    desc "Password - Specifies a new password value for the account"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -111,7 +111,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Specifies whether the user account is created or deleted Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -130,7 +130,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_commonname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CommonName"
+    desc "CommonName - Specifies the common nane assigned to the user account (ldapDisplayName 'cn')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -145,7 +145,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_userprincipalname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UserPrincipalName"
+    desc "UserPrincipalName - Specifies the UPN assigned to the user account (ldapDisplayName 'userPrincipalName')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -160,7 +160,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_displayname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DisplayName"
+    desc "DisplayName - Specifies the display name of the object (ldapDisplayName 'displayName')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -175,7 +175,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Path"
+    desc "Path - Specifies the X.500 path of the Organizational Unit (OU) or container where the new object is created"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -190,7 +190,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_givenname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "GivenName"
+    desc "GivenName - Specifies the user's given name (ldapDisplayName 'givenName')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -205,7 +205,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_initials) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Initials"
+    desc "Initials - Specifies the initials that represent part of a user's name (ldapDisplayName 'initials')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -220,7 +220,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_surname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Surname"
+    desc "Surname - Specifies the user's last name or surname (ldapDisplayName 'sn')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -235,7 +235,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Description"
+    desc "Description - Specifies a description of the object (ldapDisplayName 'description')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -250,7 +250,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_streetaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "StreetAddress"
+    desc "StreetAddress - Specifies the user's street address (ldapDisplayName 'streetAddress')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -265,7 +265,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_pobox) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "POBox"
+    desc "POBox - Specifies the user's post office box number (ldapDisplayName 'postOfficeBox')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -280,7 +280,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_city) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "City"
+    desc "City - Specifies the user's town or city (ldapDisplayName 'l')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -295,7 +295,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_state) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "State"
+    desc "State - Specifies the user's or Organizational Unit's state or province (ldapDisplayName 'st')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -310,7 +310,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_postalcode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "PostalCode"
+    desc "PostalCode - Specifies the user's postal code or zip code (ldapDisplayName 'postalCode')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -325,7 +325,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_country) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Country"
+    desc "Country - Specifies the country or region code for the user's language of choice (ldapDisplayName 'c')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -340,7 +340,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_department) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Department"
+    desc "Department - Specifies the user's department (ldapDisplayName 'department')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -355,7 +355,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_division) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Division"
+    desc "Division - Specifies the user's division (ldapDisplayName 'division')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -370,7 +370,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_company) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Company"
+    desc "Company - Specifies the user's company (ldapDisplayName 'company')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -385,7 +385,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_office) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Office"
+    desc "Office - Specifies the location of the user's office or place of business (ldapDisplayName 'physicalDeliveryOfficeName')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -400,7 +400,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_jobtitle) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "JobTitle"
+    desc "JobTitle - Specifies the user's title (ldapDisplayName 'title')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -415,7 +415,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_emailaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "EmailAddress"
+    desc "EmailAddress - Specifies the user's e-mail address (ldapDisplayName 'mail')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -430,7 +430,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_employeeid) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "EmployeeID"
+    desc "EmployeeID - Specifies the user's employee ID (ldapDisplayName 'employeeID')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -445,7 +445,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_employeenumber) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "EmployeeNumber"
+    desc "EmployeeNumber - Specifies the user's employee number (ldapDisplayName 'employeeNumber')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -460,7 +460,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_homedirectory) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "HomeDirectory"
+    desc "HomeDirectory - Specifies a user's home directory path (ldapDisplayName 'homeDirectory')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -475,7 +475,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_homedrive) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "HomeDrive"
+    desc "HomeDrive - Specifies a drive that is associated with the UNC path defined by the HomeDirectory property (ldapDisplayName 'homeDrive')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -490,7 +490,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_homepage) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "HomePage"
+    desc "HomePage - Specifies the URL of the home page of the object (ldapDisplayName 'wWWHomePage')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -505,7 +505,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_profilepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ProfilePath"
+    desc "ProfilePath - Specifies a path to the user's profile (ldapDisplayName 'profilePath')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -520,7 +520,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_logonscript) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "LogonScript"
+    desc "LogonScript - Specifies a path to the user's log on script (ldapDisplayName 'scriptPath')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -535,7 +535,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_notes) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Notes"
+    desc "Notes - Specifies the notes attached to the user's accoutn (ldapDisplayName 'info')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -550,7 +550,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_officephone) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "OfficePhone"
+    desc "OfficePhone - Specifies the user's office telephone number (ldapDisplayName 'telephoneNumber')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -565,7 +565,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_mobilephone) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MobilePhone"
+    desc "MobilePhone - Specifies the user's mobile phone number (ldapDisplayName 'mobile')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -580,7 +580,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_fax) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Fax"
+    desc "Fax - Specifies the user's fax phone number (ldapDisplayName 'facsimileTelephoneNumber')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -595,7 +595,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_homephone) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "HomePhone"
+    desc "HomePhone - Specifies the user's home telephone number (ldapDisplayName 'homePhone')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -610,7 +610,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_pager) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Pager"
+    desc "Pager - Specifies the user's pager number (ldapDisplayName 'pager')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -625,7 +625,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_ipphone) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IPPhone"
+    desc "IPPhone - Specifies the user's IP telephony phone number (ldapDisplayName 'ipPhone')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -640,7 +640,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_manager) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Manager"
+    desc "Manager - Specifies the user's manager specified as a Distinguished Name (ldapDisplayName 'manager')"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -655,7 +655,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_enabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Enabled"
+    desc "Enabled - Specifies if the account is enabled (default True)"
     validate do |value|
     end
     newvalues(true, false)
@@ -671,7 +671,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_cannotchangepassword) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "CannotChangePassword"
+    desc "CannotChangePassword - Specifies whether the account password can be changed"
     validate do |value|
     end
     newvalues(true, false)
@@ -687,7 +687,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_passwordneverexpires) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "PasswordNeverExpires"
+    desc "PasswordNeverExpires - Specifies whether the password of an account can expire"
     validate do |value|
     end
     newvalues(true, false)
@@ -703,7 +703,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_domaincontroller) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainController"
+    desc "DomainController - Specifies the Active Directory Domain Services instance to use to perform the task."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -718,12 +718,30 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_domainadministratorcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "DomainAdministratorCredential"
+    desc "DomainAdministratorCredential - Specifies the user account credentials to use to perform this task"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("DomainAdministratorCredential", value)
+    end
+  end
+
+  # Name:         PasswordAuthentication
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Default", "Negotiate"]
+  newparam(:dsc_passwordauthentication) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "PasswordAuthentication - Specifies the authentication context type used when testing passwords Valid values are Default, Negotiate."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Default', 'default', 'Negotiate', 'negotiate'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Default, Negotiate")
+      end
     end
   end
 
@@ -734,7 +752,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   newparam(:dsc_distinguishedname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DistinguishedName - "
+    desc "DistinguishedName - Returns the X.500 path of the object"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

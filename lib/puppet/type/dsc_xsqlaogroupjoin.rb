@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupjoin) do
   def dscmeta_resource_friendly_name; 'xSQLAOGroupJoin' end
   def dscmeta_resource_name; 'MSFT_xSQLAOGroupJoin' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '2.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

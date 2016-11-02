@@ -22,12 +22,14 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
+      fail('dsc_sqlserver is a required attribute') if self[:dsc_sqlserver].nil?
+      fail('dsc_sqlinstancename is a required attribute') if self[:dsc_sqlinstancename].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerLogin' end
   def dscmeta_resource_name; 'MSFT_xSQLServerLogin' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '2.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +64,7 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - An enumerated value that describes if the login exists on the SQL instance.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
+    desc "Ensure - If the values should be present or absent. Valid values are 'Present' or 'Absent'. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -81,7 +83,7 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - The name of the SQL login.  If LoginType='WindowsUser' or 'WindowsGroup', this is also the name of the user or group in format DOMAIN\name."
+    desc "Name - The name of the SQL login. If LoginType is 'WindowsUser' or 'WindowsGroup' then provide the name in the format DOMAIN\name."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -97,7 +99,7 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
   newparam(:dsc_logincredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "LoginCredential - If LoginType='SqlLogin', a PSCredetial object for the SQL login to be created."
+    desc "LoginCredential - If LoginType is 'SqlLogin' then a PSCredential is needed for the password to the login."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -113,7 +115,7 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
   newparam(:dsc_logintype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "LoginType - The SQL login type. Valid values are SqlLogin, WindowsUser, WindowsGroup."
+    desc "LoginType - The SQL login type. Valid values are 'SqlLogin', 'WindowsUser' or 'WindowsGroup'. Valid values are SqlLogin, WindowsUser, WindowsGroup."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -126,12 +128,13 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
 
   # Name:         SQLServer
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "SQLServer - The SQL Server for the login."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -141,12 +144,13 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
 
   # Name:         SQLInstanceName
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "SQLInstanceName - The SQL instance for the login."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -36,7 +36,7 @@ function Get-TargetResource
             throw "Can't find the cluster $Name"
         }
 
-        $address = Get-ClusterGroup -Cluster $Name | Get-ClusterResource -Name 'Cluster IP Address' | Get-ClusterParameter 'Address'
+        $address = Get-ClusterGroup -Cluster $Name -Name "Cluster IP Address" | Get-ClusterParameter "Address"
     }
     finally
     {
@@ -106,6 +106,8 @@ function Set-TargetResource
 
             New-Cluster -Name $Name -Node $env:COMPUTERNAME -StaticAddress $StaticIPAddress -NoStorage -Force
 
+            While (!(Get-Cluster)){Start-Sleep 5}
+
             Write-Verbose -Message "Created Cluster $Name"
         }
         else
@@ -119,7 +121,7 @@ function Set-TargetResource
             {
                 if ($node.Name -eq $env:COMPUTERNAME)
                 {
-                    if ($node.State -eq 'Down')
+                    if ($node.State -eq "Down")
                     {
                         Write-Verbose -Message "node $env:COMPUTERNAME was down, need remove it from the list."
 
@@ -203,7 +205,7 @@ function Test-TargetResource
                                                                         {
                     if ($node.Name -eq $env:COMPUTERNAME)
                     {
-                        if ($node.State -eq 'Up')
+                        if ($node.State -eq "Up")
                         {
                             $bRet = $true
                         }

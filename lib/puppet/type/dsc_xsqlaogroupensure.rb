@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
   def dscmeta_resource_friendly_name; 'xSQLAOGroupEnsure' end
   def dscmeta_resource_name; 'MSFT_xSQLAOGroupEnsure' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '2.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -63,7 +63,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Determines whether the availability group should be added or removed. Valid values are Present, Absent."
     isrequired
     validate do |value|
       resource[:ensure] = value.downcase
@@ -83,7 +83,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
   newparam(:dsc_availabilitygroupname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AvailabilityGroupName"
+    desc "AvailabilityGroupName - Name for availability group."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -99,7 +99,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
   newparam(:dsc_availabilitygroupnamelistener) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AvailabilityGroupNameListener"
+    desc "AvailabilityGroupNameListener - Listener name for availability group."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -114,7 +114,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
   newparam(:dsc_availabilitygroupnameip, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "AvailabilityGroupNameIP"
+    desc "AvailabilityGroupNameIP - List of IP addresses associated with listener."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -132,7 +132,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
   newparam(:dsc_availabilitygroupsubmask, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "AvailabilityGroupSubMask"
+    desc "AvailabilityGroupSubMask - Network subnetmask for listener."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -150,7 +150,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
   newparam(:dsc_availabilitygroupport) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "AvailabilityGroupPort"
+    desc "AvailabilityGroupPort - Port availability group should listen on."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -168,7 +168,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
   newparam(:dsc_readablesecondary) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ReadableSecondary - Valid values are None, ReadOnly, ReadIntent."
+    desc "ReadableSecondary - Mode secondaries should operate under (None, ReadOnly, ReadIntent). Valid values are None, ReadOnly, ReadIntent."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -179,14 +179,14 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
     end
   end
 
-  # Name:         AutoBackupPrefernce
+  # Name:         AutoBackupPreference
   # Type:         string
   # IsMandatory:  False
   # Values:       ["Primary", "Secondary"]
-  newparam(:dsc_autobackupprefernce) do
+  newparam(:dsc_autobackuppreference) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AutoBackupPrefernce - Valid values are Primary, Secondary."
+    desc "AutoBackupPreference - Where backups should be backed up from (Primary, Secondary). Valid values are Primary, Secondary."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -197,6 +197,42 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
     end
   end
 
+  # Name:         BackupPriority
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_backuppriority) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "BackupPriority - The percentage weight for backup prority (default 50)."
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         EndPointPort
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_endpointport) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "EndPointPort - he TCP port for the SQL AG Endpoint (default 5022)."
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
   # Name:         SQLServer
   # Type:         string
   # IsMandatory:  False
@@ -204,7 +240,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLServer"
+    desc "SQLServer - The SQL Server for the database."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -219,7 +255,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLInstanceName"
+    desc "SQLInstanceName - The SQL instance for the database."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -234,7 +270,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupensure) do
   newparam(:dsc_setupcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "SetupCredential - Credential to be used to Grant Permissions in SQL."
+    desc "SetupCredential - Credential to be used to Grant Permissions on SQL Server, set this to $null to use Windows Authentication."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

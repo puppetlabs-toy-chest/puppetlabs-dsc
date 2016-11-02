@@ -1,0 +1,9 @@
+[ClassVersion("1.0.0.0"), FriendlyName("xClusterQuorum")]
+class MSFT_xClusterQuorum : OMI_BaseResource
+{
+    [Key, ValueMap{"Yes"}, Values{"Yes"}] string IsSingleInstance;
+
+    [Write, ValueMap{"NodeMajority", "NodeAndDiskMajority", "NodeAndFileShareMajority", "DiskOnly"}, Values{"NodeMajority", "NodeAndDiskMajority", "NodeAndFileShareMajority", "DiskOnly"}] string Type;
+
+    [Write] String Resource;
+};

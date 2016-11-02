@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   def dscmeta_resource_friendly_name; 'xVMHyperV' end
   def dscmeta_resource_name; 'MSFT_xVMHyperV' end
   def dscmeta_module_name; 'xHyper-V' end
-  def dscmeta_module_version; '3.4.0.0' end
+  def dscmeta_module_version; '3.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
