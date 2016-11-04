@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointstate) do
   @doc = %q{
     The DSC xSQLServerEndpointState resource type.
     Automatically generated from
-    'xSQLServer/DSCResources/xSQLServerEndpointState/xSQLServerEndpointState.schema.mof'
+    'xSQLServer/DSCResources/MSFT_xSQLServerEndpointState/MSFT_xSQLServerEndpointState.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -25,9 +25,9 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointstate) do
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerEndpointState' end
-  def dscmeta_resource_name; 'xSQLServerEndpointState' end
+  def dscmeta_resource_name; 'MSFT_xSQLServerEndpointState' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '2.0.0.0' end
+  def dscmeta_module_version; '3.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

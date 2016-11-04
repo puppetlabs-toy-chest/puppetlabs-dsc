@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   def dscmeta_resource_friendly_name; 'xIPAddress' end
   def dscmeta_resource_name; 'MSFT_xIPAddress' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '2.12.0.0' end
+  def dscmeta_module_version; '3.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -87,14 +87,14 @@ Puppet::Type.newtype(:dsc_xipaddress) do
     end
   end
 
-  # Name:         SubnetMask
+  # Name:         PrefixLength
   # Type:         uint32
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_subnetmask) do
+  newparam(:dsc_prefixlength) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "SubnetMask"
+    desc "PrefixLength"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

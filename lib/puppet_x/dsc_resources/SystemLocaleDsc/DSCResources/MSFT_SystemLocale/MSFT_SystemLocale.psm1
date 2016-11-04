@@ -49,7 +49,7 @@ function Get-TargetResource
 
     # Generate the return object.
     $returnValue = @{
-        IsSingleInstance = 'Yes'
+        IsSingleInstance = $IsSingleInstance
         SystemLocale     = $currentSystemLocale.Name
     }
 

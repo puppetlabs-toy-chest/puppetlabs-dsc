@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xcertificateimport) do
   def dscmeta_resource_friendly_name; 'xCertificateImport' end
   def dscmeta_resource_name; 'MSFT_xCertificateImport' end
   def dscmeta_module_name; 'xCertificate' end
-  def dscmeta_module_version; '2.1.0.0' end
+  def dscmeta_module_version; '2.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xcertificateimport) do
   newparam(:dsc_thumbprint) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Thumbprint"
+    desc "Thumbprint - The thumbprint (unique identifier) of the certificate you're importing."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xcertificateimport) do
   newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Path"
+    desc "Path - The path to the CER file you want to import."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -95,7 +95,7 @@ Puppet::Type.newtype(:dsc_xcertificateimport) do
   newparam(:dsc_location) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Location - Valid values are LocalMachine, CurrentUser."
+    desc "Location - The Windows Certificate Store Location to import the certificate to. Valid values are LocalMachine, CurrentUser."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -114,7 +114,7 @@ Puppet::Type.newtype(:dsc_xcertificateimport) do
   newparam(:dsc_store) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Store"
+    desc "Store - The Windows Certificate Store Name to import the certificate to."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -130,7 +130,7 @@ Puppet::Type.newtype(:dsc_xcertificateimport) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Specifies whether the certificate should be present or absent. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

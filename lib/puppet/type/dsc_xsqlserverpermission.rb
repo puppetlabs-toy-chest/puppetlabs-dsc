@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xsqlserverpermission) do
   @doc = %q{
     The DSC xSQLServerPermission resource type.
     Automatically generated from
-    'xSQLServer/DSCResources/xSQLServerPermission/xSQLServerPermission.schema.mof'
+    'xSQLServer/DSCResources/MSFT_xSQLServerPermission/MSFT_xSQLServerPermission.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -25,9 +25,9 @@ Puppet::Type.newtype(:dsc_xsqlserverpermission) do
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerPermission' end
-  def dscmeta_resource_name; 'xSQLServerPermission' end
+  def dscmeta_resource_name; 'MSFT_xSQLServerPermission' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '2.0.0.0' end
+  def dscmeta_module_version; '3.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   def dscmeta_resource_friendly_name; 'xExchActiveSyncVirtualDirectory' end
   def dscmeta_resource_name; 'MSFT_xExchActiveSyncVirtualdirectory' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.10.0.0' end
+  def dscmeta_module_version; '1.11.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -170,17 +170,17 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   # Name:         ClientCertAuth
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["Ignore", "Allowed", "Required"]
+  # Values:       ["Ignore", "Accepted", "Required"]
   newparam(:dsc_clientcertauth) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ClientCertAuth - Valid values are Ignore, Allowed, Required."
+    desc "ClientCertAuth - Valid values are Ignore, Accepted, Required."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['Ignore', 'ignore', 'Allowed', 'allowed', 'Required', 'required'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Ignore, Allowed, Required")
+      unless ['Ignore', 'ignore', 'Accepted', 'accepted', 'Required', 'required'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Ignore, Accepted, Required")
       end
     end
   end

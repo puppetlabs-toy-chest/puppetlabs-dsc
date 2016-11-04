@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xsqlserverreplication) do
   @doc = %q{
     The DSC xSQLServerReplication resource type.
     Automatically generated from
-    'xSQLServer/DSCResources/xSQLServerReplication/xSQLServerReplication.schema.mof'
+    'xSQLServer/DSCResources/MSFT_xSQLServerReplication/MSFT_xSQLServerReplication.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -25,9 +25,9 @@ Puppet::Type.newtype(:dsc_xsqlserverreplication) do
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerReplication' end
-  def dscmeta_resource_name; 'xSQLServerReplication' end
+  def dscmeta_resource_name; 'MSFT_xSQLServerReplication' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '2.0.0.0' end
+  def dscmeta_module_version; '3.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

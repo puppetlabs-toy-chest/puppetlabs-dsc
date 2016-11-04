@@ -28,6 +28,7 @@ dsc_spantivirussettings | [SPAntivirusSettings](https://github.com/puppetlabs/pu
 dsc_spappcatalog | [SPAppCatalog](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPAppCatalog) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPAppCatalog/MSFT_SPAppCatalog.schema.mof
 dsc_spappdomain | [SPAppDomain](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPAppDomain) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPAppDomain/MSFT_SPAppDomain.schema.mof
 dsc_spappmanagementserviceapp | [SPAppManagementServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPAppManagementServiceApp) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPAppManagementServiceApp/MSFT_SPAppManagementServiceApp.schema.mof
+dsc_spappstoresettings | [SPAppStoreSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPAppStoreSettings) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPAppStoreSettings/MSFT_SPAppStoreSettings.schema.mof
 dsc_spbcsserviceapp | [SPBCSServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPBCSServiceApp) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPBCSServiceApp/MSFT_SPBCSServiceApp.schema.mof
 dsc_spblobcachesettings | [SPBlobCacheSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPBlobCacheSettings) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPBlobCacheSettings/MSFT_SPBlobCacheSettings.schema.mof
 dsc_spcacheaccounts | [SPCacheAccounts](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPCacheAccounts) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPCacheAccounts/MSFT_SPCacheAccounts.schema.mof
@@ -358,6 +359,7 @@ dsc_xservice | [xService](https://github.com/puppetlabs/puppetlabs-dsc/tree/mast
 dsc_xuser | [xUser](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xUserResource) | [repo](https://github.com/PowerShell/xPSDesiredStateConfiguration)
 dsc_xwindowsfeature | [xWindowsFeature](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xWindowsFeature) | [repo](https://github.com/PowerShell/xPSDesiredStateConfiguration)
 dsc_xwindowsoptionalfeature | [xWindowsOptionalFeature](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xWindowsOptionalFeature) | [repo](https://github.com/PowerShell/xPSDesiredStateConfiguration)
+dsc_xwindowspackagecab | [xWindowsPackageCab](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xPSDesiredStateConfiguration/DSCResources/MSFT_xWindowsPackageCab) | [repo](https://github.com/PowerShell/xPSDesiredStateConfiguration)
 
 ##### xPendingReboot
 
@@ -459,30 +461,30 @@ dsc_xsqlaogroupjoin | [xSQLAOGroupJoin](https://github.com/puppetlabs/puppetlabs
 dsc_xsqlalias | [xSQLAlias](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLAlias) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqldatabaserecoverymodel | [xSQLDatabaseRecoveryModel](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLDatabaseRecoveryModel) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserveralwaysonservice | [xSQLServerAlwaysOnService](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerAlwaysOnService) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlserveravailabilitygrouplistener | [xSQLServerAvailabilityGroupListener](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerAvailabilityGroupListener) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlserverconfiguration | [xSQLServerConfiguration](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerConfiguration) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverdatabase | [xSQLServerDatabase](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerDatabase) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverdatabaseowner | [xSQLServerDatabaseOwner](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerDatabaseOwner) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverdatabasepermissions | [xSQLServerDatabasePermissions](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerDatabasePermissions) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverdatabaserole | [xSQLServerDatabaseRole](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerDatabaseRole) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverendpoint | [xSQLServerEndpoint](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerEndpoint) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlserverendpointpermission | [xSQLServerEndpointPermission](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerEndpointPermission) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlserverendpointstate | [xSQLServerEndpointState](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerEndpointState) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverfailoverclustersetup | [xSQLServerFailoverClusterSetup](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerFailoverClusterSetup) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverfirewall | [xSQLServerFirewall](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerFirewall) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverlogin | [xSQLServerLogin](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerLogin) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlservermaxdop | [xSQLServerMaxDop](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerMaxDop) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlservermemory | [xSQLServerMemory](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerMemory) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlservernetwork | [xSQLServerNetwork](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerNetwork) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlserverpermission | [xSQLServerPermission](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerPermission) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverpowerplan | [xSQLServerPowerPlan](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerPowerPlan) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverrsconfig | [xSQLServerRSConfig](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerRSConfig) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverrssecureconnectionlevel | [xSQLServerRSSecureConnectionLevel](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerRSSecureConnectionLevel) | [repo](https://github.com/PowerShell/xSQLServer)
+dsc_xsqlserverreplication | [xSQLServerReplication](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerReplication) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverrole | [xSQLServerRole](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerRole) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverscript | [xSQLServerScript](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerScript) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserversetup | [xSQLServerSetup](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerSetup) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xwaitforavailabilitygroup | [xWaitForAvailabilityGroup](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xWaitForAvailabilityGroup) | [repo](https://github.com/PowerShell/xSQLServer)
-dsc_xsqlserveravailabilitygrouplistener | [xSQLServerAvailabilityGroupListener](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/xSQLServerAvailabilityGroupListener) | [repo](https://github.com/PowerShell/xSQLServer)
-dsc_xsqlserverconfiguration | [xSQLServerConfiguration](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/xSQLServerConfiguration) | [repo](https://github.com/PowerShell/xSQLServer)
-dsc_xsqlserverendpointpermission | [xSQLServerEndpointPermission](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/xSQLServerEndpointPermission) | [repo](https://github.com/PowerShell/xSQLServer)
-dsc_xsqlserverendpointstate | [xSQLServerEndpointState](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/xSQLServerEndpointState) | [repo](https://github.com/PowerShell/xSQLServer)
-dsc_xsqlservernetwork | [xSQLServerNetwork](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/xSQLServerNetwork) | [repo](https://github.com/PowerShell/xSQLServer)
-dsc_xsqlserverpermission | [xSQLServerPermission](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/xSQLServerPermission) | [repo](https://github.com/PowerShell/xSQLServer)
-dsc_xsqlserverreplication | [xSQLServerReplication](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/xSQLServerReplication) | [repo](https://github.com/PowerShell/xSQLServer)
 
 ##### xSmbShare
 
@@ -506,8 +508,10 @@ dsc_xwaitforsqlhagroup | [xWaitForSqlHAGroup](https://github.com/puppetlabs/pupp
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xdisk | [xDisk](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xStorage/DSCResources/MSFT_xDisk) | [repo](https://github.com/PowerShell/xStorage)
+dsc_xdiskaccesspath | [xDiskAccessPath](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xStorage/DSCResources/MSFT_xDiskAccessPath) | [repo](https://github.com/PowerShell/xStorage)
 dsc_xmountimage | [xMountImage](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xStorage/DSCResources/MSFT_xMountImage) | [repo](https://github.com/PowerShell/xStorage)
 dsc_xwaitfordisk | [xWaitForDisk](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xStorage/DSCResources/MSFT_xWaitForDisk) | [repo](https://github.com/PowerShell/xStorage)
+dsc_xwaitforvolume | [xWaitForVolume](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xStorage/DSCResources/MSFT_xWaitForVolume) | [repo](https://github.com/PowerShell/xStorage)
 
 ##### xTimeZone
 

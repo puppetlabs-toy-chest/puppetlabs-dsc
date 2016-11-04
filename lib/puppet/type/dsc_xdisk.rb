@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdisk) do
   def dscmeta_resource_friendly_name; 'xDisk' end
   def dscmeta_resource_name; 'MSFT_xDisk' end
   def dscmeta_module_name; 'xStorage' end
-  def dscmeta_module_version; '2.7.0.0' end
+  def dscmeta_module_version; '2.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xdisk) do
   newparam(:dsc_driveletter) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DriveLetter"
+    desc "DriveLetter - Specifies the identifier for which disk to modify."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -77,7 +77,7 @@ Puppet::Type.newtype(:dsc_xdisk) do
   newparam(:dsc_disknumber) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "DiskNumber"
+    desc "DiskNumber - Specifies the disk number for which disk to modify."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -95,7 +95,7 @@ Puppet::Type.newtype(:dsc_xdisk) do
   newparam(:dsc_size) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
-    desc "Size"
+    desc "Size - Specifies the size of new volume."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -113,7 +113,7 @@ Puppet::Type.newtype(:dsc_xdisk) do
   newparam(:dsc_fslabel) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "FSLabel"
+    desc "FSLabel - Define volume label if required."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -128,7 +128,7 @@ Puppet::Type.newtype(:dsc_xdisk) do
   newparam(:dsc_allocationunitsize) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "AllocationUnitSize"
+    desc "AllocationUnitSize - Specifies the allocation unit size to use when formatting the volume."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -136,6 +136,24 @@ Puppet::Type.newtype(:dsc_xdisk) do
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         FSFormat
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["NTFS", "ReFS"]
+  newparam(:dsc_fsformat) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "FSFormat - Specifies the file system format of the new volume. Valid values are NTFS, ReFS."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['NTFS', 'ntfs', 'ReFS', 'refs'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are NTFS, ReFS")
+      end
     end
   end
 

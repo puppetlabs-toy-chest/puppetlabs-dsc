@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '1.2.0.0'
+ModuleVersion = '1.3.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'b42ff085-bd2b-4232-90ba-02b4c780e2d9'
@@ -49,9 +49,12 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '* Converted appveyor.yml to install Pester from PSGallery instead of from Chocolatey.
+
+'
 
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
 }
+
