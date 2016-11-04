@@ -92,7 +92,7 @@ eod
         # reject stuff that is a Composite DSC Resource
         f =~ /(xChrome|xDSCResourceDesigner|xDscDiagnostics|xFirefox|xSafeHarbor|xSystemSecurity).*/ ||
         # reject duplicated resources
-        f =~ /(xSharePoint).*/ ||
+        f =~ /(xSharePoint|PSDscResources).*/ ||
         # and don't keep track of dirs
         Dir.exists?(f)
       end
