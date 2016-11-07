@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xwindowsfeature) do
   def dscmeta_resource_friendly_name; 'xWindowsFeature' end
   def dscmeta_resource_name; 'MSFT_xWindowsFeature' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '4.0.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xwindowsfeature) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - The name of the role or feature to install or uninstall."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -78,7 +78,7 @@ Puppet::Type.newtype(:dsc_xwindowsfeature) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - An enumerated value that describes if the role or feature is expected to be installed on not on the machine.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
+    desc "Ensure - Specifies whether the role or feature should be installed or uninstalled. To install the feature, set this property to Present. To uninstall the feature, set the property to Absent. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -90,36 +90,6 @@ Puppet::Type.newtype(:dsc_xwindowsfeature) do
     end
   end
 
-  # Name:         DisplayName
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_displayname) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "DisplayName"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         Source
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_source) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "Source"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
   # Name:         IncludeAllSubFeature
   # Type:         boolean
   # IsMandatory:  False
@@ -127,7 +97,7 @@ Puppet::Type.newtype(:dsc_xwindowsfeature) do
   newparam(:dsc_includeallsubfeature) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "IncludeAllSubFeature"
+    desc "IncludeAllSubFeature - Specifies whether the subfeatures of the main feature should also be installed."
     validate do |value|
     end
     newvalues(true, false)
@@ -143,7 +113,7 @@ Puppet::Type.newtype(:dsc_xwindowsfeature) do
   newparam(:dsc_logpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "LogPath"
+    desc "LogPath - The path to the log file to log this operation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -158,12 +128,27 @@ Puppet::Type.newtype(:dsc_xwindowsfeature) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
+    desc "Credential - A credential, if needed, to install or uninstall the role or feature."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
+    end
+  end
+
+  # Name:         DisplayName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_displayname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DisplayName - The display name of the retrieved role or feature."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
     end
   end
 

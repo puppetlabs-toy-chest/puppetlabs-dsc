@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   def dscmeta_resource_friendly_name; 'xCertReq' end
   def dscmeta_resource_name; 'MSFT_xCertReq' end
   def dscmeta_module_name; 'xCertificate' end
-  def dscmeta_module_version; '2.1.0.0' end
+  def dscmeta_module_version; '2.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_subject) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Subject - Provide the text string to use as the subject of the certificate"
+    desc "Subject - Provide the text string to use as the subject of the certificate."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -77,7 +77,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_caserverfqdn) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CAServerFQDN - The FQDN of the Active Directory Certificate Authority on the local area network"
+    desc "CAServerFQDN - The FQDN of the Active Directory Certificate Authority on the local area network."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -92,7 +92,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_carootname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CARootName - The name of the certificate authority, by default this will be in format domain-servername-ca"
+    desc "CARootName - The name of the certificate authority, by default this will be in format domain-servername-ca."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -107,7 +107,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential - The credentials that will be used to access the template in the Certificate Authority"
+    desc "Credential - The credentials that will be used to access the template in the Certificate Authority."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -123,7 +123,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_autorenew) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AutoRenew - Determines if the resource will also renew a certificate within 7 days of expiration"
+    desc "AutoRenew - Determines if the resource will also renew a certificate within 7 days of expiration."
     validate do |value|
     end
     newvalues(true, false)

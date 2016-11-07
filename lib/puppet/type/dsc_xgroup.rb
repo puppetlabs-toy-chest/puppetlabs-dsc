@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xgroup) do
   def dscmeta_resource_friendly_name; 'xGroup' end
   def dscmeta_resource_name; 'MSFT_xGroupResource' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '4.0.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xgroup) do
   newparam(:dsc_groupname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "GroupName"
+    desc "GroupName - The name of the group to create, modify, or remove."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -78,7 +78,7 @@ Puppet::Type.newtype(:dsc_xgroup) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Indicates if the group should exist or not. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -97,7 +97,7 @@ Puppet::Type.newtype(:dsc_xgroup) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Description"
+    desc "Description - The description the group should have."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -112,7 +112,7 @@ Puppet::Type.newtype(:dsc_xgroup) do
   newparam(:dsc_members, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Members"
+    desc "Members - The members the group should have."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -130,7 +130,7 @@ Puppet::Type.newtype(:dsc_xgroup) do
   newparam(:dsc_memberstoinclude, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "MembersToInclude"
+    desc "MembersToInclude - The members the group should include."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -148,7 +148,7 @@ Puppet::Type.newtype(:dsc_xgroup) do
   newparam(:dsc_memberstoexclude, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "MembersToExclude"
+    desc "MembersToExclude - The members the group should exclude."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -166,7 +166,7 @@ Puppet::Type.newtype(:dsc_xgroup) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
+    desc "Credential - A credential to resolve non-local group members."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

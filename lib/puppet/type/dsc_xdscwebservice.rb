@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   def dscmeta_resource_friendly_name; 'xDSCWebService' end
   def dscmeta_resource_name; 'MSFT_xDSCWebService' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '4.0.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -156,6 +156,21 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
     end
   end
 
+  # Name:         DatabasePath
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_databasepath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DatabasePath"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
   # Name:         ModulePath
   # Type:         string
   # IsMandatory:  False
@@ -232,19 +247,47 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
     end
   end
 
-  # Name:         UseUpToDateSecuritySettings
+  # Name:         UseSecurityBestPractices
   # Type:         boolean
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_useuptodatesecuritysettings) do
+  newparam(:dsc_usesecuritybestpractices) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "UseUpToDateSecuritySettings"
+    desc "UseSecurityBestPractices - This property will ensure that the Pull Server is created with the most secure practices"
     validate do |value|
     end
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         DisableSecurityBestPractices
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       ["SecureTLSProtocols"]
+  newparam(:dsc_disablesecuritybestpractices, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "DisableSecurityBestPractices - Valid values are SecureTLSProtocols."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+      if value.kind_of?(Array)
+        unless (['SecureTLSProtocols', 'securetlsprotocols'] & value).count == value.count
+          fail("Invalid value #{value}. Valid values are SecureTLSProtocols")
+        end
+      end
+      if value.kind_of?(String)
+        unless ['SecureTLSProtocols', 'securetlsprotocols'].include?(value)
+          fail("Invalid value #{value}. Valid values are SecureTLSProtocols")
+        end
+      end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 

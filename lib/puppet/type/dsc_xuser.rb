@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xuser) do
   def dscmeta_resource_friendly_name; 'xUser' end
   def dscmeta_resource_name; 'MSFT_xUserResource' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '4.0.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xuser) do
   newparam(:dsc_username) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UserName"
+    desc "UserName - The name of the User to Create/Modify/Delete"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -78,7 +78,7 @@ Puppet::Type.newtype(:dsc_xuser) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - An enumerated value that describes if the user is expected to exist on the machine Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -97,7 +97,7 @@ Puppet::Type.newtype(:dsc_xuser) do
   newparam(:dsc_fullname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "FullName"
+    desc "FullName - The display name of the user"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -112,7 +112,7 @@ Puppet::Type.newtype(:dsc_xuser) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Description"
+    desc "Description - A description for the user"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -127,7 +127,7 @@ Puppet::Type.newtype(:dsc_xuser) do
   newparam(:dsc_password) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Password"
+    desc "Password - The password for the user"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -143,7 +143,7 @@ Puppet::Type.newtype(:dsc_xuser) do
   newparam(:dsc_disabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Disabled"
+    desc "Disabled - Value used to disable/enable a user account"
     validate do |value|
     end
     newvalues(true, false)
@@ -159,7 +159,7 @@ Puppet::Type.newtype(:dsc_xuser) do
   newparam(:dsc_passwordneverexpires) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "PasswordNeverExpires"
+    desc "PasswordNeverExpires - Value used to set whether a user's password expires or not"
     validate do |value|
     end
     newvalues(true, false)
@@ -175,7 +175,7 @@ Puppet::Type.newtype(:dsc_xuser) do
   newparam(:dsc_passwordchangerequired) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "PasswordChangeRequired"
+    desc "PasswordChangeRequired - Value used to require a user to change their password"
     validate do |value|
     end
     newvalues(true, false)
@@ -191,7 +191,7 @@ Puppet::Type.newtype(:dsc_xuser) do
   newparam(:dsc_passwordchangenotallowed) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "PasswordChangeNotAllowed"
+    desc "PasswordChangeNotAllowed - Value used to set whether a user can/cannot change their password"
     validate do |value|
     end
     newvalues(true, false)

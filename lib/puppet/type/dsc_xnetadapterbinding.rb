@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xnetadapterbinding) do
   def dscmeta_resource_friendly_name; 'xNetAdapterBinding' end
   def dscmeta_resource_name; 'MSFT_xNetAdapterBinding' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '2.12.0.0' end
+  def dscmeta_module_version; '3.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -101,6 +101,24 @@ Puppet::Type.newtype(:dsc_xnetadapterbinding) do
       end
       unless ['Enabled', 'enabled', 'Disabled', 'disabled'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Enabled, Disabled")
+      end
+    end
+  end
+
+  # Name:         CurrentState
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Enabled", "Disabled", "Mixed"]
+  newparam(:dsc_currentstate) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CurrentState - Returns the current state of the component ID for the Interfaces. Valid values are Enabled, Disabled, Mixed."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Enabled', 'enabled', 'Disabled', 'disabled', 'Mixed', 'mixed'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Enabled, Disabled, Mixed")
       end
     end
   end

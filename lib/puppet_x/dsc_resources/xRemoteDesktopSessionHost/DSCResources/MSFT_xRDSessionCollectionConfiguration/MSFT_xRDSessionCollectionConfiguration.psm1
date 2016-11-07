@@ -1,3 +1,4 @@
+Import-Module -Name "$PSScriptRoot\..\..\xRemoteDesktopSessionHostCommon.psm1"
 if (!(Test-xRemoteDesktopSessionHostOsRequirement)) { Throw "The minimum OS requirement was not met."}
 Import-Module RemoteDesktop
 $localhost = [System.Net.Dns]::GetHostByName((hostname)).HostName

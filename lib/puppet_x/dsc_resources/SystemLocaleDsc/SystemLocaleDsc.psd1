@@ -1,7 +1,7 @@
 @{
 
 # Version number of this module.
-ModuleVersion = '1.0.0.0'
+ModuleVersion = '1.1.0.0'
 
 # ID used to uniquely identify this module
 GUID = '9857ac65-2a1d-4902-bac5-1d90a99607e5'
@@ -51,10 +51,14 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* SystemLocaleDsc: Initial Release.'
+        ReleaseNotes = '* Fix AppVeyor.yml build process.
+* Convert Get-TargetResource to output IsSingleInstance value passed in as parameter.
+
+'
 
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
 }
+
 

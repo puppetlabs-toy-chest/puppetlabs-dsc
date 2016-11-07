@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsqldatabaserecoverymodel) do
   def dscmeta_resource_friendly_name; 'xSQLDatabaseRecoveryModel' end
   def dscmeta_resource_name; 'MSFT_xSQLDatabaseRecoveryModel' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '2.0.0.0' end
+  def dscmeta_module_version; '3.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

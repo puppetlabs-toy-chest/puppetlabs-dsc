@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spvisioserviceapp) do
   def dscmeta_resource_friendly_name; 'SPVisioServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPVisioServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.3.0.0' end
+  def dscmeta_module_version; '1.4.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -79,6 +79,21 @@ Puppet::Type.newtype(:dsc_spvisioserviceapp) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "ApplicationPool - The name of the application pool to run the service app in"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ProxyName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_proxyname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ProxyName - The name of the Visio Service Application Proxy"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointpermission) do
   @doc = %q{
     The DSC xSQLServerEndpointPermission resource type.
     Automatically generated from
-    'xSQLServer/DSCResources/xSQLServerEndpointPermission/xSQLServerEndpointPermission.schema.mof'
+    'xSQLServer/DSCResources/MSFT_xSQLServerEndpointPermission/MSFT_xSQLServerEndpointPermission.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -26,9 +26,9 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointpermission) do
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerEndpointPermission' end
-  def dscmeta_resource_name; 'xSQLServerEndpointPermission' end
+  def dscmeta_resource_name; 'MSFT_xSQLServerEndpointPermission' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '2.0.0.0' end
+  def dscmeta_module_version; '3.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
