@@ -1,3 +1,20 @@
+## 2016-11-10 - Supported Release 1.2.0
+### Summary
+
+The DSC module brings the DSC Resources included to be current as of Novemeber 2016. It also includes all of the Officially supported DSC Resources from Microsoft, with the exception of the PsDscResources repo which is in ongoing development.
+
+### Features
+- Add psDscRunAsCredential Support ([FM-5671](https://tickets.puppet.com/browse/MODULES-5671))
+- Include September DSC Resource Kit release ([MODULES-3983](https://tickets.puppet.com/browse/MODULES-3983))
+- Include November DSC Resource Kit release ([MODULES-4059](https://tickets.puppet.com/browse/MODULES-4059))
+
+### Bugfixes
+
+- Fix: Fix WaitForAll blacklist test ([MODULES-3764](https://tickets.puppet.com/browse/MODULES-3764))
+- Fix: Update travis/appveyor with Ruby 2.3 ([MODULES-3775](https://tickets.puppet.com/browse/MODULES-3775))
+- Fix: Support new MS supported Official DSC Resources ([MODULES-3683](https://tickets.puppet.com/browse/MODULES-3683))
+- Fix: Fix maxpath issues ([MODULES-3683](https://tickets.puppet.com/browse/MODULES-3683))
+
 ## 2016-08-08 - Supported Release 1.1.0
 ### Summary
 
