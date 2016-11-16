@@ -23,7 +23,7 @@ Gemfile:
         version: '~>2.99'
       - gem: json_pure
         version: '<= 2.0.1'
-        condition: "Gem::Version.new(RUBY_VERSION) < Gem::Version.new('2.0.0')"
+        condition: "Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.0.0')"
     ':system_tests':
       - gem: beaker
         from_env: BEAKER_VERSION
@@ -38,7 +38,7 @@ Gemfile:
       - gem: charlock_holmes
       - gem: iconv
         version: '~> 1.0.4'
-        condition: "Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('2.0')"
+        condition: "Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new('2.0')"
 Rakefile:
   unmanaged: true
 spec/spec_helper.rb:
