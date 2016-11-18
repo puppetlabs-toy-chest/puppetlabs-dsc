@@ -50,7 +50,7 @@ group :development do
   gem 'pry',                                :require => false
   gem 'puppet-blacksmith',                  :require => false
   gem 'mime-types', '~>2.99',               :require => false
-  gem 'json_pure', '<= 2.0.1',              :require => false if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('2.0.0')
+  gem 'json_pure', '<= 2.0.1',              :require => false if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.0.0')
 end
 
 group :system_tests do
@@ -62,7 +62,7 @@ group :build do
   gem 'cim',               :require => false
   gem 'mof',               :require => false, :git => 'https://github.com/puppetlabs/mof.git', :ref => 'f50581901c53ff6a40c54b72ef5f4fcaed9679a1'
   gem 'charlock_holmes',   :require => false
-  gem 'iconv', '~> 1.0.4', :require => false if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('2.0')
+  gem 'iconv', '~> 1.0.4', :require => false if Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new('2.0')
 end
 
 gem 'puppet', *location_for(ENV['PUPPET_GEM_VERSION'])
@@ -81,7 +81,7 @@ gem 'hiera', *location_for(ENV['HIERA_GEM_VERSION']) if ENV['HIERA_GEM_VERSION']
 explicitly_require_windows_gems = false
 puppet_gem_location = gem_type(ENV['PUPPET_GEM_VERSION'])
 # This is not a perfect answer to the version check
-if puppet_gem_location != :gem || (Gem::Version.correct?(ENV['PUPPET_GEM_VERSION']) && Gem::Requirement.new('< 3.5.0').satisfied_by?(Gem::Version.new(ENV['PUPPET_GEM_VERSION'])))
+if puppet_gem_location != :gem || (ENV['PUPPET_GEM_VERSION'] && Gem::Version.correct?(ENV['PUPPET_GEM_VERSION']) && Gem::Requirement.new('< 3.5.0').satisfied_by?(Gem::Version.new(ENV['PUPPET_GEM_VERSION'].dup)))
   if Gem::Platform.local.os == 'mingw32'
     explicitly_require_windows_gems = true
   end
