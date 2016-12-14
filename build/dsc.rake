@@ -57,6 +57,8 @@ eod
       dsc_resources_path_tmp = "#{dsc_resources_path}_tmp"
       update_versions = args[:update_versions] || false
       is_custom_resource = (dsc_resources_path != default_dsc_resources_path)
+      
+      m = Dsc::Manager.new
 
       if !is_custom_resource
         puts "Downloading and Importing #{item_name}"
@@ -67,81 +69,74 @@ eod
         cmd += " && git submodule update --init"
 
         sh cmd
-      else
-        puts "Importing custom types from '#{dsc_resources_path}'"
-        FileUtils.mkdir_p "#{dsc_resources_path_tmp}"
-        FileUtils.cp_r "#{dsc_resources_path}/.", "#{dsc_resources_path_tmp}/"
-      end
 
-      composite_resources = [ 'xChrome','xDSCResourceDesigner','xDscDiagnostics',
-        'xFirefox','xSafeHarbor','xSystemSecurity' ]
+        composite_resources = [ 'xChrome','xDSCResourceDesigner','xDscDiagnostics',
+          'xFirefox','xSafeHarbor','xSystemSecurity' ]
 
-      Rake::Task['dsc:resources:checkout'].invoke(
-        "#{dsc_resources_path_tmp}/xDscResources", update_versions, composite_resources)
-      Rake::Task['dsc:resources:checkout'].invoke(
-        "#{dsc_resources_path_tmp}/dscresources", update_versions, composite_resources)
+        Rake::Task['dsc:resources:checkout'].invoke(
+          "#{dsc_resources_path_tmp}/xDscResources", update_versions, composite_resources)
+        Rake::Task['dsc:resources:checkout'].invoke(
+          "#{dsc_resources_path_tmp}/dscresources", update_versions, composite_resources)
 
-      # filter out unwanted files
-      valid_files = Dir.glob("#{dsc_resources_path_tmp}/**/*").reject do |f|
-        # reject the .git folder or special git files
-        f =~ /\/\.(git|gitattributes|gitignore|gitmodules)/ ||
-        # reject binary and other file extensions
-        f =~ /\.(pptx|docx|sln|cmd|xml|pssproj|pfx|html|txt|xlsm|csv|png|git|yml|md)$/i ||
-        # reject test / sample / example code
-        f =~ /\/.*([Ss]ample|[Ee]xample|[Tt]est).*/ ||
-        # reject stuff that is a Composite DSC Resource
-        f =~ /(xChrome|xDSCResourceDesigner|xDscDiagnostics|xFirefox|xSafeHarbor|xSystemSecurity).*/ ||
-        # reject duplicated resources
-        f =~ /(xSharePoint|PSDscResources).*/ ||
-        # and don't keep track of dirs
-        Dir.exists?(f)
-      end
+        # filter out unwanted files
+        valid_files = m.find_valid_files("#{dsc_resources_path_tmp}/**/*")
 
-      puts "Copying vendored resources from #{dsc_resources_path_tmp} to #{vendor_dsc_resources_path}"
+        puts "Copying vendored resources from #{dsc_resources_path_tmp} to #{vendor_dsc_resources_path}"
 
-      # remove destination path, copy everything in from the filtered list
-      puts "Adding custom types to '#{default_dsc_resources_path}'" if is_custom_resource
-      FileUtils.rm_rf(vendor_dsc_resources_path) if Dir.exists?(vendor_dsc_resources_path)
-      community_dsc_resources_root = "#{dsc_resources_path_tmp}/xDscResources"
-      official_dsc_resources_root = "#{dsc_resources_path_tmp}/dscresources"
-      valid_files.each do |f|
-        if f.start_with?("#{community_dsc_resources_root}/")
-          dscresource_name = f.split(community_dsc_resources_root)[1].split("/")[1]
-          if f.include?("/#{dscresource_name}/Modules/#{dscresource_name}")
-            d = f.sub("#{dscresource_name}/Modules/#{dscresource_name}", "#{dscresource_name}")
-            dest = Pathname.new(d.sub(community_dsc_resources_root, vendor_dsc_resources_path))
-          else
-            dest = Pathname.new(f.sub(community_dsc_resources_root, vendor_dsc_resources_path))
+        # remove destination path, copy everything in from the filtered list
+        community_dsc_resources_root = "#{dsc_resources_path_tmp}/xDscResources"
+        official_dsc_resources_root = "#{dsc_resources_path_tmp}/dscresources"
+        valid_files.each do |f|
+          if f.start_with?("#{community_dsc_resources_root}/")
+            dscresource_name = f.split(community_dsc_resources_root)[1].split("/")[1]
+            if f.include?("/#{dscresource_name}/Modules/#{dscresource_name}")
+              d = f.sub("#{dscresource_name}/Modules/#{dscresource_name}", "#{dscresource_name}")
+              dest = Pathname.new(d.sub(community_dsc_resources_root, vendor_dsc_resources_path))
+            else
+              dest = Pathname.new(f.sub(community_dsc_resources_root, vendor_dsc_resources_path))
+            end
+
+            FileUtils.mkdir_p(dest.dirname)
+            FileUtils.cp(f, dest)
           end
+          if f.start_with?("#{official_dsc_resources_root}/")
+            dscresource_name = f.split(official_dsc_resources_root)[1].split("/")[1]
+            if f.include?("/#{dscresource_name}/Modules/#{dscresource_name}")
+              d = f.sub("#{dscresource_name}/Modules/#{dscresource_name}", "#{dscresource_name}")
+              dest = Pathname.new(d.sub(official_dsc_resources_root, vendor_dsc_resources_path))
+            else
+              dest = Pathname.new(f.sub(official_dsc_resources_root, vendor_dsc_resources_path))
+            end
 
-          FileUtils.mkdir_p(dest.dirname)
-          FileUtils.cp(f, dest)
-        end
-        if f.start_with?("#{official_dsc_resources_root}/")
-          dscresource_name = f.split(official_dsc_resources_root)[1].split("/")[1]
-          if f.include?("/#{dscresource_name}/Modules/#{dscresource_name}")
-            d = f.sub("#{dscresource_name}/Modules/#{dscresource_name}", "#{dscresource_name}")
-            dest = Pathname.new(d.sub(official_dsc_resources_root, vendor_dsc_resources_path))
-          else
-            dest = Pathname.new(f.sub(official_dsc_resources_root, vendor_dsc_resources_path))
+            FileUtils.mkdir_p(dest.dirname)
+            FileUtils.cp(f, dest)
           end
-
-          FileUtils.mkdir_p(dest.dirname)
-          FileUtils.cp(f, dest)
         end
-        if is_custom_resource
-          dest = Pathname.new(f.sub(dsc_resources_path_tmp, default_dsc_resources_path))
-          FileUtils.mkdir_p(dest.dirname)
-          FileUtils.cp(f, dest)
-        end
-      end
 
-      # and duplicate the vendored files
-      FileUtils.cp_r vendor_dsc_resources_path, dsc_resources_path
+        # and duplicate the vendored files
+        FileUtils.cp_r vendor_dsc_resources_path, dsc_resources_path
 
-      if !is_custom_resource
         puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{dsc_resources_path}"
         FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{dsc_resources_path}/"
+      else
+        puts "Importing custom types from '#{dsc_resources_path}'"
+        # filter out unwanted files
+        valid_files = m.find_valid_files("#{dsc_resources_path}/**/*")
+
+        puts "Copying vendored resources from #{dsc_resources_path} to #{vendor_dsc_resources_path}"
+        valid_files.each do |f|
+          dest = Pathname.new(f.sub(dsc_resources_path, vendor_dsc_resources_path))
+          FileUtils.mkdir_p(dest.dirname)
+          FileUtils.cp(f, dest)
+        end
+        
+        puts "Adding custom types to '#{default_dsc_resources_path}'"
+        FileUtils.mkdir_p(default_dsc_resources_path) unless Dir.exist? default_dsc_resources_path
+        valid_files.each do |f|
+          dest = Pathname.new(f.sub(dsc_resources_path, default_dsc_resources_path))
+          FileUtils.mkdir_p(dest.dirname)
+          FileUtils.cp(f, dest)
+        end
       end
     end
     
