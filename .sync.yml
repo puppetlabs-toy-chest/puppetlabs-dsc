@@ -1,6 +1,5 @@
 ---
 .travis.yml:
-  script: "\"bundle exec rake validate && bundle exec rake lint && bundle exec rake spec SPEC_OPTS='--color --format documentation'\""
   extras:
     - rvm: 1.9.3
       env: PUPPET_GEM_VERSION="3.7.0"
