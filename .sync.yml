@@ -1,35 +1,6 @@
 ---
-.travis.yml:
-  script: "\"bundle exec rake validate && bundle exec rake lint && bundle exec rake spec SPEC_OPTS='--color --format documentation'\""
-  extras:
-    - rvm: 1.9.3
-      env: PUPPET_GEM_VERSION="3.7.0"
 Gemfile:
-  required:
-    ':development':
-      - gem: rake
-        version: '~>10.1'
-      - gem: rspec
-        version: '~>3.0'
-      - gem: puppet-lint
-      - gem: puppetlabs_spec_helper
-        version: '~>0.10.3'
-      - gem: puppet_facts
-      - gem: mocha
-        version: '~>0.10.5'
-      - gem: pry
-      - gem: puppet-blacksmith
-      - gem: mime-types
-        version: '~>2.99'
-      - gem: json_pure
-        version: '<= 2.0.1'
-        condition: "Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.0.0')"
-    ':system_tests':
-      - gem: beaker
-        from_env: BEAKER_VERSION
-        version: '~> 2.20'
-      - gem: master_manipulator
-        version: '~> 1.2'
+  optional:
     ':build':
       - gem: cim
       - gem: mof
@@ -55,10 +26,8 @@ spec/spec_helper.rb:
 appveyor.yml:
   appveyor_bundle_install: "bundle install --jobs 4 --retry 2 --without system_tests build"
   matrix_extras:
-    - PUPPET_GEM_VERSION: 3.7.0
-      RUBY_VER: 193
-    - PUPPET_GEM_VERSION: 3.7.0
-      RUBY_VER: 200-x64
+    - PUPPET_GEM_VERSION: 4.2.3
+      RUBY_VER: 21-x64
   test_script:
     - 'bundle exec rspec spec/unit spec/integration -fd -b'
 MAINTAINERS.md:
