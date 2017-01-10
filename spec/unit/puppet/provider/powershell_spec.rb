@@ -18,7 +18,15 @@ describe Puppet::Type.type(:dsc_file).provider(:powershell) do
   end
 
   describe "when quotes are present" do
+    it "should handle multi-line strings" do
+      actual   = <<-ACTUAL
+      The 'Cats' go '$meow'!
+      The 'Dogs' go "woof"!
+      ACTUAL
+      expected = /@'\n\s+The 'Cats' go '\$meow'!\n\s+The 'Dogs' go "woof"!\n\n'@/
 
+      expect(subject.class.format_dsc_value(actual)).to match(expected)
+    end
     it "should handle single quotes" do
       expect(subject.class.format_dsc_value("The 'Cats' go 'meow'!")).to match(/'The ''Cats'' go ''meow''!'/)
     end

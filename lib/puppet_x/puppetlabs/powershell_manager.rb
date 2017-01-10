@@ -1,6 +1,7 @@
 require 'securerandom'
 require 'open3'
 require 'ffi'
+require 'base64'
 
 module PuppetX
   module Dsc
@@ -25,6 +26,7 @@ module PuppetX
       def execute(powershell_code, timeout_ms = 300 * 1000)
         output_ready_event_name =  "Global\\#{SecureRandom.uuid}"
         output_ready_event = self.class.create_event(output_ready_event_name)
+        powershell_code_base64 = Base64.encode64(powershell_code)
 
         # always need a trailing newline to ensure PowerShell parses code
         code = <<-CODE
@@ -35,9 +37,10 @@ module PuppetX
           $runspace.Open()
         }
 
-        $powershell_code = @'
-#{powershell_code}
-'@
+        $powershell_code_base64 = '#{powershell_code_base64}'
+        $powershell_code_bytes  = [System.Convert]::FromBase64String($powershell_code_base64)
+        $powershell_code = [System.Text.Encoding]::UTF8.GetString($powershell_code_bytes)
+
         $ps = $null
 
         try
