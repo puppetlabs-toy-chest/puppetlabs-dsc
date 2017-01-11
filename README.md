@@ -429,7 +429,9 @@ Error: Try 'puppet help module install' for usage
 
 - The `Registry` DSC Resource continually changes state, even if the system state matches the desired state, when using a HEX value. See issue [#237](https://github.com/puppetlabs/puppetlabs-dsc/issues/237) for more information.
 
-- The Puppet DSC module hangs on systems with WMF 5.1 installed. This is being addressed in [MODULES-3690](https://tickets.puppetlabs.com/browse/MODULES-3690)
+- The Puppet DSC module hangs on systems with WMF 5.1 installed. This is being addressed in [MODULES-3690](https://tickets.puppetlabs.com/browse/MODULES-3690).
+
+- If you create files with the `dsc_file` resource, the resulting file on disk will be UTF-8 with BOM. This can be a problem if you use tools that are not UTF-8 BOM aware. This is by design for Microsoft PowerShell DSC. More information can be found in [MODULES-3178](https://tickets.puppetlabs.com/browse/MODULES-3178).
 
 ### Running Puppet and DSC without Administrative Privileges
 
