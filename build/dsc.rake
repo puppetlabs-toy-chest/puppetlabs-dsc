@@ -70,13 +70,15 @@ eod
 
         sh cmd
 
+        community_dsc_resources_root = "#{dsc_resources_path_tmp}/xDscResources"
+        official_dsc_resources_root = "#{dsc_resources_path_tmp}/DscResources"
         composite_resources = [ 'xChrome','xDSCResourceDesigner','xDscDiagnostics',
           'xFirefox','xSafeHarbor','xSystemSecurity' ]
 
         Rake::Task['dsc:resources:checkout'].invoke(
-          "#{dsc_resources_path_tmp}/xDscResources", update_versions, composite_resources)
+          community_dsc_resources_root, update_versions, composite_resources)
         Rake::Task['dsc:resources:checkout'].invoke(
-          "#{dsc_resources_path_tmp}/dscresources", update_versions, composite_resources)
+          official_dsc_resources_root, update_versions, composite_resources)
 
         # filter out unwanted files
         valid_files = m.find_valid_files("#{dsc_resources_path_tmp}/**/*")
@@ -84,8 +86,6 @@ eod
         puts "Copying vendored resources from #{dsc_resources_path_tmp} to #{vendor_dsc_resources_path}"
 
         # remove destination path, copy everything in from the filtered list
-        community_dsc_resources_root = "#{dsc_resources_path_tmp}/xDscResources"
-        official_dsc_resources_root = "#{dsc_resources_path_tmp}/dscresources"
         valid_files.each do |f|
           if f.start_with?("#{community_dsc_resources_root}/")
             dscresource_name = f.split(community_dsc_resources_root)[1].split("/")[1]
