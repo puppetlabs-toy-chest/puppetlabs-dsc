@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupjoin) do
   def dscmeta_resource_friendly_name; 'xSQLAOGroupJoin' end
   def dscmeta_resource_name; 'MSFT_xSQLAOGroupJoin' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -63,7 +63,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupjoin) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - If the replica should be joined ('Present') to the Availability Group or not joined ('Absent') to the Availability Group. Valid values are Present, Absent."
     isrequired
     validate do |value|
       resource[:ensure] = value.downcase
@@ -83,7 +83,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupjoin) do
   newparam(:dsc_availabilitygroupname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AvailabilityGroupName"
+    desc "AvailabilityGroupName - The name Availability Group to join."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -99,7 +99,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupjoin) do
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLServer"
+    desc "SQLServer - Name of the SQL server to be configured."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -114,7 +114,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupjoin) do
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLInstanceName"
+    desc "SQLInstanceName - Name of the SQL instance to be configured."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

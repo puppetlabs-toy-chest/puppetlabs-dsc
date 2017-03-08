@@ -292,7 +292,7 @@ module Dsc
         # reject the .git folder or special git files
         f =~ /\/\.(git|gitattributes|gitignore|gitmodules)/ ||
         # reject binary and other file extensions
-        f =~ /\.(pptx|docx|sln|cmd|xml|pssproj|pfx|html|txt|xlsm|csv|png|git|yml|md)$/i ||
+        f =~ /\.(pptx|docx|sln|cmd|xml|pssproj|pfx|html|txt|xlsm|csv|png|git|yml|md|js|json)$/i ||
         # reject test / sample / example code
         f =~ /\/.*([Ss]ample|[Ee]xample|[Tt]est).*/ ||
         # reject stuff that is a Composite DSC Resource

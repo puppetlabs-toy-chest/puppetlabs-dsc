@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   def dscmeta_resource_friendly_name; 'xDNSServerAddress' end
   def dscmeta_resource_name; 'MSFT_xDNSServerAddress' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -55,24 +55,6 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
     end
   end
 
-  # Name:         Address
-  # Type:         string[]
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_address, :array_matching => :all) do
-    def mof_type; 'string[]' end
-    def mof_is_embedded?; false end
-    desc "Address"
-    validate do |value|
-      unless value.kind_of?(Array) || value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string or an array of strings")
-      end
-    end
-    munge do |value|
-      Array(value)
-    end
-  end
-
   # Name:         InterfaceAlias
   # Type:         string
   # IsMandatory:  True
@@ -80,7 +62,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   newparam(:dsc_interfacealias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InterfaceAlias"
+    desc "InterfaceAlias - Alias of the network interface for which the DNS server address is set."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -96,7 +78,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   newparam(:dsc_addressfamily) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AddressFamily - Valid values are IPv4, IPv6."
+    desc "AddressFamily - IP address family. Valid values are IPv4, IPv6."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -108,6 +90,24 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
     end
   end
 
+  # Name:         Address
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_address, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "Address - The desired DNS Server address(es)."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
   # Name:         Validate
   # Type:         boolean
   # IsMandatory:  False
@@ -115,7 +115,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   newparam(:dsc_validate) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Validate"
+    desc "Validate - Requires that the DNS Server addresses be validated if they are updated. It will cause the resouce to throw a 'A general error occurred that is not covered by a more specific error code.' error if set to True and specified DNS Servers are not accessible."
     validate do |value|
     end
     newvalues(true, false)

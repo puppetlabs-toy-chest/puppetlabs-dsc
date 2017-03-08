@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   def dscmeta_resource_friendly_name; 'xSQLServerSetup' end
   def dscmeta_resource_name; 'MSFT_xSQLServerSetup' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -54,6 +54,24 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
     end
   end
 
+  # Name:         Action
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Install", "InstallFailoverCluster", "AddNode", "PrepareFailoverCluster", "CompleteFailoverCluster"]
+  newparam(:dsc_action) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Action - The action to be performed. Default value is 'Install'. Valid values are Install, InstallFailoverCluster, AddNode, PrepareFailoverCluster, CompleteFailoverCluster."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Install', 'install', 'InstallFailoverCluster', 'installfailovercluster', 'AddNode', 'addnode', 'PrepareFailoverCluster', 'preparefailovercluster', 'CompleteFailoverCluster', 'completefailovercluster'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Install, InstallFailoverCluster, AddNode, PrepareFailoverCluster, CompleteFailoverCluster")
+      end
+    end
+  end
+
   # Name:         SourcePath
   # Type:         string
   # IsMandatory:  False
@@ -61,22 +79,7 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   newparam(:dsc_sourcepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SourcePath - UNC path to the root of the source files for installation."
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         SourceFolder
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_sourcefolder) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "SourceFolder - Folder within the source path containing the source files for installation."
+    desc "SourcePath - The path to the root of the source files for installation. I.e and UNC path to a shared resource. Environment variables can be used in the path."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -107,7 +110,7 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   newparam(:dsc_sourcecredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "SourceCredential - Credential to be used to access SourcePath."
+    desc "SourceCredential - Credentials used to access the path set in the parameter 'SourcePath'."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -123,7 +126,7 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   newparam(:dsc_suppressreboot) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "SuppressReboot - Suppress reboot."
+    desc "SuppressReboot - Suppresses reboot."
     validate do |value|
     end
     newvalues(true, false)
@@ -139,7 +142,7 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   newparam(:dsc_forcereboot) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "ForceReboot - Force reboot."
+    desc "ForceReboot - Forces reboot."
     validate do |value|
     end
     newvalues(true, false)
@@ -170,7 +173,7 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   newparam(:dsc_instancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstanceName - SQL instance to be installed."
+    desc "InstanceName - Name of the SQL instance to be installed."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -194,14 +197,14 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
     end
   end
 
-  # Name:         PID
+  # Name:         ProductKey
   # Type:         string
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_pid) do
+  newparam(:dsc_productkey) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "PID - Product key for licensed installations."
+    desc "ProductKey - Product key for licensed installations."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -231,7 +234,7 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   newparam(:dsc_updatesource) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UpdateSource - Source of updates to be applied during installation."
+    desc "UpdateSource - Path to the source of updates to be applied during installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -416,7 +419,7 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   newparam(:dsc_securitymode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SecurityMode - Security mode."
+    desc "SecurityMode - Security mode to apply to the SQL Server instance."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -431,7 +434,7 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   newparam(:dsc_sapwd) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "SAPwd - SA password, if SecurityMode=SQL"
+    desc "SAPwd - SA password, if SecurityMode is set to 'SQL'."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -599,7 +602,7 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   newparam(:dsc_assvcaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "ASSvcAccount - Service account for Analysus Services service."
+    desc "ASSvcAccount - Service account for Analysis Services service."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -769,13 +772,61 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   newparam(:dsc_browsersvcstartuptype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "BrowserSvcStartupType - Specifies the startup mode for SQL Server Browser service Valid values are Automatic, Disabled, Manual."
+    desc "BrowserSvcStartupType - Specifies the startup mode for SQL Server Browser service. Valid values are Automatic, Disabled, Manual."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
       unless ['Automatic', 'automatic', 'Disabled', 'disabled', 'Manual', 'manual'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Automatic, Disabled, Manual")
+      end
+    end
+  end
+
+  # Name:         FailoverClusterGroupName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_failoverclustergroupname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "FailoverClusterGroupName - The name of the resource group to create for the clustered SQL Server instance."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         FailoverClusterIPAddress
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_failoverclusteripaddress, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "FailoverClusterIPAddress - Array of IP Addresses to be assigned to the clustered SQL Server instance."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         FailoverClusterNetworkName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_failoverclusternetworkname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "FailoverClusterNetworkName - Host name to be assigend to the clustered SQL Server instance."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end

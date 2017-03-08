@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdiskaccesspath) do
   def dscmeta_resource_friendly_name; 'xDiskAccessPath' end
   def dscmeta_resource_name; 'MSFT_xDiskAccessPath' end
   def dscmeta_module_name; 'xStorage' end
-  def dscmeta_module_version; '2.8.0.0' end
+  def dscmeta_module_version; '2.9.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

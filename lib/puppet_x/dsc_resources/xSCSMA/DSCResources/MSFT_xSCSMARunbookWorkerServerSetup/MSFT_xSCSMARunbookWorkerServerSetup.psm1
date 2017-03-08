@@ -67,15 +67,25 @@ function Get-TargetResource
         {
             $IdentifyingNumber = "{B2FA6B22-1DDF-4BD4-8B92-ADF17D48262F}"
         }
+        "7.3.150.0"
+        {
+            # System Center Technical Preview 5
+            $IdentifyingNumber = "{B2FA6B22-1DDF-4BD4-8B92-ADF17D48262F}"
+        }
+        "7.3.345.0"
+        {
+            # System Center 2016 RTM
+            $IdentifyingNumber = "{B2FA6B22-1DDF-4BD4-8B92-ADF17D48262F}"
+        }
         Default
         {
             throw "Unknown version of Service Management Automation!"
         }
     }
 
-    if(Get-WmiObject -Class Win32_Product | Where-Object {$_.IdentifyingNumber -eq $IdentifyingNumber})
+    if(Get-WmiObject -Class Win32_Product -Filter "IdentifyingNumber ='$IdentifyingNumber'")
     {
-        $ServiceUsername = (Get-WmiObject -Class Win32_Service | Where-Object {$_.Name -eq "rbsvc"}).StartName
+        $ServiceUsername = (Get-WmiObject -Class Win32_Service -Filter "Name ='rbsvc'").StartName
         $SqlServer = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\ServiceManagementAutomation\RunbookWorker" -Name "DatabaseServerName").DatabaseServerName
         $SqlInstance = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\ServiceManagementAutomation\RunbookWorker" -Name "DatabaseServerInstance").DatabaseServerInstance
         if([String]::IsNullOrEmpty($SqlInstance))
@@ -178,6 +188,17 @@ function Set-TargetResource
         {
             $IdentifyingNumber = "{B2FA6B22-1DDF-4BD4-8B92-ADF17D48262F}"
             $SCVersion = "System Center Technical Preview"
+        }
+        "7.3.150.0"
+        {
+            $IdentifyingNumber = "{B2FA6B22-1DDF-4BD4-8B92-ADF17D48262F}"
+            $SCVersion = "System Center Technical Preview 5"
+        }
+        "7.3.345.0"
+        {
+            # System Center 2016 RTM
+            $IdentifyingNumber = "{B2FA6B22-1DDF-4BD4-8B92-ADF17D48262F}"
+            $SCVersion = "System Center 2016"
         }
         Default
         {

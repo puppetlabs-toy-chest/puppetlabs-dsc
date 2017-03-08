@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '1.15.0.0'
+ModuleVersion = '1.17.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'b3239f27-d7d3-4ae6-a5d2-d9a1c97d6ae4'
@@ -41,11 +41,9 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Corrected name of AuthenticationInfo parameter in Readme.md.
-* Added sample for **xWebApplication** for adding new web application.
-* Corrected description for AuthenticationInfo for xWebApplication and xWebsite.
-
-'
+        ReleaseNotes = '* Added removal of self signed certificate to the integration tests of **xWebsite**, fixes 276.
+* Added EnabledProtocols to **xWebApplication**.
+* Changed SSLFlags for **xWebApplication** to comma seperate multiple SSL flags, fixes 232.'
 
     } # End of PSData hashtable
 
@@ -57,6 +55,8 @@ FunctionsToExport = '*'
 # Cmdlets to export from this module
 CmdletsToExport = '*'
 }
+
+
 
 
 

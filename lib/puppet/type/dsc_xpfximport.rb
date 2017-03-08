@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xpfximport) do
   def dscmeta_resource_friendly_name; 'xPfxImport' end
   def dscmeta_resource_name; 'MSFT_xPfxImport' end
   def dscmeta_module_name; 'xCertificate' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '2.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

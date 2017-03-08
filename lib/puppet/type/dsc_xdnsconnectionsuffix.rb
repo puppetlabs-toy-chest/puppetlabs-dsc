@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdnsconnectionsuffix) do
   def dscmeta_resource_friendly_name; 'xDnsConnectionSuffix' end
   def dscmeta_resource_name; 'MSFT_xDnsConnectionSuffix' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xdnsconnectionsuffix) do
   newparam(:dsc_interfacealias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InterfaceAlias"
+    desc "InterfaceAlias - Alias of the network interface for which the DNS server address is set."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -78,7 +78,7 @@ Puppet::Type.newtype(:dsc_xdnsconnectionsuffix) do
   newparam(:dsc_connectionspecificsuffix) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ConnectionSpecificSuffix"
+    desc "ConnectionSpecificSuffix - DNS connection-specific suffix to assign to the network interface."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -93,7 +93,7 @@ Puppet::Type.newtype(:dsc_xdnsconnectionsuffix) do
   newparam(:dsc_registerthisconnectionsaddress) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "RegisterThisConnectionsAddress"
+    desc "RegisterThisConnectionsAddress - Specifies that the IP address for this connection is to be registered."
     validate do |value|
     end
     newvalues(true, false)
@@ -109,7 +109,7 @@ Puppet::Type.newtype(:dsc_xdnsconnectionsuffix) do
   newparam(:dsc_usesuffixwhenregistering) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "UseSuffixWhenRegistering"
+    desc "UseSuffixWhenRegistering - Specifies that this host name and the connection specific suffix for this connection are to be registered."
     validate do |value|
     end
     newvalues(true, false)
@@ -125,7 +125,7 @@ Puppet::Type.newtype(:dsc_xdnsconnectionsuffix) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Ensure the presence/absence of the resource Valid values are Present, Absent."
+    desc "Ensure - Ensure that the network interface connection-specific suffix is present or not. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

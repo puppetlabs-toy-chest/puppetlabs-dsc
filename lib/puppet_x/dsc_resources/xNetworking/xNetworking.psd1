@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '3.0.0.0'
+ModuleVersion = '3.2.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'e6647cc3-ce9c-4c86-9eb8-2ee8919bf358'
@@ -29,7 +29,7 @@ FunctionsToExport = '*'
 # Cmdlets to export from this module
 CmdletsToExport = '*'
 
-NestedModules = @( 'xNetworkAdapter.psm1')
+NestedModules = @('Modules\NetworkingDsc.Common\NetworkingDsc.Common.psm1','Modules\NetworkingDsc.ResourceHelper\NetworkingDsc.ResourceHelper.psm1','xNetworkAdapter.psm1')
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
@@ -49,19 +49,73 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Corrected integration test filenames:
-    * MSFT_xDefaultGatewayAddress.Integration.Tests.ps1
-    * MSFT_xDhcpClient.Integration.Tests.ps1
-    * MSFT_xDNSConnectionSuffix.Integration.Tests.ps1
-    * MSFT_xNetAdapterBinding.Integration.Tests.ps1
-* Updated all integration tests to use v1.1.0 header and script variable context.
-* Updated all unit tests to use v1.1.0 header and script variable context.
-* Removed uneccessary global variable from MSFT_xNetworkTeam.integration.tests.ps1
-* Converted Invoke-Expression in all integration tests to &.
-* Fixed unit test description in xNetworkAdapter.Tests.ps1
-* xNetAdapterBinding
-  * Added support for the use of wildcard (*) in InterfaceAlias parameter.
-* BREAKING CHANGE - MSFT_xIPAddress: SubnetMask parameter renamed to PrefixLength.
+        ReleaseNotes = '- Fixed typo in the example"s Action property from "Blocked" (which isn"t a valid
+  value) to "Block"
+- Added support for auto generating wiki, help files, markdown linting
+  and checking examples.
+- Added NetworkingDsc.ResourceHelper module based on copy from [PSDscResources](https://github.com/PowerShell/PSDscResources/blob/dev/DscResources/CommonResourceHelper.psm1).
+- MSFT_xFirewall:
+  - Cleaned up ParameterList table layout and moved into a new file
+    (MSFT_xFirewall.data.psd1).
+  - Separated Localization strings into strings file.
+  - Added standard help blocks to all functions to meet HQRM standards.
+  - Added CmdletBinding attribute to all functions to meet HQRM standards.
+  - Style changes to meet HQRM standards.
+  - Fixed issue using CIDR notation for LocalAddress or RemoteAddress.
+    See [GitHub issue](https://github.com/PowerShell/xNetworking/issues/169).
+  - Fixed integration tests so that values being set are correctly tested.
+  - Added integration tests for Removal of Firewall rule.
+- Added NetworkingDsc.Common module to contain shared networking functions.
+- MSFT_xDNSServerAddress:
+  - Separated Localization strings into strings file.
+- MSFT_xDefaultGatewayAddress:
+  - Separated Localization strings into strings file.
+  - Style changes to meet HQRM standards.
+- MSFT_xDhcpClient:
+  - Separated Localization strings into strings file.
+  - Fix parameter descriptions in MOF file.
+  - Style changes to meet HQRM standards.
+- MSFT_xDnsClientGlobalSetting:
+  - Renamed Localization strings file to be standard naming format.
+  - Moved ParameterList into a new file (MSFT_xDnsClientGlobalSetting.data.psd1).
+  - Style changes to meet HQRM standards.
+  - Removed New-TerminatingError function because never called.
+  - Converted to remove Invoke-Expression.
+- MSFT_xDnsConnectionSuffix:
+  - Separated Localization strings into strings file.
+  - Style changes to meet HQRM standards.
+- MSFT_xHostsFile:
+  - Renamed Localization strings file to be standard naming format.
+  - Style changes to meet HQRM standards.
+  - Refactored for performance
+    - Code now reads 38k lines in > 1 second vs 4
+  - Now ignores inline comments
+  - Added more integration tests
+- MSFT_xIPAddress:
+  - Separated Localization strings into strings file.
+  - Style changes to meet HQRM standards.
+- MSFT_xNetAdapterBinding:
+  - Separated Localization strings into strings file.
+  - Style changes to meet HQRM standards.
+- MSFT_xNetAdapterRDMA:
+  - Renamed Localization strings file to be standard naming format.
+  - Style changes to meet HQRM standards.
+- MSFT_xNetBIOS:
+  - Renamed Localization strings file to be standard naming format.
+  - Style changes to meet HQRM standards.
+- MSFT_xNetConnectionProfile:
+  - Separated Localization strings into strings file.
+  - Style changes to meet HQRM standards.
+- MSFT_xNetworkTeam:
+  - Style changes to meet HQRM standards.
+- MSFT_xNetworkTeamInterface:
+  - Updated integration tests to remove Invoke-Expression.
+  - Style changes to meet HQRM standards.
+- MSFT_xRoute:
+  - Separated Localization strings into strings file.
+  - Style changes to meet HQRM standards.
+- MSFT_xFirewall:
+  - Converted to remove Invoke-Expression.
 
 '
 
@@ -69,6 +123,8 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
+
 
 
 

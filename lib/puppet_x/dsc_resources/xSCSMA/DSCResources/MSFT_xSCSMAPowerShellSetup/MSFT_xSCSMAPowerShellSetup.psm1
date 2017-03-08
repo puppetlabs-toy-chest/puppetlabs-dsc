@@ -37,13 +37,23 @@ function Get-TargetResource
         {
             $IdentifyingNumber = "{EF2760C1-FED5-45FD-B067-D9419F7DEBEF}"
         }
+        "7.3.150.0"
+        {
+            # System Center Technical Preview 5
+            $IdentifyingNumber = "{EF2760C1-FED5-45FD-B067-D9419F7DEBEF}"
+        }
+        "7.3.345.0"
+        {
+            # System Center 2016
+            $IdentifyingNumber = "{EF2760C1-FED5-45FD-B067-D9419F7DEBEF}"
+        }
         Default
         {
             throw "Unknown version of Service Management Automation!"
         }
     }
 
-    if(Get-WmiObject -Class Win32_Product | Where-Object {$_.IdentifyingNumber -eq $IdentifyingNumber})
+    if(Get-WmiObject -Class Win32_Product -filter "IdentifyingNumber ='$IdentifyingNumber'")
     {
         $returnValue = @{
             Ensure = "Present"
@@ -100,6 +110,16 @@ function Set-TargetResource
         }
         "7.2.503.0"
         {
+            $IdentifyingNumber = "{EF2760C1-FED5-45FD-B067-D9419F7DEBEF}"
+        }
+        "7.3.150.0"
+        {
+            # System Center Technical Preview 5
+            $IdentifyingNumber = "{EF2760C1-FED5-45FD-B067-D9419F7DEBEF}"
+        }
+        "7.3.345.0"
+        {
+            # System Center 2016
             $IdentifyingNumber = "{EF2760C1-FED5-45FD-B067-D9419F7DEBEF}"
         }
         Default

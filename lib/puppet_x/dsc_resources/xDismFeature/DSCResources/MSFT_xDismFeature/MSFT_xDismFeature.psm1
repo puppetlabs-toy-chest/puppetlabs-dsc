@@ -50,7 +50,7 @@ function Set-TargetResource
 
         [parameter(Mandatory = $false)]
         [System.String]
-        $Source = $null
+        $Source
     )
 
     switch($Ensure)
@@ -60,7 +60,7 @@ function Set-TargetResource
             $dismParameters = @("/Online", "/Enable-Feature", "/FeatureName:$Name", "/Quiet", "/NoRestart")
 
             # Include sources directory if present
-            if ($Source -ne $null)
+            if ($Source)
             {
                 Write-Verbose "Source location set: ${Source}"
 

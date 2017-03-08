@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spmanagedaccount) do
   def dscmeta_resource_friendly_name; 'SPManagedAccount' end
   def dscmeta_resource_name; 'MSFT_SPManagedAccount' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

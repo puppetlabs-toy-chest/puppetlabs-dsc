@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xdefaultgatewayaddress) do
   def dscmeta_resource_friendly_name; 'xDefaultGatewayAddress' end
   def dscmeta_resource_name; 'MSFT_xDefaultGatewayAddress' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -55,21 +55,6 @@ Puppet::Type.newtype(:dsc_xdefaultgatewayaddress) do
     end
   end
 
-  # Name:         Address
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_address) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "Address"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
   # Name:         InterfaceAlias
   # Type:         string
   # IsMandatory:  True
@@ -77,7 +62,7 @@ Puppet::Type.newtype(:dsc_xdefaultgatewayaddress) do
   newparam(:dsc_interfacealias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InterfaceAlias"
+    desc "InterfaceAlias - Alias of the network interface for which the default gateway address is set."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -93,7 +78,7 @@ Puppet::Type.newtype(:dsc_xdefaultgatewayaddress) do
   newparam(:dsc_addressfamily) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AddressFamily - Valid values are IPv4, IPv6."
+    desc "AddressFamily - IP address family. Valid values are IPv4, IPv6."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -101,6 +86,21 @@ Puppet::Type.newtype(:dsc_xdefaultgatewayaddress) do
       end
       unless ['IPv4', 'ipv4', 'IPv6', 'ipv6'].include?(value)
         fail("Invalid value '#{value}'. Valid values are IPv4, IPv6")
+      end
+    end
+  end
+
+  # Name:         Address
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_address) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Address - The desired default gateway address - if not provided default gateway will be removed."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end

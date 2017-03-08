@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '5.0.0.0'
+ModuleVersion = '6.0.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'cc8dc021-fa5f-4f96-8ecf-dfd68a6d9d48'
@@ -52,31 +52,16 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* xWindowsFeature:
-    * Cleaned up resource (PSSA issues, formatting, etc.)
-    * Added/Updated Tests and Examples
-    * BREAKING CHANGE: Removed the unused Source parameter
-    * Updated to a high quality resource
-* xDSCWebService:
-    * Add DatabasePath property to specify a custom database path and enable multiple pull server instances on one server.
-    * Rename UseUpToDateSecuritySettings property to UseSecurityBestPractices.
-    * Add DisableSecurityBestPractices property to specify items that are excepted from following best practice security settings.
+        ReleaseNotes = '* xEnvironment
+    * Updated resource to follow HQRM guidelines.
+    * Added examples.
+    * Added unit and end-to-end tests.
+    * Significantly cleaned the resource.
+    * Minor Breaking Change where the resource will now throw an error if no value is provided, Ensure is set to present, and the variable does not exist, whereas before it would create an empty registry key on the machine in this case (if this is the desired outcome then use the Registry resource).
+    * Added a new Write property "Target", which specifies whether the user wants to set the machine variable, the process variable, or both (previously it was setting both in most cases).  
 * xGroup:
-    * Fixed PSSA issues
-    * Formatting updated as per style guidelines
-    * Missing comment-based help added for Get-/Set-/Test-TargetResource
-    * Typos fixed in Unit test script
-    * Unit test "Get-TargetResource/Should return hashtable with correct values when group has no members" updated to handle the expected empty Members array correctly
-    * Added a lot of unit tests
-    * Cleaned resource
-* xUser:
-    * Fixed PSSA/Style violations
-    * Added/Updated Tests and Examples
-* Added xWindowsPackageCab
-* xService:
-    * Fixed PSSA/Style violations
-    * Updated Tests
-    * Added "Ignore" state
+    * Group members in the "NT Authority", "BuiltIn" and "NT Service" scopes should now be resolved without an error. If you were seeing the errors "Exception calling ".ctor" with "4" argument(s): "Server names cannot contain a space character."" or "Exception calling ".ctor" with "2" argument(s): "Server names cannot contain a space character."", this fix should resolve those errors. If you are still seeing one of the errors, there is probably another local scope we need to add. Please let us know.
+    * The resource will no longer attempt to resolve group members if Members, MembersToInclude, and MembersToExclude are not specified.
 
 '
 
@@ -84,6 +69,9 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
+
+
 
 
 

@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
   def dscmeta_resource_friendly_name; 'xSQLServerLogin' end
   def dscmeta_resource_name; 'MSFT_xSQLServerLogin' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - If the values should be present or absent. Valid values are 'Present' or 'Absent'. Valid values are Present, Absent."
+    desc "Ensure - The specified login is Present or Absent. Default is Present. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -83,7 +83,57 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - The name of the SQL login. If LoginType is 'WindowsUser' or 'WindowsGroup' then provide the name in the format DOMAIN\name."
+    desc "Name - The name of the login."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         LoginType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["WindowsUser", "WindowsGroup", "SqlLogin", "Certificate", "AsymmetricKey", "ExternalUser", "ExternalGroup"]
+  newparam(:dsc_logintype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "LoginType - The type of login to be created. If LoginType is 'WindowsUser' or 'WindowsGroup' then provide the name in the format DOMAIN\name. Default is WindowsUser. Unsupported login types are Certificate, AsymmetricKey, ExternalUser, and ExternalGroup. Valid values are WindowsUser, WindowsGroup, SqlLogin, Certificate, AsymmetricKey, ExternalUser, ExternalGroup."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['WindowsUser', 'windowsuser', 'WindowsGroup', 'windowsgroup', 'SqlLogin', 'sqllogin', 'Certificate', 'certificate', 'AsymmetricKey', 'asymmetrickey', 'ExternalUser', 'externaluser', 'ExternalGroup', 'externalgroup'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are WindowsUser, WindowsGroup, SqlLogin, Certificate, AsymmetricKey, ExternalUser, ExternalGroup")
+      end
+    end
+  end
+
+  # Name:         SQLServer
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_sqlserver) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLServer - The hostname of the SQL Server to be configured."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQLInstanceName
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_sqlinstancename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLInstanceName - Name of the SQL instance to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -108,53 +158,51 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
     end
   end
 
-  # Name:         LoginType
-  # Type:         string
+  # Name:         LoginMustChangePassword
+  # Type:         boolean
   # IsMandatory:  False
-  # Values:       ["SqlLogin", "WindowsUser", "WindowsGroup"]
-  newparam(:dsc_logintype) do
-    def mof_type; 'string' end
+  # Values:       None
+  newparam(:dsc_loginmustchangepassword) do
+    def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "LoginType - The SQL login type. Valid values are 'SqlLogin', 'WindowsUser' or 'WindowsGroup'. Valid values are SqlLogin, WindowsUser, WindowsGroup."
+    desc "LoginMustChangePassword - Specifies if the login is required to have its password change on the next login. Only applies to SQL Logins. Default is $true."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-      unless ['SqlLogin', 'sqllogin', 'WindowsUser', 'windowsuser', 'WindowsGroup', 'windowsgroup'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are SqlLogin, WindowsUser, WindowsGroup")
-      end
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
-  # Name:         SQLServer
-  # Type:         string
-  # IsMandatory:  True
+  # Name:         LoginPasswordExpirationEnabled
+  # Type:         boolean
+  # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_sqlserver) do
-    def mof_type; 'string' end
+  newparam(:dsc_loginpasswordexpirationenabled) do
+    def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "SQLServer - The SQL Server for the login."
-    isrequired
+    desc "LoginPasswordExpirationEnabled - Specifies if the login password is required to expire in accordance to the operating system security policy. Only applies to SQL Logins. Default is $true."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
-  # Name:         SQLInstanceName
-  # Type:         string
-  # IsMandatory:  True
+  # Name:         LoginPasswordPolicyEnforced
+  # Type:         boolean
+  # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_sqlinstancename) do
-    def mof_type; 'string' end
+  newparam(:dsc_loginpasswordpolicyenforced) do
+    def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "SQLInstanceName - The SQL instance for the login."
-    isrequired
+    desc "LoginPasswordPolicyEnforced - Specifies if the login password is required to conform to the password policy specified in the system security policy. Only applies to SQL Logins. Default is $true."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

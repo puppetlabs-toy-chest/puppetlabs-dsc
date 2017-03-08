@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   def dscmeta_resource_friendly_name; 'xCertReq' end
   def dscmeta_resource_name; 'MSFT_xCertReq' end
   def dscmeta_module_name; 'xCertificate' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '2.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -93,6 +93,115 @@ Puppet::Type.newtype(:dsc_xcertreq) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "CARootName - The name of the certificate authority, by default this will be in format domain-servername-ca."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         KeyLength
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["1024", "2048", "4096", "8192"]
+  newparam(:dsc_keylength) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "KeyLength - The bit length of the encryption key to be used Valid values are 1024, 2048, 4096, 8192."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['1024', '1024', '2048', '2048', '4096', '4096', '8192', '8192'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are 1024, 2048, 4096, 8192")
+      end
+    end
+  end
+
+  # Name:         Exportable
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_exportable) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "Exportable - The option to allow the certificate to be exportable, by default it will be true."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         ProviderName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_providername) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ProviderName - The selection of provider for the type of encryption to be used."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         OID
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_oid) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "OID - The Object Identifier that is used to name the object."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         KeyUsage
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_keyusage) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "KeyUsage - The Keyusage is a restriction method that determines what a certificate can be used for."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CertificateTemplate
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_certificatetemplate) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CertificateTemplate - The template used for the definiton of the certificate."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SubjectAltName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_subjectaltname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SubjectAltName - The subject alternative name used to createthe certificate."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_spcreatefarm) do
   def dscmeta_resource_friendly_name; 'SPCreateFarm' end
   def dscmeta_resource_name; 'MSFT_SPCreateFarm' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -173,17 +173,17 @@ Puppet::Type.newtype(:dsc_spcreatefarm) do
   # Name:         ServerRole
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["Application", "Custom", "DistributedCache", "Search", "SingleServer", "SingleServerFarm", "SpecialLoad", "WebFrontEnd"]
+  # Values:       ["Application", "ApplicationWithSearch", "Custom", "DistributedCache", "Search", "SingleServer", "SingleServerFarm", "WebFrontEnd", "WebFrontEndWithDistributedCache"]
   newparam(:dsc_serverrole) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ServerRole - SharePoint 2016 only - the MinRole role to enroll this server as Valid values are Application, Custom, DistributedCache, Search, SingleServer, SingleServerFarm, SpecialLoad, WebFrontEnd."
+    desc "ServerRole - SharePoint 2016 only - the MinRole role to enroll this server as Valid values are Application, ApplicationWithSearch, Custom, DistributedCache, Search, SingleServer, SingleServerFarm, WebFrontEnd, WebFrontEndWithDistributedCache."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['Application', 'application', 'Custom', 'custom', 'DistributedCache', 'distributedcache', 'Search', 'search', 'SingleServer', 'singleserver', 'SingleServerFarm', 'singleserverfarm', 'SpecialLoad', 'specialload', 'WebFrontEnd', 'webfrontend'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Application, Custom, DistributedCache, Search, SingleServer, SingleServerFarm, SpecialLoad, WebFrontEnd")
+      unless ['Application', 'application', 'ApplicationWithSearch', 'applicationwithsearch', 'Custom', 'custom', 'DistributedCache', 'distributedcache', 'Search', 'search', 'SingleServer', 'singleserver', 'SingleServerFarm', 'singleserverfarm', 'WebFrontEnd', 'webfrontend', 'WebFrontEndWithDistributedCache', 'webfrontendwithdistributedcache'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Application, ApplicationWithSearch, Custom, DistributedCache, Search, SingleServer, SingleServerFarm, WebFrontEnd, WebFrontEndWithDistributedCache")
       end
     end
   end

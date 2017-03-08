@@ -268,7 +268,8 @@ function DeployDac([string] $databaseName, [string]$connectionString, [string]$s
     }
     catch
     {
-        Write-Verbose("Dac Deploy Failed")
+        $errorMessage = $_.Exception.Message
+        Write-Verbose('Dac Deploy Failed: ''{0}''' -f $errorMessage)
     }
 }
 

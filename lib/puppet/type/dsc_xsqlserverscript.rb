@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   @doc = %q{
     The DSC xSQLServerScript resource type.
     Automatically generated from
-    'xSQLServer/DSCResources/MSFT_xSQLServerScript/MSFT_xSQLServerScript.Schema.mof'
+    'xSQLServer/DSCResources/MSFT_xSQLServerScript/MSFT_xSQLServerScript.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -21,6 +21,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   }
 
   validate do
+      fail('dsc_serverinstance is a required attribute') if self[:dsc_serverinstance].nil?
       fail('dsc_setfilepath is a required attribute') if self[:dsc_setfilepath].nil?
       fail('dsc_getfilepath is a required attribute') if self[:dsc_getfilepath].nil?
       fail('dsc_testfilepath is a required attribute') if self[:dsc_testfilepath].nil?
@@ -29,7 +30,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   def dscmeta_resource_friendly_name; 'xSQLServerScript' end
   def dscmeta_resource_name; 'MSFT_xSQLServerScript' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,12 +59,13 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
 
   # Name:         ServerInstance
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_serverinstance) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ServerInstance - The name of an instance of the Database Engine. For default instances, only specify the computer name. For named instances, use the format ComputerName\\InstanceName"
+    desc "ServerInstance - The name of an instance of the Database Engine. For a default instance, only specify the computer name. For a named instance, use the format ComputerName\\InstanceName"
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -78,7 +80,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   newparam(:dsc_setfilepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SetFilePath - Path to SQL file that will perform Set action."
+    desc "SetFilePath - Path to the T-SQL file that will perform Set action."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -94,7 +96,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   newparam(:dsc_getfilepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "GetFilePath - Path to SQL file that will perform Get action."
+    desc "GetFilePath - Path to the T-SQL file that will perform Get action. Any values returned by the T-SQL queries will also be returned by the cmdlet Get-DscConfiguration through the 'GetResult' property."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -110,7 +112,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   newparam(:dsc_testfilepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "TestFilePath - Path to SQL file that will perform Test action."
+    desc "TestFilePath - Path to the T-SQL file that will perform Test action. Any script that does not throw an error or returns null is evaluated to true. The cmdlet Invoke-SqlCmd treats T-SQL Print statements as verbose text, and will not cause the test to return false."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -126,7 +128,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential - Credential to be used to run SQL scripts."
+    desc "Credential - The credentials to authenticate with, using SQL Authentication. To authenticate using Windows Authentication, assign the credentials to the built-in parameter 'PsDscRunAsCredential'. If both parameters 'Credential' and 'PsDscRunAsCredential' are not assigned, then SYSTEM account will be used to authenticate using Windows Authentication."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -142,7 +144,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   newparam(:dsc_variable, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Variable - Creates a sqlcmd scripting variable for use in the sqlcmd script, and sets a value for the variable."
+    desc "Variable - Specifies, as a string array, a sqlcmd scripting variable for use in the sqlcmd script, and sets a value for the variable. Use a Windows PowerShell array to specify multiple variables and their values. For more information how to use this, please go to the help documentation for Invoke-Sqlcmd."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -160,7 +162,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   newparam(:dsc_getresult, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "GetResult - Result of Get action."
+    desc "GetResult - Contains the values returned from the T-SQL script provided in the parameter 'GetFilePath' when cmdlet Get-DscConfiguration is run."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

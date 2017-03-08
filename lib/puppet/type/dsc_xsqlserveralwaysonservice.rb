@@ -21,13 +21,14 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonservice) do
   }
 
   validate do
-      fail('dsc_ensure is a required attribute') if self[:dsc_ensure].nil?
+      fail('dsc_sqlserver is a required attribute') if self[:dsc_sqlserver].nil?
+      fail('dsc_sqlinstancename is a required attribute') if self[:dsc_sqlinstancename].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerAlwaysOnService' end
   def dscmeta_resource_name; 'MSFT_xSQLServerAlwaysOnService' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,13 +58,12 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonservice) do
 
   # Name:         Ensure
   # Type:         string
-  # IsMandatory:  True
+  # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
-    isrequired
+    desc "Ensure - HADR is Present (enabled) or Absent (disabled) Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -77,12 +77,13 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonservice) do
 
   # Name:         SQLServer
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLServer"
+    desc "SQLServer - The hostname of the SQL Server to be configured"
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -92,16 +93,35 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonservice) do
 
   # Name:         SQLInstanceName
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLInstanceName"
+    desc "SQLInstanceName - Name of the SQL instance to be configured."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         RestartTimeout
+  # Type:         sint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_restarttimeout) do
+    def mof_type; 'sint32' end
+    def mof_is_embedded?; false end
+    desc "RestartTimeout - The length of time, in seconds, to wait for the service to restart. Default is 120 seconds."
+    validate do |value|
+      unless value.kind_of?(Numeric) || value.to_i.to_s == value
+          fail("Invalid value #{value}. Should be a signed Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 

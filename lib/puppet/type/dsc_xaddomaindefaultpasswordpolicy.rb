@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xaddomaindefaultpasswordpolicy) do
   def dscmeta_resource_friendly_name; 'xADDomainDefaultPasswordPolicy' end
   def dscmeta_resource_name; 'MSFT_xADDomainDefaultPasswordPolicy' end
   def dscmeta_module_name; 'xActiveDirectory' end
-  def dscmeta_module_version; '2.14.0.0' end
+  def dscmeta_module_version; '2.16.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
