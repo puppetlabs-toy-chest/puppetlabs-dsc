@@ -55,13 +55,15 @@ Puppet (including 3.x), or to a Puppet version newer than 3.x.
   end
 
   def self.powershell_args
-    ps_args = ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command']
+    ps_args = ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass']
     ps_args << '-' if !Facter.value(:uses_win32console)
     ps_args
   end
 
   def ps_manager
-    PuppetX::Dsc::PowerShellManager.instance("#{command(:powershell)} #{self.class.powershell_args.join(' ')}")
+    debug_output = Puppet::Util::Log.level == :debug
+    manager_args = "#{command(:powershell)} #{self.class.powershell_args().join(' ')}"
+    PuppetX::Dsc::PowerShellManager.instance(manager_args, debug_output)
   end
 
   COMMAND_TIMEOUT = 1200000 # 20 minutes
