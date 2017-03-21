@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xnetadapterbinding) do
   def dscmeta_resource_friendly_name; 'xNetAdapterBinding' end
   def dscmeta_resource_name; 'MSFT_xNetAdapterBinding' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xnetadapterbinding) do
   newparam(:dsc_interfacealias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InterfaceAlias - Specifies the alias of a network interface."
+    desc "InterfaceAlias - Specifies the alias of a network interface. Supports the use of '*'."
     isrequired
     validate do |value|
       unless value.kind_of?(String)

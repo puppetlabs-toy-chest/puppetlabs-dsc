@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   def dscmeta_resource_friendly_name; 'xIPAddress' end
   def dscmeta_resource_name; 'MSFT_xIPAddress' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   newparam(:dsc_ipaddress) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IPAddress"
+    desc "IPAddress - The desired IP address."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -78,7 +78,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   newparam(:dsc_interfacealias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InterfaceAlias"
+    desc "InterfaceAlias - Alias of the network interface for which the IP address should be set."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -94,7 +94,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   newparam(:dsc_prefixlength) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "PrefixLength"
+    desc "PrefixLength - The prefix length of the IP Address."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -112,7 +112,7 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   newparam(:dsc_addressfamily) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AddressFamily - Valid values are IPv4, IPv6."
+    desc "AddressFamily - IP address family. Valid values are IPv4, IPv6."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

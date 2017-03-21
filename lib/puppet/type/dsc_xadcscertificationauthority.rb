@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   def dscmeta_resource_friendly_name; 'xAdcsCertificationAuthority' end
   def dscmeta_resource_name; 'MSFT_xAdcsCertificationAuthority' end
   def dscmeta_module_name; 'xAdcsDeployment' end
-  def dscmeta_module_version; '0.2.0.0' end
+  def dscmeta_module_version; '1.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -192,7 +192,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_cryptoprovidername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CryptoProviderName - The name of the cryptographic service provider  or key storage provider that is used to generate or store the private key for the CA."
+    desc "CryptoProviderName - The name of the cryptographic service provider or key storage provider that is used to generate or store the private key for the CA."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -268,7 +268,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   newparam(:dsc_keylength) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "KeyLength - Specifies the name of an existing private key container."
+    desc "KeyLength - Specifies the bit length for new certification authority key."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

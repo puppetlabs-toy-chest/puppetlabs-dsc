@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlserverrole) do
   def dscmeta_resource_friendly_name; 'xSQLServerRole' end
   def dscmeta_resource_name; 'MSFT_xSQLServerRole' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -79,7 +79,7 @@ Puppet::Type.newtype(:dsc_xsqlserverrole) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Present to ensure that the login has the defined roles, or absent to ensure that these roles are not defined for the login. Valid values are Present, Absent."
+    desc "Ensure - Present to ensure that the login has the defined roles, or absent to ensure that these roles are not defined for the login. Default value is 'Present' Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

@@ -51,7 +51,7 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
   def dscmeta_resource_friendly_name; 'xWebApplication' end
   def dscmeta_resource_name; 'MSFT_xWebApplication' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.15.0.0' end
+  def dscmeta_module_version; '1.17.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -233,7 +233,7 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
   newparam(:dsc_serviceautostartenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "ServiceAutoStartEnabled - Enables Autostart on a Application."
+    desc "ServiceAutoStartEnabled - Enables Autostart on an Application."
     validate do |value|
     end
     newvalues(true, false)
@@ -269,6 +269,34 @@ Puppet::Type.newtype(:dsc_xwebapplication) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         EnabledProtocols
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       ["http", "https", "net.tcp", "net.msmq", "net.pipe"]
+  newparam(:dsc_enabledprotocols, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "EnabledProtocols - Adds EnabledProtocols on an Application Valid values are http, https, net.tcp, net.msmq, net.pipe."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+      if value.kind_of?(Array)
+        unless (['http', 'http', 'https', 'https', 'net.tcp', 'net.tcp', 'net.msmq', 'net.msmq', 'net.pipe', 'net.pipe'] & value).count == value.count
+          fail("Invalid value #{value}. Valid values are http, https, net.tcp, net.msmq, net.pipe")
+        end
+      end
+      if value.kind_of?(String)
+        unless ['http', 'http', 'https', 'https', 'net.tcp', 'net.tcp', 'net.msmq', 'net.msmq', 'net.pipe', 'net.pipe'].include?(value)
+          fail("Invalid value #{value}. Valid values are http, https, net.tcp, net.msmq, net.pipe")
+        end
+      end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 

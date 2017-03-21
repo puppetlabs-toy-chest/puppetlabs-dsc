@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xregistry) do
   def dscmeta_resource_friendly_name; 'xRegistry' end
   def dscmeta_resource_name; 'MSFT_xRegistryResource' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '5.0.0.0' end
+  def dscmeta_module_version; '6.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -63,7 +63,7 @@ Puppet::Type.newtype(:dsc_xregistry) do
   newparam(:dsc_key) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Key"
+    desc "Key - The path of the registry key to add, modify, or remove. This path must include the registry hive/drive."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -79,7 +79,7 @@ Puppet::Type.newtype(:dsc_xregistry) do
   newparam(:dsc_valuename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ValueName"
+    desc "ValueName - The name of the registry value. To add or remove a registry key, specify this property as an empty string without specifying ValueType or ValueData. To modify or remove the default value of a registry key, specify this property as an empty string while also specifying ValueType or ValueData."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -95,7 +95,7 @@ Puppet::Type.newtype(:dsc_xregistry) do
   newparam(:dsc_valuedata, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "ValueData"
+    desc "ValueData - The data the specified registry key value should have as a string or an array of strings (MultiString only)."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -113,7 +113,7 @@ Puppet::Type.newtype(:dsc_xregistry) do
   newparam(:dsc_valuetype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ValueType - Valid values are String, Binary, DWord, QWord, MultiString, ExpandString."
+    desc "ValueType - The type the specified registry key value should have. Valid values are String, Binary, DWord, QWord, MultiString, ExpandString."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -131,7 +131,7 @@ Puppet::Type.newtype(:dsc_xregistry) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Specifies whether or not the registry key or value should exist. To add or modify a registry key or value, set this property to Present. To remove a registry key or value, set the property to Absent. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -150,7 +150,7 @@ Puppet::Type.newtype(:dsc_xregistry) do
   newparam(:dsc_hex) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Hex"
+    desc "Hex - Specifies whether or not the specified DWord or QWord registry key data is provided in a hexadecimal format. Not valid for types other than DWord and QWord. The default value is $false."
     validate do |value|
     end
     newvalues(true, false)
@@ -166,7 +166,7 @@ Puppet::Type.newtype(:dsc_xregistry) do
   newparam(:dsc_force) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Force"
+    desc "Force - Specifies whether or not to overwrite the specified registry key value if it already has a value or whether or not to delete a registry key that has subkeys. The default value is $false."
     validate do |value|
     end
     newvalues(true, false)

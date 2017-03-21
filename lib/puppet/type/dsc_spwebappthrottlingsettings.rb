@@ -50,7 +50,7 @@ Puppet::Type.newtype(:dsc_spwebappthrottlingsettings) do
   def dscmeta_resource_friendly_name; 'SPWebAppThrottlingSettings' end
   def dscmeta_resource_name; 'MSFT_SPWebAppThrottlingSettings' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

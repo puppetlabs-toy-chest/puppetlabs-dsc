@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xremotefile) do
   def dscmeta_resource_friendly_name; 'xRemoteFile' end
   def dscmeta_resource_name; 'MSFT_xRemoteFile' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '5.0.0.0' end
+  def dscmeta_module_version; '6.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

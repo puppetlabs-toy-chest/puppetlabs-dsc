@@ -21,14 +21,14 @@ Puppet::Type.newtype(:dsc_xsqlserverconfiguration) do
   }
 
   validate do
-      fail('dsc_instancename is a required attribute') if self[:dsc_instancename].nil?
+      fail('dsc_sqlserver is a required attribute') if self[:dsc_sqlserver].nil?
       fail('dsc_optionname is a required attribute') if self[:dsc_optionname].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerConfiguration' end
   def dscmeta_resource_name; 'MSFT_xSQLServerConfiguration' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -55,15 +55,30 @@ Puppet::Type.newtype(:dsc_xsqlserverconfiguration) do
     end
   end
 
-  # Name:         InstanceName
+  # Name:         SQLServer
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_instancename) do
+  newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstanceName - SQL Server instance name of which configuration will be managed"
+    desc "SQLServer - The hostname of the SQL Server to be configured"
     isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQLInstanceName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqlinstancename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLInstanceName - Name of the SQL instance to be configured. Default is 'MSSQLSERVER'"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -78,7 +93,7 @@ Puppet::Type.newtype(:dsc_xsqlserverconfiguration) do
   newparam(:dsc_optionname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "OptionName - SQL Server configuration option to be set"
+    desc "OptionName - The name of the SQL configuration option to be checked"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -94,7 +109,7 @@ Puppet::Type.newtype(:dsc_xsqlserverconfiguration) do
   newparam(:dsc_optionvalue) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
-    desc "OptionValue - Configuration option value to be set"
+    desc "OptionValue - The desired value of the SQL configuration option"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -112,12 +127,30 @@ Puppet::Type.newtype(:dsc_xsqlserverconfiguration) do
   newparam(:dsc_restartservice) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "RestartService - Controls if affected SQL Service should be restarted automatically"
+    desc "RestartService - Determines whether the instance should be restarted after updating the configuration option"
     validate do |value|
     end
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         RestartTimeout
+  # Type:         sint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_restarttimeout) do
+    def mof_type; 'sint32' end
+    def mof_is_embedded?; false end
+    desc "RestartTimeout - The length of time, in seconds, to wait for the service to restart. Default is 120 seconds."
+    validate do |value|
+      unless value.kind_of?(Numeric) || value.to_i.to_s == value
+          fail("Invalid value #{value}. Should be a signed Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 

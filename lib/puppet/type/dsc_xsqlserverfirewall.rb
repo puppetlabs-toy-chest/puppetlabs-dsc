@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
   def dscmeta_resource_friendly_name; 'xSQLServerFirewall' end
   def dscmeta_resource_name; 'MSFT_xSQLServerFirewall' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -83,21 +83,6 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "SourcePath - UNC path to the root of the source files for installation."
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         SourceFolder
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_sourcefolder) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "SourceFolder - Folder within the source path containing the source files for installation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -214,6 +199,22 @@ Puppet::Type.newtype(:dsc_xsqlserverfirewall) do
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SourceCredential
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sourcecredential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "SourceCredential - Credentials used to access the path set in the parameter 'SourcePath'."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SourceCredential", value)
     end
   end
 

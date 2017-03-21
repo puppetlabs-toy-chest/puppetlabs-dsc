@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xscript) do
   def dscmeta_resource_friendly_name; 'xScript' end
   def dscmeta_resource_name; 'MSFT_xScriptResource' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '5.0.0.0' end
+  def dscmeta_module_version; '6.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -63,7 +63,7 @@ Puppet::Type.newtype(:dsc_xscript) do
   newparam(:dsc_getscript) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "GetScript"
+    desc "GetScript - A string that can be used to create a PowerShell script block that retrieves the current state of the resource."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -79,7 +79,7 @@ Puppet::Type.newtype(:dsc_xscript) do
   newparam(:dsc_setscript) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SetScript"
+    desc "SetScript - A string that can be used to create a PowerShell script block that sets the resource to the desired state."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -95,7 +95,7 @@ Puppet::Type.newtype(:dsc_xscript) do
   newparam(:dsc_testscript) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "TestScript"
+    desc "TestScript - A string that can be used to create a PowerShell script block that validates whether or not the resource is in the desired state."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -111,7 +111,7 @@ Puppet::Type.newtype(:dsc_xscript) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
+    desc "Credential - The credential of the user account to run the script under if needed."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -127,7 +127,7 @@ Puppet::Type.newtype(:dsc_xscript) do
   newparam(:dsc_result) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Result"
+    desc "Result - The result from the GetScript script block."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

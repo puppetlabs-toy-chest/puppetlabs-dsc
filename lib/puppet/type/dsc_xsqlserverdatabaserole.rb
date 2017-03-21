@@ -22,12 +22,15 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaserole) do
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
+      fail('dsc_sqlserver is a required attribute') if self[:dsc_sqlserver].nil?
+      fail('dsc_sqlinstancename is a required attribute') if self[:dsc_sqlinstancename].nil?
+      fail('dsc_database is a required attribute') if self[:dsc_database].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerDatabaseRole' end
   def dscmeta_resource_name; 'MSFT_xSQLServerDatabaseRole' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +65,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaserole) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - An enumerated value that describes if the login has the role on the database.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
+    desc "Ensure - If 'Present' (the default value) then the login (user) will be added to the role(s). If 'Absent' then the login (user) will be removed from the role(s). Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -81,7 +84,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaserole) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - The name of the SQL login or the role on the database."
+    desc "Name - The name of the login that will become a member, or removed as a member, of the role(s)."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -92,12 +95,13 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaserole) do
 
   # Name:         SQLServer
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLServer - The SQL Server for the database."
+    desc "SQLServer - The SQL server on which the instance exist."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -107,12 +111,13 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaserole) do
 
   # Name:         SQLInstanceName
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLInstanceName - The SQL instance for the database."
+    desc "SQLInstanceName - The SQL instance in which the database exist."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -122,12 +127,13 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaserole) do
 
   # Name:         Database
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_database) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Database - The SQL database for the role."
+    desc "Database - The database in which the login (user) and role(s) exist."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -136,17 +142,20 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaserole) do
   end
 
   # Name:         Role
-  # Type:         string
+  # Type:         string[]
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_role) do
-    def mof_type; 'string' end
+  newparam(:dsc_role, :array_matching => :all) do
+    def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Role - The SQL role for the database."
+    desc "Role - One or more roles to which the login (user) will be added or removed."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 

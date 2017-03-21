@@ -21,13 +21,13 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
   }
 
   validate do
-      fail('dsc_name is a required attribute') if self[:dsc_name].nil?
+      fail('dsc_issingleinstance is a required attribute') if self[:dsc_issingleinstance].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xAdcsWebEnrollment' end
   def dscmeta_resource_name; 'MSFT_xAdcsWebEnrollment' end
   def dscmeta_module_name; 'xAdcsDeployment' end
-  def dscmeta_module_version; '0.2.0.0' end
+  def dscmeta_module_version; '1.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -52,6 +52,25 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
+    end
+  end
+
+  # Name:         IsSingleInstance
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       ["Yes"]
+  newparam(:dsc_issingleinstance) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "IsSingleInstance - Specifies the resource is a single instance, the value must be 'Yes' Valid values are Yes."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Yes', 'yes'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Yes")
+      end
     end
   end
 
@@ -101,22 +120,6 @@ Puppet::Type.newtype(:dsc_xadcswebenrollment) do
       end
       unless ['Present', 'present', 'Absent', 'absent'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Present, Absent")
-      end
-    end
-  end
-
-  # Name:         Name
-  # Type:         string
-  # IsMandatory:  True
-  # Values:       None
-  newparam(:dsc_name) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "Name"
-    isrequired
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end

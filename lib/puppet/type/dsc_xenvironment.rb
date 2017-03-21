@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xenvironment) do
   def dscmeta_resource_friendly_name; 'xEnvironment' end
   def dscmeta_resource_name; 'MSFT_xEnvironmentResource' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '5.0.0.0' end
+  def dscmeta_module_version; '6.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xenvironment) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - The name of the environment variable for which you want to ensure a specific state."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -78,7 +78,7 @@ Puppet::Type.newtype(:dsc_xenvironment) do
   newparam(:dsc_value) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Value"
+    desc "Value - The desired value for the environment variable."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -93,7 +93,7 @@ Puppet::Type.newtype(:dsc_xenvironment) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Specifies if the environment varaible should exist. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -112,12 +112,40 @@ Puppet::Type.newtype(:dsc_xenvironment) do
   newparam(:dsc_path) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Path"
+    desc "Path - Indicates whether or not the environment variable is the Path variable."
     validate do |value|
     end
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         Target
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       ["Process", "Machine"]
+  newparam(:dsc_target, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "Target - Indicates the target where the environment variable should be set. Valid values are Process, Machine."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+      if value.kind_of?(Array)
+        unless (['Process', 'process', 'Machine', 'machine'] & value).count == value.count
+          fail("Invalid value #{value}. Valid values are Process, Machine")
+        end
+      end
+      if value.kind_of?(String)
+        unless ['Process', 'process', 'Machine', 'machine'].include?(value)
+          fail("Invalid value #{value}. Valid values are Process, Machine")
+        end
+      end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 

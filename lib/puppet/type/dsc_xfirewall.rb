@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   @doc = %q{
     The DSC xFirewall resource type.
     Automatically generated from
-    'xNetworking/DSCResources/MSFT_xFirewall/MSFT_xFirewall.Schema.mof'
+    'xNetworking/DSCResources/MSFT_xFirewall/MSFT_xFirewall.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   def dscmeta_resource_friendly_name; 'xFirewall' end
   def dscmeta_resource_name; 'MSFT_xFirewall' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -94,21 +94,6 @@ Puppet::Type.newtype(:dsc_xfirewall) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "Group - Name of the Firewall Group where we want to put the Firewall Rule"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         DisplayGroup
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_displaygroup) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "DisplayGroup - The current value of the Display Group of the Firewall Rule"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -265,7 +250,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Description - Documentation for the Rule"
+    desc "Description - Documentation for the Rule."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -599,6 +584,21 @@ Puppet::Type.newtype(:dsc_xfirewall) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "Owner - Specifies that matching firewall rules of the indicated owner are created"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         DisplayGroup
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_displaygroup) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DisplayGroup - The current value of the Display Group of the Firewall Rule"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

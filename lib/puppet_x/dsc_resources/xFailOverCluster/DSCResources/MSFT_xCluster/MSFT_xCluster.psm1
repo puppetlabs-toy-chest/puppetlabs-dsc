@@ -104,9 +104,12 @@ function Set-TargetResource
         {
             Write-Verbose -Message "Cluster $Name is NOT present"
 
-            New-Cluster -Name $Name -Node $env:COMPUTERNAME -StaticAddress $StaticIPAddress -NoStorage -Force
+            New-Cluster -Name $Name -Node $env:COMPUTERNAME -StaticAddress $StaticIPAddress -NoStorage -Force -ErrorAction Stop
 
-            While (!(Get-Cluster)){Start-Sleep 5}
+            if(!(Get-Cluster))
+            {
+                throw "Cluster creation failed. Please verify output of 'Get-Cluster' command"
+            }
 
             Write-Verbose -Message "Created Cluster $Name"
         }

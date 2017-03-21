@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xaddomaincontroller) do
   def dscmeta_resource_friendly_name; 'xADDomainController' end
   def dscmeta_resource_name; 'MSFT_xADDomainController' end
   def dscmeta_module_name; 'xActiveDirectory' end
-  def dscmeta_module_version; '2.14.0.0' end
+  def dscmeta_module_version; '2.16.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

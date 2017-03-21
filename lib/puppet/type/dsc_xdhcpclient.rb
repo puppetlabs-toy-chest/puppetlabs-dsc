@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xdhcpclient) do
   def dscmeta_resource_friendly_name; 'xDHCPClient' end
   def dscmeta_resource_name; 'MSFT_xDHCPClient' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -55,24 +55,6 @@ Puppet::Type.newtype(:dsc_xdhcpclient) do
     end
   end
 
-  # Name:         State
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       ["Enabled", "Disabled"]
-  newparam(:dsc_state) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "State - Valid values are Enabled, Disabled."
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-      unless ['Enabled', 'enabled', 'Disabled', 'disabled'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Enabled, Disabled")
-      end
-    end
-  end
-
   # Name:         InterfaceAlias
   # Type:         string
   # IsMandatory:  True
@@ -80,7 +62,7 @@ Puppet::Type.newtype(:dsc_xdhcpclient) do
   newparam(:dsc_interfacealias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InterfaceAlias"
+    desc "InterfaceAlias - Alias of the network interface for which the DHCP Client is set."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -96,7 +78,7 @@ Puppet::Type.newtype(:dsc_xdhcpclient) do
   newparam(:dsc_addressfamily) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AddressFamily - Valid values are IPv4, IPv6."
+    desc "AddressFamily - IP address family. Valid values are IPv4, IPv6."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -104,6 +86,24 @@ Puppet::Type.newtype(:dsc_xdhcpclient) do
       end
       unless ['IPv4', 'ipv4', 'IPv6', 'ipv6'].include?(value)
         fail("Invalid value '#{value}'. Valid values are IPv4, IPv6")
+      end
+    end
+  end
+
+  # Name:         State
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Enabled", "Disabled"]
+  newparam(:dsc_state) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "State - The desired state of the DHCP Client. Valid values are Enabled, Disabled."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Enabled', 'enabled', 'Disabled', 'disabled'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Enabled, Disabled")
       end
     end
   end

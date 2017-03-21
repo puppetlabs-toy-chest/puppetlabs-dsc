@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   @doc = %q{
     The DSC xDSCWebService resource type.
     Automatically generated from
-    'xPSDesiredStateConfiguration/DSCResources/MSFT_xDSCWebService/MSFT_xDSCWebService.Schema.mof'
+    'xPSDesiredStateConfiguration/DSCResources/MSFT_xDSCWebService/MSFT_xDSCWebService.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   def dscmeta_resource_friendly_name; 'xDSCWebService' end
   def dscmeta_resource_name; 'MSFT_xDSCWebService' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '5.0.0.0' end
+  def dscmeta_module_version; '6.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

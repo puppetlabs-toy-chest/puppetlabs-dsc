@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xnetconnectionprofile) do
   def dscmeta_resource_friendly_name; 'xNetConnectionProfile' end
   def dscmeta_resource_name; 'MSFT_xNetConnectionProfile' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xnetconnectionprofile) do
   newparam(:dsc_interfacealias) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InterfaceAlias"
+    desc "InterfaceAlias - Specifies the alias for the Interface that is being changed."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -77,7 +77,7 @@ Puppet::Type.newtype(:dsc_xnetconnectionprofile) do
   newparam(:dsc_ipv4connectivity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IPv4Connectivity - Valid values are Disconnected, NoTraffic, Subnet, LocalNetwork, Internet."
+    desc "IPv4Connectivity - Sets the NetworkCategory for the interface. Valid values are Disconnected, NoTraffic, Subnet, LocalNetwork, Internet."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -95,7 +95,7 @@ Puppet::Type.newtype(:dsc_xnetconnectionprofile) do
   newparam(:dsc_ipv6connectivity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IPv6Connectivity - Valid values are Disconnected, NoTraffic, Subnet, LocalNetwork, Internet."
+    desc "IPv6Connectivity - Specifies the IPv4 Connection Value. Valid values are Disconnected, NoTraffic, Subnet, LocalNetwork, Internet."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -113,7 +113,7 @@ Puppet::Type.newtype(:dsc_xnetconnectionprofile) do
   newparam(:dsc_networkcategory) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "NetworkCategory - Valid values are Public, Private."
+    desc "NetworkCategory - Specifies the IPv6 Connection Value. Valid values are Public, Private."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

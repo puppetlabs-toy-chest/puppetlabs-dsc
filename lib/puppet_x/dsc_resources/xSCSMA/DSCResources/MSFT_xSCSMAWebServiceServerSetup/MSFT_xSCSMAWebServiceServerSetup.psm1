@@ -92,13 +92,23 @@ function Get-TargetResource
         {
             $IdentifyingNumber = "{4B76B636-AE9A-47D5-A246-E02909D97CF2}"
         }
+        "7.3.150.0"
+        {
+            # System Center Technical Preview 5
+            $IdentifyingNumber = "{4B76B636-AE9A-47D5-A246-E02909D97CF2}"
+        }
+        "7.3.345.0"
+        {
+            # System Center 2016 RTM
+            $IdentifyingNumber = "{4B76B636-AE9A-47D5-A246-E02909D97CF2}"
+        }
         Default
         {
             throw "Unknown version of Service Management Automation!"
         }
     }
 
-    if(Get-WmiObject -Class Win32_Product | Where-Object {$_.IdentifyingNumber -eq $IdentifyingNumber})
+    if(Get-WmiObject -Class win32_product -Filter "IdentifyingNumber='$IdentifyingNumber'")
     {
         $SqlServer = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\ServiceManagementAutomation\WebService" -Name "DatabaseServerName").DatabaseServerName
         $SqlInstance = (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\ServiceManagementAutomation\WebService" -Name "DatabaseServerInstance").DatabaseServerInstance
@@ -239,6 +249,17 @@ function Set-TargetResource
             $IdentifyingNumber = "{4B76B636-AE9A-47D5-A246-E02909D97CF2}"
             $SCVersion = "System Center Technical Preview"
         }
+        "7.3.150.0"
+        {
+            $IdentifyingNumber = "{4B76B636-AE9A-47D5-A246-E02909D97CF2}"
+            $SCVersion = "System Center Technical Preview 5"
+        }
+        "7.3.345.0"
+        {
+            # System Center 2016 RTM
+            $IdentifyingNumber = "{4B76B636-AE9A-47D5-A246-E02909D97CF2}"
+            $SCVersion = "System Center 2016"
+        }
         Default
         {
             throw "Unknown version of Service Management Automation!"
@@ -369,7 +390,7 @@ function Set-TargetResource
     WaitForWin32ProcessEnd -Path $Path -Arguments $Arguments -Credential $SetupCredential
 
     # Additional first Web Service Server "Present" actions
-    if(($Ensure -eq "Present") -and $FirstWebServiceServer -and (Get-WmiObject -Class Win32_Product | Where-Object {$_.IdentifyingNumber -eq $IdentifyingNumber}))
+    if(($Ensure -eq "Present") -and $FirstWebServiceServer -and (Get-WmiObject -Class Win32_Product -Filter "IdentifyingNumber ='$IdentifyingNumber'"))
     {
         if(!(Get-Module -Name Microsoft.SystemCenter.ServiceManagementAutomation))
         {

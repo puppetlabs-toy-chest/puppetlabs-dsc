@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '0.2.0.0'
+ModuleVersion = '1.1.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'f8ddd7fc-c6d6-469e-8a80-c96efabe2fcc'
@@ -47,12 +47,41 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '- Converted AppVeyor.yml to pull Pester from PSGallery instead of Chocolatey.
+- Changed AppVeyor.yml to use default image.
+- xAdcsCertificateAuthority:
+  - Change property format in Readme.md to be standard layout.
+  - Converted style to meet HQRM guidelines.
+  - Added verbose logging support.
+  - Added string localization.
+  - Fixed Get-TargetResource by removing IsCA and changing Ensure to return whether or not CA is installed.
+  - Added unit tests.
+  - Updated parameter format to meet HQRM guidelines.
+- xAdcsOnlineResponder:
+  - Change property format in Readme.md to be standard layout.
+  - Added unit test header to be latest version.
+  - Added function help.
+  - Updated parameter format to meet HQRM guidelines.
+  - Updated resource to meet HQRM guidelines.
+- xAdcsWebEnrollment:
+  - Change property format in Readme.md to be standard layout.
+  - Added unit test header to be latest version.
+  - Added function help.
+  - Updated parameter format to meet HQRM guidelines.
+  - Updated resource to meet HQRM guidelines.
+- Added CommonResourceHelper.psm1 (copied from xPSDesiredStateConfiguration).
+- Removed Technet Documentation HTML file from root folder.
+- Removed redundant code from AppVeyor.yml.
+- Fix markdown violations in Readme.md.
+- Updated readme.md to match DSCResource.Template\Readme.md.
+
+'
 
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
 }
+
 
 
 

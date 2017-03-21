@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xwebapppool) do
   def dscmeta_resource_friendly_name; 'xWebAppPool' end
   def dscmeta_resource_name; 'MSFT_xWebAppPool' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.15.0.0' end
+  def dscmeta_module_version; '1.17.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

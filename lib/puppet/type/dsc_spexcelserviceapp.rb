@@ -50,7 +50,7 @@ Puppet::Type.newtype(:dsc_spexcelserviceapp) do
   def dscmeta_resource_friendly_name; 'SPExcelServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPExcelServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

@@ -4,7 +4,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.4.0.0'
+ModuleVersion = '1.5.0.0'
 
 # ID used to uniquely identify this module
 GUID = '8ad956dd-4a36-4767-9725-ed0466893edb'
@@ -32,6 +32,37 @@ VariablesToExport = '*'
 
 # Aliases to export from this module
 AliasesToExport = '*'
+
+# Minimum version of the Windows PowerShell engine required by this module
+PowerShellVersion = '4.0'
+
+# Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
+PrivateData = @{
+
+    PSData = @{
+
+        # Tags applied to this module. These help with module discovery in online galleries.
+        Tags = @('DesiredStateConfiguration', 'DSC', 'DSCResourceKit', 'DSCResource')
+
+        # A URL to the license for this module.
+        LicenseUri = 'https://github.com/PowerShell/xDatabase/blob/master/LICENSE'
+
+        # A URL to the main website for this project.
+        ProjectUri = 'https://github.com/PowerShell/xDatabase'
+
+        # A URL to an icon representing this module.
+        # IconUri = ''
+
+        # ReleaseNotes of this module
+        ReleaseNotes = '* Converted appveyor.yml to install Pester from PSGallery instead of from Chocolatey.
+* Added logging for when dac deploy fails
+
+'
+
+    } # End of PSData hashtable
+
+} # End of PrivateData hashtable
 }
+
 
 
