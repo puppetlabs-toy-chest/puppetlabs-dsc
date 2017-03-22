@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spoutgoingemailsettings) do
   def dscmeta_resource_friendly_name; 'SPOutgoingEmailSettings' end
   def dscmeta_resource_name; 'MSFT_SPOutgoingEmailSettings' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.5.0.0' end
+  def dscmeta_module_version; '1.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

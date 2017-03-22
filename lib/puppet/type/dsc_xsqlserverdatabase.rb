@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabase) do
   def dscmeta_resource_friendly_name; 'xSQLServerDatabase' end
   def dscmeta_resource_name; 'MSFT_xSQLServerDatabase' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '5.0.0.0' end
+  def dscmeta_module_version; '6.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabase) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - The name of the Database."
+    desc "Name - The name of the SQL database."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabase) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - If the values should be present or absent. Valid values are 'Present' or 'Absent'. Default Value is 'Present'. Valid values are Present, Absent."
+    desc "Ensure - An enumerated value that describes if the database is added (Present) or dropped (Absent). Valid values are 'Present' or 'Absent'. Default Value is 'Present'. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -99,7 +99,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabase) do
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLServer - The SQL Server for the database."
+    desc "SQLServer - The host name of the SQL Server to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -115,7 +115,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabase) do
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLInstanceName - The SQL instance for the database."
+    desc "SQLInstanceName - The name of the SQL instance to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)

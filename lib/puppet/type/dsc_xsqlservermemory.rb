@@ -21,14 +21,13 @@ Puppet::Type.newtype(:dsc_xsqlservermemory) do
   }
 
   validate do
-      fail('dsc_dynamicalloc is a required attribute') if self[:dsc_dynamicalloc].nil?
       fail('dsc_sqlinstancename is a required attribute') if self[:dsc_sqlinstancename].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerMemory' end
   def dscmeta_resource_name; 'MSFT_xSQLServerMemory' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '5.0.0.0' end
+  def dscmeta_module_version; '6.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -56,6 +55,37 @@ Puppet::Type.newtype(:dsc_xsqlservermemory) do
     end
   end
 
+  # Name:         SQLInstanceName
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_sqlinstancename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLInstanceName - The name of the SQL instance to be configured."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQLServer
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqlserver) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLServer - The host name of the SQL Server to be configured. Default value is $env:COMPUTERNAME."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
   # Name:         Ensure
   # Type:         string
   # IsMandatory:  False
@@ -63,7 +93,7 @@ Puppet::Type.newtype(:dsc_xsqlservermemory) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - An enumerated value that describes if Min and Max memory is configured Valid values are Present, Absent."
+    desc "Ensure - When set to 'Present' then min and max memory will be set to either the value in parameter MinMemory and MaxMemory or dynamically configured when parameter DynamicAlloc is set to $true. When set to 'Absent' min and max memory will be set to default values. Default value is Present. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -77,13 +107,12 @@ Puppet::Type.newtype(:dsc_xsqlservermemory) do
 
   # Name:         DynamicAlloc
   # Type:         boolean
-  # IsMandatory:  True
+  # IsMandatory:  False
   # Values:       None
   newparam(:dsc_dynamicalloc) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "DynamicAlloc - Flag to Dynamically allocate SQL memory based on Best Practices"
-    isrequired
+    desc "DynamicAlloc - If set to $true then max memory will be dynamically configured. When this is set parameter is set to $true, the parameter MaxMemory must be set to $null or not be configured. Default value is $false."
     validate do |value|
     end
     newvalues(true, false)
@@ -99,7 +128,7 @@ Puppet::Type.newtype(:dsc_xsqlservermemory) do
   newparam(:dsc_minmemory) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
-    desc "MinMemory - Minimum memory value to set SQL Server memory to"
+    desc "MinMemory - Minimum amount of memory, in MB, in the buffer pool used by the instance of SQL Server."
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -117,7 +146,7 @@ Puppet::Type.newtype(:dsc_xsqlservermemory) do
   newparam(:dsc_maxmemory) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
-    desc "MaxMemory - Maximum memory value to set SQL Server memory to"
+    desc "MaxMemory - Maximum amount of memory, in MB, in the buffer pool used by the instance of SQL Server."
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -125,37 +154,6 @@ Puppet::Type.newtype(:dsc_xsqlservermemory) do
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
-    end
-  end
-
-  # Name:         SQLServer
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_sqlserver) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "SQLServer - SQL Server to configure memory on"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         SQLInstanceName
-  # Type:         string
-  # IsMandatory:  True
-  # Values:       None
-  newparam(:dsc_sqlinstancename) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "SQLInstanceName - SQL Instance to configure memory on"
-    isrequired
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
     end
   end
 

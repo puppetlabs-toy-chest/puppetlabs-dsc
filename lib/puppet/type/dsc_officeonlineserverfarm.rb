@@ -1,14 +1,14 @@
 require 'pathname'
 
-Puppet::Type.newtype(:dsc_officeonlineserverwebappsfarm) do
+Puppet::Type.newtype(:dsc_officeonlineserverfarm) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
 
   @doc = %q{
-    The DSC OfficeOnlineServerWebAppsFarm resource type.
+    The DSC OfficeOnlineServerFarm resource type.
     Automatically generated from
-    'OfficeOnlineServerDsc/DSCResources/MSFT_OfficeOnlineServerWebAppsFarm/MSFT_OfficeOnlineServerWebAppsFarm.schema.mof'
+    'OfficeOnlineServerDsc/DSCResources/MSFT_OfficeOnlineServerFarm/MSFT_OfficeOnlineServerFarm.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -24,10 +24,10 @@ Puppet::Type.newtype(:dsc_officeonlineserverwebappsfarm) do
       fail('dsc_internalurl is a required attribute') if self[:dsc_internalurl].nil?
     end
 
-  def dscmeta_resource_friendly_name; 'OfficeOnlineServerWebAppsFarm' end
-  def dscmeta_resource_name; 'MSFT_OfficeOnlineServerWebAppsFarm' end
+  def dscmeta_resource_friendly_name; 'OfficeOnlineServerFarm' end
+  def dscmeta_resource_name; 'MSFT_OfficeOnlineServerFarm' end
   def dscmeta_module_name; 'OfficeOnlineServerDsc' end
-  def dscmeta_module_version; '0.2.0.0' end
+  def dscmeta_module_version; '1.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -883,7 +883,7 @@ Puppet::Type.newtype(:dsc_officeonlineserverwebappsfarm) do
   end
 end
 
-Puppet::Type.type(:dsc_officeonlineserverwebappsfarm).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
+Puppet::Type.type(:dsc_officeonlineserverfarm).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
   confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
   defaultfor :operatingsystem => :windows
 

@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_spjoinfarm) do
   def dscmeta_resource_friendly_name; 'SPJoinFarm' end
   def dscmeta_resource_name; 'MSFT_SPJoinFarm' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.5.0.0' end
+  def dscmeta_module_version; '1.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

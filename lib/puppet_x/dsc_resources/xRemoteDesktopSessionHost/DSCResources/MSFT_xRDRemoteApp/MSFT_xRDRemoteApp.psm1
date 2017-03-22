@@ -13,6 +13,7 @@ function Get-TargetResource
     param
     (
         [parameter(Mandatory)]
+        [ValidateLength(1,15)]
         [string] $CollectionName = "Tenant",
         [parameter(Mandatory)]
         [string] $DisplayName = "Calculator",
@@ -60,6 +61,7 @@ function Set-TargetResource
     param
     (
         [parameter(Mandatory)]
+        [ValidateLength(1,15)]
         [string] $CollectionName,
         [parameter(Mandatory)]
         [string] $DisplayName,
@@ -98,6 +100,7 @@ function Test-TargetResource
     param
     (
         [parameter(Mandatory)]
+        [ValidateLength(1,15)]
         [string] $CollectionName,
         [parameter(Mandatory)]
         [string] $DisplayName,

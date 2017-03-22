@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spweb) do
   def dscmeta_resource_friendly_name; 'SPWeb' end
   def dscmeta_resource_name; 'MSFT_SPWeb' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.5.0.0' end
+  def dscmeta_module_version; '1.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

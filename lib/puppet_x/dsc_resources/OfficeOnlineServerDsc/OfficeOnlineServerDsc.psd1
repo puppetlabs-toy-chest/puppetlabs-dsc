@@ -12,7 +12,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '0.2.0.0'
+ModuleVersion = '1.0.0.0'
 
 # ID used to uniquely identify this module
 GUID = '7514bb93-d3e4-40b2-98e7-3404e9674c1c'
@@ -30,7 +30,7 @@ Copyright = '(c) 2016 Microsoft. All rights reserved.'
 Description = 'The OfficeOnlineServerDsc module provides the ability to install Office Online Server (formerly known as Office Web App Server).'
 
 # Minimum version of the Windows PowerShell engine required by this module
-# PowerShellVersion = ''
+PowerShellVersion = '4.0'
 
 # Name of the Windows PowerShell host required by this module
 # PowerShellHostName = ''
@@ -99,7 +99,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @('DesiredStateConfiguration', 'DSC', 'DSCResourceKit', 'DSCResource', 'preview')
+        Tags = @('DesiredStateConfiguration', 'DSC', 'DSCResourceKit', 'DSCResource')
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/PowerShell/OfficeOnlineServerDsc/blob/master/LICENSE'
@@ -111,9 +111,10 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '
- * Fixed a bug that caused OfficeOnlineServerWebAppsMachine to fail a test when the machine to join 
- was specified using a fully qualified domain name (FQDN)
+        ReleaseNotes = '* Added documentation to the module to finalise for release
+* Renamed resources to shorten names before release
+  * "OfficeOnlineServerWebAppsFarm" becomes "OfficeOnlineServerFarm"
+  * "OfficeOnlineServerWebAppsMachine" becomes "OfficeOnlineServerMachine"
 '
 
     } # End of PSData hashtable

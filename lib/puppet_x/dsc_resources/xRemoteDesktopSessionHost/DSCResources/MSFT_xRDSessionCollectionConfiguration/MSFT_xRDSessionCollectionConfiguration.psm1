@@ -14,6 +14,7 @@ function Get-TargetResource
     param
     (
         [parameter(Mandatory)]
+        [ValidateLength(1,15)]
         [string] $CollectionName,
         [uint32] $ActiveSessionLimitMin,
         [boolean] $AuthenticateUsingNLA,
@@ -75,6 +76,7 @@ function Set-TargetResource
     param
     (
         [parameter(Mandatory)]
+        [ValidateLength(1,15)]
         [string] $CollectionName,
         [uint32] $ActiveSessionLimitMin,
         [boolean] $AuthenticateUsingNLA,
@@ -112,6 +114,7 @@ function Test-TargetResource
     param
     (
         [parameter(Mandatory)]
+        [ValidateLength(1,15)]
         [string] $CollectionName,
         [uint32] $ActiveSessionLimitMin,
         [boolean] $AuthenticateUsingNLA,
