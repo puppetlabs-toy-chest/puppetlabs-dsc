@@ -50,7 +50,7 @@ Puppet::Type.newtype(:dsc_sptrustedidentitytokenissuer) do
   def dscmeta_resource_friendly_name; 'SPTrustedIdentityTokenIssuer' end
   def dscmeta_resource_name; 'MSFT_SPTrustedIdentityTokenIssuer' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.5.0.0' end
+  def dscmeta_module_version; '1.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

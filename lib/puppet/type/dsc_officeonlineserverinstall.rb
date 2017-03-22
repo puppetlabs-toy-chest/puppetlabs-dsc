@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_officeonlineserverinstall) do
   def dscmeta_resource_friendly_name; 'OfficeOnlineServerInstall' end
   def dscmeta_resource_name; 'MSFT_OfficeOnlineServerInstall' end
   def dscmeta_module_name; 'OfficeOnlineServerDsc' end
-  def dscmeta_module_version; '0.2.0.0' end
+  def dscmeta_module_version; '1.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

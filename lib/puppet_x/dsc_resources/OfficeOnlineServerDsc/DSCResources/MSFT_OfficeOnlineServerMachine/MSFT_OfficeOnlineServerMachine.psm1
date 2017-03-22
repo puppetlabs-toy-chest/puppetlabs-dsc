@@ -89,6 +89,7 @@ function Set-TargetResource
         $MachineToJoin
     )
 
+    Write-Verbose -Message "Updating settings for local Office Online Server"
     Import-Module -Name OfficeWebApps -ErrorAction Stop
 
     if ($Ensure -eq "Absent")
@@ -140,6 +141,7 @@ function Test-TargetResource
         $MachineToJoin
     )
 
+    Write-Verbose -Message "Testing settings for local Office Online Server"
     $results = Get-TargetResource -MachineToJoin $MachineToJoin
 
     if ($null -eq $Roles)

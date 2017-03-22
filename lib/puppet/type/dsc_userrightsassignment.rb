@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_userrightsassignment) do
   def dscmeta_resource_friendly_name; 'UserRightsAssignment' end
   def dscmeta_resource_name; 'MSFT_UserRightsAssignment' end
   def dscmeta_module_name; 'SecurityPolicyDsc' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

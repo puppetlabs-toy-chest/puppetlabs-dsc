@@ -1,6 +1,6 @@
 
-[ClassVersion("1.0.0.0"), FriendlyName("OfficeOnlineServerWebAppsFarm")]
-class MSFT_OfficeOnlineServerWebAppsFarm : OMI_BaseResource
+[ClassVersion("1.0.0.0"), FriendlyName("OfficeOnlineServerFarm")]
+class MSFT_OfficeOnlineServerFarm : OMI_BaseResource
 {
     [Write, Description("Enables Customer Experience Improvement Program (CEIP) reporting on all servers in the Office Web Apps Server farm")] Boolean AllowCEIP;
     [Write, Description("Indicates that IIS sites should be provisioned on port 80 for HTTP access. Use AllowHTTP only in environments where all computers require IPSEC (full encryption) or in test environments that do not contain sensitive files.")] Boolean AllowHttp;

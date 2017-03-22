@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spwebapplication) do
   def dscmeta_resource_friendly_name; 'SPWebApplication' end
   def dscmeta_resource_name; 'MSFT_SPWebApplication' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.5.0.0' end
+  def dscmeta_module_version; '1.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -135,17 +135,32 @@ Puppet::Type.newtype(:dsc_spwebapplication) do
   # Name:         AuthenticationMethod
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["NTLM", "Kerberos"]
+  # Values:       ["NTLM", "Kerberos", "Claims"]
   newparam(:dsc_authenticationmethod) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AuthenticationMethod - What authentication mode should be used for the web app Valid values are NTLM, Kerberos."
+    desc "AuthenticationMethod - What authentication mode should be used for the web app Valid values are NTLM, Kerberos, Claims."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['NTLM', 'ntlm', 'Kerberos', 'kerberos'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are NTLM, Kerberos")
+      unless ['NTLM', 'ntlm', 'Kerberos', 'kerberos', 'Claims', 'claims'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are NTLM, Kerberos, Claims")
+      end
+    end
+  end
+
+  # Name:         AuthenticationProvider
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_authenticationprovider) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "AuthenticationProvider - What authentication provider should be used for the web app. This value is required when AuthenticationMethod is set to Claims"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end

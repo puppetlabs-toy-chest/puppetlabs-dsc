@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroup) do
   def dscmeta_resource_friendly_name; 'xExchDatabaseAvailabilityGroup' end
   def dscmeta_resource_name; 'MSFT_xExchDatabaseAvailabilityGroup' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.13.0.0' end
+  def dscmeta_module_version; '1.14.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -131,6 +131,22 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroup) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         AutoDagAutoRedistributeEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_autodagautoredistributeenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "AutoDagAutoRedistributeEnabled"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
@@ -367,6 +383,21 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroup) do
       end
       unless ['Disabled', 'disabled', 'Enabled', 'enabled', 'InterSubnetOnly', 'intersubnetonly', 'SeedOnly', 'seedonly'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Disabled, Enabled, InterSubnetOnly, SeedOnly")
+      end
+    end
+  end
+
+  # Name:         PreferenceMoveFrequency
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_preferencemovefrequency) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "PreferenceMoveFrequency"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end

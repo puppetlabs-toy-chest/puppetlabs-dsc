@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   def dscmeta_resource_friendly_name; 'xSQLServerSetup' end
   def dscmeta_resource_name; 'MSFT_xSQLServerSetup' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '5.0.0.0' end
+  def dscmeta_module_version; '6.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -790,7 +790,7 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   newparam(:dsc_failoverclustergroupname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "FailoverClusterGroupName - The name of the resource group to create for the clustered SQL Server instance."
+    desc "FailoverClusterGroupName - The name of the resource group to create for the clustered SQL Server instance. Default is 'SQL Server (InstanceName)'."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

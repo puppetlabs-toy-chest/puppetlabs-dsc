@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlserverrole) do
   def dscmeta_resource_friendly_name; 'xSQLServerRole' end
   def dscmeta_resource_name; 'MSFT_xSQLServerRole' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '5.0.0.0' end
+  def dscmeta_module_version; '6.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

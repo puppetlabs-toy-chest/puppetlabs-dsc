@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaseowner) do
   def dscmeta_resource_friendly_name; 'xSQLServerDatabaseOwner' end
   def dscmeta_resource_name; 'MSFT_xSQLServerDatabaseOwner' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '5.0.0.0' end
+  def dscmeta_module_version; '6.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaseowner) do
   newparam(:dsc_database) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Database - The SQL database."
+    desc "Database - The name of database to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -77,7 +77,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaseowner) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - The name of the SQL login for the owner."
+    desc "Name - The name of the login that will become a owner of the desired sql database."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -92,7 +92,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaseowner) do
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLServer - The SQL Server for the database."
+    desc "SQLServer - The host name of the SQL Server to be configured."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -107,7 +107,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaseowner) do
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLInstanceName - The SQL instance for the database."
+    desc "SQLInstanceName - The name of the SQL instance to be configured."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
