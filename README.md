@@ -79,7 +79,7 @@ All DSC Resource names and parameters have to be in lowercase, for example: `dsc
 
 You can use either `ensure =>` (Puppet's `ensure`) or `dsc_ensure =>` (DSC's `Ensure`) in your manifests for Puppet DSC resource types. If you use both in a Puppet DSC resource, `dsc_ensure` overrides the value in `ensure`, so the value for `ensure` is essentially ignored.
 
-It is recommended that `dsc_ensure` is used instead of `ensure` as it is a closer match for converting from the DSC properties to Puppet DSC resources and it overrides `ensure` so there is less confusion if both are accidentally included.
+We recommend that you use `dsc_ensure` instead of `ensure`, as it is a closer match for converting the DSC properties to Puppet DSC resources. It also overrides `ensure`, so there is less confusion if both are accidentally included.
 
 > Note: While you can use either `ensure =>` (Puppet's `ensure`) or `dsc_ensure =>` (DSC's `Ensure`) in your manifests, there is currently a known issue where `ensure => absent` reports success but does nothing. See [MODULES-2966](https://tickets.puppet.com/browse/MODULES-2966) for details. **Until this issue is resolved, we recommend using `dsc_ensure` exclusively.**
 
@@ -456,6 +456,67 @@ While there are avenues for using Puppet with a non-administrative account, DSC 
 - Using the Invoke-DscResource cmdlet requires administrative credentials
 
 The Puppet agent on a Windows node can run DSC with a normal default install. If the Puppet agent was configured to use an alternate user account, that account must have administrative privileges on the system in order to run DSC.
+
+## Troubleshooting
+
+When Puppet runs, the dsc module takes the code supplied in your puppet manifest and converts that into PowerShell code that is sent to the DSC engine directly using `Invoke-DscResource`. You can see both the commands sent and the result of this by running puppet interactively, e.g. `puppet apply --debug`. It will output the PowerShell code that is sent to DSC to execute and the return data from DSC. For example:
+
+```puppet
+Notice: Compiled catalog for win2012r2 in environment production in 0.82 seconds
+Debug: Creating default schedules
+Debug: Loaded state in 0.03 seconds
+Debug: Loaded state in 0.05 seconds
+Info: Applying configuration version '1475264065'
+Debug: Reloading posix reboot provider
+Debug: Facter: value for uses_win32console is still nil
+Debug: PowerShell Version: 5.0.10586.117
+$invokeParams = @{
+  Name          = 'ExampleDSCResource'
+  Method        = 'test'
+  Property      = @{
+    property1 = 'value1'
+    property2 = 'value2'
+  }
+  ModuleName = @{
+    ModuleName      = "C:/puppetlabs/modules/dsc/lib/puppet_x/dsc_resources/ExampleDSCResource/ExampleDSCResource.psd1"
+    RequiredVersion = "1.0"
+  }
+}
+############### SNIP ################
+Debug: Waited 50 milliseconds...
+############### SNIP ################
+Debug: Waited 500 total milliseconds.
+Debug: Dsc Resource returned: {"rebootrequired":false,"indesiredstate":false,"errormessage":""}
+Debug: Dsc Resource Exists?: false
+Debug: ensure: present
+############### SNIP ################
+$invokeParams = @{
+  Name          = 'ExampleDSCResource'
+  Method        = 'set'
+  Property      = @{
+    property1 = 'value1'
+    property2 = 'value2'
+  }
+  ModuleName = @{
+    ModuleName      = "C:/puppetlabs/modules/dsc/lib/puppet_x/dsc_resources/ExampleDSCResource/ExampleDSCResource.psd1"
+    RequiredVersion = "1.0"
+  }
+}
+############### SNIP ################\
+Debug: Waited 100 total milliseconds.
+Debug: Create Dsc Resource returned: {"rebootrequired":false,"indesiredstate":true,"errormessage":""}
+Notice: /Stage[main]/Main/Dsc_exampledscresource[foober]/ensure: created
+Debug: /Stage[main]/Main/Dsc_exampledscresource[foober]: The container Class[Main] will propagate my refresh event
+Debug: Class[Main]: The container Stage[main] will propagate my refresh event
+Debug: Finishing transaction 56434520
+Debug: Storing state
+Debug: Stored state in 0.10 seconds
+############### SNIP ################
+```
+
+This shows us that there wasn't any problem parsing your manifest and turning it into a command to send to DSC. It also shows that there are two commands/operations for every DSC Resource executed, a SET and a test. DSC operates in two stages, it first tests if a system is in the desired state, then it sets the state of the system to the desired state. You can see the result of each operation in the debug log.
+
+By using the debug logging of a puppet run, you can troubleshoot the application of DSC Resources during the development of your puppet manifests.
 
 ## Development
 
