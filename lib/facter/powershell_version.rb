@@ -4,7 +4,7 @@ require Pathname.new(__FILE__).dirname + '../' + 'puppet_x/puppetlabs/powershell
 Facter.add(:powershell_version) do
   setcode do
     if Puppet::Util::Platform.windows?
-      version = PuppetX::PowerShell::PowerShellVersion.version
+      version = PuppetX::PuppetLabs::Dsc::PowerShellVersion.version
       version
     end
   end
