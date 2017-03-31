@@ -1,45 +1,56 @@
-Building DSC Resources
-======================
-## Quick-start
+# Building DSC Resources
 
-~~~
-# install the bundler gem
-gem install bundler
+The `dsc` module uses rake tasks to parse the DSC Resource MOF schema files to generate Puppet types. This process pulls the DSC Resources from the github [PowerShell/DSCResources](https:/github.com/powershell/DSCResources) repository using git. This is a point-in-time snapshot, so any time any of those DSC Resources are updated the build process needs to be run again to pull in the updated resources and parse them. To use non Microsoft DSC Resources follow the [Build Custom DSC Resource Types](#building-puppet-types-from-custom-dsc-resources) instructions.
 
+## Requirements
+
+* Knowledge of the file structure of a DSC Resource is useful to understand some of the concepts described here. Look at the [Learn More About DSC section](#learn-more-about-dsc-section) of the readme for resources on some of the terms used here.
+* This module must be built with a **non-Windows** computer due to limitations in the gems that the builder uses to generate types and specs.
+* Git client needs to be version 2.2.0 or above.
+
+## Setup
+
+To build the dsc module, clone the GitHub repository and then bundle install all the gem dependencies.
+
+~~~bash
+# clone the dsc repository
+git clone https://github.com/puppetlabs/puppetlabs-dsc
+# change directory to the code
+cd puppetlabs-dsc
 # install the needed ruby gems/libs
-bundle install
-
-# Run the build and tests (this will remove all puppet types and build them again)
-bundle exec rake
-~~~~
-
-## Rake tasks
-You can use following rake tasks for your convenience
-
-~~~
-rake dsc:build             # Import and build all
-rake dsc:clean             # Cleanup all
-rake dsc:dmtf:clean        # Cleanup DMTF CIM MOF Schema files
-rake dsc:dmtf:import       # Import DMTF CIM MOF Schema files
-rake dsc:resources:clean   # Cleanup DSC Powershell modules files
-rake dsc:resources:import  # Import DSC Powershell modules files
-rake dsc:types:build       # Build DSC types in (lib/puppet/type)
-rake dsc:types:clean       # Cleanup DSC types in (lib/puppet/type)
+bundle install --path .bundle/gems --without system_tests
 ~~~
 
-## Building
+*NOTE*: This guide assumes that you have a working ruby installation with bundler installed. The latest version of ruby is assumed, as of this writing this guide was tested with 1.9.3 and 2.3.1.
+
+## Considerations/Known Limitations
 
 When building the types and specs, keep the following considerations in mind:
 
-* Resources must be built with a non-Windows computer due to limitations in the gems that the builder uses to generate types and specs.
-* You must use Ruby 1.9.3 to build the types, again due to a limitation in the builder dependencies.
 * The builder requires a `MOF` and `PSD1` file to build a type. Both need to be present for the build to be successful.
 * The `MOF` file encoding should be UTF-8. This ensures the most compatibility with the mof gem.
-* Git client needs to be version 2.2.0 or above
 
-### The DSC tag file
+## Building Puppet Types from Microsoft DSC Resources
 
-The DSC tag file, called `dsc_resource_release_tags.yml`, determines which versions of the DSC Resources to build.  If a DSC resource is not listed in the file, the latest version that has been released to the PowerShell gallery will be used during the build, and then added to the `dsc_resource_release_tags.yml` file. An example file is shown below:
+To download all the Microsoft DSC Resources from the [PowerShell/DSCResources](https:/github.com/powershell/DSCResources) repository, parse, and build puppet types from them, run the following command:
+
+~~~bash
+# Run the build (this will remove all puppet types and build them again)
+bundle exec rake dsc:build
+~~~
+
+As you continue to work, you can clean your working copy and re-build by issuing the following commands:
+~~~bash
+# Run the build (this will remove all puppet types and build them again)
+bundle exec rake dsc:clean
+bundle exec rake dsc:build
+~~~
+
+## Building Puppet Types from Microsoft DSC Resources with the latest version
+
+The simplest way to rebuild all DSC resources with the latest version is to delete the `dsc_resource_release_tags.yml` prior to building. Alternatively, you can pass `true` to the `update_versions` argument of the `dsc:resources:import` rake task.
+
+The DSC tag file, called `dsc_resource_release_tags.yml`, determines which versions of the DSC Resources to build. If a DSC resource is not listed in the file, the latest version that has been released to the PowerShell gallery will be used during the build, and then added to the `dsc_resource_release_tags.yml` file. An example file is shown below:
 
 ~~~ yaml
 ---
@@ -51,34 +62,28 @@ xBitlocker: 1.1.0.0-PSGallery
 xCertificate: 2.1.0.0-PSGallery
 xComputerManagement: 1.7.0.0-PSGallery
 ...
-...
 ~~~
 
 * Note that while the tag file will typically contain PowerShell Gallery tags, any type of [git reference](https://git-scm.com/book/en/v2/Git-Internals-Git-References) can be used, such as a commit SHA.
 * The `DSC_REF` environment variable is still honored by the build process however it is no longer necessary as the DSC resource versions are explicitly set in the tag file.
 
-### How to rebuild all DSC resources with the latest version
+## Building Puppet Types from Custom DSC Resources
 
-The simplest way to rebuild all DSC resources with the latest version is to delete the `dsc_resource_release_tags.yml` prior to building. Alternatively, you can pass `true` to the `update_versions` argument of the `dsc:resources:import` rake task.
-
-## Build Custom DSC Resource Types
-You can build puppet types based on your own powershell source code.
+You can build puppet types from your own custom DSC Resources.
 
 ### Getting started
 
-When importing or creating custom types, the following considerations will allow the DSC resource builder to successfully
-build your types.
+When importing or creating custom types, the following considerations will allow the DSC Resource builder to successfully build your types.
 
-* See the notes in Building above.
-* Do not try to include your module in the import folder by default. When building the first time or during a clean, the builder will delete all files and folders in this directory. It is preferred that you keep those custom modules in a separate location. A suggested location a separate repository where you can use source control on those items. You could also keep those files in `build/vendor/custom` within this repository.
-* The builder will import your custom types into the vendored resources directory. They are required to be there for the module to successfully find them during a Puppet catalog application. The dsc module requires the PowerShell files to be there ***even*** if you have already installed them elsewhere on the machine due to how it points to the location of the resource to avoid issues with duplicate resources.
+* Review the steps outlined in Building section above.
+* Do not try to include your module in the `import` folder by default. When building the first time or during a clean, the builder will delete all files and folders in this directory. It is preferred that you keep those custom modules in a separate location. A suggested location a separate repository where you can use source control on those items. You could also keep those files in `build/vendor/custom` within this repository.
+* The builder will import your custom types into the vendored resources `lib/puppet_x/dsc_resources` directory. They are required to be there for the module to successfully find them during a Puppet catalog application. The `dsc` module requires the PowerShell files to be there ***even*** if you have already installed them elsewhere on the machine due to how it points to the location of the resource to avoid issues with duplicate resources.
 * The builder requires that there is no versioned subfolder. This means that you should not have a subfolder with a version (like you get when installing existing modules from the PowerShell Gallery).
   * You can use existing modules from the Gallery if you install them, then copy the files from the versioned subfolder up to the top level folder and delete the versioned subfolder.
-* The builder requires that the PSD1 file be named the same as the parent folder. If your module is named `MyModule`,
-the folder structure should be `MyModule/MyModule.psd1` and not `MyModule/SomethingElse.psd1`. The builder also requires a subdirectory called `DSCRsources`. See the image below:
+* The builder requires that the PSD1 file be named the same as the parent folder. If your DSC Resource is named `MyAwesomeThing`, the folder structure should be `MyAwesomeThing/MyAwesomeThing.psd1` and not `MyAwesomeThing/SomethingElse.psd1`. The builder also requires a subdirectory called `DSCRsources`. These are standard file and folder requriments for all DSC Resources, please consult DSC Resource building documentation for more information. See the image below:
   ![Module Layout - PSD1 file](docs/images/dir_struct_psdname.png)
 
-### Steps to Build
+### Detailed Steps to Build Custom DSC Resources
 
 When importing or creating custom types, follow these steps:
 
@@ -93,8 +98,23 @@ When importing or creating custom types, follow these steps:
 6. The rake task will also copy the DSC resources into `lib/puppet_x/dsc_resources/`. This is necessary for the module to find the DSC resource implementations at runtime when applying the Puppet DSC resources.
 7. Enjoy!
 
-## Partial support for DSC composite resources.
-If you need a puppet type for a DSC composite resources, you have to define a xxx.schema.mof file next to your xxx.Schema.psm1 file.
+### Concise Steps to Build Custom DSC Resources
+
+```bash
+# perform an initial build to setup local copy
+bundle exec rake dsc:build
+# import your custom DSC Resource, repeat for each seperate directory
+bundle exec rake dsc:resources:import["path/to/your/types"]
+# parse the MOF files and build the types
+bundle exec rake dsc:types:build
+# commit the files to your fork
+git add . && git commit -m "new custom DSC Resource"
+```
+
+## Partial support for DSC composite resources
+
+If you need a puppet type for a DSC composite resources, you have to create a `xxx.schema.mof` file next to your `xxx.schema.psm1` file.
 
 ## Issues
-Please report issues on the [project issues](https://tickets.puppet.com/browse/MODULES)
+
+Please report issues on the Puppet MODULES project [issue tracker](https://tickets.puppetlabs.com/CreateIssue.jspa?pid=10707)
