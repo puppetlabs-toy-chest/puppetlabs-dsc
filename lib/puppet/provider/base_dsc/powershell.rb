@@ -2,6 +2,7 @@ require 'pathname'
 require 'json'
 if Puppet::Util::Platform.windows?
   require_relative '../../../puppet_x/puppetlabs/powershell_manager'
+  require_relative '../../../puppet_x/puppetlabs/compatible_powershell_version'
 end
 
 Puppet::Type.type(:base_dsc).provide(:powershell) do
@@ -21,23 +22,27 @@ Puppet::Type.type(:base_dsc).provide(:powershell) do
 Applies DSC Resources by generating a configuration file and applying it.
 EOT
 
+  POWERSHELL_UPGRADE_MSG = <<-UPGRADE
+  Currently, the PowerShell module has reduced v1 functionality on this agent
+  due to one or more of the following conditions:
+  - Puppet 3.x (non-x64 version)
+    Puppet 3.x uses a Ruby version that requires a library to support a colored
+    console. Unfortunately this library prevents the PowerShell module from
+    using a shared PowerShell process to dramatically improve the performance of
+    resource application.
+  - PowerShell v2 with .NET Framework 2.0
+    PowerShell v2 works with both .NET Framework 2.0 and .NET Framework 3.5.
+    To be able to use the enhancements, we require at least .NET Framework 3.5.
+    Typically you will only see this on a base Windows Server 2008 (and R2)
+    install.
+  To enable these improvements, it is suggested to upgrade to any x64 version of
+  Puppet (including 3.x), or to a Puppet version newer than 3.x and ensure you
+  have at least .NET Framework 3.5 installed.
+  UPGRADE
+
   def self.upgrade_message
-    Puppet.warning <<-UPGRADE
-The current Puppet version is outdated and uses a library that was
-previously necessary on the current Ruby verison to support a colored console.
-
-Unfortunately this library prevents the DSC module from using a shared
-PowerShell process to dramatically improve the performance of resource
-application.
-
-To enable these improvements, it is suggested to upgrade to any x64 version of
-Puppet (including 3.x), or to a Puppet version newer than 3.x.
-    UPGRADE
-  end
-
-
-  if Facter.value(:uses_win32console)
-    upgrade_message
+    Puppet.warning POWERSHELL_UPGRADE_MSG if !@upgrade_warning_issued
+    @upgrade_warning_issued = true
   end
 
   def self.vendored_modules_path
@@ -55,24 +60,26 @@ Puppet (including 3.x), or to a Puppet version newer than 3.x.
   end
 
   def self.powershell_args
-    ps_args = ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass', '-Command']
-    ps_args << '-' if !Facter.value(:uses_win32console)
+    ps_args = ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass']
+    ps_args << '-Command' if !PuppetX::Dsc::PowerShellManager.supported?
     ps_args
   end
 
   def ps_manager
-    PuppetX::Dsc::PowerShellManager.instance("#{command(:powershell)} #{self.class.powershell_args.join(' ')}")
+    debug_output = Puppet::Util::Log.level == :debug
+    manager_args = "#{command(:powershell)} #{self.class.powershell_args().join(' ')}"
+    PuppetX::Dsc::PowerShellManager.instance(manager_args, debug_output)
   end
 
   COMMAND_TIMEOUT = 1200000 # 20 minutes
 
   def exists?
     version = Facter.value(:powershell_version)
-    uses_win32console = Facter.value(:uses_win32console)
     Puppet.debug "PowerShell Version: #{version}"
     script_content = ps_script_content('test')
     Puppet.debug "\n" + script_content
-    if uses_win32console
+    if !PuppetX::Dsc::PowerShellManager.supported?
+      self.class.upgrade_message
       output = powershell(self.class.powershell_args, script_content)
     else
       output = ps_manager.execute(script_content, COMMAND_TIMEOUT)[:stdout]
@@ -88,10 +95,10 @@ Puppet (including 3.x), or to a Puppet version newer than 3.x.
   end
 
   def create
-    uses_win32console = Facter.value(:uses_win32console)
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
-    if uses_win32console
+    if !PuppetX::Dsc::PowerShellManager.supported?
+      self.class.upgrade_message
       output = powershell(self.class.powershell_args, script_content)
     else
       output = ps_manager.execute(script_content, COMMAND_TIMEOUT)[:stdout]
@@ -107,10 +114,10 @@ Puppet (including 3.x), or to a Puppet version newer than 3.x.
   end
 
   def destroy
-    uses_win32console = Facter.value(:uses_win32console)
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
-    if uses_win32console
+    if !PuppetX::Dsc::PowerShellManager.supported?
+      self.class.upgrade_message
       output = powershell(self.class.powershell_args, script_content)
     else
       output = ps_manager.execute(script_content, COMMAND_TIMEOUT)[:stdout]
