@@ -22,26 +22,32 @@ Puppet::Type.type(:base_dsc).provide(:powershell) do
 Applies DSC Resources by generating a configuration file and applying it.
 EOT
 
-  POWERSHELL_UPGRADE_MSG = <<-UPGRADE
-  Currently, the PowerShell module has reduced v1 functionality on this agent
+  PUPPET_UPGRADE_MSG = <<-UPGRADE
+  Currently, the dsc module has reduced functionality on this agent
   due to one or more of the following conditions:
   - Puppet 3.x (non-x64 version)
     Puppet 3.x uses a Ruby version that requires a library to support a colored
     console. Unfortunately this library prevents the PowerShell module from
     using a shared PowerShell process to dramatically improve the performance of
     resource application.
-  - PowerShell v2 with .NET Framework 2.0
-    PowerShell v2 works with both .NET Framework 2.0 and .NET Framework 3.5.
-    To be able to use the enhancements, we require at least .NET Framework 3.5.
-    Typically you will only see this on a base Windows Server 2008 (and R2)
-    install.
+  To enable these improvements, it is suggested to upgrade to any x64 version of
+  Puppet (including 3.x), or to a Puppet version newer than 3.x.
+  UPGRADE
+
+  POWERSHELL_UPGRADE_MSG = <<-UPGRADE
+  Currently, the dsc module has reduced functionality on this agent
+  due to one or more of the following conditions:
+  - A PowerShell less than 5.0
+    The dsc module requires PowerShell v5.0 or greater to function. THe cmdlet
+    Invoke-DscResource was introduced in v5.0, and is necessary for the dsc module
+    to work
   To enable these improvements, it is suggested to upgrade to any x64 version of
   Puppet (including 3.x), or to a Puppet version newer than 3.x and ensure you
-  have at least .NET Framework 3.5 installed.
+  have at least PowerShell v5.0 installed.
   UPGRADE
 
   def self.upgrade_message
-    Puppet.warning POWERSHELL_UPGRADE_MSG if !@upgrade_warning_issued
+    Puppet.warning PUPPET_UPGRADE_MSG if !@upgrade_warning_issued
     @upgrade_warning_issued = true
   end
 
@@ -78,6 +84,9 @@ EOT
     Puppet.debug "PowerShell Version: #{version}"
     script_content = ps_script_content('test')
     Puppet.debug "\n" + script_content
+    
+    fail POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
+
     if !PuppetX::Dsc::PowerShellManager.supported?
       self.class.upgrade_message
       output = powershell(self.class.powershell_args, script_content)
@@ -97,6 +106,9 @@ EOT
   def create
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
+
+    fail POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
+
     if !PuppetX::Dsc::PowerShellManager.supported?
       self.class.upgrade_message
       output = powershell(self.class.powershell_args, script_content)
@@ -116,6 +128,9 @@ EOT
   def destroy
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
+
+    fail POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
+
     if !PuppetX::Dsc::PowerShellManager.supported?
       self.class.upgrade_message
       output = powershell(self.class.powershell_args, script_content)
