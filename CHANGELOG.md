@@ -1,7 +1,27 @@
+## 2016-04-07 - Supported Release 1.3.0
+
+The DSC module brings the DSC Resources included to be current as of March 2017.  The release also includes an update for newer PowerShell versions (5.1) and better documentation.
+
+### Summary
+
+- Include January 2017 DSC Resource Kit release ([MODULES-4371](https://tickets.puppet.com/browse/MODULES-4371))
+- Include March 2017 DSC Resource Kit release ([MODULES-4371](https://tickets.puppet.com/browse/MODULES-4371))
+- Update Build README with better instructions ([MODULES-4128](https://tickets.puppet.com/browse/MODULES-4128))
+- Update README with troubleshooting help ([MODULES-4128](https://tickets.puppet.com/browse/MODULES-4128))
+- Update support PowerShell 5.1 ([MODULES-3977](https://tickets.puppet.com/browse/MODULES-3977))
+
+### Bugfixes
+
+- Fix: Fix building custom DSC Resources ([MODULES-4201](https://tickets.puppet.com/browse/MODULES-4201))
+- Fix: Add known issue with `dsc_file` to README ([MODULES-3178](https://tickets.puppet.com/browse/MODULES-3178))
+- Fix: Fix DSC repository name case ([MODULES-4430](https://tickets.puppet.com/browse/MODULES-4430))
+- Fix: Module manifest parser does not handle double quotes ([MODULES-4422](https://tickets.puppet.com/browse/MODULES-4422))
+- Fix: Update error message on older PowerShell versions ([MODULES-4014](https://tickets.puppet.com/browse/MODULES-4014))
+
 ## 2016-11-10 - Supported Release 1.2.0
 ### Summary
 
-The DSC module brings the DSC Resources included to be current as of Novemeber 2016. It also includes all of the Officially supported DSC Resources from Microsoft, with the exception of the PsDscResources repo which is in ongoing development.
+The DSC module brings the DSC Resources included to be current as of November 2016. It also includes all of the Officially supported DSC Resources from Microsoft, with the exception of the PsDscResources repo which is in ongoing development.
 
 ### Features
 - Add psDscRunAsCredential Support ([FM-5671](https://tickets.puppet.com/browse/MODULES-5671))
