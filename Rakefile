@@ -20,3 +20,33 @@ PuppetLint.configuration.send("disable_class_inherits_from_params_class")
 PuppetLint.configuration.send("disable_80chars")
 
 task :default => [:spec, :lint]
+
+# These rake tasks exist to pre-empt adding test tiering and rototiller the DSC Module
+# Note that these are very Puppet Jenkins CI specific
+desc "Rake facade for running acceptance tests"
+task :acceptance_tests do
+  # Environment variables normally used for Puppetlabs Spec Helper
+  hostsfile = ENV['BEAKER_setfile']
+  keyfile   = ENV['BEAKER_keyfile']
+
+  system("beaker --color --debug --preserve-hosts never --hosts #{hostsfile} --keyfile #{keyfile} --load-path tests/lib --pre-suite tests/integration/pre-suite --tests tests/integration/tests")
+  result = $?
+
+  if result.exitstatus != 0
+    raise "acceptance_tests execution failed (exit code: #{result.exitstatus})"
+  end
+end
+
+desc "Rake facade for running reference tests"
+task :reference_tests do
+  # Environment variables normally used for Puppetlabs Spec Helper
+  hostsfile = ENV['BEAKER_setfile']
+  keyfile   = ENV['BEAKER_keyfile']
+
+  system("beaker --color --debug --preserve-hosts never --hosts #{hostsfile} --keyfile #{keyfile} --load-path tests/lib --pre-suite tests/acceptance/pre-suite --tests tests/acceptance/tests")
+  result = $?
+
+  if result.exitstatus != 0
+    raise "reference_tests execution failed (exit code: #{result.exitstatus})"
+  end
+end
