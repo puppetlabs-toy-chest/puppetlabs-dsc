@@ -1,6 +1,6 @@
-## 2016-04-07 - Supported Release 1.3.0
+## 2016-04-27 - Supported Release 1.3.0
 
-The DSC module brings the DSC Resources included to be current as of March 2017.  The release also includes an update for newer PowerShell versions (5.1) and better documentation.
+The DSC module brings the DSC Resources included to be current as of April 2017.  The release also includes an update for newer PowerShell versions (5.1) and better documentation.
 
 ### Summary
 
@@ -9,6 +9,7 @@ The DSC module brings the DSC Resources included to be current as of March 2017.
 - Update Build README with better instructions ([MODULES-4128](https://tickets.puppet.com/browse/MODULES-4128))
 - Update README with troubleshooting help ([MODULES-4128](https://tickets.puppet.com/browse/MODULES-4128))
 - Update support PowerShell 5.1 ([MODULES-3977](https://tickets.puppet.com/browse/MODULES-3977))
+- Include April 2017 DSC Resource Kit release ([MODULES-4747](https://tickets.puppet.com/browse/MODULES-4747))
 
 ### Bugfixes
 
@@ -17,6 +18,8 @@ The DSC module brings the DSC Resources included to be current as of March 2017.
 - Fix: Fix DSC repository name case ([MODULES-4430](https://tickets.puppet.com/browse/MODULES-4430))
 - Fix: Module manifest parser does not handle double quotes ([MODULES-4422](https://tickets.puppet.com/browse/MODULES-4422))
 - Fix: Update error message on older PowerShell versions ([MODULES-4014](https://tickets.puppet.com/browse/MODULES-4014))
+- Fix: Add facade rake tasks for use in CI and Test Tiering ([MODULES-4667](https://tickets.puppet.com/browse/MODULES-4667))
+- Fix: Fix integration test failing due to pre-existing reboot condition
 
 ## 2016-11-10 - Supported Release 1.2.0
 ### Summary
