@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xcertificateexport) do
   def dscmeta_resource_friendly_name; 'xCertificateExport' end
   def dscmeta_resource_name; 'MSFT_xCertificateExport' end
   def dscmeta_module_name; 'xCertificate' end
-  def dscmeta_module_version; '2.4.0.0' end
+  def dscmeta_module_version; '2.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

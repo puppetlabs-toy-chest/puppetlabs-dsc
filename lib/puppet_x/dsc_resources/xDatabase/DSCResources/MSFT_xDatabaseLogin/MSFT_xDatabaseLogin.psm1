@@ -37,7 +37,7 @@ function Get-TargetResource #Not yet working
         [string]
         [ValidateSet("SQL","Windows")]
         $SqlAuthType,
-        
+
         [parameter(Mandatory = $true)]
         [System.String]
         $SqlServer
@@ -46,18 +46,18 @@ function Get-TargetResource #Not yet working
 
     if($SqlAuthType -eq "SQL")
     {
-         $Connection = Construct-SqlConnection -credentials $SqlConnectionCredential -sqlServer $SqlServer
+        $ConnectionString = Construct-ConnectionString -sqlServer $SqlServer -credentials $SqlConnectionCredential
     }
     else
     {
-         $Connection = Construct-SqlConnection -sqlServer $SqlServer
+        $ConnectionString = Construct-ConnectionString -sqlServer $SqlServer
     }
 
     [string]$loginNameQuery = "SELECT * from sys.sql_logins where name='$LoginName'"
 
     $PresentValue = $false
 
-    if((ReturnSqlQuery -sqlConnection $connection -SqlQuery $loginNameQuery)[0] -gt 0)
+    if((ReturnSqlQuery -sqlConnection $connectionString -SqlQuery $loginNameQuery)[0] -gt 0)
     {
         $PresentValue = $true
     }
@@ -66,7 +66,6 @@ function Get-TargetResource #Not yet working
     $returnValue = @{
         Ensure = $PresentValue
         LoginName = $LoginName
-        AuthType = $SqlAuthType
         SqlServer = $SqlServer
     }
 
@@ -98,7 +97,7 @@ function Set-TargetResource
         [parameter(Mandatory = $true)]
         [string]
         [ValidateSet("SQL","Windows")]
-        $SqlAuthType,
+        $SqlAuthType,        
         
         [parameter(Mandatory = $true)]
         [System.String]
@@ -107,11 +106,11 @@ function Set-TargetResource
     
     if($SqlAuthType -eq "SQL")
     {
-         $Connection = Construct-SqlConnection -credentials $SqlConnectionCredential -sqlServer $SqlServer
+        $ConnectionString = Construct-ConnectionString -sqlServer $SqlServer -credentials $SqlConnectionCredential
     }
     else
     {
-         $Connection = Construct-SqlConnection -sqlServer $SqlServer
+        $ConnectionString = Construct-ConnectionString -sqlServer $SqlServer
     }
 
     if($Ensure -eq "Present")
@@ -121,7 +120,7 @@ function Set-TargetResource
             # Create login if it does not already exist.
             [string]$SqlQuery = "if not exists(SELECT name FROM sys.sql_logins WHERE name='$LoginName') Begin create login $LoginName with password='$LoginPassword' END"
 
-            $supressReturn = ExecuteSqlQuery -sqlConnection $connection -SqlQuery $SqlQuery
+            $supressReturn = ExecuteSqlQuery -sqlConnection $connectionString -SqlQuery $SqlQuery
 
             Write-Verbose $($LocalizedData.CreateDatabaseLoginSuccess -f ${LoginName})
         
@@ -144,7 +143,7 @@ function Set-TargetResource
             # Create login if it does not already exist.
             [string]$SqlQuery = "if exists(SELECT name FROM sys.sql_logins WHERE name='$LoginName') Begin DROP LOGIN $LoginName END"
 
-            $supressReturn = ExecuteSqlQuery -sqlConnection $connection -SqlQuery $SqlQuery
+            $supressReturn = ExecuteSqlQuery -sqlConnection $connectionString -SqlQuery $SqlQuery
 
             Write-Verbose $($LocalizedData.RemoveDatabaseLoginSuccess -f ${LoginName})
         }
@@ -185,27 +184,27 @@ function Test-TargetResource #Not yet working
         [parameter(Mandatory = $true)]
         [string]
         [ValidateSet("SQL","Windows")]
-        $SqlAuthType,
-        
+        $SqlAuthType,        
+       
         [parameter(Mandatory = $true)]
         [System.String]
         $SqlServer
     )
 
-        try
+    try
+    {
+        if($SqlAuthType -eq "SQL")
         {
-            if($SqlAuthType -eq "SQL")
-        {
-                $Connection = Construct-SqlConnection -credentials $SqlConnectionCredential -sqlServer $SqlServer
+            $ConnectionString = Construct-ConnectionString -sqlServer $SqlServer -credentials $SqlConnectionCredential
         }
         else
         {
-                $Connection = Construct-SqlConnection -sqlServer $SqlServer
+            $ConnectionString = Construct-ConnectionString -sqlServer $SqlServer
         }
         
         [string]$SqlQuery = "SELECT * from sys.sql_logins where name='$LoginName'"
         
-        $LoginsReturnedByQuery = (ReturnSqlQuery -sqlConnection $connection -SqlQuery $SqlQuery)[0]
+        $LoginsReturnedByQuery = (ReturnSqlQuery -sqlConnection $connectionString -SqlQuery $SqlQuery)[0]
 
         if((($LoginsReturnedByQuery -gt 0) -and ($Ensure -eq "Present")) -or (($LoginsReturnedByQuery -eq 0) -and ($Ensure -eq "absent")))
         {

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xwindowsoptionalfeature) do
   def dscmeta_resource_friendly_name; 'xWindowsOptionalFeature' end
   def dscmeta_resource_name; 'MSFT_xWindowsOptionalFeature' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '6.1.0.0' end
+  def dscmeta_module_version; '6.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
