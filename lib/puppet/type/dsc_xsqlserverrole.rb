@@ -21,14 +21,15 @@ Puppet::Type.newtype(:dsc_xsqlserverrole) do
   }
 
   validate do
-      fail('dsc_name is a required attribute') if self[:dsc_name].nil?
+      fail('dsc_serverrolename is a required attribute') if self[:dsc_serverrolename].nil?
+      fail('dsc_sqlserver is a required attribute') if self[:dsc_sqlserver].nil?
       fail('dsc_sqlinstancename is a required attribute') if self[:dsc_sqlinstancename].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerRole' end
   def dscmeta_resource_name; 'MSFT_xSQLServerRole' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '6.0.0.0' end
+  def dscmeta_module_version; '7.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -56,14 +57,46 @@ Puppet::Type.newtype(:dsc_xsqlserverrole) do
     end
   end
 
-  # Name:         Name
+  # Name:         ServerRoleName
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_name) do
+  newparam(:dsc_serverrolename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - The name of the SQL login.  If LoginType='WindowsUser' or 'WindowsGroup', this is also the name of the user or group in format DOMAIN\name."
+    desc "ServerRoleName - The name of of SQL role to add or remove."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQLServer
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_sqlserver) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLServer - The host name of the SQL Server to be configured."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQLInstanceName
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_sqlinstancename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLInstanceName - The name of the SQL instance to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -79,7 +112,7 @@ Puppet::Type.newtype(:dsc_xsqlserverrole) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Present to ensure that the login has the defined roles, or absent to ensure that these roles are not defined for the login. Default value is 'Present' Valid values are Present, Absent."
+    desc "Ensure - An enumerated value that describes if the server role is added (Present) or dropped (Absent). Default value is 'Present'. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -91,27 +124,17 @@ Puppet::Type.newtype(:dsc_xsqlserverrole) do
     end
   end
 
-  # Name:         ServerRole
+  # Name:         Members
   # Type:         string[]
   # IsMandatory:  False
-  # Values:       ["bulkadmin", "dbcreator", "diskadmin", "processadmin", "public", "securityadmin", "serveradmin", "setupadmin", "sysadmin"]
-  newparam(:dsc_serverrole, :array_matching => :all) do
+  # Values:       None
+  newparam(:dsc_members, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "ServerRole - Type of SQL role to add Valid values are bulkadmin, dbcreator, diskadmin, processadmin, public, securityadmin, serveradmin, setupadmin, sysadmin."
+    desc "Members - The members the server role should have. This parameter will replace all the current server role members with the specified members."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
-      end
-      if value.kind_of?(Array)
-        unless (['bulkadmin', 'bulkadmin', 'dbcreator', 'dbcreator', 'diskadmin', 'diskadmin', 'processadmin', 'processadmin', 'public', 'public', 'securityadmin', 'securityadmin', 'serveradmin', 'serveradmin', 'setupadmin', 'setupadmin', 'sysadmin', 'sysadmin'] & value).count == value.count
-          fail("Invalid value #{value}. Valid values are bulkadmin, dbcreator, diskadmin, processadmin, public, securityadmin, serveradmin, setupadmin, sysadmin")
-        end
-      end
-      if value.kind_of?(String)
-        unless ['bulkadmin', 'bulkadmin', 'dbcreator', 'dbcreator', 'diskadmin', 'diskadmin', 'processadmin', 'processadmin', 'public', 'public', 'securityadmin', 'securityadmin', 'serveradmin', 'serveradmin', 'setupadmin', 'setupadmin', 'sysadmin', 'sysadmin'].include?(value)
-          fail("Invalid value #{value}. Valid values are bulkadmin, dbcreator, diskadmin, processadmin, public, securityadmin, serveradmin, setupadmin, sysadmin")
-        end
       end
     end
     munge do |value|
@@ -119,34 +142,39 @@ Puppet::Type.newtype(:dsc_xsqlserverrole) do
     end
   end
 
-  # Name:         SQLServer
-  # Type:         string
+  # Name:         MembersToInclude
+  # Type:         string[]
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_sqlserver) do
-    def mof_type; 'string' end
+  newparam(:dsc_memberstoinclude, :array_matching => :all) do
+    def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "SQLServer - The SQL Server for the login."
+    desc "MembersToInclude - The members the server role should include. This parameter will only add members to a server role. Can not be used at the same time as parameter Members."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 
-  # Name:         SQLInstanceName
-  # Type:         string
-  # IsMandatory:  True
+  # Name:         MembersToExclude
+  # Type:         string[]
+  # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_sqlinstancename) do
-    def mof_type; 'string' end
+  newparam(:dsc_memberstoexclude, :array_matching => :all) do
+    def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "SQLInstanceName - The SQL instance for the login."
-    isrequired
+    desc "MembersToExclude - The members the server role should exclude. This parameter will only remove members from a server role. Can only be used when parameter Ensure is set to 'Present'. Can not be used at the same time as parameter Members."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 

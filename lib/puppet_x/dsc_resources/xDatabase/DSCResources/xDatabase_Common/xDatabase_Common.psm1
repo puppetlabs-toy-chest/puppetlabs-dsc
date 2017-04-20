@@ -66,7 +66,8 @@ function DeployDac([string] $databaseName, [string]$connectionString, [string]$s
     }
     catch
     {
-        Write-Verbose("Dac Deploy Failed")
+        $errorMessage = $_.Exception.Message
+        Write-Verbose('Dac Deploy Failed: ''{0}''' -f $errorMessage)
     }
 }
 
@@ -101,7 +102,7 @@ function DeleteDb([string] $databaseName, [string]$connectionString, [string]$sq
                 EXEC msdb.dbo.sp_delete_database_backuphistory @database_name = N'$databaseName'
                 ALTER DATABASE [$databaseName] SET  SINGLE_USER WITH ROLLBACK IMMEDIATE
                 USE [master]
-                DROP DATABASE [WPdb]
+                DROP DATABASE [$databaseName]
                END"
 
     $result = ExecuteSqlQuery -sqlConnection $sqlConnection -sqlQuery $query
@@ -135,7 +136,7 @@ function ReturnSqlQuery([system.data.SqlClient.SQLConnection]$sqlConnection, [st
     return $dataSet.Tables
 }
 
-function Construct-ConnectionString([string]$sqlServer, [System.Management.Automation.PSCredential]$credentials, [string]$AuthType)
+function Construct-ConnectionString([string]$sqlServer, [System.Management.Automation.PSCredential]$credentials)
 {
     
     $server = "Server=$sqlServer;"
@@ -144,12 +145,8 @@ function Construct-ConnectionString([string]$sqlServer, [System.Management.Autom
     {
         $uid = $credentials.UserName
         $pwd = $credentials.GetNetworkCredential().Password
-        $userName = "uid=$uid;pwd=$pwd;"
-    }
-
-    if($AuthType -eq "SQL")
-    {
         $integratedSecurity = "Integrated Security=False;"
+        $userName = "uid=$uid;pwd=$pwd;"
     }
     else
     {
@@ -159,23 +156,6 @@ function Construct-ConnectionString([string]$sqlServer, [System.Management.Autom
     $connectionString = "$server$userName$integratedSecurity"
 
     return $connectionString
-}
-
-function Construct-SqlConnection([System.Management.Automation.PSCredential]$credentials, [string]$sqlServer)
-{   
-    if($PSBoundParameters.ContainsKey('credentials'))
-    {
-         $ConnectionString = "Server={0};uid={1};pwd={2};Integrated Security=False;" -f $sqlServer, $credentials.UserName, $credentials.Password
-    }
-    else
-    {
-         $ConnectionString = "Server={0};Integrated Security=SSPI;" -f $sqlServer
-    }
-
-    $sqlConnection = New-Object system.Data.SqlClient.SqlConnection
-    $sqlConnection.connectionstring = $connectionString
-
-    return $sqlConnection
 }
 
 function Perform-Restore([string]$DbName, [string]$connectionString, [string]$sqlserverVersion, [string]$bacpacFilePath)
@@ -192,7 +172,7 @@ function Perform-Restore([string]$DbName, [string]$connectionString, [string]$sq
     }
     catch
     {
-        Throw "Restore Failed"
+        Throw "Restore Failed Exception: $_"
     }
 }
 
@@ -260,3 +240,43 @@ function Get-SqlDatabaseOwner([string]$DatabaseName, [string]$connectionString)
             
  
 }
+
+function Extract-DacPacForDb([string]$connectionString, [string]$sqlServerVersion, [string]$databaseName, [string]$dacpacPath)
+{
+    Load-DacFx -sqlserverVersion $sqlServerVersion
+
+    $dacService = new-object Microsoft.SqlServer.Dac.DacServices($connectionString)
+
+    try
+    {
+        $dacService.Extract($dacpacPath, $databaseName, "MyApplication", "1.0.0.0")
+    }
+    catch
+    {
+        Write-Verbose -Message "Extracting DacPac failed"
+    }
+}
+
+function Import-BacPacForDb([string]$connectionString, [string]$sqlServerVersion, [string]$databaseName, [string]$bacpacPath)
+{
+    Write-Verbose "Importing bacpac"
+
+    Load-DacFx -sqlserverVersion $sqlServerVersion
+
+    Write-Verbose $connectionString
+
+    $dacServiceInstance = new-object Microsoft.SqlServer.Dac.DacServices ($connectionString)
+
+    Write-Verbose $dacServiceInstance
+
+    try
+    {
+        $dacServiceInstance.ExportBacpac($bacpacPath, $databaseName)
+    }
+    catch
+    {
+        Write-Verbose -Message "Importing BacPac failed"
+    }
+}
+
+

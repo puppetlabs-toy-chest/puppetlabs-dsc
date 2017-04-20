@@ -4,10 +4,10 @@ xAdcsDeployment: 1.1.0.0-PSGallery
 xAzure: 0.2.0.0-PSGallery
 xAzurePack: 1.4.0.0-PSGallery
 xBitlocker: 1.1.0.0-PSGallery
-xCertificate: 2.4.0.0-PSGallery
+xCertificate: 2.5.0.0-PSGallery
 xComputerManagement: 1.9.0.0-PSGallery
-xCredSSP: 1.1.0.0-PSGallery
-xDatabase: 1.5.0.0-PSGallery
+xCredSSP: 1.2.0.0-PSGallery
+xDatabase: 1.6.0.0-PSGallery
 xDefender: 0.2.0.0-PSGallery
 xDFS: 3.1.0.0-PSGallery
 xDhcpServer: 1.5.0.0-PSGallery
@@ -23,7 +23,7 @@ xNetworking: 3.2.0.0-PSGallery
 xPendingReboot: 0.3.0.0-PSGallery
 xPhp: 1.2.0.0-PSGallery
 xPowerShellExecutionPolicy: 1.1.0.0-PSGallery
-xPSDesiredStateConfiguration: 6.1.0.0-PSGallery
+xPSDesiredStateConfiguration: 6.2.0.0-PSGallery
 xRemoteDesktopAdmin: 1.1.0.0-PSGallery
 xRemoteDesktopSessionHost: 1.4.0.0-PSGallery
 xRobocopy: 2.0.0.0-PSGallery
@@ -36,7 +36,7 @@ xSCVMM: 1.2.4.0-PSGallery
 xSharePoint: 1.6.0.0-PSGallery
 xSmbShare: 2.0.0.0-PSGallery
 xSqlPs: 1.4.0.0-PSGallery
-xSQLServer: 6.0.0.0-PSGallery
+xSQLServer: 7.0.0.0-PSGallery
 xStorage: 2.9.0.0-PSGallery
 xTimeZone: 1.6.0.0-PSGallery
 xWebAdministration: 1.17.0.0-PSGallery

@@ -22,12 +22,13 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointstate) do
 
   validate do
       fail('dsc_instancename is a required attribute') if self[:dsc_instancename].nil?
+      fail('dsc_name is a required attribute') if self[:dsc_name].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerEndpointState' end
   def dscmeta_resource_name; 'MSFT_xSQLServerEndpointState' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '6.0.0.0' end
+  def dscmeta_module_version; '7.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -61,7 +62,7 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointstate) do
   newparam(:dsc_instancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstanceName - The SQL Server instance name."
+    desc "InstanceName - The name of the SQL instance to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -77,7 +78,7 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointstate) do
   newparam(:dsc_nodename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "NodeName - The host name or FQDN."
+    desc "NodeName - The host name of the SQL Server to be configured. Default value is $env:COMPUTERNAME."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -87,12 +88,13 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointstate) do
 
   # Name:         Name
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "Name - The name of the endpoint."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -107,7 +109,7 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointstate) do
   newparam(:dsc_state) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "State - The state of the endpoint. Valid states are Started, Stopped or Disabled. Valid values are Started, Stopped, Disabled."
+    desc "State - The state of the endpoint. Valid states are Started, Stopped or Disabled. Default value is 'Started'. Valid values are Started, Stopped, Disabled."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

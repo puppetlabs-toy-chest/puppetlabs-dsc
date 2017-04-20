@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointpermission) do
   def dscmeta_resource_friendly_name; 'xSQLServerEndpointPermission' end
   def dscmeta_resource_name; 'MSFT_xSQLServerEndpointPermission' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '6.0.0.0' end
+  def dscmeta_module_version; '7.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -63,7 +63,7 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointpermission) do
   newparam(:dsc_instancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstanceName - The SQL Server instance name."
+    desc "InstanceName - The name of the SQL instance to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -79,7 +79,7 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointpermission) do
   newparam(:dsc_nodename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "NodeName - The host name or FQDN."
+    desc "NodeName - The host name of the SQL Server to be configured."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -94,7 +94,7 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointpermission) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - If the permission should be present or absent. Valid values are Present, Absent."
+    desc "Ensure - If the permission should be present or absent. Default value is 'Present'. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -144,7 +144,7 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointpermission) do
   newparam(:dsc_permission) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Permission - The permission to set for the login. Valid values are CONNECT."
+    desc "Permission - The permission to set for the login. Valid value for permission are only CONNECT. Valid values are CONNECT."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlserveravailabilitygrouplistener) do
   def dscmeta_resource_friendly_name; 'xSQLServerAvailabilityGroupListener' end
   def dscmeta_resource_name; 'MSFT_xSQLServerAvailabilityGroupListener' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '6.0.0.0' end
+  def dscmeta_module_version; '7.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -109,7 +109,7 @@ Puppet::Type.newtype(:dsc_xsqlserveravailabilitygrouplistener) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - If the availability group listener should be present or absent. Valid values are Present, Absent."
+    desc "Ensure - If the availability group listener should be present or absent. Default value is 'Present'. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

@@ -30,7 +30,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaserole) do
   def dscmeta_resource_friendly_name; 'xSQLServerDatabaseRole' end
   def dscmeta_resource_name; 'MSFT_xSQLServerDatabaseRole' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '6.0.0.0' end
+  def dscmeta_module_version; '7.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -100,7 +100,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaserole) do
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLServer - The SQL server on which the instance exist."
+    desc "SQLServer - The host name of the SQL Server to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -116,7 +116,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabaserole) do
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLInstanceName - The SQL instance in which the database exist."
+    desc "SQLInstanceName - The name of the SQL instance to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
