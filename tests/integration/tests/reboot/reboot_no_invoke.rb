@@ -47,6 +47,10 @@ inject_site_pp(master, get_site_pp_path(master), site_pp)
 # Tests
 confine_block(:to, :platform => 'windows') do
   agents.each do |agent|
+    # Workaround for https://tickets.puppetlabs.com/browse/IMAGES-539
+    step 'Remove PendingFileRenameOperations registry key'
+    on(agent, 'reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager" /v PendingFileRenameOperations /f', :accept_all_exit_codes => true)
+
     step 'Run Puppet Agent'
     on(agent, puppet('agent -t --environment production'), :acceptable_exit_codes => [0,2]) do |result|
       assert_no_match(/Error:/, result.stderr, 'Unexpected error was detected!')
