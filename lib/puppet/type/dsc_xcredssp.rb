@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xcredssp) do
   def dscmeta_resource_friendly_name; 'xCredSSP' end
   def dscmeta_resource_name; 'MSFT_xCredSSP' end
   def dscmeta_module_name; 'xCredSSP' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -55,25 +55,6 @@ Puppet::Type.newtype(:dsc_xcredssp) do
     end
   end
 
-  # Name:         Ensure
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       ["Present", "Absent"]
-  newparam(:dsc_ensure) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "Ensure - An enumerated value that describes if the role is expected to be enabled on the machine.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
-    validate do |value|
-      resource[:ensure] = value.downcase
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Present, Absent")
-      end
-    end
-  end
-
   # Name:         Role
   # Type:         string
   # IsMandatory:  True
@@ -93,6 +74,25 @@ Puppet::Type.newtype(:dsc_xcredssp) do
     end
   end
 
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Ensure - An enumerated value that describes if the role is expected to be enabled on the machine.\nPresent {default}  \nAbsent   \n Valid values are Present, Absent."
+    validate do |value|
+      resource[:ensure] = value.downcase
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      end
+    end
+  end
+
   # Name:         DelegateComputers
   # Type:         string[]
   # IsMandatory:  False
@@ -108,6 +108,22 @@ Puppet::Type.newtype(:dsc_xcredssp) do
     end
     munge do |value|
       Array(value)
+    end
+  end
+
+  # Name:         SuppressReboot
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_suppressreboot) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SuppressReboot - Specifies if a reboot should be supressed. Default is False"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

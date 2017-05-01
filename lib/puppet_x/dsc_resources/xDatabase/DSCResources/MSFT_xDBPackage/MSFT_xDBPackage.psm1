@@ -109,7 +109,7 @@ function Test-TargetResource
 
     $connectionString = Construct-ConnectionString -sqlServer $SqlServer -credentials $Credentials
 
-    $dbExists = Check-IfDbExists -databaseName $DatabaseName -connectionString $connectionString
+    $dbExists = CheckIfDbExists -connectionString $connectionString -databaseName $DatabaseName 
 
     if($dbExists)
     {

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdbpackage) do
   def dscmeta_resource_friendly_name; 'xDBPackage' end
   def dscmeta_resource_name; 'MSFT_xDBPackage' end
   def dscmeta_module_name; 'xDatabase' end
-  def dscmeta_module_version; '1.5.0.0' end
+  def dscmeta_module_version; '1.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

@@ -22,12 +22,13 @@ Puppet::Type.newtype(:dsc_xsqlserverendpoint) do
 
   validate do
       fail('dsc_endpointname is a required attribute') if self[:dsc_endpointname].nil?
+      fail('dsc_sqlinstancename is a required attribute') if self[:dsc_sqlinstancename].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerEndpoint' end
   def dscmeta_resource_name; 'MSFT_xSQLServerEndpoint' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '6.0.0.0' end
+  def dscmeta_module_version; '7.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -55,14 +56,14 @@ Puppet::Type.newtype(:dsc_xsqlserverendpoint) do
     end
   end
 
-  # Name:         EndPointName
+  # Name:         EndpointName
   # Type:         string
   # IsMandatory:  True
   # Values:       None
   newparam(:dsc_endpointname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "EndPointName"
+    desc "EndpointName - The name of the endpoint."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -78,7 +79,7 @@ Puppet::Type.newtype(:dsc_xsqlserverendpoint) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - If the endpoint should be present or absent. Default values is 'Present'. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -91,13 +92,13 @@ Puppet::Type.newtype(:dsc_xsqlserverendpoint) do
   end
 
   # Name:         Port
-  # Type:         uint32
+  # Type:         uint16
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_port) do
-    def mof_type; 'uint32' end
+    def mof_type; 'uint16' end
     def mof_is_embedded?; false end
-    desc "Port"
+    desc "Port - The network port the endpoint is listening on. Default value is 5022."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -108,21 +109,6 @@ Puppet::Type.newtype(:dsc_xsqlserverendpoint) do
     end
   end
 
-  # Name:         AuthorizedUser
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_authorizeduser) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "AuthorizedUser"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
   # Name:         SQLServer
   # Type:         string
   # IsMandatory:  False
@@ -130,7 +116,7 @@ Puppet::Type.newtype(:dsc_xsqlserverendpoint) do
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLServer"
+    desc "SQLServer - The host name of the SQL Server to be configured. Default value is $env:COMPUTERNAME."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -140,12 +126,28 @@ Puppet::Type.newtype(:dsc_xsqlserverendpoint) do
 
   # Name:         SQLInstanceName
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLInstanceName"
+    desc "SQLInstanceName - The name of the SQL instance to be configured."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         IpAddress
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_ipaddress) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "IpAddress - The network IP address the endpoint is listening on. Default the endpoint will listen on any valid IP address."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
