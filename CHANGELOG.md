@@ -1,4 +1,4 @@
-## 2016-04-27 - Supported Release 1.3.0
+## 2017-04-27 - Supported Release 1.3.0
 
 The DSC module brings the DSC Resources included to be current as of April 2017.  The release also includes an update for newer PowerShell versions (5.1) and better documentation.
 
