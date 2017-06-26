@@ -2,8 +2,8 @@
 
 [wmf-5.0]: https://www.microsoft.com/en-us/download/details.aspx?id=50395
 [DSCResources]: https://github.com/powershell/DSCResources
-[wmf5-blog-post]: https://msdn.microsoft.com/en-us/powershell/wmf/releasenotes
-[wmf5-blog-incompatibilites]: https://msdn.microsoft.com/en-us/powershell/wmf/productincompat
+[wmf5-blog-post]: https://msdn.microsoft.com/en-us/powershell/wmf/5.1/release-notes
+[wmf5-blog-incompatibilites]: https://msdn.microsoft.com/en-us/powershell/wmf/5.1/productincompat
 
 #### Table of Contents
 
