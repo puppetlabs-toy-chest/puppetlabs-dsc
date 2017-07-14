@@ -44,7 +44,7 @@ minor_version = "#{ruby_version_segments[0]}.#{ruby_version_segments[1]}"
 
 group :development do
   gem "puppet-module-posix-default-r#{minor_version}", :require => false, :platforms => "ruby"
-  gem "puppet-module-win-default-r#{minor_version}", '= 0.0.6',   :require => false, :platforms => ["mswin", "mingw", "x64_mingw"]
+  gem "puppet-module-win-default-r#{minor_version}",   :require => false, :platforms => ["mswin", "mingw", "x64_mingw"]
   gem "puppet-module-posix-dev-r#{minor_version}",     :require => false, :platforms => "ruby"
   gem "puppet-module-win-dev-r#{minor_version}", '=0.0.6',       :require => false, :platforms => ["mswin", "mingw", "x64_mingw"]
   gem "json_pure", '<= 2.0.1',                         :require => false if Gem::Version.new(RUBY_VERSION.dup) < Gem::Version.new('2.0.0')
