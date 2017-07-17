@@ -34,7 +34,7 @@ EOT
   Puppet (including 3.x), or to a Puppet version newer than 3.x.
   UPGRADE
 
-  POWERSHELL_UPGRADE_MSG = <<-UPGRADE
+  DSC_MODULE_POWERSHELL_UPGRADE_MSG = <<-UPGRADE
   Currently, the dsc module has reduced functionality on this agent
   due to one or more of the following conditions:
   - A PowerShell less than 5.0
@@ -85,7 +85,7 @@ EOT
     script_content = ps_script_content('test')
     Puppet.debug "\n" + script_content
     
-    fail POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
+    fail DSC_MODULE_POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
 
     if !PuppetX::Dsc::PowerShellManager.supported?
       self.class.upgrade_message
@@ -107,7 +107,7 @@ EOT
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
 
-    fail POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
+    fail DSC_MODULE_POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
 
     if !PuppetX::Dsc::PowerShellManager.supported?
       self.class.upgrade_message
@@ -129,7 +129,7 @@ EOT
     script_content = ps_script_content('set')
     Puppet.debug "\n" + script_content
 
-    fail POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
+    fail DSC_MODULE_POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
 
     if !PuppetX::Dsc::PowerShellManager.supported?
       self.class.upgrade_message
