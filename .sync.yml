@@ -10,6 +10,10 @@ Gemfile:
       - gem: iconv
         version: '~> 1.0.4'
         condition: "Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new('2.0')"
+    ':development':
+      - gem: 'rspec-puppet'
+        platforms: ["mswin", "mingw", "x64_mingw"]
+        version: '< 2.6.0'
 Rakefile:
   unmanaged: true
 spec/spec_helper.rb:
