@@ -21,13 +21,13 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
   }
 
   validate do
-      fail('dsc_disknumber is a required attribute') if self[:dsc_disknumber].nil?
+      fail('dsc_diskid is a required attribute') if self[:dsc_diskid].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xWaitForDisk' end
   def dscmeta_resource_name; 'MSFT_xWaitForDisk' end
   def dscmeta_module_name; 'xStorage' end
-  def dscmeta_module_version; '2.9.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -54,22 +54,37 @@ Puppet::Type.newtype(:dsc_xwaitfordisk) do
     end
   end
 
-  # Name:         DiskNumber
-  # Type:         uint32
+  # Name:         DiskId
+  # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_disknumber) do
-    def mof_type; 'uint32' end
+  newparam(:dsc_diskid) do
+    def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DiskNumber - Specifies the identifier for which disk to wait for."
+    desc "DiskId - Specifies the disk identifier for the disk to wait for."
     isrequired
     validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
       end
     end
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+  end
+
+  # Name:         DiskIdType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Number", "UniqueId"]
+  newparam(:dsc_diskidtype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DiskIdType - Specifies the identifier type the DiskId contains. Defaults to Number. Valid values are Number, UniqueId."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Number', 'number', 'UniqueId', 'uniqueid'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Number, UniqueId")
+      end
     end
   end
 

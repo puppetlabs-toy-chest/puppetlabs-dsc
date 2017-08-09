@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   def dscmeta_resource_friendly_name; 'xCertReq' end
   def dscmeta_resource_name; 'MSFT_xCertReq' end
   def dscmeta_module_name; 'xCertificate' end
-  def dscmeta_module_version; '2.5.0.0' end
+  def dscmeta_module_version; '2.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -70,6 +70,21 @@ Puppet::Type.newtype(:dsc_xcertreq) do
     end
   end
 
+  # Name:         CAType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_catype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CAType - The type of CA in use, Standalone/Enterprise."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
   # Name:         CAServerFQDN
   # Type:         string
   # IsMandatory:  False
@@ -77,7 +92,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_caserverfqdn) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CAServerFQDN - The FQDN of the Active Directory Certificate Authority on the local area network."
+    desc "CAServerFQDN - The FQDN of the Active Directory Certificate Authority on the local area network. Leave empty to automatically locate."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -92,7 +107,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_carootname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CARootName - The name of the certificate authority, by default this will be in format domain-servername-ca."
+    desc "CARootName - The name of the certificate authority, by default this will be in format domain-servername-ca. Leave empty to automatically locate."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -238,6 +253,67 @@ Puppet::Type.newtype(:dsc_xcertreq) do
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         CepURL
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_cepurl) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CepURL - The URL to the Certification Enrollment Policy Service."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CesURL
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_cesurl) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CesURL - The URL to the Certification Enrollment Service."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         UseMachineContext
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_usemachinecontext) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "UseMachineContext - Indicates whether or not the flag -adminforcemachine will be used when requesting certificates. Necessary for certain templates like e.g. DomainControllerAuthentication"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         FriendlyName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_friendlyname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "FriendlyName - Specifies a friendly name for the certificate."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
     end
   end
 

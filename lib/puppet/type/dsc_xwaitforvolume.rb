@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xwaitforvolume) do
   def dscmeta_resource_friendly_name; 'xWaitForVolume' end
   def dscmeta_resource_name; 'MSFT_xWaitForVolume' end
   def dscmeta_module_name; 'xStorage' end
-  def dscmeta_module_version; '2.9.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

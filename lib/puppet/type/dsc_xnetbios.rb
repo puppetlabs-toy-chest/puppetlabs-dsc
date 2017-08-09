@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xnetbios) do
   def dscmeta_resource_friendly_name; 'xNetBIOS' end
   def dscmeta_resource_name; 'MSFT_xNetBIOS' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '3.2.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

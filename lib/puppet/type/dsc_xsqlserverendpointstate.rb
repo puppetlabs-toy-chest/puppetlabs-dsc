@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlserverendpointstate) do
   def dscmeta_resource_friendly_name; 'xSQLServerEndpointState' end
   def dscmeta_resource_name; 'MSFT_xSQLServerEndpointState' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

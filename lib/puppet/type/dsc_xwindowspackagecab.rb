@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xwindowspackagecab) do
   def dscmeta_resource_friendly_name; 'xWindowsPackageCab' end
   def dscmeta_resource_name; 'MSFT_xWindowsPackageCab' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '6.2.0.0' end
+  def dscmeta_module_version; '6.4.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

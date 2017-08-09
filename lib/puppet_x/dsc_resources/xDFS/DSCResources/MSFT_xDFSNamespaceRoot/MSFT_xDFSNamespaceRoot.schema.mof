@@ -1,8 +1,8 @@
 [ClassVersion("1.0.0.0"), FriendlyName("xDFSNamespaceRoot")]
 class MSFT_xDFSNamespaceRoot : OMI_BaseResource
 {
-    [key, Description("Specifies a path for the root of a DFS namespace.")] String Path;
-    [key, Description("Specifies a path for a root target of the DFS namespace.")] String TargetPath;
+    [Key, Description("Specifies a path for the root of a DFS namespace.")] String Path;
+    [Key, Description("Specifies a path for a root target of the DFS namespace.")] String TargetPath;
     [Required, Description("Specifies if the DFS Namespace root should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
     [Required, Description("Specifies the type of a DFS namespace as a Type object."), ValueMap{"Standalone","DomainV1","DomainV2"}, Values{"Standalone","DomainV1","DomainV2"}] String Type;
     [Write, Description("The description of the DFS Namespace.")] String Description;

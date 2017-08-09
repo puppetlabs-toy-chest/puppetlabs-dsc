@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdfsnamespaceserverconfiguration) do
   def dscmeta_resource_friendly_name; 'xDFSNamespaceServerConfiguration' end
   def dscmeta_resource_name; 'MSFT_xDFSNamespaceServerConfiguration' end
   def dscmeta_module_name; 'xDFS' end
-  def dscmeta_module_version; '3.1.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xdfsnamespaceserverconfiguration) do
   newparam(:dsc_issingleinstance) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IsSingleInstance - Specifies the resource is a single instance, the value must be 'Yes' Valid values are Yes."
+    desc "IsSingleInstance - Specifies the resource is a single instance, the value must be 'Yes'. Valid values are Yes."
     isrequired
     validate do |value|
       unless value.kind_of?(String)

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsqlservermaxdop) do
   def dscmeta_resource_friendly_name; 'xSQLServerMaxDop' end
   def dscmeta_resource_name; 'MSFT_xSQLServerMaxDop' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xsqlservermaxdop) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - An enumerated value that describes if MaxDop is configured (Present) or reset to default value (Absent) Valid values are Present, Absent."
+    desc "Ensure - When set to 'Present' then max degree of parallelism will be set to either the value in parameter MaxDop or dynamically configured when parameter DynamicAlloc is set to $true. When set to 'Absent' max degree of parallelism will be set to 0 which means no limit in number of processors used in parallel plan execution. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -81,7 +81,7 @@ Puppet::Type.newtype(:dsc_xsqlservermaxdop) do
   newparam(:dsc_dynamicalloc) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "DynamicAlloc - Flag to Dynamically allocate Maxdop based on Best Practices"
+    desc "DynamicAlloc - If set to $true then max degree of parallelism will be dynamically configured. When this is set parameter is set to $true, the parameter MaxDop must be set to $null or not be configured."
     validate do |value|
     end
     newvalues(true, false)
@@ -97,7 +97,7 @@ Puppet::Type.newtype(:dsc_xsqlservermaxdop) do
   newparam(:dsc_maxdop) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
-    desc "MaxDop - Numeric value to configure Maxdop to"
+    desc "MaxDop - A numeric value to limit the number of processors used in parallel plan execution."
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -115,7 +115,7 @@ Puppet::Type.newtype(:dsc_xsqlservermaxdop) do
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLServer - The host name of the SQL Server to be configured. Default value is '$env:COMPUTERNAME'."
+    desc "SQLServer - The host name of the SQL Server to be configured. Default value is $env:COMPUTERNAME."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

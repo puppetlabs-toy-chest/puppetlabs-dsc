@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   def dscmeta_resource_friendly_name; 'xComputer' end
   def dscmeta_resource_name; 'MSFT_xComputer' end
   def dscmeta_module_name; 'xComputerManagement' end
-  def dscmeta_module_version; '1.9.0.0' end
+  def dscmeta_module_version; '2.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

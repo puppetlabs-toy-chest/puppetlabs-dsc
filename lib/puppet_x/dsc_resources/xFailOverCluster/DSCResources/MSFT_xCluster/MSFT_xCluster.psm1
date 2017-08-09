@@ -1,42 +1,51 @@
-#
-# xCluster: DSC resource to configure a Windows Cluster. If the cluster does not exist, it will create one in the 
-# domain and assign the StaticIPAddress to the cluster. Then, it will add current node to the cluster.
-#
+<#
+    .SYNOPSIS
+        Returns the current state of the failover cluster.
 
-#
-# The Get-TargetResource cmdlet.
-#
+    .PARAMETER Name
+        Name of the failover cluster.
+
+    .PARAMETER StaticIPAddress
+        Static IP Address of the failover cluster.
+
+    .PARAMETER DomainAdministratorCredential
+        Credential used to create the failover cluster in Active Directory.
+#>
 function Get-TargetResource
 {
-    [OutputType([Hashtable])]
+    [OutputType([System.Collections.Hashtable])]
     param
-    (    
-        [parameter(Mandatory)]
-        [string] $Name,
+    (
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-        [parameter(Mandatory)]
-        [string] $StaticIPAddress,
-        
-        [parameter(Mandatory)]
-        [PSCredential] $DomainAdministratorCredential
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $StaticIPAddress,
+
+        [Parameter(Mandatory = $true)]
+        [System.Management.Automation.PSCredential]
+        $DomainAdministratorCredential
     )
 
-    $ComputerInfo = Get-WmiObject Win32_ComputerSystem
-    if (($ComputerInfo -eq $null) -or ($ComputerInfo.Domain -eq $null))
+    $computerInformation = Get-WmiObject -Class Win32_ComputerSystem
+    if (($null -eq $computerInformation) -or ($null -eq $computerInformation.Domain))
     {
-        throw "Can't find machine's domain name"
+        throw 'Can''t find machine''s domain name'
     }
-    
+
     try
     {
-        ($oldToken, $context, $newToken) = ImpersonateAs -cred $DomainAdministratorCredential
-        $cluster = Get-Cluster -Name $Name -Domain $ComputerInfo.Domain
+        ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
+
+        $cluster = Get-Cluster -Name $Name -Domain $computerInformation.Domain
         if ($null -eq $cluster)
         {
             throw "Can't find the cluster $Name"
         }
 
-        $address = Get-ClusterGroup -Cluster $Name -Name "Cluster IP Address" | Get-ClusterParameter "Address"
+        $address = Get-ClusterGroup -Cluster $Name -Name 'Cluster IP Address' | Get-ClusterParameter -Name 'Address'
     }
     finally
     {
@@ -44,61 +53,83 @@ function Get-TargetResource
         {
             $context.Undo()
             $context.Dispose()
-            CloseUserToken($newToken)
+            Close-UserToken -Token $newToken
         }
     }
 
-    $retvalue = @{
-        Name = $Name
-        StaticIPAddress = $address.Value
+    @{
+        Name                          = $Name
+        StaticIPAddress               = $address.Value
+        DomainAdministratorCredential = $DomainAdministratorCredential
     }
-    $retvalue
 }
 
-#
-# The Set-TargetResource cmdlet.
-#
+<#
+    .SYNOPSIS
+        Creates the failover cluster and adds a node to the failover cluster.
+
+    .PARAMETER Name
+        Name of the failover cluster.
+
+    .PARAMETER StaticIPAddress
+        Static IP Address of the failover cluster.
+
+    .PARAMETER DomainAdministratorCredential
+        Credential used to create the failover cluster in Active Directory.
+
+    .NOTES
+        If the cluster does not exist, it will be created in the domain and the
+        static IP address will be assigned to the cluster.
+        When the cluster exist (either it was created or already existed), it
+        will add the target node ($env:COMPUTERNAME) to the cluster.
+        If the target node already is a member of the failover cluster but has
+        status down, it will be removed and then added again to the failover
+        cluster.
+#>
 function Set-TargetResource
 {
     param
-    (    
-        [parameter(Mandatory)]
-        [string] $Name,
+    (
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-        [parameter(Mandatory)]
-        [string] $StaticIPAddress,
-        
-        [parameter(Mandatory)]
-        [PSCredential] $DomainAdministratorCredential
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $StaticIPAddress,
+
+        [Parameter(Mandatory = $true)]
+        [System.Management.Automation.PSCredential]
+        $DomainAdministratorCredential
     )
 
     $bCreate = $true
 
     Write-Verbose -Message "Checking if Cluster $Name is present ..."
+
+    $computerInformation = Get-WmiObject -Class Win32_ComputerSystem
+    if (($null -eq $computerInformation) -or ($null -eq $computerInformation.Domain))
+    {
+        throw 'Can''t find machine''s domain name'
+    }
+
     try
     {
-        $ComputerInfo = Get-WmiObject Win32_ComputerSystem
-        if (($ComputerInfo -eq $null) -or ($ComputerInfo.Domain -eq $null))
-        {
-            throw "Can't find machine's domain name"
-        }
-
-        $cluster = Get-Cluster -Name $Name -Domain $ComputerInfo.Domain
+        $cluster = Get-Cluster -Name $Name -Domain $computerInformation.Domain
 
         if ($cluster)
         {
-            $bCreate = $false     
+            $bCreate = $false
         }
     }
     catch
     {
         $bCreate = $true
-
     }
 
     try
     {
-        ($oldToken, $context, $newToken) = ImpersonateAs -cred $DomainAdministratorCredential  
+        ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
 
         if ($bCreate)
         {
@@ -106,9 +137,9 @@ function Set-TargetResource
 
             New-Cluster -Name $Name -Node $env:COMPUTERNAME -StaticAddress $StaticIPAddress -NoStorage -Force -ErrorAction Stop
 
-            if(!(Get-Cluster))
+            if ( -not (Get-Cluster))
             {
-                throw "Cluster creation failed. Please verify output of 'Get-Cluster' command"
+                throw 'Cluster creation failed. Please verify output of ''Get-Cluster'' command'
             }
 
             Write-Verbose -Message "Created Cluster $Name"
@@ -118,25 +149,24 @@ function Set-TargetResource
             Write-Verbose -Message "Add node to Cluster $Name ..."
 
             Write-Verbose -Message "Add-ClusterNode $env:COMPUTERNAME to cluster $Name"
-                           
+
             $list = Get-ClusterNode -Cluster $Name
             foreach ($node in $list)
             {
                 if ($node.Name -eq $env:COMPUTERNAME)
                 {
-                    if ($node.State -eq "Down")
+                    if ($node.State -eq 'Down')
                     {
-                        Write-Verbose -Message "node $env:COMPUTERNAME was down, need remove it from the list."
+                        Write-Verbose -Message "Node $env:COMPUTERNAME was down, need remove it from the list."
 
-                        Remove-ClusterNode $env:COMPUTERNAME -Cluster $Name -Force
+                        Remove-ClusterNode -Name $env:COMPUTERNAME -Cluster $Name -Force
                     }
                 }
             }
 
-            Add-ClusterNode $env:COMPUTERNAME -Cluster $Name -NoStorage
-            
+            Add-ClusterNode -Name $env:COMPUTERNAME -Cluster $Name -NoStorage
+
             Write-Verbose -Message "Added node to Cluster $Name"
-        
         }
     }
     finally
@@ -145,101 +175,103 @@ function Set-TargetResource
         {
             $context.Undo()
             $context.Dispose()
-            CloseUserToken($newToken)
+            Close-UserToken -Token $newToken
         }
     }
 }
 
-# 
-# Test-TargetResource
-#
-# The code will check the following in order: 
-# 1. Is machine in domain?
-# 2. Does the cluster exist in the domain?
-# 3. Is the machine is in the cluster's nodelist?
-# 4. Does the cluster node is UP?
-#  
-# Function will return FALSE if any above is not true. Which causes cluster to be configured.
-# 
-function Test-TargetResource  
+<#
+    .SYNOPSIS
+        Test the failover cluster exist and that the node is a member of the
+        failover cluster.
+
+    .PARAMETER Name
+        Name of the failover cluster.
+
+    .PARAMETER StaticIPAddress
+        Static IP Address of the failover cluster.
+
+    .PARAMETER DomainAdministratorCredential
+        Credential used to create the failover cluster in Active Directory.
+
+    .NOTES
+        The code will check the following in order:
+
+          1. Is target node a member of the Active Directory domain?
+          2. Does the failover cluster exist in the Active Directory domain?
+          3. Is the target node a member of the failover cluster?
+          4. Does the cluster node have the status UP?
+
+        If the first return false an error will be thrown. If either of the
+        other return $false, then the cluster will be created, if it does not
+        exist and then the node will be added to the failover cluster.
+#>
+function Test-TargetResource
 {
     [OutputType([Boolean])]
     param
-    (    
-        [parameter(Mandatory)]
-        [string] $Name,
+    (
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $Name,
 
-        [parameter(Mandatory)]
-        [string] $StaticIPAddress,
-        
-        [parameter(Mandatory)]
-        [PSCredential] $DomainAdministratorCredential
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $StaticIPAddress,
+
+        [Parameter(Mandatory = $true)]
+        [System.Management.Automation.PSCredential]
+        $DomainAdministratorCredential
     )
 
-    $bRet = $false
+    $returnValue = $false
 
     Write-Verbose -Message "Checking if Cluster $Name is present ..."
+
+    $ComputerInfo = Get-WmiObject -Class Win32_ComputerSystem
+    if (($null -eq $ComputerInfo) -or ($null -eq $ComputerInfo.Domain))
+    {
+        throw "Can't find machine's domain name"
+    }
+
     try
     {
+        ($oldToken, $context, $newToken) = Set-ImpersonateAs -Credential $DomainAdministratorCredential
 
-        $ComputerInfo = Get-WmiObject Win32_ComputerSystem
-        if (($ComputerInfo -eq $null) -or ($ComputerInfo.Domain -eq $null))
+        $cluster = Get-Cluster -Name $Name -Domain $ComputerInfo.Domain
+
+        Write-Verbose -Message "Cluster $Name is present"
+
+        if ($cluster)
         {
-            Write-Verbose -Message "Can't find machine's domain name"
-            $bRet = $false
-        }
-        else
-        {
-            try
+            Write-Verbose -Message "Checking if the node is in cluster $Name ..."
+
+            $allNodes = Get-ClusterNode -Cluster $Name
+
+            foreach ($node in $allNodes)
             {
-                ($oldToken, $context, $newToken) = ImpersonateAs -cred $DomainAdministratorCredential
-         
-                $cluster = Get-Cluster -Name $Name -Domain $ComputerInfo.Domain
-
-                Write-Verbose -Message "Cluster $Name is present"
-
-                if ($cluster)
+                if ($node.Name -eq $env:COMPUTERNAME)
                 {
-                    Write-Verbose -Message "Checking if the node is in cluster $Name ..."
-         
-                    $allNodes = Get-ClusterNode -Cluster $Name
-
-                    foreach ($node in $allNodes)
-                                                                        {
-                    if ($node.Name -eq $env:COMPUTERNAME)
+                    if ($node.State -eq 'Up')
                     {
-                        if ($node.State -eq "Up")
-                        {
-                            $bRet = $true
-                        }
-                        else
-                        {
-                             Write-Verbose -Message "Node is in cluster $Name but is NOT up, treat as NOT in cluster."
-                        }
-
-                        break
-                    }
-                }
-
-                    if ($bRet)
-                    {
-                        Write-Verbose -Message "Node is in cluster $Name"
+                        $returnValue = $true
                     }
                     else
                     {
-                        Write-Verbose -Message "Node is NOT in cluster $Name"
+                        Write-Verbose -Message "Node is in cluster $Name but is NOT up, treat as NOT in cluster."
                     }
+
+                    break
                 }
             }
-            finally
-            {    
-                if ($context)
-                {
-                    $context.Undo()
-                    $context.Dispose()
 
-                    CloseUserToken($newToken)
-                }
+            if ($returnValue)
+            {
+                Write-Verbose -Message "Node is in cluster $Name"
+            }
+            else
+            {
+                Write-Verbose -Message "Node is NOT in cluster $Name"
             }
         }
     }
@@ -247,12 +279,26 @@ function Test-TargetResource
     {
         Write-Verbose -Message "Cluster $Name is NOT present with Error $_.Message"
     }
+    finally
+    {
+        if ($context)
+        {
+            $context.Undo()
+            $context.Dispose()
 
-    $bRet
+            Close-UserToken -Token $newToken
+        }
+    }
+
+    $returnValue
 }
 
+<#
+    .SYNOPSIS
+        Loads and returns a reference to the impersonation library.
 
-function Get-ImpersonatetLib
+#>
+function Get-ImpersonateLib
 {
     if ($script:ImpersonateLib)
     {
@@ -265,22 +311,49 @@ public static extern bool LogonUser(string lpszUsername, string lpszDomain, stri
 
 [DllImport("kernel32.dll")]
 public static extern Boolean CloseHandle(IntPtr hObject);
-'@ 
-   $script:ImpersonateLib = Add-Type -PassThru -Namespace 'Lib.Impersonation' -Name ImpersonationLib -MemberDefinition $sig 
+'@
+    $script:ImpersonateLib = Add-Type -PassThru -Namespace 'Lib.Impersonation' -Name ImpersonationLib -MemberDefinition $sig
 
-   return $script:ImpersonateLib
-    
+    return $script:ImpersonateLib
 }
 
-function ImpersonateAs([PSCredential] $cred)
+<#
+    .SYNOPSIS
+        Starts to impersonate the credentials provided in parameter Credential on the current user context.
+
+    .PARAMETER Credential
+        The credentials that should be impersonated.
+
+    .OUTPUTS
+        Returns three values.
+
+        First value: The current user token before impersonation.
+        Second value: The impersonation context returned when impersonation is started.
+        Third value: The impersonated user token.
+
+    .NOTES
+        LogonUser function
+        https://msdn.microsoft.com/en-us/library/windows/desktop/aa378184(v=vs.85).aspx
+
+        WindowsIdentity.Impersonate Method ()
+        https://msdn.microsoft.com/en-us/library/w070t6ka(v=vs.110).aspx
+#>
+function Set-ImpersonateAs
 {
+    param
+    (
+        [Parameter(Mandatory = $true)]
+        [System.Management.Automation.PSCredential]
+        $Credential
+    )
+
     [IntPtr] $userToken = [Security.Principal.WindowsIdentity]::GetCurrent().Token
     $userToken
-    $ImpersonateLib = Get-ImpersonatetLib
+    $ImpersonateLib = Get-ImpersonateLib
 
-    $bLogin = $ImpersonateLib::LogonUser($cred.GetNetworkCredential().UserName, $cred.GetNetworkCredential().Domain, $cred.GetNetworkCredential().Password, 
-    9, 0, [ref]$userToken)
-    
+    $bLogin = $ImpersonateLib::LogonUser($Credential.GetNetworkCredential().UserName, $Credential.GetNetworkCredential().Domain, $Credential.GetNetworkCredential().Password,
+        9, 0, [ref]$userToken)
+
     if ($bLogin)
     {
         $Identity = New-Object Security.Principal.WindowsIdentity $userToken
@@ -288,18 +361,37 @@ function ImpersonateAs([PSCredential] $cred)
     }
     else
     {
-        throw "Can't Logon as User $cred.GetNetworkCredential().UserName."
+        throw "Can't Logon as User $($Credential.GetNetworkCredential().UserName)."
     }
+
     $context, $userToken
 }
 
-function CloseUserToken([IntPtr] $token)
-{
-    $ImpersonateLib = Get-ImpersonatetLib
+<#
+    .SYNOPSIS
+        Closes a (impersonation) user token.
 
-    $bLogin = $ImpersonateLib::CloseHandle($token)
-    if (!$bLogin)
+    .PARAMETER Token
+        The user token to close.
+
+    .NOTES
+        CloseHandle function
+        https://msdn.microsoft.com/en-us/library/windows/desktop/ms724211(v=vs.85).aspx
+#>
+function Close-UserToken
+{
+    param
+    (
+        [Parameter(Mandatory = $true)]
+        [System.IntPtr]
+        $Token
+    )
+
+    $ImpersonateLib = Get-ImpersonateLib
+
+    $bLogin = $ImpersonateLib::CloseHandle($Token)
+    if (-not $bLogin)
     {
-        throw "Can't close token"
+        throw 'Can''t close token'
     }
 }

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdnsconnectionsuffix) do
   def dscmeta_resource_friendly_name; 'xDnsConnectionSuffix' end
   def dscmeta_resource_name; 'MSFT_xDnsConnectionSuffix' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '3.2.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

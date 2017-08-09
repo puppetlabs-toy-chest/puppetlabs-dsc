@@ -1,6 +1,6 @@
 @{
     # Version number of this module.
-    ModuleVersion = '2.5.0.0'
+    ModuleVersion = '2.8.0.0'
 
     # ID used to uniquely identify this module
     GUID = '1b8d785e-79ae-4d95-ae58-b2460aec1031'
@@ -24,7 +24,7 @@
     CLRVersion = '4.0'
 
     # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-    NestedModules = @('Modules\CertificateDsc.Common\CertificateDsc.Common.psm1','Modules\CertificateDsc.ResourceHelper\CertificateDsc.ResourceHelper.psm1','Modules\CertificateDsc.PDT\CertificateDsc.PDT.psm1')
+    # NestedModules = @()
 
     # Functions to export from this module
     FunctionsToExport = '*'
@@ -50,7 +50,33 @@
             # IconUri = ''
 
             # ReleaseNotes of this module
-        ReleaseNotes = '- Fixed issue where xCertReq does not process requested certificate when credentials parameter set and PSDscRunAsCredential not passed. See [issue](https://github.com/PowerShell/xCertificate/issues/49)
+        ReleaseNotes = '- xCertReq:
+  - Added FriendlyName parameter to xCertReq.
+  - Changed exceptions to be raised using New-InvalidOperationException from PSDscResources.
+  - Changed integration tests to use Config Data instead of value in config to support
+    additional tests.
+  - Converted unit tests to use Get-InvalidOperationRecord in CommonTestHelper.
+  - Improved unit test style to match standard layout.
+  - Minor corrections to style to be HQRM compliant.
+  - Improved Verbose logging by writing all lines of CertReq.exe output.
+  - Fixed CA auto-detection to work when CA name contains a space.
+- Corrected all makrdown rule violations in README.MD.
+- Added markdownlint.json file to enable line length rule checking in VSCode
+  with [MarkdownLint extension](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+  installed.
+- Added the VS Code PowerShell extension formatting settings that cause PowerShell
+  files to be formatted as per the DSC Resource kit style guidelines.
+- Fixed verbose preference not being passed to CertificateDsc.Common functions -
+  fixes [Issue 70](https://github.com/PowerShell/xCertificate/issues/70).
+- Converted all calls to `New-InvalidArgumentError` function to `New-InvalidArgumentException`
+  found in `CertificateDsc.ResourceHelper` - fixes [Issue 68](https://github.com/PowerShell/xCertificate/issues/68)
+- Replaced all calls to `Write-Error` with calls to `New-InvalidArgumentException`
+  and `New-InvalidOperationException`
+- xWaitForCertificateServices:
+  - Added new resource.
+- Cleaned up example format to meet style guidelines and changed examples to
+  issue 2048 bit certificates.
+- Fixed spelling error in xCertificateExport Issuer parameter description.
 
 '
 
@@ -59,6 +85,9 @@
     } # End of PrivateData hashtable
 
 }
+
+
+
 
 
 

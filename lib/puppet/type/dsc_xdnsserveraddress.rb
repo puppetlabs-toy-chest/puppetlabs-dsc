@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   def dscmeta_resource_friendly_name; 'xDNSServerAddress' end
   def dscmeta_resource_name; 'MSFT_xDNSServerAddress' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '3.2.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -97,7 +97,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   newparam(:dsc_address, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Address - The desired DNS Server address(es)."
+    desc "Address - The desired DNS Server address(es). Exclude to enable DHCP."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -115,7 +115,7 @@ Puppet::Type.newtype(:dsc_xdnsserveraddress) do
   newparam(:dsc_validate) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Validate - Requires that the DNS Server addresses be validated if they are updated. It will cause the resouce to throw a 'A general error occurred that is not covered by a more specific error code.' error if set to True and specified DNS Servers are not accessible."
+    desc "Validate - Requires that the DNS Server addresses be validated if they are updated. It will cause the resource to throw a 'A general error occurred that is not covered by a more specific error code.' error if set to True and specified DNS Servers are not accessible."
     validate do |value|
     end
     newvalues(true, false)

@@ -21,14 +21,14 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   }
 
   validate do
-      fail('dsc_ipaddress is a required attribute') if self[:dsc_ipaddress].nil?
       fail('dsc_interfacealias is a required attribute') if self[:dsc_interfacealias].nil?
+      fail('dsc_addressfamily is a required attribute') if self[:dsc_addressfamily].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xIPAddress' end
   def dscmeta_resource_name; 'MSFT_xIPAddress' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '3.2.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -56,18 +56,20 @@ Puppet::Type.newtype(:dsc_xipaddress) do
   end
 
   # Name:         IPAddress
-  # Type:         string
-  # IsMandatory:  True
+  # Type:         string[]
+  # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_ipaddress) do
-    def mof_type; 'string' end
+  newparam(:dsc_ipaddress, :array_matching => :all) do
+    def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "IPAddress - The desired IP address."
-    isrequired
+    desc "IPAddress - The desired IP address, optionally including prefix length using CIDR notation."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 
@@ -87,32 +89,15 @@ Puppet::Type.newtype(:dsc_xipaddress) do
     end
   end
 
-  # Name:         PrefixLength
-  # Type:         uint32
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_prefixlength) do
-    def mof_type; 'uint32' end
-    def mof_is_embedded?; false end
-    desc "PrefixLength - The prefix length of the IP Address."
-    validate do |value|
-      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
-          fail("Invalid value #{value}. Should be a unsigned Integer")
-      end
-    end
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_integer(value)
-    end
-  end
-
   # Name:         AddressFamily
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       ["IPv4", "IPv6"]
   newparam(:dsc_addressfamily) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "AddressFamily - IP address family. Valid values are IPv4, IPv6."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

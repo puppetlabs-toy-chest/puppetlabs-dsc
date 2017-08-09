@@ -3,23 +3,32 @@
 [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '')]
 param ()
 
-Import-Module -Name (Join-Path -Path (Split-Path $PSScriptRoot -Parent) `
-                               -ChildPath 'CommonResourceHelper.psm1')
+$modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Localized messages for Write-Verbose statements in this resource
-$script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xWaitForDisk'
+# Import the Storage Common Modules
+Import-Module -Name (Join-Path -Path $modulePath `
+                               -ChildPath (Join-Path -Path 'StorageDsc.Common' `
+                                                     -ChildPath 'StorageDsc.Common.psm1'))
 
-# Import the common storage functions
-Import-Module -Name ( Join-Path `
-    -Path (Split-Path -Path $PSScriptRoot -Parent) `
-    -ChildPath '\StorageCommon\StorageCommon.psm1' )
+# Import the Storage Resource Helper Module
+Import-Module -Name (Join-Path -Path $modulePath `
+                               -ChildPath (Join-Path -Path 'StorageDsc.ResourceHelper' `
+                                                     -ChildPath 'StorageDsc.ResourceHelper.psm1'))
+
+# Import Localization Strings
+$localizedData = Get-LocalizedData `
+    -ResourceName 'MSFT_xWaitForDisk' `
+    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
 
 <#
     .SYNOPSIS
     Returns the current state of the wait for disk resource.
 
-    .PARAMETER DiskNumber
-    Specifies the identifier for which disk to wait for.
+    .PARAMETER DiskId
+    Specifies the disk identifier for the disk to wait for.
+
+    .PARAMETER DiskIdType
+    Specifies the identifier type the DiskId contains. Defaults to Number.
 
     .PARAMETER RetryIntervalSec
     Specifies the number of seconds to wait for the disk to become available.
@@ -33,21 +42,32 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory)]
-        [UInt32] $DiskNumber,
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $DiskId,
 
-        [UInt32] $RetryIntervalSec = 10,
+        [Parameter()]
+        [ValidateSet('Number','UniqueId')]
+        [System.String]
+        $DiskIdType = 'Number',
 
-        [UInt32] $RetryCount = 60
+        [Parameter()]
+        [System.UInt32]
+        $RetryIntervalSec = 10,
+
+        [Parameter()]
+        [System.UInt32]
+        $RetryCount = 60
     )
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingWaitForDiskStatusMessage -f $DiskNumber)
+            $($localizedData.GettingWaitForDiskStatusMessage -f $DiskIdType,$DiskId)
         ) -join '' )
 
     $returnValue = @{
-        DiskNumber       = $DiskNumber
+        DiskId           = $DiskId
+        DiskIdType       = $DiskIdType
         RetryIntervalSec = $RetryIntervalSec
         RetryCount       = $RetryCount
     }
@@ -58,8 +78,11 @@ function Get-TargetResource
     .SYNOPSIS
     Sets the current state of the wait for disk resource.
 
-    .PARAMETER DiskNumber
-    Specifies the identifier for which disk to wait for.
+    .PARAMETER DiskId
+    Specifies the disk identifier for the disk to wait for.
+
+    .PARAMETER DiskIdType
+    Specifies the identifier type the DiskId contains. Defaults to Number.
 
     .PARAMETER RetryIntervalSec
     Specifies the number of seconds to wait for the disk to become available.
@@ -72,29 +95,45 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory)]
-        [UInt32] $DiskNumber,
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $DiskId,
 
-        [UInt32] $RetryIntervalSec = 10,
+        [Parameter()]
+        [ValidateSet('Number','UniqueId')]
+        [System.String]
+        $DiskIdType = 'Number',
 
-        [UInt32] $RetryCount = 60
+        [Parameter()]
+        [System.UInt32]
+        $RetryIntervalSec = 10,
+
+        [Parameter()]
+        [System.UInt32]
+        $RetryCount = 60
     )
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.CheckingForDiskMessage -f $DiskNumber)
+            $($localizedData.CheckingForDiskStatusMessage -f $DiskIdType,$DiskId)
         ) -join '' )
 
     $diskFound = $false
 
+    $diskIdParameter = @{
+        $DiskIdType = $DiskId
+    }
+
     for ($count = 0; $count -lt $RetryCount; $count++)
     {
-        $disk = Get-Disk -Number $DiskNumber -ErrorAction SilentlyContinue
+        $disk = Get-Disk `
+            @diskIdParameter `
+            -ErrorAction SilentlyContinue
         if ($disk)
         {
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.DiskFoundMessage -f $DiskNumber,$disk.FriendlyName)
+                    $($localizedData.DiskFoundMessage -f $DiskIdType,$DiskId,$disk.FriendlyName)
                 ) -join '' )
 
             $diskFound = $true
@@ -104,7 +143,7 @@ function Set-TargetResource
         {
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.DiskNotFoundMessage -f $DiskNumber,$RetryIntervalSec)
+                    $($localizedData.DiskNotFoundMessage -f $DiskIdType,$DiskId,$RetryIntervalSec)
                 ) -join '' )
 
             Start-Sleep -Seconds $RetryIntervalSec
@@ -114,7 +153,7 @@ function Set-TargetResource
     if (-not $diskFound)
     {
         New-InvalidOperationException `
-            -Message $($LocalizedData.DiskNotFoundAfterError -f $DiskNumber,$RetryCount)
+            -Message $($localizedData.DiskNotFoundAfterError -f $DiskIdType,$DiskId,$RetryCount)
     } # if
 } # function Set-TargetResource
 
@@ -122,8 +161,11 @@ function Set-TargetResource
     .SYNOPSIS
     Tests the current state of the wait for disk resource.
 
-    .PARAMETER DiskNumber
-    Specifies the identifier for which disk to wait for.
+    .PARAMETER DiskId
+    Specifies the disk identifier for the disk to wait for.
+
+    .PARAMETER DiskIdType
+    Specifies the identifier type the DiskId contains. Defaults to Number.
 
     .PARAMETER RetryIntervalSec
     Specifies the number of seconds to wait for the disk to become available.
@@ -137,25 +179,42 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory)]
-        [UInt32] $DiskNumber,
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $DiskId,
 
-        [UInt32] $RetryIntervalSec = 10,
+        [Parameter()]
+        [ValidateSet('Number','UniqueId')]
+        [System.String]
+        $DiskIdType = 'Number',
 
-        [UInt32] $RetryCount = 60
+        [Parameter()]
+        [System.UInt32]
+        $RetryIntervalSec = 10,
+
+        [Parameter()]
+        [System.UInt32]
+        $RetryCount = 60
     )
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.CheckingForDiskMessage -f $DiskNumber)
+            $($localizedData.CheckingForDiskStatusMessage -f $DiskIdType,$DiskId)
         ) -join '' )
 
-    $disk = Get-Disk -Number $DiskNumber -ErrorAction SilentlyContinue
+    $diskIdParameter = @{
+        $DiskIdType = $DiskId
+    }
+
+    $disk = Get-Disk `
+        @diskIdParameter `
+        -ErrorAction SilentlyContinue
+
     if ($disk)
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.DiskFoundMessage -f $DiskNumber,$disk.FriendlyName)
+                $($localizedData.DiskFoundMessage -f $DiskIdType,$DiskId,$disk.FriendlyName)
             ) -join '' )
 
         return $true
@@ -163,7 +222,7 @@ function Test-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.DiskNotFoundMessage -f $DiskNumber)
+            $($localizedData.DiskNotFoundMessage -f $DiskIdType,$DiskId)
         ) -join '' )
 
     return $false

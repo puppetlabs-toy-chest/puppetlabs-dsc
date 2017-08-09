@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonavailabilitygroup) do
   def dscmeta_resource_friendly_name; 'xSQLServerAlwaysOnAvailabilityGroup' end
   def dscmeta_resource_name; 'MSFT_xSQLServerAlwaysOnAvailabilityGroup' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -94,7 +94,7 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonavailabilitygroup) do
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLInstanceName - Name of the SQL instance to be configued."
+    desc "SQLInstanceName - Name of the SQL instance to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)

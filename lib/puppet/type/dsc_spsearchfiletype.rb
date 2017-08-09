@@ -22,12 +22,13 @@ Puppet::Type.newtype(:dsc_spsearchfiletype) do
 
   validate do
       fail('dsc_filetype is a required attribute') if self[:dsc_filetype].nil?
+      fail('dsc_serviceappname is a required attribute') if self[:dsc_serviceappname].nil?
     end
 
   def dscmeta_resource_friendly_name; 'SPSearchFileType' end
   def dscmeta_resource_name; 'MSFT_SPSearchFileType' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.6.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -73,12 +74,13 @@ Puppet::Type.newtype(:dsc_spsearchfiletype) do
 
   # Name:         ServiceAppName
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_serviceappname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "ServiceAppName - The name of the search service application"
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -139,7 +141,7 @@ Puppet::Type.newtype(:dsc_spsearchfiletype) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Present if the service app should exist, absent if it should not Valid values are Present, Absent."
+    desc "Ensure - Present if the file type should exist, absent if it should not Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

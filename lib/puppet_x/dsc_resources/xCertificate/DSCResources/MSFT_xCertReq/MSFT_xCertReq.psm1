@@ -1,9 +1,21 @@
 #Requires -Version 4.0
 
-$script:ResourceRootPath = Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent)
+$modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the xCertificate Resource Module (to import the common modules)
-Import-Module -Name (Join-Path -Path $script:ResourceRootPath -ChildPath 'xCertificate.psd1')
+# Import the Certificate Common Modules
+Import-Module -Name (Join-Path -Path $modulePath `
+                               -ChildPath (Join-Path -Path 'CertificateDsc.Common' `
+                                                     -ChildPath 'CertificateDsc.Common.psm1'))
+
+# Import the Certificate Resource Helper Module
+Import-Module -Name (Join-Path -Path $modulePath `
+                               -ChildPath (Join-Path -Path 'CertificateDsc.ResourceHelper' `
+                                                     -ChildPath 'CertificateDsc.ResourceHelper.psm1'))
+
+# Import the Certificate PDT Helper Module
+Import-Module -Name (Join-Path -Path $modulePath `
+                               -ChildPath (Join-Path -Path 'CertificateDsc.PDT' `
+                                                     -ChildPath 'CertificateDsc.PDT.psm1'))
 
 # Import Localization Strings
 $localizedData = Get-LocalizedData `
@@ -49,6 +61,21 @@ $localizedData = Get-LocalizedData `
 
     .PARAMETER AutoRenew
     Determines if the resource will also renew a certificate within 7 days of expiration.
+
+    .PARAMETER CAType
+    The type of CA in use, Standalone/Enterprise.
+
+    .PARAMETER CepURL
+    The URL to the Certification Enrollment Policy Service.
+
+    .PARAMETER CesURL
+    The URL to the Certification Enrollment Service.
+    
+    .PARAMETER UseMachineContext
+    Determines if the machine should be impersonated for a request. Used for templates like Domain Controller Authentication
+
+    .PARAMETER FriendlyName
+    Specifies a friendly name for the certificate.
 #>
 function Get-TargetResource
 {
@@ -61,13 +88,11 @@ function Get-TargetResource
         [System.String]
         $Subject,
 
-        [Parameter(Mandatory = $true)]
-        [ValidateNotNullOrEmpty()]
+        [Parameter()]
         [System.String]
         $CAServerFQDN,
 
-        [Parameter(Mandatory = $true)]
-        [ValidateNotNullOrEmpty()]
+        [Parameter()]
         [System.String]
         $CARootName,
 
@@ -111,10 +136,41 @@ function Get-TargetResource
 
         [Parameter()]
         [System.Boolean]
-        $AutoRenew
+        $AutoRenew,
+
+        [Parameter()]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $CAType = 'Enterprise',
+
+        [Parameter()]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $CepURL,
+
+        [Parameter()]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $CesURL,
+
+        [Parameter()]
+        [System.Boolean]
+        $UseMachineContext,
+
+        [Parameter()]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $FriendlyName
     )
 
     # The certificate authority, accessible on the local area network
+    if([string]::IsNullOrWhiteSpace($CAServerFQDN) -or [string]::IsNullOrWhiteSpace($CARootName))
+    {
+        $caObject = Find-CertificateAuthority
+        $CARootName = $caObject.CARootName
+        $CAServerFQDN = $caObject.CAServerFQDN
+    }
+
     $ca = "$CAServerFQDN\$CARootName"
 
     Write-Verbose -Message ( @(
@@ -142,15 +198,16 @@ function Get-TargetResource
 
         $returnValue = @{
             Subject              = $Cert.Subject.split(',')[0].replace('CN=','')
-            CAServerFQDN         = $null # This value can't be determined from the cert
+            CAServerFQDN         = $caObject.CAServerFQDN
             CARootName           = $Cert.Issuer.split(',')[0].replace('CN=','')
             KeyLength            = $Cert.Publickey.Key.KeySize
-            Exportable           = $null # This value can't be determined from the cert
-            ProviderName         = $null # This value can't be determined from the cert
+            Exportable           = $Cert.PrivateKey.CspKeyContainerInfo.Exportable
+            ProviderName         = $Cert.PrivateKey.CspKeyContainerInfo.ProviderName
             OID                  = $null # This value can't be determined from the cert
             KeyUsage             = $null # This value can't be determined from the cert
-            CertificateTemplate  = $null # This value can't be determined from the cert
-            SubjectAltName       = $null # This value can't be determined from the cert
+            CertificateTemplate  = Get-CertificateTemplateName -Certificate $Cert
+            SubjectAltName       = Get-CertificateSan -Certificate $Cert
+            FriendlyName         = $Cert.FriendlyName
         }
     }
     else
@@ -200,6 +257,21 @@ function Get-TargetResource
 
     .PARAMETER AutoRenew
     Determines if the resource will also renew a certificate within 7 days of expiration.
+
+    .PARAMETER CAType
+    The type of CA in use, Standalone/Enterprise.
+ 
+    .PARAMETER CepURL
+    The URL to the Certification Enrollment Policy Service.
+
+    .PARAMETER CesURL
+    The URL to the Certification Enrollment Service.
+    
+    .PARAMETER UseMachineContext
+    Determines if the machine should be impersonated for a request. Used for templates like Domain Controller Authentication
+
+    .PARAMETER FriendlyName
+    Specifies a friendly name for the certificate.
 #>
 function Set-TargetResource
 {
@@ -211,13 +283,11 @@ function Set-TargetResource
         [System.String]
         $Subject,
 
-        [Parameter(Mandatory = $true)]
-        [ValidateNotNullOrEmpty()]
+        [Parameter()]
         [System.String]
         $CAServerFQDN,
 
-        [Parameter(Mandatory = $true)]
-        [ValidateNotNullOrEmpty()]
+        [Parameter()]
         [System.String]
         $CARootName,
 
@@ -261,10 +331,41 @@ function Set-TargetResource
 
         [Parameter()]
         [System.Boolean]
-        $AutoRenew
+        $AutoRenew,
+
+        [Parameter()]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $CAType = 'Enterprise',
+
+        [Parameter()]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $CepURL,
+
+        [Parameter()]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $CesURL,
+
+        [Parameter()]
+        [System.Boolean]
+        $UseMachineContext,
+
+        [Parameter()]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $FriendlyName
     )
 
     # The certificate authority, accessible on the local area network
+    if([string]::IsNullOrWhiteSpace($CAServerFQDN) -or [string]::IsNullOrWhiteSpace($CARootName))
+    {
+        $caObject = Find-CertificateAuthority
+        $CARootName = $caObject.CARootName
+        $CAServerFQDN = $caObject.CAServerFQDN
+    }
+    
     $ca = "$CAServerFQDN\$CARootName"
 
     Write-Verbose -Message ( @(
@@ -296,8 +397,10 @@ function Set-TargetResource
             ForEach-Object -Process { $_.Thumbprint }
     } # if
 
-    # Information that will be used in the INF file to generate the certificate request
-    # In future versions, select variables from the list below could be moved to parameters!
+    <#
+        Information that will be used in the INF file to generate the certificate request
+        In future versions, select variables from the list below could be moved to parameters!
+    #>
     $Subject             = "`"$Subject`""
     $keySpec             = '1'
     $machineKeySet       = 'TRUE'
@@ -307,7 +410,7 @@ function Set-TargetResource
     $useExistingKeySet   = 'FALSE'
     $providerType        = '12'
     $requestType         = 'CMC'
-
+    
     # A unique identifier for temporary files that will be used when interacting with the command line utility
     $guid = [system.guid]::NewGuid().guid
     $workingPath = Join-Path -Path $env:Temp -ChildPath "xCertReq-$guid"
@@ -332,11 +435,31 @@ ProviderName = $ProviderName
 ProviderType = $providerType
 RequestType = $requestType
 KeyUsage = $KeyUsage
+"@
+    if ($FriendlyName)
+    {
+        $requestDetails += @"
+
+FriendlyName = "$FriendlyName"
+"@
+    }
+    $requestDetails += @"
+
 [RequestAttributes]
 CertificateTemplate = $CertificateTemplate
 [EnhancedKeyUsageExtension]
 OID = $OID
 "@
+    # If a standalone CA is used certificate templates are not used.
+    if ($CAType -ne 'Enterprise')
+    {
+        $requestDetails = $requestDetails.Replace(@"
+[RequestAttributes]
+CertificateTemplate = $CertificateTemplate
+[EnhancedKeyUsageExtension]
+"@, '[EnhancedKeyUsageExtension]')
+    }
+
     if ($PSBoundParameters.ContainsKey('SubjectAltName'))
     {
         # If a Subject Alt Name was specified, add it.
@@ -355,27 +478,52 @@ RenewalCert = $Thumbprint
     }
     Set-Content -Path $infPath -Value $requestDetails
 
-    # Certreq.exe:
-    # Syntax: https://technet.microsoft.com/en-us/library/cc736326.aspx
-    # Reference: https://support2.microsoft.com/default.aspx?scid=kb;EN-US;321051
-
+    <#
+        Certreq.exe is used to handle the request of the new certificate
+        because of the lack of native PowerShell Certificate cmdlets.
+        Syntax: https://technet.microsoft.com/en-us/library/cc736326.aspx
+        Reference: https://support2.microsoft.com/default.aspx?scid=kb;EN-US;321051
+    #>
+    
     # NEW: Create a new request as directed by PolicyFileIn
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
             $($LocalizedData.CreateRequestCertificateMessage -f $infPath,$reqPath)
         ) -join '' )
 
-    $createRequest = & certreq.exe @('-new','-q',$infPath,$reqPath)
+    <#
+        If enrollment server is specified the request will be towards
+        the specified URLs instead, using credentials for authentication.
+    #>
+    if ($Credential -and $CepURL -and $CesURL)
+    {
+        $credPW = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Credential.Password)
+        $createRequest = & certreq.exe @(
+            '-new', '-q',
+            '-username', $Credential.UserName,
+            '-p', [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($credPW),
+            '-PolicyServer', $CepURL,
+            '-config', $CesURL,
+            $infPath,
+            $reqPath
+        )
+    }
+    else 
+    {
+        $createRequest = & certreq.exe @('-new','-q',$infPath,$reqPath)
+    } # if
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.CreateRequestResultCertificateMessage -f $createRequest)
+            $($LocalizedData.CreateRequestResultCertificateMessage -f ($createRequest | Out-String))
         ) -join '' )
 
-    # SUBMIT: Submit a request to a Certification Authority.
-    # DSC runs in the context of LocalSystem, which uses the Computer account in Active Directory
-    # to authenticate to network resources
-    # The Credential paramter with PDT is used to impersonate a user making the request
+    <#
+        SUBMIT: Submit a request to a Certification Authority.
+        DSC runs in the context of LocalSystem, which uses the Computer account in Active Directory
+        to authenticate to network resources
+        The Credential paramter with PDT is used to impersonate a user making the request
+    #>
     if (Test-Path -Path $reqPath)
     {
         Write-Verbose -Message ( @(
@@ -385,42 +533,75 @@ RenewalCert = $Thumbprint
 
         if ($Credential)
         {
-            # Assemble the command and arguments to pass to the powershell process that
-            # will request the certificate
-            $certReqOutPath = [System.IO.Path]::ChangeExtension($workingPath,'.out')
-            $command = "$PSHOME\PowerShell.exe"
-            $arguments = "-Command ""& $env:SystemRoot\system32\certreq.exe" + `
-                " @('-submit','-q','-config','$ca','$reqPath','$cerPath')" + `
-                " | Set-Content -Path '$certReqOutPath'"""
-
-            # This may output a win32-process object, but it often does not because of
-            # a timing issue in PDT (the process has often completed before the
-            # process can be read in).
-            $null = Start-Win32Process `
-                -Path $command `
-                -Arguments $arguments `
-                -Credential $Credential
-
-            Write-Verbose -Message ( @(
-                "$($MyInvocation.MyCommand): "
-                $($LocalizedData.SubmittingRequestProcessCertificateMessage)
-            ) -join '' )
-
-            $null = Wait-Win32ProcessStop `
-                -Path $command `
-                -Arguments $arguments `
-                -Credential $Credential
-
-            if (Test-Path -Path $certReqOutPath)
+            <#
+                If enrollment server is specified the request will be towards
+                the specified URLs instead, using credentials for authentication.
+            #>
+            if($CepURL -and $CesURL)
             {
-                $submitRequest = Get-Content -Path $certReqOutPath
-                Remove-Item -Path $certReqOutPath -Force
+                $credPW = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Credential.Password)
+                $submitRequest = & certreq.exe @(
+                    '-submit', '-q',
+                    '-username', $Credential.UserName,
+                    '-p', [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($credPW),
+                    '-PolicyServer', $CepURL,
+                    '-config', $CesURL,  
+                    $ReqPath,
+                    $CerPath
+                )
             }
-            else
+            else 
             {
-                New-InvalidArgumentError `
-                    -ErrorId 'CertReqOutNotFoundError' `
-                    -ErrorMessage ($LocalizedData.CertReqOutNotFoundError -f $certReqOutPath)
+                <#
+                    Assemble the command and arguments to pass to the powershell process that
+                    will request the certificate
+                #>
+                $certReqOutPath = [System.IO.Path]::ChangeExtension($workingPath,'.out')
+                $command = "$PSHOME\PowerShell.exe"
+
+                if($UseMachineContext)
+                {
+                    $arguments = "-Command ""& $env:SystemRoot\system32\certreq.exe" + `
+                    " @('-submit','-q','-adminforcemachine','-config','$ca','$reqPath','$cerPath')" + `
+                    " | Set-Content -Path '$certReqOutPath'"""
+                }
+                else
+                {
+                    $arguments = "-Command ""& $env:SystemRoot\system32\certreq.exe" + `
+                    " @('-submit','-q','-config','$ca','$reqPath','$cerPath')" + `
+                    " | Set-Content -Path '$certReqOutPath'"""
+                }
+
+                <#
+                    This may output a win32-process object, but it often does not because of
+                    a timing issue in PDT (the process has often completed before the
+                    process can be read in).
+                #>
+                $null = Start-Win32Process `
+                    -Path $command `
+                    -Arguments $arguments `
+                    -Credential $Credential
+
+                Write-Verbose -Message ( @(
+                    "$($MyInvocation.MyCommand): "
+                    $($LocalizedData.SubmittingRequestProcessCertificateMessage)
+                ) -join '' )
+
+                $null = Wait-Win32ProcessStop `
+                    -Path $command `
+                    -Arguments $arguments `
+                    -Credential $Credential
+
+                if (Test-Path -Path $certReqOutPath)
+                {
+                    $submitRequest = Get-Content -Path $certReqOutPath
+                    Remove-Item -Path $certReqOutPath -Force
+                }
+                else
+                {
+                    New-InvalidOperationException `
+                        -Message ($LocalizedData.CertReqOutNotFoundError -f $certReqOutPath)
+                } # if
             } # if
         }
         else
@@ -430,14 +611,13 @@ RenewalCert = $Thumbprint
 
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.SubmittingRequestResultCertificateMessage -f $submitRequest)
+                $($LocalizedData.SubmittingRequestResultCertificateMessage -f ($submitRequest | Out-String))
             ) -join '' )
     }
     else
     {
-        New-InvalidArgumentError `
-            -ErrorId 'CertificateReqNotFoundError' `
-            -ErrorMessage ($LocalizedData.CertificateReqNotFoundError -f $reqPath)
+        New-InvalidOperationException `
+            -Message ($LocalizedData.CertificateReqNotFoundError -f $reqPath)
     } # if
 
     # ACCEPT: Accept the request
@@ -452,14 +632,13 @@ RenewalCert = $Thumbprint
 
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.AcceptingRequestResultCertificateMessage -f $acceptRequest)
+                $($LocalizedData.AcceptingRequestResultCertificateMessage -f ($acceptRequest | Out-String))
             ) -join '' )
     }
     else
     {
-        New-InvalidArgumentError `
-            -ErrorId 'CertificateCerNotFoundError' `
-            -ErrorMessage ($LocalizedData.CertificateCerNotFoundError -f $cerPath)
+        New-InvalidOperationException `
+            -Message ($LocalizedData.CertificateCerNotFoundError -f $cerPath)
     } # if
 
     Write-Verbose -Message ( @(
@@ -508,6 +687,21 @@ RenewalCert = $Thumbprint
 
     .PARAMETER AutoRenew
     Determines if the resource will also renew a certificate within 7 days of expiration.
+
+    .PARAMETER CAType
+    The type of CA in use, Standalone/Enterprise.
+
+    .PARAMETER CepURL
+    The URL to the Certification Enrollment Policy Service.
+
+    .PARAMETER CesURL
+    The URL to the Certification Enrollment Service.
+    
+    .PARAMETER UseMachineContext
+    Determines if the machine should be impersonated for a request. Used for templates like Domain Controller Authentication
+
+    .PARAMETER FriendlyName
+    Specifies a friendly name for the certificate.
 #>
 function Test-TargetResource
 {
@@ -520,13 +714,11 @@ function Test-TargetResource
         [System.String]
         $Subject,
 
-        [Parameter(Mandatory = $true)]
-        [ValidateNotNullOrEmpty()]
+        [Parameter()]
         [System.String]
         $CAServerFQDN,
 
-        [Parameter(Mandatory = $true)]
-        [ValidateNotNullOrEmpty()]
+        [Parameter()]
         [System.String]
         $CARootName,
 
@@ -570,10 +762,41 @@ function Test-TargetResource
 
         [Parameter()]
         [System.Boolean]
-        $AutoRenew
+        $AutoRenew,
+
+        [Parameter()]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $CAType = 'Enterprise',
+
+        [Parameter()]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $CepURL,
+
+        [Parameter()]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $CesURL,
+
+        [Parameter()]
+        [System.Boolean]
+        $UseMachineContext,
+
+        [Parameter()]
+        [ValidateNotNullOrEmpty()]
+        [System.String]
+        $FriendlyName
     )
 
     # The certificate authority, accessible on the local area network
+    if([string]::IsNullOrWhiteSpace($CAServerFQDN) -or [string]::IsNullOrWhiteSpace($CARootName))
+    {
+        $caObject = Find-CertificateAuthority
+        $CARootName = $caObject.CARootName
+        $CAServerFQDN = $caObject.CAServerFQDN
+    }
+    
     $ca = "$CAServerFQDN\$CARootName"
 
     # If the Subject does not contain a full X500 path, construct just the CN
@@ -587,11 +810,21 @@ function Test-TargetResource
             $($LocalizedData.TestingCertReqStatusMessage -f $Subject,$ca)
         ) -join '' )
 
+    # Exception for standard template DomainControllerAuthentication
     $cert = Get-Childitem -Path Cert:\LocalMachine\My |
         Where-Object -FilterScript {
             $_.Subject -eq $Subject -and `
             $_.Issuer.split(',')[0] -eq "CN=$CARootName"
         }
+
+    if ($CertificateTemplate -eq 'DomainControllerAuthentication')
+    {
+        $cert = Get-Childitem -Path Cert:\LocalMachine\My |
+            Where-Object -FilterScript {
+                (Get-CertificateTemplateName -Certificate $PSItem) -eq $CertificateTemplate -and `
+                $_.Issuer.split(',')[0] -eq "CN=$CARootName"
+            }
+    }
 
     # If multiple certs have the same subject and were issued by the CA, return the newest
     $cert = $cert |
@@ -627,6 +860,66 @@ function Test-TargetResource
                     ) -join '' )
                 return $false
             } # if
+        } # if
+
+        if ($PSBoundParameters.ContainsKey('SubjectAltName'))
+        {
+            # Split the desired SANs into an array
+            $sanList = $SubjectAltName.Split('&')
+            $correctDNS = @()
+
+            foreach ($san in $sanList)
+            {
+                if ($san -like 'dns*')
+                {
+                    # This SAN is a DNS name
+                    $correctDNS += $san.split('=')[1]
+                }
+            }
+            
+            # Find out what SANs are on the current cert
+            if ($cert.Extensions.Count -gt 0)
+            {
+                $currentSanList = ($cert.Extensions | Where-Object {$_.oid.FriendlyName -match 'Subject Alternative Name'}).Format(1).split("`n").TrimEnd()
+                $currentDNS = @()
+                foreach ($san in $currentSanList)
+                {
+                    if ($san -like 'dns*')
+                    {
+                        # This SAN is a DNS name
+                        $currentDNS += $san.split('=')[1]
+                    }
+                }
+
+                # Do the cert's DNS SANs and the desired DNS SANs match?
+                if (@(Compare-Object -ReferenceObject $currentDNS -DifferenceObject $correctDNS).Count -gt 0)
+                {
+                    return $false
+                }
+            }
+            else {
+                # There are no SANs and there should be
+                return $false
+            }
+        }
+
+        if ($CertificateTemplate -ne (Get-CertificateTemplateName -Certificate $cert))
+        {
+            Write-Verbose -Message ( @(
+                        "$($MyInvocation.MyCommand): "
+                        $($LocalizedData.CertTemplateMismatch -f $Subject,$ca,$cert.Thumbprint,(Get-CertificateTemplateName -Certificate $cert))
+                    ) -join '' )
+            return $false
+        } # if
+
+        # Check the friendly name of the certificate matches
+        if ($FriendlyName -ne $cert.FriendlyName)
+        {
+            Write-Verbose -Message ( @(
+                        "$($MyInvocation.MyCommand): "
+                        $($LocalizedData.CertFriendlyNameMismatch -f $Subject,$ca,$cert.Thumbprint,$cert.FriendlyName)
+                    ) -join '' )
+            return $false
         } # if
 
         # The certificate was found and is OK - so no change required.

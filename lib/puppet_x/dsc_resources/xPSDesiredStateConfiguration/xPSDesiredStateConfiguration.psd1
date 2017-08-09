@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '6.2.0.0'
+ModuleVersion = '6.4.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'cc8dc021-fa5f-4f96-8ecf-dfd68a6d9d48'
@@ -52,12 +52,9 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* xMsiPackage:
-    * Created high quality MSI package manager resource 
-* xArchive:
-    * Fixed a minor bug in the unit tests where sometimes the incorrect DateTime format was used.
-* xWindowsFeatureSet:
-    * Had the wrong parameter name in one test case.
+        ReleaseNotes = '* xGroup:
+    * Added updates from PSDscResources:
+        * Added support for domain based group members on Nano server
 
 '
 
@@ -65,6 +62,8 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
+
 
 
 

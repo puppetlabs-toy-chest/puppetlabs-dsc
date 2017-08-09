@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_userrightsassignment) do
   def dscmeta_resource_friendly_name; 'UserRightsAssignment' end
   def dscmeta_resource_name; 'MSFT_UserRightsAssignment' end
   def dscmeta_module_name; 'SecurityPolicyDsc' end
-  def dscmeta_module_version; '1.2.0.0' end
+  def dscmeta_module_version; '1.4.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -35,6 +35,7 @@ Puppet::Type.newtype(:dsc_userrightsassignment) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto { :present }
   end
 
@@ -88,6 +89,41 @@ Puppet::Type.newtype(:dsc_userrightsassignment) do
     end
     munge do |value|
       Array(value)
+    end
+  end
+
+  # Name:         Force
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_force) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "Force - Specifies whether to Force the change"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Ensure - Desired state of resource. Valid values are Present, Absent."
+    validate do |value|
+      resource[:ensure] = value.downcase
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
+      end
     end
   end
 

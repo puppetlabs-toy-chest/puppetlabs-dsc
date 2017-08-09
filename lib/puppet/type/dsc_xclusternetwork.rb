@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xclusternetwork) do
   def dscmeta_resource_friendly_name; 'xClusterNetwork' end
   def dscmeta_resource_name; 'MSFT_xClusterNetwork' end
   def dscmeta_module_name; 'xFailOverCluster' end
-  def dscmeta_module_version; '1.6.0.0' end
+  def dscmeta_module_version; '1.7.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xclusternetwork) do
   newparam(:dsc_address) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Address"
+    desc "Address - The adress for the cluster network in the format '10.0.0.0'."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -78,7 +78,7 @@ Puppet::Type.newtype(:dsc_xclusternetwork) do
   newparam(:dsc_addressmask) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AddressMask"
+    desc "AddressMask - The adress mask for the cluster network in the format '255.255.255.0'."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -94,7 +94,7 @@ Puppet::Type.newtype(:dsc_xclusternetwork) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - The name of the cluster network. If the cluster network name is not in desired state it will be renamed to match this name."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -109,7 +109,7 @@ Puppet::Type.newtype(:dsc_xclusternetwork) do
   newparam(:dsc_role) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Role - Valid values are 0, 1, 3."
+    desc "Role - he role of the cluster network. If the cluster network role is not in desired state it will change to match this role. Valid values are 0, 1, 3."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -127,7 +127,7 @@ Puppet::Type.newtype(:dsc_xclusternetwork) do
   newparam(:dsc_metric) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Metric"
+    desc "Metric - The metric number for the cluster network. If the cluster network metric number is not in desired state it will be changed to match this metric number."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

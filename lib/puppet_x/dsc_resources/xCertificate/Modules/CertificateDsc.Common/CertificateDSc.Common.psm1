@@ -61,9 +61,9 @@ function Test-CertificatePath
             }
             else
             {
-                New-InvalidArgumentError `
-                    -ErrorId 'CannotFindRootedPath' `
-                    -ErrorMessage ($LocalizedData.FileNotFoundError -f $pathNode)
+                New-InvalidArgumentException `
+                    -Message ($LocalizedData.FileNotFoundError -f $pathNode) `
+                    -ArgumentName 'Path'
             }
         }
     }
@@ -146,8 +146,10 @@ function Test-Thumbprint
             {
                 if ($hash -cmatch "^[a-fA-F0-9]{$($algorithm.HexLength)}$")
                 {
-                    Write-Verbose -Message ($LocalizedData.InvalidHashError `
-                        -f $hash,$algorithm.Hash)
+                    Write-Verbose `
+                        -Message ($LocalizedData.InvalidHashError -f $hash,$algorithm.Hash) `
+                        -Verbose
+
                     $isValid = $true
                 }
             }
@@ -158,9 +160,8 @@ function Test-Thumbprint
             }
             else
             {
-                New-InvalidArgumentError `
-                    -ErrorId 'CannotFindRootedPath' `
-                    -ErrorMessage ($LocalizedData.InvalidHashError -f $hash)
+                New-InvalidOperationException `
+                    -Message ($LocalizedData.InvalidHashError -f $hash)
             }
         }
     }
@@ -186,7 +187,7 @@ function Test-Thumbprint
     The subject alternative name of the certificate to export must contain these values.
 
     .PARAMETER Issuer
-    The issuer of the certiicate to find.
+    The issuer of the certificate to find.
 
     .PARAMETER KeyUsage
     The key usage of the certificate to find must contain these values.
@@ -250,9 +251,9 @@ function Find-Certificate
     if (-not (Test-Path -Path $certPath))
     {
         # The Certificte Path is not valid
-        New-InvalidArgumentError `
-            -ErrorId 'CannotFindCertificatePath' `
-            -ErrorMessage ($LocalizedData.CertificatePathError -f $certPath)
+        New-InvalidArgumentException `
+            -Message ($LocalizedData.CertificatePathError -f $certPath) `
+            -ArgumnentName 'Store'
     } # if
 
     # Assemble the filter to use to select the certificate
@@ -300,8 +301,9 @@ function Find-Certificate
     # Join all the filters together
     $certFilterScript = '(' + ($certFilters -join ' -and ') + ')'
 
-    Write-Verbose -Message ($LocalizedData.SearchingForCertificateUsingFilters `
-        -f $store,$certFilterScript)
+    Write-Verbose `
+        -Message ($LocalizedData.SearchingForCertificateUsingFilters -f $store,$certFilterScript) `
+        -Verbose
 
     $certs = Get-ChildItem -Path $certPath |
         Where-Object -FilterScript ([ScriptBlock]::Create($certFilterScript))
@@ -316,35 +318,270 @@ function Find-Certificate
 } # end function Find-Certificate
 
 <#
-    .SYNOPSIS
-    Throws an InvalidArgument custom exception.
+.SYNOPSIS
+    Get CDP container
 
-    .PARAMETER ErrorId
-    The error Id of the exception.
+.DESCRIPTION
+    Gets the configuration data partition from the active directory configuration naming context
 
-    .PARAMETER ErrorMessage
-    The error message text to set in the exception.
+.PARAMETER DomainName
+    The domain name
 #>
-function New-InvalidArgumentError
+function Get-CdpContainer
 {
-    [CmdletBinding()]
-    param
-    (
-        [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
-        [System.String]
-        $ErrorId,
-
-        [Parameter(Mandatory)]
-        [ValidateNotNullOrEmpty()]
-        [System.String]
-        $ErrorMessage
+    [cmdletBinding()]
+    [OutputType([psobject])]
+    param(
+        [Parameter()]
+        [String]
+        $DomainName
     )
 
-    $exception = New-Object -TypeName System.ArgumentException `
-        -ArgumentList $ErrorMessage
-    $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-    $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-        -ArgumentList $exception, $ErrorId, $errorCategory, $null
-    throw $errorRecord
-} # end function New-InvalidArgumentError
+    if (-not $DomainName)
+    {
+        $configContext = ([ADSI]'LDAP://RootDSE').configurationNamingContext
+
+        if (-not $configContext)
+        {
+            # The computer is not domain joined
+            New-InvalidOperationException `
+                -Message ($LocalizedData.DomainNotJoinedError)
+        }
+    }
+    else
+    {
+        $ctx = New-Object -TypeName System.DirectoryServices.ActiveDirectory.DirectoryContext('Domain', $DomainName)
+        $configContext = 'CN=Configuration,{0}' -f ([System.DirectoryServices.ActiveDirectory.Domain]::GetDomain($ctx).GetDirectoryEntry().distinguishedName[0])
+    }
+
+    Write-Verbose `
+        -Message ($LocalizedData.ConfigurationNamingContext -f $configContext) `
+        -Verbose
+
+    $cdpContainer = [ADSI]('LDAP://CN=CDP,CN=Public Key Services,CN=Services,{0}' -f $configContext)
+
+    return $cdpContainer
+} # end function Get-CdpContainer
+
+<#
+.SYNOPSIS
+    Automatically locate a certificate authority in Active Directory
+
+.DESCRIPTION
+    Automatically locates a certificate autority in Active Directory environments by leveraging ADSI to look inside the container CDP and
+    subsequently trying to certutil -ping every located CA until one is found.
+
+.PARAMETER DomainName
+    The domain name of the domain that will be used to locate the CA. Can be left empty to use the current domain.
+#>
+function Find-CertificateAuthority
+{
+    [cmdletBinding()]
+    [OutputType([psobject])]
+    param(
+        [Parameter()]
+        [String]
+        $DomainName
+    )
+
+    Write-Verbose `
+        -Message ($LocalizedData.StartLocateCAMessage) `
+        -Verbose
+
+    $cdpContainer = Get-CdpContainer @PSBoundParameters -ErrorAction Stop
+
+    $caFound = $false
+    foreach ($item in $cdpContainer.Children)
+    {
+        if (-not $caFound)
+        {
+            $caServerFQDN = ($item.distinguishedName -split '=|,')[1]
+            $caRootName = ($item.Children.distinguishedName -split '=|,')[1]
+
+            $certificateAuthority = [PSObject] @{
+                CARootName = $caRootName
+                CAServerFQDN = $caServerFQDN
+            }
+
+            if (Test-CertificateAuthority `
+                    -CARootName $caRootName `
+                    -CAServerFQDN $caServerFQDN)
+            {
+                $caFound = $true
+                break
+            }
+        }
+    }
+
+    if ($caFound)
+    {
+        Write-Verbose `
+            -Message ($LocalizedData.CaFoundMessage -f $certificateAuthority.CAServerFQDN, $certificateAuthority.CARootName) `
+            -Verbose
+
+        return $certificateAuthority
+    }
+    else
+    {
+        New-InvalidOperationException `
+            -Message ($LocalizedData.NoCaFoundError)
+    }
+} # end function Find-CertificateAuthority
+
+<#
+.SYNOPSIS
+    Test to see if the specified ADCS CA is available.
+
+.PARAMETER CAServerFQDN
+    The FQDN of the ADCS CA to test for availability.
+
+.PARAMETER CARootName
+    The name of the ADCS CA to test for availability.
+#>
+function Test-CertificateAuthority
+{
+    [cmdletBinding()]
+    [OutputType([Boolean])]
+    param(
+        [Parameter()]
+        [System.String]
+        $CAServerFQDN,
+
+        [Parameter()]
+        [System.String]
+        $CARootName
+    )
+
+    Write-Verbose `
+        -Message ($LocalizedData.StartPingCAMessage) `
+        -Verbose
+
+    $locatorInfo = New-Object -TypeName System.Diagnostics.ProcessStartInfo
+    $locatorInfo.FileName = 'certutil.exe'
+    $locatorInfo.Arguments = ('-ping "{0}\{1}"' -f $CAServerFQDN,$CARootName)
+
+    # Certutil does not make use of standard error stream
+    $locatorInfo.RedirectStandardError = $false
+    $locatorInfo.RedirectStandardOutput = $true
+    $locatorInfo.UseShellExecute = $false
+    $locatorInfo.CreateNoWindow = $true
+
+    $locatorProcess = New-Object -TypeName System.Diagnostics.Process
+    $locatorProcess.StartInfo = $locatorInfo
+
+    $null = $locatorProcess.Start()
+    $locatorOut = $locatorProcess.StandardOutput.ReadToEnd()
+    $null = $locatorProcess.WaitForExit()
+
+    Write-Verbose `
+        -Message ($LocalizedData.CaPingMessage -f $locatorProcess.ExitCode, $locatorOut) `
+        -Verbose
+
+    if ($locatorProcess.ExitCode -eq 0)
+    {
+        Write-Verbose `
+            -Message ($LocalizedData.CaOnlineMessage -f $CAServerFQDN, $CARootName) `
+            -Verbose
+
+        return $true
+    }
+    else
+    {
+        Write-Verbose `
+            -Message ($LocalizedData.CaOfflineMessage -f $CAServerFQDN, $CARootName) `
+            -Verbose
+
+        return $false
+    }
+} # end function Test-CertificateAuthority
+
+<#
+.SYNOPSIS
+    Get a certificate template name
+
+.DESCRIPTION
+    Gets the name of the template used for the certificate that is passed to this cmdlet by translating the OIDs "1.3.6.1.4.1.311.21.7" or "1.3.6.1.4.1.311.20.2"
+
+.PARAMETER Certificate
+    The certificate object the template name is needed for
+#>
+function Get-CertificateTemplateName
+{
+    [cmdletBinding()]
+    [OutputType([System.String])]
+    param
+    (
+        # The certificate for which a template is needed
+        [Parameter(Mandatory = $true)]
+        [object]
+        $Certificate
+    )
+
+    if ($Certificate -isnot [System.Security.Cryptography.X509Certificates.X509Certificate2])
+    {
+        return
+    }
+
+    # Test the different OIDs
+    if ('1.3.6.1.4.1.311.21.7' -in $Certificate.Extensions.oid.Value)
+    {
+        $temp = $Certificate.Extensions | Where-Object { $PSItem.Oid.Value -eq '1.3.6.1.4.1.311.21.7' }
+        $null = $temp.Format(0) -match 'Template=(?<TemplateName>.*)\('
+        $templateName = $Matches.TemplateName -replace ' '
+    }
+
+    if ('1.3.6.1.4.1.311.20.2' -in $Certificate.Extensions.oid.Value)
+    {
+        $templateName = ($Certificate.Extensions | Where-Object { $PSItem.Oid.Value -eq '1.3.6.1.4.1.311.20.2' }).Format(0)
+    }
+
+    return $templateName
+}
+
+<#
+.SYNOPSIS
+    Get certificate SAN
+
+.DESCRIPTION
+    Gets the first subject alternative name for the certificate that is passed to this cmdlet
+
+.PARAMETER Certificate
+    The certificate object the subject alternative name is needed for
+#>
+function Get-CertificateSan
+{
+    [cmdletBinding()]
+    [OutputType([System.String])]
+    param
+    (
+        # The certificate for which the subject alternative names are needed
+        [Parameter(Mandatory = $true)]
+        [object]
+        $Certificate
+    )
+
+    if ($Certificate -isnot [System.Security.Cryptography.X509Certificates.X509Certificate2])
+    {
+        return
+    }
+
+    $subjectAlternativeName = $null
+
+    $sanExtension = $Certificate.Extensions | Where-Object { $_.Oid.FriendlyName -match 'subject alternative name' }
+
+    if ($null -eq $sanExtension)
+    {
+        return $subjectAlternativeName
+    }
+
+    $sanObjects = New-Object -ComObject X509Enrollment.CX509ExtensionAlternativeNames
+    $altNamesStr = [System.Convert]::ToBase64String($sanExtension.RawData)
+    $sanObjects.InitializeDecode(1, $altNamesStr)
+
+    if ($sanObjects.AlternativeNames.Count -gt 0)
+    {
+        $subjectAlternativeName = $sanObjects.AlternativeNames[0].strValue
+    }
+
+    return $subjectAlternativeName
+}

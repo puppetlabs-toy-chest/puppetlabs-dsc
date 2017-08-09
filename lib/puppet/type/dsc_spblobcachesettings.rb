@@ -22,12 +22,13 @@ Puppet::Type.newtype(:dsc_spblobcachesettings) do
 
   validate do
       fail('dsc_webappurl is a required attribute') if self[:dsc_webappurl].nil?
+      fail('dsc_zone is a required attribute') if self[:dsc_zone].nil?
     end
 
   def dscmeta_resource_friendly_name; 'SPBlobCacheSettings' end
   def dscmeta_resource_name; 'MSFT_SPBlobCacheSettings' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.6.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -72,12 +73,13 @@ Puppet::Type.newtype(:dsc_spblobcachesettings) do
 
   # Name:         Zone
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       ["Default", "Intranet", "Internet", "Custom", "Extranet"]
   newparam(:dsc_zone) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "Zone - The zone of the web application for which blob cache has to be configured Valid values are Default, Intranet, Internet, Custom, Extranet."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

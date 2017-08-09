@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsqlservernetwork) do
   def dscmeta_resource_friendly_name; 'xSQLServerNetwork' end
   def dscmeta_resource_name; 'MSFT_xSQLServerNetwork' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xsqlservernetwork) do
   newparam(:dsc_instancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstanceName - SQL Server instance name of which network protocol should be configured"
+    desc "InstanceName - The name of the SQL instance to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -73,17 +73,32 @@ Puppet::Type.newtype(:dsc_xsqlservernetwork) do
   # Name:         ProtocolName
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["tcp"]
+  # Values:       ["Tcp"]
   newparam(:dsc_protocolname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ProtocolName - Network protocol name that should be configured Valid values are tcp."
+    desc "ProtocolName - The name of network protocol to be configured. Only tcp is currently supported. Valid values are Tcp."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['tcp', 'tcp'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are tcp")
+      unless ['Tcp', 'tcp'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Tcp")
+      end
+    end
+  end
+
+  # Name:         SQLServer
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqlserver) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLServer - The host name of the SQL Server to be configured. Default value is $env:COMPUTERNAME."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end
@@ -95,7 +110,7 @@ Puppet::Type.newtype(:dsc_xsqlservernetwork) do
   newparam(:dsc_isenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "IsEnabled - Is network protocol should be enabled or disabled"
+    desc "IsEnabled - Enables or disables the network protocol."
     validate do |value|
     end
     newvalues(true, false)
@@ -104,32 +119,32 @@ Puppet::Type.newtype(:dsc_xsqlservernetwork) do
     end
   end
 
-  # Name:         TCPDynamicPorts
+  # Name:         TcpDynamicPorts
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["0"]
+  # Values:       ["0", ""]
   newparam(:dsc_tcpdynamicports) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "TCPDynamicPorts - If dynamic ports are used should be set to 0, otherwise leave empty Valid values are 0."
+    desc "TcpDynamicPorts - Set the value to '0' if dynamic ports should be used. If static port should be used set this to a empty string value. Value can not be set to '0' if TcpPort is also set to a value. Valid values are 0, ."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['0', '0'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are 0")
+      unless ['0', '0', '', ''].include?(value)
+        fail("Invalid value '#{value}'. Valid values are 0, ")
       end
     end
   end
 
-  # Name:         TCPPort
+  # Name:         TcpPort
   # Type:         string
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_tcpport) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "TCPPort - Sets static port for TCP/IP"
+    desc "TcpPort - The TCP port(s) that SQL Server should be listening on. If the IP address should listen on more than one port, list all ports separated with a comma ('1433,1500,1501'). To use this parameter set TcpDynamicPorts to the value '' (empty string)."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -144,12 +159,30 @@ Puppet::Type.newtype(:dsc_xsqlservernetwork) do
   newparam(:dsc_restartservice) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "RestartService - Controls if affected SQL Service should be restarted automatically"
+    desc "RestartService - If set to $true then SQL Server and dependent services will be restarted if a change to the configuration is made. The default value is $false."
     validate do |value|
     end
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         RestartTimeout
+  # Type:         uint16
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_restarttimeout) do
+    def mof_type; 'uint16' end
+    def mof_is_embedded?; false end
+    desc "RestartTimeout - Timeout value for restarting the SQL Server services. The default value is 120 seconds."
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 

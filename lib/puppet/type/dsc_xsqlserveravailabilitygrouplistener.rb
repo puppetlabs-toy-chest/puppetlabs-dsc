@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlserveravailabilitygrouplistener) do
   def dscmeta_resource_friendly_name; 'xSQLServerAvailabilityGroupListener' end
   def dscmeta_resource_name; 'MSFT_xSQLServerAvailabilityGroupListener' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -144,7 +144,7 @@ Puppet::Type.newtype(:dsc_xsqlserveravailabilitygrouplistener) do
   newparam(:dsc_ipaddress, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "IpAddress - The IP address used for the availability group listener, in the format 192.168.10.45/255.255.252.0. If using DCHP, set to the first IP-address of the DHCP subnet, in the format 192.168.8.1/255.255.252.0. Must be valid in the cluster-allowed IP range."
+    desc "IpAddress - The IP address used for the availability group listener, in the format 192.168.10.45/255.255.252.0. If using DHCP, set to the first IP-address of the DHCP subnet, in the format 192.168.8.1/255.255.252.0. Must be valid in the cluster-allowed IP range."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

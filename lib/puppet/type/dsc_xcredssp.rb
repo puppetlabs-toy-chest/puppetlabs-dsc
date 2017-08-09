@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xcredssp) do
   def dscmeta_resource_friendly_name; 'xCredSSP' end
   def dscmeta_resource_name; 'MSFT_xCredSSP' end
   def dscmeta_module_name; 'xCredSSP' end
-  def dscmeta_module_version; '1.2.0.0' end
+  def dscmeta_module_version; '1.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   def dscmeta_resource_friendly_name; 'xSQLServerSetup' end
   def dscmeta_resource_name; 'MSFT_xSQLServerSetup' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -84,22 +84,6 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-    end
-  end
-
-  # Name:         SetupCredential
-  # Type:         MSFT_Credential
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_setupcredential) do
-    def mof_type; 'MSFT_Credential' end
-    def mof_is_embedded?; true end
-    desc "SetupCredential - Credential to be used to perform the installation."
-    validate do |value|
-      unless value.kind_of?(Hash)
-        fail("Invalid value '#{value}'. Should be a hash")
-      end
-      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SetupCredential", value)
     end
   end
 
@@ -823,11 +807,29 @@ Puppet::Type.newtype(:dsc_xsqlserversetup) do
   newparam(:dsc_failoverclusternetworkname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "FailoverClusterNetworkName - Host name to be assigend to the clustered SQL Server instance."
+    desc "FailoverClusterNetworkName - Host name to be assigned to the clustered SQL Server instance."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         SetupProcessTimeout
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_setupprocesstimeout) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "SetupProcessTimeout - The timeout, in seconds, to wait for the setup process to finish. Default value is 7200 seconds (2 hours). If the setup process does not finish before this time, and error will be thrown."
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 

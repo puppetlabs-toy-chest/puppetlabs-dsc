@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   @doc = %q{
     The DSC xFirewall resource type.
     Automatically generated from
-    'xNetworking/DSCResources/MSFT_xFirewall/MSFT_xFirewall.schema.mof'
+    'xNetworking/DSCResources/MSFT_xFirewall/MSFT_xFirewall.Schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   def dscmeta_resource_friendly_name; 'xFirewall' end
   def dscmeta_resource_name; 'MSFT_xFirewall' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '3.2.0.0' end
+  def dscmeta_module_version; '5.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

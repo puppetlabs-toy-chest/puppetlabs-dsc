@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '3.2.0.0'
+ModuleVersion = '5.0.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'e6647cc3-ce9c-4c86-9eb8-2ee8919bf358'
@@ -29,7 +29,8 @@ FunctionsToExport = '*'
 # Cmdlets to export from this module
 CmdletsToExport = '*'
 
-NestedModules = @('Modules\NetworkingDsc.Common\NetworkingDsc.Common.psm1','Modules\NetworkingDsc.ResourceHelper\NetworkingDsc.ResourceHelper.psm1','xNetworkAdapter.psm1')
+# Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
+# NestedModules = @()
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
@@ -49,80 +50,41 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '- Fixed typo in the example"s Action property from "Blocked" (which isn"t a valid
-  value) to "Block"
-- Added support for auto generating wiki, help files, markdown linting
-  and checking examples.
-- Added NetworkingDsc.ResourceHelper module based on copy from [PSDscResources](https://github.com/PowerShell/PSDscResources/blob/dev/DscResources/CommonResourceHelper.psm1).
-- MSFT_xFirewall:
-  - Cleaned up ParameterList table layout and moved into a new file
-    (MSFT_xFirewall.data.psd1).
-  - Separated Localization strings into strings file.
-  - Added standard help blocks to all functions to meet HQRM standards.
-  - Added CmdletBinding attribute to all functions to meet HQRM standards.
-  - Style changes to meet HQRM standards.
-  - Fixed issue using CIDR notation for LocalAddress or RemoteAddress.
-    See [GitHub issue](https://github.com/PowerShell/xNetworking/issues/169).
-  - Fixed integration tests so that values being set are correctly tested.
-  - Added integration tests for Removal of Firewall rule.
-- Added NetworkingDsc.Common module to contain shared networking functions.
-- MSFT_xDNSServerAddress:
-  - Separated Localization strings into strings file.
-- MSFT_xDefaultGatewayAddress:
-  - Separated Localization strings into strings file.
-  - Style changes to meet HQRM standards.
+        ReleaseNotes = '- Find-NetworkAdapter:
+  - Fixed to return null if exception thrown.
+  - Allowed passing no selection parameters.
+- MSFT_xNetAdapterName:
+  - Fixed bug in Get-TargetResource when Name is the only adapter selector parameter.
+  - Improved verbose logging.
+  - More improvements to verbose logging.
+- Added Get-DnsClientServerStaticAddress to NetworkingDsc.Common to return statically
+  assigned DNS server addresses to support fix for [issue 113](https://github.com/PowerShell/xNetworking/issues/113).
+- MSFT_xDNSserverAddress:
+  - Added support for setting DNS Client to DHCP for [issue 113](https://github.com/PowerShell/xNetworking/issues/113).
+  - Added new examples to show how to enable DHCP on DNS Client.
+  - Improved integration test coverage to enable testing of multiple addresses and
+    DHCP.
+  - Converted exception creation to use common exception functions.
 - MSFT_xDhcpClient:
-  - Separated Localization strings into strings file.
-  - Fix parameter descriptions in MOF file.
-  - Style changes to meet HQRM standards.
-- MSFT_xDnsClientGlobalSetting:
-  - Renamed Localization strings file to be standard naming format.
-  - Moved ParameterList into a new file (MSFT_xDnsClientGlobalSetting.data.psd1).
-  - Style changes to meet HQRM standards.
-  - Removed New-TerminatingError function because never called.
-  - Converted to remove Invoke-Expression.
-- MSFT_xDnsConnectionSuffix:
-  - Separated Localization strings into strings file.
-  - Style changes to meet HQRM standards.
-- MSFT_xHostsFile:
-  - Renamed Localization strings file to be standard naming format.
-  - Style changes to meet HQRM standards.
-  - Refactored for performance
-    - Code now reads 38k lines in > 1 second vs 4
-  - Now ignores inline comments
-  - Added more integration tests
+  - Updated example to also cover setting DNS Client to DHCP.
+- Added the VS Code PowerShell extension formatting settings that cause PowerShell
+  files to be formatted as per the DSC Resource kit style guidelines.
+- MSFT_xDefaultGatewayAddress:
+  - Corrected style and formatting to meet HQRM guidelines.
+  - Converted exceptions to use ResourceHelper functions.
+- Updated badges in README.MD to match the layout from PSDscResources.
 - MSFT_xIPAddress:
-  - Separated Localization strings into strings file.
-  - Style changes to meet HQRM standards.
-- MSFT_xNetAdapterBinding:
-  - Separated Localization strings into strings file.
-  - Style changes to meet HQRM standards.
-- MSFT_xNetAdapterRDMA:
-  - Renamed Localization strings file to be standard naming format.
-  - Style changes to meet HQRM standards.
-- MSFT_xNetBIOS:
-  - Renamed Localization strings file to be standard naming format.
-  - Style changes to meet HQRM standards.
-- MSFT_xNetConnectionProfile:
-  - Separated Localization strings into strings file.
-  - Style changes to meet HQRM standards.
-- MSFT_xNetworkTeam:
-  - Style changes to meet HQRM standards.
-- MSFT_xNetworkTeamInterface:
-  - Updated integration tests to remove Invoke-Expression.
-  - Style changes to meet HQRM standards.
-- MSFT_xRoute:
-  - Separated Localization strings into strings file.
-  - Style changes to meet HQRM standards.
-- MSFT_xFirewall:
-  - Converted to remove Invoke-Expression.
-
+  - BREAKING CHANGE: Adding support for multiple IP addresses being assigned.
+ 
 '
 
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
 }
+
+
+
 
 
 

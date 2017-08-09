@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xclusterpreferredowner) do
   def dscmeta_resource_friendly_name; 'xClusterPreferredOwner' end
   def dscmeta_resource_name; 'MSFT_xClusterPreferredOwner' end
   def dscmeta_module_name; 'xFailOverCluster' end
-  def dscmeta_module_version; '1.6.0.0' end
+  def dscmeta_module_version; '1.7.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -63,7 +63,7 @@ Puppet::Type.newtype(:dsc_xclusterpreferredowner) do
   newparam(:dsc_clustergroup) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ClusterGroup"
+    desc "ClusterGroup - Name of the cluster group."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -79,7 +79,7 @@ Puppet::Type.newtype(:dsc_xclusterpreferredowner) do
   newparam(:dsc_clustername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ClusterName"
+    desc "ClusterName - Name of the cluster."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -95,7 +95,7 @@ Puppet::Type.newtype(:dsc_xclusterpreferredowner) do
   newparam(:dsc_nodes, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Nodes"
+    desc "Nodes - The nodes to set as owners."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -113,7 +113,7 @@ Puppet::Type.newtype(:dsc_xclusterpreferredowner) do
   newparam(:dsc_clusterresources, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "ClusterResources"
+    desc "ClusterResources - he resources to set preferred owners on."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -131,7 +131,7 @@ Puppet::Type.newtype(:dsc_xclusterpreferredowner) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - If the preferred owners should be present or absent. Default value is 'Present'. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

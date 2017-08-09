@@ -1,8 +1,7 @@
-
 [ClassVersion("1.0.0.0"), FriendlyName("xClusterDisk")]
 class MSFT_xClusterDisk : OMI_BaseResource
 {
-    [Key] String Number;
-    [Write,ValueMap{"Present", "Absent"},Values{"Present", "Absent"}] string Ensure;
-    [Write] String Label;
+    [Key, Description("The disk number of the cluster disk.")] String Number;
+    [Write, Description("Define if the cluster disk should be added (Present) or removed (Absent). Default value is 'Present'."),ValueMap{"Present", "Absent"},Values{"Present", "Absent"}] string Ensure;
+    [Write, Description("The disk label that should be assigned to the disk on the Failover Cluster disk resource.")] String Label;
 };

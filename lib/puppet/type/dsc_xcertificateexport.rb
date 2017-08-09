@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xcertificateexport) do
   def dscmeta_resource_friendly_name; 'xCertificateExport' end
   def dscmeta_resource_name; 'MSFT_xCertificateExport' end
   def dscmeta_module_name; 'xCertificate' end
-  def dscmeta_module_version; '2.5.0.0' end
+  def dscmeta_module_version; '2.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -140,7 +140,7 @@ Puppet::Type.newtype(:dsc_xcertificateexport) do
   newparam(:dsc_issuer) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Issuer - The issuer of the certiicate to export. Certificate selector parameter."
+    desc "Issuer - The issuer of the certificate to export. Certificate selector parameter."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

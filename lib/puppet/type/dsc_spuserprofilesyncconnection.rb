@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncconnection) do
   def dscmeta_resource_friendly_name; 'SPUserProfileSyncConnection' end
   def dscmeta_resource_name; 'MSFT_SPUserProfileSyncConnection' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.6.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -123,7 +123,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncconnection) do
   newparam(:dsc_includedous, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "IncludedOUs - A listo f the OUs to import users from"
+    desc "IncludedOUs - A list of the OUs to import users from"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

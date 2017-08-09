@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroupconnection) do
   def dscmeta_resource_friendly_name; 'xDFSReplicationGroupConnection' end
   def dscmeta_resource_name; 'MSFT_xDFSReplicationGroupConnection' end
   def dscmeta_module_name; 'xDFS' end
-  def dscmeta_module_version; '3.1.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroupconnection) do
   newparam(:dsc_sourcecomputername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SourceComputerName - The DFS Replication Group connection source computer name."
+    desc "SourceComputerName - The name of the Replication Group source computer for the connection. This can be specified using either the ComputerName or FQDN name for the member. If an FQDN name is used and the DomainName parameter is set, the FQDN domain name must match."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -96,7 +96,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroupconnection) do
   newparam(:dsc_destinationcomputername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DestinationComputerName - The DFS Replication Group connection destination computer name."
+    desc "DestinationComputerName - The name of the Replication Group destination computer for the connection. This can be specified using either the ComputerName or FQDN name for the member. If an FQDN name is used and the DomainName parameter is set, the FQDN domain name must match."
     isrequired
     validate do |value|
       unless value.kind_of?(String)

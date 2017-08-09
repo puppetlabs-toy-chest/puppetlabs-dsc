@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '7.0.0.0'
+ModuleVersion = '8.0.0.0'
 
 # ID used to uniquely identify this module
 GUID = '74e9ddb5-4cbc-4fa2-a222-2bcfb533fd66'
@@ -12,13 +12,13 @@ Author = 'Microsoft Corporation'
 CompanyName = 'Microsoft Corporation'
 
 # Copyright statement for this module
-Copyright = '(c) 2014 Microsoft Corporation. All rights reserved.'
+Copyright = '(c) 2017 Microsoft Corporation. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'Module with DSC Resources for deployment and configuration of Microsoft SQL Server.'
 
 # Minimum version of the Windows PowerShell engine required by this module
-PowerShellVersion = '4.0'
+PowerShellVersion = '5.0'
 
 # Minimum version of the common language runtime (CLR) required by this module
 CLRVersion = '4.0'
@@ -28,6 +28,8 @@ FunctionsToExport = '*'
 
 # Cmdlets to export from this module
 CmdletsToExport = '*'
+
+RequiredAssemblies = @()
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
@@ -47,125 +49,145 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '- Examples
-  - xSQLServerDatabaseRole
-    - 1-AddDatabaseRole.ps1
-    - 2-RemoveDatabaseRole.ps1
-  - xSQLServerRole
-    - 3-AddMembersToServerRole.ps1
-    - 4-MembersToIncludeInServerRole.ps1
-    - 5-MembersToExcludeInServerRole.ps1
-  - xSQLServerSetup
-    - 1-InstallDefaultInstanceSingleServer.ps1
-    - 2-InstallNamedInstanceSingleServer.ps1
-    - 3-InstallNamedInstanceSingleServerFromUncPathUsingSourceCredential.ps1
-    - 4-InstallNamedInstanceInFailoverClusterFirstNode.ps1
-    - 5-InstallNamedInstanceInFailoverClusterSecondNode.ps1
-  - xSQLServerReplication
-    - 1-ConfigureInstanceAsDistributor.ps1
-    - 2-ConfigureInstanceAsPublisher.ps1
-  - xSQLServerNetwork
-    - 1-EnableTcpIpOnCustomStaticPort.ps1
-  - xSQLServerAvailabilityGroupListener
-    - 1-AddAvailabilityGroupListenerWithSameNameAsVCO.ps1
-    - 2-AddAvailabilityGroupListenerWithDifferentNameAsVCO.ps1
-    - 3-RemoveAvailabilityGroupListenerWithSameNameAsVCO.ps1
-    - 4-RemoveAvailabilityGroupListenerWithDifferentNameAsVCO.ps1
-    - 5-AddAvailabilityGroupListenerUsingDHCPWithDefaultServerSubnet.ps1
-    - 6-AddAvailabilityGroupListenerUsingDHCPWithSpecificSubnet.ps1
-  - xSQLServerEndpointPermission
-    - 1-AddConnectPermission.ps1
-    - 2-RemoveConnectPermission.ps1
-    - 3-AddConnectPermissionToAlwaysOnPrimaryAndSecondaryReplicaEachWithDifferentSqlServiceAccounts.ps1
-    - 4-RemoveConnectPermissionToAlwaysOnPrimaryAndSecondaryReplicaEachWithDifferentSqlServiceAccounts.ps1
-  - xSQLServerPermission
-    - 1-AddServerPermissionForLogin.ps1
-    - 2-RemoveServerPermissionForLogin.ps1
-  - xSQLServerEndpointState
-    - 1-MakeSureEndpointIsStarted.ps1
-    - 2-MakeSureEndpointIsStopped.ps1
-  - xSQLServerConfiguration
-    - 1-ConfigureTwoInstancesOnTheSameServerToEnableClr.ps1
-    - 2-ConfigureInstanceToEnablePriorityBoost.ps1
-  - xSQLServerEndpoint
-    - 1-CreateEndpointWithDefaultValues.ps1
-    - 2-CreateEndpointWithSpecificPortAndIPAddress.ps1
-    - 3-RemoveEndpoint.ps1
-- Changes to xSQLServerDatabaseRole
-  - Fixed code style, added updated parameter descriptions to schema.mof and README.md.
-- Changes to xSQLServer
-  - Raised the CodeCov target to 70% which is the minimum and required target for HQRM resource.
-- Changes to xSQLServerRole
-  - **BREAKING CHANGE: The resource has been reworked in it"s entirely.** Below is what has changed.
-    - The mandatory parameters now also include ServerRoleName.
-    - The ServerRole parameter was before an array of server roles, now this parameter is renamed to ServerRoleName and can only be set to one server role.
-      - ServerRoleName are no longer limited to built-in server roles. To add members to a built-in server role, set ServerRoleName to the name of the built-in server role.
-      - The ServerRoleName will be created when Ensure is set to "Present" (if it does not already exist), or removed if Ensure is set to "Absent".
-    - Three new parameters are added; Members, MembersToInclude and MembersToExclude.
-      - Members can be set to one or more logins, and those will _replace all_ the memberships in the server role.
-      - MembersToInclude and MembersToExclude can be set to one or more logins that will add or remove memberships, respectively, in the server role. MembersToInclude and MembersToExclude _can not_ be used at the same time as parameter Members. But both MembersToInclude and MembersToExclude can be used together at the same time.
-- Changes to xSQLServerSetup
-  - Added a note to the README.md saying that it is not possible to add or remove features from a SQL Server failover cluster (issue 433).
-  - Changed so that it reports false if the desired state is not correct (issue 432).
-    - Added a test to make sure we always return false if a SQL Server failover cluster is missing features.
-  - Helper function Connect-SQLAnalysis
-    - Now has correct error handling, and throw does not used the unknown named parameter "-Message" (issue 436)
-    - Added tests for Connect-SQLAnalysis
-    - Changed to localized error messages.
-    - Minor changes to error handling.
-  - This adds better support for Addnode (issue 369).
-  - Now it skips cluster validation för add node (issue 442).
-  - Now it ignores parameters that are not allowed for action Addnode (issue 441).
-  - Added support for vNext CTP 1.4 (issue 472).
+        ReleaseNotes = '- BREAKING CHANGE: The module now requires WMF 5.
+  - This is required for class-based resources
 - Added new resource
-  - xSQLServerAlwaysOnAvailabilityGroupReplica
-- Changes to xSQLServerDatabaseRecoveryModel
-  - Fixed code style, removed SQLServerDatabaseRecoveryModel functions from xSQLServerHelper.
-- Changes to xSQLServerAlwaysOnAvailabilityGroup
-  - Fixed the permissions check loop so that it exits the loop after the function determines the required permissions are in place.
-- Changes to xSQLServerAvailabilityGroupListener
-  - Removed the dependency of SQLPS provider (issue 460).
-  - Cleaned up code.
-  - Added test for more coverage.
-  - Fixed PSSA rule warnings (issue 255).
-  - Parameter Ensure now defaults to "Present" (issue 450).
-- Changes to xSQLServerFirewall
-  - Now it will correctly create rules when the resource is used for two or more instances on the same server (issue 461).
-- Changes to xSQLServerEndpointPermission
-  - Added description to the README.md
-  - Cleaned up code (issue 257 and issue 231)
-  - Now the default value for Ensure is "Present".
-  - Removed dependency of SQLPS provider (issue 483).
-  - Refactored tests so they use less code.
-- Changes to README.md
-  - Adding deprecated tag to xSQLServerFailoverClusterSetup, xSQLAOGroupEnsure and xSQLAOGroupJoin in README.md so it it more clear that these resources has been replaced by xSQLServerSetup, xSQLServerAlwaysOnAvailabilityGroup and xSQLServerAlwaysOnAvailabilityGroupReplica respectively.
-- Changes to xSQLServerEndpoint
-  - BREAKING CHANGE: Now SQLInstanceName is mandatory, and is a key, so SQLInstanceName has no longer a default value (issue 279).
-  - BREAKING CHANGE: Parameter AuthorizedUser has been removed (issue 466, issue 275 and issue 80). Connect permissions can be set using the resource xSQLServerEndpointPermission.
-  - Optional parameter IpAddress has been added. Default is to listen on any valid IP-address. (issue 232)
-  - Parameter Port now has a default value of 5022.
-  - Parameter Ensure now defaults to "Present".
-  - Resource now supports changing IP address and changing port.
-  - Added unit tests (issue 289)
-  - Added examples.
-- Changes to xSQLServerEndpointState
-  - Cleaned up code, removed SupportsShouldProcess and fixed PSSA rules warnings (issue 258 and issue 230).
-  - Now the default value for the parameter State is "Started".
-  - Updated README.md with a description for the resources and revised the parameter descriptions.
-  - Removed dependency of SQLPS provider (issue 481).
-  - The parameter NodeName is no longer mandatory and has now the default value of $env:COMPUTERNAME.
-  - The parameter Name is now a key so it is now possible to change the state on more than one endpoint on the same instance. _Note: The resource still only supports Database Mirror endpoints at this time._
-- Changes to xSQLServerHelper module
-  - Removing helper function Get-SQLAlwaysOnEndpoint because there is no resource using it any longer.
-  - BREAKING CHANGE: Changed helper function Import-SQLPSModule to support SqlServer module (issue 91). The SqlServer module is the preferred module so if it is found it will be used, and if not found an attempt will be done to load SQLPS module instead.
+  - xSQLServerAlwaysOnAvailabilityGroupDatabaseMembership
+  - Added localization support for all strings.
+  - Refactored as a MOF based resource due to challenges with Pester and testing
+    in Powershell 5.
+- Changes to xSQLServer
+  - BREAKING CHANGE: xSQLServer does no longer try to support WMF 4.0 (PowerShell
+    4.0) (issue 574). Minimum supported version of WMF is now 5.0 (PowerShell 5.0).
+  - BREAKING CHANGE: Removed deprecated resource xSQLAOGroupJoin (issue 457).
+  - BREAKING CHANGE: Removed deprecated resource xSQLAOGroupEnsure (issue 456).
+  - BREAKING CHANGE: Removed deprecated resource xSQLServerFailoverClusterSetup
+    (issue 336).
+  - Updated PULL\_REQUEST\_TEMPLATE adding comment block around text. Also
+    rearranged and updated texts (issue 572).
+  - Added common helper functions for HQRM localization, and added tests for the
+    helper functions.
+    - Get-LocalizedData
+    - New-InvalidResultException
+    - New-ObjectNotFoundException
+    - New-InvalidOperationException
+    - New-InvalidArgumentException
+  - Updated CONTRIBUTING.md describing the new localization helper functions.
+  - Fixed typos in xSQLServer.strings.psd1
+  - Fixed CodeCov badge links in README.md so that they point to the correct branch.
+  - Added VS Code workspace settings file with formatting settings matching the
+    Style Guideline (issue 645). That will make it possible inside VS Code to press
+    SHIFT+ALT+F, or press F1 and choose "Format document" in the list. The
+    PowerShell code will then be formatted according to the Style Guideline
+    (although maybe not complete, but would help a long way).
+      - Removed powershell.codeFormatting.alignPropertyValuePairs setting since
+        it does not align with the style guideline.
+      - Added powershell.codeFormatting.preset with a value of "Custom" so that
+        workspace formatting settings are honored (issue 665).
+  - Fixed lint error MD013 and MD036 in README.md.
+  - Updated .markdownlint.json to enable rule MD013 and MD036 to enforce those
+    lint markdown rules in the common tests.
+  - Fixed lint error MD013 in CHANGELOG.md.
+  - Fixed lint error MD013 in CONTRIBUTING.md.
+  - Added code block around types in README.md.
+  - Updated copyright information in xSQLServer.psd1.
+  - Opt-in for markdown common tests (issue 668).
+    - The old markdown tests has been removed.
+- Changes to xSQLServerHelper
+  - Removed helper function Grant-ServerPerms because the deprecated resource that
+    was using it was removed.
+  - Removed helper function Grant-CNOPerms because the deprecated resource that
+    was using it was removed.
+  - Removed helper function New-ListenerADObject because the deprecated resource
+    that was using it was removed.
+  - Added tests for those helper functions that did not have tests.
+  - Test-SQLDscParameterState helper function can now correctly pass a CimInstance
+    as DesiredValue.
+  - Test-SQLDscParameterState helper function will now output a warning message
+    if the value type of a desired value is not supported.
+  - Added localization to helper functions (issue 641).
+    - Resolved the issue when using Write-Verbose in helper functions discussed
+      in 641 where Write-Verbose wouldn"t write out verbose messages unless using
+      parameter Verbose.
+    - Moved localization strings from xSQLServer.strings.psd1 to
+      xSQLServerHelper.strings.psd1.
+- Changes to xSQLServerSetup
+  - BREAKING CHANGE: Replaced StartWin32Process helper function with the cmdlet
+    Start-Process (issue 41, 93 and 126).
+  - BREAKING CHANGE: The parameter SetupCredential has been removed since it is
+    no longer needed. This is because the resource now support the built-in
+    PsDscRunAsCredential.
+  - BREAKING CHANGE: Now the resource supports using built-in PsDscRunAsCredential.
+    If PsDscRunAsCredential is set, that username will be used as the first system
+    administrator.
+  - BREAKING CHANGE: If the parameter PsDscRunAsCredential are not assigned any
+    credentials then the resource will start the setup process as the SYSTEM account.
+    When installing as the SYSTEM account, then parameter SQLSysAdminAccounts and
+    ASSysAdminAccounts must be specified when installing feature Database Engine
+    and Analysis Services respectively.
+  - When setup exits with the exit code 3010 a warning message is written to console
+    telling that setup finished successfully, but a reboot is required (partly fixes
+    issue 565).
+  - When setup exits with an exit code other than 0 or 3010 a warning message is
+    written to console telling that setup finished with an error (partly fixes
+    issue 580).
+  - Added a new parameter SetupProcessTimeout which defaults to 7200 seconds (2
+    hours). If the setup process has not finished before the timeout value in
+    SetupProcessTimeout an error will be thrown (issue 566).
+  - Updated all examples to match the removal of SetupCredential.
+  - Updated (removed) severe known issues in README.md for resource xSQLServerSetup.
+  - Now all major version uses the same identifier to evaluate InstallSharedDir
+    and InstallSharedWOWDir (issue 420).
+  - Now setup arguments that contain no value will be ignored, for example when
+    InstallSharedDir and
+    InstallSharedWOWDir path is already present on the target node, because of a
+    previous installation (issue 639).
+  - Updated Get-TargetResource to correctly detect BOL, Conn, BC and other tools
+    when they are installed without SQLENGINE (issue 591).
+  - Now it can detect Documentation Components correctly after the change in
+    issue 591 (issue 628)
+  - Fixed bug that prevented Get-DscConfiguration from running without error. The
+    return hash table fails if the $clusteredSqlIpAddress variable is not used.
+    The schema expects a string array but it is initialized as just a null string,
+    causing it to fail on Get-DscConfiguration (issue 393).
+  - Added localization support for all strings.
+  - Added a test to test some error handling for cluster installations.
+  - Added support for MDS feature install (issue 486)
+    - Fixed localization support for MDS feature (issue 671).
+- Changes to xSQLServerRSConfig
+  - BREAKING CHANGE: Removed `$SQLAdminCredential` parameter. Use common parameter
+    `PsDscRunAsCredential` (WMF 5.0+) to run the resource under different credentials.
+    `PsDscRunAsCredential` Windows account must be a sysadmin on SQL Server (issue
+    568).
+  - In addition, the resource no longer uses `Invoke-Command` cmdlet that was used
+    to impersonate the Windows user specified by `$SQLAdminCredential`. The call
+    also needed CredSSP authentication to be enabled and configured on the target
+    node, which complicated deployments in non-domain scenarios. Using
+    `PsDscRunAsCredential` solves this problems for us.
+  - Fixed virtual directory creation for SQL Server 2016 (issue 569).
+  - Added unit tests (issue 295).
+- Changes to xSQLServerDatabase
+  - Changed the readme, SQLInstance should have been SQLInstanceName.
 - Changes to xSQLServerScript
-  - Updated tests for this resource, because they failed when Import-SQLPSModule was updated.
+  - Fixed bug with schema and variable mismatch for the Credential/Username parameter
+    in the return statement (issue 661).
+  - Optional QueryTimeout parameter to specify sql script query execution timeout.
+    Fixes issue 597
+- Changes to xSQLServerAlwaysOnService
+  - Fixed typos in localization strings and in tests.
+- Changes to xSQLServerAlwaysOnAvailabilityGroup
+  - Now it utilize the value of "FailoverMode" to set the "FailoverMode" property
+    of the Availability Group instead of wrongly using the "AvailabilityMode"
+    property of the Availability Group.
+
 '
 
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
 }
+
+
 
 
 

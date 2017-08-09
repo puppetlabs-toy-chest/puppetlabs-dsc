@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xdfsnamespacefolder) do
   def dscmeta_resource_friendly_name; 'xDFSNamespaceFolder' end
   def dscmeta_resource_name; 'MSFT_xDFSNamespaceFolder' end
   def dscmeta_module_name; 'xDFS' end
-  def dscmeta_module_version; '3.1.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

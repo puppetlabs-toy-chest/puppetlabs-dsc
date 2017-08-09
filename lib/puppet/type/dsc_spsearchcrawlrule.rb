@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spsearchcrawlrule) do
   def dscmeta_resource_friendly_name; 'SPSearchCrawlRule' end
   def dscmeta_resource_name; 'MSFT_SPSearchCrawlRule' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.6.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -188,7 +188,7 @@ Puppet::Type.newtype(:dsc_spsearchcrawlrule) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Present if the service app should exist, absent if it should not Valid values are Present, Absent."
+    desc "Ensure - Present if the crawl rule should exist, absent if it should not Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

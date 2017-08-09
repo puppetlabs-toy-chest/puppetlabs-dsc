@@ -2,8 +2,8 @@
 class MSFT_xDFSReplicationGroupConnection : OMI_BaseResource
 {
     [Key, Description("The name of the DFS Replication Group.")] String GroupName;
-    [Key, Description("The DFS Replication Group connection source computer name.")] String SourceComputerName;
-    [Key, Description("The DFS Replication Group connection destination computer name.")] String DestinationComputerName;
+    [Key, Description("The name of the Replication Group source computer for the connection. This can be specified using either the ComputerName or FQDN name for the member. If an FQDN name is used and the DomainName parameter is set, the FQDN domain name must match.")] String SourceComputerName;
+    [Key, Description("The name of the Replication Group destination computer for the connection. This can be specified using either the ComputerName or FQDN name for the member. If an FQDN name is used and the DomainName parameter is set, the FQDN domain name must match.")] String DestinationComputerName;
     [Required, Description("Specifies whether the DSF Replication Group connection should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
     [Write, Description("A description for the DFS Replication Group connection.")] String Description;
     [Write, Description("Ensures that connection is either Enabled or Disabled."),ValueMap{"Enabled","Disabled"}, Values{"Enabled","Disabled"}] String EnsureEnabled;

@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonservice) do
   def dscmeta_resource_friendly_name; 'xSQLServerAlwaysOnService' end
   def dscmeta_resource_name; 'MSFT_xSQLServerAlwaysOnService' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -63,7 +63,7 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonservice) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - HADR is Present (enabled) or Absent (disabled) Valid values are Present, Absent."
+    desc "Ensure - An enumerated value that describes if SQL server should have AlwaysOn property present or absent. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
