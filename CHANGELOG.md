@@ -1,3 +1,11 @@
+## 2017-08-25 - Supported Release 1.3.1
+
+The DSC module has been repackaged to remove extraneous content from the 1.3.0 release.
+
+### Bugfixes
+
+- Fix: Extraneous vendor content in puppetlabs-dsc-1.3.0.tar.gz ([MODULES-5380](https://tickets.puppetlabs.com/browse/MODULES-5380))
+
 ## 2017-04-27 - Supported Release 1.3.0
 
 The DSC module brings the DSC Resources included to be current as of April 2017.  The release also includes an update for newer PowerShell versions (5.1) and better documentation.
