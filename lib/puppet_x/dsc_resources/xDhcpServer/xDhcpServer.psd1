@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '1.5.0.0'
+ModuleVersion = '1.6.0.0'
 
 # ID used to uniquely identify this module
 GUID = '286890c9-a6c3-4605-9cd5-03c8413c8325'
@@ -47,8 +47,8 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Converted AppVeyor.yml to pull Pester from PSGallery instead of Chocolatey
-* Bug Fix fixes xDhcpServerOption\Get-TargetResource not returning Router property
+        ReleaseNotes = 'added xDhcpServerClass
+
 
 '
 
@@ -56,6 +56,7 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
 
 
 

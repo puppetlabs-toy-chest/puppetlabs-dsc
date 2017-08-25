@@ -239,6 +239,7 @@ dsc_xmppreference | [xMpPreference](https://github.com/puppetlabs/puppetlabs-dsc
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xdhcpserverauthorization | [xDhcpServerAuthorization](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDhcpServer/DSCResources/MSFT_xDhcpServerAuthorization) | [repo](https://github.com/PowerShell/xDhcpServer)
+dsc_xdhcpserverclass | [xDhcpServerClass](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDhcpServer/DSCResources/MSFT_xDhcpServerClass) | [repo](https://github.com/PowerShell/xDhcpServer)
 dsc_xdhcpserveroption | [xDhcpServerOption](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDhcpServer/DSCResources/MSFT_xDhcpServerOption) | [repo](https://github.com/PowerShell/xDhcpServer)
 dsc_xdhcpserverreservation | [xDhcpServerReservation](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDhcpServer/DSCResources/MSFT_xDhcpServerReservation) | [repo](https://github.com/PowerShell/xDhcpServer)
 dsc_xdhcpserverscope | [xDhcpServerScope](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDhcpServer/DSCResources/MSFT_xDhcpServerScope) | [repo](https://github.com/PowerShell/xDhcpServer)
@@ -357,6 +358,7 @@ dsc_xdhcpclient | [xDHCPClient](https://github.com/puppetlabs/puppetlabs-dsc/tre
 dsc_xdnsclientglobalsetting | [xDnsClientGlobalSetting](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xDnsClientGlobalSetting) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xdnsconnectionsuffix | [xDnsConnectionSuffix](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xDnsConnectionSuffix) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xfirewall | [xFirewall](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xFirewall) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xfirewallprofile | [xFirewallProfile](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xFirewallProfile) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xhostsfile | [xHostsFile](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xHostsFile) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xipaddress | [xIPAddress](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xIPAddress) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xnetadapterbinding | [xNetAdapterBinding](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterBinding) | [repo](https://github.com/PowerShell/xNetworking)

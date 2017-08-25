@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xclusternetwork) do
   def dscmeta_resource_friendly_name; 'xClusterNetwork' end
   def dscmeta_resource_name; 'MSFT_xClusterNetwork' end
   def dscmeta_module_name; 'xFailOverCluster' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xclusternetwork) do
   newparam(:dsc_address) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Address - The adress for the cluster network in the format '10.0.0.0'."
+    desc "Address - The address for the cluster network in the format '10.0.0.0'."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -78,7 +78,7 @@ Puppet::Type.newtype(:dsc_xclusternetwork) do
   newparam(:dsc_addressmask) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AddressMask - The adress mask for the cluster network in the format '255.255.255.0'."
+    desc "AddressMask - The address mask for the cluster network in the format '255.255.255.0'."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -143,7 +143,7 @@ Puppet::Type.newtype(:dsc_xclusternetwork) do
 end
 
 Puppet::Type.type(:dsc_xclusternetwork).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

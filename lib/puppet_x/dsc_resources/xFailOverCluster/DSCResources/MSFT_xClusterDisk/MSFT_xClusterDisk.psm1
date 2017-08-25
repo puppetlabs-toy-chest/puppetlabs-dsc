@@ -1,3 +1,8 @@
+Import-Module -Name (Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) `
+                               -ChildPath 'CommonResourceHelper.psm1')
+
+$script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xClusterDisk'
+
 <#
     .SYNOPSIS
         Returns the current state of the failover cluster disk resource.
@@ -8,13 +13,15 @@
 function Get-TargetResource
 {
     [CmdletBinding()]
-    [OutputType([Hashtable])]
+    [OutputType([System.Collections.Hashtable])]
     param
     (
         [Parameter(Mandatory = $true)]
         [System.String]
         $Number
     )
+
+    Write-Verbose -Message ($script:localizedData.GetClusterDiskInformation -f $Number)
 
     if ($null -ne ($diskInstance = Get-CimInstance -ClassName MSCluster_Disk -Namespace 'Root\MSCluster' -Filter "Number = $Number"))
     {
@@ -78,20 +85,24 @@ function Set-TargetResource
     {
         if ($getTargetResourceResult.Ensure -ne $Ensure)
         {
-            Write-Verbose "Add the disk $Number to the cluster"
+            Write-Verbose -Message ($script:localizedData.AddDiskToCluster -f $Number)
 
-            Get-ClusterAvailableDisk | Where-Object -FilterScript { $_.Number -eq $Number } | Add-ClusterDisk
+            Get-ClusterAvailableDisk | Where-Object -FilterScript {
+                $_.Number -eq $Number
+            } | Add-ClusterDisk
         }
 
         if ($getTargetResourceResult.Label -ne $Label)
         {
-            Write-Verbose "Set the disk $Number label to '$Label'"
+            Write-Verbose -Message ($script:localizedData.SetDiskLabel -f $Number, $Label)
 
             $diskInstance = Get-CimInstance -ClassName MSCluster_Disk -Namespace 'Root\MSCluster' -Filter "Number = $Number"
 
             $diskResource = Get-ClusterResource |
-                                Where-Object -FilterScript { $_.ResourceType -eq 'Physical Disk' } |
-                                    Where-Object -FilterScript { ($_ | Get-ClusterParameter -Name DiskIdGuid).Value -eq $diskInstance.Id }
+                Where-Object -FilterScript { $_.ResourceType -eq 'Physical Disk' } |
+                    Where-Object -FilterScript {
+                        ($_ | Get-ClusterParameter -Name DiskIdGuid).Value -eq $diskInstance.Id
+                    }
 
             # Set the label of the cluster disk
             $diskResource.Name = $Label
@@ -102,13 +113,15 @@ function Set-TargetResource
     {
         if ($getTargetResourceResult.Ensure -eq 'Present' -and $Ensure -eq 'Absent')
         {
-            Write-Verbose "Remove the disk $Number from the cluster"
+            Write-Verbose -Message ($script:localizedData.RemoveDiskFromCluster -f $Number)
 
             $diskInstance = Get-CimInstance -ClassName MSCluster_Disk -Namespace 'Root\MSCluster' -Filter "Number = $Number"
 
             $diskResource = Get-ClusterResource |
-                                Where-Object -FilterScript { $_.ResourceType -eq 'Physical Disk' } |
-                                    Where-Object -FilterScript { ($_ | Get-ClusterParameter -Name DiskIdGuid).Value -eq $diskInstance.Id }
+                Where-Object -FilterScript { $_.ResourceType -eq 'Physical Disk' } |
+                    Where-Object -FilterScript {
+                        ($_ | Get-ClusterParameter -Name DiskIdGuid).Value -eq $diskInstance.Id
+                    }
 
             # Remove the cluster disk
             $diskResource | Remove-ClusterResource -Force
@@ -151,6 +164,8 @@ function Test-TargetResource
         [System.String]
         $Label
     )
+
+    Write-Verbose -Message ($script:localizedData.EvaluatingClusterDiskInformation -f $Number)
 
     $getTargetResourceResult = Get-TargetResource -Number $Number
 

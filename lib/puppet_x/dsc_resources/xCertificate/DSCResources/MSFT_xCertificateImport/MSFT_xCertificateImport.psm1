@@ -4,13 +4,13 @@ $modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot 
 
 # Import the Certificate Common Modules
 Import-Module -Name (Join-Path -Path $modulePath `
-                               -ChildPath (Join-Path -Path 'CertificateDsc.Common' `
-                                                     -ChildPath 'CertificateDsc.Common.psm1'))
+        -ChildPath (Join-Path -Path 'CertificateDsc.Common' `
+            -ChildPath 'CertificateDsc.Common.psm1'))
 
 # Import the Certificate Resource Helper Module
 Import-Module -Name (Join-Path -Path $modulePath `
-                               -ChildPath (Join-Path -Path 'CertificateDsc.ResourceHelper' `
-                                                     -ChildPath 'CertificateDsc.ResourceHelper.psm1'))
+        -ChildPath (Join-Path -Path 'CertificateDsc.ResourceHelper' `
+            -ChildPath 'CertificateDsc.ResourceHelper.psm1'))
 
 # Import Localization Strings
 $localizedData = Get-LocalizedData `

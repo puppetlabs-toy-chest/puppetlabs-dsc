@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xpfximport) do
   def dscmeta_resource_friendly_name; 'xPfxImport' end
   def dscmeta_resource_name; 'MSFT_xPfxImport' end
   def dscmeta_module_name; 'xCertificate' end
-  def dscmeta_module_version; '2.8.0.0' end
+  def dscmeta_module_version; '3.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -182,7 +182,7 @@ Puppet::Type.newtype(:dsc_xpfximport) do
 end
 
 Puppet::Type.type(:dsc_xpfximport).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

@@ -1,4 +1,4 @@
-﻿# Import the Networking Resource Helper Module
+# Import the Networking Resource Helper Module
 Import-Module -Name (Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) `
                                -ChildPath (Join-Path -Path 'CertificateDsc.ResourceHelper' `
                                                      -ChildPath 'CertificateDsc.ResourceHelper.psm1'))
@@ -355,10 +355,10 @@ function Get-CdpContainer
     }
 
     Write-Verbose `
-        -Message ($LocalizedData.ConfigurationNamingContext -f $configContext) `
+        -Message ($LocalizedData.ConfigurationNamingContext -f $configContext.toString()) `
         -Verbose
 
-    $cdpContainer = [ADSI]('LDAP://CN=CDP,CN=Public Key Services,CN=Services,{0}' -f $configContext)
+    $cdpContainer = [ADSI]('LDAP://CN=CDP,CN=Public Key Services,CN=Services,{0}' -f $configContext.toString())
 
     return $cdpContainer
 } # end function Get-CdpContainer

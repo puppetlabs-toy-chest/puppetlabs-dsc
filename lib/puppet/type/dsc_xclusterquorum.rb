@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xclusterquorum) do
   def dscmeta_resource_friendly_name; 'xClusterQuorum' end
   def dscmeta_resource_name; 'MSFT_xClusterQuorum' end
   def dscmeta_module_name; 'xFailOverCluster' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xclusterquorum) do
   newparam(:dsc_issingleinstance) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IsSingleInstance - Valid values are Yes."
+    desc "IsSingleInstance - Specifies the resource is a single instance, the value must be 'Yes'. Valid values are Yes."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xclusterquorum) do
   newparam(:dsc_type) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Type - Valid values are NodeMajority, NodeAndDiskMajority, NodeAndFileShareMajority, DiskOnly."
+    desc "Type - Quorum type to use. Can be set to either NodeMajority, NodeAndDiskMajority, NodeAndFileShareMajority or DiskOnly. Valid values are NodeMajority, NodeAndDiskMajority, NodeAndFileShareMajority, DiskOnly."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -98,7 +98,7 @@ Puppet::Type.newtype(:dsc_xclusterquorum) do
   newparam(:dsc_resource) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Resource"
+    desc "Resource - The name of the disk or file share resource to use as witness. This parameter is optional if the quorum type is set to NodeMajority."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -114,7 +114,7 @@ Puppet::Type.newtype(:dsc_xclusterquorum) do
 end
 
 Puppet::Type.type(:dsc_xclusterquorum).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   def dscmeta_resource_friendly_name; 'xCertReq' end
   def dscmeta_resource_name; 'MSFT_xCertReq' end
   def dscmeta_module_name; 'xCertificate' end
-  def dscmeta_module_version; '2.8.0.0' end
+  def dscmeta_module_version; '3.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -122,7 +122,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_keylength) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "KeyLength - The bit length of the encryption key to be used Valid values are 1024, 2048, 4096, 8192."
+    desc "KeyLength - The bit length of the encryption key to be used. Defaults to 2048. Valid values are 1024, 2048, 4096, 8192."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -201,7 +201,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_certificatetemplate) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CertificateTemplate - The template used for the definiton of the certificate."
+    desc "CertificateTemplate - The template used for the definition of the certificate."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -216,7 +216,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_subjectaltname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SubjectAltName - The subject alternative name used to createthe certificate."
+    desc "SubjectAltName - The subject alternative name used to create the certificate."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -325,7 +325,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
 end
 
 Puppet::Type.type(:dsc_xcertreq).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

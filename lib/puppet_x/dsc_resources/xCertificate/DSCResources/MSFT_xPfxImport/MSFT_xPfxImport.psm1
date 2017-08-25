@@ -4,13 +4,13 @@ $modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot 
 
 # Import the Certificate Common Modules
 Import-Module -Name (Join-Path -Path $modulePath `
-                               -ChildPath (Join-Path -Path 'CertificateDsc.Common' `
-                                                     -ChildPath 'CertificateDsc.Common.psm1'))
+        -ChildPath (Join-Path -Path 'CertificateDsc.Common' `
+            -ChildPath 'CertificateDsc.Common.psm1'))
 
 # Import the Certificate Resource Helper Module
 Import-Module -Name (Join-Path -Path $modulePath `
-                               -ChildPath (Join-Path -Path 'CertificateDsc.ResourceHelper' `
-                                                     -ChildPath 'CertificateDsc.ResourceHelper.psm1'))
+        -ChildPath (Join-Path -Path 'CertificateDsc.ResourceHelper' `
+            -ChildPath 'CertificateDsc.ResourceHelper.psm1'))
 
 # Import Localization Strings
 $localizedData = Get-LocalizedData `
@@ -88,7 +88,7 @@ function Get-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingPfxStatusMessage -f $Thumbprint,$certificateStore)
+            $($LocalizedData.GettingPfxStatusMessage -f $Thumbprint, $certificateStore)
         ) -join '' )
 
     if ((Test-Path $certificateStore) -eq $false)
@@ -100,8 +100,8 @@ function Get-TargetResource
 
     $checkEnsure = [Bool](
         $certificateStore |
-        Get-ChildItem |
-        Where-Object -FilterScript {$_.Thumbprint -ieq $Thumbprint}
+            Get-ChildItem |
+            Where-Object -FilterScript {$_.Thumbprint -ieq $Thumbprint}
     )
     if ($checkEnsure)
     {
@@ -195,7 +195,7 @@ function Test-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.TestingPfxStatusMessage -f $Thumbprint,$certificateStore)
+            $($LocalizedData.TestingPfxStatusMessage -f $Thumbprint, $certificateStore)
         ) -join '' )
 
 
@@ -276,18 +276,18 @@ function Set-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingPfxStatusMessage -f $Thumbprint,$certificateStore)
+            $($LocalizedData.SettingPfxStatusMessage -f $Thumbprint, $certificateStore)
         ) -join '' )
 
     if ($Ensure -ieq 'Present')
     {
         if ($PSCmdlet.ShouldProcess(($LocalizedData.ImportingPfxShould `
-            -f $Path,$certificateStore)))
+                        -f $Path, $certificateStore)))
         {
             # Import the certificate into the Store
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ImportingPfxMessage -f $Path,$certificateStore)
+                    $($LocalizedData.ImportingPfxMessage -f $Path, $certificateStore)
                 ) -join '' )
 
             $param = @{
@@ -307,7 +307,7 @@ function Set-TargetResource
         # Remove the certificate from the Store
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.RemovingPfxMessage -f $Thumbprint,$certificateStore)
+                $($LocalizedData.RemovingPfxMessage -f $Thumbprint, $certificateStore)
             ) -join '' )
 
         Get-ChildItem -Path $certificateStore |

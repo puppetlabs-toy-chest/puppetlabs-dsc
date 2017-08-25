@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   def dscmeta_resource_friendly_name; 'xWaitForCluster' end
   def dscmeta_resource_name; 'MSFT_xWaitForCluster' end
   def dscmeta_module_name; 'xFailOverCluster' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - Name of the cluster"
+    desc "Name - Name of the cluster to wait for."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -77,7 +77,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   newparam(:dsc_retryintervalsec) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
-    desc "RetryIntervalSec - Interval to check the cluster existency"
+    desc "RetryIntervalSec - Interval to check for cluster existence. Default values is 10 seconds."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -95,7 +95,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
   newparam(:dsc_retrycount) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "RetryCount - Maximum number of retries to check cluster existency"
+    desc "RetryCount - Maximum number of retries to check for cluster existence. Default value is 50 retries."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -114,7 +114,7 @@ Puppet::Type.newtype(:dsc_xwaitforcluster) do
 end
 
 Puppet::Type.type(:dsc_xwaitforcluster).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods
