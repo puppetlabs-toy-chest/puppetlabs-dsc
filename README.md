@@ -338,6 +338,8 @@ All [Puppet metaparameters](https://docs.puppet.com/references/latest/metaparame
 
 ### Optionally Configure the DSC LCM RefreshMode
 
+*WARNING* The dsc::lcm_config class will be removed in the v1.5 release of this module
+
 Prior to the WMF5 Production Preview, the DSC Local Configuration Manager (LCM) `RefreshMode` had to be set to `'Disabled'` for the module to work. That limitation has been removed in the [WMF 5 Production Preview][wmf5-blog-post], but the module still supports configuring this setting if you wish to change it.
 
 ~~~puppet
