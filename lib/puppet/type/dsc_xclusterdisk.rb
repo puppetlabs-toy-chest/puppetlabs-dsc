@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xclusterdisk) do
   def dscmeta_resource_friendly_name; 'xClusterDisk' end
   def dscmeta_resource_name; 'MSFT_xClusterDisk' end
   def dscmeta_module_name; 'xFailOverCluster' end
-  def dscmeta_module_version; '1.6.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +62,7 @@ Puppet::Type.newtype(:dsc_xclusterdisk) do
   newparam(:dsc_number) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Number"
+    desc "Number - The disk number of the cluster disk."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -78,7 +78,7 @@ Puppet::Type.newtype(:dsc_xclusterdisk) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Define if the cluster disk should be added (Present) or removed (Absent). Default value is 'Present'. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -97,7 +97,7 @@ Puppet::Type.newtype(:dsc_xclusterdisk) do
   newparam(:dsc_label) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Label"
+    desc "Label - The disk label that should be assigned to the disk on the Failover Cluster disk resource."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -113,7 +113,7 @@ Puppet::Type.newtype(:dsc_xclusterdisk) do
 end
 
 Puppet::Type.type(:dsc_xclusterdisk).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

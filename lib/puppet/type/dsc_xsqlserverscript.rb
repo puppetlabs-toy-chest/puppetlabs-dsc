@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   @doc = %q{
     The DSC xSQLServerScript resource type.
     Automatically generated from
-    'xSQLServer/DSCResources/MSFT_xSQLServerScript/MSFT_xSQLServerScript.schema.mof'
+    'xSQLServer/DSCResources/MSFT_xSQLServerScript/MSFT_xSQLServerScript.Schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -30,7 +30,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   def dscmeta_resource_friendly_name; 'xSQLServerScript' end
   def dscmeta_resource_name; 'MSFT_xSQLServerScript' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -112,7 +112,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   newparam(:dsc_testfilepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "TestFilePath - Path to the T-SQL file that will perform Test action. Any script that does not throw an error or returns null is evaluated to true. The cmdlet Invoke-SqlCmd treats T-SQL Print statements as verbose text, and will not cause the test to return false."
+    desc "TestFilePath - Path to the T-SQL file that will perform Test action. Any script that does not throw an error or returns null is evaluated to true. The cmdlet Invoke-Sqlcmd treats T-SQL Print statements as verbose text, and will not cause the test to return false."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -144,7 +144,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   newparam(:dsc_variable, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Variable - Specifies, as a string array, a sqlcmd scripting variable for use in the sqlcmd script, and sets a value for the variable. Use a Windows PowerShell array to specify multiple variables and their values. For more information how to use this, please go to the help documentation for Invoke-Sqlcmd."
+    desc "Variable - Specifies, as a string array, a scripting variable for use in the sql script, and sets a value for the variable. Use a Windows PowerShell array to specify multiple variables and their values. For more information how to use this, please go to the help documentation for [Invoke-Sqlcmd](https://technet.microsoft.com/en-us/library/mt683370.aspx)"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -152,6 +152,24 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
     end
     munge do |value|
       Array(value)
+    end
+  end
+
+  # Name:         QueryTimeout
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_querytimeout) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "QueryTimeout - Specifies, as an integer, the number of seconds after which the T-SQL script execution will time out.  In some SQL Server versions there is a bug in Invoke-Sqlcmd where the normal default value 0 (no timeout) is not respected and the default value is incorrectly set to 30 seconds."
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 
@@ -181,7 +199,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
 end
 
 Puppet::Type.type(:dsc_xsqlserverscript).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonservice) do
   def dscmeta_resource_friendly_name; 'xSQLServerAlwaysOnService' end
   def dscmeta_resource_name; 'MSFT_xSQLServerAlwaysOnService' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -63,7 +63,7 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonservice) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - HADR is Present (enabled) or Absent (disabled) Valid values are Present, Absent."
+    desc "Ensure - An enumerated value that describes if the SQL Server should have Always On high availability and disaster recovery (HADR) property enabled ('Present') or disabled ('Absent'). Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -82,7 +82,7 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonservice) do
   newparam(:dsc_sqlserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLServer - The hostname of the SQL Server to be configured"
+    desc "SQLServer - The hostname of the SQL Server to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -98,7 +98,7 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonservice) do
   newparam(:dsc_sqlinstancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLInstanceName - Name of the SQL instance to be configured."
+    desc "SQLInstanceName - The name of the SQL instance to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -108,20 +108,36 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonservice) do
   end
 
   # Name:         RestartTimeout
-  # Type:         sint32
+  # Type:         uint32
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_restarttimeout) do
-    def mof_type; 'sint32' end
+    def mof_type; 'uint32' end
     def mof_is_embedded?; false end
     desc "RestartTimeout - The length of time, in seconds, to wait for the service to restart. Default is 120 seconds."
     validate do |value|
-      unless value.kind_of?(Numeric) || value.to_i.to_s == value
-          fail("Invalid value #{value}. Should be a signed Integer")
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
       end
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         IsHadrEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_ishadrenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "IsHadrEnabled - Returns the status of AlwaysOn high availability and disaster recovery (HADR)."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
@@ -133,7 +149,7 @@ Puppet::Type.newtype(:dsc_xsqlserveralwaysonservice) do
 end
 
 Puppet::Type.type(:dsc_xsqlserveralwaysonservice).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

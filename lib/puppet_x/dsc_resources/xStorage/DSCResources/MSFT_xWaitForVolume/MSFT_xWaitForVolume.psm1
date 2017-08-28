@@ -3,16 +3,22 @@
 [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '')]
 param ()
 
-Import-Module -Name (Join-Path -Path (Split-Path $PSScriptRoot -Parent) `
-                               -ChildPath 'CommonResourceHelper.psm1')
+$modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Localized messages for Write-Verbose statements in this resource
-$script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xWaitForVolume'
+# Import the Storage Common Modules
+Import-Module -Name (Join-Path -Path $modulePath `
+                               -ChildPath (Join-Path -Path 'StorageDsc.Common' `
+                                                     -ChildPath 'StorageDsc.Common.psm1'))
 
-# Import the common storage functions
-Import-Module -Name ( Join-Path `
-    -Path (Split-Path -Path $PSScriptRoot -Parent) `
-    -ChildPath '\StorageCommon\StorageCommon.psm1' )
+# Import the Storage Resource Helper Module
+Import-Module -Name (Join-Path -Path $modulePath `
+                               -ChildPath (Join-Path -Path 'StorageDsc.ResourceHelper' `
+                                                     -ChildPath 'StorageDsc.ResourceHelper.psm1'))
+
+# Import Localization Strings
+$localizedData = Get-LocalizedData `
+    -ResourceName 'MSFT_xWaitForVolume' `
+    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
 
 <#
     .SYNOPSIS
@@ -33,17 +39,22 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory)]
-        [String] $DriveLetter,
+        [Parameter(Mandatory = $true)]
+        [String]
+        $DriveLetter,
 
-        [UInt32] $RetryIntervalSec = 10,
+        [Parameter()]
+        [UInt32]
+        $RetryIntervalSec = 10,
 
-        [UInt32] $RetryCount = 60
+        [Parameter()]
+        [UInt32]
+        $RetryCount = 60
     )
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingWaitForVolumeStatusMessage -f $DriveLetter)
+            $($localizedData.GettingWaitForVolumeStatusMessage -f $DriveLetter)
         ) -join '' )
 
     # Validate the DriveLetter parameter
@@ -75,17 +86,22 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory)]
-        [String] $DriveLetter,
+        [Parameter(Mandatory = $true)]
+        [String]
+        $DriveLetter,
 
-        [UInt32] $RetryIntervalSec = 10,
+        [Parameter()]
+        [UInt32]
+        $RetryIntervalSec = 10,
 
-        [UInt32] $RetryCount = 60
+        [Parameter()]
+        [UInt32]
+        $RetryCount = 60
     )
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.CheckingForVolumeStatusMessage -f $DriveLetter)
+            $($localizedData.CheckingForVolumeStatusMessage -f $DriveLetter)
         ) -join '' )
 
     # Validate the DriveLetter parameter
@@ -100,7 +116,7 @@ function Set-TargetResource
         {
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.VolumeFoundMessage -f $DriveLetter)
+                    $($localizedData.VolumeFoundMessage -f $DriveLetter)
                 ) -join '' )
 
             $volumeFound = $true
@@ -110,7 +126,7 @@ function Set-TargetResource
         {
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.VolumeNotFoundMessage -f $DriveLetter,$RetryIntervalSec)
+                    $($localizedData.VolumeNotFoundMessage -f $DriveLetter,$RetryIntervalSec)
                 ) -join '' )
 
             Start-Sleep -Seconds $RetryIntervalSec
@@ -124,7 +140,7 @@ function Set-TargetResource
     if (-not $volumeFound)
     {
         New-InvalidOperationException `
-            -Message $($LocalizedData.VolumeNotFoundAfterError -f $DriveLetter,$RetryCount)
+            -Message $($localizedData.VolumeNotFoundAfterError -f $DriveLetter,$RetryCount)
     } # if
 } # function Set-TargetResource
 
@@ -147,17 +163,22 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory)]
-        [String] $DriveLetter,
+        [Parameter(Mandatory = $true)]
+        [String]
+        $DriveLetter,
 
-        [UInt32] $RetryIntervalSec = 10,
+        [Parameter()]
+        [UInt32]
+        $RetryIntervalSec = 10,
 
-        [UInt32] $RetryCount = 60
+        [Parameter()]
+        [UInt32]
+        $RetryCount = 60
     )
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.TestingWaitForVolumeStatusMessage -f $DriveLetter)
+            $($localizedData.TestingWaitForVolumeStatusMessage -f $DriveLetter)
         ) -join '' )
 
     # Validate the DriveLetter parameter
@@ -172,7 +193,7 @@ function Test-TargetResource
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.VolumeFoundMessage -f $DriveLetter)
+                $($localizedData.VolumeFoundMessage -f $DriveLetter)
             ) -join '' )
 
         return $true
@@ -180,7 +201,7 @@ function Test-TargetResource
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.VolumeNotFoundMessage -f $DriveLetter)
+            $($localizedData.VolumeNotFoundMessage -f $DriveLetter)
         ) -join '' )
 
     return $false

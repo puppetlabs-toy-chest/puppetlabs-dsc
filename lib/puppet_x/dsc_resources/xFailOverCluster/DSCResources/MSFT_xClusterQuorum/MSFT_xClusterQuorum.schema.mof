@@ -1,9 +1,7 @@
 [ClassVersion("1.0.0.0"), FriendlyName("xClusterQuorum")]
 class MSFT_xClusterQuorum : OMI_BaseResource
 {
-    [Key, ValueMap{"Yes"}, Values{"Yes"}] string IsSingleInstance;
-
-    [Write, ValueMap{"NodeMajority", "NodeAndDiskMajority", "NodeAndFileShareMajority", "DiskOnly"}, Values{"NodeMajority", "NodeAndDiskMajority", "NodeAndFileShareMajority", "DiskOnly"}] string Type;
-
-    [Write] String Resource;
+    [Key, Description("Specifies the resource is a single instance, the value must be 'Yes'."), ValueMap{"Yes"}, Values{"Yes"}] string IsSingleInstance;
+    [Write, Description("Quorum type to use. Can be set to either NodeMajority, NodeAndDiskMajority, NodeAndFileShareMajority or DiskOnly."), ValueMap{"NodeMajority", "NodeAndDiskMajority", "NodeAndFileShareMajority", "DiskOnly"}, Values{"NodeMajority", "NodeAndDiskMajority", "NodeAndFileShareMajority", "DiskOnly"}] string Type;
+    [Write, Description("The name of the disk or file share resource to use as witness. This parameter is optional if the quorum type is set to NodeMajority.")] String Resource;
 };

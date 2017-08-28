@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   def dscmeta_resource_friendly_name; 'xVMSwitch' end
   def dscmeta_resource_name; 'MSFT_xVMSwitch' end
   def dscmeta_module_name; 'xHyper-V' end
-  def dscmeta_module_version; '3.7.0.0' end
+  def dscmeta_module_version; '3.9.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -92,17 +92,20 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   end
 
   # Name:         NetAdapterName
-  # Type:         string
+  # Type:         string[]
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_netadaptername) do
-    def mof_type; 'string' end
+  newparam(:dsc_netadaptername, :array_matching => :all) do
+    def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "NetAdapterName - Network adapter name for external switch type"
+    desc "NetAdapterName - Network adapter name(s) for external switch type"
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 
@@ -114,6 +117,22 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
     desc "AllowManagementOS - Specify if the VM host has access to the physical NIC"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         EnableEmbeddedTeaming
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_enableembeddedteaming) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "EnableEmbeddedTeaming - Should embedded NIC teaming be used (Windows Server 2016 only)"
     validate do |value|
     end
     newvalues(true, false)
@@ -197,7 +216,7 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
 end
 
 Puppet::Type.type(:dsc_xvmswitch).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

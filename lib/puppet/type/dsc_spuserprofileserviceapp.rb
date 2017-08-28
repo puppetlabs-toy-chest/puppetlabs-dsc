@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spuserprofileserviceapp) do
   def dscmeta_resource_friendly_name; 'SPUserProfileServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPUserProfileServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.6.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -238,6 +238,22 @@ Puppet::Type.newtype(:dsc_spuserprofileserviceapp) do
     end
   end
 
+  # Name:         NoILMUsed
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_noilmused) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "NoILMUsed - Specifies if the service application should be configured to use AD Import"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
   # Name:         Ensure
   # Type:         string
   # IsMandatory:  False
@@ -281,7 +297,7 @@ Puppet::Type.newtype(:dsc_spuserprofileserviceapp) do
 end
 
 Puppet::Type.type(:dsc_spuserprofileserviceapp).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

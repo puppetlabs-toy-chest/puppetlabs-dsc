@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xvhd) do
   def dscmeta_resource_friendly_name; 'xVHD' end
   def dscmeta_resource_name; 'MSFT_xVHD' end
   def dscmeta_module_name; 'xHyper-V' end
-  def dscmeta_module_version; '3.7.0.0' end
+  def dscmeta_module_version; '3.9.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -176,14 +176,17 @@ Puppet::Type.newtype(:dsc_xvhd) do
   # Name:         Type
   # Type:         string
   # IsMandatory:  False
-  # Values:       None
+  # Values:       ["Dynamic", "Fixed", "Differencing"]
   newparam(:dsc_type) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Type - Type of Vhd - Dynamic, Fixed, Differencing"
+    desc "Type - Type of Vhd - Dynamic, Fixed, Differencing Valid values are Dynamic, Fixed, Differencing."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Dynamic', 'dynamic', 'Fixed', 'fixed', 'Differencing', 'differencing'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Dynamic, Fixed, Differencing")
       end
     end
   end
@@ -230,7 +233,7 @@ Puppet::Type.newtype(:dsc_xvhd) do
 end
 
 Puppet::Type.type(:dsc_xvhd).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

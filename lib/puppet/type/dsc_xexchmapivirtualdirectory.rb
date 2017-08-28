@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchmapivirtualdirectory) do
   def dscmeta_resource_friendly_name; 'xExchMapiVirtualDirectory' end
   def dscmeta_resource_name; 'MSFT_xExchMapiVirtualDirectory' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.14.0.0' end
+  def dscmeta_module_version; '1.16.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -173,7 +173,7 @@ Puppet::Type.newtype(:dsc_xexchmapivirtualdirectory) do
 end
 
 Puppet::Type.type(:dsc_xexchmapivirtualdirectory).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

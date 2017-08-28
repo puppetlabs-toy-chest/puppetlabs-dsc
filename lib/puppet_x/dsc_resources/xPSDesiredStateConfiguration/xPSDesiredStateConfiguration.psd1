@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '6.2.0.0'
+ModuleVersion = '7.0.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'cc8dc021-fa5f-4f96-8ecf-dfd68a6d9d48'
@@ -52,12 +52,9 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* xMsiPackage:
-    * Created high quality MSI package manager resource 
-* xArchive:
-    * Fixed a minor bug in the unit tests where sometimes the incorrect DateTime format was used.
-* xWindowsFeatureSet:
-    * Had the wrong parameter name in one test case.
+        ReleaseNotes = '* xService
+    * BREAKING CHANGE: The service will now return as compliant if the service is not installed and the StartupType is set to Disabled regardless of the value of the Ensure property.
+* Fixed misnamed certificate thumbprint variable in example Sample_xDscWebServiceRegistrationWithSecurityBestPractices
 
 '
 
@@ -65,6 +62,9 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
+
+
 
 
 

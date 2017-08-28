@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spmanagedmetadataserviceapp) do
   def dscmeta_resource_friendly_name; 'SPManagedMetaDataServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPManagedMetaDataServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.6.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -131,6 +131,24 @@ Puppet::Type.newtype(:dsc_spmanagedmetadataserviceapp) do
     end
   end
 
+  # Name:         TermStoreAdministrators
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_termstoreadministrators, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "TermStoreAdministrators - A list of the users/groups who are administrators of the term store"
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
   # Name:         Ensure
   # Type:         string
   # IsMandatory:  False
@@ -189,7 +207,7 @@ Puppet::Type.newtype(:dsc_spmanagedmetadataserviceapp) do
 end
 
 Puppet::Type.type(:dsc_spmanagedmetadataserviceapp).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

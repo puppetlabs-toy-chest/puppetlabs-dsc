@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xdnsrecord) do
   def dscmeta_resource_friendly_name; 'xDnsRecord' end
   def dscmeta_resource_name; 'MSFT_xDnsRecord' end
   def dscmeta_module_name; 'xDnsServer' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -150,7 +150,7 @@ Puppet::Type.newtype(:dsc_xdnsrecord) do
 end
 
 Puppet::Type.type(:dsc_xdnsrecord).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

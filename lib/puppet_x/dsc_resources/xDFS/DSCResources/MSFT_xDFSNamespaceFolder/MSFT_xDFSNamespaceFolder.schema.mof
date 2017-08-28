@@ -1,8 +1,8 @@
 [ClassVersion("1.0.0.0"), FriendlyName("xDFSNamespaceFolder")]
 class MSFT_xDFSNamespaceFolder : OMI_BaseResource
 {
-    [key, Description("Specifies a path for the root of a DFS namespace.")] String Path;
-    [key, Description("Specifies a path for a root target of the DFS namespace.")] String TargetPath;
+    [Key, Description("Specifies a path for the root of a DFS namespace.")] String Path;
+    [Key, Description("Specifies a path for a root target of the DFS namespace.")] String TargetPath;
     [Required, Description("Specifies if the DFS Namespace root should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
     [Write, Description("The description of the DFS Namespace.")] String Description;
     [Write, Description("Indicates whether a DFS namespace server provides a client only with referrals that are in the same site as the client.")] Boolean EnableInsiteReferrals;

@@ -1,40 +1,55 @@
-data LocalizedData
-{
-# culture="en-US"
-ConvertFrom-StringData -StringData @'
-GettingNamespaceServerConfigurationMessage=Getting DFS Namespace Server Configuration.
-SettingNamespaceServerConfigurationMessage=Setting DFS Namespace Server Configuration.
-NamespaceServerConfigurationUpdateParameterMessage=Setting DFS Namespace Server Configuration parameter {0} to "{1}".
-NamespaceServerConfigurationUpdatedMessage=Setting DFS Namespace Server Configuration updated.
-NamespaceServerConfigurationServiceRestartedMessage=DFS Namespace Server restarted.
-TestingNamespaceServerConfigurationMessage=Testing DFS Namespace Server Configuration.
-NamespaceServerConfigurationParameterNeedsUpdateMessage=DFS Namespace Server Configuration parameter "{0}" is "{1}" but should be "{2}". Change required.
-'@
-}
+$modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
+
+# Import the Certificate Resource Helper Module
+Import-Module -Name (Join-Path -Path $modulePath `
+                               -ChildPath (Join-Path -Path 'DFSDsc.ResourceHelper' `
+                                                     -ChildPath 'DFSDsc.ResourceHelper.psm1'))
+
+# Import Localization Strings
+$localizedData = Get-LocalizedData `
+    -ResourceName 'MSFT_xDFSNamespaceServerConfiguration' `
+    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
 
 <#
-    This is an array of all the parameters used by this resource
+    This is an array of all the parameters used by this resource.
     If the property Restart is true then when this property is updated the service
-    Will be restarted.
+    will be restarted.
 #>
-data ParameterList
+data parameterList
 {
     @(
-        @{ Name = 'LdapTimeoutSec';            Type = 'Uint32'  },
-        @{ Name = 'SyncIntervalSec';           Type = 'String'  },
-        @{ Name = 'UseFQDN';                   Type = 'Uint32'; Restart = $True }
+        @{
+            Name = 'LdapTimeoutSec'
+            Type = 'Uint32'
+        },
+        @{
+            Name = 'SyncIntervalSec'
+            Type = 'String'
+        },
+        @{
+            Name = 'UseFQDN'
+            Type = 'Uint32'
+            Restart = $True
+        }
     )
 }
 
+<#
+    .SYNOPSIS
+    Returns the current state of a DFS Namespace Server Configuration.
+
+    .PARAMETER IsSingleInstance
+    Specifies the resource is a single instance, the value must be 'Yes'
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
-    [OutputType([Hashtable])]
+    [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
-        [String]
+        [System.String]
         $IsSingleInstance
     )
 
@@ -43,44 +58,65 @@ function Get-TargetResource
             $($LocalizedData.GettingNamespaceServerConfigurationMessage)
         ) -join '' )
 
-    # The ComputerName will always be LocalHost unless a good reason can be provided to
-    # enable it as a parameter.
-    $ComputerName = 'LocalHost'
-
     # Get the current DFSN Server Configuration
-    $ServerConfiguration = Get-DfsnServerConfiguration `
-        -ComputerName $ComputerName `
+    $serverConfiguration = Get-DfsnServerConfiguration `
+        -ComputerName $env:COMPUTERNAME `
         -ErrorAction Stop
 
     # Generate the return object.
-    $ReturnValue = @{
+    $returnValue = @{
         IsSingleInstance = 'Yes'
     }
-    foreach ($parameter in $ParameterList)
+
+    foreach ($parameter in $parameterList)
     {
-        $ReturnValue += @{ $parameter.Name = $ServerConfiguration.$($parameter.name) }
+        $returnValue += @{
+            $parameter.Name = $serverConfiguration.$($parameter.name)
+        }
     } # foreach
 
-    return $ReturnValue
+    return $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+    Sets the DFS Namespace Server Configuration.
+
+    .PARAMETER IsSingleInstance
+    Specifies the resource is a single instance, the value must be 'Yes'.
+
+    .PARAMETER LdapTimeoutSec
+    Specifies a time-out value, in seconds, for Lightweight Directory
+    Access Protocol (LDAP) requests for the DFS namespace server.
+
+    .PARAMETER SyncIntervalSec
+    This interval controls how often domain-based DFS namespace root
+    servers and domain controllers connect to the PDC emulator to get
+    updates of DFS namespace metadata.
+
+    .PARAMETER UseFQDN
+    Indicates whether a DFS namespace server uses FQDNs in referrals.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
-        [String]
+        [System.String]
         $IsSingleInstance,
 
-        [Uint32]
+        [Parameter()]
+        [System.UInt32]
         $LdapTimeoutSec,
 
-        [Uint32]
+        [Parameter()]
+        [System.UInt32]
         $SyncIntervalSec,
 
-        [Boolean]
+        [Parameter()]
+        [System.Boolean]
         $UseFQDN
     )
 
@@ -89,45 +125,45 @@ function Set-TargetResource
             $($LocalizedData.SettingNamespaceServerConfigurationMessage)
         ) -join '' )
 
-    # The ComputerName will always be LocalHost unless a good reason can be provided to
-    # enable it as a parameter.
-    $ComputerName = 'LocalHost'
-
     # Get the current DFSN Server Configuration
-    $ServerConfiguration = Get-DfsnServerConfiguration `
-        -ComputerName $ComputerName `
+    $serverConfiguration = Get-DfsnServerConfiguration `
+        -ComputerName $env:COMPUTERNAME `
         -ErrorAction Stop
 
     # Generate a list of parameters that will need to be changed.
-    $ChangeParameters = @{}
-    $Restart = $False
-    foreach ($parameter in $ParameterList)
+    $changeParameters = @{}
+    $restart = $False
+
+    foreach ($parameter in $parameterList)
     {
-        $ParameterSource = $ServerConfiguration.$($parameter.name)
-        $ParameterNew = (Invoke-Expression -Command "`$$($parameter.name)")
+        $parameterSource = $serverConfiguration.$($parameter.name)
+        $parameterNew = (Get-Variable -Name ($parameter.name)).Value
         if ($PSBoundParameters.ContainsKey($parameter.Name) `
-            -and ($ParameterSource -ne $ParameterNew))
+            -and ($parameterSource -ne $parameterNew))
         {
-            $ChangeParameters += @{
-                $($parameter.name) = $ParameterNew
+            $changeParameters += @{
+                $($parameter.name) = $parameterNew
             }
+
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
                 $($LocalizedData.NamespaceServerConfigurationUpdateParameterMessage) `
-                    -f $parameter.Name,$ParameterNew
+                    -f $parameter.Name,$parameterNew
                 ) -join '' )
+
             if ($parameter.Restart)
             {
-                $Restart = $True
+                $restart = $True
             } # if
         } # if
     } # foreach
-    if ($ChangeParameters.Count -gt 0)
+
+    if ($changeParameters.Count -gt 0)
     {
         # Update any parameters that were identified as different
         $null = Set-DfsnServerConfiguration `
-            -ComputerName $ComputerName `
-            @ChangeParameters `
+            -ComputerName $env:COMPUTERNAME `
+            @changeParameters `
             -ErrorAction Stop
 
         Write-Verbose -Message ( @(
@@ -135,7 +171,7 @@ function Set-TargetResource
             $($LocalizedData.NamespaceServerConfigurationUpdatedMessage)
             ) -join '' )
 
-        if ($Restart)
+        if ($restart)
         {
             # Restart the DFS Service
             $null = Restart-Service `
@@ -151,24 +187,46 @@ function Set-TargetResource
     } # if
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+    Tests the DFS Namespace Server Configuration.
+
+    .PARAMETER IsSingleInstance
+    Specifies the resource is a single instance, the value must be 'Yes'.
+
+    .PARAMETER LdapTimeoutSec
+    Specifies a time-out value, in seconds, for Lightweight Directory
+    Access Protocol (LDAP) requests for the DFS namespace server.
+
+    .PARAMETER SyncIntervalSec
+    This interval controls how often domain-based DFS namespace root
+    servers and domain controllers connect to the PDC emulator to get
+    updates of DFS namespace metadata.
+
+    .PARAMETER UseFQDN
+    Indicates whether a DFS namespace server uses FQDNs in referrals.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
-        [String]
+        [System.String]
         $IsSingleInstance,
 
-        [Uint32]
+        [Parameter()]
+        [System.UInt32]
         $LdapTimeoutSec,
 
-        [Uint32]
+        [Parameter()]
+        [System.UInt32]
         $SyncIntervalSec,
 
-        [Boolean]
+        [Parameter()]
+        [System.Boolean]
         $UseFQDN
     )
 
@@ -177,60 +235,33 @@ function Test-TargetResource
             $($LocalizedData.TestingNamespaceServerConfigurationMessage)
         ) -join '' )
 
-    # The ComputerName will always be LocalHost unless a good reason can be provided to
-    # enable it as a parameter.
-    $ComputerName = 'LocalHost'
-
     # Flag to signal whether settings are correct
-    [Boolean] $DesiredConfigurationMatch = $true
+    [System.Boolean] $desiredConfigurationMatch = $true
 
     # Get the current DFSN Server Configuration
-    $ServerConfiguration = Get-DfsnServerConfiguration `
-        -ComputerName $ComputerName `
+    $serverConfiguration = Get-DfsnServerConfiguration `
+        -ComputerName $env:COMPUTERNAME `
         -ErrorAction Stop
 
     # Check each parameter
-    foreach ($parameter in $ParameterList)
+    foreach ($parameter in $parameterList)
     {
-        $ParameterSource = $ServerConfiguration.$($parameter.name)
-        $ParameterNew = (Invoke-Expression -Command "`$$($parameter.name)")
+        $parameterSource = $serverConfiguration.$($parameter.name)
+        $parameterNew = (Get-Variable -Name ($parameter.name)).Value
+
         if ($PSBoundParameters.ContainsKey($parameter.Name) `
-            -and ($ParameterSource -ne $ParameterNew)) {
+            -and ($parameterSource -ne $parameterNew)) {
             Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
                 $($LocalizedData.NamespaceServerConfigurationParameterNeedsUpdateMessage) `
-                    -f $parameter.Name,$ParameterSource,$ParameterNew
+                    -f $parameter.Name,$parameterSource,$parameterNew
                 ) -join '' )
+
             $desiredConfigurationMatch = $false
         } # if
     } # foreach
 
-    return $DesiredConfigurationMatch
+    return $desiredConfigurationMatch
 } # Test-TargetResource
-
-# Helper Functions
-function New-TerminatingError
-{
-    [CmdletBinding()]
-    param
-    (
-        [Parameter(Mandatory)]
-        [String] $ErrorId,
-
-        [Parameter(Mandatory)]
-        [String] $ErrorMessage,
-
-        [Parameter(Mandatory)]
-        [System.Management.Automation.ErrorCategory] $ErrorCategory
-    )
-
-    $exception = New-Object `
-        -TypeName System.InvalidOperationException `
-        -ArgumentList $errorMessage
-    $errorRecord = New-Object `
-        -TypeName System.Management.Automation.ErrorRecord `
-        -ArgumentList $exception, $errorId, $errorCategory, $null
-    $PSCmdlet.ThrowTerminatingError($errorRecord)
-}
 
 Export-ModuleMember -Function *-TargetResource

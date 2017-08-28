@@ -1,31 +1,38 @@
+Import-Module -Name (Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) `
+                               -ChildPath 'CommonResourceHelper.psm1')
 
+$script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xClusterDisk'
+
+<#
+    .SYNOPSIS
+        Returns the current state of the failover cluster disk resource.
+
+    .PARAMETER Number
+        The disk number of the cluster disk.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
-    [OutputType([Hashtable])]
+    [OutputType([System.Collections.Hashtable])]
     param
     (
         [Parameter(Mandatory = $true)]
-        [String] $Number,
-        
-        [Parameter(Mandatory = $false)]
-        [ValidateSet('Present', 'Absent')]
-        [String] $Ensure = 'Present',
-
-        [Parameter(Mandatory = $false)]
-        [String] $Label
+        [System.String]
+        $Number
     )
-        
-    if ($null -ne ($DiskInstance = Get-CimInstance -ClassName MSCluster_Disk -Namespace 'Root\MSCluster' -Filter "Number = $Number"))
+
+    Write-Verbose -Message ($script:localizedData.GetClusterDiskInformation -f $Number)
+
+    if ($null -ne ($diskInstance = Get-CimInstance -ClassName MSCluster_Disk -Namespace 'Root\MSCluster' -Filter "Number = $Number"))
     {
-        $DiskResource = Get-ClusterResource |
-                            Where-Object { $_.ResourceType -eq 'Physical Disk' } |
-                                Where-Object { ($_ | Get-ClusterParameter -Name DiskIdGuid).Value -eq $DiskInstance.Id }
+        $diskResource = Get-ClusterResource |
+                            Where-Object -FilterScript { $_.ResourceType -eq 'Physical Disk' } |
+                                Where-Object -FilterScript { ($_ | Get-ClusterParameter -Name DiskIdGuid).Value -eq $diskInstance.Id }
 
         @{
             Number = $Number
             Ensure = 'Present'
-            Label  = $DiskResource.Name
+            Label  = $diskResource.Name
         }
     }
     else
@@ -38,96 +45,140 @@ function Get-TargetResource
     }
 }
 
+<#
+    .SYNOPSIS
+        Adds or removed the failover cluster disk resource from the failover cluster.
+
+    .PARAMETER Number
+        The disk number of the cluster disk.
+
+    .PARAMETER Ensure
+        Define if the cluster disk should be added (Present) or removed (Absent).
+        Default value is 'Present'.
+
+    .PARAMETER Label
+        The disk label that should be assigned to the disk on the Failover Cluster
+        disk resource.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
     param
     (
         [Parameter(Mandatory = $true)]
-        [String] $Number,
-        
-        [Parameter(Mandatory = $false)]
-        [ValidateSet('Present', 'Absent')]
-        [String] $Ensure = 'Present',
+        [System.String]
+        $Number,
 
-        [Parameter(Mandatory = $false)]
-        [String] $Label
+        [Parameter()]
+        [ValidateSet('Present', 'Absent')]
+        [System.String]
+        $Ensure = 'Present',
+
+        [Parameter()]
+        [System.String]
+        $Label
     )
 
-    if (-not (Test-TargetResource -Number $Number -Ensure $Ensure -Label $Label))
+    $getTargetResourceResult = Get-TargetResource -Number $Number
+
+    if ($Ensure -eq 'Present')
     {
-        $CurrentDisk = Get-TargetResource -Number $Number
-
-        if ($Ensure -eq 'Present')
+        if ($getTargetResourceResult.Ensure -ne $Ensure)
         {
-            if ($CurrentDisk.Ensure -ne $Ensure)
-            {
-                Write-Verbose "Add the disk $Number to the cluster"
+            Write-Verbose -Message ($script:localizedData.AddDiskToCluster -f $Number)
 
-                Get-ClusterAvailableDisk | Where-Object { $_.Number -eq $Number } | Add-ClusterDisk
-            }
-
-            if ($CurrentDisk.Label -ne $Label)
-            {
-                Write-Verbose "Set the disk $Number label to '$Label'"
-
-                $DiskInstance = Get-CimInstance -ClassName MSCluster_Disk -Namespace 'Root\MSCluster' -Filter "Number = $Number"
-
-                $DiskResource = Get-ClusterResource |
-                                    Where-Object { $_.ResourceType -eq 'Physical Disk' } |
-                                        Where-Object { ($_ | Get-ClusterParameter -Name DiskIdGuid).Value -eq $DiskInstance.Id }
-
-                # Set the label of the cluster disk
-                $DiskResource.Name = $Label
-                $DiskResource.Update()
-            }
+            Get-ClusterAvailableDisk | Where-Object -FilterScript {
+                $_.Number -eq $Number
+            } | Add-ClusterDisk
         }
-        else
+
+        if ($getTargetResourceResult.Label -ne $Label)
         {
-            Write-Verbose "Remove the disk $Number from the cluster"
+            Write-Verbose -Message ($script:localizedData.SetDiskLabel -f $Number, $Label)
 
-            $DiskInstance = Get-CimInstance -ClassName MSCluster_Disk -Namespace 'Root\MSCluster' -Filter "Number = $Number"
+            $diskInstance = Get-CimInstance -ClassName MSCluster_Disk -Namespace 'Root\MSCluster' -Filter "Number = $Number"
 
-            $DiskResource = Get-ClusterResource |
-                                Where-Object { $_.ResourceType -eq 'Physical Disk' } |
-                                    Where-Object { ($_ | Get-ClusterParameter -Name DiskIdGuid).Value -eq $DiskInstance.Id }
-            
+            $diskResource = Get-ClusterResource |
+                Where-Object -FilterScript { $_.ResourceType -eq 'Physical Disk' } |
+                    Where-Object -FilterScript {
+                        ($_ | Get-ClusterParameter -Name DiskIdGuid).Value -eq $diskInstance.Id
+                    }
+
+            # Set the label of the cluster disk
+            $diskResource.Name = $Label
+            $diskResource.Update()
+        }
+    }
+    else
+    {
+        if ($getTargetResourceResult.Ensure -eq 'Present' -and $Ensure -eq 'Absent')
+        {
+            Write-Verbose -Message ($script:localizedData.RemoveDiskFromCluster -f $Number)
+
+            $diskInstance = Get-CimInstance -ClassName MSCluster_Disk -Namespace 'Root\MSCluster' -Filter "Number = $Number"
+
+            $diskResource = Get-ClusterResource |
+                Where-Object -FilterScript { $_.ResourceType -eq 'Physical Disk' } |
+                    Where-Object -FilterScript {
+                        ($_ | Get-ClusterParameter -Name DiskIdGuid).Value -eq $diskInstance.Id
+                    }
+
             # Remove the cluster disk
-            $DiskResource | Remove-ClusterResource -Force
+            $diskResource | Remove-ClusterResource -Force
         }
     }
 }
 
+<#
+    .SYNOPSIS
+       Tests that the failover cluster disk resource exist in the failover cluster,
+       and that is has the correct label.
 
+    .PARAMETER Number
+        The disk number of the cluster disk.
+
+    .PARAMETER Ensure
+        Define if the cluster disk should be added (Present) or removed (Absent).
+        Default value is 'Present'.
+
+    .PARAMETER Label
+        The disk label that should be assigned to the disk on the Failover Cluster
+        disk resource.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
-    [OutputType([Boolean])]
+    [OutputType([System.Boolean])]
     param
     (
         [Parameter(Mandatory = $true)]
-        [String] $Number,
-        
-        [Parameter(Mandatory = $false)]
-        [ValidateSet('Present', 'Absent')]
-        [String] $Ensure = 'Present',
+        [System.String]
+        $Number,
 
-        [Parameter(Mandatory = $false)]
-        [String] $Label
+        [Parameter()]
+        [ValidateSet('Present', 'Absent')]
+        [System.String]
+        $Ensure = 'Present',
+
+        [Parameter()]
+        [System.String]
+        $Label
     )
-    
-    $CurrentDisk = Get-TargetResource -Number $Number
-    
+
+    Write-Verbose -Message ($script:localizedData.EvaluatingClusterDiskInformation -f $Number)
+
+    $getTargetResourceResult = Get-TargetResource -Number $Number
+
     if($Ensure -eq 'Present')
     {
         return (
-            ($Ensure -eq $CurrentDisk.Ensure) -and
-            (($Label -eq $CurrentDisk.Label) -or (-not $PSBoundParameters.ContainsKey('Label')))
+            ($Ensure -eq $getTargetResourceResult.Ensure) -and
+            (($Label -eq $getTargetResourceResult.Label) -or (-not $PSBoundParameters.ContainsKey('Label')))
         )
     }
     else
     {
-        return $Ensure -eq $CurrentDisk.Ensure
+        return $Ensure -eq $getTargetResourceResult.Ensure
     }
 }
 

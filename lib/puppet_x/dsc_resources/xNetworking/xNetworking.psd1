@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '3.2.0.0'
+ModuleVersion = '5.1.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'e6647cc3-ce9c-4c86-9eb8-2ee8919bf358'
@@ -12,7 +12,7 @@ Author = 'Microsoft Corporation'
 CompanyName = 'Microsoft Corporation'
 
 # Copyright statement for this module
-Copyright = '(c) 2013 Microsoft Corporation. All rights reserved.'
+Copyright = '(c) 2017 Microsoft Corporation. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'Module with DSC Resources for Networking area'
@@ -29,7 +29,8 @@ FunctionsToExport = '*'
 # Cmdlets to export from this module
 CmdletsToExport = '*'
 
-NestedModules = @('Modules\NetworkingDsc.Common\NetworkingDsc.Common.psm1','Modules\NetworkingDsc.ResourceHelper\NetworkingDsc.ResourceHelper.psm1','xNetworkAdapter.psm1')
+# Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
+# NestedModules = @()
 
 # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
 PrivateData = @{
@@ -49,73 +50,49 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '- Fixed typo in the example"s Action property from "Blocked" (which isn"t a valid
-  value) to "Block"
-- Added support for auto generating wiki, help files, markdown linting
-  and checking examples.
-- Added NetworkingDsc.ResourceHelper module based on copy from [PSDscResources](https://github.com/PowerShell/PSDscResources/blob/dev/DscResources/CommonResourceHelper.psm1).
-- MSFT_xFirewall:
-  - Cleaned up ParameterList table layout and moved into a new file
-    (MSFT_xFirewall.data.psd1).
-  - Separated Localization strings into strings file.
-  - Added standard help blocks to all functions to meet HQRM standards.
-  - Added CmdletBinding attribute to all functions to meet HQRM standards.
-  - Style changes to meet HQRM standards.
-  - Fixed issue using CIDR notation for LocalAddress or RemoteAddress.
-    See [GitHub issue](https://github.com/PowerShell/xNetworking/issues/169).
-  - Fixed integration tests so that values being set are correctly tested.
-  - Added integration tests for Removal of Firewall rule.
-- Added NetworkingDsc.Common module to contain shared networking functions.
-- MSFT_xDNSServerAddress:
-  - Separated Localization strings into strings file.
-- MSFT_xDefaultGatewayAddress:
-  - Separated Localization strings into strings file.
-  - Style changes to meet HQRM standards.
-- MSFT_xDhcpClient:
-  - Separated Localization strings into strings file.
-  - Fix parameter descriptions in MOF file.
-  - Style changes to meet HQRM standards.
-- MSFT_xDnsClientGlobalSetting:
-  - Renamed Localization strings file to be standard naming format.
-  - Moved ParameterList into a new file (MSFT_xDnsClientGlobalSetting.data.psd1).
-  - Style changes to meet HQRM standards.
-  - Removed New-TerminatingError function because never called.
-  - Converted to remove Invoke-Expression.
+        ReleaseNotes = '- MSFT_xDhcpClient:
+  - Corrected style and formatting to meet HQRM guidelines.
+  - Converted exceptions to use ResourceHelper functions.
+- README.MD:
+  - Cleaned up badges by putting them into a table.
 - MSFT_xDnsConnectionSuffix:
-  - Separated Localization strings into strings file.
-  - Style changes to meet HQRM standards.
-- MSFT_xHostsFile:
-  - Renamed Localization strings file to be standard naming format.
-  - Style changes to meet HQRM standards.
-  - Refactored for performance
-    - Code now reads 38k lines in > 1 second vs 4
-  - Now ignores inline comments
-  - Added more integration tests
+  - Corrected style and formatting to meet HQRM guidelines.
+  - Converted exceptions to use ResourceHelper functions.
+- README.MD:
+  - Converted badges to use branch header as used in xSQLServer.
+- Added standard .markdownlint.json to configure rules to run on
+  Markdown files.
+- MSFT_xDnsClientGlobalSetting:
+  - Corrected style and formatting to meet HQRM guidelines.
+  - Converted exceptions to use ResourceHelper functions.
+- Updated year to 2017 in LICENSE and module manifest.
+- MSFT_xDnsServerAddress:
+  - Fix error when setting address on adapter where NameServer
+    Property does not exist in registry for interface - see
+    [issue 237](https://github.com/PowerShell/xNetworking/issues/237).
+  - Corrected style and formatting to meet HQRM guidelines.
 - MSFT_xIPAddress:
-  - Separated Localization strings into strings file.
-  - Style changes to meet HQRM standards.
-- MSFT_xNetAdapterBinding:
-  - Separated Localization strings into strings file.
-  - Style changes to meet HQRM standards.
-- MSFT_xNetAdapterRDMA:
-  - Renamed Localization strings file to be standard naming format.
-  - Style changes to meet HQRM standards.
-- MSFT_xNetBIOS:
-  - Renamed Localization strings file to be standard naming format.
-  - Style changes to meet HQRM standards.
-- MSFT_xNetConnectionProfile:
-  - Separated Localization strings into strings file.
-  - Style changes to meet HQRM standards.
-- MSFT_xNetworkTeam:
-  - Style changes to meet HQRM standards.
-- MSFT_xNetworkTeamInterface:
-  - Updated integration tests to remove Invoke-Expression.
-  - Style changes to meet HQRM standards.
-- MSFT_xRoute:
-  - Separated Localization strings into strings file.
-  - Style changes to meet HQRM standards.
+  - Improved examples to clarify how to set IP Address prefix -
+    see [issue 239](https://github.com/PowerShell/xNetworking/issues/239).
 - MSFT_xFirewall:
-  - Converted to remove Invoke-Expression.
+  - Fixed bug with DisplayName not being set correctly in some
+    situations - see [issue 234](https://github.com/PowerShell/xNetworking/issues/234).
+  - Corrected style and formatting to meet HQRM guidelines.
+  - Converted exceptions to use ResourceHelper functions.
+- Added .github support files:
+  - CONTRIBUTING.md
+  - ISSUE_TEMPLATE.md
+  - PULL_REQUEST_TEMPLATE.md
+- Opted into Common Tests "Validate Module Files" and "Validate Script Files".
+- Converted files with UTF8 with BOM over to UTF8 - fixes [Issue 250](https://github.com/PowerShell/xNetworking/issues/250).
+- MSFT_xFirewallProfile:
+  - Created new resource configuring firewall profiles.
+- MSFT_xNetConnectionProfile:
+  - Corrected style and formatting to meet HQRM guidelines.
+  - Added validation for provided parameters.
+  - Prevent testing parameter values of connection that aren"t set in resource -
+    fixes [Issue 254](https://github.com/PowerShell/xNetworking/issues/254).
+  - Improved unit test coverage for this resource.
 
 '
 
@@ -123,6 +100,10 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
+
+
+
 
 
 

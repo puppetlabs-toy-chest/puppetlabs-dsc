@@ -1,10 +1,9 @@
-
 [ClassVersion("1.0.0.0"), FriendlyName("xClusterPreferredOwner")]
 class MSFT_xClusterPreferredOwner : OMI_BaseResource
 {
-    [Key] String ClusterGroup;
-    [Key] String ClusterName;
-    [Required] String Nodes[];
-    [Write] String ClusterResources[];
-    [Write, ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Key, Description("Name of the cluster group.")] String ClusterGroup;
+    [Key, Description("Name of the cluster.")] String ClusterName;
+    [Required, Description("The nodes to set as owners.")] String Nodes[];
+    [Write, Description("he resources to set preferred owners on.")] String ClusterResources[];
+    [Write, Description("If the preferred owners should be present or absent. Default value is 'Present'."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
 };

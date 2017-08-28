@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupjoin) do
   def dscmeta_resource_friendly_name; 'xSQLAOGroupJoin' end
   def dscmeta_resource_name; 'MSFT_xSQLAOGroupJoin' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -146,7 +146,7 @@ Puppet::Type.newtype(:dsc_xsqlaogroupjoin) do
 end
 
 Puppet::Type.type(:dsc_xsqlaogroupjoin).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods
