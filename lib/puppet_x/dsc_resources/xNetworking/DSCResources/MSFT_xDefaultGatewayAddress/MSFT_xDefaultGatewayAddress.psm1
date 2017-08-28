@@ -1,10 +1,17 @@
-$script:ResourceRootPath = Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent)
+$modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the xNetworking Resource Module (to import the common modules)
-Import-Module -Name (Join-Path -Path $script:ResourceRootPath -ChildPath 'xNetworking.psd1')
+# Import the Networking Common Modules
+Import-Module -Name (Join-Path -Path $modulePath `
+        -ChildPath (Join-Path -Path 'NetworkingDsc.Common' `
+            -ChildPath 'NetworkingDsc.Common.psm1'))
+
+# Import the Networking Resource Helper Module
+Import-Module -Name (Join-Path -Path $modulePath `
+        -ChildPath (Join-Path -Path 'NetworkingDsc.ResourceHelper' `
+            -ChildPath 'NetworkingDsc.ResourceHelper.psm1'))
 
 # Import Localization Strings
-$localizedData = Get-LocalizedData `
+$LocalizedData = Get-LocalizedData `
     -ResourceName 'MSFT_xDefaultGatewayAddress' `
     -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
 
@@ -37,12 +44,13 @@ function Get-TargetResource
         [String]
         $AddressFamily,
 
+        [Parameter()]
         [String]
         $Address
     )
 
     Write-Verbose -Message ( @("$($MyInvocation.MyCommand): "
-        $($LocalizedData.GettingDefaultGatewayAddressMessage)
+            $($LocalizedData.GettingDefaultGatewayAddressMessage)
         ) -join '' )
 
     # Use $AddressFamily to select the IPv4 or IPv6 destination prefix
@@ -57,14 +65,17 @@ function Get-TargetResource
         Where-Object { $_.DestinationPrefix -eq $destinationPrefix }
 
     $returnValue = @{
-        AddressFamily = $AddressFamily
+        AddressFamily  = $AddressFamily
         InterfaceAlias = $InterfaceAlias
     }
     # If there is a Default Gateway defined for this interface/address family add it
     # to the return value.
-    if ($defaultRoutes) {
+    if ($defaultRoutes)
+    {
         $returnValue += @{ Address = $defaultRoutes.NextHop }
-    } else {
+    }
+    else
+    {
         $returnValue += @{ Address = $null }
     }
 
@@ -99,16 +110,18 @@ function Set-TargetResource
         [String]
         $AddressFamily,
 
+        [Parameter()]
         [String]
         $Address
     )
 
     Write-Verbose -Message ( @("$($MyInvocation.MyCommand): "
-        $($LocalizedData.ApplyingDefaultGatewayAddressMessage)
+            $($LocalizedData.ApplyingDefaultGatewayAddressMessage)
         ) -join '' )
 
     # Use $AddressFamily to select the IPv4 or IPv6 destination prefix
     $destinationPrefix = '0.0.0.0/0'
+
     if ($AddressFamily -eq 'IPv6')
     {
         $destinationPrefix = '::/0'
@@ -116,12 +129,13 @@ function Set-TargetResource
 
     # Get all the default routes
     $defaultRoutes = @(Get-NetRoute `
-        -InterfaceAlias $InterfaceAlias `
-        -AddressFamily $AddressFamily `
-        -ErrorAction Stop).Where( { $_.DestinationPrefix -eq $destinationPrefix } )
+            -InterfaceAlias $InterfaceAlias `
+            -AddressFamily $AddressFamily `
+            -ErrorAction Stop).Where( { $_.DestinationPrefix -eq $destinationPrefix } )
 
     # Remove any existing default route
-    foreach ($defaultRoute in $defaultRoutes) {
+    foreach ($defaultRoute in $defaultRoutes)
+    {
         Remove-NetRoute `
             -DestinationPrefix $defaultRoute.DestinationPrefix `
             -NextHop $defaultRoute.NextHop `
@@ -136,21 +150,21 @@ function Set-TargetResource
         # Build parameter hash table
         $parameters = @{
             DestinationPrefix = $destinationPrefix
-            InterfaceAlias = $InterfaceAlias
-            AddressFamily = $AddressFamily
-            NextHop = $Address
+            InterfaceAlias    = $InterfaceAlias
+            AddressFamily     = $AddressFamily
+            NextHop           = $Address
         }
 
         New-NetRoute @Parameters -ErrorAction Stop
 
         Write-Verbose -Message ( @("$($MyInvocation.MyCommand): "
-            $($LocalizedData.DefaultGatewayAddressSetToDesiredStateMessage)
+                $($LocalizedData.DefaultGatewayAddressSetToDesiredStateMessage)
             ) -join '' )
     }
     else
     {
         Write-Verbose -Message ( @("$($MyInvocation.MyCommand): "
-            $($LocalizedData.DefaultGatewayRemovedMessage)
+                $($LocalizedData.DefaultGatewayRemovedMessage)
             ) -join '' )
     }
 }
@@ -184,6 +198,7 @@ function Test-TargetResource
         [String]
         $AddressFamily,
 
+        [Parameter()]
         [String]
         $Address
     )
@@ -192,7 +207,7 @@ function Test-TargetResource
     [Boolean] $desiredConfigurationMatch = $true
 
     Write-Verbose -Message ( @("$($MyInvocation.MyCommand): "
-        $($LocalizedData.CheckingDefaultGatewayAddressMessage)
+            $($LocalizedData.CheckingDefaultGatewayAddressMessage)
         ) -join '' )
 
     Assert-ResourceProperty @PSBoundParameters
@@ -203,34 +218,36 @@ function Test-TargetResource
     {
         $destinationPrefix = '::/0'
     }
+
     # Get all the default routes
     $defaultRoutes = @(Get-NetRoute `
-        -InterfaceAlias $InterfaceAlias `
-        -AddressFamily $AddressFamily `
-        -ErrorAction Stop).Where( { $_.DestinationPrefix -eq $destinationPrefix } )
+            -InterfaceAlias $InterfaceAlias `
+            -AddressFamily $AddressFamily `
+            -ErrorAction Stop).Where( { $_.DestinationPrefix -eq $destinationPrefix } )
 
     # Test if the Default Gateway passed is equal to the current default gateway
     if ($Address)
     {
-        if ($defaultRoutes) {
+        if ($defaultRoutes)
+        {
             if (-not $defaultRoutes.Where( { $_.NextHop -eq $Address } ))
             {
                 Write-Verbose -Message ( @("$($MyInvocation.MyCommand): "
-                     $($LocalizedData.DefaultGatewayNotMatchMessage) -f $Address,$defaultRoutes.NextHop
+                        $($LocalizedData.DefaultGatewayNotMatchMessage) -f $Address, $defaultRoutes.NextHop
                     ) -join '' )
                 $desiredConfigurationMatch = $false
             }
             else
             {
                 Write-Verbose -Message ( @("$($MyInvocation.MyCommand): "
-                     $($LocalizedData.DefaultGatewayCorrectMessage)
+                        $($LocalizedData.DefaultGatewayCorrectMessage)
                     ) -join '' )
             }
         }
         else
         {
             Write-Verbose -Message ( @("$($MyInvocation.MyCommand): "
-                $($LocalizedData.DefaultGatewayDoesNotExistMessage) -f $Address
+                    $($LocalizedData.DefaultGatewayDoesNotExistMessage) -f $Address
                 ) -join '' )
             $desiredConfigurationMatch = $false
         }
@@ -241,15 +258,15 @@ function Test-TargetResource
         if ($defaultRoutes)
         {
             Write-Verbose -Message ( @("$($MyInvocation.MyCommand): "
-                $($LocalizedData.DefaultGatewayExistsButShouldNotMessage)
+                    $($LocalizedData.DefaultGatewayExistsButShouldNotMessage)
                 ) -join '' )
             $desiredConfigurationMatch = $false
         }
         else
         {
             Write-Verbose -Message ( @("$($MyInvocation.MyCommand): "
-                $($LocalizedData.DefaultGatewayExistsAndShouldMessage)
-                'Default Gateway does not exist which is correct.'
+                    $($LocalizedData.DefaultGatewayExistsAndShouldMessage)
+                    'Default Gateway does not exist which is correct.'
                 ) -join '' )
         }
     }
@@ -281,68 +298,47 @@ function Assert-ResourceProperty
         [String]
         $InterfaceAlias,
 
+        [Parameter()]
         [ValidateSet('IPv4', 'IPv6')]
         [String]
         $AddressFamily = 'IPv4',
 
+        [Parameter()]
         [String]
         $Address
     )
 
     if (-not (Get-NetAdapter | Where-Object -Property Name -EQ $InterfaceAlias ))
     {
-        $errorId = 'InterfaceNotAvailable'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::DeviceError
-        $errorMessage = $($LocalizedData.InterfaceNotAvailableError) -f $InterfaceAlias
-        $exception = New-Object -TypeName System.InvalidOperationException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidOperationException `
+            -Message ($LocalizedData.InterfaceNotAvailableError -f $InterfaceAlias)
     }
+
     if ($Address)
     {
         if (-not ([System.Net.IPAddress]::TryParse($Address, [ref]0)))
         {
-            $errorId = 'AddressFormatError'
-            $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-            $errorMessage = $($LocalizedData.AddressFormatError) -f $Address
-            $exception = New-Object -TypeName System.InvalidOperationException `
-                -ArgumentList $errorMessage
-            $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                -ArgumentList $exception, $errorId, $errorCategory, $null
-
-            $PSCmdlet.ThrowTerminatingError($errorRecord)
+            New-InvalidArgumentException `
+                -Message ($LocalizedData.AddressFormatError -f $Address) `
+                -ArgumentName 'Address'
         }
 
         $detectedAddressFamily = ([System.Net.IPAddress]$Address).AddressFamily.ToString()
-        if (($detectedAddressFamily -eq [System.Net.Sockets.AddressFamily]::InterNetwork.ToString()) `
-            -and ($AddressFamily -ne 'IPv4'))
-        {
-            $errorId = 'AddressMismatchError'
-            $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-            $errorMessage = $($LocalizedData.AddressIPv4MismatchError) -f $Address,$AddressFamily
-            $exception = New-Object -TypeName System.InvalidOperationException `
-                -ArgumentList $errorMessage
-            $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                -ArgumentList $exception, $errorId, $errorCategory, $null
 
-            $PSCmdlet.ThrowTerminatingError($errorRecord)
+        if (($detectedAddressFamily -eq [System.Net.Sockets.AddressFamily]::InterNetwork.ToString()) `
+                -and ($AddressFamily -ne 'IPv4'))
+        {
+            New-InvalidArgumentException `
+                -Message ($LocalizedData.AddressIPv4MismatchError -f $Address, $AddressFamily) `
+                -ArgumentName 'AddressFamily'
         }
 
         if (($detectedAddressFamily -eq [System.Net.Sockets.AddressFamily]::InterNetworkV6.ToString()) `
-            -and ($AddressFamily -ne 'IPv6'))
+                -and ($AddressFamily -ne 'IPv6'))
         {
-            $errorId = 'AddressMismatchError'
-            $errorCategory = [System.Management.Automation.ErrorCategory]::InvalidArgument
-            $errorMessage = $($LocalizedData.AddressIPv6MismatchError) -f $Address,$AddressFamily
-            $exception = New-Object -TypeName System.InvalidOperationException `
-                -ArgumentList $errorMessage
-            $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-                -ArgumentList $exception, $errorId, $errorCategory, $null
-
-            $PSCmdlet.ThrowTerminatingError($errorRecord)
+            New-InvalidArgumentException `
+                -Message ($LocalizedData.AddressIPv6MismatchError -f $Address, $AddressFamily) `
+                -ArgumentName 'AddressFamily'
         }
     }
 } # Assert-ResourceProperty

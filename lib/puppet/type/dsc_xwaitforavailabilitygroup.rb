@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xwaitforavailabilitygroup) do
   def dscmeta_resource_friendly_name; 'xWaitForAvailabilityGroup' end
   def dscmeta_resource_name; 'MSFT_xWaitForAvailabilityGroup' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xwaitforavailabilitygroup) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - Availability Group Name"
+    desc "Name - Name of the cluster role/group to look for (normally the same as the Availability Group name)."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -77,7 +77,7 @@ Puppet::Type.newtype(:dsc_xwaitforavailabilitygroup) do
   newparam(:dsc_retryintervalsec) do
     def mof_type; 'uint64' end
     def mof_is_embedded?; false end
-    desc "RetryIntervalSec - Interval to check for Availability Group"
+    desc "RetryIntervalSec - The interval, in seconds, to check for the presence of the cluster role/group. Default value is 20 seconds. When the cluster role/group has been found the resource will wait for this amount of time once more before returning."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -95,7 +95,7 @@ Puppet::Type.newtype(:dsc_xwaitforavailabilitygroup) do
   newparam(:dsc_retrycount) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "RetryCount - Maximum number of retries to check Availabilty group creation"
+    desc "RetryCount - Maximum number of retries until the resource will timeout and throw an error. Default values is 30 times."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -103,6 +103,22 @@ Puppet::Type.newtype(:dsc_xwaitforavailabilitygroup) do
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         GroupExist
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_groupexist) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "GroupExist - Returns $true if the cluster role/group exist, otherwise it returns $false. Used by Get-TargetResource."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
@@ -114,7 +130,7 @@ Puppet::Type.newtype(:dsc_xwaitforavailabilitygroup) do
 end
 
 Puppet::Type.type(:dsc_xwaitforavailabilitygroup).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

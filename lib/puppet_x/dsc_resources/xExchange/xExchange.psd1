@@ -12,7 +12,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.14.0.0'
+ModuleVersion = '1.16.0.0'
 
 # ID used to uniquely identify this module
 GUID = '9a908ca3-8a67-485c-a014-66ba37fcc2a4'
@@ -101,7 +101,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* xExchDatabaseAvailabilityGroup: Added parameter AutoDagAutoRedistributeEnabled,PreferenceMoveFrequency
+        ReleaseNotes = '* Add missing parameters to xExchClientAccessServer
 
 '
 
@@ -116,6 +116,8 @@ PrivateData = @{
 # DefaultCommandPrefix = ''
 
 }
+
+
 
 
 

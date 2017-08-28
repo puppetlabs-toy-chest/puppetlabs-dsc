@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsqlserverrsconfig) do
   def dscmeta_resource_friendly_name; 'xSQLServerRSConfig' end
   def dscmeta_resource_name; 'MSFT_xSQLServerRSConfig' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -100,22 +100,6 @@ Puppet::Type.newtype(:dsc_xsqlserverrsconfig) do
     end
   end
 
-  # Name:         SQLAdminCredential
-  # Type:         MSFT_Credential
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_sqladmincredential) do
-    def mof_type; 'MSFT_Credential' end
-    def mof_is_embedded?; true end
-    desc "SQLAdminCredential - Credential to be used to perform the configuration."
-    validate do |value|
-      unless value.kind_of?(Hash)
-        fail("Invalid value '#{value}'. Should be a hash")
-      end
-      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SQLAdminCredential", value)
-    end
-  end
-
   # Name:         IsInitialized
   # Type:         boolean
   # IsMandatory:  False
@@ -140,7 +124,7 @@ Puppet::Type.newtype(:dsc_xsqlserverrsconfig) do
 end
 
 Puppet::Type.type(:dsc_xsqlserverrsconfig).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

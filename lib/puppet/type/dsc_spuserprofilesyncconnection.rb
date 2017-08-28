@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncconnection) do
   def dscmeta_resource_friendly_name; 'SPUserProfileSyncConnection' end
   def dscmeta_resource_name; 'MSFT_SPUserProfileSyncConnection' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.6.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -123,7 +123,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncconnection) do
   newparam(:dsc_includedous, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "IncludedOUs - A listo f the OUs to import users from"
+    desc "IncludedOUs - A list of the OUs to import users from"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -241,7 +241,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncconnection) do
 end
 
 Puppet::Type.type(:dsc_spuserprofilesyncconnection).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroupmembership) do
   def dscmeta_resource_friendly_name; 'xDFSReplicationGroupMembership' end
   def dscmeta_resource_name; 'MSFT_xDFSReplicationGroupMembership' end
   def dscmeta_module_name; 'xDFS' end
-  def dscmeta_module_version; '3.1.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -95,7 +95,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroupmembership) do
   newparam(:dsc_computername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ComputerName - The computer name of the DFS Replication Group member."
+    desc "ComputerName - The computer name of the Replication Group member. This can be specified using either the ComputerName or FQDN name for the member. If an FQDN name is used and the DomainName parameter is set, the FQDN domain name must match."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -172,7 +172,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroupmembership) do
   newparam(:dsc_primarymember) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "PrimaryMember - Specify if this folder/member should be the primary member."
+    desc "PrimaryMember - Used to configure this as the Primary Member. Every folder must have at least one primary member for initial replication to take place."
     validate do |value|
     end
     newvalues(true, false)
@@ -204,7 +204,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroupmembership) do
 end
 
 Puppet::Type.type(:dsc_xdfsreplicationgroupmembership).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

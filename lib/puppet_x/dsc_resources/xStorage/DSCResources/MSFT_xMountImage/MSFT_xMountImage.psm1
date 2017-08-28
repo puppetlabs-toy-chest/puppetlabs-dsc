@@ -3,16 +3,24 @@
 [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '')]
 param ()
 
-Import-Module -Name (Join-Path -Path (Split-Path $PSScriptRoot -Parent) `
-                               -ChildPath 'CommonResourceHelper.psm1')
+$modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Localized messages for Write-Verbose statements in this resource
-$script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xMountImage'
+$modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the common storage functions
-Import-Module -Name ( Join-Path `
-    -Path (Split-Path -Path $PSScriptRoot -Parent) `
-    -ChildPath '\StorageCommon\StorageCommon.psm1' )
+# Import the Storage Common Modules
+Import-Module -Name (Join-Path -Path $modulePath `
+                               -ChildPath (Join-Path -Path 'StorageDsc.Common' `
+                                                     -ChildPath 'StorageDsc.Common.psm1'))
+
+# Import the Storage Resource Helper Module
+Import-Module -Name (Join-Path -Path $modulePath `
+                               -ChildPath (Join-Path -Path 'StorageDsc.ResourceHelper' `
+                                                     -ChildPath 'StorageDsc.ResourceHelper.psm1'))
+
+# Import Localization Strings
+$localizedData = Get-LocalizedData `
+    -ResourceName 'MSFT_xMountImage' `
+    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
 
 <#
     .SYNOPSIS
@@ -27,18 +35,19 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $ImagePath
     )
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.GettingMountedImageMessage `
+            $($localizedData.GettingMountedImageMessage `
                 -f $ImagePath)
         ) -join '' )
 
     $diskImage = Get-DiskImage -ImagePath $ImagePath
+
     if ($diskImage.Attached)
     {
         $returnValue = @{
@@ -60,16 +69,21 @@ function Get-TargetResource
         else
         {
             # Look up the disk and find out if it is readwrite.
-            $disk = Get-Disk | Where-Object -Property Location -EQ -Value $ImagePath
+            $disk = Get-Disk -Number $diskImage.Number
             if (-not $disk.IsReadOnly)
             {
                 $returnValue.Access = 'ReadWrite'
             } # if
 
-            # Lookup the volume and get the first mounted Drive Letter.
-            $volumes = $disk | Get-Partition | Get-Volume
-            $firstVolume = $volumes | Select-Object -First 1
-            $returnValue.Driveletter = $firstVolume.DriveLetter
+            # Find the first 'Basic' partition
+            $partitions = $disk | Get-Partition
+            $partition = $partitions | Where-Object -Property Type -EQ 'Basic'
+
+            # Find the first volume in the partition and get the mounted Drive Letter
+            $volumes = $partition | Get-Volume
+            $volume = $volumes | Select-Object -First 1
+
+            $returnValue.Driveletter = $volume.DriveLetter
         } # if
     }
     else
@@ -109,29 +123,33 @@ function Set-TargetResource
     [CmdletBinding(SupportsShouldProcess = $true)]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $ImagePath,
 
+        [Parameter()]
         [System.String]
         $DriveLetter,
 
-        [ValidateSet("ISO","VHD","VHDx","VHDSet")]
+        [Parameter()]
+        [ValidateSet('ISO','VHD','VHDx','VHDSet')]
         [System.String]
         $StorageType,
 
-        [ValidateSet("ReadOnly","ReadWrite")]
+        [Parameter()]
+        [ValidateSet('ReadOnly','ReadWrite')]
         [System.String]
         $Access,
 
-        [ValidateSet("Present","Absent")]
+        [Parameter()]
+        [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present'
     )
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.SettingMountedImageMessage `
+            $($localizedData.SettingMountedImageMessage `
                 -f $ImagePath)
         ) -join '' )
 
@@ -162,7 +180,7 @@ function Set-TargetResource
                 # The disk image is mounted to the wrong DriveLetter -remount disk
                 Write-Verbose -Message ( @(
                         "$($MyInvocation.MyCommand): "
-                        $($LocalizedData.DismountingImageMessage `
+                        $($localizedData.DismountingImageMessage `
                             -f $ImagePath,$currentState.DriveLetter)
                     ) -join '' )
 
@@ -181,7 +199,7 @@ function Set-TargetResource
                     # The access mode is wrong -remount disk
                     Write-Verbose -Message ( @(
                             "$($MyInvocation.MyCommand): "
-                            $($LocalizedData.DismountingImageMessage `
+                            $($localizedData.DismountingImageMessage `
                                 -f $ImagePath,$currentState.DriveLetter)
                         ) -join '' )
 
@@ -195,7 +213,7 @@ function Set-TargetResource
         {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.MountingImageMessage `
+                $($localizedData.MountingImageMessage `
                     -f $ImagePath,$normalizedDriveLetter)
             ) -join '' )
 
@@ -210,7 +228,7 @@ function Set-TargetResource
             # It is mounted so dismount it
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.DismountingImageMessage `
+                    $($localizedData.DismountingImageMessage `
                         -f $ImagePath,$currentState.DriveLetter)
                 ) -join '' )
 
@@ -244,29 +262,33 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $ImagePath,
 
+        [Parameter()]
         [System.String]
         $DriveLetter,
 
-        [ValidateSet("ISO","VHD","VHDx","VHDSet")]
+        [Parameter()]
+        [ValidateSet('ISO','VHD','VHDx','VHDSet')]
         [System.String]
         $StorageType,
 
-        [ValidateSet("ReadOnly","ReadWrite")]
+        [Parameter()]
+        [ValidateSet('ReadOnly','ReadWrite')]
         [System.String]
         $Access,
 
-        [ValidateSet("Present","Absent")]
+        [Parameter()]
+        [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present'
     )
 
     Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
-            $($LocalizedData.TestingMountedImageMessage `
+            $($localizedData.TestingMountedImageMessage `
                 -f $DriveLetter)
         ) -join '' )
 
@@ -287,7 +309,7 @@ function Test-TargetResource
             # The disk image isn't mounted
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ImageIsNotMountedButShouldBeMessage `
+                    $($localizedData.ImageIsNotMountedButShouldBeMessage `
                         -f $ImagePath,$normalizedDriveLetter)
                 ) -join '' )
             return $false
@@ -298,7 +320,7 @@ function Test-TargetResource
             # The disk image is mounted to the wrong DriveLetter
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ImageIsMountedToTheWrongDriveLetterMessage `
+                    $($localizedData.ImageIsMountedToTheWrongDriveLetterMessage `
                         -f $ImagePath,$currentState.DriveLetter,$normalizedDriveLetter)
                 ) -join '' )
             return $false
@@ -313,7 +335,7 @@ function Test-TargetResource
                 {
                     Write-Verbose -Message ( @(
                             "$($MyInvocation.MyCommand): "
-                            $($LocalizedData.VHDAccessModeMismatchMessage `
+                            $($localizedData.VHDAccessModeMismatchMessage `
                                 -f $ImagePath,$normalizedDriveLetter,$currentState.Access,$Access)
                         ) -join '' )
                     return $false
@@ -324,7 +346,7 @@ function Test-TargetResource
         # The Disk Image is mounted to the expected Drive - nothing to change.
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ImageIsMountedAndShouldBeMessage `
+                $($localizedData.ImageIsMountedAndShouldBeMessage `
                     -f $ImagePath,$normalizedDriveLetter)
             ) -join '' )
     }
@@ -336,7 +358,7 @@ function Test-TargetResource
             # The disk image is mounted
             Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.ImageIsMountedButShouldNotBeMessage `
+                    $($localizedData.ImageIsMountedButShouldNotBeMessage `
                         -f $ImagePath,$currentState.DriveLetter)
                 ) -join '' )
             return $false
@@ -345,7 +367,7 @@ function Test-TargetResource
         # The image is not mounted and should not be
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ImageIsNotMountedAndShouldNotBeMessage `
+                $($localizedData.ImageIsNotMountedAndShouldNotBeMessage `
                     -f $ImagePath)
             ) -join '' )
     } # if
@@ -384,22 +406,26 @@ function Test-ParameterValid
     [OutputType([String[]])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $ImagePath,
 
+        [Parameter()]
         [System.String]
         $DriveLetter,
 
-        [ValidateSet("ISO","VHD","VHDx","VHDSet")]
+        [Parameter()]
+        [ValidateSet('ISO','VHD','VHDx','VHDSet')]
         [System.String]
         $StorageType,
 
-        [ValidateSet("ReadOnly","ReadWrite")]
+        [Parameter()]
+        [ValidateSet('ReadOnly','ReadWrite')]
         [System.String]
         $Access,
 
-        [ValidateSet("Present","Absent")]
+        [Parameter()]
+        [ValidateSet('Present','Absent')]
         [System.String]
         $Ensure = 'Present'
     )
@@ -410,7 +436,7 @@ function Test-ParameterValid
         {
             # The DriveLetter should not be set if Ensure is Absent
             New-InvalidOperationException `
-                -Message ($LocalizedData.InvalidParameterSpecifiedError -f `
+                -Message ($localizedData.InvalidParameterSpecifiedError -f `
                     'Absent','DriveLetter')
         } # if
 
@@ -418,7 +444,7 @@ function Test-ParameterValid
         {
             # The StorageType should not be set if Ensure is Absent
             New-InvalidOperationException `
-                -Message ($LocalizedData.InvalidParameterSpecifiedError -f `
+                -Message ($localizedData.InvalidParameterSpecifiedError -f `
                     'Absent','StorageType')
         } # if
 
@@ -426,7 +452,7 @@ function Test-ParameterValid
         {
             # The Access should not be set if Ensure is Absent
             New-InvalidOperationException `
-                -Message ($LocalizedData.InvalidParameterSpecifiedError -f `
+                -Message ($localizedData.InvalidParameterSpecifiedError -f `
                     'Absent','Access')
         } # if
     }
@@ -436,7 +462,7 @@ function Test-ParameterValid
         {
             # The file specified by ImagePath should be found
             New-InvalidOperationException `
-                -Message ($LocalizedData.DiskImageFileNotFoundError -f `
+                -Message ($localizedData.DiskImageFileNotFoundError -f `
                     $ImagePath)
         } # if
 
@@ -449,7 +475,7 @@ function Test-ParameterValid
         {
             # Drive letter is not specified but Ensure is present.
             New-InvalidOperationException `
-                -Message ($LocalizedData.InvalidParameterNotSpecifiedError -f `
+                -Message ($localizedData.InvalidParameterNotSpecifiedError -f `
                     'Present','DriveLetter')
         } # if
     } # if
@@ -477,18 +503,21 @@ function Mount-DiskImageToLetter
     [OutputType([String[]])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $ImagePath,
 
+        [Parameter()]
         [System.String]
         $DriveLetter,
 
-        [ValidateSet("ISO","VHD","VHDx","VHDSet")]
+        [Parameter()]
+        [ValidateSet('ISO','VHD','VHDx','VHDSet')]
         [System.String]
         $StorageType,
 
-        [ValidateSet("ReadOnly","ReadWrite")]
+        [Parameter()]
+        [ValidateSet('ReadOnly','ReadWrite')]
         [System.String]
         $Access
     )
@@ -502,7 +531,7 @@ function Mount-DiskImageToLetter
     {
         $mountParams += @{ Access = $Access }
     }  # if
-    Mount-DiskImage @mountParams
+    $null = Mount-DiskImage @mountParams
 
     # Get the DiskImage object
     $diskImage = Get-DiskImage -ImagePath $ImagePath
@@ -522,20 +551,26 @@ function Mount-DiskImageToLetter
     else
     {
         # This is a VHD/VHDx/VHDSet diskimage
-        $disk = Get-Disk | Where-Object -Property Location -EQ -Value $ImagePath
+        $disk = Get-Disk -Number $diskImage.Number
 
-        # Lookup the volume and get the first mounted Drive Letter.
-        $volumes = $disk | Get-Partition | Get-Volume
+        # Find the first 'Basic' partition to mount
+        $partitions = $disk | Get-Partition
+        $partition = $partitions | Where-Object -Property Type -EQ 'Basic'
+
+        # Find the first volume in the partition and get the mounted Drive Letter
+        $volumes = $partition | Get-Volume
         $volume = $volumes | Select-Object -First 1
     } # if
 
+    $currentDriveLetter = $volume.DriveLetter
+
     # Verify that the drive letter assigned to the drive is the one needed.
-    if ($volume.DriveLetter -ne $normalizedDriveLetter)
+    if ($currentDriveLetter -ne $normalizedDriveLetter)
     {
         Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
-                $($LocalizedData.ChangingISODriveLetterMessage `
-                    -f $ImagePath,$volume.DriveLetter,$normalizedDriveLetter)
+                $($localizedData.ChangingImageDriveLetterMessage `
+                    -f $ImagePath,$currentDriveLetter,$normalizedDriveLetter)
             ) -join '' )
 
         <#

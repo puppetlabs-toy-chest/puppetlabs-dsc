@@ -86,7 +86,8 @@ function Get-TargetResource
 
                     $DelegateComputers = @()
 
-                    Get-Item -Path $key |
+
+                    Get-Item -Path $key -ErrorAction SilentlyContinue |
                         Select-Object -ExpandProperty Property | 
                         ForEach-Object {
                             $DelegateComputer = ((Get-ItemProperty -Path $key -Name $_).$_).Split("/")[1]
@@ -191,6 +192,11 @@ function Set-TargetResource
                     {
                         $key = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\CredentialsDelegation\AllowFreshCredentials"
 
+                        if (!(test-path $key))
+                        {
+                            New-Item $key -Force | out-null
+                        }
+
                         $CurrentDelegateComputers = @()
 
                         Get-Item -Path $key |
@@ -203,12 +209,12 @@ function Set-TargetResource
 
                         foreach($DelegateComputer in $DelegateComputers)
                         {
-                            if(!$CurrentDelegateComputers.Contains($DelegateComputer))
+                            if(($CurrentDelegateComputers -eq $NULL) -or (!$CurrentDelegateComputers.Contains($DelegateComputer)))
                             {
                                 Enable-WSManCredSSP -Role Client -DelegateComputer $DelegateComputer -Force | Out-Null
                                 if ($SuppressReboot -eq $false)
                                 {
-                                    $global:DSCMachineStatus = 1
+                                   $global:DSCMachineStatus = 1
                                 }
                             }
                         }

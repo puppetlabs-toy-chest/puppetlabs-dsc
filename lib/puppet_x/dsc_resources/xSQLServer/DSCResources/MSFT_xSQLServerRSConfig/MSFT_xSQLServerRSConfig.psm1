@@ -1,229 +1,225 @@
-$currentPath = Split-Path -Parent $MyInvocation.MyCommand.Path
-Write-Debug -Message "CurrentPath: $currentPath"
+Import-Module -Name (Join-Path -Path (Split-Path (Split-Path $PSScriptRoot -Parent) -Parent) `
+        -ChildPath 'xSQLServerHelper.psm1') `
+    -Force
 
-# Load Common Code
-Import-Module $currentPath\..\..\xSQLServerHelper.psm1 -Verbose:$false -ErrorAction Stop
+<#
+    .SYNOPSIS
+    Gets the SQL Reporting Services initialization status.
 
+    .PARAMETER InstanceName
+    Name of the SQL Server Reporting Services instance to be configured.
+
+    .PARAMETER RSSQLServer
+    Name of the SQL Server to host the Reporting Service database.
+
+    .PARAMETER RSSQLInstanceName
+    Name of the SQL Server instance to host the Reporting Service database.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $InstanceName,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $RSSQLServer,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
-        $RSSQLInstanceName,
-
-        [parameter(Mandatory = $true)]
-        [System.Management.Automation.PSCredential]
-        $SQLAdminCredential
+        $RSSQLInstanceName
     )
 
-    if(Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\RS" -Name $InstanceName -ErrorAction SilentlyContinue)
+    $instanceNamesRegistryKey = 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\RS'
+
+    if ( Get-ItemProperty -Path $instanceNamesRegistryKey -Name $InstanceName -ErrorAction SilentlyContinue )
     {
-        $InstanceKey = (Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\RS" -Name $InstanceName).$InstanceName
-        $SQLVersion = ((Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$InstanceKey\Setup" -Name "Version").Version).Split(".")[0]
-        $RSConfig = Invoke-Command -ComputerName . -Credential $SQLAdminCredential -ScriptBlock {
-            $SQLVersion = $args[0]
-            $InstanceName = $args[1]
-            $RSConfig = Get-WmiObject -Class MSReportServer_ConfigurationSetting -Namespace "root\Microsoft\SQLServer\ReportServer\RS_$InstanceName\v$SQLVersion\Admin"
-            $RSConfig
-        } -ArgumentList @($SQLVersion,$InstanceName)
-        if($RSConfig.DatabaseServerName.Contains("\"))
+        $instanceId = (Get-ItemProperty -Path $instanceNamesRegistryKey -Name $InstanceName).$InstanceName
+        $sqlVersion = ((Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$instanceId\Setup" -Name 'Version').Version).Split('.')[0]
+
+        $reportingServicesConfiguration = Get-WmiObject -Class MSReportServer_ConfigurationSetting -Namespace "root\Microsoft\SQLServer\ReportServer\RS_$InstanceName\v$sqlVersion\Admin"
+        if ( $reportingServicesConfiguration.DatabaseServerName.Contains('\') )
         {
-            $RSSQLServer = $RSConfig.DatabaseServerName.Split("\")[0]
-            $RSSQLInstanceName = $RSConfig.DatabaseServerName.Split("\")[1]
+            $RSSQLServer = $reportingServicesConfiguration.DatabaseServerName.Split('\')[0]
+            $RSSQLInstanceName = $reportingServicesConfiguration.DatabaseServerName.Split('\')[1]
         }
         else
         {
-            $RSSQLServer = $RSConfig.DatabaseServerName
-            $RSSQLInstanceName = "MSSQLSERVER"
+            $RSSQLServer = $reportingServicesConfiguration.DatabaseServerName
+            $RSSQLInstanceName = 'MSSQLSERVER'
         }
-        $IsInitialized = $RSConfig.IsInitialized
+
+        $isInitialized = $reportingServicesConfiguration.IsInitialized
     }
     else
-    {  
+    {
         throw New-TerminatingError -ErrorType SSRSNotFound -FormatArgs @($InstanceName) -ErrorCategory ObjectNotFound
     }
 
     $returnValue = @{
-        InstanceName = $InstanceName
-        RSSQLServer = $RSSQLServer
+        InstanceName      = $InstanceName
+        RSSQLServer       = $RSSQLServer
         RSSQLInstanceName = $RSSQLInstanceName
-        IsInitialized = $IsInitialized
+        IsInitialized     = $isInitialized
     }
 
     $returnValue
 }
 
+<#
+    .SYNOPSIS
+    Initializes SQL Reporting Services.
 
+    .PARAMETER InstanceName
+    Name of the SQL Server Reporting Services instance to be configured.
+
+    .PARAMETER RSSQLServer
+    Name of the SQL Server to host the Reporting Service database.
+
+    .PARAMETER RSSQLInstanceName
+    Name of the SQL Server instance to host the Reporting Service database.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $InstanceName,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $RSSQLServer,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
-        $RSSQLInstanceName,
-
-        [parameter(Mandatory = $true)]
-        [System.Management.Automation.PSCredential]
-        $SQLAdminCredential
+        $RSSQLInstanceName
     )
 
-    if(Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\RS" -Name $InstanceName -ErrorAction SilentlyContinue)
+    $instanceNamesRegistryKey = 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\RS'
+
+    if ( Get-ItemProperty -Path $instanceNamesRegistryKey -Name $InstanceName -ErrorAction SilentlyContinue )
     {
-        Invoke-Command -ComputerName . -Credential $SQLAdminCredential -Authentication Credssp -ScriptBlock {
-            $InstanceName = $args[0]
-            $RSSQLServer = $args[1]
-            $RSSQLInstanceName = $args[2]
-            $InstanceKey = (Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\RS" -Name $InstanceName).$InstanceName
-            $SQLVersion = ((Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$InstanceKey\Setup" -Name "Version").Version).Split(".")[0]
-            $DBCreateFile = [IO.Path]::GetTempFileName()
-            $DBRightsFile = [IO.Path]::GetTempFileName()
-            if($InstanceName -eq "MSSQLSERVER")
+        <#
+            Import-SQLPSModule cmdlet will import SQLPS (SQL 2012/14) or SqlServer module (SQL 2016),
+            and if importing SQLPS, change directory back to the original one, since SQLPS changes the
+            current directory to SQLSERVER:\ on import.
+        #>
+        Import-SQLPSModule
+
+        $instanceId = (Get-ItemProperty -Path $instanceNamesRegistryKey -Name $InstanceName).$InstanceName
+        $sqlVersion = [System.Int32]((Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$instanceId\Setup" -Name 'Version').Version).Split('.')[0]
+
+        if ( $InstanceName -eq 'MSSQLSERVER' )
+        {
+            $reportingServicesServiceName = 'ReportServer'
+            $reportServerVirtualDirectoryName = 'ReportServer'
+            $reportsVirtualDirectoryName = 'Reports'
+            $reportingServicesDatabaseName = 'ReportServer'
+        }
+        else
+        {
+            $reportingServicesServiceName = "ReportServer`$$InstanceName"
+            $reportServerVirtualDirectoryName = "ReportServer_$InstanceName"
+            $reportsVirtualDirectoryName = "Reports_$InstanceName"
+            $reportingServicesDatabaseName = "ReportServer`$$InstanceName"
+        }
+
+        if ( $RSSQLInstanceName -eq 'MSSQLSERVER' )
+        {
+            $reportingServicesConnnection = $RSSQLServer
+        }
+        else
+        {
+            $reportingServicesConnnection = "$RSSQLServer\$RSSQLInstanceName"
+        }
+
+        $language = (Get-WMIObject -Class Win32_OperatingSystem -Namespace root/cimv2 -ErrorAction SilentlyContinue).OSLanguage
+        $reportingServicesConfiguration = Get-WmiObject -Class MSReportServer_ConfigurationSetting -Namespace "root\Microsoft\SQLServer\ReportServer\RS_$InstanceName\v$sqlVersion\Admin"
+
+        if ( $reportingServicesConfiguration.VirtualDirectoryReportServer -ne $reportServerVirtualDirectoryName )
+        {
+            $null = $reportingServicesConfiguration.SetVirtualDirectory('ReportServerWebService', $reportServerVirtualDirectoryName, $language)
+            $null = $reportingServicesConfiguration.ReserveURL('ReportServerWebService', 'http://+:80', $language)
+        }
+
+        if ( $reportingServicesConfiguration.VirtualDirectoryReportManager -ne $reportsVirtualDirectoryName )
+        {
+            <#
+                SSRS Web Portal application name changed in SQL Server 2016
+                https://docs.microsoft.com/en-us/sql/reporting-services/breaking-changes-in-sql-server-reporting-services-in-sql-server-2016
+            #>
+            if ($sqlVersion -ge 13)
             {
-                $RSServiceName = "ReportServer"
-                $RSVirtualDirectory = "ReportServer"
-                $RMVirtualDirectory = "Reports"
-                $RSDatabase = "ReportServer"
+                $virtualDirectoryName = 'ReportServerWebApp'
             }
             else
             {
-                $RSServiceName = "ReportServer`$$InstanceName"
-                $RSVirtualDirectory = "ReportServer_$InstanceName"
-                $RMVirtualDirectory = "Reports_$InstanceName"
-                $RSDatabase = "ReportServer`$$InstanceName"
-            }
-            if($RSSQLInstanceName -eq "MSSQLSERVER")
-            {
-                $RSConnection = "$RSSQLServer"
-            }
-            else
-            {
-                $RSConnection = "$RSSQLServer\$RSSQLInstanceName"
-            }
-            $Language = (Get-WMIObject -Class Win32_OperatingSystem -Namespace root/cimv2 -ErrorAction SilentlyContinue).OSLanguage
-            $RSConfig = Get-WmiObject -Class MSReportServer_ConfigurationSetting -Namespace "root\Microsoft\SQLServer\ReportServer\RS_$InstanceName\v$SQLVersion\Admin"
-            if($RSConfig.VirtualDirectoryReportServer -ne $RSVirtualDirectory)
-            {
-                $RSConfig.SetVirtualDirectory("ReportServerWebService",$RSVirtualDirectory,$Language)
-                $RSConfig.ReserveURL("ReportServerWebService","http://+:80",$Language)
-            }
-            if($RSConfig.VirtualDirectoryReportManager -ne $RMVirtualDirectory)
-            {
-                $RSConfig.SetVirtualDirectory("ReportManager",$RMVirtualDirectory,$Language)
-                $RSConfig.ReserveURL("ReportManager","http://+:80",$Language)
-            }
-            $RSScript = $RSConfig.GenerateDatabaseCreationScript($RSDatabase,$Language,$false)
-            $RSScript.Script | Out-File $DBCreateFile
-
-            # Determine RS service account
-            $RSSvcAccountUsername = (Get-WmiObject -Class Win32_Service | Where-Object {$_.Name -eq $RSServiceName}).StartName
-            if(($RSSvcAccountUsername -eq "LocalSystem") -or (($RSSvcAccountUsername.Length -ge 10) -and ($RSSvcAccountUsername.SubString(0,10) -eq "NT Service")))
-            {
-                $RSSvcAccountUsername = $RSConfig.MachineAccountIdentity
-            }
-            $RSScript = $RSConfig.GenerateDatabaseRightsScript($RSSvcAccountUsername,$RSDatabase,$false,$true)
-            $RSScript.Script | Out-File $DBRightsFile
-
-            # Get path to sqlcmd.exe
-            $SQLCmdLocations = @(
-                @{
-                    Key = "4B5EB208A08862C4C9A0A2924D2613FF"
-                    Name = "BAF8FF4572ED7814281FBEEAA6EE68A9"
-                }
-                @{
-                    Key = "4B5EB208A08862C4C9A0A2924D2613FF"
-                    Name = "2BE7307A359F21B48B3491F5D489D81A"
-                }
-                @{
-                    Key = "4B5EB208A08862C4C9A0A2924D2613FF"
-                    Name = "17E375D97701E7C44BBDE4225A2D4BB8"
-                }
-                @{
-                    Key = "A4A2A5C7B23E40145A6AFA7667643E85"
-                    Name = "8B035CCA4B6B6D045BB9514286FC740D"
-                }
-            )
-            $SQLCmdPath = ""
-            foreach($SQLCmdLocation in $SQLCmdLocations)
-            {
-                if($SQLCmdPath -eq "")
-                {
-                    if(Get-ItemProperty -Path ("HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" + $SQLCmdLocation.Key) -Name $SQLCmdLocation.Name -ErrorAction SilentlyContinue)
-                    {
-                        
-                        if(Test-Path -Path (Get-ItemProperty -Path ("HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" + $SQLCmdLocation.Key) -Name $SQLCmdLocation.Name).($SQLCmdLocation.Name))
-                        {
-                            $SQLCmdPath = (Get-ItemProperty -Path ("HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\" + $SQLCmdLocation.Key) -Name $SQLCmdLocation.Name).($SQLCmdLocation.Name)
-                        }
-                    }
-                }
-            }
-            if($SQLCmdPath -ne "")
-            {
-                & "$SQLCmdPath" -S $RSConnection -i $DBCreateFile
-                & "$SQLCmdPath" -S $RSConnection -i $DBRightsFile
-                $RSConfig.SetDatabaseConnection($RSConnection,$RSDatabase,2,"","")
-                $RSConfig.InitializeReportServer($RSConfig.InstallationID)
+                $virtualDirectoryName = 'ReportManager'
             }
 
-            Remove-Item -Path $DBCreateFile
-            Remove-Item -Path $DBRightsFile
-        } -ArgumentList @($InstanceName,$RSSQLServer,$RSSQLInstanceName)
+            $null = $reportingServicesConfiguration.SetVirtualDirectory($virtualDirectoryName, $reportsVirtualDirectoryName, $language)
+            $null = $reportingServicesConfiguration.ReserveURL($virtualDirectoryName, 'http://+:80', $language)
+        }
+
+        $reportingServicesDatabaseScript = $reportingServicesConfiguration.GenerateDatabaseCreationScript($reportingServicesDatabaseName, $language, $false)
+
+        # Determine RS service account
+        $reportingServicesServiceAccountUserName = (Get-WmiObject -Class Win32_Service | Where-Object {$_.Name -eq $reportingServicesServiceName}).StartName
+        $reportingServicesDatabaseRightsScript = $reportingServicesConfiguration.GenerateDatabaseRightsScript($reportingServicesServiceAccountUserName, $reportingServicesDatabaseName, $false, $true)
+
+        Invoke-Sqlcmd -ServerInstance $reportingServicesConnnection -Query $reportingServicesDatabaseScript.Script
+        Invoke-Sqlcmd -ServerInstance $reportingServicesConnnection -Query $reportingServicesDatabaseRightsScript.Script
+        $null = $reportingServicesConfiguration.SetDatabaseConnection($reportingServicesConnnection, $reportingServicesDatabaseName, 2, '', '')
+        $null = $reportingServicesConfiguration.InitializeReportServer($reportingServicesConfiguration.InstallationID)
     }
 
-    if(!(Test-TargetResource @PSBoundParameters))
+    if ( !(Test-TargetResource @PSBoundParameters) )
     {
         throw New-TerminatingError -ErrorType TestFailedAfterSet -ErrorCategory InvalidResult
     }
 }
 
+<#
+    .SYNOPSIS
+    Tests the SQL Reporting Services initialization status.
 
+    .PARAMETER InstanceName
+    Name of the SQL Server Reporting Services instance to be configured.
+
+    .PARAMETER RSSQLServer
+    Name of the SQL Server to host the Reporting Service database.
+
+    .PARAMETER RSSQLInstanceName
+    Name of the SQL Server instance to host the Reporting Service database.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $InstanceName,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $RSSQLServer,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
-        $RSSQLInstanceName,
-
-        [parameter(Mandatory = $true)]
-        [System.Management.Automation.PSCredential]
-        $SQLAdminCredential
+        $RSSQLInstanceName
     )
 
     $result = (Get-TargetResource @PSBoundParameters).IsInitialized
-    
+
     $result
 }
-
 
 Export-ModuleMember -Function *-TargetResource

@@ -1,10 +1,9 @@
-
 [ClassVersion("1.0.0.0"), FriendlyName("xClusterNetwork")]
 class MSFT_xClusterNetwork : OMI_BaseResource
 {
-    [Key] String Address;
-    [Key] String AddressMask;
-    [Write] String Name;
-    [Write, ValueMap{"0","1","3"}, Values{"0","1","3"}] String Role;
-    [Write] String Metric;
+    [Key, Description("The address for the cluster network in the format '10.0.0.0'.")] String Address;
+    [Key, Description("The address mask for the cluster network in the format '255.255.255.0'.")] String AddressMask;
+    [Write, Description("The name of the cluster network. If the cluster network name is not in desired state it will be renamed to match this name.")] String Name;
+    [Write, Description("he role of the cluster network. If the cluster network role is not in desired state it will change to match this role."), ValueMap{"0","1","3"}, Values{"0","1","3"}] String Role;
+    [Write, Description("The metric number for the cluster network. If the cluster network metric number is not in desired state it will be changed to match this metric number.")] String Metric;
 };

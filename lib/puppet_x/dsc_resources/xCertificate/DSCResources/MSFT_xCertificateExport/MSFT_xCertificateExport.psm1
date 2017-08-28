@@ -1,9 +1,16 @@
 #Requires -Version 4.0
 
-$script:ResourceRootPath = Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent)
+$modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-# Import the xCertificate Resource Module (to import the common modules)
-Import-Module -Name (Join-Path -Path $script:ResourceRootPath -ChildPath 'xCertificate.psd1')
+# Import the Certificate Common Modules
+Import-Module -Name (Join-Path -Path $modulePath `
+        -ChildPath (Join-Path -Path 'CertificateDsc.Common' `
+            -ChildPath 'CertificateDsc.Common.psm1'))
+
+# Import the Certificate Resource Helper Module
+Import-Module -Name (Join-Path -Path $modulePath `
+        -ChildPath (Join-Path -Path 'CertificateDsc.ResourceHelper' `
+            -ChildPath 'CertificateDsc.ResourceHelper.psm1'))
 
 # Import Localization Strings
 $localizedData = Get-LocalizedData `
@@ -66,7 +73,7 @@ function Get-TargetResource
     Certificate selector parameter.
 
     .PARAMETER Issuer
-    The issuer of the certiicate to export.
+    The issuer of the certificate to export.
     Certificate selector parameter.
 
     .PARAMETER KeyUsage
@@ -155,12 +162,12 @@ function Set-TargetResource
         $MatchSource,
 
         [Parameter()]
-        [ValidateSet("Cert","P7B","SST","PFX")]
+        [ValidateSet("Cert", "P7B", "SST", "PFX")]
         [System.String]
         $Type = 'Cert',
 
         [Parameter()]
-        [ValidateSet("BuildChain","EndEntityCertOnly")]
+        [ValidateSet("BuildChain", "EndEntityCertOnly")]
         [System.String]
         $ChainOption = 'BuildChain',
 
@@ -195,7 +202,7 @@ function Set-TargetResource
         Write-Verbose -Message (
             @(
                 "$($MyInvocation.MyCommand): ",
-                $($LocalizedData.CertificateToExportNotFound -f $Path,$Type,$Store)
+                $($LocalizedData.CertificateToExportNotFound -f $Path, $Type, $Store)
             ) -join '' )
     }
     else
@@ -206,7 +213,7 @@ function Set-TargetResource
         Write-Verbose -Message (
             @(
                 "$($MyInvocation.MyCommand): ",
-                $($LocalizedData.CertificateToExportFound -f $certificateThumbprintToExport,$Path)
+                $($LocalizedData.CertificateToExportFound -f $certificateThumbprintToExport, $Path)
             ) -join '' )
 
         # Export the certificate
@@ -216,10 +223,10 @@ function Set-TargetResource
             Force    = $true
         }
 
-        if ($Type -in @('Cert','P7B','SST'))
+        if ($Type -in @('Cert', 'P7B', 'SST'))
         {
             $exportCertificateParameters += @{
-                Type     = $Type
+                Type = $Type
             }
             Export-Certificate @exportCertificateParameters
         }
@@ -242,7 +249,7 @@ function Set-TargetResource
         Write-Verbose -Message (
             @(
                 "$($MyInvocation.MyCommand): ",
-                $($LocalizedData.CertificateExported -f $certificateThumbprintToExport,$Path,$Type)
+                $($LocalizedData.CertificateExported -f $certificateThumbprintToExport, $Path, $Type)
             ) -join '' )
     } # if
 } # end function Set-TargetResource
@@ -271,7 +278,7 @@ function Set-TargetResource
     Certificate selector parameter.
 
     .PARAMETER Issuer
-    The issuer of the certiicate to export.
+    The issuer of the certificate to export.
     Certificate selector parameter.
 
     .PARAMETER KeyUsage
@@ -361,12 +368,12 @@ function Test-TargetResource
         $MatchSource,
 
         [Parameter()]
-        [ValidateSet("Cert","P7B","SST","PFX")]
+        [ValidateSet("Cert", "P7B", "SST", "PFX")]
         [System.String]
         $Type = 'Cert',
 
         [Parameter()]
-        [ValidateSet("BuildChain","EndEntityCertOnly")]
+        [ValidateSet("BuildChain", "EndEntityCertOnly")]
         [System.String]
         $ChainOption = 'BuildChain',
 
@@ -401,7 +408,7 @@ function Test-TargetResource
         Write-Verbose -Message (
             @(
                 "$($MyInvocation.MyCommand): ",
-                $($LocalizedData.CertificateToExportNotFound -f $Path,$Type,$Store)
+                $($LocalizedData.CertificateToExportNotFound -f $Path, $Type, $Store)
             ) -join '' )
 
         return $true
@@ -414,7 +421,7 @@ function Test-TargetResource
         Write-Verbose -Message (
             @(
                 "$($MyInvocation.MyCommand): ",
-                $($LocalizedData.CertificateToExportFound -f $certificateThumbprintToExport,$Path)
+                $($LocalizedData.CertificateToExportFound -f $certificateThumbprintToExport, $Path)
             ) -join '' )
 
         if (Test-Path -Path $Path)
@@ -425,18 +432,18 @@ function Test-TargetResource
                 Write-Verbose -Message (
                     @(
                         "$($MyInvocation.MyCommand): ",
-                        $($LocalizedData.CertificateAlreadyExportedMatchSource -f $certificateThumbprintToExport,$Path)
+                        $($LocalizedData.CertificateAlreadyExportedMatchSource -f $certificateThumbprintToExport, $Path)
                     ) -join '' )
 
                 # Need to now compare the existing exported cert content with the found cert
                 $exportedCertificate = New-Object -TypeName 'System.Security.Cryptography.X509Certificates.X509Certificate2Collection'
-                if ($Type -in @('Cert','P7B','SST'))
+                if ($Type -in @('Cert', 'P7B', 'SST'))
                 {
                     $exportedCertificate.Import($Path)
                 }
                 elseif ($Type -eq 'PFX')
                 {
-                    $exportedCertificate.Import($Path,$Password,[System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::PersistKeySet)
+                    $exportedCertificate.Import($Path, $Password, [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]::PersistKeySet)
                 } # if
 
                 if ($certificateThumbprintToExport -notin $exportedCertificate.Thumbprint)
@@ -444,7 +451,7 @@ function Test-TargetResource
                     Write-Verbose -Message (
                         @(
                             "$($MyInvocation.MyCommand): ",
-                            $($LocalizedData.CertificateAlreadyExportedNotMatchSource -f $certificateThumbprintToExport,$Path)
+                            $($LocalizedData.CertificateAlreadyExportedNotMatchSource -f $certificateThumbprintToExport, $Path)
                         ) -join '' )
 
                     return $false
@@ -457,7 +464,7 @@ function Test-TargetResource
                 Write-Verbose -Message (
                     @(
                         "$($MyInvocation.MyCommand): ",
-                        $($LocalizedData.CertificateAlreadyExported -f $certificateThumbprintToExport,$Path)
+                        $($LocalizedData.CertificateAlreadyExported -f $certificateThumbprintToExport, $Path)
                     ) -join '' )
             } # if
 
@@ -469,7 +476,7 @@ function Test-TargetResource
             Write-Verbose -Message (
                 @(
                     "$($MyInvocation.MyCommand): ",
-                    $($LocalizedData.CertificateNotExported -f $certificateThumbprintToExport,$Path)
+                    $($LocalizedData.CertificateNotExported -f $certificateThumbprintToExport, $Path)
                 ) -join '' )
 
             return $false

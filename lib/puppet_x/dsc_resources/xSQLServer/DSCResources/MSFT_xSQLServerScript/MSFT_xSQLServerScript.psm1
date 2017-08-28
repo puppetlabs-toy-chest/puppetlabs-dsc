@@ -1,4 +1,4 @@
-﻿$script:currentPath = Split-Path -Path $MyInvocation.MyCommand.Path -Parent
+$script:currentPath = Split-Path -Path $MyInvocation.MyCommand.Path -Parent
 Import-Module -Name (Join-Path -Path (Split-Path -Path (Split-Path -Path $script:currentPath -Parent) -Parent) -ChildPath 'xSQLServerHelper.psm1')
 
 <#
@@ -31,6 +31,10 @@ Import-Module -Name (Join-Path -Path (Split-Path -Path (Split-Path -Path $script
         Use a Windows PowerShell array to specify multiple variables and their values. For more information how to use this,
         please go to the help documentation for [Invoke-Sqlcmd](https://technet.microsoft.com/en-us/library/mt683370.aspx).
 
+    .PARAMETER QueryTimeout
+        Specifies, as an integer, the number of seconds after which the T-SQL script execution will time out.
+        In some SQL Server versions there is a bug in Invoke-Sqlcmd where the normal default value 0 (no timeout) is not respected and the default value is incorrectly set to 30 seconds.
+
     .OUTPUTS
         Hash table containing key 'GetResult' which holds the value of the result from the SQL script that was ran from the parameter 'GetFilePath'.
 #>
@@ -56,27 +60,34 @@ function Get-TargetResource
         [System.String]
         $TestFilePath,
 
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
+        [System.UInt32]
+        $QueryTimeout,
+
+        [Parameter()]
         [System.String[]]
         $Variable
     )
 
     $result = Invoke-SqlScript -ServerInstance $ServerInstance -SqlScriptPath $GetFilePath `
-                -Credential $Credential -Variable $Variable -ErrorAction Stop
+        -Credential $Credential -Variable $Variable -QueryTimeout $QueryTimeout -ErrorAction Stop
 
     $getResult = Out-String -InputObject $result
 
     $returnValue = @{
         ServerInstance = [System.String] $ServerInstance
-        SetFilePath = [System.String] $SetFilePath
-        GetFilePath = [System.String] $GetFilePath
-        TestFilePath = [System.String] $TestFilePath
-        Username = [System.Object] $Credential
-        Variable = [System.String[]] $Variable
-        GetResult = [System.String[]] $getresult
+        SetFilePath    = [System.String] $SetFilePath
+        GetFilePath    = [System.String] $GetFilePath
+        TestFilePath   = [System.String] $TestFilePath
+        Credential     = [System.Object] $Credential
+        QueryTimeout   = [System.UInt32] $QueryTimeout
+        Variable       = [System.String[]] $Variable
+        GetResult      = [System.String[]] $getResult
     }
 
     $returnValue
@@ -107,6 +118,10 @@ function Get-TargetResource
         to the built-in parameter `PsDscRunAsCredential`. If both parameters `Credential` and `PsDscRunAsCredential` are not assigned,
         then SYSTEM account will be used to authenticate using Windows Authentication.
 
+    .PARAMETER QueryTimeout
+        Specifies, as an integer, the number of seconds after which the T-SQL script execution will time out.
+        In some SQL Server versions there is a bug in Invoke-Sqlcmd where the normal default value 0 (no timeout) is not respected and the default value is incorrectly set to 30 seconds.
+
     .PARAMETER Variable
         Specifies, as a string array, a sqlcmd scripting variable for use in the sqlcmd script, and sets a value for the variable.
         Use a Windows PowerShell array to specify multiple variables and their values. For more information how to use this,
@@ -133,16 +148,22 @@ function Set-TargetResource
         [System.String]
         $TestFilePath,
 
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
+        [System.UInt32]
+        $QueryTimeout,
+
+        [Parameter()]
         [System.String[]]
         $Variable
     )
 
     Invoke-SqlScript -ServerInstance $ServerInstance -SqlScriptPath $SetFilePath `
-                -Credential $Credential -Variable $Variable -ErrorAction Stop
+        -Credential $Credential -Variable $Variable -QueryTimeout $QueryTimeout -ErrorAction Stop
 }
 
 <#
@@ -169,6 +190,10 @@ function Set-TargetResource
         The credentials to authenticate with, using SQL Authentication. To authenticate using Windows Authentication, assign the credentials
         to the built-in parameter `PsDscRunAsCredential`. If both parameters `Credential` and `PsDscRunAsCredential` are not assigned,
         then SYSTEM account will be used to authenticate using Windows Authentication.
+
+    .PARAMETER QueryTimeout
+        Specifies, as an integer, the number of seconds after which the T-SQL script execution will time out.
+        In some SQL Server versions there is a bug in Invoke-Sqlcmd where the normal default value 0 (no timeout) is not respected and the default value is incorrectly set to 30 seconds.
 
     .PARAMETER Variable
         Specifies, as a string array, a sqlcmd scripting variable for use in the sqlcmd script, and sets a value for the variable.
@@ -198,10 +223,16 @@ function Test-TargetResource
         [System.String]
         $TestFilePath,
 
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
+        [System.UInt32]
+        $QueryTimeout,
+
+        [Parameter()]
         [System.String[]]
         $Variable
     )
@@ -209,9 +240,9 @@ function Test-TargetResource
     try
     {
         $result = Invoke-SqlScript -ServerInstance $ServerInstance -SqlScriptPath $TestFilePath `
-                -Credential $Credential -Variable $Variable -ErrorAction Stop
+            -Credential $Credential -Variable $Variable -QueryTimeout $QueryTimeout -ErrorAction Stop
 
-        if($null -eq $result)
+        if ($null -eq $result)
         {
             return $true
         }
@@ -243,6 +274,10 @@ function Test-TargetResource
         to the built-in parameter 'PsDscRunAsCredential'. If both parameters 'Credential' and 'PsDscRunAsCredential' are not assigned, then
         the SYSTEM account will be used to authenticate using Windows Authentication.
 
+    .PARAMETER QueryTimeout
+        Specifies, as an integer, the number of seconds after which the T-SQL script execution will time out.
+        In some SQL Server versions there is a bug in Invoke-Sqlcmd where the normal default value 0 (no timeout) is not respected and the default value is incorrectly set to 30 seconds.
+
     .PARAMETER Variable
         Creates a sqlcmd scripting variable for use in the sqlcmd script, and sets a value for the variable.
 #>
@@ -258,17 +293,23 @@ function Invoke-SqlScript
         [System.String]
         $SqlScriptPath,
 
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
+        [System.UInt32]
+        $QueryTimeout,
+
+        [Parameter()]
         [System.String[]]
         $Variable
     )
 
     Import-SQLPSModule
 
-    if($null -ne $Credential)
+    if ($null -ne $Credential)
     {
         $null = $PSBoundParameters.Add("Username", $Credential.UserName)
         $null = $PSBoundParameters.Add("Password", $Credential.GetNetworkCredential().password)

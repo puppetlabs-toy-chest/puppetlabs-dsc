@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spsearchserviceapp) do
   def dscmeta_resource_friendly_name; 'SPSearchServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPSearchServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.6.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -197,6 +197,22 @@ Puppet::Type.newtype(:dsc_spsearchserviceapp) do
     end
   end
 
+  # Name:         WindowsServiceAccount
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_windowsserviceaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "WindowsServiceAccount - Sets the windows services for search to run as this account"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("WindowsServiceAccount", value)
+    end
+  end
+
   # Name:         InstallAccount
   # Type:         MSFT_Credential
   # IsMandatory:  False
@@ -221,7 +237,7 @@ Puppet::Type.newtype(:dsc_spsearchserviceapp) do
 end
 
 Puppet::Type.type(:dsc_spsearchserviceapp).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

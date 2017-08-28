@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '1.2.0.0'
+ModuleVersion = '1.3.0.0'
 
 # ID used to uniquely identify this module
 GUID = '38e1ad0f-9b30-490a-a2b6-cc77765af4ec'
@@ -47,11 +47,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Converted appveyor.yml to install Pester from PSGallery instead of from Chocolatey.
-* Implemented a GPO check to prevent an endless reboot loop when CredSSP is configured via a GPO
-* Fixed issue with Test always returning false with other regional settings then english
-* Added check to test if Role=Server and DelegateComputers parameter is specified
-* Added parameter to supress a reboot, default value is false (reboot server when required)
+        ReleaseNotes = '* Added a fix to enable credSSP with a fresh server installation
 
 '
 
@@ -59,5 +55,6 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
 
 

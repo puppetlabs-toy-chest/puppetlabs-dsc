@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroup) do
   def dscmeta_resource_friendly_name; 'xDFSReplicationGroup' end
   def dscmeta_resource_name; 'MSFT_xDFSReplicationGroup' end
   def dscmeta_module_name; 'xDFS' end
-  def dscmeta_module_version; '3.1.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -112,7 +112,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroup) do
   newparam(:dsc_members, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Members - The Computer Names of the DFS Replication Group Members."
+    desc "Members - A list of computers that are members of this Replication Group. These can be specified using either the ComputerName or FQDN name for each member. If an FQDN name is used and the DomainName parameter is set, the FQDN domain name must match."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -130,7 +130,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroup) do
   newparam(:dsc_folders, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Folders - The Folder Names of the DFS Replication Group Folders."
+    desc "Folders - A list of folders that are replicated in this Replication Group."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -148,7 +148,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroup) do
   newparam(:dsc_topology) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Topology - The DFS Replication Group connection topology to configure. Valid values are Fullmesh, Manual."
+    desc "Topology - This allows a replication topology to assign to the Replication Group. It defaults to Manual, which will not automatically create a topology. If set to Fullmesh, a full mesh topology between all members will be created. Valid values are Fullmesh, Manual."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -166,7 +166,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroup) do
   newparam(:dsc_contentpaths, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "ContentPaths - The Content Paths for each Folder in the DFS Replication Group Folders."
+    desc "ContentPaths - An array of DFS Replication Group Content Paths to use for each of the Folders. This can have one entry for each Folder in the Folders parameter and should be set in th same order. If any entry is not blank then the Content Paths will need to be set manually by using the xDFSReplicationGroupMembership resource."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -184,7 +184,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroup) do
   newparam(:dsc_domainname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainName - The name of the AD Domain the DFS Replication Group should be in."
+    desc "DomainName - The AD domain the Replication Group should created in."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -200,7 +200,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroup) do
 end
 
 Puppet::Type.type(:dsc_xdfsreplicationgroup).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

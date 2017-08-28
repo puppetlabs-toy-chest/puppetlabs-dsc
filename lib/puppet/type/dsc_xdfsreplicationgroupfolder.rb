@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroupfolder) do
   def dscmeta_resource_friendly_name; 'xDFSReplicationGroupFolder' end
   def dscmeta_resource_name; 'MSFT_xDFSReplicationGroupFolder' end
   def dscmeta_module_name; 'xDFS' end
-  def dscmeta_module_version; '3.1.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -109,7 +109,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroupfolder) do
   newparam(:dsc_filenametoexclude, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "FilenameToExclude - An array of file names to exclude from replication"
+    desc "FilenameToExclude - An array of file names to exclude from replication."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -145,7 +145,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroupfolder) do
   newparam(:dsc_dfsnpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DfsnPath - The DFS Namespace that this DFS Replication Group folder is mapped to."
+    desc "DfsnPath - The DFS Namespace Path to this Replication Group folder is mapped to. This does NOT create the Namespace folders, it only sets the name in the folder object."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -176,7 +176,7 @@ Puppet::Type.newtype(:dsc_xdfsreplicationgroupfolder) do
 end
 
 Puppet::Type.type(:dsc_xdfsreplicationgroupfolder).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods

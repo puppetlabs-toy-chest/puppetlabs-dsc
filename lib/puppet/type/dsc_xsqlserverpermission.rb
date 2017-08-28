@@ -22,12 +22,13 @@ Puppet::Type.newtype(:dsc_xsqlserverpermission) do
 
   validate do
       fail('dsc_instancename is a required attribute') if self[:dsc_instancename].nil?
+      fail('dsc_principal is a required attribute') if self[:dsc_principal].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xSQLServerPermission' end
   def dscmeta_resource_name; 'MSFT_xSQLServerPermission' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -62,7 +63,7 @@ Puppet::Type.newtype(:dsc_xsqlserverpermission) do
   newparam(:dsc_instancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InstanceName - The SQL Server instance name."
+    desc "InstanceName - The name of the SQL instance to be configured."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -78,7 +79,7 @@ Puppet::Type.newtype(:dsc_xsqlserverpermission) do
   newparam(:dsc_nodename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "NodeName - The host name or FQDN."
+    desc "NodeName - The host name of the SQL Server to be configured. Default value is $env:COMPUTERNAME."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -93,7 +94,7 @@ Puppet::Type.newtype(:dsc_xsqlserverpermission) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - If the permission should be present or absent. Valid values are Present, Absent."
+    desc "Ensure - If the permission should be present or absent. Default value is 'Present'. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -107,12 +108,13 @@ Puppet::Type.newtype(:dsc_xsqlserverpermission) do
 
   # Name:         Principal
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_principal) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "Principal - The login to which permission will be set."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -123,23 +125,23 @@ Puppet::Type.newtype(:dsc_xsqlserverpermission) do
   # Name:         Permission
   # Type:         string[]
   # IsMandatory:  False
-  # Values:       ["AlterAnyAvailabilityGroup", "ViewServerState", "AlterAnyEndPoint"]
+  # Values:       ["ConnectSql", "AlterAnyAvailabilityGroup", "ViewServerState", "AlterAnyEndPoint"]
   newparam(:dsc_permission, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Permission - The permission to set for the login. Valid values are AlterAnyAvailabilityGroup, ViewServerState, AlterAnyEndPoint."
+    desc "Permission - The permission to set for the login. Valid values are ConnectSql, AlterAnyAvailabilityGroup, ViewServerState or AlterAnyEndPoint. Valid values are ConnectSql, AlterAnyAvailabilityGroup, ViewServerState, AlterAnyEndPoint."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
       end
       if value.kind_of?(Array)
-        unless (['AlterAnyAvailabilityGroup', 'alteranyavailabilitygroup', 'ViewServerState', 'viewserverstate', 'AlterAnyEndPoint', 'alteranyendpoint'] & value).count == value.count
-          fail("Invalid value #{value}. Valid values are AlterAnyAvailabilityGroup, ViewServerState, AlterAnyEndPoint")
+        unless (['ConnectSql', 'connectsql', 'AlterAnyAvailabilityGroup', 'alteranyavailabilitygroup', 'ViewServerState', 'viewserverstate', 'AlterAnyEndPoint', 'alteranyendpoint'] & value).count == value.count
+          fail("Invalid value #{value}. Valid values are ConnectSql, AlterAnyAvailabilityGroup, ViewServerState, AlterAnyEndPoint")
         end
       end
       if value.kind_of?(String)
-        unless ['AlterAnyAvailabilityGroup', 'alteranyavailabilitygroup', 'ViewServerState', 'viewserverstate', 'AlterAnyEndPoint', 'alteranyendpoint'].include?(value)
-          fail("Invalid value #{value}. Valid values are AlterAnyAvailabilityGroup, ViewServerState, AlterAnyEndPoint")
+        unless ['ConnectSql', 'connectsql', 'AlterAnyAvailabilityGroup', 'alteranyavailabilitygroup', 'ViewServerState', 'viewserverstate', 'AlterAnyEndPoint', 'alteranyendpoint'].include?(value)
+          fail("Invalid value #{value}. Valid values are ConnectSql, AlterAnyAvailabilityGroup, ViewServerState, AlterAnyEndPoint")
         end
       end
     end
@@ -156,7 +158,7 @@ Puppet::Type.newtype(:dsc_xsqlserverpermission) do
 end
 
 Puppet::Type.type(:dsc_xsqlserverpermission).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10240.16384'))
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods
