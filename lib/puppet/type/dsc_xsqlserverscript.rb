@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xsqlserverscript) do
   @doc = %q{
     The DSC xSQLServerScript resource type.
     Automatically generated from
-    'xSQLServer/DSCResources/MSFT_xSQLServerScript/MSFT_xSQLServerScript.Schema.mof'
+    'xSQLServer/DSCResources/MSFT_xSQLServerScript/MSFT_xSQLServerScript.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

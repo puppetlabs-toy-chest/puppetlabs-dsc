@@ -487,8 +487,6 @@ dsc_xscvmmmanagementserverupdate | [xSCVMMManagementServerUpdate](https://github
 
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
-dsc_xsqlaogroupensure | [xSQLAOGroupEnsure](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLAOGroupEnsure) | [repo](https://github.com/PowerShell/xSQLServer)
-dsc_xsqlaogroupjoin | [xSQLAOGroupJoin](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLAOGroupJoin) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserveralias | [xSQLServerAlias](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerAlias) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserveralwaysonavailabilitygroup | [xSQLServerAlwaysOnAvailabilityGroup](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerAlwaysOnAvailabilityGroup) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserveralwaysonavailabilitygroupdatabasemembership | [xSQLServerAlwaysOnAvailabilityGroupDatabaseMembership](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerAlwaysOnAvailabilityGroupDatabaseMembership) | [repo](https://github.com/PowerShell/xSQLServer)
@@ -504,7 +502,6 @@ dsc_xsqlserverdatabaserole | [xSQLServerDatabaseRole](https://github.com/puppetl
 dsc_xsqlserverendpoint | [xSQLServerEndpoint](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerEndpoint) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverendpointpermission | [xSQLServerEndpointPermission](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerEndpointPermission) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverendpointstate | [xSQLServerEndpointState](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerEndpointState) | [repo](https://github.com/PowerShell/xSQLServer)
-dsc_xsqlserverfailoverclustersetup | [xSQLServerFailoverClusterSetup](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerFailoverClusterSetup) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverfirewall | [xSQLServerFirewall](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerFirewall) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlserverlogin | [xSQLServerLogin](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerLogin) | [repo](https://github.com/PowerShell/xSQLServer)
 dsc_xsqlservermaxdop | [xSQLServerMaxDop](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xSQLServer/DSCResources/MSFT_xSQLServerMaxDop) | [repo](https://github.com/PowerShell/xSQLServer)
