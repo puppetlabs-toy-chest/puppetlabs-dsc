@@ -1,10 +1,6 @@
-Import-Module -Name (Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) `
-                               -ChildPath 'xSQLServerHelper.psm1')
-
-Import-Module -Name (Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) `
-                               -ChildPath 'CommonResourceHelper.psm1')
-
-$script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xSQLServerSetup'
+$script:currentPath = Split-Path -Path $MyInvocation.MyCommand.Path -Parent
+Import-Module -Name (Join-Path -Path (Split-Path -Path (Split-Path -Path $script:currentPath -Parent) -Parent) -ChildPath 'xSQLServerHelper.psm1')
+Import-Module -Name (Join-Path -Path (Split-Path -Path (Split-Path -Path $script:currentPath -Parent) -Parent) -ChildPath 'xPDT.psm1')
 
 <#
     .SYNOPSIS
@@ -16,6 +12,9 @@ $script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xSQLServerSetup'
 
     .PARAMETER SourcePath
         The path to the root of the source files for installation. I.e and UNC path to a shared resource.  Environment variables can be used in the path.
+
+    .PARAMETER SetupCredential
+        Credential to be used to perform the installation.
 
     .PARAMETER SourceCredential
         Credentials used to access the path set in the parameter `SourcePath`. Using this parameter will trigger a copy
@@ -46,6 +45,10 @@ function Get-TargetResource
         [Parameter()]
         [System.String]
         $SourcePath,
+
+        [Parameter(Mandatory = $true)]
+        [System.Management.Automation.PSCredential]
+        $SetupCredential,
 
         [Parameter()]
         [System.Management.Automation.PSCredential]
@@ -86,7 +89,7 @@ function Get-TargetResource
 
     $pathToSetupExecutable = Join-Path -Path $SourcePath -ChildPath 'setup.exe'
 
-    Write-Verbose -Message ($script:localizedData.UsingPath -f $pathToSetupExecutable)
+    New-VerboseMessage -Message "Using path: $pathToSetupExecutable"
 
     $sqlVersion = Get-SqlMajorVersion -Path $pathToSetupExecutable
 
@@ -115,15 +118,13 @@ function Get-TargetResource
     $integrationServiceName = "MsDtsServer$($sqlVersion)0"
 
     $features = ''
+    $clusteredSqlGroupName = ''
+    $clusteredSqlHostname = ''
+    $clusteredSqlIPAddress = ''
 
     $services = Get-Service
-
-    Write-Verbose -Message $script:localizedData.EvaluateDatabaseEngineFeature
-
     if ($services | Where-Object {$_.Name -eq $databaseServiceName})
     {
-        Write-Verbose -Message $script:localizedData.DatabaseEngineFeatureFound
-
         $features += 'SQLENGINE,'
 
         $sqlServiceAccountUsername = (Get-CimInstance -ClassName Win32_Service -Filter "Name = '$databaseServiceName'").StartName
@@ -132,51 +133,41 @@ function Get-TargetResource
         $fullInstanceId = (Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL' -Name $InstanceName).$InstanceName
 
         # Check if Replication sub component is configured for this instance
-        $replicationRegistryPath = "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$fullInstanceId\ConfigurationState"
-
-        Write-Verbose -Message ($script:localizedData.EvaluateReplicationFeature -f $replicationRegistryPath)
-
-        $isReplicationInstalled = (Get-ItemProperty -Path $replicationRegistryPath).SQL_Replication_Core_Inst
+        New-VerboseMessage -Message "Detecting replication feature (HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$fullInstanceId\ConfigurationState)"
+        $isReplicationInstalled = (Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$fullInstanceId\ConfigurationState").SQL_Replication_Core_Inst
         if ($isReplicationInstalled -eq 1)
         {
-            Write-Verbose -Message $script:localizedData.ReplicationFeatureFound
+            New-VerboseMessage -Message 'Replication feature detected'
             $features += 'REPLICATION,'
         }
         else
         {
-            Write-Verbose -Message $script:localizedData.ReplicationFeatureNotFound
+            New-VerboseMessage -Message 'Replication feature not detected'
         }
 
-        # Check if Data Quality Client sub component is configured
-        $dataQualityClientRegistryPath = "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$($sqlVersion)0\ConfigurationState"
+        $clientComponentsFullRegistryPath = "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$($sqlVersion)0\Tools\Setup\Client_Components_Full"
+        $registryClientComponentsFullFeatureList = (Get-ItemProperty -Path $clientComponentsFullRegistryPath -ErrorAction SilentlyContinue).FeatureList
 
-        Write-Verbose -Message ($script:localizedData.EvaluateDataQualityClientFeature -f $dataQualityClientRegistryPath)
-
-        $isDQCInstalled = (Get-ItemProperty -Path $dataQualityClientRegistryPath).SQL_DQ_CLIENT_Full
-        if ($isDQCInstalled -eq 1)
+        Write-Debug -Message "Detecting Client Connectivity Tools feature ($clientComponentsFullRegistryPath)"
+        if ($registryClientComponentsFullFeatureList -like '*Connectivity_FNS=3*')
         {
-            Write-Verbose -Message $script:localizedData.DataQualityClientFeatureFound
-            $features += 'DQC,'
+            New-VerboseMessage -Message 'Client Connectivity Tools feature detected'
+            $features += 'CONN,'
         }
         else
         {
-            Write-Verbose -Message $script:localizedData.DataQualityClientFeatureNotFound
+            New-VerboseMessage -Message 'Client Connectivity Tools feature not detected'
         }
 
-        # Check if Data Quality Services sub component is configured
-        $dataQualityServicesRegistryPath = "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$($sqlVersion)0\DQ\*"
-
-        Write-Verbose -Message ($script:localizedData.EvaluateDataQualityServicesFeature -f $dataQualityServicesRegistryPath)
-
-        $isDQInstalled = (Get-ItemProperty -Path $dataQualityServicesRegistryPath -ErrorAction SilentlyContinue)
-        if ($isDQInstalled)
+        Write-Debug -Message "Detecting Client Connectivity Backwards Compatibility Tools feature ($clientComponentsFullRegistryPath)"
+        if ($registryClientComponentsFullFeatureList -like '*Tools_Legacy_FNS=3*')
         {
-            Write-Verbose -Message $script:localizedData.DataQualityServicesFeatureFound
-            $features += 'DQ,'
+            New-VerboseMessage -Message 'Client Connectivity Tools Backwards Compatibility feature detected'
+            $features += 'BC,'
         }
         else
         {
-            Write-Verbose -Message $script:localizedData.DataQualityServicesFeatureNotFound
+            New-VerboseMessage -Message 'Client Connectivity Tools Backwards Compatibility feature not detected'
         }
 
         $instanceId = $fullInstanceId.Split('.')[1]
@@ -214,18 +205,17 @@ function Get-TargetResource
 
         if ($databaseServer.IsClustered)
         {
-            Write-Verbose -Message $script:localizedData.ClusterInstanceFound
+            New-VerboseMessage -Message 'Clustered instance detected'
 
             $clusteredSqlInstance = Get-CimInstance -Namespace root/MSCluster -ClassName MSCluster_Resource -Filter "Type = 'SQL Server'" |
                 Where-Object { $_.PrivateProperties.InstanceName -eq $InstanceName }
 
             if (!$clusteredSqlInstance)
             {
-                $errorMessage = $script:localizedData.FailoverClusterResourceNotFound -f $InstanceName
-                New-ObjectNotFoundException -Message $errorMessage
+                throw New-TerminatingError -ErrorType FailoverClusterResourceNotFound -FormatArgs $InstanceName -ErrorCategory 'ObjectNotFound'
             }
 
-            Write-Verbose -Message $script:localizedData.FailoverClusterResourceFound
+            New-VerboseMessage -Message 'Clustered SQL Server resource located'
 
             $clusteredSqlGroup = $clusteredSqlInstance | Get-CimAssociatedInstance -ResultClassName MSCluster_ResourceGroup
             $clusteredSqlNetworkName = $clusteredSqlGroup | Get-CimAssociatedInstance -ResultClassName MSCluster_Resource |
@@ -240,48 +230,24 @@ function Get-TargetResource
         }
         else
         {
-            Write-Verbose -Message $script:localizedData.ClusterInstanceNotFound
+            New-VerboseMessage -Message 'Clustered instance not detected'
         }
     }
-    else
-    {
-        Write-Verbose -Message $script:localizedData.DatabaseEngineFeatureNotFound
-    }
-
-    Write-Verbose -Message $script:localizedData.EvaluateFullTextFeature
 
     if ($services | Where-Object {$_.Name -eq $fullTextServiceName})
     {
-        Write-Verbose -Message $script:localizedData.FullTextFeatureFound
-
         $features += 'FULLTEXT,'
-        $fullTextServiceAccountUsername = (Get-CimInstance -ClassName Win32_Service -Filter "Name = '$fullTextServiceName'").StartName
+        $fulltextServiceAccountUsername = (Get-CimInstance -ClassName Win32_Service -Filter "Name = '$fullTextServiceName'").StartName
     }
-    else
-    {
-        Write-Verbose -Message $script:localizedData.FullTextFeatureNotFound
-    }
-
-    Write-Verbose -Message $script:localizedData.EvaluateReportingServicesFeature
 
     if ($services | Where-Object {$_.Name -eq $reportServiceName})
     {
-        Write-Verbose -Message $script:localizedData.ReportingServicesFeatureFound
-
         $features += 'RS,'
         $reportingServiceAccountUsername = (Get-CimInstance -ClassName Win32_Service -Filter "Name = '$reportServiceName'").StartName
     }
-    else
-    {
-        Write-Verbose -Message $script:localizedData.ReportingServicesFeatureNotFound
-    }
-
-    Write-Verbose -Message $script:localizedData.EvaluateAnalysisServicesFeature
 
     if ($services | Where-Object {$_.Name -eq $analysisServiceName})
     {
-        Write-Verbose -Message $script:localizedData.AnalysisServicesFeatureFound
-
         $features += 'AS,'
         $analysisServiceAccountUsername = (Get-CimInstance -ClassName Win32_Service -Filter "Name = '$analysisServiceName'").StartName
 
@@ -293,94 +259,15 @@ function Get-TargetResource
         $analysisLogDirectory = $analysisServer.ServerProperties['LogDir'].Value
         $analysisBackupDirectory = $analysisServer.ServerProperties['BackupDir'].Value
 
-        $analysisSystemAdminAccounts = [System.String[]] $analysisServer.Roles['Administrators'].Members.Name
+        $analysisSystemAdminAccounts = $analysisServer.Roles['Administrators'].Members.Name
 
         $analysisConfigDirectory = (Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\$analysisServiceName" -Name 'ImagePath').ImagePath.Replace(' -s ',',').Split(',')[1].Trim('"')
     }
-    else
-    {
-        Write-Verbose -Message $script:localizedData.AnalysisServicesFeatureNotFound
-    }
-
-    Write-Verbose -Message $script:localizedData.EvaluateIntegrationServicesFeature
 
     if ($services | Where-Object {$_.Name -eq $integrationServiceName})
     {
-        Write-Verbose -Message $script:localizedData.IntegrationServicesFeatureFound
-
         $features += 'IS,'
         $integrationServiceAccountUsername = (Get-CimInstance -ClassName Win32_Service -Filter "Name = '$integrationServiceName'").StartName
-    }
-    else
-    {
-        Write-Verbose -Message $script:localizedData.IntegrationServicesFeatureNotFound
-    }
-
-    # Check if Documentation Components "BOL" is configured
-    $documentationComponentsRegistryPath = "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$($sqlVersion)0\ConfigurationState"
-
-    Write-Verbose -Message ($script:localizedData.EvaluateDocumentationComponentsFeature -f $documentationComponentsRegistryPath)
-
-    $isBOLInstalled = (Get-ItemProperty -Path $documentationComponentsRegistryPath -ErrorAction SilentlyContinue).SQL_BOL_Components
-    if ($isBOLInstalled -eq 1)
-    {
-        Write-Verbose -Message $script:localizedData.DocumentationComponentsFeatureFound
-        $features += 'BOL,'
-    }
-    else
-    {
-        Write-Verbose -Message $script:localizedData.DocumentationComponentsFeatureNotFound
-    }
-
-    $clientComponentsFullRegistryPath = "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$($sqlVersion)0\Tools\Setup\Client_Components_Full"
-    $registryClientComponentsFullFeatureList = (Get-ItemProperty -Path $clientComponentsFullRegistryPath -ErrorAction SilentlyContinue).FeatureList
-
-    Write-Verbose -Message ($script:localizedData.EvaluateClientConnectivityToolsFeature -f $clientComponentsFullRegistryPath)
-
-    if ($registryClientComponentsFullFeatureList -like '*Connectivity_FNS=3*')
-    {
-        Write-Verbose -Message $script:localizedData.ClientConnectivityToolsFeatureFound
-        $features += 'CONN,'
-    }
-    else
-    {
-        Write-Verbose -Message $script:localizedData.ClientConnectivityToolsFeatureNotFound
-    }
-
-    Write-Verbose -Message ($script:localizedData.EvaluateClientConnectivityBackwardsCompatibilityToolsFeature -f $clientComponentsFullRegistryPath)
-    if ($registryClientComponentsFullFeatureList -like '*Tools_Legacy_FNS=3*')
-    {
-        Write-Verbose -Message $script:localizedData.ClientConnectivityBackwardsCompatibilityToolsFeatureFound
-        $features += 'BC,'
-    }
-    else
-    {
-        Write-Verbose -Message $script:localizedData.ClientConnectivityBackwardsCompatibilityToolsFeatureNotFound
-    }
-
-    Write-Verbose -Message ($script:localizedData.EvaluateClientToolsSdkFeature -f $clientComponentsFullRegistryPath)
-    if (($registryClientComponentsFullFeatureList -like '*SDK_Full=3*') -and ($registryClientComponentsFullFeatureList -like '*SDK_FNS=3*'))
-    {
-        Write-Verbose -Message $script:localizedData.ClientToolsSdkFeatureFound
-        $features += 'SDK,'
-    }
-    else
-    {
-        Write-Verbose -Message $script:localizedData.ClientToolsSdkFeatureNotFound
-    }
-
-    # Check if MDS sub component is configured for this server
-    $masterDataServicesFullRegistryPath = "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$($sqlVersion)0\ConfigurationState"
-    Write-Verbose -Message ($script:localizedData.EvaluateMasterDataServicesFeature -f $masterDataServicesFullRegistryPath)
-    $isMDSInstalled = (Get-ItemProperty -Path $masterDataServicesFullRegistryPath -ErrorAction SilentlyContinue).MDSCoreFeature
-    if ($isMDSInstalled -eq 1)
-    {
-        Write-Verbose -Message $script:localizedData.MasterDataServicesFeatureFound
-        $features += 'MDS,'
-    }
-    else
-    {
-        Write-Verbose -Message $script:localizedData.MasterDataServicesFeatureNotFound
     }
 
     $registryUninstallPath = 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall'
@@ -434,13 +321,31 @@ function Get-TargetResource
     }
 
     $features = $features.Trim(',')
-    if ($features)
+    if ($features -ne '')
     {
         $registryInstallerComponentsPath = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components'
 
         switch ($sqlVersion)
         {
-            { $_ -in ('10','11','12','13','14') }
+            '10'
+            {
+                $registryKeySharedDir = '0D1F366D0FE0E404F8C15EE4F1C15094'
+                $registryKeySharedWOWDir = 'C90BFAC020D87EA46811C836AD3C507F'
+            }
+
+            '11'
+            {
+                $registryKeySharedDir = 'FEE2E540D20152D4597229B6CFBC0A69'
+                $registryKeySharedWOWDir = 'A79497A344129F64CA7D69C56F5DD8B4'
+            }
+
+            '12'
+            {
+                $registryKeySharedDir = 'FEE2E540D20152D4597229B6CFBC0A69'
+                $registryKeySharedWOWDir = 'C90BFAC020D87EA46811C836AD3C507F'
+            }
+
+            { $_ -in ('13','14') }
             {
                 $registryKeySharedDir = 'FEE2E540D20152D4597229B6CFBC0A69'
                 $registryKeySharedWOWDir = 'A79497A344129F64CA7D69C56F5DD8B4'
@@ -477,7 +382,7 @@ function Get-TargetResource
         SQLTempDBDir = $null
         SQLTempDBLogDir = $null
         SQLBackupDir = $sqlBackupDirectory
-        FTSvcAccountUsername = $fullTextServiceAccountUsername
+        FTSvcAccountUsername = $fulltextServiceAccountUsername
         RSSvcAccountUsername = $reportingServiceAccountUsername
         ASSvcAccountUsername = $analysisServiceAccountUsername
         ASCollation = $analysisCollation
@@ -504,6 +409,9 @@ function Get-TargetResource
 
     .PARAMETER SourcePath
         The path to the root of the source files for installation. I.e and UNC path to a shared resource. Environment variables can be used in the path.
+
+    .PARAMETER SetupCredential
+        Credential to be used to perform the installation.
 
     .PARAMETER SourceCredential
         Credentials used to access the path set in the parameter `SourcePath`. Using this parameter will trigger a copy
@@ -633,9 +541,6 @@ function Get-TargetResource
 
     .PARAMETER FailoverClusterNetworkName
         Host name to be assigned to the clustered SQL Server instance
-
-    .PARAMETER SetupProcessTimeout
-        The timeout, in seconds, to wait for the setup process to finish. Default value is 7200 seconds (2 hours). If the setup process does not finish before this time, and error will be thrown.
 #>
 function Set-TargetResource
 {
@@ -652,6 +557,10 @@ function Set-TargetResource
         [Parameter()]
         [System.String]
         $SourcePath,
+
+        [Parameter(Mandatory = $true)]
+        [System.Management.Automation.PSCredential]
+        $SetupCredential,
 
         [Parameter()]
         [System.Management.Automation.PSCredential]
@@ -816,16 +725,13 @@ function Set-TargetResource
 
         [Parameter()]
         [System.String]
-        $FailoverClusterNetworkName,
-
-        [Parameter()]
-        [System.UInt32]
-        $SetupProcessTimeout = 7200
+        $FailoverClusterNetworkName
     )
 
     $getTargetResourceParameters = @{
         Action = $Action
         SourcePath = $SourcePath
+        SetupCredential = $SetupCredential
         SourceCredential = $SourceCredential
         InstanceName = $InstanceName
         FailoverClusterNetworkName = $FailoverClusterNetworkName
@@ -894,8 +800,8 @@ function Set-TargetResource
 
         $mediaDestinationPath = Join-Path -Path (Get-TemporaryFolder) -ChildPath $mediaDestinationFolder
 
-        Write-Verbose -Message ($script:localizedData.RobocopyIsCopying -f $SourcePath, $mediaDestinationPath)
-        Copy-ItemWithRobocopy -Path $SourcePath -DestinationPath $mediaDestinationPath
+        New-VerboseMessage -Message "Robocopy is copying media from source '$SourcePath' to destination '$mediaDestinationPath'"
+        Copy-ItemWithRoboCopy -Path $SourcePath -DestinationPath $mediaDestinationPath
 
         Remove-SmbMapping -RemotePath $SourcePath -Force
 
@@ -904,21 +810,20 @@ function Set-TargetResource
 
     $pathToSetupExecutable = Join-Path -Path $SourcePath -ChildPath 'setup.exe'
 
-    Write-Verbose -Message ($script:localizedData.UsingPath -f $pathToSetupExecutable)
+    New-VerboseMessage -Message "Using path: $pathToSetupExecutable"
 
     $sqlVersion = Get-SqlMajorVersion -Path $pathToSetupExecutable
 
     # Determine features to install
-    $featuresToInstall = ''
-    foreach ($feature in $Features.Split(','))
+    $featuresToInstall = ""
+    foreach ($feature in $Features.Split(","))
     {
         # Given that all the returned features are uppercase, make sure that the feature to search for is also uppercase
         $feature = $feature.ToUpper();
 
         if (($sqlVersion -in ('13','14')) -and ($feature -in ('ADV_SSMS','SSMS')))
         {
-            $errorMessage = $script:localizedData.FeatureNotSupported -f $feature
-            New-InvalidOperationException -Message $errorMessage
+            Throw New-TerminatingError -ErrorType FeatureNotSupported -FormatArgs @($feature) -ErrorCategory InvalidData
         }
 
         if (-not ($getTargetResourceResult.Features.Contains($feature)))
@@ -932,7 +837,46 @@ function Set-TargetResource
     # If SQL shared components already installed, clear InstallShared*Dir variables
     switch ($sqlVersion)
     {
-        { $_ -in ('10','11','12','13','14') }
+        '10'
+        {
+            if((Get-Variable -Name 'InstallSharedDir' -ErrorAction SilentlyContinue) -and (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\0D1F366D0FE0E404F8C15EE4F1C15094' -ErrorAction SilentlyContinue))
+            {
+                Set-Variable -Name 'InstallSharedDir' -Value ''
+            }
+
+            if((Get-Variable -Name 'InstallSharedWOWDir' -ErrorAction SilentlyContinue) -and (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\C90BFAC020D87EA46811C836AD3C507F' -ErrorAction SilentlyContinue))
+            {
+                Set-Variable -Name 'InstallSharedWOWDir' -Value ''
+            }
+        }
+
+        '11'
+        {
+            if((Get-Variable -Name 'InstallSharedDir' -ErrorAction SilentlyContinue) -and (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\30AE1F084B1CF8B4797ECB3CCAA3B3B6' -ErrorAction SilentlyContinue))
+            {
+                Set-Variable -Name 'InstallSharedDir' -Value ''
+            }
+
+            if((Get-Variable -Name 'InstallSharedWOWDir' -ErrorAction SilentlyContinue) -and (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\A79497A344129F64CA7D69C56F5DD8B4' -ErrorAction SilentlyContinue))
+            {
+                Set-Variable -Name 'InstallSharedWOWDir' -Value ''
+            }
+        }
+
+        '12'
+        {
+            if((Get-Variable -Name 'InstallSharedDir' -ErrorAction SilentlyContinue) -and (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\FEE2E540D20152D4597229B6CFBC0A69' -ErrorAction SilentlyContinue))
+            {
+                Set-Variable -Name 'InstallSharedDir' -Value ''
+            }
+
+            if((Get-Variable -Name 'InstallSharedWOWDir' -ErrorAction SilentlyContinue) -and (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\C90BFAC020D87EA46811C836AD3C507F' -ErrorAction SilentlyContinue))
+            {
+                Set-Variable -Name 'InstallSharedWOWDir' -Value ''
+            }
+        }
+
+        { $_ -in ('13','14') }
         {
             if((Get-Variable -Name 'InstallSharedDir' -ErrorAction SilentlyContinue) -and (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Components\FEE2E540D20152D4597229B6CFBC0A69' -ErrorAction SilentlyContinue))
             {
@@ -996,7 +940,7 @@ function Set-TargetResource
                 $parameterValue = Get-Variable -Name $parameterName -ValueOnly
                 if ($parameterValue)
                 {
-                    Write-Verbose -Message ($script:localizedData.PathRequireClusterDriveFound -f $parameterName, $parameterValue)
+                    New-VerboseMessage -Message ("Found assigned parameter '{0}'. Adding path '{1}' to list of paths that required cluster drive." -f $parameterName, $parameterValue)
                     $requiredDrive += $parameterValue
                 }
             }
@@ -1077,8 +1021,7 @@ function Set-TargetResource
         $unMappedRequiredDrives = $requiredDrive | Where-Object {$_.IsMapped -eq $false} | Measure-Object
         if ($unMappedRequiredDrives.Count -gt 0)
         {
-            $errorMessage = $script:localizedData.FailoverClusterDiskMappingError -f ($failoverClusterDisks -join '; ')
-            New-InvalidResultException -Message $errorMessage
+            throw New-TerminatingError -ErrorType FailoverClusterDiskMappingError -FormatArgs ($failoverClusterDisks -join '; ') -ErrorCategory InvalidResult
         }
 
         # Add the cluster disks as a setup argument
@@ -1122,8 +1065,7 @@ function Set-TargetResource
         # Determine whether we have mapping issues for the IP Address(es)
         if ($mappedNetworkCount -lt $suppliedNetworkCount)
         {
-            $errorMessage = $script:localizedData.FailoverClusterIPAddressNotValid
-            New-InvalidResultException -Message $errorMessage
+            throw New-TerminatingError -ErrorType FailoverClusterIPAddressNotValid -ErrorCategory InvalidArgument
         }
 
         # Add the networks to the installation arguments
@@ -1183,16 +1125,7 @@ function Set-TargetResource
         # Should not be passed when PrepareFailoverCluster is specified
         if ($Action -in @('Install','InstallFailoverCluster','CompleteFailoverCluster'))
         {
-            if ($null -ne $PsDscContext.RunAsUser)
-            {
-                <#
-                    Add the credentials from the parameter PsDscRunAsCredential, as the first
-                    system administrator. The username is stored in $PsDscContext.RunAsUser.
-                #>
-                Write-Verbose -Message ($script:localizedData.AddingFirstSystemAdministratorSqlServer -f $($PsDscContext.RunAsUser))
-                $setupArguments += @{ SQLSysAdminAccounts =  @($PsDscContext.RunAsUser) }
-            }
-
+            $setupArguments += @{ SQLSysAdminAccounts =  @($SetupCredential.UserName) }
             if ($PSBoundParameters.ContainsKey('SQLSysAdminAccounts'))
             {
                 $setupArguments['SQLSysAdminAccounts'] += $SQLSysAdminAccounts
@@ -1250,15 +1183,7 @@ function Set-TargetResource
 
         if ($Action -in ('Install','InstallFailoverCluster','CompleteFailoverCluster'))
         {
-            if ($null -ne $PsDscContext.RunAsUser)
-            {
-                <#
-                    Add the credentials from the parameter PsDscRunAsCredential, as the first
-                    system administrator. The username is stored in $PsDscContext.RunAsUser.
-                #>
-                Write-Verbose -Message ($script:localizedData.AddingFirstSystemAdministratorAnalysisServices -f $($PsDscContext.RunAsUser))
-                $setupArguments += @{ ASSysAdminAccounts =  @($PsDscContext.RunAsUser) }
-            }
+            $setupArguments += @{ ASSysAdminAccounts = @($SetupCredential.UserName) }
 
             if($PSBoundParameters.ContainsKey("ASSysAdminAccounts"))
             {
@@ -1284,11 +1209,7 @@ function Set-TargetResource
         }
         else
         {
-            # If the argument contains a value, then add the argument to the setup argument list
-            if (Get-Variable -Name $argument -ValueOnly)
-            {
-                $setupArguments += @{ $argument = (Get-Variable -Name $argument -ValueOnly) }
-            }
+            $setupArguments += @{ $argument = (Get-Variable -Name $argument -ValueOnly) }
         }
     }
 
@@ -1348,69 +1269,40 @@ function Set-TargetResource
         }
     }
 
+    New-VerboseMessage -Message "Starting setup using arguments: $log"
+
     $arguments = $arguments.Trim()
+    $processArguments = @{
+        Path = $pathToSetupExecutable
+        Arguments = $arguments
+    }
 
-    try
+    if ($Action -in @('InstallFailoverCluster','AddNode'))
     {
-        Write-Verbose -Message ($script:localizedData.SetupArguments -f $log)
+        $processArguments.Add('Credential',$SetupCredential)
+    }
 
-        <#
-            This handles when PsDscRunAsCredential is set, or running as the SYSTEM account (when
-            PsDscRunAsCredential is not set).
-        #>
+    $process = StartWin32Process @processArguments
 
-        $startProcessParameters = @{
-            FilePath = $pathToSetupExecutable
-            ArgumentList = $arguments
-            Timeout = $SetupProcessTimeout
-        }
+    New-VerboseMessage -Message $process
 
-        $processExitCode = Start-SqlSetupProcess @startProcessParameters
+    WaitForWin32ProcessEnd -Path $pathToSetupExecutable -Arguments $arguments
 
-        $setupExitMessage = ($script:localizedData.SetupExitMessage -f $processExitCode)
-
-        if ($processExitCode -eq 3010 -and -not $SuppressReboot)
+    if ($ForceReboot -or ($null -ne (Get-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager' -Name 'PendingFileRenameOperations' -ErrorAction SilentlyContinue)))
+    {
+        if (-not ($SuppressReboot))
         {
-            $setupExitMessageRebootRequired = ('{0} {1}' -f $setupExitMessage, ($script:localizedData.SetupSuccessfulRebootRequired))
-
-            Write-Warning -Message $setupExitMessageRebootRequired
-        }
-        elseif ($processExitCode -ne 0)
-        {
-            $setupExitMessageError = ('{0} {1}' -f $setupExitMessage, ($script:localizedData.SetupFailed))
-
-            Write-Warning $setupExitMessageError
+            $global:DSCMachineStatus = 1
         }
         else
         {
-            $setupExitMessageSuccessful = ('{0} {1}' -f $setupExitMessage, ($script:localizedData.SetupSuccessful))
-
-            Write-Verbose -Message $setupExitMessageSuccessful
-        }
-
-        if ($ForceReboot -or ($null -ne (Get-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager' -Name 'PendingFileRenameOperations' -ErrorAction SilentlyContinue)))
-        {
-            if (-not ($SuppressReboot))
-            {
-                Write-Verbose -Message $script:localizedData.Reboot
-
-                $global:DSCMachineStatus = 1
-            }
-            else
-            {
-                Write-Verbose -Message $script:localizedData.SuppressReboot
-            }
-        }
-
-        if (-not (Test-TargetResource @PSBoundParameters))
-        {
-            $errorMessage = $script:localizedData.TestFailedAfterSet
-            New-InvalidResultException -Message $errorMessage
+            New-VerboseMessage -Message 'Suppressing reboot'
         }
     }
-    catch
+
+    if (-not (Test-TargetResource @PSBoundParameters))
     {
-        throw $_
+        throw New-TerminatingError -ErrorType TestFailedAfterSet -ErrorCategory InvalidResult
     }
 }
 
@@ -1424,6 +1316,9 @@ function Set-TargetResource
 
     .PARAMETER SourcePath
         The path to the root of the source files for installation. I.e and UNC path to a shared resource. Environment variables can be used in the path.
+
+    .PARAMETER SetupCredential
+        Credential to be used to perform the installation.
 
     .PARAMETER SourceCredential
         Credentials used to access the path set in the parameter `SourcePath`. Using this parameter will trigger a copy
@@ -1553,9 +1448,6 @@ function Set-TargetResource
 
     .PARAMETER FailoverClusterNetworkName
         Host name to be assigned to the clustered SQL Server instance
-
-    .PARAMETER SetupProcessTimeout
-        The timeout, in seconds, to wait for the setup process to finish. Default value is 7200 seconds (2 hours). If the setup process does not finish before this time, and error will be thrown.
 #>
 function Test-TargetResource
 {
@@ -1571,6 +1463,10 @@ function Test-TargetResource
         [Parameter()]
         [System.String]
         $SourcePath,
+
+        [Parameter(Mandatory = $true)]
+        [System.Management.Automation.PSCredential]
+        $SetupCredential,
 
         [Parameter()]
         [System.Management.Automation.PSCredential]
@@ -1735,16 +1631,13 @@ function Test-TargetResource
 
         [Parameter(ParameterSetName = 'ClusterInstall')]
         [System.String]
-        $FailoverClusterNetworkName,
-
-        [Parameter()]
-        [System.UInt32]
-        $SetupProcessTimeout = 7200
+        $FailoverClusterNetworkName
     )
 
     $getTargetResourceParameters = @{
         Action = $Action
         SourcePath = $SourcePath
+        SetupCredential = $SetupCredential
         SourceCredential = $SourceCredential
         InstanceName = $InstanceName
         FailoverClusterNetworkName = $FailoverClusterNetworkName
@@ -1753,7 +1646,7 @@ function Test-TargetResource
     $boundParameters = $PSBoundParameters
 
     $getTargetResourceResult = Get-TargetResource @getTargetResourceParameters
-    Write-Verbose -Message ($script:localizedData.FeaturesFound -f $($getTargetResourceResult.Features))
+    New-VerboseMessage -Message "Features found: '$($getTargetResourceResult.Features)'"
 
     $result = $true
 
@@ -1766,7 +1659,7 @@ function Test-TargetResource
 
             if(!($getTargetResourceResult.Features.Contains($feature)))
             {
-                Write-Verbose -Message ($script:localizedData.UnableToFindFeature -f $feature, $($getTargetResourceResult.Features))
+                New-VerboseMessage -Message "Unable to find feature '$feature' among the installed features: '$($getTargetResourceResult.Features)'"
                 $result = $false
             }
         }
@@ -1778,13 +1671,13 @@ function Test-TargetResource
 
     if ($PSCmdlet.ParameterSetName -eq 'ClusterInstall')
     {
-        Write-Verbose -Message $script:localizedData.EvaluatingClusterParameters
+        New-VerboseMessage -Message "Clustered install, checking parameters."
 
         $boundParameters.Keys | Where-Object {$_ -imatch "^FailoverCluster"} | ForEach-Object {
             $variableName = $_
 
             if ($getTargetResourceResult.$variableName -ne $boundParameters[$variableName]) {
-                Write-Verbose -Message ($script:localizedData.ClusterParameterIsNotInDesiredState -f $variableName, $($boundParameters[$variableName]))
+                New-VerboseMessage -Message "$variableName '$($boundParameters[$variableName])' is not in the desired state for this cluster."
                 $result = $false
             }
         }
@@ -1805,7 +1698,7 @@ function Get-SqlMajorVersion
     [CmdletBinding()]
     param
     (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory=$true)]
         [String]
         $Path
     )
@@ -1825,7 +1718,7 @@ function Get-FirstItemPropertyValue
     [CmdletBinding()]
     param
     (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory=$true)]
         [String]
         $Path
     )
@@ -1845,7 +1738,7 @@ function Get-FirstItemPropertyValue
 
 <#
     .SYNOPSIS
-        Copy folder structure using Robocopy. Every file and folder, including empty ones are copied.
+        Copy folder structure using RoboCopy. Every file and folder, including empty ones are copied.
 
     .PARAMETER Path
         Source path to be copied.
@@ -1853,7 +1746,7 @@ function Get-FirstItemPropertyValue
     .PARAMETER DestinationPath
         The path to the destination.
 #>
-function Copy-ItemWithRobocopy
+function Copy-ItemWithRoboCopy
 {
     [CmdletBinding()]
     param
@@ -1877,13 +1770,12 @@ function Copy-ItemWithRobocopy
 
     if ([System.Version]$robocopyExecutable.FileVersionInfo.ProductVersion -ge [System.Version]'6.3.9600.16384')
     {
-        Write-Verbose -Message $script:localizedData.RobocopyUsingUnbufferedIo
-
+        Write-Verbose "Robocopy is using unbuffered I/O."
         $robocopyArgumentUseUnbufferedIO = '/J'
     }
     else
     {
-        Write-Verbose -Message $script:localizedData.RobocopyNotUsingUnbufferedIo
+        Write-Verbose 'Unbuffered I/O cannot be used due to incompatible version of Robocopy.'
     }
 
     $robocopyArgumentList = '{0} {1} {2} {3} {4} {5}' -f $Path,
@@ -1898,41 +1790,39 @@ function Copy-ItemWithRobocopy
         ArgumentList = $robocopyArgumentList
     }
 
-    Write-Verbose -Message  ($script:localizedData.RobocopyArguments -f $robocopyArgumentList )
+    Write-Verbose ('Robocopy is started with the following arguments: {0}' -f $robocopyArgumentList )
     $robocopyProcess = Start-Process @robocopyStartProcessParameters -Wait -NoNewWindow -PassThru
 
     switch ($($robocopyProcess.ExitCode))
     {
         {$_ -in 8, 16}
         {
-            $errorMessage = $script:localizedData.RobocopyErrorCopying -f $_
-            New-InvalidOperationException -Message $errorMessage
+            throw "Robocopy reported errors when copying files. Error code: $_."
         }
 
         {$_ -gt 7 }
         {
-            $errorMessage = $script:localizedData.RobocopyFailuresCopying -f $_
-            New-InvalidResultException -Message $errorMessage
+            throw "Robocopy reported that failures occured when copying files. Error code: $_."
         }
 
         1
         {
-            Write-Verbose -Message  $script:localizedData.RobocopySuccessful
+            Write-Verbose 'Robocopy copied files sucessfully'
         }
 
         2
         {
-            Write-Verbose -Message  $script:localizedData.RobocopyRemovedExtraFilesAtDestination
+            Write-Verbose 'Robocopy found files at the destination path that is not present at the source path, these extra files was remove at the destination path.'
         }
 
         3
         {
-            Write-Verbose -Message  $script:localizedData.RobocopySuccessfulAndRemovedExtraFilesAtDestination
+            Write-Verbose 'Robocopy copied files to destination sucessfully. Robocopy also found files at the destination path that is not present at the source path, these extra files was remove at the destination path.'
         }
 
         {$_ -eq 0 -or $null -eq $_ }
         {
-            Write-Verbose -Message  $script:localizedData.RobocopyAllFilesPresent
+            Write-Verbose 'Robocopy reported that all files already present.'
         }
     }
 }
@@ -2030,7 +1920,7 @@ function Test-IPAddress
 function Get-ServiceAccountParameters
 {
     [CmdletBinding()]
-    [OutputType([System.Collections.Hashtable])]
+    [OutputType([Hashtable])]
     param
     (
         [Parameter(Mandatory = $true)]
@@ -2078,50 +1968,6 @@ function Get-ServiceAccountParameters
     }
 
     return $parameters
-}
-
-<#
-    .SYNOPSIS
-        Starts the SQL setup process-
-
-    .PARAMETER FilePath
-        String containing the path to setup.exe.
-
-    .PARAMETER ArgumentList
-        The arguments that should be passed to setup.exe.
-
-    .PARAMETER Timeout
-        The timeout in seconds to wait for the process to finish.
-#>
-function Start-SqlSetupProcess
-{
-    param
-    (
-        [Parameter(Mandatory = $true)]
-        [System.String]
-        $FilePath,
-
-        [Parameter()]
-        [System.String]
-        $ArgumentList,
-
-        [Parameter(Mandatory = $true)]
-        [System.UInt32]
-        $Timeout
-    )
-
-    $startProcessParameters = @{
-        FilePath = $FilePath
-        ArgumentList = $ArgumentList
-    }
-
-    $sqlSetupProcess = Start-Process @startProcessParameters -PassThru -NoNewWindow -ErrorAction Stop
-
-    Write-Verbose -Message ($script:localizedData.StartSetupProcess -f $sqlSetupProcess.Id, $startProcessParameters.FilePath, $Timeout)
-
-    Wait-Process -InputObject $sqlSetupProcess -Timeout $Timeout -ErrorAction Stop
-
-    return $sqlSetupProcess.ExitCode
 }
 
 Export-ModuleMember -Function *-TargetResource

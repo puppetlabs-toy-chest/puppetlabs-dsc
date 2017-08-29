@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
   def dscmeta_resource_friendly_name; 'xSQLServerLogin' end
   def dscmeta_resource_name; 'MSFT_xSQLServerLogin' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '8.1.0.0' end
+  def dscmeta_module_version; '7.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -198,22 +198,6 @@ Puppet::Type.newtype(:dsc_xsqlserverlogin) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
     desc "LoginPasswordPolicyEnforced - Specifies if the login password is required to conform to the password policy specified in the system security policy. Only applies to SQL Logins. Default is $true."
-    validate do |value|
-    end
-    newvalues(true, false)
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-  end
-
-  # Name:         Disabled
-  # Type:         boolean
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_disabled) do
-    def mof_type; 'boolean' end
-    def mof_is_embedded?; false end
-    desc "Disabled - Specifies if the login is disabled. Default is $false."
     validate do |value|
     end
     newvalues(true, false)

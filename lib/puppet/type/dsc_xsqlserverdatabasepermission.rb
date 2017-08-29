@@ -31,7 +31,7 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabasepermission) do
   def dscmeta_resource_friendly_name; 'xSQLServerDatabasePermission' end
   def dscmeta_resource_name; 'MSFT_xSQLServerDatabasePermission' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '8.1.0.0' end
+  def dscmeta_module_version; '7.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -113,18 +113,18 @@ Puppet::Type.newtype(:dsc_xsqlserverdatabasepermission) do
   # Name:         PermissionState
   # Type:         string
   # IsMandatory:  True
-  # Values:       ["Grant", "Deny", "GrantWithGrant"]
+  # Values:       ["Grant", "Deny"]
   newparam(:dsc_permissionstate) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "PermissionState - The state of the permission. Valid values are 'Grant' or 'Deny'. Valid values are Grant, Deny, GrantWithGrant."
+    desc "PermissionState - The state of the permission. Valid values are 'Grant' or 'Deny'. Valid values are Grant, Deny."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['Grant', 'grant', 'Deny', 'deny', 'GrantWithGrant', 'grantwithgrant'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Grant, Deny, GrantWithGrant")
+      unless ['Grant', 'grant', 'Deny', 'deny'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Grant, Deny")
       end
     end
   end
