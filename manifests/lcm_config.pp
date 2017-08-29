@@ -2,7 +2,7 @@ define dsc::lcm_config (
   $refresh_mode = 'Disabled'
 ) {
 
-  warning("The dsc::lcm_config class will be removed in the v1.5 release of this module")
+  warning('The dsc::lcm_config class will be removed in the v1.5 release of this module')
 
   validate_re($refresh_mode, '^(Disabled|Push)$', 'refresh_mode must be one of \'Disabled\', \'Push\'')
 
