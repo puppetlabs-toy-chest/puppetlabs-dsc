@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xsqlserveralias) do
   def dscmeta_resource_friendly_name; 'xSQLServerAlias' end
   def dscmeta_resource_name; 'MSFT_xSQLServerAlias' end
   def dscmeta_module_name; 'xSQLServer' end
-  def dscmeta_module_version; '8.1.0.0' end
+  def dscmeta_module_version; '7.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -97,7 +97,7 @@ Puppet::Type.newtype(:dsc_xsqlserveralias) do
   newparam(:dsc_servername) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ServerName - The SQL Server you are aliasing (the NetBIOS name or FQDN)."
+    desc "ServerName - The SQL Server you are aliasing (the netbios name or FQDN)."
     isrequired
     validate do |value|
       unless value.kind_of?(String)

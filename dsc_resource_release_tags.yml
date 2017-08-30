@@ -36,7 +36,7 @@ xSCVMM: 1.2.4.0-PSGallery
 xSharePoint: 1.8.0.0-PSGallery
 xSmbShare: 2.0.0.0-PSGallery
 xSqlPs: 1.4.0.0-PSGallery
-xSQLServer: 8.1.0.0-PSGallery
+xSQLServer: 7.0.0.0-PSGallery # Keep at version 7.0.0 due to PUP-7888 (long file names)
 xStorage: 3.2.0.0-PSGallery
 xTimeZone: 1.6.0.0-PSGallery
 xWebAdministration: 1.18.0.0-PSGallery
