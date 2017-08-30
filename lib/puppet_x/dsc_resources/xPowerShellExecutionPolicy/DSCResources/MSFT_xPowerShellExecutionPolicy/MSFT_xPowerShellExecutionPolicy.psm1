@@ -35,7 +35,7 @@ function Set-TargetResource
         Try
         {
             Write-Verbose "Setting the execution policy of PowerShell."
-            Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Force -ErrorAction Stop
+            Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Force -ErrorAction Stop -Scope LocalMachine
         }
         Catch
         {
@@ -64,7 +64,7 @@ function Test-TargetResource
         $ExecutionPolicy
     )
 
-    If($(Get-ExecutionPolicy) -eq $ExecutionPolicy)
+    If($(Get-ExecutionPolicy -Scope LocalMachine) -eq $ExecutionPolicy)
     {
         return $true
     }
