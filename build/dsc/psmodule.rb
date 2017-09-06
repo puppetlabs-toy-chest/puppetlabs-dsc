@@ -10,7 +10,7 @@ module Dsc
     end
 
     def version
-      raise "ModuleVersion not found for module #{@name} / #{@module_manifest_path}" if attributes['ModuleVersion'].empty?
+      raise "ModuleVersion not found for module #{@name} / #{@module_manifest_path}" if !attributes.key?('ModuleVersion') || attributes['ModuleVersion'].empty?
       attributes['ModuleVersion']
     end
 
