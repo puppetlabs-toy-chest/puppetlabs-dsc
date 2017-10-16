@@ -175,6 +175,8 @@ dsc_example_resource { 'examplefoo':
 
 DSC uses `MSFT_Credential` objects to pass credentials to DSC Resources. Supply a hash to any `credential` parameter, and Puppet handles creating the `credential` object for you.
 
+Optionally use the Puppet [Sensitive type](https://puppet.com/docs/puppet/latest/lang_data_sensitive.html) to ensure logs and reports redact the password.
+
 ~~~puppet
 dsc_user { 'jane-doe':
   dsc_username             => 'jane-doe',
@@ -182,7 +184,7 @@ dsc_user { 'jane-doe':
   dsc_ensure               => present,
   dsc_password             => {
     'user' => 'jane-doe',
-    'password' => 'jane-password'
+    'password' => Sensitive('jane-password')
   },
   dsc_passwordneverexpires => false,
   dsc_disabled             => true,

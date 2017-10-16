@@ -48,8 +48,10 @@ module PuppetX
         required = ['user', 'password']
         required.each do |key|
           if value[key]
-            fail "#{key} for #{name} should be a String" unless value[key].is_a? String
-            fail "#{key} must not be empty" if value[key].empty?
+            unless (value[key].is_a? String) || (value[key].is_a? Puppet::Pops::Types::PSensitiveType::Sensitive)
+              fail "#{key} for #{name} should be a String or Sensitive value"
+            end
+            fail "#{key} must not be empty" if value[key].to_s.empty?
           end
         end
 
