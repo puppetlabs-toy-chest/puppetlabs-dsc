@@ -50,7 +50,10 @@ sleep 2
 export pe_dist_dir=${ARGS[1]}
 export GEM_SOURCE=http://rubygems.delivery.puppetlabs.net
 
-bundle install --without build development test --path .bundle/gems
+bundle check
+if [[ $? != 0 ]]; then
+  bundle install --without build --path .bundle/gems
+fi
 
 bundle exec beaker \
   --preserve-hosts onfail \
