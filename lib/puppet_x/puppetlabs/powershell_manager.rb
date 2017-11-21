@@ -54,8 +54,8 @@ module PuppetX
         pipe_path = "\\\\.\\pipe\\#{named_pipe_name}"
         # wait for the pipe server to signal ready, and fail if no response in 10 seconds
 
-        # wait up to 10 seconds in 0.2 second intervals to be able to open the pipe
-        50.times do
+        # wait up to 30 seconds in 0.2 second intervals to be able to open the pipe
+        150.times do
           begin
             # pipe is opened in binary mode and must always
             @pipe = File.open(pipe_path, 'r+b')
