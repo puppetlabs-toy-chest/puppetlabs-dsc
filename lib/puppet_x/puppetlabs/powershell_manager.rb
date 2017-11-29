@@ -9,14 +9,14 @@ module PuppetX
     class PowerShellManager
       @@instances = {}
 
-      def self.instance(cmd, debug = false)
+      def self.instance(cmd, debug = false, pipe_timeout = 30)
         key = cmd + debug.to_s
         manager = @@instances[key]
 
         if manager.nil? || !manager.alive?
           # ignore any errors trying to tear down this unusable instance
           manager.exit if manager rescue nil
-          @@instances[key] = PowerShellManager.new(cmd, debug)
+          @@instances[key] = PowerShellManager.new(cmd, debug, pipe_timeout)
         end
 
          @@instances[key]
@@ -38,7 +38,7 @@ module PuppetX
         !win32console_enabled?
       end
 
-      def initialize(cmd, debug)
+      def initialize(cmd, debug, pipe_timeout)
         @usable = true
 
         named_pipe_name = "#{SecureRandom.uuid}PuppetPsHost"
@@ -55,18 +55,29 @@ module PuppetX
         # wait for the pipe server to signal ready, and fail if no response in 10 seconds
 
         # wait up to 30 seconds in 0.2 second intervals to be able to open the pipe
-        150.times do
+        # If the pipe_timeout is ever specified as less than the sleep interval it will
+        # never try to connect to a pipe and error out as if a timeout occurred.
+        sleep_interval = 0.2
+        (pipe_timeout / sleep_interval).to_int.times do
           begin
             # pipe is opened in binary mode and must always
             @pipe = File.open(pipe_path, 'r+b')
             break
           rescue
-            sleep 0.2
+            sleep sleep_interval
           end
         end
-
-        fail "Failure waiting for PowerShell process #{@ps_process[:pid]} to start pipe server" if @pipe.nil?
-
+        if @pipe.nil?
+          # Tear down and kill the process if unable to connect to the pipe; failure to do so
+          # results in zombie processes being left after the puppet run. We discovered that
+          # Closing @ps_process via .kill instead of using this method actually kills the watcher
+          # and leaves an orphaned process behind. Failing to close stdout and stderr also leaves
+          # clutter behind, so explicitly close those too.
+          @stdout.close if !@stdout.closed?
+          @stderr.close if !@stderr.closed?
+          Process.kill("KILL", @ps_process[:pid]) if @ps_process.alive?
+          raise "Failure waiting for PowerShell process #{@ps_process[:pid]} to start pipe server"
+        end
         Puppet.debug "#{Time.now} PowerShell initialization complete for pid: #{@ps_process[:pid]}"
 
         at_exit { exit }
