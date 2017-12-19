@@ -84,7 +84,7 @@ EOT
     Puppet.debug "PowerShell Version: #{version}"
     script_content = ps_script_content('test')
     Puppet.debug "\n" + script_content
-    
+
     fail DSC_MODULE_POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
 
     if !PuppetX::Dsc::PowerShellManager.supported?
@@ -179,6 +179,8 @@ EOT
       "@(" + dsc_value.collect{|m| format_dsc_value(m)}.join(', ') + ")"
     when dsc_value.class.name == 'Hash'
       "@{" + dsc_value.collect{|k, v| format_dsc_value(k) + ' = ' + format_dsc_value(v)}.join('; ') + "}"
+    when dsc_value.class.name == 'Puppet::Pops::Types::PSensitiveType::Sensitive'
+      "'#{escape_quotes(dsc_value.unwrap)}'"
     else
       fail "unsupported type #{dsc_value.class} of value '#{dsc_value}'"
     end
