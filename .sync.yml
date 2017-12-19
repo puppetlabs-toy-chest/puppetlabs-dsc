@@ -29,9 +29,6 @@ spec/spec_helper.rb:
   - 'vendor/'
 appveyor.yml:
   appveyor_bundle_install: "bundle install --jobs 4 --retry 2 --without system_tests build"
-  matrix_extras:
-    - PUPPET_GEM_VERSION: 4.2.3
-      RUBY_VER: 21-x64
   test_script:
     - 'bundle exec rspec spec/unit spec/integration -fd -b'
 MAINTAINERS.md:
