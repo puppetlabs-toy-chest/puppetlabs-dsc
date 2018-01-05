@@ -5,7 +5,7 @@ The DSC module received a few bug fixes related to the PowerShell handler and a 
 ## Fixed
 
 - Increased the timeout for opening PowerShell from 10 to 30 seconds to prevent erroneous failures ([MODULES-4748](https://tickets.puppetlabs.com/browse/MODULES-4748))
-- Prevented the PowerShell manager from creating zombie processes ([MODULES-4648](https://tickets.puppetlabs.com/browse/MODULES-4648))
+- Prevented the PowerShell manager from creating zombie processes ([MODULES-4748](https://tickets.puppetlabs.com/browse/MODULES-4748))
 - Allow users to specify passwords in a `MSFT_Credential` as [Sensitive](https://puppet.com/docs/puppet/latest/lang_data_sensitive.html) strings ([MODULES-5743](https://tickets.puppetlabs.com/browse/MODULES-5743))
 
 ## 2017-08-30 - Supported Release 1.4.0
