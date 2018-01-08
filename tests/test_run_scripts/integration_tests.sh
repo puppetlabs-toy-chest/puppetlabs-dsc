@@ -48,7 +48,7 @@ fi
 sleep 2
 
 export pe_dist_dir=${ARGS[1]}
-export GEM_SOURCE=http://rubygems.delivery.puppetlabs.net
+export GEM_SOURCE=https://artifactory.delivery.puppetlabs.net/artifactory/api/gems/rubygems/
 
 bundle check
 if [[ $? != 0 ]]; then
