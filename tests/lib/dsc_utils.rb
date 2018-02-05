@@ -223,38 +223,6 @@ def uninstall_fake_reboot_resource(host)
   end
 end
 
-# Configure the DSC LCM on a host.
-#
-# ==== Attributes
-#
-# * +hosts+ - A Windows Beaker host(s) running PowerShell DSC.
-# * +refresh_mode+ - The desired LCM refresh mode. (Disabled, Push, Pull)
-#
-# ==== Returns
-#
-# +nil+
-#
-# ==== Raises
-#
-# +nil+
-#
-# ==== Examples
-#
-# configure_lcm(agents, 'Disabled')
-def configure_lcm(hosts, refresh_mode = 'Disabled')
-  # Init
-  dsc_conf_manifest = <<-MANIFEST
-  dsc::lcm_config {'configure_lcm':
-    refresh_mode => '#{refresh_mode}'
-  }
-  MANIFEST
-
-  # Configure
-  on(hosts, puppet('apply'), :stdin => dsc_conf_manifest, :acceptable_exit_codes => [0,2]) do |result|
-    assert_no_match(/Error:/, result.stderr, 'Failed to configure the DSC LCM!')
-  end
-end
-
 # Build a PowerShell DSC command string.
 #
 # ==== Attributes

@@ -14,8 +14,6 @@ if options[:forge_host]
   install_dev_puppet_module_on(master, staging)
 else
   step 'Install DSC Module Dependencies'
-  on(master, puppet('module install puppetlabs-stdlib'))
-  on(master, puppet('module install puppetlabs-powershell'))
   on(master, puppet('module install puppetlabs-reboot'))
 
   step 'Install DSC Module from Local Source'

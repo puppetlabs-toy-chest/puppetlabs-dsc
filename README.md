@@ -18,7 +18,6 @@
   * [Setting Registry Values](#setting-registry-values)
   * [Adding or Removing Windows Features](#adding-or-removing-windows-features)
   * [Website Installation Example](#website-installation-example)
-  * [Optionally Configure the DSC LCM RefreshMode](#optionally-configure-the-dsc-lcm-refreshmode)
 5. [Reference](#reference)
 6. [Limitations](#limitations)
   * [Known Issues](#known-issues)
@@ -338,18 +337,6 @@ class fourthcoffee(
 As you can see, you can mix and match DSC resources with common Puppet resources.
 All [Puppet metaparameters](https://docs.puppet.com/references/latest/metaparameter.html) are also supported.
 
-### Optionally Configure the DSC LCM RefreshMode
-
-*WARNING* The dsc::lcm_config class will be removed in the v1.5 release of this module
-
-Prior to the WMF5 Production Preview, the DSC Local Configuration Manager (LCM) `RefreshMode` had to be set to `'Disabled'` for the module to work. That limitation has been removed in the [WMF 5 Production Preview][wmf5-blog-post], but the module still supports configuring this setting if you wish to change it.
-
-~~~puppet
-dsc::lcm_config {'disable_lcm':
-  refresh_mode => 'Disabled',
-}
-~~~
-
 ## Reference
 
 ### Types
@@ -456,7 +443,6 @@ Where available, a link to the external GitHub repo of each resource is also inc
 
 While there are avenues for using Puppet with a non-administrative account, DSC is limited to only accounts with administrative privileges. The underlying CIM implementation DSC uses for DSC Resource invocation requires administrative credentials to function.
 
-- Setting the LCM RefreshMode to Disabled requires administrative credentials
 - Using the Invoke-DscResource cmdlet requires administrative credentials
 
 The Puppet agent on a Windows node can run DSC with a normal default install. If the Puppet agent was configured to use an alternate user account, that account must have administrative privileges on the system in order to run DSC.
