@@ -20,8 +20,6 @@ agents.each do |agent|
     end
   else
     step 'Install DSC Module Dependencies'
-    on(agent, puppet('module install puppetlabs-stdlib'))
-    on(agent, puppet('module install puppetlabs-powershell'))
     on(agent, puppet('module install puppetlabs-reboot'))
 
     step 'Install DSC Module from Local Source'
