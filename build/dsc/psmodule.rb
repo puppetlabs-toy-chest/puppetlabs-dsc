@@ -10,7 +10,7 @@ module Dsc
     end
 
     def version
-      raise "ModuleVersion not found for module #{@name} / #{@module_manifest_path}" if attributes['ModuleVersion'].empty?
+      raise "ModuleVersion not found for module #{@name} / #{@module_manifest_path}" if !attributes.key?('ModuleVersion') || attributes['ModuleVersion'].empty?
       attributes['ModuleVersion']
     end
 
@@ -18,7 +18,7 @@ module Dsc
       begin
         unless @attributes
           attrs = {}
-          regex = /^(.*) *= *['"](.*)['"] *$/
+          regex = /^(.*) *= *['"](.*)['"] *(;)? *$/
           File.open(@module_manifest_path, 'r') do |psd1|
             content = File.read(psd1)
             utf8_encoded_content = utf8_encode_content(content)
