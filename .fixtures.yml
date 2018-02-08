@@ -1,7 +1,5 @@
 fixtures:
   forge_modules:
-    stdlib: "puppetlabs/stdlib"
-    powershell: "puppetlabs/powershell"
     reboot: "puppetlabs/reboot"
   symlinks:
     "dsc": "#{source_dir}"
