@@ -367,6 +367,8 @@ Where available, a link to the external GitHub repo of each resource is also inc
 
 ### Known Issues
 
+- The `WaitFor*` type of DSC Resources may not work with this module. These DSC Resources use sleeps, timers, or locking to 'wait' for other resources to be in a specified state. These waits would 'pause' a Puppet run for an amount of time that varies between DSC Resource implementations, which may cause unintended problems in the Puppet run. Puppet cannot test all possible interactions from these `WaitFor*` DSC Resources, and does not support them at this time.
+
 - The `dsc_log` resource might not appear to work. The ["Log" resource](https://technet.microsoft.com/en-us/library/Dn282117.aspx) writes events to the 'Microsoft-Windows-Desired State Configuration/Analytic' event log, which is [disabled by default](https://technet.microsoft.com/en-us/library/Cc749492.aspx).
 
 - You might have issues if you attempt to use `dsc_ensure => absent` with `dsc_service` with services that are not running.
