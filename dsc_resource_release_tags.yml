@@ -3,6 +3,7 @@ AuditPolicyDsc: 1.1.0.0-PSGallery
 OfficeOnlineServerDsc: 1.0.0.0-PSGallery
 SecurityPolicyDsc: 1.5.0.0-PSGallery
 SharePointDsc: 1.8.0.0-PSGallery
+StorageDsc: 4.0.0.0-PSGallery
 SystemLocaleDsc: 1.1.0.0-PSGallery
 xActiveDirectory: 2.16.0.0-PSGallery
 xAdcsDeployment: 1.1.0.0-PSGallery
@@ -41,7 +42,7 @@ xSCVMM: 1.2.4.0-PSGallery
 xSharePoint: 1.8.0.0-PSGallery
 xSmbShare: 2.0.0.0-PSGallery
 xSqlPs: 1.4.0.0-PSGallery
-xSQLServer: 7.0.0.0-PSGallery # Keep at version 7.0.0 due to PUP-7888 (long file names)
+xSQLServer: 7.0.0.0-PSGallery
 xStorage: 3.2.0.0-PSGallery
 xTimeZone: 1.6.0.0-PSGallery
 xWebAdministration: 1.18.0.0-PSGallery
