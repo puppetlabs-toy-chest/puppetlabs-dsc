@@ -73,7 +73,7 @@ eod
         community_dsc_resources_root = "#{dsc_resources_path_tmp}/xDscResources"
         official_dsc_resources_root = "#{dsc_resources_path_tmp}/DscResources"
         composite_resources = [ 'xChrome','xDSCResourceDesigner','xDscDiagnostics',
-          'xFirefox','xSafeHarbor','xSystemSecurity' ]
+          'xFirefox','xSafeHarbor','xSystemSecurity', 'PSDscResources' ]
 
         Rake::Task['dsc:resources:checkout'].invoke(
           community_dsc_resources_root, update_versions, composite_resources)
