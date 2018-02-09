@@ -1,0 +1,866 @@
+require 'pathname'
+
+Puppet::Type.newtype(:dsc_sqlsetup) do
+  require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
+  require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
+
+
+  @doc = %q{
+    The DSC SqlSetup resource type.
+    Automatically generated from
+    'SqlServerDsc/DSCResources/MSFT_SqlSetup/MSFT_SqlSetup.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
+  }
+
+  validate do
+      fail('dsc_instancename is a required attribute') if self[:dsc_instancename].nil?
+    end
+
+  def dscmeta_resource_friendly_name; 'SqlSetup' end
+  def dscmeta_resource_name; 'MSFT_SqlSetup' end
+  def dscmeta_module_name; 'SqlServerDsc' end
+  def dscmeta_module_version; '11.0.0.0' end
+
+  newparam(:name, :namevar => true ) do
+  end
+
+  ensurable do
+    newvalue(:exists?) { provider.exists? }
+    newvalue(:present) { provider.create }
+    defaultto { :present }
+  end
+
+  # Name:         PsDscRunAsCredential
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_psdscrunascredential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "PsDscRunAsCredential"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
+    end
+  end
+
+  # Name:         Action
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Install", "InstallFailoverCluster", "AddNode", "PrepareFailoverCluster", "CompleteFailoverCluster"]
+  newparam(:dsc_action) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Action - The action to be performed. Default value is 'Install'. Valid values are Install, InstallFailoverCluster, AddNode, PrepareFailoverCluster, CompleteFailoverCluster."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Install', 'install', 'InstallFailoverCluster', 'installfailovercluster', 'AddNode', 'addnode', 'PrepareFailoverCluster', 'preparefailovercluster', 'CompleteFailoverCluster', 'completefailovercluster'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Install, InstallFailoverCluster, AddNode, PrepareFailoverCluster, CompleteFailoverCluster")
+      end
+    end
+  end
+
+  # Name:         SourcePath
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sourcepath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SourcePath - The path to the root of the source files for installation. I.e and UNC path to a shared resource. Environment variables can be used in the path."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SourceCredential
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sourcecredential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "SourceCredential - Credentials used to access the path set in the parameter 'SourcePath'."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SourceCredential", value)
+    end
+  end
+
+  # Name:         SuppressReboot
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_suppressreboot) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SuppressReboot - Suppresses reboot."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         ForceReboot
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_forcereboot) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "ForceReboot - Forces reboot."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         Features
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_features) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Features - SQL features to be installed."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         InstanceName
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_instancename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "InstanceName - Name of the SQL instance to be installed."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         InstanceID
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_instanceid) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "InstanceID - SQL instance ID, if different from InstanceName."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ProductKey
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_productkey) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ProductKey - Product key for licensed installations."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         UpdateEnabled
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_updateenabled) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "UpdateEnabled - Enabled updates during installation."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         UpdateSource
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_updatesource) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "UpdateSource - Path to the source of updates to be applied during installation."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQMReporting
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqmreporting) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQMReporting - Enable customer experience reporting."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ErrorReporting
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_errorreporting) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ErrorReporting - Enable error reporting."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         InstallSharedDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_installshareddir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "InstallSharedDir - Installation path for shared SQL files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         InstallSharedWOWDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_installsharedwowdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "InstallSharedWOWDir - Installation path for x86 shared SQL files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         InstanceDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_instancedir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "InstanceDir - Installation path for SQL instance files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQLSvcAccount
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqlsvcaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "SQLSvcAccount - Service account for the SQL service."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SQLSvcAccount", value)
+    end
+  end
+
+  # Name:         SQLSvcAccountUsername
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqlsvcaccountusername) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLSvcAccountUsername - Output username for the SQL service."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         AgtSvcAccount
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_agtsvcaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "AgtSvcAccount - Service account for the SQL Agent service."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("AgtSvcAccount", value)
+    end
+  end
+
+  # Name:         AgtSvcAccountUsername
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_agtsvcaccountusername) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "AgtSvcAccountUsername - Output username for the SQL Agent service."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQLCollation
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqlcollation) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLCollation - Collation for SQL."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQLSysAdminAccounts
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqlsysadminaccounts, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "SQLSysAdminAccounts - Array of accounts to be made SQL administrators."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         SecurityMode
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_securitymode) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SecurityMode - Security mode to apply to the SQL Server instance."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SAPwd
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sapwd) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "SAPwd - SA password, if SecurityMode is set to 'SQL'."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SAPwd", value)
+    end
+  end
+
+  # Name:         InstallSQLDataDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_installsqldatadir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "InstallSQLDataDir - Root path for SQL database files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQLUserDBDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqluserdbdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLUserDBDir - Path for SQL database files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQLUserDBLogDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqluserdblogdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLUserDBLogDir - Path for SQL log files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQLTempDBDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqltempdbdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLTempDBDir - Path for SQL TempDB files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQLTempDBLogDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqltempdblogdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLTempDBLogDir - Path for SQL TempDB log files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SQLBackupDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqlbackupdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SQLBackupDir - Path for SQL backup files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         FTSvcAccount
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_ftsvcaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "FTSvcAccount - Service account for the Full Text service."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("FTSvcAccount", value)
+    end
+  end
+
+  # Name:         FTSvcAccountUsername
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_ftsvcaccountusername) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "FTSvcAccountUsername - Output username for the Full Text service."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         RSSvcAccount
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_rssvcaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "RSSvcAccount - Service account for Reporting Services service."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("RSSvcAccount", value)
+    end
+  end
+
+  # Name:         RSSvcAccountUsername
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_rssvcaccountusername) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "RSSvcAccountUsername - Output username for the Reporting Services service."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ASSvcAccount
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_assvcaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "ASSvcAccount - Service account for Analysis Services service."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("ASSvcAccount", value)
+    end
+  end
+
+  # Name:         ASSvcAccountUsername
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_assvcaccountusername) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ASSvcAccountUsername - Output username for the Analysis Services service."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ASCollation
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_ascollation) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ASCollation - Collation for Analysis Services."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ASSysAdminAccounts
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_assysadminaccounts, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "ASSysAdminAccounts - Array of accounts to be made Analysis Services admins."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         ASDataDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_asdatadir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ASDataDir - Path for Analysis Services data files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ASLogDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_aslogdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ASLogDir - Path for Analysis Services log files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ASBackupDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_asbackupdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ASBackupDir - Path for Analysis Services backup files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ASTempDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_astempdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ASTempDir - Path for Analysis Services temp files."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ASConfigDir
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_asconfigdir) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ASConfigDir - Path for Analysis Services config."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ASServerMode
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["MULTIDIMENSIONAL", "TABULAR", "POWERPIVOT"]
+  newparam(:dsc_asservermode) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ASServerMode - The server mode for SQL Server Analysis Services instance. The default is to install in Multidimensional mode. Valid values in a cluster scenario are MULTIDIMENSIONAL or TABULAR. Parameter ASServerMode is case-sensitive. All values must be expressed in upper case. Valid values are MULTIDIMENSIONAL, TABULAR, POWERPIVOT."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['MULTIDIMENSIONAL', 'multidimensional', 'TABULAR', 'tabular', 'POWERPIVOT', 'powerpivot'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are MULTIDIMENSIONAL, TABULAR, POWERPIVOT")
+      end
+    end
+  end
+
+  # Name:         ISSvcAccount
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_issvcaccount) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "ISSvcAccount - Service account for Integration Services service."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("ISSvcAccount", value)
+    end
+  end
+
+  # Name:         ISSvcAccountUsername
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_issvcaccountusername) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ISSvcAccountUsername - Output username for the Integration Services service."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         BrowserSvcStartupType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Automatic", "Disabled", "Manual"]
+  newparam(:dsc_browsersvcstartuptype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "BrowserSvcStartupType - Specifies the startup mode for SQL Server Browser service. Valid values are Automatic, Disabled, Manual."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Automatic', 'automatic', 'Disabled', 'disabled', 'Manual', 'manual'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Automatic, Disabled, Manual")
+      end
+    end
+  end
+
+  # Name:         FailoverClusterGroupName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_failoverclustergroupname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "FailoverClusterGroupName - The name of the resource group to create for the clustered SQL Server instance. Default is 'SQL Server (InstanceName)'."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         FailoverClusterIPAddress
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_failoverclusteripaddress, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "FailoverClusterIPAddress - Array of IP Addresses to be assigned to the clustered SQL Server instance."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         FailoverClusterNetworkName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_failoverclusternetworkname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "FailoverClusterNetworkName - Host name to be assigned to the clustered SQL Server instance."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SetupProcessTimeout
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_setupprocesstimeout) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "SetupProcessTimeout - The timeout, in seconds, to wait for the setup process to finish. Default value is 7200 seconds (2 hours). If the setup process does not finish before this time, and error will be thrown."
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+
+  def builddepends
+    pending_relations = super()
+    PuppetX::Dsc::TypeHelpers.ensure_reboot_relationship(self, pending_relations)
+  end
+end
+
+Puppet::Type.type(:dsc_sqlsetup).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
+  defaultfor :operatingsystem => :windows
+
+  mk_resource_methods
+end
