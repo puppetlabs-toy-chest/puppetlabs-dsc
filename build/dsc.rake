@@ -189,12 +189,14 @@ eod
           resource_tags["#{dsc_resource_name}"] = checkout_version.encode("UTF-8")
         end
       end
-      
+
       resource_tags = resource_tags.reject do |r|
         blacklist.include?(r)
       end
-
-      File.open("#{dsc_resources_file}", 'w+') { |f| f.write resource_tags.to_yaml }
+      
+      # We use YAML.dump here to update the file instead of overwriting it. This ensures
+      # we can write both HQ DSC Resources as well as Expertimental ones to the same yml
+      File.open("#{dsc_resources_file}", 'w+') { |f| YAML.dump(resource_tags, f) }
     end
 
     desc <<-eod
