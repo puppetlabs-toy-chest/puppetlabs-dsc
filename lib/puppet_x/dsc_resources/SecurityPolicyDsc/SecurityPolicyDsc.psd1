@@ -9,7 +9,7 @@
 @{
 
 # Version number of this module.
-ModuleVersion = '1.5.0.0'
+ModuleVersion = '2.2.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'e2b73194-69ef-4fa6-b949-9f62ebe04989'
@@ -47,7 +47,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Refactored user rights assignment to read and test easier. 
+        ReleaseNotes = '* Fixed bug in UserRightAssignment where Get-DscConfiguration would fail if it returns $Identity as single string
 
 '
 
@@ -56,6 +56,9 @@ PrivateData = @{
 } # End of PrivateData hashtable
 
 }
+
+
+
 
 
 
