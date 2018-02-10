@@ -1,6 +1,6 @@
 @{
     # Version number of this module.
-    ModuleVersion = '3.0.0.0'
+    ModuleVersion = '3.2.0.0'
 
     # ID used to uniquely identify this module
     GUID              = '1b8d785e-79ae-4d95-ae58-b2460aec1031'
@@ -50,21 +50,7 @@
             # IconUri = ''
 
             # ReleaseNotes of this module
-        ReleaseNotes = '- Add CodeCov.io code coverage reporting.
-- Opted into "Common Tests - Validate Example Files".
-- Fixed bugs in examples.
-- Updated License and Manifest Copyright info to be 2017 Microsoft Corporation.
-- xCertReq:
-  - BREAKING CHANGE: Changed default Keylength to 2048 bits to meet
-    [Microsoft Security Advisory](https://support.microsoft.com/en-us/help/2661254/microsoft-security-advisory-update-for-minimum-certificate-key-length).
-  - Fixed spelling mistakes in MOF files.
-- Added .github support files:
-  - CONTRIBUTING.md
-  - ISSUE_TEMPLATE.md
-  - PULL_REQUEST_TEMPLATE.md
-- Opted into Common Tests "Validate Module Files" and "Validate Script Files".
-- Converted files with UTF8 with BOM over to UTF8 - fixes [Issue 87](https://github.com/PowerShell/xCertificate/issues/87).
-- Converted to use auto-documentation/wiki format - fixes [Issue 84](https://github.com/PowerShell/xCertificate/issues/84).
+        ReleaseNotes = '- Get-CertificateTemplateName: Fix missing template name
 
 '
 
@@ -73,6 +59,8 @@
     } # End of PrivateData hashtable
 
 }
+
+
 
 
 
