@@ -1,14 +1,14 @@
 require 'pathname'
 
-Puppet::Type.newtype(:dsc_officeonlineservermachine) do
+Puppet::Type.newtype(:dsc_officeonlineserverinstalllanguagepack) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
 
   @doc = %q{
-    The DSC OfficeOnlineServerMachine resource type.
+    The DSC OfficeOnlineServerInstallLanguagePack resource type.
     Automatically generated from
-    'OfficeOnlineServerDsc/DSCResources/MSFT_OfficeOnlineServerMachine/MSFT_OfficeOnlineServerMachine.schema.mof'
+    'OfficeOnlineServerDsc/DSCResources/MSFT_OfficeOnlineServerInstallLanguagePack/MSFT_OfficeOnlineServerInstallLanguagePack.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -21,11 +21,12 @@ Puppet::Type.newtype(:dsc_officeonlineservermachine) do
   }
 
   validate do
-      fail('dsc_machinetojoin is a required attribute') if self[:dsc_machinetojoin].nil?
+      fail('dsc_ensure is a required attribute') if self[:dsc_ensure].nil?
+      fail('dsc_binarydir is a required attribute') if self[:dsc_binarydir].nil?
     end
 
-  def dscmeta_resource_friendly_name; 'OfficeOnlineServerMachine' end
-  def dscmeta_resource_name; 'MSFT_OfficeOnlineServerMachine' end
+  def dscmeta_resource_friendly_name; 'OfficeOnlineServerInstallLanguagePack' end
+  def dscmeta_resource_name; 'MSFT_OfficeOnlineServerInstallLanguagePack' end
   def dscmeta_module_name; 'OfficeOnlineServerDsc' end
   def dscmeta_module_version; '1.2.0.0' end
 
@@ -57,12 +58,13 @@ Puppet::Type.newtype(:dsc_officeonlineservermachine) do
 
   # Name:         Ensure
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Ensure Present or Absent Valid values are Present, Absent."
+    desc "Ensure - Set to 'present' to specificy that the product should be installed. Valid values are Present, Absent."
+    isrequired
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -74,33 +76,30 @@ Puppet::Type.newtype(:dsc_officeonlineservermachine) do
     end
   end
 
-  # Name:         Roles
-  # Type:         string[]
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_roles, :array_matching => :all) do
-    def mof_type; 'string[]' end
-    def mof_is_embedded?; false end
-    desc "Roles - Specifies one or more server roles, separated by commas, to assign to the new server. If no roles are specified, then the server is assigned all roles."
-    validate do |value|
-      unless value.kind_of?(Array) || value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string or an array of strings")
-      end
-    end
-    munge do |value|
-      Array(value)
-    end
-  end
-
-  # Name:         MachineToJoin
+  # Name:         BinaryDir
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_machinetojoin) do
+  newparam(:dsc_binarydir) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MachineToJoin - Specifies the name of any server that is already a member of the Office Web Apps Server farm."
+    desc "BinaryDir - Path to setup.exe"
     isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Language
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_language) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Language - Language code for the package"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -115,7 +114,7 @@ Puppet::Type.newtype(:dsc_officeonlineservermachine) do
   end
 end
 
-Puppet::Type.type(:dsc_officeonlineservermachine).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
+Puppet::Type.type(:dsc_officeonlineserverinstalllanguagepack).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
   confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 

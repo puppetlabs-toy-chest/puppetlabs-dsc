@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_officeonlineserverfarm) do
   def dscmeta_resource_friendly_name; 'OfficeOnlineServerFarm' end
   def dscmeta_resource_name; 'MSFT_OfficeOnlineServerFarm' end
   def dscmeta_module_name; 'OfficeOnlineServerDsc' end
-  def dscmeta_module_version; '1.0.0.0' end
+  def dscmeta_module_version; '1.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
