@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spwebappgeneralsettings) do
   def dscmeta_resource_friendly_name; 'SPWebAppGeneralSettings' end
   def dscmeta_resource_name; 'MSFT_SPWebAppGeneralSettings' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -385,6 +385,21 @@ Puppet::Type.newtype(:dsc_spwebappgeneralsettings) do
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         DefaultQuotaTemplate
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_defaultquotatemplate) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DefaultQuotaTemplate - What is the default quota template for this web app"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
     end
   end
 

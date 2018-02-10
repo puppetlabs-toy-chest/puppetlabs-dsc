@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spstateserviceapp) do
   def dscmeta_resource_friendly_name; 'SPStateServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPStateServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,6 +64,21 @@ Puppet::Type.newtype(:dsc_spstateserviceapp) do
     def mof_is_embedded?; false end
     desc "Name - The name of the state service app"
     isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ProxyName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_proxyname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ProxyName - The proxy name, if not specified will be /Name of service app/ Proxy"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

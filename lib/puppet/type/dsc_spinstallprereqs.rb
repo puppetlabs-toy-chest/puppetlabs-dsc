@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   def dscmeta_resource_friendly_name; 'SPInstallPrereqs' end
   def dscmeta_resource_name; 'MSFT_SPInstallPrereqs' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -109,7 +109,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_sqlncli) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SQLNCli - The path to the installer for this prerequisite"
+    desc "SQLNCli - The path to the installer for this prerequisite (SP2013 and SP2016)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -124,7 +124,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_powershell) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "PowerShell - The path to the installer for this prerequisite"
+    desc "PowerShell - The path to the installer for this prerequisite (SP2013 only)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -139,7 +139,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_netfx) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "NETFX - The path to the installer for this prerequisite"
+    desc "NETFX - The path to the installer for this prerequisite (SP2013 only)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -154,7 +154,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_idfx) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IDFX - The path to the installer for this prerequisite"
+    desc "IDFX - The path to the installer for this prerequisite (SP2013 only)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -169,7 +169,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_sync) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Sync - The path to the installer for this prerequisite"
+    desc "Sync - The path to the installer for this prerequisite (SP2013 and SP2016)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -184,7 +184,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_appfabric) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AppFabric - The path to the installer for this prerequisite"
+    desc "AppFabric - The path to the installer for this prerequisite (SP2013 and SP2016)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -199,7 +199,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_idfx11) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IDFX11 - The path to the installer for this prerequisite"
+    desc "IDFX11 - The path to the installer for this prerequisite (SP2013 and SP2016)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -214,7 +214,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_msipcclient) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MSIPCClient - The path to the installer for this prerequisite"
+    desc "MSIPCClient - The path to the installer for this prerequisite (SP2013 and SP2016)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -229,7 +229,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_wcfdataservices) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "WCFDataServices - The path to the installer for this prerequisite"
+    desc "WCFDataServices - The path to the installer for this prerequisite (SP2013 only)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -244,7 +244,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_kb2671763) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "KB2671763 - The path to the installer for this prerequisite"
+    desc "KB2671763 - The path to the installer for this prerequisite (SP2013 only)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -259,7 +259,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_wcfdataservices56) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "WCFDataServices56 - The path to the installer for this prerequisite"
+    desc "WCFDataServices56 - The path to the installer for this prerequisite (SP2013 and SP2016)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -274,7 +274,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_msvcrt11) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MSVCRT11 - The path to the installer for this prerequisite"
+    desc "MSVCRT11 - The path to the installer for this prerequisite (SP2016 only)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -289,7 +289,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_msvcrt14) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MSVCRT14 - The path to the installer for this prerequisite"
+    desc "MSVCRT14 - The path to the installer for this prerequisite (SP2016 only)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -304,7 +304,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_kb3092423) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "KB3092423 - The path to the installer for this prerequisite"
+    desc "KB3092423 - The path to the installer for this prerequisite (SP2016 only)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -319,7 +319,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_odbc) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ODBC - The path to the installer for this prerequisite"
+    desc "ODBC - The path to the installer for this prerequisite (SP2016 only)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -334,7 +334,7 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   newparam(:dsc_dotnetfx) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DotNetFx - The path to the installer for this prerequisite"
+    desc "DotNetFx - The path to the installer for this prerequisite (SP2016 only)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
