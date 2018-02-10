@@ -1,38 +1,43 @@
-# Suppressed as per PSSA Rule Severity guidelines for unit/integration tests:
-# https://github.com/PowerShell/DscResources/blob/master/PSSARuleSeverities.md
-[System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '')]
-param ()
+$modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-Import-Module -Name (Join-Path -Path (Split-Path $PSScriptRoot -Parent) `
-    -ChildPath 'CommonResourceHelper.psm1')
+# Import the ADCS Deployment Resource Helper Module.
+Import-Module -Name (Join-Path -Path $modulePath `
+        -ChildPath (Join-Path -Path 'AdcsDeploymentDsc.ResourceHelper' `
+            -ChildPath 'AdcsDeploymentDsc.ResourceHelper.psm1'))
 
-# Localized messages for Write-Verbose statements in this resource
-$script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xAdcsOnlineResponder'
+# Import Localization Strings.
+$LocalizedData = Get-LocalizedData `
+    -ResourceName 'MSFT_xAdcsOnlineResponder' `
+    -ResourcePath (Split-Path -Parent $script:MyInvocation.MyCommand.Path)
 
 <#
     .SYNOPSIS
         Returns an object containing the current state information for the ADCS Online Responder.
+
     .PARAMETER IsSingleInstance
         Specifies the resource is a single instance, the value must be 'Yes'.
+
     .PARAMETER Credential
         If the Online Responder service is configured to use Standalone certification authority,
         then an account that is a member of the local Administrators on the CA is required. If
         the Online Responder service is configured to use an Enterprise CA, then an account that
         is a member of Domain Admins is required.
+
     .PARAMETER Ensure
         Specifies whether the Online Responder feature should be installed or uninstalled.
+
     .OUTPUTS
         Returns an object containing the ADCS Online Responder state information.
 #>
 Function Get-TargetResource
 {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
-    [CmdletBinding(SupportsShouldProcess = $true)]
+    [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
-    param(
+    param
+    (
         [Parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
-        [String]
+        [System.String]
         $IsSingleInstance,
 
         [Parameter(Mandatory = $true)]
@@ -41,8 +46,8 @@ Function Get-TargetResource
         $Credential,
 
         [Parameter()]
-        [ValidateSet('Present','Absent')]
-        [string]
+        [ValidateSet('Present', 'Absent')]
+        [System.String]
         $Ensure = 'Present'
     )
 
@@ -51,15 +56,15 @@ Function Get-TargetResource
             $($LocalizedData.GettingAdcsOnlineResponderStatusMessage)
         ) -join '' )
 
-    $ADCSParams = @{} + $PSBoundParameters
-    $null = $ADCSParams.Remove('IsSingleInstance')
-    $null = $ADCSParams.Remove('Ensure')
-    $null = $ADCSParams.Remove('Debug')
-    $null = $ADCSParams.Remove('ErrorAction')
+    $adcsParameters = @{} + $PSBoundParameters
+    $null = $adcsParameters.Remove('IsSingleInstance')
+    $null = $adcsParameters.Remove('Ensure')
+    $null = $adcsParameters.Remove('Debug')
+    $null = $adcsParameters.Remove('ErrorAction')
 
     try
     {
-        $null = Install-AdcsOnlineResponder @ADCSParams -WhatIf
+        $null = Install-AdcsOnlineResponder @adcsParameters -WhatIf
         # CA is not installed
         $Ensure = 'Absent'
     }
@@ -84,24 +89,27 @@ Function Get-TargetResource
 <#
     .SYNOPSIS
         Installs or uinstalls the ADCS Online Responder from the server.
+
     .PARAMETER IsSingleInstance
         Specifies the resource is a single instance, the value must be 'Yes'.
+
     .PARAMETER Credential
         If the Online Responder service is configured to use Standalone certification authority,
         then an account that is a member of the local Administrators on the CA is required. If
         the Online Responder service is configured to use an Enterprise CA, then an account that
         is a member of Domain Admins is required.
+
     .PARAMETER Ensure
         Specifies whether the Online Responder feature should be installed or uninstalled.
 #>
 Function Set-TargetResource
 {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
     [CmdletBinding()]
-    param(
+    param
+    (
         [Parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
-        [String]
+        [System.String]
         $IsSingleInstance,
 
         [Parameter(Mandatory = $true)]
@@ -110,8 +118,8 @@ Function Set-TargetResource
         $Credential,
 
         [Parameter()]
-        [ValidateSet('Present','Absent')]
-        [string]
+        [ValidateSet('Present', 'Absent')]
+        [System.String]
         $Ensure = 'Present'
     )
 
@@ -120,11 +128,13 @@ Function Set-TargetResource
             $($LocalizedData.SettingAdcsOnlineResponderStatusMessage)
         ) -join '' )
 
-    $ADCSParams = @{} + $PSBoundParameters
-    $null = $ADCSParams.Remove('IsSingleInstance')
-    $null = $ADCSParams.Remove('Ensure')
-    $null = $ADCSParams.Remove('Debug')
-    $null = $ADCSParams.Remove('ErrorAction')
+    $adcsParameters = @{} + $PSBoundParameters
+    $null = $adcsParameters.Remove('IsSingleInstance')
+    $null = $adcsParameters.Remove('Ensure')
+    $null = $adcsParameters.Remove('Debug')
+    $null = $adcsParameters.Remove('ErrorAction')
+
+    $errorMessage = ''
 
     switch ($Ensure)
     {
@@ -135,8 +145,9 @@ Function Set-TargetResource
                     $($LocalizedData.InstallingAdcsOnlineResponderMessage)
                 ) -join '' )
 
-            (Install-AdcsOnlineResponder @ADCSParams -Force).ErrorString
+            $errorMessage = (Install-AdcsOnlineResponder @adcsParameters -Force).ErrorString
         }
+
         'Absent'
         {
             Write-Verbose -Message ( @(
@@ -144,35 +155,44 @@ Function Set-TargetResource
                     $($LocalizedData.UninstallingAdcsOnlineResponderMessage)
                 ) -join '' )
 
-            (Uninstall-AdcsOnlineResponder -Force).ErrorString
+            $errorMessage = (Uninstall-AdcsOnlineResponder -Force).ErrorString
         }
     } # switch
+
+    if (-not [System.String]::IsNullOrEmpty($errorMessage))
+    {
+        New-InvalidOperationException -Message $errorMessage
+    }
 } # Function Set-TargetResource
 
 <#
     .SYNOPSIS
         Tests is the ADCS Online Responder is in the desired state.
+
     .PARAMETER IsSingleInstance
         Specifies the resource is a single instance, the value must be 'Yes'.
+
     .PARAMETER Credential
         If the Online Responder service is configured to use Standalone certification authority,
         then an account that is a member of the local Administrators on the CA is required. If
         the Online Responder service is configured to use an Enterprise CA, then an account that
         is a member of Domain Admins is required.
+
     .PARAMETER Ensure
         Specifies whether the Online Responder feature should be installed or uninstalled.
+
     .OUTPUTS
         Returns true if the ADCS Online Responder is in the desired state.
 #>
 Function Test-TargetResource
 {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
     [CmdletBinding()]
     [OutputType([System.Boolean])]
-    param(
-        [parameter(Mandatory = $true)]
+    param
+    (
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
-        [String]
+        [System.String]
         $IsSingleInstance,
 
         [Parameter(Mandatory = $true)]
@@ -181,8 +201,8 @@ Function Test-TargetResource
         $Credential,
 
         [Parameter()]
-        [ValidateSet('Present','Absent')]
-        [string]
+        [ValidateSet('Present', 'Absent')]
+        [System.String]
         $Ensure = 'Present'
     )
 
@@ -191,15 +211,15 @@ Function Test-TargetResource
             $($LocalizedData.TestingAdcsOnlineResponderStatusMessage -f $CAType)
         ) -join '' )
 
-    $ADCSParams = @{} + $PSBoundParameters
-    $null = $ADCSParams.Remove('IsSingleInstance')
-    $null = $ADCSParams.Remove('Ensure')
-    $null = $ADCSParams.Remove('Debug')
-    $null = $ADCSParams.Remove('ErrorAction')
+    $adcsParameters = @{} + $PSBoundParameters
+    $null = $adcsParameters.Remove('IsSingleInstance')
+    $null = $adcsParameters.Remove('Ensure')
+    $null = $adcsParameters.Remove('Debug')
+    $null = $adcsParameters.Remove('ErrorAction')
 
     try
     {
-        $null = Install-AdcsOnlineResponder @ADCSParams -WhatIf
+        $null = Install-AdcsOnlineResponder @adcsParameters -WhatIf
         # Online Responder is not installed
         switch ($Ensure)
         {
@@ -213,6 +233,7 @@ Function Test-TargetResource
 
                 return $false
             }
+
             'Absent'
             {
                 # Online Responder is not installed and should not be - change not required
@@ -240,6 +261,7 @@ Function Test-TargetResource
 
                 return $true
             }
+
             'Absent'
             {
                 # Online Responder is installed and should not be - change required
