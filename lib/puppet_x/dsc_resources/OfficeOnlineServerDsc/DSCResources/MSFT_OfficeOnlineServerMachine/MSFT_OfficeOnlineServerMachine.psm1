@@ -16,18 +16,19 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
+        [Parameter()]
         [ValidateSet("Present","Absent")]
         [System.String]
         $Ensure = "Present",
 
+        [Parameter()]
         [System.String[]]
         $Roles,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $MachineToJoin
     )
-
 
     Import-Module -Name OfficeWebApps -ErrorAction Stop
 
@@ -77,14 +78,16 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
+        [Parameter()]
         [ValidateSet("Present","Absent")]
         [System.String]
         $Ensure = "Present",
 
+        [Parameter()]
         [System.String[]]
         $Roles,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $MachineToJoin
     )
@@ -129,14 +132,16 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
+        [Parameter()]
         [ValidateSet("Present","Absent")]
         [System.String]
         $Ensure = "Present",
 
+        [Parameter()]
         [System.String[]]
         $Roles,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $MachineToJoin
     )

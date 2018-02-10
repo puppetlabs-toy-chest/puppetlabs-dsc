@@ -1,0 +1,8 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("OfficeOnlineServerInstallLanguagePack")]
+class MSFT_OfficeOnlineServerInstallLanguagePack : OMI_BaseResource
+{
+    [Key, Description("Set to 'present' to specificy that the product should be installed."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Key, Description("Path to setup.exe")] String BinaryDir;
+    [Required, Description("Language code for the package")] String Language;
+};
