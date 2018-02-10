@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   def dscmeta_resource_friendly_name; 'xADUser' end
   def dscmeta_resource_name; 'MSFT_xADUser' end
   def dscmeta_module_name; 'xActiveDirectory' end
-  def dscmeta_module_version; '2.16.0.0' end
+  def dscmeta_module_version; '2.17.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
