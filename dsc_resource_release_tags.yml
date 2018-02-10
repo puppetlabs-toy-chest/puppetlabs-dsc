@@ -5,7 +5,7 @@ SecurityPolicyDsc: 2.2.0.0-PSGallery
 SharePointDsc: 2.1.0.0-PSGallery
 SqlServerDsc: 11.0.0.0-PSGallery
 StorageDsc: 4.0.0.0-PSGallery
-SystemLocaleDsc: 1.1.0.0-PSGallery
+SystemLocaleDsc: 1.2.0.0-PSGallery
 xActiveDirectory: 2.16.0.0-PSGallery
 xAdcsDeployment: 1.1.0.0-PSGallery
 xAzure: 0.2.0.0-PSGallery
