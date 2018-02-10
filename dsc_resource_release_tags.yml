@@ -2,7 +2,7 @@
 AuditPolicyDsc: 1.1.0.0-PSGallery
 OfficeOnlineServerDsc: 1.2.0.0-PSGallery
 SecurityPolicyDsc: 2.2.0.0-PSGallery
-SharePointDsc: 1.8.0.0-PSGallery
+SharePointDsc: 2.1.0.0-PSGallery
 SqlServerDsc: 11.0.0.0-PSGallery
 StorageDsc: 4.0.0.0-PSGallery
 SystemLocaleDsc: 1.1.0.0-PSGallery

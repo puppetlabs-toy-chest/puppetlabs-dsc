@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spmanagedmetadataserviceapp) do
   def dscmeta_resource_friendly_name; 'SPManagedMetaDataServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPManagedMetaDataServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -180,6 +180,43 @@ Puppet::Type.newtype(:dsc_spmanagedmetadataserviceapp) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         DefaultLanguage
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_defaultlanguage) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "DefaultLanguage - The LCID of the default language (only set when the app is provisioned)"
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         Languages
+  # Type:         uint32[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_languages, :array_matching => :all) do
+    def mof_type; 'uint32[]' end
+    def mof_is_embedded?; false end
+    desc "Languages - The LCIDs of the working languages (only set when the app is provisioned)"
+    validate do |value|
+      unless value.kind_of?(Array) || (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+        fail("Invalid value '#{value}'. Should be an integer or an array of integers")
+      end
+    end
+    munge do |value|
+      v = PuppetX::Dsc::TypeHelpers.munge_integer(value)
+      v.is_a?(Array) ? v : Array(v)
     end
   end
 

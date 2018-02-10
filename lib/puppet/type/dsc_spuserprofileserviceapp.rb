@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spuserprofileserviceapp) do
   def dscmeta_resource_friendly_name; 'SPUserProfileServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPUserProfileServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -98,22 +98,6 @@ Puppet::Type.newtype(:dsc_spuserprofileserviceapp) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-    end
-  end
-
-  # Name:         FarmAccount
-  # Type:         MSFT_Credential
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_farmaccount) do
-    def mof_type; 'MSFT_Credential' end
-    def mof_is_embedded?; true end
-    desc "FarmAccount - The farm account to use when provisioning the app"
-    validate do |value|
-      unless value.kind_of?(Hash)
-        fail("Invalid value '#{value}'. Should be a hash")
-      end
-      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("FarmAccount", value)
     end
   end
 

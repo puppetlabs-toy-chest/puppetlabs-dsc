@@ -12,7 +12,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.8.0.0'
+ModuleVersion = '2.1.0.0'
 
 # ID used to uniquely identify this module
 GUID = '6c1176a0-4fac-4134-8ca2-3fa8a21a7b90'
@@ -24,7 +24,7 @@ Author = 'Microsoft Corporation'
 CompanyName = 'Microsoft Corporation'
 
 # Copyright statement for this module
-Copyright = '(c) 2015-2017 Microsoft Corporation. All rights reserved.'
+Copyright = '(c) 2015-2018 Microsoft Corporation. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'This DSC module is used to deploy and configure SharePoint Server 2013 and 2016, and covers a wide range of areas including web apps, service apps and farm configuration.'
@@ -87,7 +87,9 @@ CmdletsToExport = @("Invoke-SPDSCCommand",
                     "Get-SPDSCRegistryKey",
                     "Resolve-SPDscSecurityIdentifier",
                     "Get-SPDscFarmProductsInfo",
-                    "Get-SPDscFarmVersionInfo")
+                    "Get-SPDscFarmVersionInfo",
+                    "Convert-SPDscADGroupIDToName",
+                    "Convert-SPDscADGroupNameToID")
 
 # Variables to export from this module
 #VariablesToExport = '*'
@@ -126,34 +128,51 @@ PrivateData = @{
 
         # ReleaseNotes of this module
         ReleaseNotes = "
-* Fixed issue in SPServiceAppProxyGroup causing some service names to return as null
-* Added TLS and SMTP port support for SharePoint 2016
-* Fixed issue in SPWebApplication where the Get method didn't return Classic
-  web applications properly
-* Fixed issue in SPSubscriptionSettingsServiceApp not returning database values
-* Updated Readme of SPInstall to include SharePoint Foundation is not supported
-* Fixed issue with Access Denied in SPDesignerSettings
-* Fixed missing brackets in error message in SPExcelServiceApp
-* Removed the requirement for the ConfigWizard in SPInstallLanguagePack
-* Fixed Language Pack detection issue in SPInstallLanguagePack
-* Added support to set Windows service accounts for search related services to
-  SPSearchServiceApp resource
-* Fixed issue in SPCreateFarm and SPJoinFarm where an exception was not handled
-  correctly
-* Fixed issue in SPSessionStateService not returning correct database server
-  and name
-* Fixed missing Ensure property default in SPRemoteFarmTrust
-* Fixed issue in SPWebAppGeneralSettings where -1 was returned for the TimeZone
-* Fixed incorrect UsagePoint check in SPQuotaTemplate
-* Fixed issue in SPWebAppPolicy module where verbose messages are causing errors
-* Fixed incorrect parameter naming in Get method of SPUserProfilePropery
-* Fixed issue in SPBlobCacheSettings when trying to declare same URL with
-  different zone
-* Improve documentation on SPProductUpdate to specify the need to unblock downloaded
-  files
-* Added check if file is blocked in SPProductUpdate to prevent endless wait
-* Enhance SPUserProfileServiceApp to allow for NoILM to be enabled
-* Fixed issue in SPUserProfileProperty where PropertyMapping was Null
+      * General
+        * Updated the integration tests for building the Azure environment
+          * Works in any Azure environment.
+          * Updated the SqlServer configuration to use SqlServerDsc version 10.0.0.0.
+      * SPAlternateURL
+        * Added the ability to manage the Central Administration AAMs
+      * SPDiagnosticsProvider
+        * Added the resource
+      * SPFarm
+        * Corrected issue where ServerRole parameter is returned in SP2013
+      * SPInfoPathFormsServiceConfig
+        * Added the resource
+      * SPInstallPrereqs
+        * Fixed two typos in to be installed Windows features for SharePoint 2016
+      * SPSearchAutoritativePage
+        * Added missing readme.md
+      * SPSearchCrawlerImpactRule
+        * Fixed issue where an error was thrown when retrieving Crawl Impact rules
+        * Added missing readme.md
+      * SPSearchCrawlMapping
+        * Added missing readme.md
+      * SPSecureStoreServiceApp
+        * Fixed issue in Get-TargetResource to return AuditingEnabled property
+      * SPSecurityTokenServiceConfig
+        * Added the resource
+      * SPServiceIdentity
+        * Fixed issue with correctly retrieving the process identity for the
+          Search instance
+        * Added support for LocalSystem, LocalService and NetworkService
+      * SPUserProfileProperty
+        * Fixed issues with the User Profile properties for 2016
+      * SPUserProfileServiceAppPermissions
+        * Removed the mandatory requirement from secondary parameters
+      * SPUserProfileSyncConnection
+        * Fixed issues with the User Profile Sync connection for SharePoint
+          2016
+      * SPUserProfileSyncService
+        * Added returning the FarmAccount to the Get method
+      * SPWebAppAuthentication
+        * Corrected issue where parameter validation wasn't performed correctly
+      * SPWebApplicationExtension
+        * Fixed issue with test always failing when Ensure was set to Absent
+      * SPWorkManagementServiceApp
+        * Added check for SharePoint 2016, since this functionality has been
+          removed in SharePoint 2016
 "
 
     } # End of PSData hashtable

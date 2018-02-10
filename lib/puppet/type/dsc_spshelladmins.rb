@@ -5,7 +5,7 @@ Puppet::Type.newtype(:dsc_spshelladmins) do
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
     class PuppetX::Dsc::TypeHelpers
-      def self.validate_MSFT_SPContentDatabasePermissions(mof_type_map, name, value)
+      def self.validate_MSFT_SPDatabasePermissions(mof_type_map, name, value)
         required = []
         allowed = ['name','members','memberstoinclude','memberstoexclude']
         lowkey_hash = Hash[value.map { |k, v| [k.to_s.downcase, v] }]
@@ -22,7 +22,7 @@ Puppet::Type.newtype(:dsc_spshelladmins) do
 
         lowkey_hash.keys.each do |key|
           if lowkey_hash[key]
-            validate_mof_type(mof_type_map[key], 'MSFT_SPContentDatabasePermissions', key, lowkey_hash[key])
+            validate_mof_type(mof_type_map[key], 'MSFT_SPDatabasePermissions', key, lowkey_hash[key])
           end
         end
       end
@@ -50,7 +50,7 @@ Puppet::Type.newtype(:dsc_spshelladmins) do
   def dscmeta_resource_friendly_name; 'SPShellAdmins' end
   def dscmeta_resource_name; 'MSFT_SPShellAdmins' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -147,25 +147,25 @@ Puppet::Type.newtype(:dsc_spshelladmins) do
     end
   end
 
-  # Name:         ContentDatabases
-  # Type:         MSFT_SPContentDatabasePermissions[]
+  # Name:         Databases
+  # Type:         MSFT_SPDatabasePermissions[]
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_contentdatabases, :array_matching => :all) do
-    def mof_type; 'MSFT_SPContentDatabasePermissions[]' end
+  newparam(:dsc_databases, :array_matching => :all) do
+    def mof_type; 'MSFT_SPDatabasePermissions[]' end
     def mof_is_embedded?; true end
     def mof_type_map
       {"name"=>{:type=>"string"}, "members"=>{:type=>"string[]"}, "memberstoinclude"=>{:type=>"string[]"}, "memberstoexclude"=>{:type=>"string[]"}}
     end
-    desc "ContentDatabases - Shell Admin configuration of Content Databases"
+    desc "Databases - Shell Admin configuration of Databases"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be an array of hashes or a hash")
       end
       (value.kind_of?(Hash) ? [value] : value).each_with_index do |v, i|
-        fail "ContentDatabases value at index #{i} should be a Hash" unless v.is_a? Hash
+        fail "Databases value at index #{i} should be a Hash" unless v.is_a? Hash
 
-        PuppetX::Dsc::TypeHelpers.validate_MSFT_SPContentDatabasePermissions(mof_type_map, "ContentDatabases", v)
+        PuppetX::Dsc::TypeHelpers.validate_MSFT_SPDatabasePermissions(mof_type_map, "Databases", v)
       end
     end
     munge do |value|
@@ -175,14 +175,14 @@ Puppet::Type.newtype(:dsc_spshelladmins) do
     end
   end
 
-  # Name:         AllContentDatabases
+  # Name:         AllDatabases
   # Type:         boolean
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_allcontentdatabases) do
+  newparam(:dsc_alldatabases) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllContentDatabases - Specify if all content databases must get the same config as the general config"
+    desc "AllDatabases - Specify if all databases must get the same config as the general config"
     validate do |value|
     end
     newvalues(true, false)

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spuserprofileproperty) do
   def dscmeta_resource_friendly_name; 'SPUserProfileProperty' end
   def dscmeta_resource_name; 'MSFT_SPUserProfileProperty' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -123,17 +123,17 @@ Puppet::Type.newtype(:dsc_spuserprofileproperty) do
   # Name:         Type
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["BigInteger", "Binary", "Boolean", "Date", "DateNoYear", "DateTime", "Email", "Float", "Guid", "HTML", "Integer", "Person", "String", "StringMultiValue", "TimeZone", "URL"]
+  # Values:       ["Big Integer", "Binary", "Boolean", "Date", "DateNoYear", "Date Time", "Email", "Float", "HTML", "Integer", "Person", "String (Single Value)", "String (Multi Value)", "TimeZone", "Unique Identifier", "URL"]
   newparam(:dsc_type) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Type - The type of the property Valid values are BigInteger, Binary, Boolean, Date, DateNoYear, DateTime, Email, Float, Guid, HTML, Integer, Person, String, StringMultiValue, TimeZone, URL."
+    desc "Type - The type of the property Valid values are Big Integer, Binary, Boolean, Date, DateNoYear, Date Time, Email, Float, HTML, Integer, Person, String (Single Value), String (Multi Value), TimeZone, Unique Identifier, URL."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['BigInteger', 'biginteger', 'Binary', 'binary', 'Boolean', 'boolean', 'Date', 'date', 'DateNoYear', 'datenoyear', 'DateTime', 'datetime', 'Email', 'email', 'Float', 'float', 'Guid', 'guid', 'HTML', 'html', 'Integer', 'integer', 'Person', 'person', 'String', 'string', 'StringMultiValue', 'stringmultivalue', 'TimeZone', 'timezone', 'URL', 'url'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are BigInteger, Binary, Boolean, Date, DateNoYear, DateTime, Email, Float, Guid, HTML, Integer, Person, String, StringMultiValue, TimeZone, URL")
+      unless ['Big Integer', 'big integer', 'Binary', 'binary', 'Boolean', 'boolean', 'Date', 'date', 'DateNoYear', 'datenoyear', 'Date Time', 'date time', 'Email', 'email', 'Float', 'float', 'HTML', 'html', 'Integer', 'integer', 'Person', 'person', 'String (Single Value)', 'string (single value)', 'String (Multi Value)', 'string (multi value)', 'TimeZone', 'timezone', 'Unique Identifier', 'unique identifier', 'URL', 'url'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Big Integer, Binary, Boolean, Date, DateNoYear, Date Time, Email, Float, HTML, Integer, Person, String (Single Value), String (Multi Value), TimeZone, Unique Identifier, URL")
       end
     end
   end
