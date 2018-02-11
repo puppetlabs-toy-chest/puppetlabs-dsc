@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
   def dscmeta_resource_friendly_name; 'xVMSwitch' end
   def dscmeta_resource_name; 'MSFT_xVMSwitch' end
   def dscmeta_module_name; 'xHyper-V' end
-  def dscmeta_module_version; '3.9.0.0' end
+  def dscmeta_module_version; '3.11.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -155,6 +155,24 @@ Puppet::Type.newtype(:dsc_xvmswitch) do
       end
       unless ['Default', 'default', 'Weight', 'weight', 'Absolute', 'absolute', 'None', 'none', 'NA', 'na'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Default, Weight, Absolute, None, NA")
+      end
+    end
+  end
+
+  # Name:         LoadBalancingAlgorithm
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Dynamic", "HyperVPort"]
+  newparam(:dsc_loadbalancingalgorithm) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "LoadBalancingAlgorithm - Specifies the load balancing algorithm that this switch team uses Valid values are Dynamic, HyperVPort."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Dynamic', 'dynamic', 'HyperVPort', 'hypervport'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Dynamic, HyperVPort")
       end
     end
   end
