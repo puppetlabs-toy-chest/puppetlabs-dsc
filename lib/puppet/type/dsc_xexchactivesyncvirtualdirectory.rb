@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
   def dscmeta_resource_friendly_name; 'xExchActiveSyncVirtualDirectory' end
   def dscmeta_resource_name; 'MSFT_xExchActiveSyncVirtualdirectory' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.16.0.0' end
+  def dscmeta_module_version; '1.19.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -151,6 +151,37 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
     end
   end
 
+  # Name:         ActiveSyncServer
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_activesyncserver) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ActiveSyncServer"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         BadItemReportingEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_baditemreportingenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "BadItemReportingEnabled"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
   # Name:         BasicAuthEnabled
   # Type:         boolean
   # IsMandatory:  False
@@ -216,6 +247,70 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
     end
   end
 
+  # Name:         ExtendedProtectionFlags
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       ["None", "Proxy", "NoServiceNameCheck", "AllowDotlessSpn", "ProxyCohosting"]
+  newparam(:dsc_extendedprotectionflags, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "ExtendedProtectionFlags - Valid values are None, Proxy, NoServiceNameCheck, AllowDotlessSpn, ProxyCohosting."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+      if value.kind_of?(Array)
+        unless (['None', 'none', 'Proxy', 'proxy', 'NoServiceNameCheck', 'noservicenamecheck', 'AllowDotlessSpn', 'allowdotlessspn', 'ProxyCohosting', 'proxycohosting'] & value).count == value.count
+          fail("Invalid value #{value}. Valid values are None, Proxy, NoServiceNameCheck, AllowDotlessSpn, ProxyCohosting")
+        end
+      end
+      if value.kind_of?(String)
+        unless ['None', 'none', 'Proxy', 'proxy', 'NoServiceNameCheck', 'noservicenamecheck', 'AllowDotlessSpn', 'allowdotlessspn', 'ProxyCohosting', 'proxycohosting'].include?(value)
+          fail("Invalid value #{value}. Valid values are None, Proxy, NoServiceNameCheck, AllowDotlessSpn, ProxyCohosting")
+        end
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         ExtendedProtectionSPNList
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_extendedprotectionspnlist, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "ExtendedProtectionSPNList"
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         ExtendedProtectionTokenChecking
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["None", "Allow", "Require"]
+  newparam(:dsc_extendedprotectiontokenchecking) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ExtendedProtectionTokenChecking - Valid values are None, Allow, Require."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['None', 'none', 'Allow', 'allow', 'Require', 'require'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are None, Allow, Require")
+      end
+    end
+  end
+
   # Name:         ExternalAuthenticationMethods
   # Type:         string[]
   # IsMandatory:  False
@@ -249,6 +344,22 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
     end
   end
 
+  # Name:         InstallIsapiFilter
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_installisapifilter) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "InstallIsapiFilter"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
   # Name:         InternalAuthenticationMethods
   # Type:         string[]
   # IsMandatory:  False
@@ -279,6 +390,155 @@ Puppet::Type.newtype(:dsc_xexchactivesyncvirtualdirectory) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         MobileClientCertificateAuthorityURL
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_mobileclientcertificateauthorityurl) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "MobileClientCertificateAuthorityURL"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         MobileClientCertificateProvisioningEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_mobileclientcertificateprovisioningenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "MobileClientCertificateProvisioningEnabled"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         MobileClientCertTemplateName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_mobileclientcerttemplatename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "MobileClientCertTemplateName"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Name
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Name"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         RemoteDocumentsActionForUnknownServers
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Allow", "Block"]
+  newparam(:dsc_remotedocumentsactionforunknownservers) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "RemoteDocumentsActionForUnknownServers - Valid values are Allow, Block."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Allow', 'allow', 'Block', 'block'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Allow, Block")
+      end
+    end
+  end
+
+  # Name:         RemoteDocumentsAllowedServers
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_remotedocumentsallowedservers, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "RemoteDocumentsAllowedServers"
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         RemoteDocumentsBlockedServers
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_remotedocumentsblockedservers, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "RemoteDocumentsBlockedServers"
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         RemoteDocumentsInternalDomainSuffixList
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_remotedocumentsinternaldomainsuffixlist, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "RemoteDocumentsInternalDomainSuffixList"
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         SendWatsonReport
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sendwatsonreport) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SendWatsonReport"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
