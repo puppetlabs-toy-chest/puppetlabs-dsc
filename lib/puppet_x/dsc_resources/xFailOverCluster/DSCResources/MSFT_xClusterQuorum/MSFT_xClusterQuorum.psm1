@@ -1,5 +1,5 @@
 Import-Module -Name (Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) `
--ChildPath 'CommonResourceHelper.psm1')
+        -ChildPath 'CommonResourceHelper.psm1')
 
 $script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xClusterQuorum'
 
@@ -39,9 +39,13 @@ function Get-TargetResource
             {
                 $clusterQuorumType = 'NodeAndDiskMajority'
             }
-            elseif ($getClusterQuorumResult.QuorumResource.ResourceType.DisplayName -eq 'File Share Witness')
+            elseif ($getClusterQuorumResult.QuorumResource.ResourceType.DisplayName -eq 'File Share Quorum Witness')
             {
                 $clusterQuorumType = 'NodeAndFileShareMajority'
+            }
+            elseif ($getClusterQuorumResult.QuorumResource.ResourceType.DisplayName -eq 'Cloud Witness')
+            {
+                $clusterQuorumType = 'NodeAndCloudMajority'
             }
             else
             {
@@ -84,15 +88,22 @@ function Get-TargetResource
             Get-ClusterParameter -Name SharePath |
             Select-Object -ExpandProperty Value
     }
+    elseif ($clusterQuorumType -eq 'NodeAndCloudMajority')
+    {
+        $clusterQuorumResource = $getClusterQuorumResult.QuorumResource |
+            Get-ClusterParameter -Name AccountName |
+            Select-Object -ExpandProperty Value
+    }
     else
     {
         $clusterQuorumResource = [String] $getClusterQuorumResult.QuorumResource.Name
     }
 
     @{
-        IsSingleInstance = $IsSingleInstance
-        Type             = $clusterQuorumType
-        Resource         = $clusterQuorumResource
+        IsSingleInstance        = $IsSingleInstance
+        Type                    = $clusterQuorumType
+        Resource                = $clusterQuorumResource
+        StorageAccountAccessKey = ""    # Return an empty value since we cannot retrieve the current Access Key
     }
 }
 
@@ -105,11 +116,16 @@ function Get-TargetResource
 
     .PARAMETER Type
         Quorum type to use. Can be set to either NodeMajority, NodeAndDiskMajority,
-        NodeAndFileShareMajority or DiskOnly.
+        NodeAndFileShareMajority, NodeAndCloudMajority or DiskOnly.
 
     .PARAMETER Resource
-        The name of the disk or file share resource to use as witness. This parameter
-        is optional if the quorum type is set to NodeMajority.
+        The name of the disk, file share or Azure storage account resource to use
+        as witness. This parameter is optional if the quorum type is set to NodeMajority.
+
+    .PARAMETER StorageAccountAccessKey
+        The access key of the Azure storage account to use as witness.
+        This parameter is required if the quorum type is set to NodeAndCloudMajority.
+        The key is currently not updated if the resource is already set.
 #>
 function Set-TargetResource
 {
@@ -122,13 +138,17 @@ function Set-TargetResource
         $IsSingleInstance,
 
         [Parameter()]
-        [ValidateSet('NodeMajority', 'NodeAndDiskMajority', 'NodeAndFileShareMajority', 'DiskOnly')]
+        [ValidateSet('NodeMajority', 'NodeAndDiskMajority', 'NodeAndFileShareMajority', 'NodeAndCloudMajority', 'DiskOnly')]
         [System.String]
         $Type,
 
         [Parameter()]
         [System.String]
-        $Resource
+        $Resource,
+
+        [Parameter()]
+        [System.String]
+        $StorageAccountAccessKey
     )
 
     Write-Verbose -Message ($script:localizedData.SetClusterQuorum -f $Type)
@@ -154,6 +174,11 @@ function Set-TargetResource
         {
             Set-ClusterQuorum -DiskOnly $Resource
         }
+
+        'NodeAndCloudMajority'
+        {
+            Set-ClusterQuorum -CloudWitness -AccountName $Resource -AccessKey $StorageAccountAccessKey
+        }
     }
 }
 
@@ -166,11 +191,17 @@ function Set-TargetResource
 
     .PARAMETER Type
         Quorum type to use. Can be set to either NodeMajority, NodeAndDiskMajority,
-        NodeAndFileShareMajority or DiskOnly.
+        NodeAndFileShareMajority, NodeAndCloudMajority or DiskOnly.
 
     .PARAMETER Resource
-        The name of the disk or file share resource to use as witness. This parameter
-        is optional if the quorum type is set to NodeMajority.
+        The name of the disk, file share or Azure storage account resource to use
+        as witness. This parameter is optional if the quorum type is set to NodeMajority.
+
+    .PARAMETER StorageAccountAccessKey
+        The access key of the Azure storage account to use as witness.
+        This parameter is required if the quorum type is set to NodeAndCloudMajority.
+        The key is currently not updated if the resource is already set.
+        Not used in Test-TargetResource.
 #>
 function Test-TargetResource
 {
@@ -184,13 +215,17 @@ function Test-TargetResource
         $IsSingleInstance,
 
         [Parameter()]
-        [ValidateSet('NodeMajority', 'NodeAndDiskMajority', 'NodeAndFileShareMajority', 'DiskOnly')]
+        [ValidateSet('NodeMajority', 'NodeAndDiskMajority', 'NodeAndFileShareMajority', 'NodeAndCloudMajority', 'DiskOnly')]
         [System.String]
         $Type,
 
         [Parameter()]
         [System.String]
-        $Resource
+        $Resource,
+
+        [Parameter()]
+        [System.String]
+        $StorageAccountAccessKey
     )
 
     Write-Verbose -Message $script:localizedData.EvaluatingClusterQuorumInformation

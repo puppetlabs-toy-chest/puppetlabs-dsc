@@ -13,6 +13,15 @@ $script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xCluster'
     .PARAMETER StaticIPAddress
         Static IP Address of the failover cluster.
 
+    .PARAMETER IgnoreNetwork
+        One or more networks to ignore when creating the cluster. Only networks
+        using Static IP can be ignored, networks that are assigned an IP address
+        through DHCP cannot be ignored, and are added for cluster communication.
+        To remove networks assigned an IP address through DHCP use the resource
+        xClusterNetwork to change the role of the network.
+        This parameter is only used during the creation of the cluster and is
+        not monitored after.
+
     .PARAMETER DomainAdministratorCredential
         Credential used to create the failover cluster in Active Directory.
 #>
@@ -25,9 +34,13 @@ function Get-TargetResource
         [System.String]
         $Name,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [System.String]
         $StaticIPAddress,
+
+        [Parameter()]
+        [System.String[]]
+        $IgnoreNetwork,
 
         [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
@@ -54,7 +67,8 @@ function Get-TargetResource
             New-ObjectNotFoundException -Message $errorMessage
         }
 
-        $address = Get-ClusterGroup -Cluster $Name -Name 'Cluster IP Address' | Get-ClusterParameter -Name 'Address'
+        # This will return the IP address regardless if using Static IP or DHCP.
+        $address = Get-ClusterResource -Cluster $Name -Name 'Cluster IP Address' | Get-ClusterParameter -Name 'Address'
     }
     finally
     {
@@ -69,6 +83,7 @@ function Get-TargetResource
     @{
         Name                          = $Name
         StaticIPAddress               = $address.Value
+        IgnoreNetwork                 = $IgnoreNetwork
         DomainAdministratorCredential = $DomainAdministratorCredential
     }
 }
@@ -82,6 +97,15 @@ function Get-TargetResource
 
     .PARAMETER StaticIPAddress
         Static IP Address of the failover cluster.
+
+    .PARAMETER IgnoreNetwork
+        One or more networks to ignore when creating the cluster. Only networks
+        using Static IP can be ignored, networks that are assigned an IP address
+        through DHCP cannot be ignored, and are added for cluster communication.
+        To remove networks assigned an IP address through DHCP use the resource
+        xClusterNetwork to change the role of the network.
+        This parameter is only used during the creation of the cluster and is
+        not monitored after.
 
     .PARAMETER DomainAdministratorCredential
         Credential used to create the failover cluster in Active Directory.
@@ -103,9 +127,13 @@ function Set-TargetResource
         [System.String]
         $Name,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [System.String]
         $StaticIPAddress,
+
+        [Parameter()]
+        [System.String[]]
+        $IgnoreNetwork,
 
         [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
@@ -145,9 +173,31 @@ function Set-TargetResource
         {
             Write-Verbose -Message ($script:localizedData.ClusterAbsent -f $Name)
 
-            New-Cluster -Name $Name -Node $env:COMPUTERNAME -StaticAddress $StaticIPAddress -NoStorage -Force -ErrorAction Stop
+            $newClusterParameters = @{
+              Name          = $Name
+              Node          = $env:COMPUTERNAME
+              NoStorage     = $true
+              Force         = $true
+              ErrorAction   = 'Stop'
+            }
 
-            if ( -not (Get-Cluster))
+            if ($StaticIPAddress)
+            {
+                $newClusterParameters += @{
+                    StaticAddress = $StaticIPAddress
+                  }
+            }
+
+            if ($PSBoundParameters.ContainsKey('IgnoreNetwork'))
+            {
+                $newClusterParameters += @{
+                    IgnoreNetwork = $IgnoreNetwork
+                }
+            }
+
+            New-Cluster @newClusterParameters
+
+            if (-not (Get-Cluster))
             {
                 $errorMessage = $script:localizedData.FailedCreatingCluster
                 New-InvalidOperationException -Message $errorMessage
@@ -201,6 +251,19 @@ function Set-TargetResource
 
     .PARAMETER StaticIPAddress
         Static IP Address of the failover cluster.
+        Not used in Test-TargetResource.
+
+    .PARAMETER IgnoreNetwork
+        One or more networks to ignore when creating the cluster. Only networks
+        using Static IP can be ignored, networks that are assigned an IP address
+        through DHCP cannot be ignored, and are added for cluster communication.
+        To remove networks assigned an IP address through DHCP use the resource
+        xClusterNetwork to change the role of the network.
+        This parameter is only used during the creation of the cluster and is
+        not monitored after.
+
+        Not used in Test-TargetResource. Currently it is unknown how to determine
+        which networks are ignored, to test so they ar ein desired state.
 
     .PARAMETER DomainAdministratorCredential
         Credential used to create the failover cluster in Active Directory.
@@ -226,9 +289,13 @@ function Test-TargetResource
         [System.String]
         $Name,
 
-        [Parameter(Mandatory = $true)]
+        [Parameter()]
         [System.String]
         $StaticIPAddress,
+
+        [Parameter()]
+        [System.String[]]
+        $IgnoreNetwork,
 
         [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]

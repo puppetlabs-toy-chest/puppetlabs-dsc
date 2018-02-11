@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xcluster) do
   def dscmeta_resource_friendly_name; 'xCluster' end
   def dscmeta_resource_name; 'MSFT_xCluster' end
   def dscmeta_module_name; 'xFailOverCluster' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '1.9.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -98,6 +98,24 @@ Puppet::Type.newtype(:dsc_xcluster) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("DomainAdministratorCredential", value)
+    end
+  end
+
+  # Name:         IgnoreNetwork
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_ignorenetwork, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "IgnoreNetwork - One or more networks to ignore when creating the cluster. Only networks using Static IP can be ignored, networks that are assigned an IP address through DHCP cannot be ignored, and are added for cluster communication. To remove networks assigned an IP address through DHCP use the resource xClusterNetwork to change the role of the network. This parameter is only used during the creation of the cluster and is not monitored after."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 
