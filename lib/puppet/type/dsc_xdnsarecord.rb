@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xdnsarecord) do
   def dscmeta_resource_friendly_name; 'xDnsARecord' end
   def dscmeta_resource_name; 'MSFT_xDnsARecord' end
   def dscmeta_module_name; 'xDnsServer' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '1.9.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
