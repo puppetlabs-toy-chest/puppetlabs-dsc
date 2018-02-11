@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchmailboxtransportservice) do
   def dscmeta_resource_friendly_name; 'xExchMailboxTransportService' end
   def dscmeta_resource_name; 'MSFT_xExchMailboxTransportService' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.16.0.0' end
+  def dscmeta_module_version; '1.19.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
