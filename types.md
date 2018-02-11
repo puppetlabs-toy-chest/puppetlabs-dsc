@@ -575,7 +575,7 @@ dsc_xwaitforsqlhagroup | [xWaitForSqlHAGroup](https://github.com/puppetlabs/pupp
 
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
-dsc_xtimezone | [xTimeZone](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xTimeZone/DSCResources/xTimeZone) | [repo](https://github.com/PowerShell/xTimeZone)
+dsc_xtimezone | [xTimeZone](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xTimeZone/DSCResources/MSFT_xTimeZone) | [repo](https://github.com/PowerShell/xTimeZone)
 
 ##### xWebAdministration
 

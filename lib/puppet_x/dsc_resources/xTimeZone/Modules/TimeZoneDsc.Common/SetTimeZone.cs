@@ -202,7 +202,7 @@ namespace Microsoft.PowerShell.xTimeZone
         public const int ERROR_ACCESS_DENIED = 0x005;
         public const int CORSEC_E_MISSING_STRONGNAME = -2146233317;
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        private static extern bool SetTimeZoneInformation([In] ref TimeZoneInformation lpTimeZoneInformation);      
+        private static extern bool SetTimeZoneInformation([In] ref TimeZoneInformation lpTimeZoneInformation);
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         private static extern bool SetDynamicTimeZoneInformation([In] ref DynamicTimeZoneInformation lpTimeZoneInformation);
         public static void Set(string name)
