@@ -7,7 +7,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
     class PuppetX::Dsc::TypeHelpers
       def self.validate_MSFT_xWebBindingInformation(mof_type_map, name, value)
         required = ['protocol']
-        allowed = ['bindinginformation','ipaddress','port','hostname','certificatethumbprint','certificatestorename','sslflags']
+        allowed = ['bindinginformation','ipaddress','port','hostname','certificatethumbprint','certificatesubject','certificatestorename','sslflags']
         lowkey_hash = Hash[value.map { |k, v| [k.to_s.downcase, v] }]
 
         missing = required - lowkey_hash.keys
@@ -73,7 +73,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
   def dscmeta_resource_friendly_name; 'xWebsite' end
   def dscmeta_resource_name; 'MSFT_xWebsite' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.18.0.0' end
+  def dscmeta_module_version; '1.19.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -192,7 +192,7 @@ Puppet::Type.newtype(:dsc_xwebsite) do
     def mof_type; 'MSFT_xWebBindingInformation[]' end
     def mof_is_embedded?; true end
     def mof_type_map
-      {"protocol"=>{:type=>"string", :values=>["http", "https", "msmq.formatname", "net.msmq", "net.pipe", "net.tcp"]}, "bindinginformation"=>{:type=>"string"}, "ipaddress"=>{:type=>"string"}, "port"=>{:type=>"uint16"}, "hostname"=>{:type=>"string"}, "certificatethumbprint"=>{:type=>"string"}, "certificatestorename"=>{:type=>"string", :values=>["My", "WebHosting"]}, "sslflags"=>{:type=>"string", :values=>["0", "1", "2", "3"]}}
+      {"protocol"=>{:type=>"string", :values=>["http", "https", "msmq.formatname", "net.msmq", "net.pipe", "net.tcp"]}, "bindinginformation"=>{:type=>"string"}, "ipaddress"=>{:type=>"string"}, "port"=>{:type=>"uint16"}, "hostname"=>{:type=>"string"}, "certificatethumbprint"=>{:type=>"string"}, "certificatesubject"=>{:type=>"string"}, "certificatestorename"=>{:type=>"string", :values=>["My", "WebHosting"]}, "sslflags"=>{:type=>"string", :values=>["0", "1", "2", "3"]}}
     end
     desc "BindingInfo - Website's binding information in the form of an array of embedded instances of the MSFT_xWebBindingInformation CIM class."
     validate do |value|

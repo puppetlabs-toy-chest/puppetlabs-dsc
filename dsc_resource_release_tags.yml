@@ -46,7 +46,7 @@ xSqlPs: 1.4.0.0-PSGallery
 xSQLServer: 7.0.0.0-PSGallery
 xStorage: 3.2.0.0-PSGallery
 xTimeZone: 1.7.0.0-PSGallery
-xWebAdministration: 1.18.0.0-PSGallery
+xWebAdministration: 1.19.0.0-PSGallery
 xWebDeploy: 1.2.0.0-PSGallery
 xWindowsEventForwarding: 1.0.0.0-PSGallery
 xWindowsRestore: 1.0.0-PSGallery
