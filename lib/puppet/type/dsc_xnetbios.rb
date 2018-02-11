@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xnetbios) do
   def dscmeta_resource_friendly_name; 'xNetBIOS' end
   def dscmeta_resource_name; 'MSFT_xNetBIOS' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '5.1.0.0' end
+  def dscmeta_module_version; '5.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -77,7 +77,7 @@ Puppet::Type.newtype(:dsc_xnetbios) do
   newparam(:dsc_setting) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Setting - Default - Use NetBios settings from the DHCP server. If static IP, Enable NetBIOS. Valid values are Default, Enable, Disable."
+    desc "Setting - Specifies if NetBIOS should be enabled or disabled or obtained from the DHCP server (Default). If static IP, Enable NetBIOS. Valid values are Default, Enable, Disable."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

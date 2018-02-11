@@ -2,13 +2,13 @@ $modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot 
 
 # Import the Networking Common Modules
 Import-Module -Name (Join-Path -Path $modulePath `
-                               -ChildPath (Join-Path -Path 'NetworkingDsc.Common' `
-                                                     -ChildPath 'NetworkingDsc.Common.psm1'))
+        -ChildPath (Join-Path -Path 'NetworkingDsc.Common' `
+            -ChildPath 'NetworkingDsc.Common.psm1'))
 
 # Import the Networking Resource Helper Module
 Import-Module -Name (Join-Path -Path $modulePath `
-                               -ChildPath (Join-Path -Path 'NetworkingDsc.ResourceHelper' `
-                                                     -ChildPath 'NetworkingDsc.ResourceHelper.psm1'))
+        -ChildPath (Join-Path -Path 'NetworkingDsc.ResourceHelper' `
+            -ChildPath 'NetworkingDsc.ResourceHelper.psm1'))
 
 # Import Localization Strings
 $localizedData = Get-LocalizedData `
@@ -34,54 +34,67 @@ function Get-TargetResource
     [OutputType([Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
-        [String]
+        [Parameter(Mandatory = $true)]
+        [System.String]
         $Name,
 
-        [parameter(Mandatory = $true)]
-        [ValidateSet("V1IPv4","IPv4","IPv6")]
-        [String]
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('V1IPv4', 'IPv4', 'IPv6')]
+        [System.String]
         $Protocol,
 
-        [parameter(Mandatory = $true)]
-        [Boolean]
+        [Parameter(Mandatory = $true)]
+        [System.Boolean]
         $State
     )
 
-    try 
-    {
-        Write-Verbose -Message ( @(
+    Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
             $localizedData.CheckingNetAdapterMessage
         ) -join '')
 
+    try
+    {
         $netAdapter = Get-NetAdapterLso -Name $Name -ErrorAction Stop
+    }
+    catch
+    {
+        New-InvalidOperationException `
+            -Message ($LocalizedData.NetAdapterNotFoundMessage)
+    }
 
-        if ($netAdapter)
-        {
-            Write-Verbose -Message ( @(
+    if ($netAdapter)
+    {
+        Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
                 $($LocalizedData.NetAdapterTestingStateMessage -f $Name, $Protocol)
             ) -join '')
 
-            $result = @{ 
-                Name = $Name
-                Protocol = $Protocol
-            }
-            switch ($Protocol) {
-                "V1IPv4" { $result.add('State', $netAdapter.V1IPv4Enabled) }
-                "IPv4"   { $result.add('State', $netAdapter.IPv4Enabled) }
-                "IPv6"   { $result.add('State', $netAdapter.IPv6Enabled) }
-                Default {"Should not be called."}
-            }
-            return $result
+        $result = @{
+            Name     = $Name
+            Protocol = $Protocol
         }
-    }
-    catch 
-    {
-        throw $localizedData.NetAdapterNotFoundMessage
-    }
 
+        switch ($Protocol)
+        {
+            'V1IPv4'
+            {
+                $result.add('State', $netAdapter.V1IPv4Enabled)
+            }
+
+            'IPv4'
+            {
+                $result.add('State', $netAdapter.IPv4Enabled)
+            }
+
+            'IPv6'
+            {
+                $result.add('State', $netAdapter.IPv6Enabled)
+            }
+        }
+
+        return $result
+    }
 }
 
 <#
@@ -102,73 +115,73 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
-        [String]
+        [Parameter(Mandatory = $true)]
+        [System.String]
         $Name,
 
-        [parameter(Mandatory = $true)]
-        [ValidateSet("V1IPv4","IPv4","IPv6")]
-        [String]
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('V1IPv4', 'IPv4', 'IPv6')]
+        [System.String]
         $Protocol,
 
-        [parameter(Mandatory = $true)]
-        [Boolean]
+        [Parameter(Mandatory = $true)]
+        [System.Boolean]
         $State
     )
 
-    try 
-    {
-        Write-Verbose -Message ( @(
+    Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
             $localizedData.CheckingNetAdapterMessage
         ) -join '')
 
+    try
+    {
         $netAdapter = Get-NetAdapterLso -Name $Name -ErrorAction Stop
+    }
+    catch
+    {
+        New-InvalidOperationException `
+            -Message ($LocalizedData.NetAdapterNotFoundMessage)
+    }
 
-        if ($netAdapter)
-        {
-            Write-Verbose -Message ( @(
+    if ($netAdapter)
+    {
+        Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
                 $($LocalizedData.NetAdapterTestingStateMessage -f $Name, $Protocol)
             ) -join '')
 
-            if ($Protocol -eq "V1IPv4" -and $State -ne $netAdapter.V1IPv4Enabled) 
-            {
-                Write-Verbose -Message ( @(
+        if ($Protocol -eq 'V1IPv4' -and $State -ne $netAdapter.V1IPv4Enabled)
+        {
+            Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
                     $($LocalizedData.NetAdapterApplyingChangesMessage -f `
-                    $Name, $Protocol, $($netAdapter.V1IPv4Enabled.ToString()), $($State.ToString()) )
-            )    -join '')
-                
-                Set-NetAdapterLso -Name $Name -V1IPv4Enabled $State
-            }
-            elseif ($Protocol -eq "IPv4" -and $State -ne $netAdapter.IPv4Enabled) 
-            {
-                Write-Verbose -Message ( @(
-                    "$($MyInvocation.MyCommand): "
-                    $($LocalizedData.NetAdapterApplyingChangesMessage -f `
-                    $Name, $Protocol, $($netAdapter.IPv4Enabled.ToString()), $($State.ToString()) )
+                            $Name, $Protocol, $($netAdapter.V1IPv4Enabled.ToString()), $($State.ToString()) )
                 ) -join '')
 
-                Set-NetAdapterLso -Name $Name -IPv4Enabled $State
-            }
-            elseif ($Protocol -eq "IPv6" -and $State -ne $netAdapter.IPv6Enabled) 
-            {
-                Write-Verbose -Message ( @(
+            Set-NetAdapterLso -Name $Name -V1IPv4Enabled $State
+        }
+        elseif ($Protocol -eq 'IPv4' -and $State -ne $netAdapter.IPv4Enabled)
+        {
+            Write-Verbose -Message ( @(
                     "$($MyInvocation.MyCommand): "
                     $($LocalizedData.NetAdapterApplyingChangesMessage -f `
-                    $Name, $Protocol, $($netAdapter.IPv6Enabled.ToString()), $($State.ToString()) )
+                            $Name, $Protocol, $($netAdapter.IPv4Enabled.ToString()), $($State.ToString()) )
                 ) -join '')
 
-                Set-NetAdapterLso -Name $Name -IPv6Enabled $State
-            }
+            Set-NetAdapterLso -Name $Name -IPv4Enabled $State
+        }
+        elseif ($Protocol -eq 'IPv6' -and $State -ne $netAdapter.IPv6Enabled)
+        {
+            Write-Verbose -Message ( @(
+                    "$($MyInvocation.MyCommand): "
+                    $($LocalizedData.NetAdapterApplyingChangesMessage -f `
+                            $Name, $Protocol, $($netAdapter.IPv6Enabled.ToString()), $($State.ToString()) )
+                ) -join '')
+
+            Set-NetAdapterLso -Name $Name -IPv6Enabled $State
         }
     }
-    catch 
-    {
-        throw $LocalizedData.NetAdapterNotFoundMessage
-    }
-
 }
 
 <#
@@ -190,48 +203,59 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
-        [String]
+        [Parameter(Mandatory = $true)]
+        [System.String]
         $Name,
 
-        [parameter(Mandatory = $true)]
-        [ValidateSet("V1IPv4","IPv4","IPv6")]
-        [String]
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('V1IPv4', 'IPv4', 'IPv6')]
+        [System.String]
         $Protocol,
 
-        [parameter(Mandatory = $true)]
-        [Boolean]
+        [Parameter(Mandatory = $true)]
+        [System.Boolean]
         $State
     )
 
-    try 
-    {
-        Write-Verbose -Message ( @(
+    Write-Verbose -Message ( @(
             "$($MyInvocation.MyCommand): "
             $localizedData.CheckingNetAdapterMessage
         ) -join '')
 
+    try
+    {
         $netAdapter = Get-NetAdapterLso -Name $Name -ErrorAction Stop
+    }
+    catch
+    {
+        New-InvalidOperationException `
+            -Message ($LocalizedData.NetAdapterNotFoundMessage)
+    }
 
-        if ($netAdapter) 
-        {
-            Write-Verbose -Message ( @(
+    if ($netAdapter)
+    {
+        Write-Verbose -Message ( @(
                 "$($MyInvocation.MyCommand): "
                 $localizedData.NetAdapterTestingStateMessage -f `
-                $Name, $Protocol
+                    $Name, $Protocol
             ) -join '')
 
-            switch ($Protocol) {
-                "V1IPv4" { return ($State -eq $netAdapter.V1IPv4Enabled) }
-                "IPv4"   { return ($State -eq $netAdapter.IPv4Enabled) }
-                "IPv6"   { return ($State -eq $netAdapter.IPv6Enabled) }
-                Default {"Should not be called."}
+        switch ($Protocol)
+        {
+            'V1IPv4'
+            {
+                return ($State -eq $netAdapter.V1IPv4Enabled)
+            }
+
+            'IPv4'
+            {
+                return ($State -eq $netAdapter.IPv4Enabled)
+            }
+
+            'IPv6'
+            {
+                return ($State -eq $netAdapter.IPv6Enabled)
             }
         }
     }
-    catch 
-    {
-        throw $LocalizedData.NetAdapterNotFoundMessage
-    }
-
 }
