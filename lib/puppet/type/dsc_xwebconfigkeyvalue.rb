@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xwebconfigkeyvalue) do
   def dscmeta_resource_friendly_name; 'xWebConfigKeyValue' end
   def dscmeta_resource_name; 'MSFT_xWebConfigKeyValue' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.18.0.0' end
+  def dscmeta_module_version; '1.19.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
