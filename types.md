@@ -424,15 +424,23 @@ dsc_xfirewall | [xFirewall](https://github.com/puppetlabs/puppetlabs-dsc/tree/ma
 dsc_xfirewallprofile | [xFirewallProfile](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xFirewallProfile) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xhostsfile | [xHostsFile](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xHostsFile) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xipaddress | [xIPAddress](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xIPAddress) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xipaddressoption | [xIPAddressOption](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xIPAddressOption) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xnetadapteradvancedproperty | [xNetAdapterAdvancedProperty](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterAdvancedProperty) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xnetadapterbinding | [xNetAdapterBinding](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterBinding) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xnetadapterlso | [xNetAdapterLso](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterLso) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xnetadaptername | [xNetAdapterName](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterName) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xnetadapterrdma | [xNetAdapterRDMA](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterRDMA) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xnetadapterrsc | [xNetAdapterRsc](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterRsc) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xnetadapterrss | [xNetAdapterRss](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterRss) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xnetbios | [xNetBIOS](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetBIOS) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xnetconnectionprofile | [xNetConnectionProfile](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetConnectionProfile) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xnetworkteam | [xNetworkTeam](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetworkTeam) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xnetworkteaminterface | [xNetworkTeamInterface](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetworkTeamInterface) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xproxysettings | [xProxySettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xProxySettings) | [repo](https://github.com/PowerShell/xNetworking)
 dsc_xroute | [xRoute](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xRoute) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xweakhostreceive | [xWeakHostReceive](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xWeakHostReceive) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xweakhostsend | [xWeakHostSend](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xWeakHostSend) | [repo](https://github.com/PowerShell/xNetworking)
+dsc_xwinssetting | [xWINSSetting](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xWinsSetting) | [repo](https://github.com/PowerShell/xNetworking)
 
 ##### xPSDesiredStateConfiguration
 
