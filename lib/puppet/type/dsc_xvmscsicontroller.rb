@@ -1,14 +1,14 @@
 require 'pathname'
 
-Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
+Puppet::Type.newtype(:dsc_xvmscsicontroller) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
 
   @doc = %q{
-    The DSC xVMNetworkAdapter resource type.
+    The DSC xVMScsiController resource type.
     Automatically generated from
-    'xHyper-V/DSCResources/MSFT_xVMNetworkAdapter/MSFT_xVMNetworkAdapter.schema.mof'
+    'xHyper-V/DSCResources/MSFT_xVMScsiController/MSFT_xVMScsiController.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -21,11 +21,12 @@ Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
   }
 
   validate do
-      fail('dsc_id is a required attribute') if self[:dsc_id].nil?
+      fail('dsc_vmname is a required attribute') if self[:dsc_vmname].nil?
+      fail('dsc_controllernumber is a required attribute') if self[:dsc_controllernumber].nil?
     end
 
-  def dscmeta_resource_friendly_name; 'xVMNetworkAdapter' end
-  def dscmeta_resource_name; 'MSFT_xVMNetworkAdapter' end
+  def dscmeta_resource_friendly_name; 'xVMScsiController' end
+  def dscmeta_resource_name; 'MSFT_xVMScsiController' end
   def dscmeta_module_name; 'xHyper-V' end
   def dscmeta_module_version; '3.11.0.0' end
 
@@ -55,14 +56,14 @@ Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
     end
   end
 
-  # Name:         Id
+  # Name:         VMName
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_id) do
+  newparam(:dsc_vmname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Id"
+    desc "VMName - Specifies the name of the virtual machine whose SCSI controller status is to be controlled"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -71,63 +72,25 @@ Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
     end
   end
 
-  # Name:         Name
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_name) do
-    def mof_type; 'string' end
+  # Name:         ControllerNumber
+  # Type:         uint32
+  # IsMandatory:  True
+  # Values:       ["0", "1", "2", "3"]
+  newparam(:dsc_controllernumber) do
+    def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "ControllerNumber - Specifies the number of the SCSI controller whose status is to be controlled. If not specified, it defaults to 0. Valid values are 0, 1, 2, 3."
+    isrequired
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+      unless ['0', '0', '1', '1', '2', '2', '3', '3'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are 0, 1, 2, 3")
       end
     end
-  end
-
-  # Name:         SwitchName
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_switchname) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "SwitchName"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         VMName
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_vmname) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "VMName"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         MacAddress
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_macaddress) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "MacAddress"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 
@@ -138,7 +101,7 @@ Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Specifies if the SCSI controller should exist or not. If not specified, it defaults to Present. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -150,14 +113,14 @@ Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
     end
   end
 
-  # Name:         DynamicMacAddress
+  # Name:         RestartIfNeeded
   # Type:         boolean
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_dynamicmacaddress) do
+  newparam(:dsc_restartifneeded) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "DynamicMacAddress"
+    desc "RestartIfNeeded - Specifies if the VM should be restarted if needed for property changes. If not specified, it defaults to False."
     validate do |value|
     end
     newvalues(true, false)
@@ -173,7 +136,7 @@ Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
   end
 end
 
-Puppet::Type.type(:dsc_xvmnetworkadapter).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
+Puppet::Type.type(:dsc_xvmscsicontroller).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
   confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 

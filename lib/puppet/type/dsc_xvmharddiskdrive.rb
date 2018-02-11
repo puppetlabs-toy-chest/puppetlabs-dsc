@@ -1,14 +1,14 @@
 require 'pathname'
 
-Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
+Puppet::Type.newtype(:dsc_xvmharddiskdrive) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
 
   @doc = %q{
-    The DSC xVMNetworkAdapter resource type.
+    The DSC xVMHardDiskDrive resource type.
     Automatically generated from
-    'xHyper-V/DSCResources/MSFT_xVMNetworkAdapter/MSFT_xVMNetworkAdapter.schema.mof'
+    'xHyper-V/DSCResources/MSFT_xVMHardDiskDrive/MSFT_xVMHardDiskDrive.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -21,11 +21,12 @@ Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
   }
 
   validate do
-      fail('dsc_id is a required attribute') if self[:dsc_id].nil?
+      fail('dsc_vmname is a required attribute') if self[:dsc_vmname].nil?
+      fail('dsc_path is a required attribute') if self[:dsc_path].nil?
     end
 
-  def dscmeta_resource_friendly_name; 'xVMNetworkAdapter' end
-  def dscmeta_resource_name; 'MSFT_xVMNetworkAdapter' end
+  def dscmeta_resource_friendly_name; 'xVMHardDiskDrive' end
+  def dscmeta_resource_name; 'MSFT_xVMHardDiskDrive' end
   def dscmeta_module_name; 'xHyper-V' end
   def dscmeta_module_version; '3.11.0.0' end
 
@@ -55,14 +56,14 @@ Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
     end
   end
 
-  # Name:         Id
+  # Name:         VMName
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_id) do
+  newparam(:dsc_vmname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Id"
+    desc "VMName - Specifies the name of the virtual machine whose hard disk drive is to be manipulated."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -71,14 +72,15 @@ Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
     end
   end
 
-  # Name:         Name
+  # Name:         Path
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_name) do
+  newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Path - Specifies the full path to the location of the VHD that represents the hard disk drive."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -86,48 +88,60 @@ Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
     end
   end
 
-  # Name:         SwitchName
+  # Name:         ControllerType
   # Type:         string
   # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_switchname) do
+  # Values:       ["IDE", "SCSI"]
+  newparam(:dsc_controllertype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SwitchName"
+    desc "ControllerType - Specifies the controller type - IDE/SCSI where the disk is attached. If not specified, it defaults to SCSI. Valid values are IDE, SCSI."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['IDE', 'ide', 'SCSI', 'scsi'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are IDE, SCSI")
       end
     end
   end
 
-  # Name:         VMName
-  # Type:         string
+  # Name:         ControllerNumber
+  # Type:         uint32
   # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_vmname) do
-    def mof_type; 'string' end
+  # Values:       ["0", "1", "2", "3"]
+  newparam(:dsc_controllernumber) do
+    def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "VMName"
+    desc "ControllerNumber - Specifies the number of the controller where the disk is attached. If not specified, it defaults to 0. Valid values are 0, 1, 2, 3."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
       end
+      unless ['0', '0', '1', '1', '2', '2', '3', '3'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are 0, 1, 2, 3")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 
-  # Name:         MacAddress
-  # Type:         string
+  # Name:         ControllerLocation
+  # Type:         uint32
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_macaddress) do
-    def mof_type; 'string' end
+  newparam(:dsc_controllerlocation) do
+    def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "MacAddress"
+    desc "ControllerLocation - Specifies the number of the location on the controller where the disk is attached. If not specified, it defaults to 0."
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
       end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 
@@ -138,7 +152,7 @@ Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Specifies if the hard disk drive must be present or absent. If not specified, it defaults to Present. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -150,22 +164,6 @@ Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
     end
   end
 
-  # Name:         DynamicMacAddress
-  # Type:         boolean
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_dynamicmacaddress) do
-    def mof_type; 'boolean' end
-    def mof_is_embedded?; false end
-    desc "DynamicMacAddress"
-    validate do |value|
-    end
-    newvalues(true, false)
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
-    end
-  end
-
 
   def builddepends
     pending_relations = super()
@@ -173,7 +171,7 @@ Puppet::Type.newtype(:dsc_xvmnetworkadapter) do
   end
 end
 
-Puppet::Type.type(:dsc_xvmnetworkadapter).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
+Puppet::Type.type(:dsc_xvmharddiskdrive).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
   confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
   defaultfor :operatingsystem => :windows
 

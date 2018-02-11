@@ -380,10 +380,12 @@ Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xvhd | [xVHD](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xHyper-V/DSCResources/MSFT_xVHD) | [repo](https://github.com/PowerShell/xHyper-V)
 dsc_xvmdvddrive | [xVMDvdDrive](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xHyper-V/DSCResources/MSFT_xVMDvdDrive) | [repo](https://github.com/PowerShell/xHyper-V)
+dsc_xvmharddiskdrive | [xVMHardDiskDrive](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xHyper-V/DSCResources/MSFT_xVMHardDiskDrive) | [repo](https://github.com/PowerShell/xHyper-V)
 dsc_xvmhost | [xVMHost](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xHyper-V/DSCResources/MSFT_xVMHost) | [repo](https://github.com/PowerShell/xHyper-V)
 dsc_xvmhyperv | [xVMHyperV](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xHyper-V/DSCResources/MSFT_xVMHyperV) | [repo](https://github.com/PowerShell/xHyper-V)
 dsc_xvmnetworkadapter | [xVMNetworkAdapter](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xHyper-V/DSCResources/MSFT_xVMNetworkAdapter) | [repo](https://github.com/PowerShell/xHyper-V)
 dsc_xvmprocessor | [xVMProcessor](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xHyper-V/DSCResources/MSFT_xVMProcessor) | [repo](https://github.com/PowerShell/xHyper-V)
+dsc_xvmscsicontroller | [xVMScsiController](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xHyper-V/DSCResources/MSFT_xVMScsiController) | [repo](https://github.com/PowerShell/xHyper-V)
 dsc_xvmswitch | [xVMSwitch](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xHyper-V/DSCResources/MSFT_xVMSwitch) | [repo](https://github.com/PowerShell/xHyper-V)
 dsc_xvhdfile | [xVhdFile](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xHyper-V/DSCResources/MSFT_xVhdFileDirectory) | [repo](https://github.com/PowerShell/xHyper-V)
 
