@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '2.1.0.0'
+ModuleVersion = '4.0.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'B5004952-489E-43EA-999C-F16A25355B89'
@@ -49,37 +49,22 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* xComputer: Changed comparison that validates if we are in the correct AD
-  Domain to work correctly if FQDN wasn"t used.
-* Updated AppVeyor.yml to use AppVeyor.psm1 module in DSCResource.Tests.
-* Removed Markdown.md errors.
-* Added CodeCov.io support.
-* xScheduledTask
-  * Fixed incorrect TaskPath handling - [Issue 45](https://github.com/PowerShell/xComputerManagement/issues/45)
-* Change examples to meet HQRM standards and optin to Example validation
-  tests.
-* Replaced examples in README.MD to links to Example files.
-* Added the VS Code PowerShell extension formatting settings that cause PowerShell
-  files to be formatted as per the DSC Resource kit style guidelines - [Issue 91](https://github.com/PowerShell/xComputerManagement/issues/91).
-* Opted into Common Tests "Validate Module Files" and "Validate Script Files".
-* Converted files with UTF8 with BOM over to UTF8 - fixes [Issue 90](https://github.com/PowerShell/xComputerManagement/issues/90).
-* Updated Year to 2017 in License and Manifest - fixes [Issue 87](https://github.com/PowerShell/xComputerManagement/issues/87).
-* Added .github support files - fixes [Issue 88](https://github.com/PowerShell/xComputerManagement/issues/88):
-  * CONTRIBUTING.md
-  * ISSUE_TEMPLATE.md
-  * PULL_REQUEST_TEMPLATE.md
-* Resolved all PSScriptAnalyzer warnings and style guide warnings.
-* xOfflineDomainJoin:
-  * Changed to use CommonResourceHelper to load localization strings.
-  * Renamed en-US to be correct case so that localization strings can be loaded.
-  * Suppress PSScriptAnalyzer rule PSAvoidGlobalVars for
-    `$global:DSCMachineStatus = 1`.
-* xComputer:
-  * Suppress PSScriptAnalyzer rule PSAvoidGlobalVars for
-    `$global:DSCMachineStatus = 1`.
-* xVirtualMemory:
-  * Suppress PSScriptAnalyzer rule PSAvoidGlobalVars for
-    `$global:DSCMachineStatus = 1`.
+        ReleaseNotes = '- BREAKING CHANGE: xScheduledTask:
+  - Breaking change because `Get-TargetResource` no longer outputs
+    `ActionExecutable` and `ScheduleType` properties when the scheduled
+    task does not exist. It will also include `TaskPath` in output when
+    scheduled task does not exist.
+- xScheduledTask:
+  - Add support to disable built-in scheduled tasks - See [Issue 74](https://github.com/PowerShell/xComputerManagement/issues/74).
+  - Fix unit test mocked schedule task object structure.
+  - Fix error message when trigger type is unknown - See [Issue 121](https://github.com/PowerShell/xComputerManagement/issues/121).
+  - Moved strings into separate strings file.
+  - Updated to meet HQRM guidelines.
+- xComputer:
+  - Resolved bug in Get-ComputerDomain where LocalSystem doesn"t have
+    rights to the domain.
+- Updated tests to meet Pester V4 guidelines - See [Issue 106](https://github.com/PowerShell/xComputerManagement/issues/106).
+- Converted module to use auto documentation format.
 
 '
 
@@ -87,6 +72,10 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
+
+
+
 
 
 
