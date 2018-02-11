@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xregistry) do
   def dscmeta_resource_friendly_name; 'xRegistry' end
   def dscmeta_resource_name; 'MSFT_xRegistryResource' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
