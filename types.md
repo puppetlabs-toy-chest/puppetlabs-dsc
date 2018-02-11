@@ -320,6 +320,7 @@ dsc_xdnsserveradzone | [xDnsServerADZone](https://github.com/puppetlabs/puppetla
 dsc_xdnsserverforwarder | [xDnsServerForwarder](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerForwarder) | [repo](https://github.com/PowerShell/xDnsServer)
 dsc_xdnsserverprimaryzone | [xDnsServerPrimaryZone](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerPrimaryZone) | [repo](https://github.com/PowerShell/xDnsServer)
 dsc_xdnsserversecondaryzone | [xDnsServerSecondaryZone](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerSecondaryZone) | [repo](https://github.com/PowerShell/xDnsServer)
+dsc_xdnsserversetting | [xDnsServerSetting](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerSetting) | [repo](https://github.com/PowerShell/xDnsServer)
 dsc_xdnsserverzonetransfer | [xDnsServerZoneTransfer](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDnsServer/DSCResources/MSFT_xDnsServerZoneTransfer) | [repo](https://github.com/PowerShell/xDnsServer)
 
 ##### xExchange
