@@ -5,7 +5,7 @@ class MSFT_xDatabase : OMI_BaseResource
     [Write, EmbeddedInstance("MSFT_Credential"), Description("Credentials to Connect to the sql server")] String Credentials;
     [Required, ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
     [Write, Description("Sql Server Name")] String SqlServer;
-    [Required, ValueMap{"2008-R2","2012","2014"}, Values{"2008-R2","2012","2014"}, Description("Sql Server Version For DacFx")] String SqlServerVersion;
+    [Required, ValueMap{"2008-R2","2012","2014","2016"}, Values{"2008-R2","2012","2014","2016"}, Description("Sql Server Version For DacFx")] String SqlServerVersion;
     [Write, Description("Path to BacPac, if this is specified resore is performed")] String BacPacPath;
     [Key, Description("Name of the Database")] String DatabaseName;
     [Write, Description("Path to DacPac, if this is specified dacpac deployment is performed")] String DacPacPath;

@@ -223,6 +223,10 @@ function Get-SqlServerMajoreVersion([string]$sqlServerVersion)
         {
             $majorVersion = 120
         }
+        "2016"
+        {
+            $majorVersion = 130
+        }
     }
 
     return $majorVersion
