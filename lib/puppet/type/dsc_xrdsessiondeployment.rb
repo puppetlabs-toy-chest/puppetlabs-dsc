@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xrdsessiondeployment) do
   def dscmeta_resource_friendly_name; 'xRDSessionDeployment' end
   def dscmeta_resource_name; 'MSFT_xRDSessionDeployment' end
   def dscmeta_module_name; 'xRemoteDesktopSessionHost' end
-  def dscmeta_module_version; '1.4.0.0' end
+  def dscmeta_module_version; '1.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

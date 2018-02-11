@@ -12,22 +12,24 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (    
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateLength(1,15)]
         [string] $CollectionName,
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string] $SessionHost,
+        [Parameter()]
         [string] $CollectionDescription,
+        [Parameter()]
         [string] $ConnectionBroker
     )
     Write-Verbose "Getting information about RDSH collection."
-        $Collection = Get-RDSessionCollection -ErrorAction SilentlyContinue
-        @{
+    $Collection = Get-RDSessionCollection -ErrorAction SilentlyContinue
+    @{
         "CollectionName" = $Collection.CollectionName;
         "CollectionDescription" = $Collection.CollectionDescription
         "SessionHost" = $localhost
         "ConnectionBroker" = $ConnectionBroker
-        }
+    }
 }
 
 
@@ -40,22 +42,26 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (    
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateLength(1,15)]
         [string] $CollectionName,
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string] $SessionHost,
+        [Parameter()]
         [string] $CollectionDescription,
+        [Parameter()]
         [string] $ConnectionBroker
     )
     Write-Verbose "Creating a new RDSH collection."
-    if ($localhost -eq $ConnectionBroker) {
+    if ($localhost -eq $ConnectionBroker) 
+    {
         New-RDSessionCollection @PSBoundParameters
-        }
-    else {
+    }
+    else 
+    {
         $PSBoundParameters.Remove("Description")
         Add-RDSessionHost @PSBoundParameters
-        }
+    }
 }
 
 
@@ -68,16 +74,18 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateLength(1,15)]
         [string] $CollectionName,
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string] $SessionHost,
+        [Parameter()]
         [string] $CollectionDescription,
+        [Parameter()]
         [string] $ConnectionBroker
     )
-    Write-Verbose "Checking for existance of RDSH collection."
-    (Get-TargetResource @PSBoundParameters).CollectionName -ne $null
+    Write-Verbose "Checking for existence of RDSH collection."
+    $null -ne (Get-TargetResource @PSBoundParameters).CollectionName
 }
 
 

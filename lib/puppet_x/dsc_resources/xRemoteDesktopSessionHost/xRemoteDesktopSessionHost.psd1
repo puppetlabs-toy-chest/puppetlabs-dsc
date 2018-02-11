@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '1.4.0.0'
+ModuleVersion = '1.5.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'b42ff085-bd2b-4232-90ba-02b4c780e2d9'
@@ -49,7 +49,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Updated CollectionName parameter to validate length between 1 and 15 characters, and added tests to verify.
+        ReleaseNotes = '* Fix issue where DSC configuration gets into a reboot loop because sessionhost does not match (casing) and RDMS service is not started in time
 
 '
 
@@ -57,5 +57,6 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
 
 

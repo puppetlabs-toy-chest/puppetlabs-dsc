@@ -10,38 +10,44 @@ function Get-TargetResource
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
     param
-    (    
-        [parameter(Mandatory)]
+    (
+        [Parameter(Mandatory = $true)]
         [string] $SessionHost,
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string] $ConnectionBroker,
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string] $WebAccessServer
     )
+
     Write-Verbose "Getting list of RD Server roles."
+        # Start service RDMS is needed because otherwise a reboot loop could happen due to
+        # the RDMS Service being on Delay-Start by default, and DSC kicks in too quickly after a reboot.
+        Start-Service -Name RDMS -ErrorAction SilentlyContinue
+
         $Deployed = Get-RDServer -ErrorAction SilentlyContinue
         @{
-        "SessionHost" = $Deployed | ? Roles -contains "RDS-RD-SERVER" | % Server;
-        "ConnectionBroker" = $Deployed | ? Roles -contains "RDS-CONNECTION-BROKER" | % Server;
-        "WebAccessServer" = $Deployed | ? Roles -contains "RDS-WEB-ACCESS" | % Server;
+        "SessionHost" = $Deployed | Where-Object Roles -contains "RDS-RD-SERVER" | ForEach-Object Server;
+        "ConnectionBroker" = $Deployed | Where-Object Roles -contains "RDS-CONNECTION-BROKER" | ForEach-Object Server;
+        "WebAccessServer" = $Deployed | Where-Object Roles -contains "RDS-WEB-ACCESS" | ForEach-Object Server;
         }
 }
 
 
-######################################################################## 
+########################################################################
 # The Set-TargetResource cmdlet.
 ########################################################################
 function Set-TargetResource
 
 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidGlobalVars", "global:DSCMachineStatus")]
     [CmdletBinding()]
     param
-    (    
-        [parameter(Mandatory)]
+    (
+        [Parameter(Mandatory = $true)]
         [string] $SessionHost,
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string] $ConnectionBroker,
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string] $WebAccessServer
     )
 
@@ -59,16 +65,19 @@ function Test-TargetResource
       [CmdletBinding()]
       [OutputType([System.Boolean])]
       param
-    (    
-        [parameter(Mandatory)]
+    (
+        [Parameter(Mandatory = $true)]
         [string] $SessionHost,
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string] $ConnectionBroker,
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [string] $WebAccessServer
     )
     Write-Verbose "Checking RDSH role is deployed on this node."
-    (Get-TargetResource @PSBoundParameters).SessionHost -ieq $SessionHost
+    # We need to perform the following check case insensitive because in some
+    # cases the SessionHost of Get-TargetResource is uppercase while the
+    # $sessionHost parameter is lowercase causing a reboot loop to happen.
+    (Get-TargetResource @PSBoundParameters).SessionHost.ToLower() -ieq $SessionHost.ToLower()
 }
 
 
