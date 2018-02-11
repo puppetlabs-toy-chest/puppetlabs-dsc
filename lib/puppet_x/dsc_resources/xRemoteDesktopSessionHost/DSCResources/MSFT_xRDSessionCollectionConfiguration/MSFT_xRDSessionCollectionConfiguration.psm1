@@ -13,30 +13,48 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateLength(1,15)]
         [string] $CollectionName,
+        [Parameter()]
         [uint32] $ActiveSessionLimitMin,
+        [Parameter()]
         [boolean] $AuthenticateUsingNLA,
+        [Parameter()]
         [boolean] $AutomaticReconnectionEnabled,
+        [Parameter()]
         [string] $BrokenConnectionAction,
+        [Parameter()]
         [string] $ClientDeviceRedirectionOptions,
+        [Parameter()]
         [boolean] $ClientPrinterAsDefault,
+        [Parameter()]
         [boolean] $ClientPrinterRedirected,
+        [Parameter()]
         [string] $CollectionDescription,
+        [Parameter()]
         [string] $ConnectionBroker,
+        [Parameter()]
         [string] $CustomRdpProperty,
+        [Parameter()]
         [uint32] $DisconnectedSessionLimitMin,
+        [Parameter()]
         [string] $EncryptionLevel,
+        [Parameter()]
         [uint32] $IdleSessionLimitMin,
+        [Parameter()]
         [uint32] $MaxRedirectedMonitors,
+        [Parameter()]
         [boolean] $RDEasyPrintDriverEnabled,
+        [Parameter()]
         [string] $SecurityLayer,
+        [Parameter()]
         [boolean] $TemporaryFoldersDeletedOnExit,
+        [Parameter()]
         [string] $UserGroup
     )
         Write-Verbose "Getting currently configured RDSH Collection properties"
-        $collectionName = Get-RDSessionCollection | % {Get-RDSessionHost $_.CollectionName} | ? {$_.SessionHost -ieq $localhost} | % {$_.CollectionName}
+        $collectionName = Get-RDSessionCollection | ForEach-Object {Get-RDSessionHost $_.CollectionName} | Where-Object {$_.SessionHost -ieq $localhost} | ForEach-Object {$_.CollectionName}
 
         $collectionGeneral = Get-RDSessionCollectionConfiguration -CollectionName $CollectionName
         $collectionClient = Get-RDSessionCollectionConfiguration -CollectionName $CollectionName -Client
@@ -75,30 +93,48 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateLength(1,15)]
         [string] $CollectionName,
+        [Parameter()]
         [uint32] $ActiveSessionLimitMin,
+        [Parameter()]
         [boolean] $AuthenticateUsingNLA,
+        [Parameter()]
         [boolean] $AutomaticReconnectionEnabled,
+        [Parameter()]
         [string] $BrokenConnectionAction,
+        [Parameter()]
         [string] $ClientDeviceRedirectionOptions,
+        [Parameter()]
         [boolean] $ClientPrinterAsDefault,
+        [Parameter()]
         [boolean] $ClientPrinterRedirected,
+        [Parameter()]
         [string] $CollectionDescription,
+        [Parameter()]
         [string] $ConnectionBroker,
+        [Parameter()]
         [string] $CustomRdpProperty,
+        [Parameter()]
         [uint32] $DisconnectedSessionLimitMin,
+        [Parameter()]
         [string] $EncryptionLevel,
+        [Parameter()]
         [uint32] $IdleSessionLimitMin,
+        [Parameter()]
         [uint32] $MaxRedirectedMonitors,
+        [Parameter()]
         [boolean] $RDEasyPrintDriverEnabled,
+        [Parameter()]
         [string] $SecurityLayer,
+        [Parameter()]
         [boolean] $TemporaryFoldersDeletedOnExit,
+        [Parameter()]
         [string] $UserGroup
     )
     Write-Verbose "Setting DSC collection properties"
-    $discoveredCollectionName = Get-RDSessionCollection | % {Get-RDSessionHost $_.CollectionName} | ? {$_.SessionHost -ieq $localhost} | % {$_.CollectionName}
+    $discoveredCollectionName = Get-RDSessionCollection | ForEach-Object {Get-RDSessionHost $_.CollectionName} | Where-Object {$_.SessionHost -ieq $localhost} | ForEach-Object {$_.CollectionName}
     if ($collectionName -ne $discoveredCollectionName) {$PSBoundParameters.collectionName = $discoveredCollectionName}
     Set-RDSessionCollectionConfiguration @PSBoundParameters
 }
@@ -113,38 +149,56 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [ValidateLength(1,15)]
         [string] $CollectionName,
+        [Parameter()]
         [uint32] $ActiveSessionLimitMin,
+        [Parameter()]
         [boolean] $AuthenticateUsingNLA,
+        [Parameter()]
         [boolean] $AutomaticReconnectionEnabled,
+        [Parameter()]
         [string] $BrokenConnectionAction,
+        [Parameter()]
         [string] $ClientDeviceRedirectionOptions,
+        [Parameter()]
         [boolean] $ClientPrinterAsDefault,
+        [Parameter()]
         [boolean] $ClientPrinterRedirected,
+        [Parameter()]
         [string] $CollectionDescription,
+        [Parameter()]
         [string] $ConnectionBroker,
+        [Parameter()]
         [string] $CustomRdpProperty,
+        [Parameter()]
         [uint32] $DisconnectedSessionLimitMin,
+        [Parameter()]
         [string] $EncryptionLevel,
+        [Parameter()]
         [uint32] $IdleSessionLimitMin,
+        [Parameter()]
         [uint32] $MaxRedirectedMonitors,
+        [Parameter()]
         [boolean] $RDEasyPrintDriverEnabled,
+        [Parameter()]
         [string] $SecurityLayer,
+        [Parameter()]
         [boolean] $TemporaryFoldersDeletedOnExit,
+        [Parameter()]
         [string] $UserGroup
     )
     
     Write-Verbose "Testing DSC collection properties"
-    $collectionName = Get-RDSessionCollection | % {Get-RDSessionHost $_.CollectionName} | ? {$_.SessionHost -ieq $localhost} | % {$_.CollectionName}
+    $collectionName = Get-RDSessionCollection | ForEach-Object {Get-RDSessionHost $_.CollectionName} | Where-Object {$_.SessionHost -ieq $localhost} | ForEach-Object {$_.CollectionName}
     $PSBoundParameters.Remove("Verbose") | out-null
     $PSBoundParameters.Remove("Debug") | out-null
     $PSBoundParameters.Remove("ConnectionBroker") | out-null
     $Check = $true
 
     $Get = Get-TargetResource -CollectionName $CollectionName
-    $PSBoundParameters.keys | % {if ($PSBoundParameters[$_] -ne $Get[$_]) {$Check = $false} }
+    $PSBoundParameters.keys | ForEach-Object {if ($PSBoundParameters[$_] -ne $Get[$_]) {$Check = $false} }
     $Check
 }
 
