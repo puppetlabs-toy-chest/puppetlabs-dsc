@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   def dscmeta_resource_friendly_name; 'xComputer' end
   def dscmeta_resource_name; 'MSFT_xComputer' end
   def dscmeta_module_name; 'xComputerManagement' end
-  def dscmeta_module_version; '2.1.0.0' end
+  def dscmeta_module_version; '4.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - The desired computer name."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -77,7 +77,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   newparam(:dsc_domainname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainName"
+    desc "DomainName - The name of the domain to join."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -92,22 +92,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   newparam(:dsc_joinou) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "JoinOU"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         CurrentOU
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_currentou) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "CurrentOU"
+    desc "JoinOU - The distinguished name of the organizational unit that the computer account will be created in."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -122,7 +107,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
+    desc "Credential - Credential to be used to join a domain."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -138,7 +123,7 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   newparam(:dsc_unjoincredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "UnjoinCredential"
+    desc "UnjoinCredential - Credential to be used to leave a domain."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -154,7 +139,37 @@ Puppet::Type.newtype(:dsc_xcomputer) do
   newparam(:dsc_workgroupname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "WorkGroupName"
+    desc "WorkGroupName - The name of the workgroup."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Description
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_description) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Description - The value assigned here will be set as the local computer description."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CurrentOU
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_currentou) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CurrentOU - A read-only property that specifies the organizational unit that the computer account is currently in."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
