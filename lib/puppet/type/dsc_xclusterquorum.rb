@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xclusterquorum) do
   def dscmeta_resource_friendly_name; 'xClusterQuorum' end
   def dscmeta_resource_name; 'MSFT_xClusterQuorum' end
   def dscmeta_module_name; 'xFailOverCluster' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '1.9.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -76,17 +76,17 @@ Puppet::Type.newtype(:dsc_xclusterquorum) do
   # Name:         Type
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["NodeMajority", "NodeAndDiskMajority", "NodeAndFileShareMajority", "DiskOnly"]
+  # Values:       ["NodeMajority", "NodeAndDiskMajority", "NodeAndFileShareMajority", "NodeAndCloudMajority", "DiskOnly"]
   newparam(:dsc_type) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Type - Quorum type to use. Can be set to either NodeMajority, NodeAndDiskMajority, NodeAndFileShareMajority or DiskOnly. Valid values are NodeMajority, NodeAndDiskMajority, NodeAndFileShareMajority, DiskOnly."
+    desc "Type - Quorum type to use. Can be set to either NodeMajority, NodeAndDiskMajority, NodeAndFileShareMajority, NodeAndCloudMajority or DiskOnly. Valid values are NodeMajority, NodeAndDiskMajority, NodeAndFileShareMajority, NodeAndCloudMajority, DiskOnly."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['NodeMajority', 'nodemajority', 'NodeAndDiskMajority', 'nodeanddiskmajority', 'NodeAndFileShareMajority', 'nodeandfilesharemajority', 'DiskOnly', 'diskonly'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are NodeMajority, NodeAndDiskMajority, NodeAndFileShareMajority, DiskOnly")
+      unless ['NodeMajority', 'nodemajority', 'NodeAndDiskMajority', 'nodeanddiskmajority', 'NodeAndFileShareMajority', 'nodeandfilesharemajority', 'NodeAndCloudMajority', 'nodeandcloudmajority', 'DiskOnly', 'diskonly'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are NodeMajority, NodeAndDiskMajority, NodeAndFileShareMajority, NodeAndCloudMajority, DiskOnly")
       end
     end
   end
@@ -98,7 +98,22 @@ Puppet::Type.newtype(:dsc_xclusterquorum) do
   newparam(:dsc_resource) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Resource - The name of the disk or file share resource to use as witness. This parameter is optional if the quorum type is set to NodeMajority."
+    desc "Resource - The name of the disk, file share or Azure storage account resource to use as witness. This parameter is optional if the quorum type is set to NodeMajority."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         StorageAccountAccessKey
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_storageaccountaccesskey) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "StorageAccountAccessKey - The access key of the Azure storage account to use as witness. This parameter is required if the quorum type is set to NodeAndCloudMajority. The key is currently not updated if the resource is already set."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -2,6 +2,7 @@
 class MSFT_xClusterQuorum : OMI_BaseResource
 {
     [Key, Description("Specifies the resource is a single instance, the value must be 'Yes'."), ValueMap{"Yes"}, Values{"Yes"}] string IsSingleInstance;
-    [Write, Description("Quorum type to use. Can be set to either NodeMajority, NodeAndDiskMajority, NodeAndFileShareMajority or DiskOnly."), ValueMap{"NodeMajority", "NodeAndDiskMajority", "NodeAndFileShareMajority", "DiskOnly"}, Values{"NodeMajority", "NodeAndDiskMajority", "NodeAndFileShareMajority", "DiskOnly"}] string Type;
-    [Write, Description("The name of the disk or file share resource to use as witness. This parameter is optional if the quorum type is set to NodeMajority.")] String Resource;
+    [Write, Description("Quorum type to use. Can be set to either NodeMajority, NodeAndDiskMajority, NodeAndFileShareMajority, NodeAndCloudMajority or DiskOnly."), ValueMap{"NodeMajority", "NodeAndDiskMajority", "NodeAndFileShareMajority", "NodeAndCloudMajority", "DiskOnly"}, Values{"NodeMajority", "NodeAndDiskMajority", "NodeAndFileShareMajority", "NodeAndCloudMajority", "DiskOnly"}] string Type;
+    [Write, Description("The name of the disk, file share or Azure storage account resource to use as witness. This parameter is optional if the quorum type is set to NodeMajority.")] String Resource;
+    [Write, Description("The access key of the Azure storage account to use as witness. This parameter is required if the quorum type is set to NodeAndCloudMajority. The key is currently not updated if the resource is already set.")] String StorageAccountAccessKey;
 };
