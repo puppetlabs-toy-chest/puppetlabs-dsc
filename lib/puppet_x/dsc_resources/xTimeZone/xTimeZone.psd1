@@ -1,7 +1,7 @@
 @{
 
 # Version number of this module.
-ModuleVersion = '1.6.0.0'
+ModuleVersion = '1.7.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'd75e53f2-47fc-4ee7-97af-8d257d3e0151'
@@ -13,7 +13,7 @@ Author = 'Microsoft Corporation'
 CompanyName = 'Microsoft Corporation'
 
 # Copyright statement for this module
-Copyright = '(c) 2014 Microsoft Corporation. All rights reserved.'
+Copyright = '(c) 2017 Microsoft Corporation. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'This DSC Resources can easily set the System Time Zone.'
@@ -51,16 +51,30 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Add support for Nano Server and WMF5.1 via Get-Timezone/Set-Timezone cmdlets.
-* Minor changes to bring make resource ready for HQRM.
-* Renamed and reworked functions in TimezoneHelper.psm1 to prevent conflicts with new built-in WMF5.1 Timezone Cmdlets.
-* Fixed localization so that failback to en-US if culture specific language files not available.
-* Moved code to init C'
+        ReleaseNotes = '* Added resource helper module.
+* Changed resource file names to include MSFT_*.
+* Added MSFT_ to MOF file classname.
+* Change examples to meet HQRM standards and optin to Example validation
+  tests.
+* Replaced examples in README.MD to links to Example files.
+* Added the VS Code PowerShell extension formatting settings that cause PowerShell
+  files to be formatted as per the DSC Resource kit style guidelines.
+* Opted into Common Tests "Validate Module Files" and "Validate Script Files".
+* Converted files with UTF8 with BOM over to UTF8.
+* Updated Year to 2017 in License and Manifest.
+* Added .github support files:
+  * CONTRIBUTING.md
+  * ISSUE_TEMPLATE.md
+  * PULL_REQUEST_TEMPLATE.md
+* Resolved all PSScriptAnalyzer warnings and style guide warnings.
+
+'
 
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
 }
+
 
 
 

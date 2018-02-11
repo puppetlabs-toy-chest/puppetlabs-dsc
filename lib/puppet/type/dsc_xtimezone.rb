@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xtimezone) do
   @doc = %q{
     The DSC xTimeZone resource type.
     Automatically generated from
-    'xTimeZone/DSCResources/xTimeZone/xTimeZone.schema.mof'
+    'xTimeZone/DSCResources/MSFT_xTimeZone/MSFT_xTimeZone.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -25,9 +25,9 @@ Puppet::Type.newtype(:dsc_xtimezone) do
     end
 
   def dscmeta_resource_friendly_name; 'xTimeZone' end
-  def dscmeta_resource_name; 'xTimeZone' end
+  def dscmeta_resource_name; 'MSFT_xTimeZone' end
   def dscmeta_module_name; 'xTimeZone' end
-  def dscmeta_module_version; '1.6.0.0' end
+  def dscmeta_module_version; '1.7.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -61,7 +61,7 @@ Puppet::Type.newtype(:dsc_xtimezone) do
   newparam(:dsc_issingleinstance) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IsSingleInstance - Specifies the resource is a single instance, the value must be 'Yes' Valid values are Yes."
+    desc "IsSingleInstance - Specifies the resource is a single instance, the value must be 'Yes'. Valid values are Yes."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
