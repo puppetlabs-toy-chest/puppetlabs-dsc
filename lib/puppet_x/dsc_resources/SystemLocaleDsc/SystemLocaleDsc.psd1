@@ -1,7 +1,7 @@
 @{
 
 # Version number of this module.
-ModuleVersion = '1.1.0.0'
+ModuleVersion = '1.2.0.0'
 
 # ID used to uniquely identify this module
 GUID = '9857ac65-2a1d-4902-bac5-1d90a99607e5'
@@ -13,7 +13,7 @@ Author = 'Microsoft Corporation'
 CompanyName = 'Microsoft Corporation'
 
 # Copyright statement for this module
-Copyright = '(c) 2016 Microsoft Corporation. All rights reserved.'
+Copyright = '(c) 2017 Microsoft Corporation. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'This DSC Resource allows configuration of the Windows System Locale.'
@@ -51,8 +51,20 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Fix AppVeyor.yml build process.
-* Convert Get-TargetResource to output IsSingleInstance value passed in as parameter.
+        ReleaseNotes = '* Added resource helper module.
+* Change examples to meet HQRM standards and optin to Example validation
+  tests.
+* Replaced examples in README.MD to links to Example files.
+* Added the VS Code PowerShell extension formatting settings that cause PowerShell
+  files to be formatted as per the DSC Resource kit style guidelines.
+* Opted into Common Tests "Validate Module Files" and "Validate Script Files".
+* Converted files with UTF8 with BOM over to UTF8.
+* Updated Year to 2017 in License and Manifest.
+* Added .github support files:
+  * CONTRIBUTING.md
+  * ISSUE_TEMPLATE.md
+  * PULL_REQUEST_TEMPLATE.md
+* Resolved all PSScriptAnalyzer warnings and style guide warnings.
 
 '
 
@@ -60,5 +72,6 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
 
 

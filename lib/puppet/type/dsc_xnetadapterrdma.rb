@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xnetadapterrdma) do
   def dscmeta_resource_friendly_name; 'xNetAdapterRDMA' end
   def dscmeta_resource_name; 'MSFT_xNetAdapterRDMA' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '5.1.0.0' end
+  def dscmeta_module_version; '5.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -77,7 +77,7 @@ Puppet::Type.newtype(:dsc_xnetadapterrdma) do
   newparam(:dsc_enabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Enabled - Specifies whether RDMA is enabled or disabled."
+    desc "Enabled - Specifies if the RDMA configuration should be enabled or disabled. Defaults to $true."
     validate do |value|
     end
     newvalues(true, false)

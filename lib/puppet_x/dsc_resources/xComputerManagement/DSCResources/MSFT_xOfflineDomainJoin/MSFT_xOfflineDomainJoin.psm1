@@ -1,12 +1,37 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidGlobalVars", "", Scope="Function")]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidGlobalVars", "", Scope = "Function")]
 param
 (
 )
 
-Import-Module -Name (Join-Path -Path (Split-Path -Path $PSScriptRoot -Parent) `
-    -ChildPath 'CommonResourceHelper.psm1')
-$script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xOfflineDomainJoin'
+$modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
+# Import the ComputerManagementDsc Common Modules
+Import-Module -Name (Join-Path -Path $modulePath `
+        -ChildPath (Join-Path -Path 'ComputerManagementDsc.Common' `
+            -ChildPath 'ComputerManagementDsc.Common.psm1'))
+
+# Import the ComputerManagementDsc Resource Helper Module
+Import-Module -Name (Join-Path -Path $modulePath `
+        -ChildPath (Join-Path -Path 'ComputerManagementDsc.ResourceHelper' `
+            -ChildPath 'ComputerManagementDsc.ResourceHelper.psm1'))
+
+# Import Localization Strings
+$script:localizedData = Get-LocalizedData `
+    -ResourceName 'MSFT_xOfflineDomainJoin' `
+    -ResourcePath (Split-Path -Parent $Script:MyInvocation.MyCommand.Path)
+
+<#
+    .SYNOPSIS
+        Joins the computer to a domain with a domain join file.
+
+    .PARAMETER IsSingleInstance
+        Specifies the resource is a single instance, the value must be 'Yes'.
+        This value is Not used in Get-TargetResource.
+
+    .PARAMETER RequestFile
+        The full path to the Offline Domain Join Request file to use.
+        This value is not used in Get-TargetResource.
+#>
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -25,7 +50,7 @@ function Get-TargetResource
     )
 
     Write-Verbose -Message ( @( "$($MyInvocation.MyCommand): "
-        $($script:localizedData.GettingOfflineDomainJoinMessage)
+            $($script:localizedData.GettingOfflineDomainJoinMessage)
         ) -join '')
 
     <#
@@ -34,12 +59,22 @@ function Get-TargetResource
     #>
     $returnValue = @{
         IsSingleInstance = 'Yes'
-        RequestFile = ''
+        RequestFile      = ''
     }
 
     return $returnValue
 } # Get-TargetResource
 
+<#
+    .SYNOPSIS
+        Sets the current state of the offline domain join.
+
+    .PARAMETER IsSingleInstance
+        Specifies the resource is a single instance, the value must be 'Yes'.
+
+    .PARAMETER RequestFile
+        The full path to the Offline Domain Join Request file to use.
+#>
 function Set-TargetResource
 {
     [CmdletBinding()]
@@ -57,22 +92,15 @@ function Set-TargetResource
     )
 
     Write-Verbose -Message ( @( "$($MyInvocation.MyCommand): "
-        $($script:localizedData.ApplyingOfflineDomainJoinMessage)
+            $($script:localizedData.ApplyingOfflineDomainJoinMessage)
         ) -join '')
 
     # Check the ODJ Request file exists
     if (-not (Test-Path -Path $RequestFile))
     {
-        $errorId = 'RequestFileNotFoundError'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::ObjectNotFound
-        $errorMessage = $($script:localizedData.RequestFileNotFoundError) `
-            -f $RequestFile
-        $exception = New-Object -TypeName System.ArgumentException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message ($script:localizedData.RequestFileNotFoundError -f $RequestFile) `
+            -ArgumentName 'RequestFile'
     } # if
 
     <#
@@ -82,6 +110,17 @@ function Set-TargetResource
     Join-Domain -RequestFile $RequestFile
 } # Set-TargetResource
 
+<#
+    .SYNOPSIS
+        Tests the current state of the machine joining a domain using
+        an offline domain join file.
+
+    .PARAMETER IsSingleInstance
+        Specifies the resource is a single instance, the value must be 'Yes'.
+
+    .PARAMETER RequestFile
+        The full path to the Offline Domain Join Request file to use.
+#>
 function Test-TargetResource
 {
     [CmdletBinding()]
@@ -103,44 +142,37 @@ function Test-TargetResource
     [System.Boolean] $desiredConfigurationMatch = $true
 
     Write-Verbose -Message ( @("$($MyInvocation.MyCommand): "
-        $($script:localizedData.CheckingOfflineDomainJoinMessage)
+            $($script:localizedData.CheckingOfflineDomainJoinMessage)
         ) -join '')
 
     # Check the ODJ Request file exists
     if (-not (Test-Path -Path $RequestFile))
     {
-        $errorId = 'RequestFileNotFoundError'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::ObjectNotFound
-        $errorMessage = $($script:localizedData.RequestFileNotFoundError) `
-            -f $RequestFile
-        $exception = New-Object -TypeName System.ArgumentException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidArgumentException `
+            -Message ($script:localizedData.RequestFileNotFoundError -f $RequestFile) `
+            -ArgumentName 'RequestFile'
     } # if
 
-    $CurrentDomainName = Get-DomainName
+    $currentDomainName = Get-DomainName
 
-    if($CurrentDomainName)
+    if ($currentDomainName)
     {
         # Domain is already joined.
         Write-Verbose -Message ( @(
-            "$($MyInvocation.MyCommand): "
-            $($script:localizedData.DomainAlreadyJoinedMessage) `
-                -f $CurrentDomainName `
+                "$($MyInvocation.MyCommand): "
+                $($script:localizedData.DomainAlreadyJoinedMessage -f $CurrentDomainName) `
             ) -join '' )
     }
     else
     {
         # Domain is not joined, so change is required.
         Write-Verbose -Message ( @("$($MyInvocation.MyCommand): "
-            $($script:localizedData.DomainNotJoinedMessage)
+                $($script:localizedData.DomainNotJoinedMessage)
             ) -join '')
 
         $desiredConfigurationMatch = $false
     } # if
+
     return $desiredConfigurationMatch
 } # Test-TargetResource
 
@@ -148,21 +180,21 @@ function Test-TargetResource
     .SYNOPSIS
         Uses DJoin.exe to join a Domain using a ODJ Request File.
 #>
-function Join-Domain {
+function Join-Domain
+{
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $RequestFile
     )
 
     Write-Verbose -Message ( @(
-        "$($MyInvocation.MyCommand): "
-        $($script:localizedData.AttemptingDomainJoinMessage) `
-            -f $RequestFile `
+            "$($MyInvocation.MyCommand): "
+            $($script:localizedData.AttemptingDomainJoinMessage -f $RequestFile) `
         ) -join '' )
 
-    $Result = & djoin.exe @(
+    $djoinResult = & djoin.exe @(
         '/REQUESTODJ'
         '/LOADFILE'
         $RequestFile
@@ -177,24 +209,15 @@ function Join-Domain {
     }
     else
     {
-        Write-Verbose -Message $Result
+        Write-Verbose -Message $djoinResult
 
-        $errorId = 'DjoinError'
-        $errorCategory = [System.Management.Automation.ErrorCategory]::ObjectNotFound
-        $errorMessage = $($script:localizedData.DjoinError) `
-            -f $LASTEXITCODE
-        $exception = New-Object -TypeName System.ArgumentException `
-            -ArgumentList $errorMessage
-        $errorRecord = New-Object -TypeName System.Management.Automation.ErrorRecord `
-            -ArgumentList $exception, $errorId, $errorCategory, $null
-
-        $PSCmdlet.ThrowTerminatingError($errorRecord)
+        New-InvalidOperationException `
+            -Message ($script:localizedData.DjoinError -f $LASTEXITCODE)
     } # if
 
     Write-Verbose -Message ( @(
-        "$($MyInvocation.MyCommand): "
-        $($script:localizedData.DomainJoinedMessage) `
-            -f $RequestFile `
+            "$($MyInvocation.MyCommand): "
+            $($script:localizedData.DomainJoinedMessage -f $RequestFile) `
         ) -join '' )
 } # function Join-Domain
 
@@ -211,6 +234,7 @@ function Get-DomainName
 
     # Use CIM to detect the domain name so that this will work on Nano Server.
     $computerSystem = Get-CimInstance -ClassName 'Win32_ComputerSystem' -Namespace root\cimv2
+
     if ($computerSystem.Workgroup)
     {
         return $null

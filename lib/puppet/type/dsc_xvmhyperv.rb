@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
   def dscmeta_resource_friendly_name; 'xVMHyperV' end
   def dscmeta_resource_name; 'MSFT_xVMHyperV' end
   def dscmeta_module_name; 'xHyper-V' end
-  def dscmeta_module_version; '3.9.0.0' end
+  def dscmeta_module_version; '3.11.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -335,6 +335,22 @@ Puppet::Type.newtype(:dsc_xvmhyperv) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
     desc "EnableGuestService - Enable Guest Service Interface for the VM."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         AutomaticCheckpointsEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_automaticcheckpointsenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "AutomaticCheckpointsEnabled - Enable AutomaticCheckpoints for the VM."
     validate do |value|
     end
     newvalues(true, false)

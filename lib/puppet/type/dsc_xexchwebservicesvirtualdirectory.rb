@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchwebservicesvirtualdirectory) do
   def dscmeta_resource_friendly_name; 'xExchWebServicesVirtualDirectory' end
   def dscmeta_resource_name; 'MSFT_xExchWebServicesVirtualDirectory' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.16.0.0' end
+  def dscmeta_module_version; '1.19.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -165,6 +165,70 @@ Puppet::Type.newtype(:dsc_xexchwebservicesvirtualdirectory) do
     end
   end
 
+  # Name:         ExtendedProtectionFlags
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       ["None", "Proxy", "NoServiceNameCheck", "AllowDotlessSpn", "ProxyCohosting"]
+  newparam(:dsc_extendedprotectionflags, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "ExtendedProtectionFlags - Valid values are None, Proxy, NoServiceNameCheck, AllowDotlessSpn, ProxyCohosting."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+      if value.kind_of?(Array)
+        unless (['None', 'none', 'Proxy', 'proxy', 'NoServiceNameCheck', 'noservicenamecheck', 'AllowDotlessSpn', 'allowdotlessspn', 'ProxyCohosting', 'proxycohosting'] & value).count == value.count
+          fail("Invalid value #{value}. Valid values are None, Proxy, NoServiceNameCheck, AllowDotlessSpn, ProxyCohosting")
+        end
+      end
+      if value.kind_of?(String)
+        unless ['None', 'none', 'Proxy', 'proxy', 'NoServiceNameCheck', 'noservicenamecheck', 'AllowDotlessSpn', 'allowdotlessspn', 'ProxyCohosting', 'proxycohosting'].include?(value)
+          fail("Invalid value #{value}. Valid values are None, Proxy, NoServiceNameCheck, AllowDotlessSpn, ProxyCohosting")
+        end
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         ExtendedProtectionSPNList
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_extendedprotectionspnlist, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "ExtendedProtectionSPNList"
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         ExtendedProtectionTokenChecking
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["None", "Allow", "Require"]
+  newparam(:dsc_extendedprotectiontokenchecking) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ExtendedProtectionTokenChecking - Valid values are None, Allow, Require."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['None', 'none', 'Allow', 'allow', 'Require', 'require'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are None, Allow, Require")
+      end
+    end
+  end
+
   # Name:         ExternalUrl
   # Type:         string
   # IsMandatory:  False
@@ -176,6 +240,24 @@ Puppet::Type.newtype(:dsc_xexchwebservicesvirtualdirectory) do
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         GzipLevel
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Off", "Low", "High", "Error"]
+  newparam(:dsc_gziplevel) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "GzipLevel - Valid values are Off, Low, High, Error."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Off', 'off', 'Low', 'low', 'High', 'high', 'Error', 'error'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Off, Low, High, Error")
       end
     end
   end
@@ -207,6 +289,22 @@ Puppet::Type.newtype(:dsc_xexchwebservicesvirtualdirectory) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         MRSProxyEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_mrsproxyenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "MRSProxyEnabled"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

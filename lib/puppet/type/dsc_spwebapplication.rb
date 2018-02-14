@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spwebapplication) do
   def dscmeta_resource_friendly_name; 'SPWebApplication' end
   def dscmeta_resource_name; 'MSFT_SPWebApplication' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -132,36 +132,19 @@ Puppet::Type.newtype(:dsc_spwebapplication) do
     end
   end
 
-  # Name:         AuthenticationMethod
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       ["NTLM", "Kerberos", "Claims", "Classic"]
-  newparam(:dsc_authenticationmethod) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "AuthenticationMethod - What authentication mode should be used for the web app Valid values are NTLM, Kerberos, Claims, Classic."
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-      unless ['NTLM', 'ntlm', 'Kerberos', 'kerberos', 'Claims', 'claims', 'Classic', 'classic'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are NTLM, Kerberos, Claims, Classic")
-      end
-    end
-  end
-
-  # Name:         AuthenticationProvider
-  # Type:         string
+  # Name:         UseClassic
+  # Type:         boolean
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_authenticationprovider) do
-    def mof_type; 'string' end
+  newparam(:dsc_useclassic) do
+    def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AuthenticationProvider - What authentication provider should be used for the web app. This value is required when AuthenticationMethod is set to Claims"
+    desc "UseClassic - Create the web application with Classic authentication (only used during creation of a new web application)"
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
@@ -237,22 +220,6 @@ Puppet::Type.newtype(:dsc_spwebapplication) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-    end
-  end
-
-  # Name:         UseSSL
-  # Type:         boolean
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_usessl) do
-    def mof_type; 'boolean' end
-    def mof_is_embedded?; false end
-    desc "UseSSL - Should this web app use SSL"
-    validate do |value|
-    end
-    newvalues(true, false)
-    munge do |value|
-      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

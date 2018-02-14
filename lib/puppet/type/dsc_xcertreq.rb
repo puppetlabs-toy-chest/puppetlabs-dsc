@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   def dscmeta_resource_friendly_name; 'xCertReq' end
   def dscmeta_resource_name; 'MSFT_xCertReq' end
   def dscmeta_module_name; 'xCertificate' end
-  def dscmeta_module_version; '3.0.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -231,7 +231,7 @@ Puppet::Type.newtype(:dsc_xcertreq) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential - The credentials that will be used to access the template in the Certificate Authority."
+    desc "Credential - The `PSCredential` object containing the credentials that will be used to access the template in the Certificate Authority."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

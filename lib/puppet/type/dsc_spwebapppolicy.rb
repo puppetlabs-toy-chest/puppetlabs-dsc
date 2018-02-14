@@ -6,8 +6,8 @@ Puppet::Type.newtype(:dsc_spwebapppolicy) do
 
     class PuppetX::Dsc::TypeHelpers
       def self.validate_MSFT_SPWebPolicyPermissions(mof_type_map, name, value)
-        required = []
-        allowed = ['username','permissionlevel','identitytype','actassystemaccount']
+        required = ['username']
+        allowed = ['permissionlevel','identitytype','actassystemaccount']
         lowkey_hash = Hash[value.map { |k, v| [k.to_s.downcase, v] }]
 
         missing = required - lowkey_hash.keys
@@ -50,7 +50,7 @@ Puppet::Type.newtype(:dsc_spwebapppolicy) do
   def dscmeta_resource_friendly_name; 'SPWebAppPolicy' end
   def dscmeta_resource_name; 'MSFT_SPWebAppPolicy' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

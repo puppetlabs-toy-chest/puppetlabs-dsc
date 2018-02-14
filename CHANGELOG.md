@@ -6,6 +6,40 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+### Adds
+
+- **BREAKING**: Update SqlServerDsc to 11.0.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update OfficeOnlineServerDsc to 1.2.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update SecurityPolicyDsc to 2.2.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update SharePointDsc to 2.1.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update StorageDsc to 4.0.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update SystemLocaleDsc to 1.2.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xActiveDirectory to 2.17.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xAdcsDeployment to 1.4.0.00 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xCertificate to 4.2.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xComputerManagement to 4.0.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xDatabase to 1.7.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xDnsServer to 1.9.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xExchange to 1.19.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xFailOverCluster to 1.9.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xHyper-V to 3.11.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Pinned xPowerShellExecutionPolicy to 1.1.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xPSDesiredStateConfiguration to 8.0.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xNetworking to 5.5.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xRemoteDesktopSessionHost to 1.5.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xSharePoint to 2.1.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+- Update xTimeZone to 1.7.0.0 ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+
+### Fixes
+
+- Fix including HQ DSC Resources in yml
+- Correctly ignoring PSDscResources in yml
+- Remove warning for MSFT_WaitFor DSC Resources
+
+### Removed
+
+- **BREAKING**: Removed xSQLServer ([MODULES-6592](https://tickets.puppetlabs.com/browse/MODULES-6592))
+
 ## [1.4.1] - 2018-01-05
 
 ### Added

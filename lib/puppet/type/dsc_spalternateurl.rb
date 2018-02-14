@@ -21,14 +21,15 @@ Puppet::Type.newtype(:dsc_spalternateurl) do
   }
 
   validate do
-      fail('dsc_webappurl is a required attribute') if self[:dsc_webappurl].nil?
+      fail('dsc_webappname is a required attribute') if self[:dsc_webappname].nil?
       fail('dsc_zone is a required attribute') if self[:dsc_zone].nil?
+      fail('dsc_url is a required attribute') if self[:dsc_url].nil?
     end
 
   def dscmeta_resource_friendly_name; 'SPAlternateUrl' end
   def dscmeta_resource_name; 'MSFT_SPAlternateUrl' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -56,14 +57,14 @@ Puppet::Type.newtype(:dsc_spalternateurl) do
     end
   end
 
-  # Name:         WebAppUrl
+  # Name:         WebAppName
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_webappurl) do
+  newparam(:dsc_webappname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "WebAppUrl - The URL of the web application to apply the alternate URL to"
+    desc "WebAppName - The name of the web application to apply the alternate URL to"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -93,16 +94,33 @@ Puppet::Type.newtype(:dsc_spalternateurl) do
 
   # Name:         Url
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_url) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "Url - The new alternate URL"
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         Internal
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_internal) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "Internal - Specifies if the URL has to be configured as internal"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

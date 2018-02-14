@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xadcsonlineresponder) do
   def dscmeta_resource_friendly_name; 'xAdcsOnlineResponder' end
   def dscmeta_resource_name; 'MSFT_xAdcsOnlineResponder' end
   def dscmeta_module_name; 'xAdcsDeployment' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.4.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

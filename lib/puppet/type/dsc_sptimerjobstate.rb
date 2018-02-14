@@ -21,13 +21,14 @@ Puppet::Type.newtype(:dsc_sptimerjobstate) do
   }
 
   validate do
-      fail('dsc_name is a required attribute') if self[:dsc_name].nil?
+      fail('dsc_typename is a required attribute') if self[:dsc_typename].nil?
+      fail('dsc_webappurl is a required attribute') if self[:dsc_webappurl].nil?
     end
 
   def dscmeta_resource_friendly_name; 'SPTimerJobState' end
   def dscmeta_resource_name; 'MSFT_SPTimerJobState' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -54,14 +55,14 @@ Puppet::Type.newtype(:dsc_sptimerjobstate) do
     end
   end
 
-  # Name:         Name
+  # Name:         TypeName
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_name) do
+  newparam(:dsc_typename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name - The internal name of the timer job (not the display name)"
+    desc "TypeName - The type name of the timer job (not the display name)"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -70,14 +71,15 @@ Puppet::Type.newtype(:dsc_sptimerjobstate) do
     end
   end
 
-  # Name:         WebApplication
+  # Name:         WebAppUrl
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_webapplication) do
+  newparam(:dsc_webappurl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "WebApplication - The name of the web application that the timer job belongs to"
+    desc "WebAppUrl - The URL of the web application that the timer job belongs to, N/A if no web application is applicable"
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

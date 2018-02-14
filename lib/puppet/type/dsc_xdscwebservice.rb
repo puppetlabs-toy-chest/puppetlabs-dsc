@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   def dscmeta_resource_friendly_name; 'xDSCWebService' end
   def dscmeta_resource_name; 'MSFT_xDSCWebService' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -288,6 +288,22 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
     end
     munge do |value|
       Array(value)
+    end
+  end
+
+  # Name:         Enable32BitAppOnWin64
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_enable32bitapponwin64) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "Enable32BitAppOnWin64 - When this property is set to true, Pull Server will run on a 32 bit process on a 64 bit machine"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

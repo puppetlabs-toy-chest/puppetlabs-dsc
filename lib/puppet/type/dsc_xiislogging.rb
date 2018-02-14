@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xiislogging) do
   def dscmeta_resource_friendly_name; 'xIisLogging' end
   def dscmeta_resource_name; 'MSFT_xIisLogging' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.18.0.0' end
+  def dscmeta_module_version; '1.19.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

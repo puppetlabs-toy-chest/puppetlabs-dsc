@@ -1,19 +1,21 @@
-# Suppressed as per PSSA Rule Severity guidelines for unit/integration tests:
-# https://github.com/PowerShell/DscResources/blob/master/PSSARuleSeverities.md
-[System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '')]
-param ()
+$modulePath = Join-Path -Path (Split-Path -Path (Split-Path -Path $PSScriptRoot -Parent) -Parent) -ChildPath 'Modules'
 
-Import-Module -Name (Join-Path -Path (Split-Path $PSScriptRoot -Parent) `
-    -ChildPath 'CommonResourceHelper.psm1')
+# Import the ADCS Deployment Resource Helper Module.
+Import-Module -Name (Join-Path -Path $modulePath `
+        -ChildPath (Join-Path -Path 'AdcsDeploymentDsc.ResourceHelper' `
+            -ChildPath 'AdcsDeploymentDsc.ResourceHelper.psm1'))
 
-# Localized messages for Write-Verbose statements in this resource
-$script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xAdcsCertificationAuthority'
+# Import Localization Strings.
+$LocalizedData = Get-LocalizedData `
+    -ResourceName 'MSFT_xAdcsCertificationAuthority' `
+    -ResourcePath (Split-Path -Parent $script:MyInvocation.MyCommand.Path)
 
 <#
     .SYNOPSIS
         Returns an object containing the current state information for the ADCS CA on the server.
     .PARAMETER CAType
         Specifies the type of certification authority to install.
+
     .PARAMETER Credential
         To install an enterprise certification authority, the computer must be joined to an Active
         Directory Domain Services domain and a user account that is a member of the Enterprise Admin
@@ -21,64 +23,85 @@ $script:localizedData = Get-LocalizedData -ResourceName 'MSFT_xAdcsCertification
         workgroup or AD DS domain. If the computer is in a workgroup, a user account that is a member
         of Administrators is required. If the computer is in an AD DS domain, a user account that is
         a member of Domain Admins is required.
+
     .PARAMETER Ensure
         Specifies whether the Certificate Authority should be installed or uninstalled.
+
     .PARAMETER CACommonName
         Specifies the certification authority common name.
+
     .PARAMETER CADistinguishedNameSuffix
         Specifies the certification authority distinguished name suffix.
+
     .PARAMETER CertFile
         Specifies the file name of certification authority PKCS 12 formatted certificate file.
+
     .PARAMETER CertFilePassword
         Specifies the password for certification authority certificate file.
+
     .PARAMETER CertificateID
         Specifies the thumbprint or serial number of certification authority certificate.
+
     .PARAMETER CryptoProviderName
         The name of the cryptographic service provider or key storage provider that is used to generate
         or store the private key for the CA.
+
     .PARAMETER DatabaseDirectory
         Specifies the folder location of the certification authority database.
+
     .PARAMETER HashAlgorithmName
         Specifies the signature hash algorithm used by the certification authority.
+
     .PARAMETER IgnoreUnicode
         Specifies that Unicode characters are allowed in certification authority name string.
+
     .PARAMETER KeyContainerName
         Specifies the name of an existing private key container.
+
     .PARAMETER KeyLength
         Specifies the bit length for new certification authority key.
+
     .PARAMETER LogDirectory
         Specifies the folder location of the certification authority database log.
+
     .PARAMETER OutputCertRequestFile
         Specifies the folder location for certificate request file.
+
     .PARAMETER OverwriteExistingCAinDS
         Specifies that the computer object in the Active Directory Domain Service domain should be
         overwritten with the same computer name.
+
     .PARAMETER OverwriteExistingDatabase
         Specifies that the existing certification authority database should be overwritten.
+
     .PARAMETER OverwriteExistingKey
         Overwrite existing key container with the same name.
+
     .PARAMETER ParentCA
         Specifies the configuration string of the parent certification authority that will certify this
         CA.
+
     .PARAMETER ValidityPeriod
         Specifies the validity period of the certification authority certificate in hours, days, weeks,
         months or years. If this is a subordinate CA, do not use this parameter, because the validity
         period is determined by the parent CA.
+
     .PARAMETER ValidityPeriodUnits
         Validity period of the certification authority certificate. If this is a subordinate CA, do not
         specify this parameter because the validity period is determined by the parent CA.
+
     .OUTPUTS
         Returns an object containing the ADCS CA state information.
 #>
 Function Get-TargetResource
 {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
-    [CmdletBinding(SupportsShouldProcess = $true)]
+    [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]
-    param (
+    param
+    (
         [Parameter(Mandatory = $true)]
-        [ValidateSet('EnterpriseRootCA','EnterpriseSubordinateCA','StandaloneRootCA','StandaloneSubordinateCA')]
-        [string]
+        [ValidateSet('EnterpriseRootCA', 'EnterpriseSubordinateCA', 'StandaloneRootCA', 'StandaloneSubordinateCA')]
+        [System.String]
         $CAType,
 
         [Parameter(Mandatory = $true)]
@@ -87,85 +110,85 @@ Function Get-TargetResource
         $Credential,
 
         [Parameter()]
-        [ValidateSet('Present','Absent')]
-        [string]
+        [ValidateSet('Present', 'Absent')]
+        [System.String]
         $Ensure = 'Present',
 
         [Parameter()]
-        [string]
+        [System.String]
         $CACommonName,
 
         [Parameter()]
-        [string]
+        [System.String]
         $CADistinguishedNameSuffix,
 
         [Parameter()]
-        [string]
+        [System.String]
         $CertFile,
 
         [Parameter()]
-        [pscredential]
+        [System.Management.Automation.PSCredential]
         $CertFilePassword,
 
         [Parameter()]
-        [string]
+        [System.String]
         $CertificateID,
 
         [Parameter()]
-        [string]
+        [System.String]
         $CryptoProviderName,
 
         [Parameter()]
-        [string]
+        [System.String]
         $DatabaseDirectory,
 
         [Parameter()]
-        [string]
+        [System.String]
         $HashAlgorithmName,
 
         [Parameter()]
-        [boolean]
+        [System.Boolean]
         $IgnoreUnicode,
 
         [Parameter()]
-        [string]
+        [System.String]
         $KeyContainerName,
 
         [Parameter()]
-        [uint32]
+        [System.Uint32]
         $KeyLength,
 
         [Parameter()]
-        [string]
+        [System.String]
         $LogDirectory,
 
         [Parameter()]
-        [string]
+        [System.String]
         $OutputCertRequestFile,
 
         [Parameter()]
-        [boolean]
+        [System.Boolean]
         $OverwriteExistingCAinDS,
 
         [Parameter()]
-        [boolean]
+        [System.Boolean]
         $OverwriteExistingDatabase,
 
         [Parameter()]
-        [boolean]
+        [System.Boolean]
         $OverwriteExistingKey,
 
         [Parameter()]
-        [string]
+        [System.String]
         $ParentCA,
 
         [Parameter()]
-        [ValidateSet('Hours','Days','Months','Years')]
-        [string]
+        [ValidateSet('Hours', 'Days', 'Months', 'Years')]
+        [System.String]
         $ValidityPeriod,
 
         [Parameter()]
-        [uint32]
+        [System.Uint32]
         $ValidityPeriodUnits
     )
 
@@ -174,14 +197,19 @@ Function Get-TargetResource
             $($LocalizedData.GettingAdcsCAStatusMessage -f $CAType)
         ) -join '' )
 
-    $ADCSParams = @{} + $PSBoundParameters
-    $null = $ADCSParams.Remove('Ensure')
-    $null = $ADCSParams.Remove('Debug')
-    $null = $ADCSParams.Remove('ErrorAction')
-
+    $adcsParameters = @{} + $PSBoundParameters
+    $null = $adcsParameters.Remove('Ensure')
+    $null = $adcsParameters.Remove('Debug')
+    $null = $adcsParameters.Remove('ErrorAction')
+    
+    if ($CertFilePassword)
+    {
+        $adcsParameters['CertFilePassword'] = $CertFilePassword.Password
+    }
+    
     try
     {
-        $null = Install-AdcsCertificationAuthority @ADCSParams -WhatIf
+        $null = Install-AdcsCertificationAuthority @adcsParameters -WhatIf
         # CA is not installed
         $Ensure = 'Absent'
     }
@@ -206,8 +234,10 @@ Function Get-TargetResource
 <#
     .SYNOPSIS
         Installs or uinstalls the ADCS CA from the server.
+
     .PARAMETER CAType
         Specifies the type of certification authority to install.
+
     .PARAMETER Credential
         To install an enterprise certification authority, the computer must be joined to an Active
         Directory Domain Services domain and a user account that is a member of the Enterprise Admin
@@ -215,61 +245,81 @@ Function Get-TargetResource
         workgroup or AD DS domain. If the computer is in a workgroup, a user account that is a member
         of Administrators is required. If the computer is in an AD DS domain, a user account that is
         a member of Domain Admins is required.
+
     .PARAMETER Ensure
         Specifies whether the Certificate Authority should be installed or uninstalled.
+
     .PARAMETER CACommonName
         Specifies the certification authority common name.
+
     .PARAMETER CADistinguishedNameSuffix
         Specifies the certification authority distinguished name suffix.
+
     .PARAMETER CertFile
         Specifies the file name of certification authority PKCS 12 formatted certificate file.
+
     .PARAMETER CertFilePassword
         Specifies the password for certification authority certificate file.
+
     .PARAMETER CertificateID
         Specifies the thumbprint or serial number of certification authority certificate.
+
     .PARAMETER CryptoProviderName
         The name of the cryptographic service provider or key storage provider that is used to generate
         or store the private key for the CA.
+
     .PARAMETER DatabaseDirectory
         Specifies the folder location of the certification authority database.
+
     .PARAMETER HashAlgorithmName
         Specifies the signature hash algorithm used by the certification authority.
+
     .PARAMETER IgnoreUnicode
         Specifies that Unicode characters are allowed in certification authority name string.
+
     .PARAMETER KeyContainerName
         Specifies the name of an existing private key container.
+
     .PARAMETER KeyLength
         Specifies the bit length for new certification authority key.
+
     .PARAMETER LogDirectory
         Specifies the folder location of the certification authority database log.
+
     .PARAMETER OutputCertRequestFile
         Specifies the folder location for certificate request file.
+
     .PARAMETER OverwriteExistingCAinDS
         Specifies that the computer object in the Active Directory Domain Service domain should be
         overwritten with the same computer name.
+
     .PARAMETER OverwriteExistingDatabase
         Specifies that the existing certification authority database should be overwritten.
+
     .PARAMETER OverwriteExistingKey
         Overwrite existing key container with the same name.
+
     .PARAMETER ParentCA
         Specifies the configuration string of the parent certification authority that will certify this
         CA.
+
     .PARAMETER ValidityPeriod
         Specifies the validity period of the certification authority certificate in hours, days, weeks,
         months or years. If this is a subordinate CA, do not use this parameter, because the validity
         period is determined by the parent CA.
+
     .PARAMETER ValidityPeriodUnits
         Validity period of the certification authority certificate. If this is a subordinate CA, do not
         specify this parameter because the validity period is determined by the parent CA.
 #>
 Function Set-TargetResource
 {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
     [CmdletBinding()]
-    param (
+    param
+    (
         [Parameter(Mandatory = $true)]
-        [ValidateSet('EnterpriseRootCA','EnterpriseSubordinateCA','StandaloneRootCA','StandaloneSubordinateCA')]
-        [string]
+        [ValidateSet('EnterpriseRootCA', 'EnterpriseSubordinateCA', 'StandaloneRootCA', 'StandaloneSubordinateCA')]
+        [System.String]
         $CAType,
 
         [Parameter(Mandatory = $true)]
@@ -278,85 +328,85 @@ Function Set-TargetResource
         $Credential,
 
         [Parameter()]
-        [ValidateSet('Present','Absent')]
-        [string]
+        [ValidateSet('Present', 'Absent')]
+        [System.String]
         $Ensure = 'Present',
 
         [Parameter()]
-        [string]
+        [System.String]
         $CACommonName,
 
         [Parameter()]
-        [string]
+        [System.String]
         $CADistinguishedNameSuffix,
 
         [Parameter()]
-        [string]
+        [System.String]
         $CertFile,
 
         [Parameter()]
-        [pscredential]
+        [System.Management.Automation.PSCredential]
         $CertFilePassword,
 
         [Parameter()]
-        [string]
+        [System.String]
         $CertificateID,
 
         [Parameter()]
-        [string]
+        [System.String]
         $CryptoProviderName,
 
         [Parameter()]
-        [string]
+        [System.String]
         $DatabaseDirectory,
 
         [Parameter()]
-        [string]
+        [System.String]
         $HashAlgorithmName,
 
         [Parameter()]
-        [boolean]
+        [System.Boolean]
         $IgnoreUnicode,
 
         [Parameter()]
-        [string]
+        [System.String]
         $KeyContainerName,
 
         [Parameter()]
-        [uint32]
+        [System.Uint32]
         $KeyLength,
 
         [Parameter()]
-        [string]
+        [System.String]
         $LogDirectory,
 
         [Parameter()]
-        [string]
+        [System.String]
         $OutputCertRequestFile,
 
         [Parameter()]
-        [boolean]
+        [System.Boolean]
         $OverwriteExistingCAinDS,
 
         [Parameter()]
-        [boolean]
+        [System.Boolean]
         $OverwriteExistingDatabase,
 
         [Parameter()]
-        [boolean]
+        [System.Boolean]
         $OverwriteExistingKey,
 
         [Parameter()]
-        [string]
+        [System.String]
         $ParentCA,
 
         [Parameter()]
-        [ValidateSet('Hours','Days','Months','Years')]
-        [string]
+        [ValidateSet('Hours', 'Days', 'Months', 'Years')]
+        [System.String]
         $ValidityPeriod,
 
         [Parameter()]
-        [uint32]
+        [System.Uint32]
         $ValidityPeriodUnits
     )
 
@@ -365,11 +415,18 @@ Function Set-TargetResource
             $($LocalizedData.SettingAdcsCAStatusMessage -f $CAType)
         ) -join '' )
 
-    $ADCSParams = @{} + $PSBoundParameters
-    $null = $ADCSParams.Remove('Ensure')
-    $null = $ADCSParams.Remove('Debug')
-    $null = $ADCSParams.Remove('ErrorAction')
+    $adcsParameters = @{} + $PSBoundParameters
+    $null = $adcsParameters.Remove('Ensure')
+    $null = $adcsParameters.Remove('Debug')
+    $null = $adcsParameters.Remove('ErrorAction')
 
+    $errorMessage = ''
+    
+    if ($CertFilePassword)
+    {
+        $adcsParameters['CertFilePassword'] = $CertFilePassword.Password
+    }
+    
     switch ($Ensure)
     {
         'Present'
@@ -379,8 +436,9 @@ Function Set-TargetResource
                     $($LocalizedData.InstallingAdcsCAMessage -f $CAType)
                 ) -join '' )
 
-            (Install-AdcsCertificationAuthority @ADCSParams -Force).ErrorString
+            $errorMessage = (Install-AdcsCertificationAuthority @adcsParameters -Force).ErrorString
         }
+
         'Absent'
         {
             Write-Verbose -Message ( @(
@@ -388,9 +446,14 @@ Function Set-TargetResource
                     $($LocalizedData.UninstallingAdcsCAMessage -f $CAType)
                 ) -join '' )
 
-            (Uninstall-AdcsCertificationAuthority -Force).ErrorString
+            $errorMessage = (Uninstall-AdcsCertificationAuthority -Force).ErrorString
         }
     } # switch
+
+    if (-not [System.String]::IsNullOrEmpty($errorMessage))
+    {
+        New-InvalidOperationException -Message $errorMessage
+    }
 } # Function Set-TargetResource
 
 <#
@@ -398,6 +461,7 @@ Function Set-TargetResource
         Tests is the ADCS CA is in the desired state.
     .PARAMETER CAType
         Specifies the type of certification authority to install.
+
     .PARAMETER Credential
         To install an enterprise certification authority, the computer must be joined to an Active
         Directory Domain Services domain and a user account that is a member of the Enterprise Admin
@@ -405,64 +469,85 @@ Function Set-TargetResource
         workgroup or AD DS domain. If the computer is in a workgroup, a user account that is a member
         of Administrators is required. If the computer is in an AD DS domain, a user account that is
         a member of Domain Admins is required.
+
     .PARAMETER Ensure
         Specifies whether the Certificate Authority should be installed or uninstalled.
+
     .PARAMETER CACommonName
         Specifies the certification authority common name.
+
     .PARAMETER CADistinguishedNameSuffix
         Specifies the certification authority distinguished name suffix.
+
     .PARAMETER CertFile
         Specifies the file name of certification authority PKCS 12 formatted certificate file.
+
     .PARAMETER CertFilePassword
         Specifies the password for certification authority certificate file.
+
     .PARAMETER CertificateID
         Specifies the thumbprint or serial number of certification authority certificate.
+
     .PARAMETER CryptoProviderName
         The name of the cryptographic service provider or key storage provider that is used to generate
         or store the private key for the CA.
+
     .PARAMETER DatabaseDirectory
         Specifies the folder location of the certification authority database.
+
     .PARAMETER HashAlgorithmName
         Specifies the signature hash algorithm used by the certification authority.
+
     .PARAMETER IgnoreUnicode
         Specifies that Unicode characters are allowed in certification authority name string.
+
     .PARAMETER KeyContainerName
         Specifies the name of an existing private key container.
+
     .PARAMETER KeyLength
         Specifies the bit length for new certification authority key.
+
     .PARAMETER LogDirectory
         Specifies the folder location of the certification authority database log.
+
     .PARAMETER OutputCertRequestFile
         Specifies the folder location for certificate request file.
+
     .PARAMETER OverwriteExistingCAinDS
         Specifies that the computer object in the Active Directory Domain Service domain should be
         overwritten with the same computer name.
+
     .PARAMETER OverwriteExistingDatabase
         Specifies that the existing certification authority database should be overwritten.
+
     .PARAMETER OverwriteExistingKey
         Overwrite existing key container with the same name.
+
     .PARAMETER ParentCA
         Specifies the configuration string of the parent certification authority that will certify this
         CA.
+
     .PARAMETER ValidityPeriod
         Specifies the validity period of the certification authority certificate in hours, days, weeks,
         months or years. If this is a subordinate CA, do not use this parameter, because the validity
         period is determined by the parent CA.
+
     .PARAMETER ValidityPeriodUnits
         Validity period of the certification authority certificate. If this is a subordinate CA, do not
         specify this parameter because the validity period is determined by the parent CA.
+
     .OUTPUTS
         Returns true if the ADCS CA is in the desired state.
 #>
 Function Test-TargetResource
 {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSShouldProcess', '')]
     [CmdletBinding()]
     [OutputType([System.Boolean])]
-    param (
+    param
+    (
         [Parameter(Mandatory = $true)]
-        [ValidateSet('EnterpriseRootCA','EnterpriseSubordinateCA','StandaloneRootCA','StandaloneSubordinateCA')]
-        [string]
+        [ValidateSet('EnterpriseRootCA', 'EnterpriseSubordinateCA', 'StandaloneRootCA', 'StandaloneSubordinateCA')]
+        [System.String]
         $CAType,
 
         [Parameter(Mandatory = $true)]
@@ -471,85 +556,85 @@ Function Test-TargetResource
         $Credential,
 
         [Parameter()]
-        [ValidateSet('Present','Absent')]
-        [string]
+        [ValidateSet('Present', 'Absent')]
+        [System.String]
         $Ensure = 'Present',
 
         [Parameter()]
-        [string]
+        [System.String]
         $CACommonName,
 
         [Parameter()]
-        [string]
+        [System.String]
         $CADistinguishedNameSuffix,
 
         [Parameter()]
-        [string]
+        [System.String]
         $CertFile,
 
         [Parameter()]
-        [pscredential]
+        [System.Management.Automation.PSCredential]
         $CertFilePassword,
 
         [Parameter()]
-        [string]
+        [System.String]
         $CertificateID,
 
         [Parameter()]
-        [string]
+        [System.String]
         $CryptoProviderName,
 
         [Parameter()]
-        [string]
+        [System.String]
         $DatabaseDirectory,
 
         [Parameter()]
-        [string]
+        [System.String]
         $HashAlgorithmName,
 
         [Parameter()]
-        [boolean]
+        [System.Boolean]
         $IgnoreUnicode,
 
         [Parameter()]
-        [string]
+        [System.String]
         $KeyContainerName,
 
         [Parameter()]
-        [uint32]
+        [System.Uint32]
         $KeyLength,
 
         [Parameter()]
-        [string]
+        [System.String]
         $LogDirectory,
 
         [Parameter()]
-        [string]
+        [System.String]
         $OutputCertRequestFile,
 
         [Parameter()]
-        [boolean]
+        [System.Boolean]
         $OverwriteExistingCAinDS,
 
         [Parameter()]
-        [boolean]
+        [System.Boolean]
         $OverwriteExistingDatabase,
 
         [Parameter()]
-        [boolean]
+        [System.Boolean]
         $OverwriteExistingKey,
 
         [Parameter()]
-        [string]
+        [System.String]
         $ParentCA,
 
         [Parameter()]
-        [ValidateSet('Hours','Days','Months','Years')]
-        [string]
+        [ValidateSet('Hours', 'Days', 'Months', 'Years')]
+        [System.String]
         $ValidityPeriod,
 
         [Parameter()]
-        [uint32]
+        [System.Uint32]
         $ValidityPeriodUnits
     )
 
@@ -558,14 +643,19 @@ Function Test-TargetResource
             $($LocalizedData.TestingAdcsCAStatusMessage -f $CAType)
         ) -join '' )
 
-    $ADCSParams = @{} + $PSBoundParameters
-    $null = $ADCSParams.Remove('Ensure')
-    $null = $ADCSParams.Remove('Debug')
-    $null = $ADCSParams.Remove('ErrorAction')
-
+    $adcsParameters = @{} + $PSBoundParameters
+    $null = $adcsParameters.Remove('Ensure')
+    $null = $adcsParameters.Remove('Debug')
+    $null = $adcsParameters.Remove('ErrorAction')
+    
+    if ($CertFilePassword)
+    {
+        $adcsParameters['CertFilePassword'] = $CertFilePassword.Password
+    }
+    
     try
     {
-        $null = Install-AdcsCertificationAuthority @ADCSParams -WhatIf
+        $null = Install-AdcsCertificationAuthority @adcsParameters -WhatIf
         # CA is not installed
         switch ($Ensure)
         {
@@ -579,6 +669,7 @@ Function Test-TargetResource
 
                 return $false
             }
+
             'Absent'
             {
                 # CA is not installed and should not be - change not required
@@ -606,6 +697,7 @@ Function Test-TargetResource
 
                 return $true
             }
+
             'Absent'
             {
                 # CA is installed and should not be - change required

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xadcscertificationauthority) do
   def dscmeta_resource_friendly_name; 'xAdcsCertificationAuthority' end
   def dscmeta_resource_name; 'MSFT_xAdcsCertificationAuthority' end
   def dscmeta_module_name; 'xAdcsDeployment' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.4.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

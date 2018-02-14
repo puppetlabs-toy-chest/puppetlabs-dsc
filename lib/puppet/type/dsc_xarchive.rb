@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xarchive) do
   def dscmeta_resource_friendly_name; 'xArchive' end
   def dscmeta_resource_name; 'MSFT_xArchive' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '7.0.0.0' end
+  def dscmeta_module_version; '8.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

@@ -1,11 +1,10 @@
 #pragma namespace("\\\\.\\root\\microsoft\\windows\\DesiredStateConfiguration")
 
-[ClassVersion("1.0.0"), FriendlyName("xCluster")] 
+[ClassVersion("1.0.0"), FriendlyName("xCluster")]
 class MSFT_xCluster : OMI_BaseResource
 {
-    [key, Description("Name of the Cluster")] string Name;
-    [required, Description("StaticIPAddress of the Cluster")] string StaticIPAddress;
-    
-    [required, EmbeddedInstance("MSFT_Credential"), Description("Credential to create the cluster")] 
-    String DomainAdministratorCredential;
+    [Key, Description("Name of the Cluster")] String Name;
+    [Write, Description("StaticIPAddress of the Cluster")] String StaticIPAddress;
+    [Required, EmbeddedInstance("MSFT_Credential"), Description("Credential to create the cluster")] String DomainAdministratorCredential;
+    [Write, Description("One or more networks to ignore when creating the cluster. Only networks using Static IP can be ignored, networks that are assigned an IP address through DHCP cannot be ignored, and are added for cluster communication. To remove networks assigned an IP address through DHCP use the resource xClusterNetwork to change the role of the network. This parameter is only used during the creation of the cluster and is not monitored after.")] String IgnoreNetwork[];
 };

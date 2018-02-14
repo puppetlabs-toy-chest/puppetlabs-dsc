@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xscheduledtask) do
   def dscmeta_resource_friendly_name; 'xScheduledTask' end
   def dscmeta_resource_name; 'MSFT_xScheduledTask' end
   def dscmeta_module_name; 'xComputerManagement' end
-  def dscmeta_module_version; '2.1.0.0' end
+  def dscmeta_module_version; '4.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -165,11 +165,11 @@ Puppet::Type.newtype(:dsc_xscheduledtask) do
   end
 
   # Name:         RepeatInterval
-  # Type:         datetime
+  # Type:         string
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_repeatinterval) do
-    def mof_type; 'datetime' end
+    def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "RepeatInterval - How many units (minutes, hours, days) between each run of this task?"
     validate do |value|
@@ -264,11 +264,11 @@ Puppet::Type.newtype(:dsc_xscheduledtask) do
   end
 
   # Name:         RandomDelay
-  # Type:         datetime
+  # Type:         string
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_randomdelay) do
-    def mof_type; 'datetime' end
+    def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "RandomDelay - Specifies a random amount of time to delay the start time of the trigger. The delay time is a random time between the time the task triggers and the time that you specify in this setting."
     validate do |value|
@@ -279,13 +279,13 @@ Puppet::Type.newtype(:dsc_xscheduledtask) do
   end
 
   # Name:         RepetitionDuration
-  # Type:         datetime
+  # Type:         string
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_repetitionduration) do
-    def mof_type; 'datetime' end
+    def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "RepetitionDuration - Specifies how long the repetition pattern repeats after the task starts."
+    desc "RepetitionDuration - Specifies how long the repetition pattern repeats after the task starts. May be set to `Indefinitely` to specify an indefinite duration."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -443,11 +443,11 @@ Puppet::Type.newtype(:dsc_xscheduledtask) do
   end
 
   # Name:         IdleWaitTimeout
-  # Type:         datetime
+  # Type:         string
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_idlewaittimeout) do
-    def mof_type; 'datetime' end
+    def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "IdleWaitTimeout - Specifies the amount of time that Task Scheduler waits for an idle condition to occur."
     validate do |value|
@@ -537,11 +537,11 @@ Puppet::Type.newtype(:dsc_xscheduledtask) do
   end
 
   # Name:         IdleDuration
-  # Type:         datetime
+  # Type:         string
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_idleduration) do
-    def mof_type; 'datetime' end
+    def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "IdleDuration - Specifies the amount of time that the computer must be in an idle state before Task Scheduler runs the task."
     validate do |value|
@@ -584,11 +584,11 @@ Puppet::Type.newtype(:dsc_xscheduledtask) do
   end
 
   # Name:         ExecutionTimeLimit
-  # Type:         datetime
+  # Type:         string
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_executiontimelimit) do
-    def mof_type; 'datetime' end
+    def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "ExecutionTimeLimit - Specifies the amount of time that Task Scheduler is allowed to complete the task."
     validate do |value|
@@ -653,11 +653,11 @@ Puppet::Type.newtype(:dsc_xscheduledtask) do
   end
 
   # Name:         RestartInterval
-  # Type:         datetime
+  # Type:         string
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_restartinterval) do
-    def mof_type; 'datetime' end
+    def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "RestartInterval - Specifies the amount of time that Task Scheduler attempts to restart the task."
     validate do |value|
@@ -680,6 +680,42 @@ Puppet::Type.newtype(:dsc_xscheduledtask) do
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         RunLevel
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Limited", "Highest"]
+  newparam(:dsc_runlevel) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "RunLevel - Specifies the level of user rights that Task Scheduler uses to run the tasks that are associated with the principal. Defaults to 'Limited'. Valid values are Limited, Highest."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Limited', 'limited', 'Highest', 'highest'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Limited, Highest")
+      end
+    end
+  end
+
+  # Name:         LogonType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Group", "Interactive", "InteractiveOrPassword", "None", "Password", "S4U", "ServiceAccount"]
+  newparam(:dsc_logontype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "LogonType - Specifies the security logon method that Task Scheduler uses to run the tasks that are associated with the principal. Valid values are Group, Interactive, InteractiveOrPassword, None, Password, S4U, ServiceAccount."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Group', 'group', 'Interactive', 'interactive', 'InteractiveOrPassword', 'interactiveorpassword', 'None', 'none', 'Password', 'password', 'S4U', 's4u', 'ServiceAccount', 'serviceaccount'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Group, Interactive, InteractiveOrPassword, None, Password, S4U, ServiceAccount")
+      end
     end
   end
 

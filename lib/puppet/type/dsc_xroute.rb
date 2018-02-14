@@ -30,7 +30,7 @@ Puppet::Type.newtype(:dsc_xroute) do
   def dscmeta_resource_friendly_name; 'xRoute' end
   def dscmeta_resource_name; 'MSFT_xRoute' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '5.1.0.0' end
+  def dscmeta_module_version; '5.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -132,7 +132,7 @@ Puppet::Type.newtype(:dsc_xroute) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Specifies whether the route should exist. Valid values are Present, Absent."
+    desc "Ensure - Specifies whether the route should exist. Defaults to 'Present'. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -151,7 +151,7 @@ Puppet::Type.newtype(:dsc_xroute) do
   newparam(:dsc_routemetric) do
     def mof_type; 'uint16' end
     def mof_is_embedded?; false end
-    desc "RouteMetric - Specifies an integer route metric for an IP route."
+    desc "RouteMetric - Specifies an integer route metric for an IP route. Defaults to 256."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -169,7 +169,7 @@ Puppet::Type.newtype(:dsc_xroute) do
   newparam(:dsc_publish) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Publish - Specifies the publish setting of an IP route. Valid values are No, Yes, Age."
+    desc "Publish - Specifies the publish setting of an IP route. Defaults to 'No'. Valid values are No, Yes, Age."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

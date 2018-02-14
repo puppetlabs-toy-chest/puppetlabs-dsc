@@ -73,7 +73,7 @@ eod
         community_dsc_resources_root = "#{dsc_resources_path_tmp}/xDscResources"
         official_dsc_resources_root = "#{dsc_resources_path_tmp}/DscResources"
         composite_resources = [ 'xChrome','xDSCResourceDesigner','xDscDiagnostics',
-          'xFirefox','xSafeHarbor','xSystemSecurity' ]
+          'xFirefox','xSafeHarbor','xSystemSecurity', 'PSDscResources' ]
 
         Rake::Task['dsc:resources:checkout'].invoke(
           community_dsc_resources_root, update_versions, composite_resources)
@@ -189,12 +189,14 @@ eod
           resource_tags["#{dsc_resource_name}"] = checkout_version.encode("UTF-8")
         end
       end
-      
+
       resource_tags = resource_tags.reject do |r|
         blacklist.include?(r)
       end
-
-      File.open("#{dsc_resources_file}", 'w+') { |f| f.write resource_tags.to_yaml }
+      
+      # We use YAML.dump here to update the file instead of overwriting it. This ensures
+      # we can write both HQ DSC Resources as well as Expertimental ones to the same yml
+      File.open("#{dsc_resources_file}", 'w+') { |f| YAML.dump(resource_tags, f) }
     end
 
     desc <<-eod
@@ -222,8 +224,6 @@ eod
     task :build, [:module_path] do |t, args|
       module_path = args[:module_path] || default_dsc_module_path
       m = Dsc::Manager.new
-      wait_for_resources = Dir["#{module_path}/**/MSFT_WaitFor*"]
-      fail "MSFT_WaitFor* resources found - aborting type building! Please remove the following MSFT_WaitFor* DSC Resources and run the build again.\n\n#{wait_for_resources}\n" if !wait_for_resources.empty?
       m.target_module_path = module_path
       msgs = m.build_dsc_types
       msgs.each{|m| puts "#{m}"}

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spweb) do
   def dscmeta_resource_friendly_name; 'SPWeb' end
   def dscmeta_resource_name; 'MSFT_SPWeb' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '1.8.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -214,6 +214,21 @@ Puppet::Type.newtype(:dsc_spweb) do
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         RequestAccessEmail
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_requestaccessemail) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "RequestAccessEmail - The e-mail address to which requests for access are sent. Set to emtpy string to disable access requests."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
     end
   end
 

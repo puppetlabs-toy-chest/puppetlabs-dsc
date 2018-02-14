@@ -7,7 +7,7 @@ class MSFT_xDBPackage : OMI_BaseResource
     [Required, Description("Sql Server Name")] String SqlServer;
     [Required, Description("Path to BacPac/DacPac")] String Path;
     [Required, Description("Type for backup(Extract id done for DACPAC and Import for BACPAC)"), ValueMap{"DACPAC","BACPAC"}, Values{"DACPAC","BACPAC"}] String Type;
-    [Required, ValueMap{"2008-R2","2012","2014"}, Values{"2008-R2","2012","2014"}, Description("Sql Server Version For DacFx")] String SqlServerVersion;
+    [Required, ValueMap{"2008-R2","2012","2014","2016"}, Values{"2008-R2","2012","2014","2016"}, Description("Sql Server Version For DacFx")] String SqlServerVersion;
 };
 
 

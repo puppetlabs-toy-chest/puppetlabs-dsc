@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_systemlocale) do
   def dscmeta_resource_friendly_name; 'SystemLocale' end
   def dscmeta_resource_name; 'MSFT_SystemLocale' end
   def dscmeta_module_name; 'SystemLocaleDsc' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
