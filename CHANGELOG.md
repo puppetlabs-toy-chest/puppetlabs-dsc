@@ -49,7 +49,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Fixed
 
 - Increased the timeout for opening PowerShell from 10 to 30 seconds to prevent erroneous failures ([MODULES-4748](https://tickets.puppetlabs.com/browse/MODULES-4748))
-- Prevented the PowerShell manager from creating zombie processes ([MODULES-4648](https://tickets.puppetlabs.com/browse/MODULES-4648))
+- Prevented the PowerShell manager from creating zombie processes ([MODULES-4748](https://tickets.puppetlabs.com/browse/MODULES-4748))
 
 ## [1.4.0] - 2017-08-30
 
