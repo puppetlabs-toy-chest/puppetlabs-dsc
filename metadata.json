@@ -1,6 +1,6 @@
 {
   "name": "puppetlabs-dsc",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "author": "Puppet Inc",
   "summary": "PowerShell Desired State Configuration (DSC)",
   "license": "Apache-2.0",
