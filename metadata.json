@@ -35,7 +35,7 @@
   "dependencies": [
     {
       "name": "puppetlabs/reboot",
-      "version_requirement": ">= 1.2.1 < 2.0.0"
+      "version_requirement": ">= 1.2.1 < 3.0.0"
     }
   ]
 }
