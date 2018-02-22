@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+- Bump the puppetlabs-reboot module dependancy to reflect that the new version is 2.0.0 ([MODULES-6678](https://tickets.puppetlabs.com/browse/MODULES-6678))
+
 ## [1.5.0] - 2018-02-19
 
 ### Adds
