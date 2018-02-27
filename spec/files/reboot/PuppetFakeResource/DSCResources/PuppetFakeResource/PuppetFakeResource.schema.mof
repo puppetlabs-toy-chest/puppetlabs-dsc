@@ -1,0 +1,8 @@
+
+[ClassVersion("1.0"), FriendlyName("PuppetFakeResource")]
+class PuppetFakeResource : OMI_BaseResource
+{
+    [Write, Description("Ensure Present or Absent"), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Key, Description("Important Stuff")] String ImportantStuff;
+};
+
