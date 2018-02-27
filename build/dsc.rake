@@ -77,6 +77,7 @@ eod
 
         Rake::Task['dsc:resources:checkout'].invoke(
           community_dsc_resources_root, update_versions, composite_resources)
+        Rake::Task['dsc:resources:checkout'].reenable
         Rake::Task['dsc:resources:checkout'].invoke(
           official_dsc_resources_root, update_versions, composite_resources)
 
