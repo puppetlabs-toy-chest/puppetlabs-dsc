@@ -160,7 +160,17 @@ namespace :dsc do
     desc "Build DSC types and type specs"
     task :build, [:module_path] do |t, args|
       module_path = args[:module_path] || default_dsc_module_path
-      m = Dsc::TypeBuilder.new
+      m = Dsc::TypeBuilder.new(
+        module_path,
+        "#{module_path}/import",                                   #manager.@import_folder
+        "#{module_path}/import/dsc_resources",                     #manager.@dsc_modules_folder
+        "#{module_path}/build/qualifiers/base",                    #manager.@base_qualifiers_folder
+        "#{module_path}/build/vendor/dmtf_mof",                    #manager.@dmtf_mof_folder
+        "#{module_path}/build/dsc/templates/dsc_type.rb.erb",      #manager.@type_template_file
+        "#{module_path}/build/dsc/templates/dsc_type_spec.rb.erb", #manager.@type_spec_template_file
+        "lib/puppet/type",                                         #manager.@puppet_type_subpath
+        "spec/unit/puppet/type"                                    #manager.@puppet_type_spec_subpath
+      )
       m.target_module_path = module_path
       msgs = m.build_dsc_types
       msgs.each{|m| puts "#{m}"}
@@ -169,7 +179,17 @@ namespace :dsc do
     desc "Document DSC types and type specs"
     task :document, [:module_path] do |t, args|
       module_path = args[:module_path] || default_dsc_module_path
-      m = Dsc::DocumentBuilder.new
+      m = Dsc::DocumentBuilder.new(
+        module_path,
+        "#{module_path}/import",                                   #manager.@import_folder
+        "#{module_path}/import/dsc_resources",                     #manager.@dsc_modules_folder
+        "#{module_path}/build/qualifiers/base",                    #manager.@base_qualifiers_folder
+        "#{module_path}/build/vendor/dmtf_mof",                    #manager.@dmtf_mof_folder
+        "#{module_path}/build/dsc/templates/dsc_type.rb.erb",      #manager.@type_template_file
+        "#{module_path}/build/dsc/templates/dsc_type_spec.rb.erb", #manager.@type_spec_template_file
+        "lib/puppet/type",                                         #manager.@puppet_type_subpath
+        "spec/unit/puppet/type"                                    #manager.@puppet_type_spec_subpath
+      )
       m.document_types("#{default_dsc_module_path}/types.md")
     end
 

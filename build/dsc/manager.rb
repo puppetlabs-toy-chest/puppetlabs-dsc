@@ -3,27 +3,20 @@ module Dsc
 
     attr_accessor :target_module_path
 
-    def initialize
-      @dsc_lib_path             = Pathname.new(__FILE__).dirname
-      @tools_path               = @dsc_lib_path.parent
-      @module_path              = @tools_path.parent
-
-      @base_qualifiers_folder   = "#{@module_path}/build/qualifiers/base"
-
-      @import_folder            = "#{@module_path}/import"
-      @dsc_modules_folder       = "#{@import_folder}/dsc_resources"
-      @dmtf_mof_folder          = "#{@module_path}/build/vendor/dmtf_mof"
-
-      @type_template_file       = "#{@dsc_lib_path}/templates/dsc_type.rb.erb"
-      @type_spec_template_file  = "#{@dsc_lib_path}/templates/dsc_type_spec.rb.erb"
-
-      @target_module_path       = @module_path
-      @puppet_type_subpath      = "lib/puppet/type"
-      @puppet_type_spec_subpath = "spec/unit/puppet/type"
+    def initialize(module_path, import_folder, dsc_modules_folder, base_qualifiers_folder, dmtf_mof_folder, type_template_file, type_spec_template_file, puppet_type_subpath, puppet_type_spec_subpath)
+      @module_path              = module_path
+      @import_folder            = import_folder
+      @dsc_modules_folder       = dsc_modules_folder
+      @base_qualifiers_folder   = base_qualifiers_folder
+      @dmtf_mof_folder          = dmtf_mof_folder
+      @type_template_file       = type_template_file
+      @type_spec_template_file  = type_spec_template_file
+      @target_module_path       = module_path
+      @puppet_type_subpath      = puppet_type_subpath
+      @puppet_type_spec_subpath = puppet_type_spec_subpath
 
       @resources                = nil
       @cim_classes_with_path    = nil
-
     end
 
     def dsc_results
