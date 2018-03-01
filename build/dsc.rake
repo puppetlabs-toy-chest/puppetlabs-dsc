@@ -58,7 +58,7 @@ eod
       update_versions = args[:update_versions] || false
       is_custom_resource = (dsc_resources_path != default_dsc_resources_path)
       
-      m = Dsc::Manager.new
+      m = Dsc::TypeImporter.new
 
       if !is_custom_resource
         puts "Downloading and Importing #{item_name}"
@@ -87,57 +87,11 @@ eod
         puts "Copying vendored resources from #{dsc_resources_path_tmp} to #{vendor_dsc_resources_path}"
 
         # remove destination path, copy everything in from the filtered list
-        valid_files.each do |f|
-          if f.start_with?("#{community_dsc_resources_root}/")
-            dscresource_name = f.split(community_dsc_resources_root)[1].split("/")[1]
-            if f.include?("/#{dscresource_name}/Modules/#{dscresource_name}")
-              d = f.sub("#{dscresource_name}/Modules/#{dscresource_name}", "#{dscresource_name}")
-              dest = Pathname.new(d.sub(community_dsc_resources_root, vendor_dsc_resources_path))
-            else
-              dest = Pathname.new(f.sub(community_dsc_resources_root, vendor_dsc_resources_path))
-            end
-
-            FileUtils.mkdir_p(dest.dirname)
-            FileUtils.cp(f, dest)
-          end
-          if f.start_with?("#{official_dsc_resources_root}/")
-            dscresource_name = f.split(official_dsc_resources_root)[1].split("/")[1]
-            if f.include?("/#{dscresource_name}/Modules/#{dscresource_name}")
-              d = f.sub("#{dscresource_name}/Modules/#{dscresource_name}", "#{dscresource_name}")
-              dest = Pathname.new(d.sub(official_dsc_resources_root, vendor_dsc_resources_path))
-            else
-              dest = Pathname.new(f.sub(official_dsc_resources_root, vendor_dsc_resources_path))
-            end
-
-            FileUtils.mkdir_p(dest.dirname)
-            FileUtils.cp(f, dest)
-          end
-        end
-
-        # and duplicate the vendored files
-        FileUtils.cp_r vendor_dsc_resources_path, dsc_resources_path
-
-        puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{dsc_resources_path}"
-        FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{dsc_resources_path}/"
+        m.move_valid_files(valid_files, community_dsc_resources_root, official_dsc_resources_root, dsc_resources_path, vendor_dsc_resources_path, default_dsc_module_path)
       else
-        puts "Importing custom types from '#{dsc_resources_path}'"
         # filter out unwanted files
         valid_files = m.find_valid_files("#{dsc_resources_path}/**/*")
-
-        puts "Copying vendored resources from #{dsc_resources_path} to #{vendor_dsc_resources_path}"
-        valid_files.each do |f|
-          dest = Pathname.new(f.sub(dsc_resources_path, vendor_dsc_resources_path))
-          FileUtils.mkdir_p(dest.dirname)
-          FileUtils.cp(f, dest)
-        end
-        
-        puts "Adding custom types to '#{default_dsc_resources_path}'"
-        FileUtils.mkdir_p(default_dsc_resources_path) unless Dir.exist? default_dsc_resources_path
-        valid_files.each do |f|
-          dest = Pathname.new(f.sub(dsc_resources_path, default_dsc_resources_path))
-          FileUtils.mkdir_p(dest.dirname)
-          FileUtils.cp(f, dest)
-        end
+        m.move_valid_custom_files(valid_files, dsc_resources_path, vendor_dsc_resources_path, default_dsc_resources_path)
       end
     end
     
