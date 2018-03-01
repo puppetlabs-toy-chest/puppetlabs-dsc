@@ -21,8 +21,6 @@ module Dsc
       @puppet_type_subpath      = "lib/puppet/type"
       @puppet_type_spec_subpath = "spec/unit/puppet/type"
 
-      @json_content             = nil
-      @resources_hash           = nil
       @resources                = nil
       @cim_classes_with_path    = nil
 
@@ -83,38 +81,6 @@ module Dsc
         @resources = dsc_resources.values
       end
       @resources
-    end
-
-    def embedded_resources
-      resources.select{|r|r.has_embeddedinstances?}
-    end
-
-    def embedded_class_names
-      class_names_array = []
-      embedded_resources.each do |er|
-        er.embedded_properties.each do |ep|
-          class_names_array << ep.embeddedinstance_class_name
-        end
-      end
-      class_names_array.uniq
-    end
-
-    def embedded_cim_classes
-      cim_classes_with_path.select{|cc| embedded_class_names.include?(cc[:klass].name) }.collect{|cc| cc[:klass] }
-    end
-
-    def get_dsc_types
-      dsc_types = []
-      resources.each do |resource|
-        dsc_types << "dsc_#{resource.friendlyname.downcase}"
-      end
-      dsc_types
-    end
-
-    # Mof's
-    def import_dmtf_mofs
-      Dsc::Import.download(@dmtf_cim_mof_zip_url, @dmtf_cim_mof_zip_path)
-      Dsc::Import.unzip(@dmtf_cim_mof_zip_path, @dmtf_mof_folder)
     end
 
     private
