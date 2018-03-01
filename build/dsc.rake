@@ -242,8 +242,11 @@ eod
     task :clean, [:module_path] do |t, args|
       module_path = args[:module_path] || default_dsc_module_path
       puts "Cleaning #{item_name}"
-      m = Dsc::Manager.new
-      m.target_module_path = module_path
+      m = Dsc::TypeCleaner.new(
+        module_path,
+        "lib/puppet/type",
+        "spec/unit/puppet/type",
+      )
       msgs = m.clean_dsc_types
       msgs.each{|m| puts "#{m}"}
       msgs = m.clean_dsc_type_specs

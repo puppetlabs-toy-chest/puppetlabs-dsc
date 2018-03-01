@@ -241,24 +241,10 @@ module Dsc
       end
     end
 
-    def clean_dsc_types
-      puppet_type_path = "#{@target_module_path}/#{@puppet_type_subpath}"
-      clean_folder(["#{puppet_type_path}/dsc_*.rb"])
-    end
-
-    def clean_dsc_type_specs
-      puppet_type_spec_path = "#{@target_module_path}/#{@puppet_type_spec_subpath}"
-      clean_folder(["#{puppet_type_spec_path}/dsc_*_spec.rb"])
-    end
-
     # Mof's
     def import_dmtf_mofs
       Dsc::Import.download(@dmtf_cim_mof_zip_url, @dmtf_cim_mof_zip_path)
       Dsc::Import.unzip(@dmtf_cim_mof_zip_path, @dmtf_mof_folder)
-    end
-
-    def clean_dmtf_mofs
-      clean_folder([@dmtf_mof_folder])
     end
 
     def format_type_value(type_value)
@@ -307,18 +293,6 @@ module Dsc
     end
 
     private
-
-    def clean_folder(folders)
-      type_pathes = []
-      folders.each do |folder|
-        Dir.glob("#{folder}").each do |filepath|
-          pn = Pathname.new(filepath).expand_path.relative_path_from(@module_path)
-          type_pathes << "Remove - #{pn.to_s}"
-          FileUtils.rm_rf filepath
-        end
-      end
-      type_pathes
-    end
 
   end
 end
