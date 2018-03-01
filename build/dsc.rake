@@ -233,9 +233,8 @@ eod
     desc "Document #{item_name}"
     task :document, [:module_path] do |t, args|
       module_path = args[:module_path] || default_dsc_module_path
-      m = Dsc::Manager.new
-      m.target_module_path = module_path
-      m.document_types("#{default_dsc_module_path}/types.md", m.get_dsc_types)
+      m = Dsc::DocumentBuilder.new
+      m.document_types("#{default_dsc_module_path}/types.md")
     end
 
     desc "Cleanup #{item_name}"

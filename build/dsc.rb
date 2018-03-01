@@ -26,6 +26,7 @@ require "#{LIB_PATH}/dsc/resource"
 require "#{LIB_PATH}/dsc/psmodule"
 require "#{LIB_PATH}/dsc/manager"
 require "#{LIB_PATH}/dsc/typecleaner"
+require "#{LIB_PATH}/dsc/documentbuilder"
 
 module Dsc
 
