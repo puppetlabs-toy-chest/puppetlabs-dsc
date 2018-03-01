@@ -43,14 +43,7 @@ namespace :dsc do
 
   namespace :resources do
 
-    item_name = 'DSC Powershell modules files'
-    desc <<-eod
-    Import #{item_name}
-
-Default values:
-  dsc_resources_path: #{default_dsc_resources_path}
-eod
-
+    desc "Import DSC Powershell modules files"
     task :import, [:dsc_resources_path, :update_versions] do |t, args|
       dsc_resources_path = args[:dsc_resources_path] || default_dsc_resources_path
       dsc_resources_path = File.expand_path(dsc_resources_path)
@@ -61,7 +54,7 @@ eod
       m = Dsc::TypeImporter.new
 
       if !is_custom_resource
-        puts "Downloading and Importing #{item_name}"
+        puts "Downloading and Importing DSC Powershell modules files"
         cmd = ''
         cmd = "git clone #{dsc_repo} #{dsc_resources_path_tmp} && " unless Dir.exist? dsc_resources_path_tmp
         cmd += "cd #{dsc_resources_path_tmp}"
@@ -94,7 +87,8 @@ eod
         m.move_valid_custom_files(valid_files, dsc_resources_path, vendor_dsc_resources_path, default_dsc_resources_path)
       end
     end
-    
+
+    desc "Checkout DSC Powershell modules"
     task :checkout, [:dsc_resources_path, :update_versions, :blacklist] do |t, args|
       dsc_resources_path = args[:dsc_resources_path]
       update_versions    = args[:update_versions]
@@ -154,16 +148,10 @@ eod
       File.open("#{dsc_resources_file}", 'w+') { |f| YAML.dump(resource_tags, f) }
     end
 
-    desc <<-eod
-    Cleanup #{item_name}
-
-Default values:
-  dsc_resources_path: #{default_dsc_resources_path}"
-eod
-
+    desc "Cleanup DSC Powershell modules files"
     task :clean, [:dsc_resources_path] do |t, args|
       dsc_resources_path = args[:dsc_resources_path] || default_dsc_resources_path
-      puts "Cleaning #{item_name}"
+      puts "Cleaning DSC Powershell modules files"
       FileUtils.rm_rf "#{dsc_resources_path}"
       FileUtils.rm_rf "#{vendor_dsc_resources_path}"
       FileUtils.rm_rf "#{default_dsc_module_path}/import"
@@ -173,9 +161,7 @@ eod
 
   namespace :types do
 
-    item_name = 'DSC types and type specs'
-
-    desc "Build #{item_name}"
+    desc "Build DSC types and type specs"
     task :build, [:module_path] do |t, args|
       module_path = args[:module_path] || default_dsc_module_path
       m = Dsc::TypeBuilder.new
@@ -184,17 +170,17 @@ eod
       msgs.each{|m| puts "#{m}"}
     end
 
-    desc "Document #{item_name}"
+    desc "Document DSC types and type specs"
     task :document, [:module_path] do |t, args|
       module_path = args[:module_path] || default_dsc_module_path
       m = Dsc::DocumentBuilder.new
       m.document_types("#{default_dsc_module_path}/types.md")
     end
 
-    desc "Cleanup #{item_name}"
+    desc "Cleanup DSC types and type specs"
     task :clean, [:module_path] do |t, args|
       module_path = args[:module_path] || default_dsc_module_path
-      puts "Cleaning #{item_name}"
+      puts "Cleaning DSC types and type specs"
       m = Dsc::TypeCleaner.new(
         module_path,
         "lib/puppet/type",
@@ -210,9 +196,7 @@ eod
 
   namespace :module do
 
-    item_name = 'External DSC module'
-
-    desc "Generate skeleton for #{item_name}"
+    desc "Generate skeleton for External DSC module"
     task :skeleton, [:dsc_module_path] do |t, args|
       dsc_module_path = args[:dsc_module_path] || default_dsc_module_path
       module_name = Pathname.new(dsc_module_path).basename.to_s
