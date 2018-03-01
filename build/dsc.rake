@@ -224,7 +224,7 @@ eod
     desc "Build #{item_name}"
     task :build, [:module_path] do |t, args|
       module_path = args[:module_path] || default_dsc_module_path
-      m = Dsc::Manager.new
+      m = Dsc::TypeBuilder.new
       m.target_module_path = module_path
       msgs = m.build_dsc_types
       msgs.each{|m| puts "#{m}"}
