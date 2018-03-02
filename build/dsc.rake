@@ -2,19 +2,10 @@ require 'yaml'
 
 namespace :dsc do
 
-  # local pathes
   dsc_build_path             = Pathname.new(__FILE__).dirname
-  dsc_repo_url               = %x(git config --get remote.origin.url).strip
-  dsc_repo_branch            = %x(git rev-parse --abbrev-ref HEAD).strip
-  # defaults
   default_dsc_module_path    = dsc_build_path.parent
   default_dsc_resources_path = "#{default_dsc_module_path}/import/dsc_resources"
   vendor_dsc_resources_path  = "#{default_dsc_module_path}/lib/puppet_x/dsc_resources"
-
-  default_repofile           = "#{default_dsc_module_path}/Repofile"
-  default_types_path         = "#{default_dsc_module_path}/lib/puppet/type"
-  default_type_specs_path    = "#{default_dsc_module_path}/spec/unit/puppet/type"
-
   dsc_repo                   = 'https://github.com/PowerShell/DscResources.git'
   dsc_resources_file         = "#{default_dsc_module_path}/dsc_resource_release_tags.yml"
 
@@ -46,7 +37,7 @@ namespace :dsc do
       dsc_resources_path_tmp = "#{dsc_resources_path}_tmp"
       update_versions = args[:update_versions] || false
       is_custom_resource = (dsc_resources_path != default_dsc_resources_path)
-      
+
       m = Dsc::TypeImporter.new
 
       if !is_custom_resource
@@ -90,7 +81,7 @@ namespace :dsc do
       update_versions    = args[:update_versions]
       blacklist          = args[:blacklist]
       puts "Getting latest release tags for DSC resources in #{dsc_resources_path}..."
-      
+
       resource_tags = {}
       resource_tags = YAML::load_file("#{dsc_resources_file}") if File.exist? dsc_resources_file
 
@@ -138,7 +129,7 @@ namespace :dsc do
       resource_tags = resource_tags.reject do |r|
         blacklist.include?(r)
       end
-      
+
       # We use YAML.dump here to update the file instead of overwriting it. This ensures
       # we can write both HQ DSC Resources as well as Expertimental ones to the same yml
       File.open("#{dsc_resources_file}", 'w+') { |f| YAML.dump(resource_tags, f) }
