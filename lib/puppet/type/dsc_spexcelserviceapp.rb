@@ -456,7 +456,7 @@ Puppet::Type.newtype(:dsc_spexcelserviceapp) do
 end
 
 Puppet::Type.type(:dsc_spexcelserviceapp).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
-  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
+  confine :feature => :dsc
   defaultfor :operatingsystem => :windows
 
   mk_resource_methods
