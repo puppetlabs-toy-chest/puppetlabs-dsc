@@ -2,12 +2,12 @@ require 'yaml'
 
 namespace :dsc do
 
-  dsc_build_path             = Pathname.new(__FILE__).dirname
-  default_dsc_module_path    = dsc_build_path.parent
-  default_dsc_resources_path = "#{default_dsc_module_path}/import/dsc_resources"
-  vendor_dsc_resources_path  = "#{default_dsc_module_path}/lib/puppet_x/dsc_resources"
-  dsc_repo                   = 'https://github.com/PowerShell/DscResources.git'
-  dsc_resources_file         = "#{default_dsc_module_path}/dsc_resource_release_tags.yml"
+  root_path                           = Pathname.new(__FILE__).dirname
+  default_dsc_module_path             = root_path.parent
+  default_dsc_resources_path          = "#{default_dsc_module_path}/import/dsc_resources"
+  default_vendored_dsc_resources_path = "#{default_dsc_module_path}/lib/puppet_x/dsc_resources"
+  dsc_resources_tags_file             = "#{default_dsc_module_path}/dsc_resource_release_tags.yml"
+  dsc_repo                            = 'https://github.com/PowerShell/DscResources.git'
 
   desc "Import and build all"
   task :build, [:dsc_module_path] do |t, args|
@@ -36,11 +36,11 @@ namespace :dsc do
       dsc_resources_path = File.expand_path(dsc_resources_path)
       dsc_resources_path_tmp = "#{dsc_resources_path}_tmp"
       update_versions = args[:update_versions] || false
-      is_custom_resource = (dsc_resources_path != default_dsc_resources_path)
+      microsoft_source = (dsc_resources_path == default_dsc_resources_path)
 
       m = Dsc::TypeImporter.new
 
-      if !is_custom_resource
+      if microsoft_source
         puts "Downloading and Importing DSC Powershell modules files"
         cmd = ''
         cmd = "git clone #{dsc_repo} #{dsc_resources_path_tmp} && " unless Dir.exist? dsc_resources_path_tmp
@@ -64,14 +64,14 @@ namespace :dsc do
         # filter out unwanted files
         valid_files = m.find_valid_files("#{dsc_resources_path_tmp}/**/*")
 
-        puts "Copying vendored resources from #{dsc_resources_path_tmp} to #{vendor_dsc_resources_path}"
+        puts "Copying vendored resources from #{dsc_resources_path_tmp} to #{default_vendored_dsc_resources_path}"
 
         # remove destination path, copy everything in from the filtered list
-        m.move_valid_files(valid_files, community_dsc_resources_root, official_dsc_resources_root, dsc_resources_path, vendor_dsc_resources_path, default_dsc_module_path)
+        m.move_valid_files(valid_files, community_dsc_resources_root, official_dsc_resources_root, dsc_resources_path, default_vendored_dsc_resources_path, default_dsc_module_path)
       else
         # filter out unwanted files
         valid_files = m.find_valid_files("#{dsc_resources_path}/**/*")
-        m.move_valid_custom_files(valid_files, dsc_resources_path, vendor_dsc_resources_path, default_dsc_resources_path)
+        m.move_valid_custom_files(valid_files, dsc_resources_path, default_vendored_dsc_resources_path, default_dsc_resources_path)
       end
     end
 
@@ -83,7 +83,7 @@ namespace :dsc do
       puts "Getting latest release tags for DSC resources in #{dsc_resources_path}..."
 
       resource_tags = {}
-      resource_tags = YAML::load_file("#{dsc_resources_file}") if File.exist? dsc_resources_file
+      resource_tags = YAML::load_file("#{dsc_resources_tags_file}") if File.exist? dsc_resources_tags_file
 
       Dir["#{dsc_resources_path}/*"].each do |dsc_resource_path|
         dsc_resource_name = Pathname.new(dsc_resource_path).basename
@@ -132,7 +132,7 @@ namespace :dsc do
 
       # We use YAML.dump here to update the file instead of overwriting it. This ensures
       # we can write both HQ DSC Resources as well as Expertimental ones to the same yml
-      File.open("#{dsc_resources_file}", 'w+') { |f| YAML.dump(resource_tags, f) }
+      File.open("#{dsc_resources_tags_file}", 'w+') { |f| YAML.dump(resource_tags, f) }
     end
 
     desc "Cleanup DSC Powershell modules files"
@@ -140,7 +140,7 @@ namespace :dsc do
       dsc_resources_path = args[:dsc_resources_path] || default_dsc_resources_path
       puts "Cleaning DSC Powershell modules files"
       FileUtils.rm_rf "#{dsc_resources_path}"
-      FileUtils.rm_rf "#{vendor_dsc_resources_path}"
+      FileUtils.rm_rf "#{default_vendored_dsc_resources_path}"
       FileUtils.rm_rf "#{default_dsc_module_path}/import"
     end
 
