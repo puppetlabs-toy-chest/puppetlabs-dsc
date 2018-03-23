@@ -10,8 +10,8 @@ module Dsc
     end
 
     def version
-      raise "ModuleVersion not found for module #{@name} / #{@module_manifest_path}" if !attributes.key?('ModuleVersion') || attributes['ModuleVersion'].empty?
-      attributes['ModuleVersion']
+      raise "ModuleVersion not found for module #{@name} / #{@module_manifest_path}" if !attributes.key?('moduleversion') || attributes['moduleversion'].empty?
+      attributes['moduleversion']
     end
 
     def attributes
@@ -25,7 +25,7 @@ module Dsc
             utf8_encoded_content.lines.each do |line|
               dos2unix(line)
               matches = regex.match(line)
-              attrs[matches[1].strip] = matches[2] if matches
+              attrs[matches[1].strip.downcase] = matches[2] if matches
             end
             @attributes = attrs
           end
