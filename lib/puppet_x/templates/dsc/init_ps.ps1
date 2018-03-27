@@ -736,6 +736,8 @@ function Start-PipeServer
     $Encoding
   )
 
+  Add-Type -Assemblyname System.Core
+
   # this does not require versioning in the payload as client / server are tightly coupled
   $server = New-Object System.IO.Pipes.NamedPipeServerStream($CommandChannelPipeName,
     [System.IO.Pipes.PipeDirection]::InOut)
