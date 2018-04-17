@@ -25,8 +25,6 @@ describe 'Apply DSC "File" (directory) resource' do
 
   dsc_type = 'file'
   dsc_module = 'PSDesiredStateConfiguration'
-  local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
-  dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resources', 'dsc_single_resource.pp.erb')
 
   context 'Create and Remove Directory Resource with Valid "DestinationPath" Specified' do
     # 'MODULES-2286 - C68564 - Apply DSC File (Directory) Resource with Valid "DestinationPath" Specified'
@@ -36,7 +34,7 @@ describe 'Apply DSC "File" (directory) resource' do
           :dsc_type => 'Directory',
           :dsc_destinationpath => 'C:\test_dir',
       }
-      dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       apply_manifest(
           dsc_manifest,
@@ -50,7 +48,7 @@ describe 'Apply DSC "File" (directory) resource' do
           :dsc_type => 'Directory',
           :dsc_destinationpath => 'C:\test_dir',
       }
-      dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       apply_manifest(
           dsc_manifest,
@@ -73,7 +71,7 @@ describe 'Apply DSC "File" (directory) resource' do
           :dsc_sourcepath => 'C:\source_dir',
           :dsc_recurse => 'true'
       }
-      dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       before(:all) do
         3.times do |n|
@@ -141,7 +139,7 @@ describe 'Apply DSC "File" (directory) resource' do
           :dsc_type            => 'Directory',
           :dsc_destinationpath => "C:\\#{test_dir_name}"
       }
-      dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       before(:all) do
         create_remote_file(agent, "/cygdrive/c/#{test_manifest_name}", dsc_manifest)

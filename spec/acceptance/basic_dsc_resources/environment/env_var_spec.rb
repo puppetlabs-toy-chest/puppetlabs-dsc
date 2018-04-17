@@ -40,9 +40,6 @@ describe 'Apply DSC "Environment" Resources' do
   dsc_type = 'environment'
   dsc_module = 'PSDesiredStateConfiguration'
 
-  local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
-  dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resources', 'dsc_single_resource.pp.erb')
-
   context 'can add and remove an environment variable with no value' do
     # MODULES-2501 - C68554 - Apply DSC Environment Resource that Deletes Environment Variable
     # MODULES-2501 - C68551 - Apply DSC Environment Resource with No "Value" Specified
@@ -52,7 +49,7 @@ describe 'Apply DSC "Environment" Resources' do
           :dsc_name => 'delete'
       }
 
-      dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       apply_manifest(dsc_manifest, 'can add an environment variable', agent)
       verify_environment_variable(dsc_type, dsc_module , agent, dsc_props, 'environment variable is present')
@@ -61,7 +58,7 @@ describe 'Apply DSC "Environment" Resources' do
           :dsc_ensure => 'absent',
           :dsc_name => 'delete'
       }
-      dsc_delete_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_delete_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       apply_manifest(dsc_delete_manifest, 'can remove an environment variable', agent)
       verify_environment_variable(dsc_type, dsc_module , agent, dsc_props, 'environment variable is removed')
@@ -78,7 +75,7 @@ describe 'Apply DSC "Environment" Resources' do
           :dsc_path => false
       }
 
-      dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       apply_manifest(dsc_manifest, 'can add an environment variable with a value', agent)
       verify_environment_variable_with_path(dsc_type, dsc_module , agent, dsc_props, 'environment variable is present')
@@ -89,7 +86,7 @@ describe 'Apply DSC "Environment" Resources' do
           :dsc_value => 'new_value',
           :dsc_path => false
       }
-      dsc_update_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_update_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       apply_manifest(dsc_update_manifest, 'can change the value', agent)
       verify_environment_variable_with_path(dsc_type, dsc_module , agent, dsc_props, 'environment variable value has changed')
@@ -99,7 +96,7 @@ describe 'Apply DSC "Environment" Resources' do
           :dsc_name => 'update',
           :dsc_path => false
       }
-      dsc_delete_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_delete_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       apply_manifest(dsc_delete_manifest, 'can remove the environment variable', agent)
       verify_environment_variable_with_path(dsc_type, dsc_module , agent, dsc_props, 'environment variable is removed')
@@ -116,7 +113,7 @@ describe 'Apply DSC "Environment" Resources' do
           :dsc_path => true
       }
 
-      dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       apply_manifest(dsc_manifest, 'can add an environment variable with path', agent)
       verify_environment_variable_with_path(dsc_type, dsc_module , agent, dsc_props, 'environment variable is present')
@@ -127,7 +124,7 @@ describe 'Apply DSC "Environment" Resources' do
           :dsc_value => 'C:\\kittens',
           :dsc_path => true
       }
-      dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       apply_manifest(dsc_manifest, 'can remove an environment variable with a path', agent)
       verify_environment_variable_with_path(dsc_type, dsc_module , agent, dsc_props, 'environment variable is removed')
