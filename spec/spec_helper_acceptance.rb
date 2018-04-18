@@ -22,16 +22,15 @@ def single_dsc_resource_manifest(dsc_type, dsc_props)
   output = "dsc_#{dsc_type} {'#{dsc_type}_test':\n"
   dsc_props.each do |k, v|
     if v =~ /^\[.*\]$/
-      output += "  #{k} => #{v}\n"
+      output += "  #{k} => #{v},\n"
     elsif v =~ /^(true|false)$/
-      output += "  #{k} => #{v}\n"
+      output += "  #{k} => #{v},\n"
     elsif v =~ /^{.*}$/
-      output += "  #{k} => #{v}\n"
+      output += "  #{k} => #{v},\n"
     else
-      output += "  #{k} => '#{v}'\n"
+      output += "  #{k} => '#{v}',\n"
     end
   end
   output += "}\n"
-  require 'pry'; binding.pry
   return output
 end

@@ -11,8 +11,6 @@ end
 describe 'Negative group tests' do
 
   dsc_type = 'group'
-  local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
-  dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resources', 'dsc_single_resource.pp.erb')
 
   context 'Apply DSC Group Resource with Non-existent Users Specified' do
     # 'MODULES-2523 - C68583 - Attempt to Apply DSC Group Resource with Non-existent Users Specified'
@@ -22,7 +20,7 @@ describe 'Negative group tests' do
         :dsc_members => '["dogman","catperson"]'
     }
 
-    dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+    dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
     windows_agents.each do |agent|
       apply_manifest(
@@ -41,7 +39,7 @@ describe 'Negative group tests' do
         :dsc_groupname => 'meow?'
     }
 
-    dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+    dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
     windows_agents.each do |agent|
       apply_manifest(
@@ -62,7 +60,7 @@ describe 'Negative group tests' do
         :dsc_memberstoexclude => '["Administrator","Guest"]'
     }
 
-    dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+    dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
     windows_agents.each do |agent|
       apply_manifest(

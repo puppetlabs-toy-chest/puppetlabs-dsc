@@ -25,8 +25,6 @@ describe 'Apply DSC "File" resource' do
 
   dsc_type = 'file'
   dsc_module = 'PSDesiredStateConfiguration'
-  local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
-  dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resources', 'dsc_single_resource.pp.erb')
 
   context 'File Resource with Valid "DestinationPath" and "Contents" Specified' do
     # 'MODULES-2286 - C68557 - Apply DSC File Resource with Valid "DestinationPath" and "Contents" Specified'
@@ -36,7 +34,7 @@ describe 'Apply DSC "File" resource' do
           :dsc_destinationpath => 'C:\test.file',
           :dsc_contents => 'Cats go meow!',
       }
-      dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       apply_manifest(
           dsc_manifest,
@@ -55,7 +53,7 @@ describe 'Apply DSC "File" resource' do
           :dsc_destinationpath => 'C:\test.file',
           :dsc_contents => 'Cats go meow!',
       }
-      dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       apply_manifest(
           dsc_manifest,
@@ -80,7 +78,7 @@ describe 'Apply DSC "File" resource' do
           :dsc_sourcepath => 'C:\source.file'
       }
       source_file_contents = 'Dogs go bark!'
-      dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       before(:all) do
         set_dsc_resource(
@@ -144,7 +142,7 @@ describe 'Apply DSC "File" resource' do
             :dsc_destinationpath => "C:\\#{test_file_name}",
             :dsc_contents => "#{test_file_contents}"
         }
-        dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+        dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
         before(:all) do
           create_remote_file(agent, "/cygdrive/c/#{test_manifest_name}", dsc_manifest)
@@ -181,7 +179,7 @@ describe 'Apply DSC "File" resource' do
             :dsc_destinationpath => "C:\\#{test_file_name}",
             :dsc_contents => ''
         }
-        dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+        dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
         before(:all) do
           create_remote_file(agent, "/cygdrive/c/#{test_manifest_name}", dsc_manifest,)
@@ -217,7 +215,7 @@ describe 'Apply DSC "File" resource' do
             :dsc_destinationpath => "C:\\#{test_file_name}",
             :dsc_sourcepath => "C:\\#{source_file_name}"
         }
-        dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+        dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
         before(:all) do
           create_remote_file(agent, "/cygdrive/c/#{test_manifest_name}", dsc_manifest)

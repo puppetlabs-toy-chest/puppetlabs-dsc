@@ -13,9 +13,6 @@ describe 'Group tests' do
   dsc_type = 'group'
   dsc_module = 'PSDesiredStateConfiguration'
 
-  local_files_root_path = ENV['MANIFESTS'] || 'tests/manifests'
-  dsc_manifest_template_path = File.join(local_files_root_path, 'basic_dsc_resources', 'dsc_single_resource.pp.erb')
-
   context 'Group Resource with Valid "GroupName" and "Members" Specified' do
     # 'MODULES-2523 - C68578 - Apply DSC Group Resource with Valid "GroupName" and "Members" Specified'
     dsc_props = {
@@ -24,7 +21,7 @@ describe 'Group tests' do
         :dsc_members   => '["Administrator","Guest"]'
     }
 
-    dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+    dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
     after(:all) do
       set_dsc_resource(
@@ -74,7 +71,7 @@ describe 'Group tests' do
           :dsc_groupname => 'RemoveGroup'
       }
 
-      dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       apply_manifest(
           'Applies Group Resource that removes a Group',
@@ -104,7 +101,7 @@ describe 'Group tests' do
           :dsc_groupname => "\u1134\u1169\u1185\u1173\u112D\u1117\u1114\u1135\u114E"
       }
 
-      dsc_manifest = ERB.new(File.read(dsc_manifest_template_path), 0, '>').result(binding)
+      dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
       before(:all) do
         create_remote_file(agents, "/cygdrive/c/#{test_manifest_name}", dsc_manifest)
