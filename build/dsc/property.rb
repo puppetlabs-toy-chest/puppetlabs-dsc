@@ -21,6 +21,7 @@ module Dsc
       begin
         if @description.nil? && @cim_feature.description
           content = @cim_feature.description
+          content.force_encoding(Encoding::UTF_8)
           content.gsub!(/\xe2\x80\x9c/u, "'") # usage of single quotes as this string will be injected in a double bracket "#{content}"
           content.gsub!(/\xe2\x80\x9d/u, "'") # usage of single quotes as this string will be injected in a double bracket "#{content}"
           content.gsub!(/\xe2\x80\x98/u, "'")

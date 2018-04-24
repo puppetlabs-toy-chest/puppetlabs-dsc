@@ -68,7 +68,7 @@ module Dsc
     private
 
     def create_index_mof(index_mof_file_name, mofs)
-      File.open(index_mof_file_name, 'w') do |file|
+      File.open(index_mof_file_name, 'wb') do |file|
         mofs.each{|mof_path| file.write("#pragma include (\"#{mof_path}\")\n") }
       end
     end

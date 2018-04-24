@@ -1,15 +1,7 @@
 require 'spec_helper'
 require File.join(File.dirname(__FILE__), '../../build/dsc/psmodule')
 
-charlock_holmes_available = false
-begin
-  require 'charlock_holmes'
-  charlock_holmes_available = true
-rescue LoadError
-  # If any LoadErrors are thrown then charlock_holmes is not available as a gem
-end
-
-describe Dsc::Psmodule, :if => charlock_holmes_available do
+describe Dsc::Psmodule do
   describe "when parsing a psd1 manifest" do
 
     describe "with single quotes" do

@@ -11,7 +11,6 @@ require 'logger'
 if Bundler.rubygems.find_name('mof').any?
   require 'mof'
   require 'cim'
-  require 'charlock_holmes/string'
 end
 
 # Debug
