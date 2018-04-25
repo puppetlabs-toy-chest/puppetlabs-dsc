@@ -34,3 +34,20 @@ def single_dsc_resource_manifest(dsc_type, dsc_props)
   output += "}\n"
   return output
 end
+
+def test_file_path_manifest (test_dir_path, test_file_path, test_file_contents)
+  <<-Manifest
+  dsc_file {'tmp_folder':
+      dsc_ensure          => 'present',
+      dsc_type            => 'Directory',
+      dsc_destinationpath => "#{test_dir_path}",
+  }
+
+  dsc_file {'tmp_file':
+      dsc_ensure          => 'present',
+      dsc_type            => 'File',
+      dsc_destinationpath => "#{test_file_path}",
+      dsc_contents        => "#{test_file_contents}"
+  }
+  Manifest
+end

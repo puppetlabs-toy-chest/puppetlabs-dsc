@@ -26,7 +26,7 @@ spec/spec_helper.rb:
   - '.rbenv-gemsets'
   - '.ruby-version'
   - '*.lock'
-  - 'vendor/'
+  - '!build/vendor/'
 appveyor.yml:
   appveyor_bundle_install: "bundle install --jobs 4 --retry 2 --without system_tests build"
   test_script:
