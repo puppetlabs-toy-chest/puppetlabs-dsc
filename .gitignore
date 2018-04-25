@@ -27,4 +27,4 @@ import
 .rbenv-gemsets
 .ruby-version
 *.lock
-vendor/
+!build/vendor/
