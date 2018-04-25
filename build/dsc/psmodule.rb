@@ -14,6 +14,8 @@ module Dsc
       attributes['moduleversion']
     end
 
+    private
+
     def attributes
       begin
         unless @attributes
@@ -35,8 +37,6 @@ module Dsc
         raise "could not read psd1 manifest file for #{@name} / #{@module_manifest_path}: #{e}"
       end
     end
-
-    private
 
     def utf8_encode_content(content)
       detection = CharlockHolmes::EncodingDetector.detect(content)
