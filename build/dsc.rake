@@ -2,29 +2,16 @@ require 'yaml'
 
 namespace :dsc do
 
-  # local pathes
-  dsc_build_path             = Pathname.new(__FILE__).dirname
-  dsc_repo_url               = %x(git config --get remote.origin.url).strip
-  dsc_repo_branch            = %x(git rev-parse --abbrev-ref HEAD).strip
-  # defaults
-  default_dsc_module_path    = dsc_build_path.parent
-  default_dsc_resources_path = "#{default_dsc_module_path}/import/dsc_resources"
-  vendor_dsc_resources_path  = "#{default_dsc_module_path}/lib/puppet_x/dsc_resources"
-
-  default_repofile           = "#{default_dsc_module_path}/Repofile"
-  default_types_path         = "#{default_dsc_module_path}/lib/puppet/type"
-  default_type_specs_path    = "#{default_dsc_module_path}/spec/unit/puppet/type"
-
-  dsc_repo                   = 'https://github.com/PowerShell/DscResources.git'
-  dsc_resources_file         = "#{default_dsc_module_path}/dsc_resource_release_tags.yml"
+  root_path                           = Pathname.new(__FILE__).dirname
+  default_dsc_module_path             = root_path.parent
+  default_dsc_resources_path          = "#{default_dsc_module_path}/import/dsc_resources"
+  default_vendored_dsc_resources_path = "#{default_dsc_module_path}/lib/puppet_x/dsc_resources"
+  dsc_resources_tags_file             = "#{default_dsc_module_path}/dsc_resource_release_tags.yml"
+  dsc_repo                            = 'https://github.com/PowerShell/DscResources.git'
 
   desc "Import and build all"
   task :build, [:dsc_module_path] do |t, args|
     dsc_module_path = args[:dsc_module_path] || default_dsc_module_path
-
-    if args[:dsc_module_path]
-      Rake::Task['dsc:module:skeleton'].invoke(dsc_module_path)
-    end
 
     # the presence of this git clone does not indicate the source is up to date
     Rake::Task['dsc:resources:import'].invoke
@@ -43,25 +30,18 @@ namespace :dsc do
 
   namespace :resources do
 
-    item_name = 'DSC Powershell modules files'
-    desc <<-eod
-    Import #{item_name}
-
-Default values:
-  dsc_resources_path: #{default_dsc_resources_path}
-eod
-
+    desc "Import DSC Powershell modules files"
     task :import, [:dsc_resources_path, :update_versions] do |t, args|
       dsc_resources_path = args[:dsc_resources_path] || default_dsc_resources_path
       dsc_resources_path = File.expand_path(dsc_resources_path)
       dsc_resources_path_tmp = "#{dsc_resources_path}_tmp"
       update_versions = args[:update_versions] || false
-      is_custom_resource = (dsc_resources_path != default_dsc_resources_path)
-      
-      m = Dsc::Manager.new
+      microsoft_source = (dsc_resources_path == default_dsc_resources_path)
 
-      if !is_custom_resource
-        puts "Downloading and Importing #{item_name}"
+      m = Dsc::TypeImporter.new
+
+      if microsoft_source
+        puts "Downloading and Importing DSC Powershell modules files"
         cmd = ''
         cmd = "git clone #{dsc_repo} #{dsc_resources_path_tmp} && " unless Dir.exist? dsc_resources_path_tmp
         cmd += "cd #{dsc_resources_path_tmp}"
@@ -84,71 +64,26 @@ eod
         # filter out unwanted files
         valid_files = m.find_valid_files("#{dsc_resources_path_tmp}/**/*")
 
-        puts "Copying vendored resources from #{dsc_resources_path_tmp} to #{vendor_dsc_resources_path}"
+        puts "Copying vendored resources from #{dsc_resources_path_tmp} to #{default_vendored_dsc_resources_path}"
 
         # remove destination path, copy everything in from the filtered list
-        valid_files.each do |f|
-          if f.start_with?("#{community_dsc_resources_root}/")
-            dscresource_name = f.split(community_dsc_resources_root)[1].split("/")[1]
-            if f.include?("/#{dscresource_name}/Modules/#{dscresource_name}")
-              d = f.sub("#{dscresource_name}/Modules/#{dscresource_name}", "#{dscresource_name}")
-              dest = Pathname.new(d.sub(community_dsc_resources_root, vendor_dsc_resources_path))
-            else
-              dest = Pathname.new(f.sub(community_dsc_resources_root, vendor_dsc_resources_path))
-            end
-
-            FileUtils.mkdir_p(dest.dirname)
-            FileUtils.cp(f, dest)
-          end
-          if f.start_with?("#{official_dsc_resources_root}/")
-            dscresource_name = f.split(official_dsc_resources_root)[1].split("/")[1]
-            if f.include?("/#{dscresource_name}/Modules/#{dscresource_name}")
-              d = f.sub("#{dscresource_name}/Modules/#{dscresource_name}", "#{dscresource_name}")
-              dest = Pathname.new(d.sub(official_dsc_resources_root, vendor_dsc_resources_path))
-            else
-              dest = Pathname.new(f.sub(official_dsc_resources_root, vendor_dsc_resources_path))
-            end
-
-            FileUtils.mkdir_p(dest.dirname)
-            FileUtils.cp(f, dest)
-          end
-        end
-
-        # and duplicate the vendored files
-        FileUtils.cp_r vendor_dsc_resources_path, dsc_resources_path
-
-        puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{dsc_resources_path}"
-        FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{dsc_resources_path}/"
+        m.move_valid_files(valid_files, community_dsc_resources_root, official_dsc_resources_root, dsc_resources_path, default_vendored_dsc_resources_path, default_dsc_module_path)
       else
-        puts "Importing custom types from '#{dsc_resources_path}'"
         # filter out unwanted files
         valid_files = m.find_valid_files("#{dsc_resources_path}/**/*")
-
-        puts "Copying vendored resources from #{dsc_resources_path} to #{vendor_dsc_resources_path}"
-        valid_files.each do |f|
-          dest = Pathname.new(f.sub(dsc_resources_path, vendor_dsc_resources_path))
-          FileUtils.mkdir_p(dest.dirname)
-          FileUtils.cp(f, dest)
-        end
-        
-        puts "Adding custom types to '#{default_dsc_resources_path}'"
-        FileUtils.mkdir_p(default_dsc_resources_path) unless Dir.exist? default_dsc_resources_path
-        valid_files.each do |f|
-          dest = Pathname.new(f.sub(dsc_resources_path, default_dsc_resources_path))
-          FileUtils.mkdir_p(dest.dirname)
-          FileUtils.cp(f, dest)
-        end
+        m.move_valid_custom_files(valid_files, dsc_resources_path, default_vendored_dsc_resources_path, default_dsc_resources_path)
       end
     end
-    
+
+    desc "Checkout DSC Powershell modules"
     task :checkout, [:dsc_resources_path, :update_versions, :blacklist] do |t, args|
       dsc_resources_path = args[:dsc_resources_path]
       update_versions    = args[:update_versions]
       blacklist          = args[:blacklist]
       puts "Getting latest release tags for DSC resources in #{dsc_resources_path}..."
-      
+
       resource_tags = {}
-      resource_tags = YAML::load_file("#{dsc_resources_file}") if File.exist? dsc_resources_file
+      resource_tags = YAML::load_file("#{dsc_resources_tags_file}") if File.exist? dsc_resources_tags_file
 
       Dir["#{dsc_resources_path}/*"].each do |dsc_resource_path|
         dsc_resource_name = Pathname.new(dsc_resource_path).basename
@@ -194,24 +129,18 @@ eod
       resource_tags = resource_tags.reject do |r|
         blacklist.include?(r)
       end
-      
+
       # We use YAML.dump here to update the file instead of overwriting it. This ensures
       # we can write both HQ DSC Resources as well as Expertimental ones to the same yml
-      File.open("#{dsc_resources_file}", 'w+') { |f| YAML.dump(resource_tags, f) }
+      File.open("#{dsc_resources_tags_file}", 'w+') { |f| YAML.dump(resource_tags, f) }
     end
 
-    desc <<-eod
-    Cleanup #{item_name}
-
-Default values:
-  dsc_resources_path: #{default_dsc_resources_path}"
-eod
-
+    desc "Cleanup DSC Powershell modules files"
     task :clean, [:dsc_resources_path] do |t, args|
       dsc_resources_path = args[:dsc_resources_path] || default_dsc_resources_path
-      puts "Cleaning #{item_name}"
+      puts "Cleaning DSC Powershell modules files"
       FileUtils.rm_rf "#{dsc_resources_path}"
-      FileUtils.rm_rf "#{vendor_dsc_resources_path}"
+      FileUtils.rm_rf "#{default_vendored_dsc_resources_path}"
       FileUtils.rm_rf "#{default_dsc_module_path}/import"
     end
 
@@ -219,112 +148,55 @@ eod
 
   namespace :types do
 
-    item_name = 'DSC types and type specs'
-
-    desc "Build #{item_name}"
+    desc "Build DSC types and type specs"
     task :build, [:module_path] do |t, args|
       module_path = args[:module_path] || default_dsc_module_path
-      m = Dsc::Manager.new
+      m = Dsc::TypeBuilder.new(
+        module_path,
+        "#{module_path}/import",                                   #manager.@import_folder
+        "#{module_path}/import/dsc_resources",                     #manager.@dsc_modules_folder
+        "#{module_path}/build/qualifiers/base",                    #manager.@base_qualifiers_folder
+        "#{module_path}/build/vendor/dmtf_mof",                    #manager.@dmtf_mof_folder
+        "#{module_path}/build/dsc/templates/dsc_type.rb.erb",      #manager.@type_template_file
+        "#{module_path}/build/dsc/templates/dsc_type_spec.rb.erb", #manager.@type_spec_template_file
+        "lib/puppet/type",                                         #manager.@puppet_type_subpath
+        "spec/unit/puppet/type"                                    #manager.@puppet_type_spec_subpath
+      )
       m.target_module_path = module_path
       msgs = m.build_dsc_types
       msgs.each{|m| puts "#{m}"}
     end
 
-    desc "Document #{item_name}"
+    desc "Document DSC types and type specs"
     task :document, [:module_path] do |t, args|
       module_path = args[:module_path] || default_dsc_module_path
-      m = Dsc::Manager.new
-      m.target_module_path = module_path
-      m.document_types("#{default_dsc_module_path}/types.md", m.get_dsc_types)
+      m = Dsc::DocumentBuilder.new(
+        module_path,
+        "#{module_path}/import",                                   #manager.@import_folder
+        "#{module_path}/import/dsc_resources",                     #manager.@dsc_modules_folder
+        "#{module_path}/build/qualifiers/base",                    #manager.@base_qualifiers_folder
+        "#{module_path}/build/vendor/dmtf_mof",                    #manager.@dmtf_mof_folder
+        "#{module_path}/build/dsc/templates/dsc_type.rb.erb",      #manager.@type_template_file
+        "#{module_path}/build/dsc/templates/dsc_type_spec.rb.erb", #manager.@type_spec_template_file
+        "lib/puppet/type",                                         #manager.@puppet_type_subpath
+        "spec/unit/puppet/type"                                    #manager.@puppet_type_spec_subpath
+      )
+      m.document_types("#{default_dsc_module_path}/types.md")
     end
 
-    desc "Cleanup #{item_name}"
+    desc "Cleanup DSC types and type specs"
     task :clean, [:module_path] do |t, args|
       module_path = args[:module_path] || default_dsc_module_path
-      puts "Cleaning #{item_name}"
-      m = Dsc::Manager.new
-      m.target_module_path = module_path
+      puts "Cleaning DSC types and type specs"
+      m = Dsc::TypeCleaner.new(
+        module_path,
+        "lib/puppet/type",
+        "spec/unit/puppet/type",
+      )
       msgs = m.clean_dsc_types
       msgs.each{|m| puts "#{m}"}
       msgs = m.clean_dsc_type_specs
       msgs.each{|m| puts "#{m}"}
-    end
-
-  end
-
-  namespace :module do
-
-    item_name = 'External DSC module'
-
-    desc "Generate skeleton for #{item_name}"
-    task :skeleton, [:dsc_module_path] do |t, args|
-      dsc_module_path = args[:dsc_module_path] || default_dsc_module_path
-      module_name = Pathname.new(dsc_module_path).basename.to_s
-      ext_module_files = [
-        '.gitignore',
-        '.pmtignore',
-        'LICENSE',
-        'README.md',
-        'Repofile',
-        'spec/*.rb',
-      ]
-      ext_module_files.each do |module_pathes|
-        Dir[module_pathes].each do |path|
-          if File.directory?(path)
-            full_path = "#{dsc_module_path}/#{path}"
-            unless File.exists?(full_path)
-              puts "Creating directory #{full_path}"
-              FileUtils.mkdir_p(full_path)
-            end
-          else
-            directory = Pathname.new(path).dirname
-            full_directory_path = "#{dsc_module_path}/#{directory}"
-            full_path = "#{dsc_module_path}/#{path}"
-            unless File.exists?(full_directory_path)
-              puts "Creating directory #{full_directory_path}"
-              FileUtils.mkdir_p(full_directory_path)
-            end
-            unless File.exists?(full_path)
-              puts "Copying file #{path} to #{full_path}"
-              FileUtils.cp(path, full_path)
-            end
-          end
-        end
-      end
-
-      unless File.exists?("#{dsc_module_path}/Puppetfile")
-        puts "Creating #{dsc_module_path}/Puppetfile"
-
-        # Generate Puppetfile with dependency on this dsc module
-        Puppetfile_content = <<-eos
-forge "https://forgeapi.puppetlabs.com"
-mod '#{dsc_build_path.parent.basename}', :git => '#{dsc_repo_url}'
-eos
-
-        File.open("#{dsc_module_path}/Puppetfile", 'w') do |file|
-          file.write Puppetfile_content
-        end
-
-      end
-
-      # Generate Gemfile without any groups
-      unless File.exists?("#{dsc_module_path}/Gemfile")
-        puts "Creating #{dsc_module_path}/Gemfile"
-        Gemfile_content = File.read('Gemfile')
-        File.open("#{dsc_module_path}/Gemfile", 'w') do |file|
-          file.write Gemfile_content.gsub(/^group.*^end$/m,'')
-        end
-      end
-
-      # Generate Rakefile
-      unless File.exists?("#{dsc_module_path}/Rakefile")
-        puts "Creating #{dsc_module_path}/Rakefile"
-        Rakefile_content = File.read('Rakefile')
-        File.open("#{dsc_module_path}/Rakefile", 'w') do |file|
-          file.write Rakefile_content.gsub(/\/spec\/fixtures\/modules\/dsc/, "/spec/fixtures/modules/#{module_name.split('-').last}")
-        end
-      end
-
     end
 
   end
