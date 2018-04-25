@@ -88,7 +88,7 @@ describe 'Apply DSC "File" (directory) resource' do
 
       after(:all) do
         set_dsc_resource(
-            agents,
+            agent,
             dsc_type,
             dsc_module,
             :Ensure => 'Absent',
@@ -98,7 +98,7 @@ describe 'Apply DSC "File" (directory) resource' do
             :Recurse => '$true'
         )
         set_dsc_resource(
-            agents,
+            agent,
             dsc_type,
             dsc_module,
             :Ensure => 'Absent',
@@ -146,8 +146,8 @@ describe 'Apply DSC "File" (directory) resource' do
       end
 
       after(:all) do
-        on(agents, "rm -rf /cygdrive/c/#{test_dir_name}")
-        on(agents, "rm -rf /cygdrive/c/#{test_manifest_name}")
+        on(agent, "rm -rf /cygdrive/c/#{test_dir_name}")
+        on(agent, "rm -rf /cygdrive/c/#{test_manifest_name}")
       end
 
       apply_manifest(
