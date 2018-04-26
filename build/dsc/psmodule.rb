@@ -2,6 +2,7 @@ module Dsc
   class Psmodule
 
     attr_accessor :name
+    attr_reader :module_manifest_path
 
     def initialize(module_name, module_manifest_path)
       @name = module_name
