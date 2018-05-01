@@ -199,11 +199,9 @@ module Dsc
         # PowerShell Module manifest conventions. However there could be cases
         # where there are other psd1 files for different purposes, so we
         # filter for ones that match the module_name exactly, lowercased
-        module_manifest_path = Dir.glob("#{module_dir}/#{module_name}.psd1", File::FNM_CASEFOLD)
+        module_manifest_path = Dir.glob("#{module_dir}/*.psd1")
+                                  .select{ |fn| (File.basename(fn, ".psd1")).downcase == module_name.downcase }
                                   .first
-                                  #.select{ |fn| (File.basename(fn, ".psd1")).downcase == module_name.downcase }
-
-        #require 'pry'; binding.pry
         if module_manifest_path.nil?
           raise "module manifest #{module_dir}/#{module_name}.psd1 not found"
         end
