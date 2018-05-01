@@ -188,28 +188,24 @@ module Dsc
         module_dir = path_array[0..(path_array.count - (index + 2))].join('/')
 
         # A psd1 manifest is assumed to be the same name as the DSC Resource
-        module_manifest_path = "#{module_dir}/#{module_name}.psd1"
-        if !File.exists?(module_manifest_path)
-          # However on case sensitive OS, the file name could be a different
-          # case than the DSC Resource name, i.e SqlServerDsc vs SQLServerDsc.ps1,
-          # which would cause File.exists? to fail to find the file even though
-          # it exists.
-          # Dir.glob is used here to find any psd1 manifest in the module_dir
-          # folder. This is a safe assumption because by convention there can
-          # only be one manifest file for a DSC Resource because it follows
-          # PowerShell Module manifest conventions. However there could be cases
-          # where there are other psd1 files for different purposes, so we
-          # filter for ones that match the module_name exactly, lowercased
-          glob_module_manifest_path = Dir.glob("#{module_dir}/*.psd1")
-                                         .select{ |fn| (File.basename(fn, ".psd1")).downcase == module_name.downcase }
-                                         .first
-          if !File.exists?(glob_module_manifest_path)
-            # If both methods have failed to find a psd1 manifest, then we truly
-            # do not have a manifest, or just haven't accounted for yet another
-            # variance
-            raise "module manifest #{module_manifest_path} not found"
-          end
-          module_manifest_path = glob_module_manifest_path
+        # However on case sensitive OS, the file name could be a different
+        # case than the DSC Resource name, i.e SqlServerDsc vs SQLServerDsc.ps1,
+        # which would cause File.exists? to fail to find the file even though
+        # it exists.
+        #
+        # Dir.glob is used here to find any psd1 manifest in the module_dir
+        # folder. This is a safe assumption because by convention there can
+        # only be one manifest file for a DSC Resource because it follows
+        # PowerShell Module manifest conventions. However there could be cases
+        # where there are other psd1 files for different purposes, so we
+        # filter for ones that match the module_name exactly, lowercased
+        module_manifest_path = Dir.glob("#{module_dir}/#{module_name}.psd1", File::FNM_CASEFOLD)
+                                  .first
+                                  #.select{ |fn| (File.basename(fn, ".psd1")).downcase == module_name.downcase }
+
+        #require 'pry'; binding.pry
+        if module_manifest_path.nil?
+          raise "module manifest #{module_dir}/#{module_name}.psd1 not found"
         end
 
         @ps_module = Dsc::Psmodule.new(module_name, module_manifest_path)
