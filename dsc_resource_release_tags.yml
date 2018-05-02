@@ -12,7 +12,7 @@ xAzure: 0.2.0.0-PSGallery
 xAzurePack: 1.4.0.0-PSGallery
 xBitlocker: 1.1.0.0-PSGallery
 xCertificate: 3.2.0.0-PSGallery
-xComputerManagement: 4.0.0.0-PSGallery
+xComputerManagement: 4.1.0.0-PSGallery
 xCredSSP: 1.3.0.0-PSGallery
 xDatabase: 1.7.0.0-PSGallery
 xDefender: 0.2.0.0-PSGallery
