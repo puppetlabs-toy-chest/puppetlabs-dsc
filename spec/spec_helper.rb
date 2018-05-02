@@ -46,3 +46,21 @@ end
 Puppet::Util::Log.level = :warning
 Puppet::Util::Log.newdestination(:console)
 
+# Mocking Objects
+class MockCIMClass
+  attr_accessor :name
+  attr_accessor :qualifiers
+
+  def initialize(name)
+    @name = name
+    @qualifiers = {}
+  end
+end
+
+class MockCIMQualifier
+  attr_accessor :value
+
+  def initialize(value)
+    @value = value
+  end
+end
