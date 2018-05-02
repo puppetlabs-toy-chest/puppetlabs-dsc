@@ -6,7 +6,7 @@ SharePointDsc: 2.2.0.0-PSGallery
 SqlServerDsc: 11.1.0.0-PSGallery
 StorageDsc: 4.0.0.0-PSGallery
 SystemLocaleDsc: 1.2.0.0-PSGallery
-xActiveDirectory: 2.17.0.0-PSGallery
+xActiveDirectory: 2.18.0.0-PSGallery
 xAdcsDeployment: 1.4.0.0-PSGallery
 xAzure: 0.2.0.0-PSGallery
 xAzurePack: 1.4.0.0-PSGallery
