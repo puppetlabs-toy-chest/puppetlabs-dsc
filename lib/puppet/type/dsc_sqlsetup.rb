@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
   def dscmeta_resource_friendly_name; 'SqlSetup' end
   def dscmeta_resource_name; 'MSFT_SqlSetup' end
   def dscmeta_module_name; 'SqlServerDsc' end
-  def dscmeta_module_version; '11.0.0.0' end
+  def dscmeta_module_version; '11.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -399,14 +399,17 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
   # Name:         SecurityMode
   # Type:         string
   # IsMandatory:  False
-  # Values:       None
+  # Values:       ["SQL", "Windows"]
   newparam(:dsc_securitymode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SecurityMode - Security mode to apply to the SQL Server instance."
+    desc "SecurityMode - Security mode to apply to the SQL Server instance. 'SQL' indicates mixed-mode authentication while 'Windows' indicates Windows authentication. Default is Windows. Valid values are SQL, Windows."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['SQL', 'sql', 'Windows', 'windows'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are SQL, Windows")
       end
     end
   end
