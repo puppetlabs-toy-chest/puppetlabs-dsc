@@ -30,7 +30,7 @@ xNetworking: 5.6.0.0-PSGallery
 xPendingReboot: 0.3.0.0-PSGallery
 xPhp: 1.2.0.0-PSGallery
 xPowerShellExecutionPolicy: 1.1.0.0-PSGallery
-xPSDesiredStateConfiguration: 8.0.0.0-PSGallery
+xPSDesiredStateConfiguration: 8.1.0.0-PSGallery
 xRemoteDesktopAdmin: 1.1.0.0-PSGallery
 xRemoteDesktopSessionHost: 1.5.0.0-PSGallery
 xRobocopy: 2.0.0.0-PSGallery

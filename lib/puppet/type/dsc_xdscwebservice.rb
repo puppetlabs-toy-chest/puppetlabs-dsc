@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   def dscmeta_resource_friendly_name; 'xDSCWebService' end
   def dscmeta_resource_name; 'MSFT_xDSCWebService' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '8.0.0.0' end
+  def dscmeta_module_version; '8.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -244,6 +244,37 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SqlProvider
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqlprovider) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SqlProvider"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SqlConnectionString
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqlconnectionstring) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SqlConnectionString"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
     end
   end
 
