@@ -374,6 +374,7 @@ dsc_xcluster | [xCluster](https://github.com/puppetlabs/puppetlabs-dsc/tree/mast
 dsc_xclusterdisk | [xClusterDisk](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xFailOverCluster/DSCResources/MSFT_xClusterDisk) | [repo](https://github.com/PowerShell/xFailOverCluster)
 dsc_xclusternetwork | [xClusterNetwork](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xFailOverCluster/DSCResources/MSFT_xClusterNetwork) | [repo](https://github.com/PowerShell/xFailOverCluster)
 dsc_xclusterpreferredowner | [xClusterPreferredOwner](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xFailOverCluster/DSCResources/MSFT_xClusterPreferredOwner) | [repo](https://github.com/PowerShell/xFailOverCluster)
+dsc_xclusterproperty | [xClusterProperty](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xFailOverCluster/DSCResources/MSFT_xClusterProperty) | [repo](https://github.com/PowerShell/xFailOverCluster)
 dsc_xclusterquorum | [xClusterQuorum](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xFailOverCluster/DSCResources/MSFT_xClusterQuorum) | [repo](https://github.com/PowerShell/xFailOverCluster)
 dsc_xwaitforcluster | [xWaitForCluster](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xFailOverCluster/DSCResources/MSFT_xWaitForCluster) | [repo](https://github.com/PowerShell/xFailOverCluster)
 

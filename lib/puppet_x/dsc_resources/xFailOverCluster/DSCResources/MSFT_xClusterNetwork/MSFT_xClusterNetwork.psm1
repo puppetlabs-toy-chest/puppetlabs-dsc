@@ -34,11 +34,25 @@ function Get-TargetResource
         $_.Address -eq $Address -and $_.AddressMask -eq $AddressMask
     }
 
+    <#
+        On Windows Server 2008 R2 and on Windows Server 2012 R2, the property
+        Role is of type System.UInt32. On Windows Server 2016, the property Role
+        is of type Microsoft.FailoverClusters.PowerShell.ClusterNetworkRole.
+    #>
+    if ($NetworkResource.Role -is [System.UInt32])
+    {
+        $role = $NetworkResource.Role
+    }
+    else
+    {
+        $role = $NetworkResource.Role.value__
+    }
+
     @{
         Address     = $Address
         AddressMask = $AddressMask
         Name        = $NetworkResource.Name
-        Role        = $NetworkResource.Role
+        Role        = $role
         Metric      = $NetworkResource.Metric
     }
 }
