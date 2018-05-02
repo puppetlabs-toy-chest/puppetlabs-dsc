@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spprojectserverserviceapp) do
   def dscmeta_resource_friendly_name; 'SPProjectServerServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPProjectServerServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.1.0.0' end
+  def dscmeta_module_version; '2.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spdiagnosticsprovider) do
   def dscmeta_resource_friendly_name; 'SPDiagnosticsProvider' end
   def dscmeta_resource_name; 'MSFT_SPDiagnosticsProvider' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.1.0.0' end
+  def dscmeta_module_version; '2.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
