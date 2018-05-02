@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xproxysettings) do
   def dscmeta_resource_friendly_name; 'xProxySettings' end
   def dscmeta_resource_name; 'MSFT_xProxySettings' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '5.5.0.0' end
+  def dscmeta_module_version; '5.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
