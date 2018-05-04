@@ -3,6 +3,7 @@ require 'beaker/puppet_install_helper'
 require 'beaker/module_install_helper'
 require 'erb'
 require 'lib/dsc_utils'
+require 'beaker/testmode_switcher/dsl'
 
 run_puppet_install_helper
 
@@ -51,3 +52,4 @@ def test_file_path_manifest (test_dir_path, test_file_path, test_file_contents)
   }
   Manifest
 end
+

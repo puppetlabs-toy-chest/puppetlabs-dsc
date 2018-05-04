@@ -14,6 +14,10 @@ Gemfile:
       - gem: 'rspec-puppet'
         platforms: ["mswin", "mingw", "x64_mingw"]
         version: '< 2.6.0'
+    ':system_tests':
+      - gem: beaker-testmode_switcher
+        version: '~> 0.4'
+      - gem: master_manipulator
 Rakefile:
   unmanaged: true
 spec/spec_helper.rb:
