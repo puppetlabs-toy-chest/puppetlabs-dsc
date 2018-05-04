@@ -1,0 +1,25 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("xClusterProperty")]
+class MSFT_xClusterProperty : OMI_BaseResource
+{
+    [Key, Description("Name of the cluster.")] String Name;
+    [Write, Description("Specifies how many seconds after a node is evicted that the failover cluster service will wait before adding a new node.")] UInt32 AddEvictDelay;
+    [Write, Description("Controls the level of cluster logging.")] UInt32 ClusterLogLevel;
+    [Write, Description("Controls the maximum size of the cluster log files on each of the nodes.")] UInt32 ClusterLogSize;
+    [Write, Description("Controls the time interval, in milliseconds, that the cluster network driver waits between sending Cluster Service heartbeats across sites.")] UInt32 CrossSiteDelay;
+    [Write, Description("Controls how many Cluster Service heartbeats can be missed across sites before it determines that Cluster Service has stopped responding.")] UInt32 CrossSiteThreshold;
+    [Write, Description("Controls the time interval, in milliseconds, that the cluster network driver waits between sending Cluster Service heartbeats across subnets.")] UInt32 CrossSubnetDelay;
+    [Write, Description("Controls how many Cluster Service heartbeats can be missed across subnets before it determines that Cluster Service has stopped responding.")] UInt32 CrossSubnetThreshold;
+    [Write, Description("Specifies the read/write mode for the cluster database.")] UInt32 DatabaseReadWriteMode;
+    [Write, Description("Specifies the role that the cluster automatically assigns to any newly discovered or created network.")] UInt32 DefaultNetworkRole;
+    [Write, Description("Stores administrative comments about the cluster. The following table summarizes the attributes of the Description property.")] String Description;
+    [Write, Description("Specifies whether to enable Node Drain for a cluster.")] UInt32 DrainOnShutdown;
+    [Write, Description("Enables the cluster to change the required number of nodes that need to participate in quorum when nodes shut down or crash.")] UInt32 DynamicQuorum;
+    [Write, Description("Specifies whether Internet Protocol Security (IPSec) encryption is enabled for inter-node cluster communication.")] UInt32 NetftIPSecEnabled;
+    [Write, Description("Specifies the preferred site for a site-aware cluster.")] String PreferredSite;
+    [Write, Description("Specifies the quarantine duration for a node, in seconds.")] UInt32 QuarantineDuration;
+    [Write, Description("Specifies the quarantine threshold for a node, in minutes.")] UInt32 QuarantineThreshold;
+    [Write, Description("Controls the delay, in milliseconds, between netft heartbeats.")] UInt32 SameSubnetDelay;
+    [Write, Description("Controls how many heartbeats can be missed on the same subnet before the route is declared as unreachable.")] UInt32 SameSubnetThreshold;
+    [Write, Description("Specifies how many minutes after a system shutdown is initiated that the failover cluster service will wait for resources to go offline.")] UInt32 ShutdownTimeoutInMinutes;
+};

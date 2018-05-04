@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_sqlserviceaccount) do
   def dscmeta_resource_friendly_name; 'SqlServiceAccount' end
   def dscmeta_resource_name; 'MSFT_SqlServiceAccount' end
   def dscmeta_module_name; 'SqlServerDsc' end
-  def dscmeta_module_version; '11.0.0.0' end
+  def dscmeta_module_version; '11.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

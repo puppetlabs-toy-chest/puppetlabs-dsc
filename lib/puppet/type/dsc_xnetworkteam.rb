@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xnetworkteam) do
   def dscmeta_resource_friendly_name; 'xNetworkTeam' end
   def dscmeta_resource_name; 'MSFT_xNetworkTeam' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '5.5.0.0' end
+  def dscmeta_module_version; '5.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -132,7 +132,7 @@ Puppet::Type.newtype(:dsc_xnetworkteam) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Specifies if the network team should be created or deleted. Valid values are Present, Absent."
+    desc "Ensure - Specifies if the network team should be created or deleted. Defaults to 'Present'. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

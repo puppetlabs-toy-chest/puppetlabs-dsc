@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_sptimerjobstate) do
   def dscmeta_resource_friendly_name; 'SPTimerJobState' end
   def dscmeta_resource_name; 'MSFT_SPTimerJobState' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.1.0.0' end
+  def dscmeta_module_version; '2.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -78,7 +78,7 @@ Puppet::Type.newtype(:dsc_sptimerjobstate) do
   newparam(:dsc_webappurl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "WebAppUrl - The URL of the web application that the timer job belongs to, N/A if no web application is applicable"
+    desc "WebAppUrl - The URL of the web application that the timer job belongs to. Use the value 'N/A' if no web application is applicable"
     isrequired
     validate do |value|
       unless value.kind_of?(String)

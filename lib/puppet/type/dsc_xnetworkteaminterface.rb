@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xnetworkteaminterface) do
   def dscmeta_resource_friendly_name; 'xNetworkTeamInterface' end
   def dscmeta_resource_name; 'MSFT_xNetworkTeamInterface' end
   def dscmeta_module_name; 'xNetworking' end
-  def dscmeta_module_version; '5.5.0.0' end
+  def dscmeta_module_version; '5.6.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -86,14 +86,14 @@ Puppet::Type.newtype(:dsc_xnetworkteaminterface) do
     end
   end
 
-  # Name:         VlanID
+  # Name:         VlanId
   # Type:         uint32
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_vlanid) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "VlanID - Specifies VlanID to be set on network team interface."
+    desc "VlanId - Specifies VLAN ID to be set on network team interface."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -111,7 +111,7 @@ Puppet::Type.newtype(:dsc_xnetworkteaminterface) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Specifies if the network team interface should be created or deleted. Valid values are Present, Absent."
+    desc "Ensure - Specifies if the network team interface should be created or deleted. Defaults to 'Present'. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
