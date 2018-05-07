@@ -367,6 +367,8 @@ Where available, a link to the external GitHub repo of each resource is also inc
 
 ### Known Issues
 
+- The DSC LCM `RefreshMode` **must** be set to either `Push` or `Disabled` in order for the Puppet `dsc` module to function. The default value for `RefreshMode` in WMF 5.0 and WMF 5.1 is `Push`, so there is no action needed on your part. Changing the value is only needed if the `RefreshMode` has been set to any other value than `Push`. The Puppet `dsc` module uses the `Invoke-DscResource` cmdlet to invoke DSC Resources of the target machine. If the `RefreshMode` is set to `Pull` DSC does not allow any DSC Resources to be run interactively on the host, only from a DSC Pull Server.
+
 - The `WaitFor*` type of DSC Resources may not work with this module. These DSC Resources use sleeps, timers, or locking to 'wait' for other resources to be in a specified state. These waits would 'pause' a Puppet run for an amount of time that varies between DSC Resource implementations, which may cause unintended problems in the Puppet run. Puppet cannot test all possible interactions from these `WaitFor*` DSC Resources, and does not support them at this time.
 
 - The `dsc_log` resource might not appear to work. The ["Log" resource](https://technet.microsoft.com/en-us/library/Dn282117.aspx) writes events to the 'Microsoft-Windows-Desired State Configuration/Analytic' event log, which is [disabled by default](https://technet.microsoft.com/en-us/library/Cc749492.aspx).
