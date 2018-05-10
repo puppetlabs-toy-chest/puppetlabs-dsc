@@ -6,7 +6,30 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
-- Bump the puppetlabs-reboot module dependancy to reflect that the new version is 2.0.0 ([MODULES-6678](https://tickets.puppetlabs.com/browse/MODULES-6678))
+## [1.6.0] - 2018-05-09
+
+### Added
+
+- Added documentation on the LCM RefreshMode setting ([MODULES-6640](https://tickets.puppetlabs.com/browse/MODULES-6640))
+- Added Windows 2016 to metadata ([MODULES-4271](https://tickets.puppetlabs.com/browse/MODULES-4271))
+
+### Fixed
+
+- Fixed DSC Resource Module Version parsing error ([MODULES-7055](https://tickets.puppetlabs.com/browse/MODULES-7055))
+- Fixed case sensitive file name psd1 resolver ([MODULES-7063](https://tickets.puppetlabs.com/browse/MODULES-7063))
+- Fixed pining HQ DSC Resources ([MODULES-6694](https://tickets.puppetlabs.com/browse/MODULES-6694))
+- Fixed starting pipes on Windows 2008R2 ([MODULES-6929](https://tickets.puppetlabs.com/browse/MODULES-6929))
+
+### Changed
+
+- Updated SharePointDsc to 2.2.0.0  ([MODULES-7057](https://tickets.puppetlabs.com/browse/MODULES-7057))
+- Updated SqlServerDsc to 11.1.0.0  ([MODULES-7057](https://tickets.puppetlabs.com/browse/MODULES-7057))
+- Updated xActiveDirectory to 2.18.0.0  ([MODULES-7057](https://tickets.puppetlabs.com/browse/MODULES-7057))
+- Updated xComputerManagement to 4.1.0.0  ([MODULES-7057](https://tickets.puppetlabs.com/browse/MODULES-7057))
+- Updated xFailOverCluster to 1.10.0.0  ([MODULES-7057](https://tickets.puppetlabs.com/browse/MODULES-7057))
+- Updated xNetworking to 5.6.0.0  ([MODULES-7057](https://tickets.puppetlabs.com/browse/MODULES-7057))
+- Updated xPSDesiredStateConfiguration to 8.1.0.0  ([MODULES-7057](https://tickets.puppetlabs.com/browse/MODULES-7057))
+- Bumped the puppetlabs-reboot module dependancy to reflect that the new version is 2.0.0 ([MODULES-6678](https://tickets.puppetlabs.com/browse/MODULES-6678))
 
 ## [1.5.0] - 2018-02-19
 
