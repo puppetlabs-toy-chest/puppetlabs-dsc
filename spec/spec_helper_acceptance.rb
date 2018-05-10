@@ -3,6 +3,7 @@ require 'beaker/puppet_install_helper'
 require 'beaker/module_install_helper'
 require 'erb'
 require 'lib/dsc_utils'
+require 'beaker/testmode_switcher/dsl'
 
 run_puppet_install_helper
 
@@ -50,4 +51,18 @@ def test_file_path_manifest (test_dir_path, test_file_path, test_file_contents)
       dsc_contents        => "#{test_file_contents}"
   }
   Manifest
+end
+
+# Due to IMAGES-825, sometimes we can't create folders from within Cygwin, but instead
+# need to break out to native Windows binaries to create them.  This creates files and
+# folders with a correct and sane DACL
+def create_remote_windows_directory(hosts, windows_path)
+  windows_path = windows_path.gsub('\\','\\\\\\')
+  on(hosts, "cmd.exe /c mkdir #{windows_path}", :accept_all_exit_codes => true)
+end
+
+def create_remote_windows_file(hosts, windows_path, content)
+  # Note content CANNOT contain backslashes or file endings.  Single string only
+  windows_path = windows_path.gsub('\\','\\\\\\')
+  on(hosts, "cmd.exe /c echo #{content} > #{windows_path}", :accept_all_exit_codes => true)
 end

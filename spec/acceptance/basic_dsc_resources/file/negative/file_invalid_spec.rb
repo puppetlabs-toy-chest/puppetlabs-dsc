@@ -1,10 +1,9 @@
 require 'spec_helper_acceptance'
 
-def apply_manifest(dsc_manifest, it_message, agent, acceptable_exit_codes, expected_error_msg)
-  it "#{it_message} on #{agent}" do
-    on(agent, puppet('apply'), :stdin => dsc_manifest, :acceptable_exit_codes => acceptable_exit_codes) do |result|
-      assert_match(expected_error_msg, result.stderr, 'Expected error was not detected!')
-    end
+shared_examples_for 'an error in a puppet run' do |agent, dsc_manifest, expected_error_msg|
+  it "should raise an error" do
+    result = execute_manifest_on(agent, dsc_manifest, :expect_failures => true)
+    expect(result.output).to match(expected_error_msg)
   end
 end
 
@@ -12,9 +11,8 @@ describe 'Negative file tests' do
 
   dsc_type = 'file'
 
-  context 'Apply DSC Invalid File Resources ' do
+  context 'DSC File resource with invalid data type for Force' do
     windows_agents.each do |agent|
-      # 'MODULES-2286 - C68788 - Attempt to Apply DSC File Resource with Invalid Data Type for "Force" Specified'
       dsc_props = {
           :dsc_ensure => 'Present',
           :dsc_destinationpath => 'C:\\test.file',
@@ -24,17 +22,12 @@ describe 'Negative file tests' do
 
       dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
-      apply_manifest(
-          dsc_manifest,
-          'Fails to apply manifest with invalid data type for "Force"',
-          agent,
-          1,
-          /invalid value: cows/
-      )
+      it_should_behave_like 'an error in a puppet run', agent, dsc_manifest, /invalid value: cows/
     end
+  end
 
+  context 'DSC File resource with invalid data for DestinationPath' do
     windows_agents.each do |agent|
-      # 'MODULES-2286 - C68569 - Attempt to Apply DSC File Resource with Invalid "DestinationPath" Specified'
       dsc_props = {
           :dsc_ensure          => 'Present',
           :dsc_destinationpath => 'K:\\test.file',
@@ -43,17 +36,12 @@ describe 'Negative file tests' do
 
       dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
-      apply_manifest(
-          dsc_manifest,
-          'Fails to Apply DSC File Resource with Invalid "DestinationPath"',
-          agent,
-          0,
-          /Error: No such file or directory/
-      )
+      it_should_behave_like 'an error in a puppet run', agent, dsc_manifest, /Error: No such file or directory/
     end
+  end
 
+  context 'DSC File resource with invalid data for SourcePath' do
     windows_agents.each do |agent|
-      # 'MODULES-2286 - C68571 - Attempt to Apply DSC File Resource with Invalid "SourcePath" Specified'
       dsc_props = {
           :dsc_ensure          => 'Present',
           :dsc_destinationpath => 'C:\\test.file',
@@ -62,13 +50,7 @@ describe 'Negative file tests' do
 
       dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
 
-      apply_manifest(
-          dsc_manifest,
-          'Fails to Apply DSC File Resource with Invalid "SourcePath"',
-          agent,
-          0,
-          /Error:.*SourcePath must be accessible for current configuration./
-      )
+      it_should_behave_like 'an error in a puppet run', agent, dsc_manifest, /Error:.*SourcePath must be accessible for current configuration./
     end
   end
 end
