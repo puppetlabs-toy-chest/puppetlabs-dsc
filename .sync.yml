@@ -1,5 +1,42 @@
 ---
+.gitignore:
+  paths:
+    - bin
+    - import
+    - .tmp
+    - .rbenv-gemsets
+    - .ruby-version
+    - "*.lock"
+    -  "!build/vendor/"
+
 Gemfile:
+  required:
+    ':system_tests':
+      - gem: 'puppet-module-posix-system-r#{minor_version}'
+        platforms: ruby
+      - gem: 'puppet-module-win-system-r#{minor_version}'
+        platforms:
+          - mswin
+          - mingw
+          - x64_mingw
+      - gem: beaker
+        version: '~> 3.13'
+        from_env: BEAKER_VERSION
+      - gem: beaker-abs
+        version: '~> 0.1'
+        from_env: BEAKER_ABS_VERSION
+      - gem: beaker-pe
+      - gem: beaker-hostgenerator
+        version: '>= 0.0'
+        from_env: BEAKER_HOSTGENERATOR_VERSION
+      - gem: beaker-rspec
+        version: '>= 0.0'
+        from_env: BEAKER_RSPEC_VERSION
+      - gem: beaker-testmode_switcher
+        version: '~> 0.4'
+      - gem: master_manipulator
+      - gem: puppet-blacksmith
+        version: '~> 3.4'
   optional:
     ':build':
       - gem: cim
@@ -14,34 +51,37 @@ Gemfile:
       - gem: 'rspec-puppet'
         platforms: ["mswin", "mingw", "x64_mingw"]
         version: '< 2.6.0'
-    ':system_tests':
-      - gem: beaker-testmode_switcher
-        version: '~> 0.4'
-      - gem: master_manipulator
+
+# For the moment don't do any rubocop checks.
+.rubocop.yml:
+  include_todos: true
+  selected_profile: off
+
+# The rakefile is heavily modified for the build process
 Rakefile:
   unmanaged: true
-spec/spec_helper.rb:
+
+spec/default_facts.yml:
   unmanaged: true
-.gitignore:
-  paths:
-  - 'bin'
-  - 'import'
-  - '.tmp'
-  - '.rbenv-gemsets'
-  - '.ruby-version'
-  - '*.lock'
-  - '!build/vendor/'
+
+# The DSC module doesn't support parallel_spec
 appveyor.yml:
   appveyor_bundle_install: "bundle install --jobs 4 --retry 2 --without system_tests build"
-  test_script:
-    - 'bundle exec rspec spec/unit spec/integration -fd -b'
-MAINTAINERS.md:
-  maintainers:
-    - "Puppet Windows Team `windows |at| puppet |dot| com`"
-NOTICE:
-  copyright_holders:
-    - name: 'Puppet, Inc.'
-      begin: 2015
-    - name: 'Marc Sutter, original author'
-      begin: 2014
-      end: 2015
+  matrix:
+    - RUBY_VERSION: 24-x64
+      CHECK: "syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop"
+    - PUPPET_GEM_VERSION: ~> 4.0
+      RUBY_VERSION: 21
+      CHECK: spec
+    - PUPPET_GEM_VERSION: ~> 4.0
+      RUBY_VERSION: 21-x64
+      CHECK: spec
+    - PUPPET_GEM_VERSION: ~> 5.0
+      RUBY_VERSION: 24
+      CHECK: spec
+    - PUPPET_GEM_VERSION: ~> 5.0
+      RUBY_VERSION: 24-x64
+      CHECK: spec
+
+.gitlab-ci.yml:
+  delete: true
