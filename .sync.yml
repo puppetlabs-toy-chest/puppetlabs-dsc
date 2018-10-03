@@ -69,6 +69,12 @@ appveyor.yml:
     - PUPPET_GEM_VERSION: ~> 5.0
       RUBY_VERSION: 24-x64
       CHECK: spec
+    - PUPPET_GEM_VERSION: ~> 6.0
+      RUBY_VERSION: 25
+      CHECK: spec
+    - PUPPET_GEM_VERSION: ~> 6.0
+      RUBY_VERSION: 25-x64
+      CHECK: spec
 
 .gitlab-ci.yml:
   delete: true
