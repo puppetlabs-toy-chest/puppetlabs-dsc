@@ -36,11 +36,11 @@ group :development do
   gem "rspec-puppet", '< 2.6.0',                       require: false, platforms: [:mswin, :mingw, :x64_mingw]
 end
 group :system_tests do
-  gem "puppet-module-posix-system-r#{minor_version}",                                        require: false, platforms: [:ruby]
-  gem "puppet-module-win-system-r#{minor_version}",                                          require: false, platforms: [:mswin, :mingw, :x64_mingw]
-  gem "beaker-testmode_switcher", '~> 0.4',                                                  require: false
-  gem "master_manipulator",                                                                  require: false
-  gem "puppet-blacksmith", '~> 3.4',                                                         require: false
+  gem "puppet-module-posix-system-r#{minor_version}", require: false, platforms: [:ruby]
+  gem "puppet-module-win-system-r#{minor_version}",   require: false, platforms: [:mswin, :mingw, :x64_mingw]
+  gem "beaker-testmode_switcher", '~> 0.4',           require: false
+  gem "master_manipulator",                           require: false
+  gem "puppet-blacksmith", '~> 3.4',                  require: false
 end
 group :build do
   gem "cim",               require: false
