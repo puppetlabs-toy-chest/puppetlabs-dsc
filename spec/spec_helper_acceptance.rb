@@ -69,3 +69,7 @@ def create_remote_windows_file(hosts, windows_path, content)
   windows_path = windows_path.gsub('\\','\\\\\\')
   on(hosts, "cmd.exe /c echo #{content} > #{windows_path}", :accept_all_exit_codes => true)
 end
+
+def puppet_version(agent)
+  on(agent, puppet('--version', :acceptable_exit_codes => 0)).stdout
+end
