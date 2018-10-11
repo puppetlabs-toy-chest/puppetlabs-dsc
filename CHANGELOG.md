@@ -1,10 +1,25 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
- 	 
+
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.7.0] - 2018-10-10
+
+### Added
+
+- Added Beaker Testmode Switcher ([MODULES-6742](https://tickets.puppetlabs.com/browse/MODULES-6742))
+- Added support for Puppet 6 ([MODULES-7832](https://tickets.puppetlabs.com/browse/MODULES-7832))
+
+### Fixed
+
+- Fix broken type files ([MODULES-7642](https://tickets.puppetlabs.com/browse/MODULES-7642))
+
+### Changed
+
+- Converted module to PDK format ([MODULES-7399](https://tickets.puppetlabs.com/browse/MODULES-7399))
 
 ## [1.6.0] - 2018-05-09
 
@@ -196,7 +211,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Removed
 
 - Remove LCM Refresh Mode Disabled Requirement ([MODULES-2575](https://tickets.puppet.com/browse/MODULES-2575))
-- Remove Unsupported DSC Resource Types xChrome, xDscDiagnostics, xFireFox, xSafeHarbor, xSecurity, MSFT_WaitForAll, MSFT_WaitForAny and MSFT_WaitForSome ([MODULES-2244](https://tickets.puppet.com/browse/MODULES-2244)).  
+- Remove Unsupported DSC Resource Types xChrome, xDscDiagnostics, xFireFox, xSafeHarbor, xSecurity, MSFT_WaitForAll, MSFT_WaitForAny and MSFT_WaitForSome ([MODULES-2244](https://tickets.puppet.com/browse/MODULES-2244)).
 - Further reduce the module size by removing unnecessary files ([MODULES-2777](https://tickets.puppet.com/browse/MODULES-2777))
 
 ## [0.8.1] - 2015-09-02
