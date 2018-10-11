@@ -15,7 +15,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Fixed
 
-- Fix broken type files ([MODULES-7642](https://tickets.puppetlabs.com/browse/MODULES-7642))
+- Fix broken type files ([MODULES-7462](https://tickets.puppetlabs.com/browse/MODULES-7462))
 
 ### Changed
 
