@@ -351,7 +351,7 @@ Where available, a link to the external GitHub repo of each resource is also inc
 
 - DSC Composite Resources are not supported.
 
-- DSC requires PowerShell `Execution Policy` for the `LocalMachine` scope to be set to a less restrictive setting than `Restricted`. If you see the error below, see [MODULES-2500](https://tickets.puppet.com/browse/MODULES-2500) for more information.
+- DSC requires PowerShell `Execution Policy` for the `LocalMachine` scope to be set to a less restrictive setting than `Restricted`. If you see the error below, the subsequent Puppet code will set it to RemoteSigned. See [MODULES-2500](https://tickets.puppet.com/browse/MODULES-2500) for more detailed information.
 
   ~~~
   Error: /Stage[main]/Main/Dsc_xgroup[testgroup]: Could not evaluate: Importing module MSFT_xGroupResource failed with
@@ -359,6 +359,14 @@ Where available, a link to the external GitHub repo of each resource is also inc
   Files\WindowsPowerShell\Modules\PuppetVendoredModules\xPSDesiredStateConfiguration\DscResources\MSFT_xGroupR
   esource\MSFT_xGroupResource.psm1 cannot be loaded because running scripts is disabled on this system. For more
   information, see about_Execution_Policies at http://go.microsoft.com/fwlink/?LinkID=135170.
+  ~~~
+  
+  ~~~puppet
+  exec { 'Set PowerShell execution policy RemoteSigned':
+    command  => 'Set-ExecutionPolicy RemoteSigned',
+    unless   => 'if ((Get-ExecutionPolicy -Scope LocalMachine).ToString() -eq "RemoteSigned") { exit 0 } else { exit 1 }',
+    provider => powershell
+  }
   ~~~
 
 - You cannot use forward slashes for the MSI `Path` property for the `Package` DSC Resource. The underlying implementation does not accept forward slashes instead of backward slashes in paths, and it throws a misleading error that it could not find a Package with the Name and ProductId provided. [MODULES-2486](https://tickets.puppet.com/browse/MODULES-2486) has more examples and information on this subject.
