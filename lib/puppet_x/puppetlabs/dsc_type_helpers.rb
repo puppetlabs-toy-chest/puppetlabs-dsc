@@ -8,6 +8,21 @@ module PuppetX
         raise ArgumentError.new "invalid value: #{value}"
       end
 
+      # This is used to recursively search the hash to find sensitive data
+      # and ensure it is properly represented.
+      # It will modify the values in the hash passed to it.
+      def self.munge_sensitive_hash!(h)
+        if h.is_a?(Hash) && h['__pcore_type__'] == 'Sensitive' && h.key?('__pcore_value__')
+          return Puppet::Pops::Types::PSensitiveType::Sensitive.new(h['__pcore_value__'])
+        elsif h.is_a?(Hash) && h['__ptype'] == 'Sensitive' && h.key?('__pvalue')
+          return Puppet::Pops::Types::PSensitiveType::Sensitive.new(h['__pvalue'])
+        else
+          h.each_pair do |key, value|
+            h[key] = munge_sensitive_hash!(value) if value.is_a?(Hash)
+          end
+        end
+      end
+
       def self.munge_integer(value)
         value.is_a?(Array) ? value.map { |v| v.to_i } : value.to_i
       end
