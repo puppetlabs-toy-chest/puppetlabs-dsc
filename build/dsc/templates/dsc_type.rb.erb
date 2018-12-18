@@ -109,6 +109,9 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
 <%  resource.properties.each do |property| -%>
@@ -249,6 +252,10 @@ Puppet::Type.newtype(:dsc_<%= resource.friendlyname.downcase %>) do
 <%    when (property.int? || property.uint?) -%>
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+<%    when property.credential? -%>
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
 <%    else -%>
 <%    end -%>
