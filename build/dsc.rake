@@ -88,6 +88,7 @@ namespace :dsc do
       Dir["#{dsc_resources_path}/*"].each do |dsc_resource_path|
         dsc_resource_name = Pathname.new(dsc_resource_path).basename
         FileUtils.cd(dsc_resource_path) do
+          tracked_version = resource_tags["#{dsc_resource_name}"]
           # --date-order probably doesn't matter
           # Requires git version 2.2.0 or higher - https://github.com/git/git/commit/9271095cc5571e306d709ebf8eb7f0a388254d9d
           tags_raw = %x{ git log --tags --pretty=format:'%D' --simplify-by-decoration --date-order }
@@ -95,13 +96,13 @@ namespace :dsc do
           # we should explore pushing this out out to a method where we can
           # clean up the tags that may have prerelease versions in them
           # similar to what was done in the Chocolatey module
-          versions = tags_raw.scan(/(\S+)\-PSGallery/).map { | ver | Gem::Version.new(ver[0]) }
-          if versions.empty?
-            raise "#{dsc_resource_name} does not have any '*-PSGallery' tags. Appears it has not been released yet. Tags found #{tags_raw.to_s}"
+          if tracked_version.nil?
+            versions = tags_raw.scan(/(\S+)\-PSGallery/).map { | ver | Gem::Version.new(ver[0]) }
+            if versions.empty?
+              raise "#{dsc_resource_name} does not have any '*-PSGallery' tags and was not pinned in the tracked version file. Appears it has not been released yet. Tags found #{tags_raw.to_s}"
+            end
+            latest_version = versions.max.to_s + "-PSGallery"
           end
-
-          latest_version = versions.max.to_s + "-PSGallery"
-          tracked_version = resource_tags["#{dsc_resource_name}"]
 
           update_version = tracked_version.nil? ? true : update_versions
 

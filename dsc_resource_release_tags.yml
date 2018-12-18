@@ -53,3 +53,14 @@ xWindowsRestore: 1.0.0-PSGallery
 xWindowsUpdate: 2.7.0.0-PSGallery
 xWinEventLog: 1.1.0.0-PSGallery
 xWordPress: 1.1.0.0-PSGallery
+xDisk: 1.0-PSGallery
+WmiNamespaceSecurityDsc: d49daa4c18f12aabf32fd60631d927c6d276a453
+iSCSIDsc: 2208ad24a0cc0a85ce19fb377e72fbc21d366587
+FSRMDsc: 8945f610fa9a6f7f920260abf4e50d91db25bac0
+FileContentDsc: 272086660b16874a400800a76b85ee47e26421e2
+WSManDsc: 1aa6400e7ffa1932505bf9904a7ce9e147af9c45
+CertificateDsc: 4.2.0.0-PSGallery
+NetworkingDsc: 6.2.0.0-PSGallery
+ComputerManagementDsc: 6.0.0.0-PSGallery
+DFSDsc: 4.2.0.0-PSGallery
+ActiveDirectoryCSDsc: 3.0.0.0-PSGallery
