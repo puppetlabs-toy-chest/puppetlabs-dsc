@@ -52,6 +52,9 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         Action
@@ -100,6 +103,9 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SourceCredential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 
@@ -315,6 +321,9 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SQLSvcAccount", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         SQLSvcAccountUsername
@@ -345,6 +354,9 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("AgtSvcAccount", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 
@@ -427,6 +439,9 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SAPwd", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 
@@ -534,6 +549,9 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("FTSvcAccount", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         FTSvcAccountUsername
@@ -565,6 +583,9 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("RSSvcAccount", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         RSSvcAccountUsername
@@ -595,6 +616,9 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("ASSvcAccount", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 
@@ -752,6 +776,9 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("ISSvcAccount", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 

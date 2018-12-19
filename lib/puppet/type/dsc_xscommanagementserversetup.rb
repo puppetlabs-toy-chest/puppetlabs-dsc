@@ -53,6 +53,9 @@ Puppet::Type.newtype(:dsc_xscommanagementserversetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         Ensure
@@ -118,6 +121,9 @@ Puppet::Type.newtype(:dsc_xscommanagementserversetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SetupCredential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 
@@ -214,6 +220,9 @@ Puppet::Type.newtype(:dsc_xscommanagementserversetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("ActionAccount", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         ActionAccountUsername
@@ -244,6 +253,9 @@ Puppet::Type.newtype(:dsc_xscommanagementserversetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("DASAccount", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 
@@ -276,6 +288,9 @@ Puppet::Type.newtype(:dsc_xscommanagementserversetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("DataReader", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         DataReaderUsername
@@ -306,6 +321,9 @@ Puppet::Type.newtype(:dsc_xscommanagementserversetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("DataWriter", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 

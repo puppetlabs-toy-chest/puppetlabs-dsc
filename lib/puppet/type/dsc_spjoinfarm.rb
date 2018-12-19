@@ -53,6 +53,9 @@ Puppet::Type.newtype(:dsc_spjoinfarm) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         FarmConfigDatabaseName
@@ -101,6 +104,9 @@ Puppet::Type.newtype(:dsc_spjoinfarm) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Passphrase", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         ServerRole
@@ -134,6 +140,9 @@ Puppet::Type.newtype(:dsc_spjoinfarm) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 

@@ -53,6 +53,9 @@ Puppet::Type.newtype(:dsc_xazurepackrelyingparty) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         Target
@@ -122,6 +125,9 @@ Puppet::Type.newtype(:dsc_xazurepackrelyingparty) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("AzurePackAdminCredential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         SQLServer
@@ -167,6 +173,9 @@ Puppet::Type.newtype(:dsc_xazurepackrelyingparty) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("dbUser", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 

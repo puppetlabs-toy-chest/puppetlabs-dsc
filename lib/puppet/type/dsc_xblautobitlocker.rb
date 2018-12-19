@@ -52,6 +52,9 @@ Puppet::Type.newtype(:dsc_xblautobitlocker) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         DriveType
@@ -204,6 +207,9 @@ Puppet::Type.newtype(:dsc_xblautobitlocker) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Password", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         PasswordProtector
@@ -235,6 +241,9 @@ Puppet::Type.newtype(:dsc_xblautobitlocker) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Pin", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 

@@ -53,6 +53,9 @@ Puppet::Type.newtype(:dsc_spwebapplicationappdomain) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         WebApplication
@@ -149,6 +152,9 @@ Puppet::Type.newtype(:dsc_spwebapplicationappdomain) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("InstallAccount", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 

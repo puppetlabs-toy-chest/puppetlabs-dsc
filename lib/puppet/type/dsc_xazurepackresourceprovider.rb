@@ -52,6 +52,9 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         AuthenticationSite
@@ -113,6 +116,9 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("AzurePackAdminCredential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 
@@ -242,6 +248,9 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("AdminAuthenticationUser", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         AdminAuthenticationUsername
@@ -305,6 +314,9 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("TenantAuthenticationUser", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 
@@ -400,6 +412,9 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("UsageAuthenticationUser", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         UsageAuthenticationUsername
@@ -464,6 +479,9 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("HealthCheckAuthenticationUser", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         HealthCheckAuthenticationUsername
@@ -527,6 +545,9 @@ Puppet::Type.newtype(:dsc_xazurepackresourceprovider) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("NotificationAuthenticationUser", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 

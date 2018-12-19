@@ -53,6 +53,9 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         Ensure
@@ -119,6 +122,9 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SetupCredential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         vmmService
@@ -134,6 +140,9 @@ Puppet::Type.newtype(:dsc_xscvmmmanagementserversetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("vmmService", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 
