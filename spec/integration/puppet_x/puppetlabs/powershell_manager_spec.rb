@@ -66,6 +66,12 @@ describe PuppetX::Dsc::PowerShellManager,
           expected_error = /Failure waiting for PowerShell process (\d+) to start pipe server/
           expect(e.message).to match expected_error
           pid = expected_error.match(e.message)[1].to_i
+
+          # We want to make sure that enough time has elapsed since the manager called kill
+          # for the OS to finish killing the process and doing all of it's cleanup.
+          # We have found that without an appropriate wait period, the kill call below
+          # can return unexpected results and fail the test.
+          sleep(1)
           expect{Process.kill(0, pid)}.to raise_error(Errno::ESRCH)
         end
       end
