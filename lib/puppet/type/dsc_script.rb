@@ -53,6 +53,9 @@ Puppet::Type.newtype(:dsc_script) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         GetScript
@@ -116,6 +119,9 @@ Puppet::Type.newtype(:dsc_script) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 

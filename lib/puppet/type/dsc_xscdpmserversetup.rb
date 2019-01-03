@@ -53,6 +53,9 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         Ensure
@@ -118,6 +121,9 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SetupCredential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 
@@ -225,6 +231,9 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("YukonMachineCredential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         ReportingMachineName
@@ -270,6 +279,9 @@ Puppet::Type.newtype(:dsc_xscdpmserversetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("ReportingMachineCredential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 

@@ -53,6 +53,9 @@ Puppet::Type.newtype(:dsc_xscspfserversetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         Ensure
@@ -118,6 +121,9 @@ Puppet::Type.newtype(:dsc_xscspfserversetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SetupCredential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 
@@ -262,6 +268,9 @@ Puppet::Type.newtype(:dsc_xscspfserversetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SCVMM", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         SCVMMUsername
@@ -292,6 +301,9 @@ Puppet::Type.newtype(:dsc_xscspfserversetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SCAdmin", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 
@@ -324,6 +336,9 @@ Puppet::Type.newtype(:dsc_xscspfserversetup) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SCProvider", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         SCProviderUsername
@@ -354,6 +369,9 @@ Puppet::Type.newtype(:dsc_xscspfserversetup) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SCUsage", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 

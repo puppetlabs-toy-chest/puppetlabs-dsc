@@ -53,6 +53,9 @@ Puppet::Type.newtype(:dsc_xremotefile) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         DestinationPath
@@ -130,6 +133,9 @@ Puppet::Type.newtype(:dsc_xremotefile) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         MatchSource
@@ -194,6 +200,9 @@ Puppet::Type.newtype(:dsc_xremotefile) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("ProxyCredential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 

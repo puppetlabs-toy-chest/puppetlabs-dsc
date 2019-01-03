@@ -52,6 +52,9 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         InstanceName
@@ -114,6 +117,9 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SourcePathCredential", value)
     end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
   end
 
   # Name:         Features
@@ -144,6 +150,9 @@ Puppet::Type.newtype(:dsc_xsqlserverinstall) do
         fail("Invalid value '#{value}'. Should be a hash")
       end
       PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("SqlAdministratorCredential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
     end
   end
 
