@@ -89,7 +89,8 @@ Add the following `reboot` resource to your manifest. It must have the name `dsc
 ~~~puppet
 reboot { 'dsc_reboot' :
   message => 'DSC has requested a reboot',
-  when => 'pending'
+  when    => 'pending',
+  onlyif  => 'pending_dsc_reboot',
 }
 ~~~
 
