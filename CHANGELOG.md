@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.8.0] - 2019-01-15
+
+### Added
+
+- Added small example exec for updating execution policy via contribution by [nekototori](https://github.com/Nekototori)
+
+### Fixed
+
+- Ensure that using sensitive values in DSC resource declarations functions when the master and agent are different major versions ([MODULES-8172](https://tickets.puppetlabs.com/browse/MODULES-8172))
+
 ## [1.7.0] - 2018-10-10
 
 ### Added
