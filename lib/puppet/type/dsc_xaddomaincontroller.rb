@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xaddomaincontroller) do
   def dscmeta_resource_friendly_name; 'xADDomainController' end
   def dscmeta_resource_name; 'MSFT_xADDomainController' end
   def dscmeta_module_name; 'xActiveDirectory' end
-  def dscmeta_module_version; '2.18.0.0' end
+  def dscmeta_module_version; '2.24.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xaddomaincontroller) do
   newparam(:dsc_domainname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainName"
+    desc "DomainName - The FQDN of the domain the Domain Controller will be joining."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xaddomaincontroller) do
   newparam(:dsc_domainadministratorcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "DomainAdministratorCredential"
+    desc "DomainAdministratorCredential - The 'PSCredential' object containing Domain Adminstrator rights to add the Domain Controller to the domain."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -99,7 +99,7 @@ Puppet::Type.newtype(:dsc_xaddomaincontroller) do
   newparam(:dsc_safemodeadministratorpassword) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "SafemodeAdministratorPassword"
+    desc "SafemodeAdministratorPassword - The 'PSCredential' object containing the password to use for DSRM."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -118,7 +118,7 @@ Puppet::Type.newtype(:dsc_xaddomaincontroller) do
   newparam(:dsc_databasepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DatabasePath"
+    desc "DatabasePath - The path where the database will be stored."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -133,7 +133,7 @@ Puppet::Type.newtype(:dsc_xaddomaincontroller) do
   newparam(:dsc_logpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "LogPath"
+    desc "LogPath - The path where the logs will be stored."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -148,7 +148,7 @@ Puppet::Type.newtype(:dsc_xaddomaincontroller) do
   newparam(:dsc_sysvolpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SysvolPath"
+    desc "SysvolPath - The path where the Sysvol will be stored."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -163,7 +163,22 @@ Puppet::Type.newtype(:dsc_xaddomaincontroller) do
   newparam(:dsc_sitename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SiteName"
+    desc "SiteName - The name of the site this Domain Controller will be added to."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         InstallationMediaPath
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_installationmediapath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "InstallationMediaPath - The path of the media you want to use install the Domain Controller."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

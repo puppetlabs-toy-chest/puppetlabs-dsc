@@ -23,9 +23,9 @@ function Get-TargetResource
         [string] $ConnectionBroker
     )
     Write-Verbose "Getting information about RDSH collection."
-    $Collection = Get-RDSessionCollection -ErrorAction SilentlyContinue
+    $Collection = Get-RDSessionCollection -CollectionName $CollectionName -ConnectionBroker $ConnectionBroker -ErrorAction SilentlyContinue
     @{
-        "CollectionName" = $Collection.CollectionName;
+        "CollectionName" = $Collection.CollectionName 
         "CollectionDescription" = $Collection.CollectionDescription
         "SessionHost" = $localhost
         "ConnectionBroker" = $ConnectionBroker
@@ -59,7 +59,7 @@ function Set-TargetResource
     }
     else 
     {
-        $PSBoundParameters.Remove("Description")
+        $PSBoundParameters.Remove('CollectionDescription')
         Add-RDSessionHost @PSBoundParameters
     }
 }
@@ -90,4 +90,3 @@ function Test-TargetResource
 
 
 Export-ModuleMember -Function *-TargetResource
-

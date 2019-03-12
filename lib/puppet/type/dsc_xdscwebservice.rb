@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   @doc = %q{
     The DSC xDSCWebService resource type.
     Automatically generated from
-    'xPSDesiredStateConfiguration/DSCResources/MSFT_xDSCWebService/MSFT_xDSCWebService.schema.mof'
+    'xPSDesiredStateConfiguration/DSCResources/MSFT_xDSCWebService/MSFT_xDSCWebService.Schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
   def dscmeta_resource_friendly_name; 'xDSCWebService' end
   def dscmeta_resource_name; 'MSFT_xDSCWebService' end
   def dscmeta_module_name; 'xPSDesiredStateConfiguration' end
-  def dscmeta_module_version; '8.1.0.0' end
+  def dscmeta_module_version; '8.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -82,6 +82,36 @@ Puppet::Type.newtype(:dsc_xdscwebservice) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "CertificateThumbPrint - Can take the value AllowUnencryptedTraffic for setting up a non SSL based endpoint"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CertificateSubject
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_certificatesubject) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CertificateSubject"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CertificateTemplateName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_certificatetemplatename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CertificateTemplateName"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

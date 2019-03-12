@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xvmdvddrive) do
   def dscmeta_resource_friendly_name; 'xVMDvdDrive' end
   def dscmeta_resource_name; 'MSFT_xVMDvdDrive' end
   def dscmeta_module_name; 'xHyper-V' end
-  def dscmeta_module_version; '3.11.0.0' end
+  def dscmeta_module_version; '3.16.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

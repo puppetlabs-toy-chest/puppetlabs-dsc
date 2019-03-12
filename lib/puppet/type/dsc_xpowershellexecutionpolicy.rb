@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xpowershellexecutionpolicy) do
   def dscmeta_resource_friendly_name; 'xPowerShellExecutionPolicy' end
   def dscmeta_resource_name; 'MSFT_xPowerShellExecutionPolicy' end
   def dscmeta_module_name; 'xPowerShellExecutionPolicy' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '3.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xpowershellexecutionpolicy) do
   newparam(:dsc_executionpolicy) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ExecutionPolicy - Changes the user preference for the Windows PowerShell execution policy. Valid values are Bypass, Restricted, AllSigned, RemoteSigned, Unrestricted."
+    desc "ExecutionPolicy - Changes the preference for the Windows PowerShell execution policy. Valid values are Bypass, Restricted, AllSigned, RemoteSigned, Unrestricted."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -72,6 +72,24 @@ Puppet::Type.newtype(:dsc_xpowershellexecutionpolicy) do
       end
       unless ['Bypass', 'bypass', 'Restricted', 'restricted', 'AllSigned', 'allsigned', 'RemoteSigned', 'remotesigned', 'Unrestricted', 'unrestricted'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Bypass, Restricted, AllSigned, RemoteSigned, Unrestricted")
+      end
+    end
+  end
+
+  # Name:         ExecutionPolicyScope
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["CurrentUser", "LocalMachine", "MachinePolicy", "Process", "UserPolicy"]
+  newparam(:dsc_executionpolicyscope) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ExecutionPolicyScope - Defines the scope for the preference of the Windows PowerShell execution policy. Valid values are CurrentUser, LocalMachine, MachinePolicy, Process, UserPolicy."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['CurrentUser', 'currentuser', 'LocalMachine', 'localmachine', 'MachinePolicy', 'machinepolicy', 'Process', 'process', 'UserPolicy', 'userpolicy'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are CurrentUser, LocalMachine, MachinePolicy, Process, UserPolicy")
       end
     end
   end

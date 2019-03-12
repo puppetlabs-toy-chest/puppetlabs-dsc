@@ -1,0 +1,9 @@
+[ClassVersion("0.1.0.0"), FriendlyName("AdcsEnrollmentPolicyWebService")]
+class MSFT_AdcsEnrollmentPolicyWebService : OMI_BaseResource
+{
+    [Key, Description("Specifies the authentication type used by the Certificate Enrollment Policy Web Service."), ValueMap{"Certificate","Kerberos","UserName"}, Values{"Certificate","Kerberos","UserName"}] String AuthenticationType;
+    [Required, Description("Specifies the thumbprint of the certificate used by Internet Information Service (IIS) to enable support for required Secure Sockets Layer (SSL).")] String SslCertThumbprint;
+    [Required, Description("If the Certificate Enrollment Policy Web service is configured to use Standalone certification authority, then an account that is a member of the local Administrators on the CA is required. If the Certificate Enrollment Policy Web service is configured to use an Enterprise CA, then an account that is a member of Domain Admins is required."), EmbeddedInstance("MSFT_Credential")] String Credential;
+    [Write, Description("Configures the Certificate Enrollment Policy Web Service to operate in key-based renewal mode. Defaults to False.")] Boolean KeyBasedRenewal;
+    [Write, Description("Specifies whether the Certificate Enrollment Policy Web feature should be installed or uninstalled. Defaults to Present."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+};

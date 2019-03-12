@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   def dscmeta_resource_friendly_name; 'xExchAutodiscoverVirtualDirectory' end
   def dscmeta_resource_name; 'MSFT_xExchAutodiscoverVirtualDirectory' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '1.27.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_identity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Identity"
+    desc "Identity - The Identity parameter specifies the Autodiscover virtual directory that you want to modify."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
+    desc "Credential - Credentials used to establish a remote PowerShell session to Exchange."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -99,7 +99,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_allowservicerestart) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllowServiceRestart"
+    desc "AllowServiceRestart - Whether it is OK to recycle the app pool after making changes. Defaults to $true."
     validate do |value|
     end
     newvalues(true, false)
@@ -115,7 +115,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_basicauthentication) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "BasicAuthentication"
+    desc "BasicAuthentication - Specifies whether Basic authentication is enabled on the virtual directory."
     validate do |value|
     end
     newvalues(true, false)
@@ -131,7 +131,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_digestauthentication) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "DigestAuthentication"
+    desc "DigestAuthentication - Specifies whether Digest authentication is enabled on the virtual directory."
     validate do |value|
     end
     newvalues(true, false)
@@ -147,7 +147,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_domaincontroller) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainController"
+    desc "DomainController - Specifies the domain controller that's used by this cmdlet to read data from or write data to Active Directory."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -162,7 +162,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_extendedprotectionflags, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "ExtendedProtectionFlags - Valid values are None, Proxy, NoServiceNameCheck, AllowDotlessSpn, ProxyCohosting."
+    desc "ExtendedProtectionFlags - Specifies custom settings for Extended Protection for Authentication on the virtual directory. Valid values are None, Proxy, NoServiceNameCheck, AllowDotlessSpn, ProxyCohosting."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -190,7 +190,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_extendedprotectionspnlist, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "ExtendedProtectionSPNList"
+    desc "ExtendedProtectionSPNList - Specifies a list of valid Service Principal Names (SPNs) if you're using Extended Protection for Authentication on the virtual directory."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -208,7 +208,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_extendedprotectiontokenchecking) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ExtendedProtectionTokenChecking - Valid values are None, Allow, Require."
+    desc "ExtendedProtectionTokenChecking - Defines how you want to use Extended Protection for Authentication on the virtual directory. Valid values are None, Allow, Require."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -226,7 +226,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_oauthauthentication) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "OAuthAuthentication"
+    desc "OAuthAuthentication - Specifies whether OAuth authentication is enabled on the virtual directory."
     validate do |value|
     end
     newvalues(true, false)
@@ -242,7 +242,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_windowsauthentication) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "WindowsAuthentication"
+    desc "WindowsAuthentication - Specifies whether Integrated Windows authentication is enabled on the virtual directory."
     validate do |value|
     end
     newvalues(true, false)
@@ -258,7 +258,7 @@ Puppet::Type.newtype(:dsc_xexchautodiscovervirtualdirectory) do
   newparam(:dsc_wssecurityauthentication) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "WSSecurityAuthentication"
+    desc "WSSecurityAuthentication - Specifies whether WS-Security (Web Services Security) authentication is enabled on the virtual directory."
     validate do |value|
     end
     newvalues(true, false)

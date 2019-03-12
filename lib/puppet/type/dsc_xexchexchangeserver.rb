@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchexchangeserver) do
   def dscmeta_resource_friendly_name; 'xExchExchangeServer' end
   def dscmeta_resource_name; 'MSFT_xExchExchangeServer' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '1.27.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xexchexchangeserver) do
   newparam(:dsc_identity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Identity"
+    desc "Identity - The Identity parameter specifies the GUID, distinguished name (DN), or name of the server."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xexchexchangeserver) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
+    desc "Credential - Credentials used to establish a remote PowerShell session to Exchange."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -99,7 +99,7 @@ Puppet::Type.newtype(:dsc_xexchexchangeserver) do
   newparam(:dsc_allowservicerestart) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllowServiceRestart"
+    desc "AllowServiceRestart - Whether it is OK to restart the Information Store service after licensing the server. Defaults to $false."
     validate do |value|
     end
     newvalues(true, false)
@@ -115,7 +115,7 @@ Puppet::Type.newtype(:dsc_xexchexchangeserver) do
   newparam(:dsc_customerfeedbackenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "CustomerFeedbackEnabled"
+    desc "CustomerFeedbackEnabled - The CustomerFeedbackEnabled parameter specifies whether the Exchange server is enrolled in the Microsoft Customer Experience Improvement Program (CEIP). The CEIP collects anonymous information about how you use Exchange and problems that you might encounter. If you decide not to participate in the CEIP, the servers are opted-out automatically."
     validate do |value|
     end
     newvalues(true, false)
@@ -131,11 +131,27 @@ Puppet::Type.newtype(:dsc_xexchexchangeserver) do
   newparam(:dsc_domaincontroller) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainController"
+    desc "DomainController - The DomainController parameter specifies the domain controller that's used by this cmdlet to read data from or write data to Active Directory. You identify the domain controller by its fully qualified domain name (FQDN). For example, dc01.contoso.com."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         ErrorReportingEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_errorreportingenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "ErrorReportingEnabled - The ErrorReportingEnabled parameter specifies whether error reporting is enabled."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
@@ -146,11 +162,29 @@ Puppet::Type.newtype(:dsc_xexchexchangeserver) do
   newparam(:dsc_internetwebproxy) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "InternetWebProxy"
+    desc "InternetWebProxy - The InternetWebProxy parameter specifies the web proxy server that the Exchange server uses to reach the internet. A valid value for this parameter is the URL of the web proxy server."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         InternetWebProxyBypassList
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_internetwebproxybypasslist, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "InternetWebProxyBypassList - The InternetWebProxyBypassList parameter specifies a list of servers that bypass the web proxy server specified by the InternetWebProxy parameter. You identify the servers by their FQDN (for example, server01.contoso.com)."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 
@@ -161,7 +195,7 @@ Puppet::Type.newtype(:dsc_xexchexchangeserver) do
   newparam(:dsc_monitoringgroup) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MonitoringGroup"
+    desc "MonitoringGroup - The MonitoringGroup parameter specifies how to add your Exchange servers to monitoring groups. You can add your servers to an existing group or create a monitoring group based on location or deployment, or to partition monitoring responsibility among your servers."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -176,11 +210,80 @@ Puppet::Type.newtype(:dsc_xexchexchangeserver) do
   newparam(:dsc_productkey) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ProductKey"
+    desc "ProductKey - The ProductKey parameter specifies the server product key."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         StaticConfigDomainController
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_staticconfigdomaincontroller) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "StaticConfigDomainController - The StaticConfigDomainController parameter specifies whether to configure a domain controller to be used by the server via Directory Service Access (DSAccess)."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         StaticDomainControllers
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_staticdomaincontrollers, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "StaticDomainControllers - The StaticDomainControllers parameter specifies whether to configure a list of domain controllers to be used by the server via DSAccess."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         StaticExcludedDomainControllers
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_staticexcludeddomaincontrollers, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "StaticExcludedDomainControllers - The StaticExcludedDomainControllers parameter specifies whether to exclude a list of domain controllers from being used by the server."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         StaticGlobalCatalogs
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_staticglobalcatalogs, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "StaticGlobalCatalogs - The StaticGlobalCatalogs parameter specifies whether to configure a list of global catalogs to be used by the server via DSAccess."
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 
@@ -191,7 +294,7 @@ Puppet::Type.newtype(:dsc_xexchexchangeserver) do
   newparam(:dsc_workloadmanagementpolicy) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "WorkloadManagementPolicy"
+    desc "WorkloadManagementPolicy - The *-ResourcePolicy, *-WorkloadManagementPolicy and *-WorkloadPolicy system workload management cmdlets have been deprecated. System workload management settings should be customized only under the direction of Microsoft Customer Service and Support."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

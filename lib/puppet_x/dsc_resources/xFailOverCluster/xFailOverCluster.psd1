@@ -1,6 +1,6 @@
 @{
 
-moduleVersion = '1.10.0.0'
+moduleVersion = '1.12.0.0'
 
 GUID = '026e7fd8-06dd-41bc-b373-59366ab18679'
 
@@ -33,10 +33,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '- Changes to xFailOverCluster
-  - Added xClusterProperty ([issue 169](https://github.com/PowerShell/xFailOverCluster/issues/169)).
-- Changes to xClusterNetwork
-  - Fix the test for the network role never in desired state ([issue 175](https://github.com/PowerShell/xFailOverCluster/issues/175)).
+        ReleaseNotes = '- Explicitly removed extra hidden files from release package
 
 '
 
@@ -44,6 +41,8 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
+
 
 
 

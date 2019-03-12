@@ -21,13 +21,13 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
   }
 
   validate do
-      fail('dsc_installerpath is a required attribute') if self[:dsc_installerpath].nil?
+      fail('dsc_issingleinstance is a required attribute') if self[:dsc_issingleinstance].nil?
     end
 
   def dscmeta_resource_friendly_name; 'SPInstallPrereqs' end
   def dscmeta_resource_name; 'MSFT_SPInstallPrereqs' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,15 +58,33 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
     end
   end
 
-  # Name:         InstallerPath
+  # Name:         IsSingleInstance
   # Type:         string
   # IsMandatory:  True
+  # Values:       ["Yes"]
+  newparam(:dsc_issingleinstance) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "IsSingleInstance - Specifies the resource is a single instance, the value must be 'Yes' Valid values are Yes."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Yes', 'yes'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Yes")
+      end
+    end
+  end
+
+  # Name:         InstallerPath
+  # Type:         string
+  # IsMandatory:  False
   # Values:       None
   newparam(:dsc_installerpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "InstallerPath - The full path to prerequisiteinstaller.exe"
-    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -338,6 +356,36 @@ Puppet::Type.newtype(:dsc_spinstallprereqs) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "DotNetFx - The path to the installer for this prerequisite (SP2016 only)"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         DotNet472
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_dotnet472) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DotNet472 - The path to the installer for this prerequisite (SP2019 only)"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         MSVCRT141
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_msvcrt141) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "MSVCRT141 - The path to the installer for this prerequisite (SP2019 only)"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

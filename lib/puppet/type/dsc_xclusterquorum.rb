@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xclusterquorum) do
   def dscmeta_resource_friendly_name; 'xClusterQuorum' end
   def dscmeta_resource_name; 'MSFT_xClusterQuorum' end
   def dscmeta_module_name; 'xFailOverCluster' end
-  def dscmeta_module_version; '1.10.0.0' end
+  def dscmeta_module_version; '1.12.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

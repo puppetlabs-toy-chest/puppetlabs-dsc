@@ -48,21 +48,22 @@ function Get-TargetResource
         $webappsi = Get-SPServiceInstance -Server $env:COMPUTERNAME `
                                           -ErrorAction SilentlyContinue `
                         | Where-Object -FilterScript {
-                            $_.TypeName -eq "Microsoft SharePoint Foundation Web Application"
+                            $_.GetType().Name -eq "SPWebServiceInstance" -and `
+                            $_.Name -eq ""
                           }
 
         if ($null -eq $webappsi)
         {
             Write-Verbose -Message "Server isn't running the Web Application role"
             return @{
-                WebAppUrl = $null
-                Zone = $null
-                EnableCache = $false
-                Location = $null
-                MaxSizeInGB = $null
+                WebAppUrl       = $null
+                Zone            = $null
+                EnableCache     = $false
+                Location        = $null
+                MaxSizeInGB     = $null
                 MaxAgeInSeconds = $null
-                FileTypes = $null
-                InstallAccount = $params.InstallAccount
+                FileTypes       = $null
+                InstallAccount  = $params.InstallAccount
             }
         }
 
@@ -73,21 +74,21 @@ function Get-TargetResource
         {
             Write-Verbose -Message "Specified web application was not found."
             return @{
-                WebAppUrl = $null
-                Zone = $null
-                EnableCache = $false
-                Location = $null
-                MaxSizeInGB = $null
+                WebAppUrl       = $null
+                Zone            = $null
+                EnableCache     = $false
+                Location        = $null
+                MaxSizeInGB     = $null
                 MaxAgeInSeconds = $null
-                FileTypes = $null
-                InstallAccount = $params.InstallAccount
+                FileTypes       = $null
+                InstallAccount  = $params.InstallAccount
             }
         }
 
         $zone = [Microsoft.SharePoint.Administration.SPUrlZone]::$($params.Zone)
 
         $sitePath = $wa.IisSettings[$zone].Path
-        $webconfiglocation = Join-Path $sitePath "web.config"
+        $webconfiglocation = Join-Path -Path $sitePath -ChildPath "web.config"
 
         [xml]$webConfig = Get-Content -Path $webConfigLocation
 
@@ -127,14 +128,14 @@ function Get-TargetResource
         }
 
         $returnval = @{
-            WebAppUrl = $params.WebAppUrl
-            Zone = $params.Zone
-            EnableCache = $cacheEnabled
-            Location = $webconfig.configuration.SharePoint.BlobCache.location
-            MaxSizeInGB = $maxsize
+            WebAppUrl       = $params.WebAppUrl
+            Zone            = $params.Zone
+            EnableCache     = $cacheEnabled
+            Location        = $webconfig.configuration.SharePoint.BlobCache.location
+            MaxSizeInGB     = $maxsize
             MaxAgeInSeconds = $maxage
-            FileTypes = $webconfig.configuration.SharePoint.BlobCache.path
-            InstallAccount = $params.InstallAccount
+            FileTypes       = $webconfig.configuration.SharePoint.BlobCache.path
+            InstallAccount  = $params.InstallAccount
         }
 
         return $returnval
@@ -237,10 +238,11 @@ function Set-TargetResource
             $changes = $args[1]
 
             $webappsi = Get-SPServiceInstance -Server $env:COMPUTERNAME `
-                                              -ErrorAction SilentlyContinue `
+                                                    -ErrorAction SilentlyContinue `
                             | Where-Object -FilterScript {
-                                $_.TypeName -eq "Microsoft SharePoint Foundation Web Application"
-                              }
+                                $_.GetType().Name -eq "SPWebServiceInstance" -and `
+                                $_.Name -eq ""
+                            }
 
             if ($null -eq $webappsi)
             {
@@ -258,7 +260,7 @@ function Set-TargetResource
 
             $zone = [Microsoft.SharePoint.Administration.SPUrlZone]::$($params.Zone)
 
-            $sitePath = $wa.IisSettings[$zone].Path
+            $sitePath  = $wa.IisSettings[$zone].Path
             $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
             $webconfiglocation = Join-Path -Path $sitePath -ChildPath "web.config"
             $webconfigbackuplocation = Join-Path -Path $sitePath -ChildPath "web_config-$timestamp.backup"
@@ -297,7 +299,7 @@ function Set-TargetResource
     ## Check Blob Cache folder
     if ($Location)
     {
-        if ( -not (Test-Path -Path $Location))
+        if (-not (Test-Path -Path $Location))
         {
             Write-Verbose "Create Blob Cache Folder $Location"
             try
@@ -360,7 +362,7 @@ function Test-TargetResource
 
     if ($Location)
     {
-        if ( -not (Test-Path -Path $Location))
+        if (-not (Test-Path -Path $Location))
         {
             Write-Verbose "Blob Cache Folder $Location does not exist"
             return $false

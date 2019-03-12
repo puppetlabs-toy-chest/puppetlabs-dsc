@@ -1,0 +1,8 @@
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMAutoQuota")]
+class DSR_FSRMAutoQuota : OMI_BaseResource
+{
+    [Key, Description("The path this FSRM Quota applies to.")] String Path;
+    [Write, Description("Specifies whether the FSRM Quota should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("Disables the FSRM Quota applied to this path.")] Boolean Disabled;
+    [Write, Description("The name of the FSRM Quota Template to apply to this path.")] String Template;
+};

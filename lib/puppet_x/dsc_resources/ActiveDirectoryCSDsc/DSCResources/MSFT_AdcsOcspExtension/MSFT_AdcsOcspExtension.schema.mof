@@ -1,0 +1,8 @@
+[ClassVersion("1.0.0"), FriendlyName("AdcsOcspExtension")]
+class MSFT_AdcsOcspExtension : OMI_BaseResource
+{
+    [Key, Description("Specifies the resource is a single instance, the value must be 'Yes'."), ValueMap{"Yes"}, Values{"Yes"}] String IsSingleInstance;
+    [Required, Description("Specifies the address of the OCSP responder from where revocation of this certificate can be checked.")] String OcspUriPath[];
+    [Write, Description("Specifies if the CertSvc service should be restarted to immediately apply the settings.")] Boolean RestartService;
+    [Write, Description("Specifies if the OCSP responder URI should be present or absent."), ValueMap{"Present", "Absent"}, Values{"Present", "Absent"}] String Ensure;
+};

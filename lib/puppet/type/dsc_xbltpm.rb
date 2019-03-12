@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xbltpm) do
   def dscmeta_resource_friendly_name; 'xBLTpm' end
   def dscmeta_resource_name; 'MSFT_xBLTpm' end
   def dscmeta_module_name; 'xBitlocker' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.4.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xbltpm) do
   newparam(:dsc_identity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Identity"
+    desc "Identity - A required string value which is used as a Key for the resource. The value does not matter, as long as its not empty."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xbltpm) do
   newparam(:dsc_allowclear) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllowClear"
+    desc "AllowClear - Indicates that the provisioning process clears the TPM, if necessary, to move the TPM closer to complying with Windows Server 2012 standards."
     validate do |value|
     end
     newvalues(true, false)
@@ -96,7 +96,7 @@ Puppet::Type.newtype(:dsc_xbltpm) do
   newparam(:dsc_allowphysicalpresence) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllowPhysicalPresence"
+    desc "AllowPhysicalPresence - Indicates that the provisioning process may send physical presence commands that require a user to be present in order to continue."
     validate do |value|
     end
     newvalues(true, false)
@@ -112,7 +112,7 @@ Puppet::Type.newtype(:dsc_xbltpm) do
   newparam(:dsc_allowimmediatereboot) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllowImmediateReboot"
+    desc "AllowImmediateReboot - Whether the computer can rebooted immediately after initializing the TPM."
     validate do |value|
     end
     newvalues(true, false)

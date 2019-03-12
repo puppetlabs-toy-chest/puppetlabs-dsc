@@ -56,7 +56,7 @@ function Get-TargetResource
     if ($installedVersion.FileMajorPart -eq 16)
     {
         throw [Exception] ("Work Management Service Application is no longer available " + `
-                           "in SharePoint 2016: " + `
+                           "in SharePoint 2016/2019: " + `
                            "https://technet.microsoft.com/en-us/library/mt346112(v=office.16).aspx")
     }
 
@@ -174,7 +174,7 @@ function Set-TargetResource
     if ($installedVersion.FileMajorPart -eq 16)
     {
         throw [Exception] ("Work Management Service Application is no longer available " + `
-                           "in SharePoint 2016: " + `
+                           "in SharePoint 2016/2019: " + `
                            "https://technet.microsoft.com/en-us/library/mt346112(v=office.16).aspx")
     }
 
@@ -200,14 +200,13 @@ function Set-TargetResource
             {
                 $params.Remove("InstallAccount") | Out-Null
             }
-            if ($params.ContainsKey("ProxyName"))
+
+            $pName = "$($params.Name) Proxy"
+
+            if ($params.ContainsKey("ProxyName") -and $null -ne $params.ProxyName)
             {
                 $pName = $params.ProxyName
                 $params.Remove("ProxyName") | Out-Null
-            }
-            if ($null -eq $pName)
-            {
-                $pName = "$($params.Name) Proxy"
             }
 
             $app = New-SPWorkManagementServiceApplication @params
@@ -387,7 +386,7 @@ function Test-TargetResource
     if ($installedVersion.FileMajorPart -eq 16)
     {
         throw [Exception] ("Work Management Service Application is no longer available " + `
-                           "in SharePoint 2016: " + `
+                           "in SharePoint 2016/2019: " + `
                            "https://technet.microsoft.com/en-us/library/mt346112(v=office.16).aspx")
     }
 

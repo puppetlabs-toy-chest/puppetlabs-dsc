@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xblautobitlocker) do
   def dscmeta_resource_friendly_name; 'xBLAutoBitlocker' end
   def dscmeta_resource_name; 'MSFT_xBLAutoBitlocker' end
   def dscmeta_module_name; 'xBitlocker' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.4.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xblautobitlocker) do
   newparam(:dsc_drivetype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DriveType - Valid values are Fixed, Removable."
+    desc "DriveType - The type of volume, as reported by Get-Volume, to auto apply Bitlocker to Valid values are Fixed, Removable."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -83,7 +83,7 @@ Puppet::Type.newtype(:dsc_xblautobitlocker) do
   newparam(:dsc_mindiskcapacitygb) do
     def mof_type; 'sint32' end
     def mof_is_embedded?; false end
-    desc "MinDiskCapacityGB"
+    desc "MinDiskCapacityGB - If specified, only disks this size or greater will auto apply Bitlocker"
     validate do |value|
       unless value.kind_of?(Numeric) || value.to_i.to_s == value
           fail("Invalid value #{value}. Should be a signed Integer")
@@ -119,7 +119,7 @@ Puppet::Type.newtype(:dsc_xblautobitlocker) do
   newparam(:dsc_autounlock) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AutoUnlock"
+    desc "AutoUnlock - Whether volumes should be enabled for auto unlock using Enable-BitlockerAutoUnlock"
     validate do |value|
     end
     newvalues(true, false)
@@ -200,7 +200,7 @@ Puppet::Type.newtype(:dsc_xblautobitlocker) do
   newparam(:dsc_password) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Password"
+    desc "Password - NOTE: Username doesn't matter for the credential. Just put the Password in the Password field"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -235,7 +235,7 @@ Puppet::Type.newtype(:dsc_xblautobitlocker) do
   newparam(:dsc_pin) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Pin"
+    desc "Pin - NOTE: Username doesn't matter for the credential. Just put the Pin in the Password field"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

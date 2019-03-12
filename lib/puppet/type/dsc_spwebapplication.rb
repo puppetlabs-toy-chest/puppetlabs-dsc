@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spwebapplication) do
   def dscmeta_resource_friendly_name; 'SPWebApplication' end
   def dscmeta_resource_name; 'MSFT_SPWebApplication' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -104,14 +104,14 @@ Puppet::Type.newtype(:dsc_spwebapplication) do
     end
   end
 
-  # Name:         Url
+  # Name:         WebAppUrl
   # Type:         string
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_url) do
+  newparam(:dsc_webappurl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Url - The URL of the web application"
+    desc "WebAppUrl - The URL of the web application"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

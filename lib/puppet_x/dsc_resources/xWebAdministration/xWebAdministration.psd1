@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '1.19.0.0'
+moduleVersion = '2.5.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'b3239f27-d7d3-4ae6-a5d2-d9a1c97d6ae4'
@@ -41,8 +41,10 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* **xWebAppPoolDefaults** now returns values. Fixes 311.
-* Added unit tests for **xWebAppPoolDefaults**. Fixes 183.
+        ReleaseNotes = '* Added SiteId to xWebSite to address [396]
+* xWebSite: Full path is used to get list of default documents
+* xIISLogging: Added support for LogTargetW3C
+* xWebsite: Added support for LogTargetW3C
 
 '
 
@@ -56,6 +58,13 @@ FunctionsToExport = '*'
 # Cmdlets to export from this module
 CmdletsToExport = '*'
 }
+
+
+
+
+
+
+
 
 
 

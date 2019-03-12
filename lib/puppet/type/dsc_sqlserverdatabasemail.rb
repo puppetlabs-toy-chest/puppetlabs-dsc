@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_sqlserverdatabasemail) do
   def dscmeta_resource_friendly_name; 'SqlServerDatabaseMail' end
   def dscmeta_resource_name; 'MSFT_SqlServerDatabaseMail' end
   def dscmeta_module_name; 'SqlServerDsc' end
-  def dscmeta_module_version; '11.1.0.0' end
+  def dscmeta_module_version; '12.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -128,7 +128,7 @@ Puppet::Type.newtype(:dsc_sqlserverdatabasemail) do
   newparam(:dsc_profilename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ProfileName - The profile name of the Database Mail."
+    desc "ProfileName - The name of the Database Mail profile."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -177,7 +177,7 @@ Puppet::Type.newtype(:dsc_sqlserverdatabasemail) do
   newparam(:dsc_displayname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DisplayName - The display name of the outgoing mail server. Default value is the same value assigned to parameter MailServerName."
+    desc "DisplayName - The display name of the originating email address. Default value is the same value assigned to the EmailAddress parameter."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -207,7 +207,7 @@ Puppet::Type.newtype(:dsc_sqlserverdatabasemail) do
   newparam(:dsc_description) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Description - The description of the Database Mail."
+    desc "Description - The description for the Database Mail profile and account."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

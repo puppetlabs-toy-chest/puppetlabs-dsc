@@ -1,8 +1,8 @@
-data LocalizedData 
-{ 
-    # culture="en-US" 
-    ConvertFrom-StringData -StringData @' 
- FindingRunbookDefinition = Finding runbook definition for {0}. 
+data LocalizedData
+{
+    # culture="en-US"
+    ConvertFrom-StringData -StringData @'
+ FindingRunbookDefinition = Finding runbook definition for {0}.
  ExistinRunbookDefinition = Existing Runbook definition found.
  CreatingTempFile = Creating temp file at {0}.
  RunbookFoundMatches = Runbook found matches. No import needed.
@@ -15,8 +15,8 @@ data LocalizedData
  ImportCount = Import number {0}.
  RemovingRunbook = Removing runbook {0}.
  FailedToRemoveRunbook = Failed to remove Runbook {0}.
-'@ 
-} 
+'@
+}
 
 function Get-TargetResource
 {
@@ -24,20 +24,21 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
-        [ValidateSet("Published", "Draft", "Absent")]
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Published', 'Draft', 'Absent')]
         [System.String]
-        $Ensure = "Published",
+        $Ensure = 'Published',
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $RunbookPath,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $WebServiceEndpoint,
 
-        [Uint32]
+        [Parameter()]
+        [System.Uint32]
         $Port = 9090
     )
 
@@ -73,7 +74,7 @@ function Get-TargetResource
             }
             catch
             {
-                Write-Verbose $_ 
+                Write-Verbose $_
                 $match = $false
             }
 
@@ -90,7 +91,7 @@ function Get-TargetResource
                 {
                     Write-Verbose ( $LocalizedData.RunbookFoundMatches )
                 }
-                Else
+                else
                 {
                     # Compare-Object sometimes returns new lines as a difference, this can cause repeated re-imports if that new line is at the top of the ps1
                     # since SMA will strip this out on import.
@@ -127,26 +128,26 @@ function Get-TargetResource
     $returnValue
 }
 
-
 function Set-TargetResource
 {
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
-        [ValidateSet("Published", "Draft", "Absent")]
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Published', 'Draft', 'Absent')]
         [System.String]
-        $Ensure = "Published",
+        $Ensure = 'Published',
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $RunbookPath,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $WebServiceEndpoint,
 
-        [Uint32]
+        [Parameter()]
+        [System.Uint32]
         $Port = 9090
     )
 
@@ -186,7 +187,7 @@ function Set-TargetResource
                 catch
                 {
                     Import-SmaRunbook -Path $RunbookPathItem.FullName -WebServiceEndpoint $WebServiceEndpoint -Port $port -ErrorAction Stop
-                }      
+                }
             }
         }
 
@@ -200,27 +201,27 @@ function Set-TargetResource
     }
 }
 
-
 function Test-TargetResource
 {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
-        [ValidateSet("Published", "Draft", "Absent")]
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Published', 'Draft', 'Absent')]
         [System.String]
-        $Ensure = "Published",
+        $Ensure = 'Published',
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $RunbookPath,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $WebServiceEndpoint,
 
-        [Uint32]
+        [Parameter()]
+        [System.Uint32]
         $Port = 9090
     )
 
@@ -245,6 +246,4 @@ function Test-TargetResource
     return $false
 }
 
-
 Export-ModuleMember -Function Get-TargetResource, Set-TargetResource, Test-TargetResource
-

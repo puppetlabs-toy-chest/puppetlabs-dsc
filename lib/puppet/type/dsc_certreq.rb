@@ -1,0 +1,374 @@
+require 'pathname'
+
+Puppet::Type.newtype(:dsc_certreq) do
+  require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
+  require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
+
+
+  @doc = %q{
+    The DSC CertReq resource type.
+    Automatically generated from
+    'CertificateDsc/DSCResources/MSFT_CertReq/MSFT_CertReq.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
+  }
+
+  validate do
+      fail('dsc_subject is a required attribute') if self[:dsc_subject].nil?
+    end
+
+  def dscmeta_resource_friendly_name; 'CertReq' end
+  def dscmeta_resource_name; 'MSFT_CertReq' end
+  def dscmeta_module_name; 'CertificateDsc' end
+  def dscmeta_module_version; '4.4.0.0' end
+
+  newparam(:name, :namevar => true ) do
+  end
+
+  ensurable do
+    newvalue(:exists?) { provider.exists? }
+    newvalue(:present) { provider.create }
+    defaultto { :present }
+  end
+
+  # Name:         PsDscRunAsCredential
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_psdscrunascredential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "PsDscRunAsCredential"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
+  end
+
+  # Name:         Subject
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_subject) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Subject - Provide the text string to use as the subject of the certificate."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CAType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_catype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CAType - The type of CA in use, Standalone/Enterprise."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CAServerFQDN
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_caserverfqdn) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CAServerFQDN - The FQDN of the Active Directory Certificate Authority on the local area network. Leave empty to automatically locate."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CARootName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_carootname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CARootName - The name of the certificate authority, by default this will be in format domain-servername-ca. Leave empty to automatically locate."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         KeyLength
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["192", "224", "256", "384", "521", "1024", "2048", "4096", "8192"]
+  newparam(:dsc_keylength) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "KeyLength - The bit length of the encryption key to be used. Defaults to 2048. Valid values are 192, 224, 256, 384, 521, 1024, 2048, 4096, 8192."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['192', '192', '224', '224', '256', '256', '384', '384', '521', '521', '1024', '1024', '2048', '2048', '4096', '4096', '8192', '8192'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are 192, 224, 256, 384, 521, 1024, 2048, 4096, 8192")
+      end
+    end
+  end
+
+  # Name:         Exportable
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_exportable) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "Exportable - The option to allow the certificate to be exportable, by default it will be true."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         ProviderName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_providername) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ProviderName - The selection of provider for the type of encryption to be used."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         OID
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_oid) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "OID - The Object Identifier that is used to name the object."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         KeyUsage
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_keyusage) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "KeyUsage - The Keyusage is a restriction method that determines what a certificate can be used for."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CertificateTemplate
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_certificatetemplate) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CertificateTemplate - The template used for the definition of the certificate."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         SubjectAltName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_subjectaltname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SubjectAltName - The subject alternative name used to create the certificate."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Credential
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_credential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "Credential - The `PSCredential` object containing the credentials that will be used to access the template in the Certificate Authority."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
+  end
+
+  # Name:         AutoRenew
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_autorenew) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "AutoRenew - Determines if the resource will also renew a certificate within 7 days of expiration."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         CepURL
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_cepurl) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CepURL - The URL to the Certification Enrollment Policy Service."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CesURL
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_cesurl) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CesURL - The URL to the Certification Enrollment Service."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         UseMachineContext
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_usemachinecontext) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "UseMachineContext - Indicates whether or not the flag -adminforcemachine will be used when requesting certificates. Necessary for certain templates like e.g. DomainControllerAuthentication"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         FriendlyName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_friendlyname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "FriendlyName - Specifies a friendly name for the certificate."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         KeyType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["RSA", "ECDH"]
+  newparam(:dsc_keytype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "KeyType - Specifies if the key type should be RSA or ECDH, defaults to RSA. Valid values are RSA, ECDH."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['RSA', 'rsa', 'ECDH', 'ecdh'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are RSA, ECDH")
+      end
+    end
+  end
+
+  # Name:         RequestType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["CMC", "PKCS10"]
+  newparam(:dsc_requesttype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "RequestType - Specifies if the request type should be CMC or PKCS10, deafults to CMC. Valid values are CMC, PKCS10."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['CMC', 'cmc', 'PKCS10', 'pkcs10'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are CMC, PKCS10")
+      end
+    end
+  end
+
+
+  def builddepends
+    pending_relations = super()
+    PuppetX::Dsc::TypeHelpers.ensure_reboot_relationship(self, pending_relations)
+  end
+end
+
+Puppet::Type.type(:dsc_certreq).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
+  defaultfor :operatingsystem => :windows
+
+  mk_resource_methods
+end

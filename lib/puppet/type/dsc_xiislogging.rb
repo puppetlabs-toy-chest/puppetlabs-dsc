@@ -4,6 +4,29 @@ Puppet::Type.newtype(:dsc_xiislogging) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
+    class PuppetX::Dsc::TypeHelpers
+      def self.validate_MSFT_xLogCustomField(mof_type_map, name, value)
+        required = ['logfieldname','sourcename','sourcetype']
+        allowed = []
+        lowkey_hash = Hash[value.map { |k, v| [k.to_s.downcase, v] }]
+
+        missing = required - lowkey_hash.keys
+        unless missing.empty?
+          fail "#{name} is missing the following required keys: #{missing.join(',')}"
+        end
+
+        extraneous = lowkey_hash.keys - required - allowed
+        unless extraneous.empty?
+          fail "#{name} includes invalid keys: #{extraneous.join(',')}"
+        end
+
+        lowkey_hash.keys.each do |key|
+          if lowkey_hash[key]
+            validate_mof_type(mof_type_map[key], 'MSFT_xLogCustomField', key, lowkey_hash[key])
+          end
+        end
+      end
+    end
 
   @doc = %q{
     The DSC xIisLogging resource type.
@@ -27,7 +50,7 @@ Puppet::Type.newtype(:dsc_xiislogging) do
   def dscmeta_resource_friendly_name; 'xIisLogging' end
   def dscmeta_resource_name; 'MSFT_xIisLogging' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '2.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -165,6 +188,52 @@ Puppet::Type.newtype(:dsc_xiislogging) do
       unless ['IIS', 'iis', 'W3C', 'w3c', 'NCSA', 'ncsa'].include?(value)
         fail("Invalid value '#{value}'. Valid values are IIS, W3C, NCSA")
       end
+    end
+  end
+
+  # Name:         LogTargetW3C
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["File", "ETW", "File,ETW"]
+  newparam(:dsc_logtargetw3c) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "LogTargetW3C - Specifies whether IIS will use Event Tracing or file logging Valid values are File, ETW, File,ETW."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['File', 'file', 'ETW', 'etw', 'File,ETW', 'file,etw'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are File, ETW, File,ETW")
+      end
+    end
+  end
+
+  # Name:         LogCustomFields
+  # Type:         MSFT_xLogCustomField[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_logcustomfields, :array_matching => :all) do
+    def mof_type; 'MSFT_xLogCustomField[]' end
+    def mof_is_embedded?; true end
+    def mof_type_map
+      {"logfieldname"=>{:type=>"string"}, "sourcename"=>{:type=>"string"}, "sourcetype"=>{:type=>"string", :values=>["RequestHeader", "ResponseHeader", "ServerVariable"]}}
+    end
+    desc "LogCustomFields - Custom logging field information in the form of an array of embedded instances of MSFT_xLogCustomField CIM class"
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be an array of hashes or a hash")
+      end
+      (value.kind_of?(Hash) ? [value] : value).each_with_index do |v, i|
+        fail "LogCustomFields value at index #{i} should be a Hash" unless v.is_a? Hash
+
+        PuppetX::Dsc::TypeHelpers.validate_MSFT_xLogCustomField(mof_type_map, "LogCustomFields", v)
+      end
+    end
+    munge do |value|
+      value.kind_of?(Hash) ?
+        [PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, value)] :
+        value.map { |v| PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, v) }
     end
   end
 

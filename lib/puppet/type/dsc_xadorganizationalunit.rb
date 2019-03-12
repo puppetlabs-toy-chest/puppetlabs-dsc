@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xadorganizationalunit) do
   def dscmeta_resource_friendly_name; 'xADOrganizationalUnit' end
   def dscmeta_resource_name; 'MSFT_xADOrganizationalUnit' end
   def dscmeta_module_name; 'xActiveDirectory' end
-  def dscmeta_module_version; '2.18.0.0' end
+  def dscmeta_module_version; '2.24.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -157,6 +157,22 @@ Puppet::Type.newtype(:dsc_xadorganizationalunit) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         RestoreFromRecycleBin
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_restorefromrecyclebin) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "RestoreFromRecycleBin - Indicates whether or not the organizational unit should first tried to be restored from the recycle bin before creating a new organizational unit."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

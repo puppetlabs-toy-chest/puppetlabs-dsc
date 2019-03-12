@@ -50,7 +50,7 @@ Puppet::Type.newtype(:dsc_sptrustedidentitytokenissuer) do
   def dscmeta_resource_friendly_name; 'SPTrustedIdentityTokenIssuer' end
   def dscmeta_resource_name; 'MSFT_SPTrustedIdentityTokenIssuer' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -242,6 +242,22 @@ Puppet::Type.newtype(:dsc_sptrustedidentitytokenissuer) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         UseWReplyParameter
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_usewreplyparameter) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "UseWReplyParameter - WReply parameter allows SharePoint to specify the return URL to the 3rd party STS upon successful authentication"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

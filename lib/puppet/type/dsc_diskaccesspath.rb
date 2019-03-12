@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_diskaccesspath) do
   def dscmeta_resource_friendly_name; 'DiskAccessPath' end
   def dscmeta_resource_name; 'MSFT_DiskAccessPath' end
   def dscmeta_module_name; 'StorageDsc' end
-  def dscmeta_module_version; '4.0.0.0' end
+  def dscmeta_module_version; '4.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -70,6 +70,22 @@ Puppet::Type.newtype(:dsc_diskaccesspath) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         NoDefaultDriveLetter
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_nodefaultdriveletter) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "NoDefaultDriveLetter - Specifies no automatic drive letter assignment to the partition: Defaults to True"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

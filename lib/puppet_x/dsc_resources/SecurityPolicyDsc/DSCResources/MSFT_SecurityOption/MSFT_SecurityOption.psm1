@@ -1,16 +1,17 @@
-
-Import-Module -Name (Join-Path -Path ( Split-Path $PSScriptRoot -Parent ) `
-    -ChildPath 'SecurityPolicyResourceHelper\SecurityPolicyResourceHelper.psm1') `
-    -Force
+$resourceModuleRootPath = Split-Path -Path (Split-Path $PSScriptRoot -Parent) -Parent
+$modulesRootPath = Join-Path -Path $resourceModuleRootPath -ChildPath 'Modules'
+Import-Module -Name (Join-Path -Path $modulesRootPath  `
+              -ChildPath 'SecurityPolicyResourceHelper\SecurityPolicyResourceHelper.psm1') `
+              -Force
 
 $script:localizedData = Get-LocalizedData -ResourceName 'MSFT_SecurityOption'
 
 <#
     .SYNOPSIS
-        Returns all the Security Options that are currently configured
+        Returns all the Security Options that are currently configured.
 
     .PARAMETER Name
-        Describes the security option to be managed. This could be anything as long as it is unique. This property is not 
+        Describes the security option to be managed. This could be anything as long as it is unique. This property is not
         used during the configuration process.
 #>
 function Get-TargetResource
@@ -28,42 +29,53 @@ function Get-TargetResource
     $currentSecurityPolicy = Get-SecurityPolicy -Area SECURITYPOLICY
     $securityOptionData = Get-PolicyOptionData -FilePath $("$PSScriptRoot\SecurityOptionData.psd1").Normalize()
     $securityOptionList = Get-PolicyOptionList -ModuleName MSFT_SecurityOption
-    
-    foreach ( $securityOption in $securityOptionList )
+
+    foreach ($securityOption in $securityOptionList)
     {
         $section = $securityOptionData.$securityOption.Section
-        Write-Verbose -Message ( $script:localizedData.Section -f $section )
+        Write-Verbose -Message ($script:localizedData.Section -f $section)
         $valueName = $securityOptionData.$securityOption.Value
-        Write-Verbose -Message ( $script:localizedData.Value -f $valueName )
+        Write-Verbose -Message ($script:localizedData.Value -f $valueName)
         $options = $securityOptionData.$securityOption.Option
-        Write-Verbose -Message ( $script:localizedData.Option -f $($options -join ',') )
+        Write-Verbose -Message ($script:localizedData.Option -f $($options -join ','))
         $currentValue = $currentSecurityPolicy.$section.$valueName
-        Write-Verbose -Message ( $script:localizedData.RawValue -f $($currentValue -join ',') )
-    
-        if ( $options.keys -eq 'String' )
+        Write-Verbose -Message ($script:localizedData.RawValue -f $($currentValue -join ','))
+
+        if ($options.keys -eq 'String')
         {
-            if ( $securityOption -eq 'Interactive_logon_Message_text_for_users_attempting_to_log_on'  )
+            if ($securityOption -eq 'Interactive_logon_Message_text_for_users_attempting_to_log_on')
             {
                 $resultValue = ($currentValue -split '7,')[-1].Trim()
             }
+            elseIf ($securityOption -eq 'Network_access_Restrict_clients_allowed_to_make_remote_calls_to_SAM')
+            {
+                [array]$resultValue = ConvertTo-CimRestrictedRemoteSam -InputObject $currentValue
+            }
             else
             {
-                $stringValue = ( $currentValue -split ',' )[-1]
-                $resultValue = ( $stringValue -replace '"' ).Trim()
+                if ($currentValue -match ',')
+                {
+                    $null, $stringValue = $currentValue -split ','
+                    $resultValue = (($stringValue -replace '"').Trim()) -join ','
+                }
+                else
+                {
+                    $resultValue = ($currentValue -replace '"').Trim()
+                }
             }
         }
         else
         {
-            Write-Verbose -Message ( $script:localizedData.RetrievingValue -f $valueName )
-            if ( $currentSecurityPolicy.$section.keys -contains $valueName )
+            Write-Verbose -Message ($script:localizedData.RetrievingValue -f $valueName)
+            if ($currentSecurityPolicy.$section.keys -contains $valueName)
             {
-                if ( $securityOption -eq "Network_security_Configure_encryption_types_allowed_for_Kerberos" )
+                if ($securityOption -eq "Network_security_Configure_encryption_types_allowed_for_Kerberos")
                 {
                     $resultValue = ConvertTo-KerberosEncryptionOption -EncryptionValue $currentValue
                 }
                 else
                 {
-                    $resultValue = ($securityOptionData.$securityOption.Option.GetEnumerator() | 
+                    $resultValue = ($securityOptionData.$securityOption.Option.GetEnumerator() |
                         Where-Object -Property Value -eq $currentValue.Trim() ).Name
                 }
             }
@@ -71,8 +83,8 @@ function Get-TargetResource
             {
                 $resultValue = $null
             }
-        }        
-        $returnValue.Add( $securityOption, $resultValue )    
+        }
+        $returnValue.Add($securityOption, $resultValue)
     }
     return $returnValue
 }
@@ -102,7 +114,7 @@ function Set-TargetResource
         [ValidateSet("This policy is disabled", "Users cant add Microsoft accounts", "Users cant add or log on with Microsoft accounts")]
         [System.String]
         $Accounts_Block_Microsoft_accounts,
-        
+
         [Parameter()]
         [ValidateSet("Enabled", "Disabled")]
         [System.String]
@@ -289,7 +301,7 @@ function Set-TargetResource
         $Microsoft_network_server_Disconnect_clients_when_logon_hours_expire,
 
         [Parameter()]
-        [ValidateSet("Off", "Accept if provided by the client", "Required from client")]
+        [ValidateSet("Off", "Accept if provided by client", "Required from client")]
         [System.String]
         $Microsoft_network_server_Server_SPN_target_name_validation_level,
 
@@ -328,6 +340,10 @@ function Set-TargetResource
         [Parameter()]
         [System.String]
         $Network_access_Restrict_anonymous_access_to_Named_Pipes_and_Shares,
+
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $Network_access_Restrict_clients_allowed_to_make_remote_calls_to_SAM,
 
         [Parameter()]
         [System.String]
@@ -471,7 +487,7 @@ function Set-TargetResource
         $User_Account_Control_Behavior_of_the_elevation_prompt_for_administrators_in_Admin_Approval_Mode,
 
         [Parameter()]
-        [ValidateSet("Automatically deny elevation request", "Prompt for credentials on the secure desktop", "Prompt for crendentials")]
+        [ValidateSet("Automatically deny elevation request", "Prompt for credentials on the secure desktop", "Prompt for credentials")]
         [System.String]
         $User_Account_Control_Behavior_of_the_elevation_prompt_for_standard_users,
 
@@ -510,7 +526,7 @@ function Set-TargetResource
 
     $desiredPolicies = $PSBoundParameters.GetEnumerator() | Where-Object -FilterScript { $PSItem.key -in $securityOptionList }
 
-    foreach ( $policy in $desiredPolicies )
+    foreach ($policy in $desiredPolicies)
     {
         $testParameters = @{
             Name = 'Test'
@@ -518,35 +534,42 @@ function Set-TargetResource
             Verbose = $false
         }
 
-        # define what policies are not in a desired state so we only add those policies
-        # that need to be changed to the INF
+        <# 
+            Define what policies are not in a desired state so we only add those policies
+            that need to be changed to the INF consumed by secedit.exe.
+        #>
         $isInDesiredState = Test-TargetResource @testParameters
-        if ( -not ( $isInDesiredState ) )
+        if (-not ($isInDesiredState))
         {
             $policyKey = $policy.Key
             $policyData = $securityOptionData.$policyKey
             $nonComplaintPolicies += $policyKey
 
-            if ( $policyData.Option.GetEnumerator().Name -eq 'String' )
+            if ($policyData.Option.GetEnumerator().Name -eq 'String')
             {
-                if ( [String]::IsNullOrWhiteSpace( $policyData.Option.String ) )
+                if ([String]::IsNullOrWhiteSpace($policyData.Option.String))
                 {
-                    $newValue = $policy.Value                                                         
+                    $newValue = $policy.Value
                 }
                 else
-                {                    
-                    if( $policy.Key -eq 'Interactive_logon_Message_text_for_users_attempting_to_log_on' )
+                {
+                    if($policy.Key -eq 'Interactive_logon_Message_text_for_users_attempting_to_log_on')
                     {
                         $message = Format-LogonMessage -Message $policy.Value
                         $newValue = "$($policyData.Option.String)" + $message
                     }
+                    elseIf ($policy.Key -eq 'Network_access_Restrict_clients_allowed_to_make_remote_calls_to_SAM')
+                    {
+                        $message = Format-RestrictedRemoteSam -SecurityDescriptor $policy.Value
+                        $newValue = "$($policyData.Option.String)" + $message
+                    }
                     else
-                    {                                           
+                    {
                         $newValue = "$($policyData.Option.String)" + "$($policy.Value)"
                     }
                 }
             }
-            elseIf ( $policy.Key -eq 'Network_security_Configure_encryption_types_allowed_for_Kerberos' )
+            elseIf ($policy.Key -eq 'Network_security_Configure_encryption_types_allowed_for_Kerberos')
             {
                 $newValue = ConvertTo-KerberosEncryptionValue -EncryptionType $policy.Value
             }
@@ -555,7 +578,7 @@ function Set-TargetResource
                 $newValue = $($policyData.Option[$policy.value])
             }
 
-            if ( $policyData.Section -eq 'System Access' )
+            if ($policyData.Section -eq 'System Access')
             {
                 $systemAccessPolicies += "$($policyData.Value)=$newValue"
             }
@@ -567,23 +590,20 @@ function Set-TargetResource
     }
 
     $infTemplate = Add-PolicyOption -SystemAccessPolicies $systemAccessPolicies -RegistryPolicies $registryPolicies
-
     Out-File -InputObject $infTemplate -FilePath $securityOptionsToAddInf -Encoding unicode -Force
-
     Invoke-Secedit -InfPath $securityOptionsToAddInf -SecEditOutput $script:seceditOutput
 
     $successResult = Test-TargetResource @PSBoundParameters
 
-    if ( $successResult -eq $false )
+    if ($successResult -eq $false)
     {
         throw "$($script:localizedData.SetFailed -f $($nonComplaintPolicies -join ','))"
     }
     else
     {
         Write-Verbose -Message ($script:localizedData.SetSuccess)
-    }    
+    }
 }
-
 
 <#
     .SYNOPSIS
@@ -610,7 +630,7 @@ function Test-TargetResource
         [ValidateSet("This policy is disabled","Users cant add Microsoft accounts","Users cant add or log on with Microsoft accounts")]
         [System.String]
         $Accounts_Block_Microsoft_accounts,
-        
+
         [Parameter()]
         [ValidateSet("Enabled","Disabled")]
         [System.String]
@@ -797,7 +817,7 @@ function Test-TargetResource
         $Microsoft_network_server_Disconnect_clients_when_logon_hours_expire,
 
         [Parameter()]
-        [ValidateSet("Off","Accept if provided by the client","Required from client")]
+        [ValidateSet("Off","Accept if provided by client","Required from client")]
         [System.String]
         $Microsoft_network_server_Server_SPN_target_name_validation_level,
 
@@ -836,6 +856,10 @@ function Test-TargetResource
         [Parameter()]
         [System.String]
         $Network_access_Restrict_anonymous_access_to_Named_Pipes_and_Shares,
+
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $Network_access_Restrict_clients_allowed_to_make_remote_calls_to_SAM,
 
         [Parameter()]
         [System.String]
@@ -979,7 +1003,7 @@ function Test-TargetResource
         $User_Account_Control_Behavior_of_the_elevation_prompt_for_administrators_in_Admin_Approval_Mode,
 
         [Parameter()]
-        [ValidateSet("Automatically deny elevation request","Prompt for credentials on the secure desktop","Prompt for crendentials")]
+        [ValidateSet("Automatically deny elevation request","Prompt for credentials on the secure desktop","Prompt for credentials")]
         [System.String]
         $User_Account_Control_Behavior_of_the_elevation_prompt_for_standard_users,
 
@@ -1008,64 +1032,71 @@ function Test-TargetResource
         $User_Account_Control_Virtualize_file_and_registry_write_failures_to_per_user_locations
     )
 
+    $results = @()
     $currentSecurityOptions = Get-TargetResource -Name $Name -Verbose:0
 
     $desiredSecurityOptions = $PSBoundParameters
 
-    foreach ( $policy in $desiredSecurityOptions.Keys )
+    foreach ($policy in $desiredSecurityOptions.Keys)
     {
-        if ( $currentSecurityOptions.ContainsKey( $policy ) )
+        if ($currentSecurityOptions.ContainsKey($policy))
         {
-            if ( $policy -eq 'Interactive_logon_Message_text_for_users_attempting_to_log_on' )
+            if ($policy -eq 'Interactive_logon_Message_text_for_users_attempting_to_log_on')
             {
                 $desiredSecurityOptionValue = Format-LogonMessage -Message $desiredSecurityOptions[$policy]
+            }
+            elseIf ($policy -eq 'Network_access_Restrict_clients_allowed_to_make_remote_calls_to_SAM')
+            {
+                $testRemoteSamParameters = @{
+                    DesiredSetting = $Network_access_Restrict_clients_allowed_to_make_remote_calls_to_SAM
+                    CurrentSetting = $currentSecurityOptions.Network_access_Restrict_clients_allowed_to_make_remote_calls_to_SAM
+                }
+
+                $results += Test-RestrictedRemoteSam @testRemoteSamParameters
+                continue
             }
             else
             {
                 $desiredSecurityOptionValue = $desiredSecurityOptions[$policy]
             }
             Write-Verbose -Message ( $script:localizedData.TestingPolicy -f $policy )
-            Write-Verbose -Message ( $script:localizedData.PoliciesBeingCompared`
+            Write-Verbose -Message ( $script:localizedData.PoliciesBeingCompared `
                 -f $($currentSecurityOptions[$policy] -join ',' ), $($desiredSecurityOptionValue -join ',' ) )
-            
-            if ( $desiredSecurityOptionValue -is [array] )
+
+            if ($desiredSecurityOptionValue -is [array])
             {
-                $compareResult = Compare-Array -ReferenceObject $currentSecurityOptions[$policy] -DifferenceObject $desiredSecurityOptionValue
+                $compareResult = Compare-Array -ReferenceObject @($currentSecurityOptions[$policy]) -DifferenceObject $desiredSecurityOptionValue
 
                 if ( -not $compareResult )
                 {
-                    return $false
+                    $results += $false
                 }
             }
             else
             {
-                if ( $currentSecurityOptions[$policy] -ne $desiredSecurityOptionValue )
-                {
-                    return $false
-                }
-            }         
+                $results += ($($currentSecurityOptions[$policy]) -eq $desiredSecurityOptionValue)
+            }
         }
     }
 
-    # if the code made it this far we must be in a desired state
-    return $true
+    return ($results -notcontains $false)
 }
 
 <#
     .SYNOPSIS
         Convert Kerberos encrytion numeric values to their corresponding value names
-    
+
     .PARAMETER EncryptionValue
         Specifies the encryption value to convert
 #>
 function ConvertTo-KerberosEncryptionOption
 {
-    [OutputType([string[]])]
+    [OutputType([System.String[]])]
     [CmdletBinding()]
     param
     (
         [Parameter()]
-        [string]
+        [System.String]
         $EncryptionValue
     )
 
@@ -1076,23 +1107,23 @@ function ConvertTo-KerberosEncryptionOption
 
     $newValue = $(($EncryptionValue -split ',')[-1])
 
-    foreach ( $entry in $kerberosOptionValues.GetEnumerator() )
+    foreach ($entry in $kerberosOptionValues.GetEnumerator())
     {
         $value = ($entry.Value -split ',')[-1]
-        $reverseOptions.Add( $value, $entry.Name )
+        $reverseOptions.Add($value, $entry.Name)
     }
 
-    $result = $reverseOptions.Keys | Where-Object -FilterScript { $_ -band $newValue } | ForEach-Object -Process {$reverseOptions.Get_Item($_)}
+    $result = $reverseOptions.Keys | Where-Object -FilterScript { $PSItem -band $newValue } | ForEach-Object -Process { $reverseOptions.Get_Item($PSItem) }
     return $result
 }
-    
+
 <#
     .SYNOPSIS
         Converts Kerberos encryption options to their corresponding numeric value
 
     .PARAMETER EncryptionType
         Specifies the EncryptionType that will be converted to their corresponding value(s).
-    
+
     .NOTES
         The Network_security_Configure_encryption_types_allowed_for_Kerberos option has multiple values.
         Each value is represented by a number that is incremented exponentially by 2.  When allowing
@@ -1100,13 +1131,13 @@ function ConvertTo-KerberosEncryptionOption
 #>
 function ConvertTo-KerberosEncryptionValue
 {
-    [OutputType([string])]
+    [OutputType([System.String])]
     [CmdletBinding()]
     param
     (
         [Parameter(Mandatory=$true)]
         [ValidateSet('DES_CBC_CRC','DES_CBC_MD5','RC4_HMAC_MD5','AES256_HMAC_SHA1','AES128_HMAC_SHA1')]
-        [string[]]
+        [System.String[]]
         $EncryptionType
     )
 
@@ -1115,12 +1146,12 @@ function ConvertTo-KerberosEncryptionValue
     $securityOptionData = Get-PolicyOptionData -FilePath $("$PSScriptRoot\SecurityOptionData.psd1").Normalize()
     $kerberosOptionValues = $securityOptionData[$kerberosSecurityOptionName].Option
 
-    foreach ( $type in $EncryptionType )
+    foreach ($type in $EncryptionType)
     {
         $sumResult = $sumResult + ($kerberosOptionValues.$type -split ',')[-1]
     }
 
-    return $( '4,' + $sumResult )
+    return $('4,' + $sumResult)
 }
 
 <#
@@ -1129,21 +1160,21 @@ function ConvertTo-KerberosEncryptionValue
 #>
 function Compare-Array
 {
-    [OutputType([bool])]
+    [OutputType([System.Boolean])]
     [CmdletBinding()]
     param
     (
         [Parameter()]
-        [string[]]
+        [System.String[]]
         $ReferenceObject,
 
         [Parameter()]
-        [string[]]
+        [System.String[]]
         $DifferenceObject
 
     )
 
-    return $null -eq (Compare-Object $ReferenceObject $DifferenceObject ).SideIndicator
+    return $null -eq (Compare-Object $ReferenceObject $DifferenceObject).SideIndicator
 }
 
 <#
@@ -1157,7 +1188,7 @@ function Compare-Array
 #>
 function Format-LogonMessage
 {
-    [OutputType([string])]
+    [OutputType([System.String])]
     [CmdletBinding()]
     param
     (
@@ -1168,7 +1199,7 @@ function Format-LogonMessage
 
     $formatText = $Message -split '\n'
 
-    if ( $formatText.count -gt 1 )
+    if ($formatText.count -gt 1)
     {
         $lines = $formatText -split '\n' | ForEach-Object -Process { ($PSItem -replace ',','","').Trim() }
         $resultValue = $lines -join ','
@@ -1179,6 +1210,161 @@ function Format-LogonMessage
     }
 
     return $resultValue
+}
+
+<#
+    .SYNOPSIS
+        Converts the Permission and Identity for the 'Network access Restrict clients allowed to make remote calls to SAM' setting
+        before it's written to the INF file consumed by secedit.exe
+
+    .PARAMETER SecurityDescriptor
+        A collection containing the Permission and Identity for the 'Network access Restrict clients allowed to make remote calls to SAM' setting.
+#>
+function Format-RestrictedRemoteSam
+{
+    [OutputType([System.String])]
+    [CmdletBinding()]
+    param
+    (
+        [Parameter(Mandatory = $true)]
+        [object[]]
+        $SecurityDescriptor
+    )
+
+    $preamble = "O:BAG:BAD:"
+
+    foreach ($descriptor in $SecurityDescriptor)
+    {
+        $resolvedIdentity = ConvertTo-LocalFriendlyName -Identity $descriptor.Identity -Scope Set
+
+        if ($resolvedIdentity -eq 'BUILTIN\Administrators')
+        {
+            $resolvedIdentity = 'BA'
+        }
+        else
+        {
+            $resolvedIdentity = ConvertTo-Sid -Identity $resolvedIdentity -Scope Set
+        }
+
+        # secpol.msc will display an error message if permissions pertaining to the builtin Administrators group is not displayed last in the security descriptor.
+        if ($resolvedIdentity -eq 'BA')
+        {
+            $ending = "({0};;RC;;;{1})" -f $descriptor.Permission[0], $resolvedIdentity
+            continue
+        }
+
+        $result = $result + "({0};;RC;;;{1})" -f $descriptor.Permission[0], $resolvedIdentity
+    }
+
+    return ('"' + $preamble + $result + $ending + '"')
+}
+
+<#
+    .SYNOPSIS
+        Converts a security descriptor to a MSFT_RestrictedRemoteSamSecurityDescriptor CimInstance.
+
+    .PARAMETER InputObject
+        Specifies the security descriptor to convert.
+#>
+function ConvertTo-CimRestrictedRemoteSam
+{
+    [CmdletBinding()]
+    [OutputType([Microsoft.Management.Infrastructure.CimInstance[]])]
+    param
+    (
+        [Parameter(Mandatory = $true)]
+        [AllowEmptyString()]
+        [System.String]
+        $InputObject
+    )
+
+    # Match anything between parenthesis.
+    $pattern = '(?<=\()[\s\S]*?(?=\))'
+    $cimCollection = New-Object -TypeName 'System.Collections.ObjectModel.Collection`1[Microsoft.Management.Infrastructure.CimInstance]'
+
+    # Parse security descriptor from secedit output.
+    $descriptorCollection = Select-String -InputObject $InputObject -Pattern $pattern -AllMatches
+
+    foreach ($descriptor in $descriptorCollection.Matches.Value)
+    {
+        $cimProperties = @{}
+        $permission, $identity = $descriptor -split ';' | Select-Object -First 1 -Last 1
+
+        switch ($permission)
+        {
+            'A' { $cimProperties.Add('Permission', 'Allow') }
+            'D' { $cimProperties.Add('Permission', 'Deny')  }
+        }
+
+        switch ($identity)
+        {
+            'BA' { $cimProperties.Add('Identity', (ConvertTo-LocalFriendlyName -Identity 'S-1-5-32-544')) }
+            default { $cimProperties.Add('Identity', (ConvertTo-LocalFriendlyName -Identity $identity)) }
+        }
+
+        $cimInstanceParameters = @{
+            ClassName  = 'MSFT_RestrictedRemoteSamSecurityDescriptor'
+            Namespace  = 'root/microsoft/Windows/DesiredStateConfiguration'
+            Property   = $cimProperties
+            ClientOnly = $true
+        }
+
+        $cimCollection += New-CimInstance @cimInstanceParameters
+    }
+
+    return $cimCollection
+}
+
+<#
+    .SYNOPSIS
+        Asserts 'Network access Restrict clients allowed to make remote calls to SAM' is in a desired state.
+
+    .PARAMETER DesiredSetting
+        Specifies the desired settings.
+
+    .PARAMETER CurrentSetting
+        Specifies the current state of the security setting.
+#>
+function Test-RestrictedRemoteSam
+{
+    [OutputType([bool])]
+    [CmdletBinding()]
+    param
+    (
+        [Parameter(Mandatory=$true)]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $DesiredSetting,
+
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $CurrentSetting
+    )
+
+    $identitiesNotInDesiredState  = @()
+    $permissionsNotInDesiredState = @()
+
+    foreach ($setting in $DesiredSetting)
+    {
+        $resolvedIdentity = ConvertTo-LocalFriendlyName -Identity $setting.Identity
+        $permissionToTest = ($CurrentSetting | Where-Object -Property Identity -eq $resolvedIdentity).Permission
+
+        if ($resolvedIdentity -notin $CurrentSetting.Identity)
+        {
+            Write-Verbose -Message ($script:localizedData.RestrictedRemoteSamIdentity -f $resolvedIdentity)
+            $identitiesNotInDesiredState += $resolvedIdentity
+        }
+
+        if ($setting.Permission -ne $permissionToTest)
+        {
+            Write-Verbose -Message ($script:localizedData.RestrictedRemoteSamPermission -f $setting.Permission, $resolvedIdentity)
+            $permissionsNotInDesiredState += $setting.Permission
+        }
+    }
+
+    $result = $identitiesNotInDesiredState + $permissionsNotInDesiredState
+
+    # If nothing is added to $result then we are in a desired state.
+    return ($result.Length -eq 0)
 }
 
 Export-ModuleMember -Function *-TargetResource

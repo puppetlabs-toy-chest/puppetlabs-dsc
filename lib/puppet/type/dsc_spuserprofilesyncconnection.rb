@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncconnection) do
   def dscmeta_resource_friendly_name; 'SPUserProfileSyncConnection' end
   def dscmeta_resource_name; 'MSFT_SPUserProfileSyncConnection' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -35,6 +35,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncconnection) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto { :present }
   end
 
@@ -129,7 +130,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncconnection) do
   newparam(:dsc_includedous, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "IncludedOUs - A list of the OUs to import users from"
+    desc "IncludedOUs - A list of the OUs to import users from. For SharePoint 2016/2019 existing OUs will not be removed if not included in this list. Use ExludedOUs for removing OUs in SharePoint 2016/2019"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -147,7 +148,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncconnection) do
   newparam(:dsc_excludedous, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "ExcludedOUs - A list of the OUs to ignore users from"
+    desc "ExcludedOUs - A list of the OUs to ignore users from. For SharePoint 2016/2019 matching existing OUs to include are removed."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -173,6 +174,24 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncconnection) do
     end
   end
 
+  # Name:         Port
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_port) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "Port - The specific port to connect to"
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
   # Name:         UseSSL
   # Type:         boolean
   # IsMandatory:  False
@@ -189,6 +208,22 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncconnection) do
     end
   end
 
+  # Name:         UseDisabledFilter
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_usedisabledfilter) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "UseDisabledFilter - Should disabled accounts be filtered"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
   # Name:         Force
   # Type:         boolean
   # IsMandatory:  False
@@ -196,7 +231,7 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncconnection) do
   newparam(:dsc_force) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "Force - Set to true to run the set method on every call to this resource"
+    desc "Force - Set to true to run the set method on every call to this resource. Only has effect on SharePoint 2013"
     validate do |value|
     end
     newvalues(true, false)
@@ -219,6 +254,25 @@ Puppet::Type.newtype(:dsc_spuserprofilesyncconnection) do
       end
       unless ['ActiveDirectory', 'activedirectory', 'BusinessDataCatalog', 'businessdatacatalog'].include?(value)
         fail("Invalid value '#{value}'. Valid values are ActiveDirectory, BusinessDataCatalog")
+      end
+    end
+  end
+
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Ensure - Present if the connection should exist, absent if it should not Valid values are Present, Absent."
+    validate do |value|
+      resource[:ensure] = value.downcase
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
       end
     end
   end

@@ -1,0 +1,13 @@
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMQuota")]
+class DSR_FSRMQuota : OMI_BaseResource
+{
+    [Key, Description("The path this FSRM Quota applies to.")] String Path;
+    [Write, Description("An optional description for this FSRM Quota.")] String Description;
+    [Write, Description("Specifies whether the FSRM Quota should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("The size in bytes of this FSRM Quota limit.")] Sint64 Size;
+    [Write, Description("Controls whether this FSRM Quota has a hard or soft limit.")] Boolean SoftLimit;
+    [Write, Description("An array of threshold percentages in this FSRM Quota.")] Uint32 ThresholdPercentages[];
+    [Write, Description("Disables the FSRM Quota applied to this path.")] Boolean Disabled;
+    [Write, Description("The name of the FSRM Quota Template to apply to this path.")] String Template;
+    [Write, Description("Causes the template to use only the template name and ignore Size, SoftLimit and ThresholdPercentage parameters.")] Boolean MatchesTemplate;
+};

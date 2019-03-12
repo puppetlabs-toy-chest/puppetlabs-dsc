@@ -1,0 +1,9 @@
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMClassificationPropertyValue")]
+class DSR_FSRMClassificationPropertyValue : OMI_BaseResource
+{
+  [Key, Description("The FSRM Classification Property value Name.")] string Name;
+  [Key, Description("The name of the FSRM Classification Property the value applies to.")] string PropertyName;
+  [Write, Description("Specifies whether the FSRM Classification Property value should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+  [Write, Description("The description of the FSRM Classification Property value.")] string Description;
+  [Read, Description("The FSRM Classification Property value Display Name.")] string DisplayName;
+};

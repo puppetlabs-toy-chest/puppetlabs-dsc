@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchowavirtualdirectory) do
   def dscmeta_resource_friendly_name; 'xExchOwaVirtualDirectory' end
   def dscmeta_resource_name; 'MSFT_xExchOwaVirtualDirectory' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '1.27.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -89,6 +89,24 @@ Puppet::Type.newtype(:dsc_xexchowavirtualdirectory) do
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
+  end
+
+  # Name:         ActionForUnknownFileAndMIMETypes
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Allow", "ForceSave", "Block"]
+  newparam(:dsc_actionforunknownfileandmimetypes) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ActionForUnknownFileAndMIMETypes - Valid values are Allow, ForceSave, Block."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Allow', 'allow', 'ForceSave', 'forcesave', 'Block', 'block'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Allow, ForceSave, Block")
+      end
     end
   end
 
@@ -236,6 +254,24 @@ Puppet::Type.newtype(:dsc_xexchowavirtualdirectory) do
     end
   end
 
+  # Name:         GzipLevel
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Off", "Low", "High", "Error"]
+  newparam(:dsc_gziplevel) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "GzipLevel - Valid values are Off, Low, High, Error."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Off', 'off', 'Low', 'low', 'High', 'high', 'Error', 'error'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Off, Low, High, Error")
+      end
+    end
+  end
+
   # Name:         InternalUrl
   # Type:         string
   # IsMandatory:  False
@@ -347,6 +383,38 @@ Puppet::Type.newtype(:dsc_xexchowavirtualdirectory) do
     end
   end
 
+  # Name:         UNCAccessOnPublicComputersEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_uncaccessonpubliccomputersenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "UNCAccessOnPublicComputersEnabled"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         UNCAccessOnPrivateComputersEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_uncaccessonprivatecomputersenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "UNCAccessOnPrivateComputersEnabled"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
   # Name:         WindowsAuthentication
   # Type:         boolean
   # IsMandatory:  False
@@ -355,6 +423,38 @@ Puppet::Type.newtype(:dsc_xexchowavirtualdirectory) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
     desc "WindowsAuthentication"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         WSSAccessOnPublicComputersEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_wssaccessonpubliccomputersenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "WSSAccessOnPublicComputersEnabled"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         WSSAccessOnPrivateComputersEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_wssaccessonprivatecomputersenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "WSSAccessOnPrivateComputersEnabled"
     validate do |value|
     end
     newvalues(true, false)

@@ -13,6 +13,8 @@ data LocalizedData
 
 function Get-TargetResource
 {
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
     param
     (
         [Parameter(Mandatory)][ValidateSet('Present','Absent')]
@@ -68,6 +70,7 @@ function Get-TargetResource
 
 function Set-TargetResource
 {
+    [CmdletBinding()]
     param
     (
         [Parameter(Mandatory)][ValidateSet('Present','Absent')]
@@ -122,6 +125,8 @@ function Set-TargetResource
 }
 function Test-TargetResource
 {
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
     param
     (
         [Parameter(Mandatory)][ValidateSet('Present','Absent')]

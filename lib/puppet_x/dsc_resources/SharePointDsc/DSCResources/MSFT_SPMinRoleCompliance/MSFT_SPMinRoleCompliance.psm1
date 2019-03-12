@@ -5,6 +5,11 @@ function Get-TargetResource
     param
     (
         [Parameter(Mandatory = $true)]
+        [ValidateSet('Yes')]
+        [String]
+        $IsSingleInstance,
+
+        [Parameter(Mandatory = $true)]
         [ValidateSet("Compliant","NonCompliant")]
         [System.String]
         $State,
@@ -19,7 +24,7 @@ function Get-TargetResource
     $installedVersion = Get-SPDSCInstalledProductVersion
     if ($installedVersion.FileMajorPart -ne 16)
     {
-        throw [Exception] "MinRole is only supported in SharePoint 2016."
+        throw [Exception] "MinRole is only supported in SharePoint 2016 and 2019."
     }
 
     $result = Invoke-SPDSCCommand -Credential $InstallAccount `
@@ -28,19 +33,22 @@ function Get-TargetResource
         $nonCompliantServices = Get-SPService | Where-Object -FilterScript {
             $_.CompliantWithMinRole -eq $false
         }
+        $params = $args[0];
 
         if ($null -eq $nonCompliantServices)
         {
             return @{
-                State          = "Compliant"
-                InstallAccount = $params.InstallAccount
+                IsSingleInstance = "Yes"
+                State            = "Compliant"
+                InstallAccount   = $params.InstallAccount
             }
         }
         else
         {
             return @{
-                State          = "NonCompliant"
-                InstallAccount = $params.InstallAccount
+                IsSingleInstance = "Yes"
+                State            = "NonCompliant"
+                InstallAccount   = $params.InstallAccount
             }
         }
     }
@@ -61,6 +69,11 @@ function Set-TargetResource
     param
     (
         [Parameter(Mandatory = $true)]
+        [ValidateSet('Yes')]
+        [String]
+        $IsSingleInstance,
+
+        [Parameter(Mandatory = $true)]
         [ValidateSet("Compliant","NonCompliant")]
         [System.String]
         $State,
@@ -75,7 +88,7 @@ function Set-TargetResource
     $installedVersion = Get-SPDSCInstalledProductVersion
     if ($installedVersion.FileMajorPart -ne 16)
     {
-        throw [Exception] "MinRole is only supported in SharePoint 2016."
+        throw [Exception] "MinRole is only supported in SharePoint 2016 and 2019."
     }
 
     if ($State -eq "NonCompliant")
@@ -119,6 +132,11 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Yes')]
+        [String]
+        $IsSingleInstance,
+
         [Parameter(Mandatory = $true)]
         [ValidateSet("Compliant","NonCompliant")]
         [System.String]

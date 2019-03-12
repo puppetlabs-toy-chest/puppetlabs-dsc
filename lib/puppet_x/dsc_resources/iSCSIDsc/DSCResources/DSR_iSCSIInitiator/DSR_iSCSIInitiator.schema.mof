@@ -1,0 +1,25 @@
+[ClassVersion("1.0.0.0"), FriendlyName("iSCSIInitiator")]
+class DSR_iSCSIInitiator : OMI_BaseResource
+{
+    [Key, Description("Represents the IQN of the discovered target.")] String NodeAddress;
+    [Required, Description("Specifies the IP address or DNS name of the target portal.")] String TargetPortalAddress;
+    [Write, Description("Ensures that Target is Absent or Present."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("Specifies the IP address associated with the target portal.")] String InitiatorPortalAddress;
+    [Write, Description("Specifies the TCP/IP port number for the target portal.")] Uint16 TargetPortalPortNumber;
+    [Write, Description("The name of the initiator instance that the iSCSI initiator service uses to send SendTargets requests to the target portal.")] String InitiatorInstanceName;
+    [Write, Description("Specifies the type of authentication to use when logging into the target."), ValueMap{"None","OneWayCHAP","MutualCHAP"}, Values{"None","OneWayCHAP","MutualCHAP"}] String AuthenticationType;
+    [Write, Description("Specifies the user name to use when establishing a connection authenticated by using Mutual CHAP.")] String ChapUsername;
+    [Write, Description("Specifies the CHAP secret to use when establishing a connection authenticated by using CHAP.")] String ChapSecret;
+    [Write, Description("Enables data digest when the initiator logs into the target portal.")] Boolean IsDataDigest;
+    [Write, Description("Enables header digest when the initiator logs into the target portal. By not specifying this parameter, the digest setting is determined by the initiator kernel mode driver.")] Boolean IsHeaderDigest;
+    [Write, Description("Indicates that the initiator has enabled Multipath I/O (MPIO) and it will be used when logging into the target portal.")] Boolean IsMultipathEnabled;
+    [Write, Description("Specifies that the session is to be automatically connected after each restart.")] Boolean IsPersistent;
+    [Write, Description("Specifies that the operation is reported to PNP.")] Boolean ReportToPnP;
+    [Write, Description("Specifies the name of an iSNS Server to register this Initiator with.")] String iSNSServer;
+    [Read, Description("Is the target connected to the server.")] Boolean IsConnected;
+    [Read, Description("This is the current connection identifier for this target connection.")] String ConnectionIdentifier;
+    [Read, Description("This is the current session identifier for this target session.")] String SessionIdentifier;
+    [Read, Description("Is the target discovered in this session.")] Boolean IsDiscovered;
+    [Read, Description("The Initiator Node address assigned to this session.")] String InitiatorNodeAddress;
+    [Read, Description("The Target Node address assigned to this session.")] String TargetNodeAddress;
+};

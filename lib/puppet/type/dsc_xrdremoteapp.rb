@@ -23,14 +23,12 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   validate do
       fail('dsc_alias is a required attribute') if self[:dsc_alias].nil?
       fail('dsc_collectionname is a required attribute') if self[:dsc_collectionname].nil?
-      fail('dsc_displayname is a required attribute') if self[:dsc_displayname].nil?
-      fail('dsc_filepath is a required attribute') if self[:dsc_filepath].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xRDRemoteApp' end
   def dscmeta_resource_name; 'MSFT_xRDRemoteApp' end
   def dscmeta_module_name; 'xRemoteDesktopSessionHost' end
-  def dscmeta_module_version; '1.5.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -38,6 +36,7 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   ensurable do
     newvalue(:exists?) { provider.exists? }
     newvalue(:present) { provider.create }
+    newvalue(:absent)  { provider.destroy }
     defaultto { :present }
   end
 
@@ -94,13 +93,12 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
 
   # Name:         DisplayName
   # Type:         string
-  # IsMandatory:  True
+  # IsMandatory:  False
   # Values:       None
   newparam(:dsc_displayname) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "DisplayName - Specifies a name to display to users for the RemoteApp program."
-    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -110,16 +108,34 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
 
   # Name:         FilePath
   # Type:         string
-  # IsMandatory:  True
+  # IsMandatory:  False
   # Values:       None
   newparam(:dsc_filepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "FilePath - Specifies a path for the executable file for the application. Do not include any environment variables."
-    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Present", "Absent"]
+  newparam(:dsc_ensure) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Ensure - Present if the RemoteApp should exist, Absent if it should be removed Valid values are Present, Absent."
+    validate do |value|
+      resource[:ensure] = value.downcase
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Present', 'present', 'Absent', 'absent'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Present, Absent")
       end
     end
   end
@@ -157,14 +173,17 @@ Puppet::Type.newtype(:dsc_xrdremoteapp) do
   # Name:         CommandLineSetting
   # Type:         string
   # IsMandatory:  False
-  # Values:       None
+  # Values:       ["Allow", "DoNotAllow", "Require"]
   newparam(:dsc_commandlinesetting) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CommandLineSetting - Specifies whether the RemoteApp program accepts command-line arguments from the client at connection time. The acceptable values for this parameter are:  Allow, DoNotAllow, Require"
+    desc "CommandLineSetting - Specifies whether the RemoteApp program accepts command-line arguments from the client at connection time. The acceptable values for this parameter are:  Allow, DoNotAllow, Require Valid values are Allow, DoNotAllow, Require."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Allow', 'allow', 'DoNotAllow', 'donotallow', 'Require', 'require'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Allow, DoNotAllow, Require")
       end
     end
   end

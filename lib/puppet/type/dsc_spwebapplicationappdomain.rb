@@ -21,14 +21,14 @@ Puppet::Type.newtype(:dsc_spwebapplicationappdomain) do
   }
 
   validate do
-      fail('dsc_webapplication is a required attribute') if self[:dsc_webapplication].nil?
+      fail('dsc_webappurl is a required attribute') if self[:dsc_webappurl].nil?
       fail('dsc_zone is a required attribute') if self[:dsc_zone].nil?
     end
 
   def dscmeta_resource_friendly_name; 'SPWebApplicationAppDomain' end
   def dscmeta_resource_name; 'MSFT_SPWebApplicationAppDomain' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,14 +58,14 @@ Puppet::Type.newtype(:dsc_spwebapplicationappdomain) do
     end
   end
 
-  # Name:         WebApplication
+  # Name:         WebAppUrl
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_webapplication) do
+  newparam(:dsc_webappurl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "WebApplication - The URL of the web application to set the app domain for"
+    desc "WebAppUrl - The URL of the web application to set the app domain for"
     isrequired
     validate do |value|
       unless value.kind_of?(String)

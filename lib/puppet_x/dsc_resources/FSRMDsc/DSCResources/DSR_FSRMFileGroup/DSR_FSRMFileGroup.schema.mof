@@ -1,0 +1,9 @@
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMFileGroup")]
+class DSR_FSRMFileGroup : OMI_BaseResource
+{
+    [Key, Description("The name of the FSRM File Group.")] String Name;
+    [Write, Description("The description for the FSRM File Group.")] String Description;
+    [Write, Description("Specifies whether the FSRM File Group should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("An array of file patterns to include in this FSRM File Group.")] String IncludePattern[];
+    [Write, Description("An array of file patterns to exclude in this FSRM File Group.")] String ExcludePattern[];
+};

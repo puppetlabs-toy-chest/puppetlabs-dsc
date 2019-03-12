@@ -1,8 +1,46 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCDscTestsPresent", "")]
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCDscExamplesPresent", "")]
-[CmdletBinding()]
-param()
+<#
+    .SYNOPSIS
+        Retrieves the current DSC configuration for this resource.
 
+    .PARAMETER Identity
+        The hostname of the Client Access Server.
+
+    .PARAMETER Credential
+        The Credentials to use when creating a remote PowerShell session to
+        Exchange.
+
+    .PARAMETER AlternateServiceAccountCredential
+        The AlternateServiceAccountCredential parameter specifies an
+        alternative service account that'stypically used for Kerberos
+        authentication.
+
+    .PARAMETER AutoDiscoverServiceInternalUri
+        The AutoDiscoverServiceInternalUri parameter specifies the internal URL
+        of the Autodiscover service.
+
+    .PARAMETER AutoDiscoverSiteScope
+        The AutoDiscoverSiteScope parameter specifies the Active Directory site
+        that the Autodiscover service is authoritative for. Clients that
+        connect to the Autodiscover service by using the internal URL need to
+        exist in the specified site.
+
+    .PARAMETER CleanUpInvalidAlternateServiceAccountCredentials
+        The CleanUpInvalidAlternateServiceAccountCredentialsswitch specifies
+        whether to remove a previously configured alternate service account
+        that's no longer valid. You don't need to specify a value with this
+        switch.
+
+    .PARAMETER DomainController
+        The DomainController parameter specifies the domain controller that's
+        used by this cmdlet to read data from or write data to Active
+        Directory. You identify the domain controller by its fully qualified
+        domain name (FQDN). For example, dc01.contoso.com.
+
+    .PARAMETER RemoveAlternateServiceAccountCredentials
+        The RemoveAlternateServiceAccountCredentialsswitch specifies whether to
+        remove a previously distributed alternate service account. You don't
+        need to specify a value with this switch.
+#>
 function Get-TargetResource
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCUseVerboseMessageInDSCResource", "")]
@@ -10,45 +48,48 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         [ValidateNotNullOrEmpty()]
         $AlternateServiceAccountCredential,
 
+        [Parameter()]
         [System.String]
         $AutoDiscoverServiceInternalUri,
 
+        [Parameter()]
         [System.String[]]
         $AutoDiscoverSiteScope,
 
+        [Parameter()]
         [System.Boolean]
         $CleanUpInvalidAlternateServiceAccountCredentials,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
+        [Parameter()]
         [System.Boolean]
         $RemoveAlternateServiceAccountCredentials
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Identity' = $Identity} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Identity" = $Identity} -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-ClientAccessServ*' -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad "Get-ClientAccessServ*" -VerbosePreference $VerbosePreference
-
-    $cas = GetClientAccessServer @PSBoundParameters
+    $cas = Get-ClientAccessServerInternal @PSBoundParameters
 
     if ($null -ne $cas)
     {
@@ -56,101 +97,232 @@ function Get-TargetResource
         {
             $sites = $cas.AutoDiscoverSiteScope.ToArray()
         }
-        $returnValue = @{
-            Identity = $Identity
-            AutoDiscoverServiceInternalUri = $cas.AutoDiscoverServiceInternalUri
-            AutoDiscoverSiteScope = $sites
-            CleanUpInvalidAlternateServiceAccountCredentials = $CleanUpInvalidAlternateServiceAccountCredentials
-            DomainController = $DomainController
-            RemoveAlternateServiceAccountCredentials = $RemoveAlternateServiceAccountCredentials
+        else
+        {
+            $sites = @()
         }
+
+        $returnValue = @{
+            Identity                                         = [System.String] $Identity
+            AutoDiscoverServiceInternalUri                   = [System.String] $cas.AutoDiscoverServiceInternalUri
+            AutoDiscoverSiteScope                            = [System.String[]] $sites
+            CleanUpInvalidAlternateServiceAccountCredentials = [System.Boolean] $CleanUpInvalidAlternateServiceAccountCredentials
+            DomainController                                 = [System.String] $DomainController
+            RemoveAlternateServiceAccountCredentials         = [System.Boolean] $RemoveAlternateServiceAccountCredentials
+        }
+
         if ($cas.AlternateServiceAccountConfiguration.EffectiveCredentials.Count -gt 0)
         {
-            $UserName = ($cas.AlternateServiceAccountConfiguration.EffectiveCredentials | sort WhenAddedUTC | select -Last 1).Credential.UserName
-            $PassWord = ($cas.AlternateServiceAccountConfiguration.EffectiveCredentials | sort WhenAddedUTC | select -Last 1).Credential.GetNetworkCredential().Password
-            $returnValue.Add("AlternateServiceAccountCredential","UserName:$UserName Password:$PassWord")
+            $returnValue.Add("AlternateServiceAccountCredential", [System.Management.Automation.PSCredential] $cas.AlternateServiceAccountConfiguration.EffectiveCredentials.Credential)
         }
     }
 
     $returnValue
 }
 
+<#
+    .SYNOPSIS
+        Sets the DSC configuration for this resource.
 
+    .PARAMETER Identity
+        The hostname of the Client Access Server.
+
+    .PARAMETER Credential
+        The Credentials to use when creating a remote PowerShell session to
+        Exchange.
+
+    .PARAMETER AlternateServiceAccountCredential
+        The AlternateServiceAccountCredential parameter specifies an
+        alternative service account that'stypically used for Kerberos
+        authentication.
+
+    .PARAMETER AutoDiscoverServiceInternalUri
+        The AutoDiscoverServiceInternalUri parameter specifies the internal URL
+        of the Autodiscover service.
+
+    .PARAMETER AutoDiscoverSiteScope
+        The AutoDiscoverSiteScope parameter specifies the Active Directory site
+        that the Autodiscover service is authoritative for. Clients that
+        connect to the Autodiscover service by using the internal URL need to
+        exist in the specified site.
+
+    .PARAMETER CleanUpInvalidAlternateServiceAccountCredentials
+        The CleanUpInvalidAlternateServiceAccountCredentialsswitch specifies
+        whether to remove a previously configured alternate service account
+        that's no longer valid. You don't need to specify a value with this
+        switch.
+
+    .PARAMETER DomainController
+        The DomainController parameter specifies the domain controller that's
+        used by this cmdlet to read data from or write data to Active
+        Directory. You identify the domain controller by its fully qualified
+        domain name (FQDN). For example, dc01.contoso.com.
+
+    .PARAMETER RemoveAlternateServiceAccountCredentials
+        The RemoveAlternateServiceAccountCredentialsswitch specifies whether to
+        remove a previously distributed alternate service account. You don't
+        need to specify a value with this switch.
+#>
 function Set-TargetResource
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCUseVerboseMessageInDSCResource", "")]
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         [ValidateNotNullOrEmpty()]
         $AlternateServiceAccountCredential,
 
+        [Parameter()]
         [System.String]
         $AutoDiscoverServiceInternalUri,
 
+        [Parameter()]
         [System.String[]]
         $AutoDiscoverSiteScope,
 
+        [Parameter()]
         [System.Boolean]
         $CleanUpInvalidAlternateServiceAccountCredentials,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
+        [Parameter()]
         [System.Boolean]
         $RemoveAlternateServiceAccountCredentials
     )
 
-    #check for ambiguous parameter
+    # check for ambiguous parameter
     if (($AlternateServiceAccountCredential -and $RemoveAlternateServiceAccountCredentials) -or ($CleanUpInvalidAlternateServiceAccountCredentials -and $RemoveAlternateServiceAccountCredentials))
     {
         throw "Ambiguous parameter detected! Don't combine AlternateServiceAccountCredential with RemoveAlternateServiceAccountCredentials or CleanUpInvalidAlternateServiceAccountCredentials with RemoveAlternateServiceAccountCredentials!"
     }
     if ($AlternateServiceAccountCredential)
     {
-        #check if credentials are in correct format DOMAIN\USERNAME
+        # check if credentials are in correct format DOMAIN\USERNAME
         $parts = @($AlternateServiceAccountCredential.Username.Split('\'))
         if ($parts.Count -ne 2 -or $parts[0] -eq '')
         {
             throw "The username must be fully qualified!"
         }
     }
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
 
-    LogFunctionEntry -Parameters @{"Identity" = $Identity} -VerbosePreference $VerbosePreference
+    Write-FunctionEntry -Parameters @{'Identity' = $Identity} -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad "Set-ClientAccessServ*" -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Set-ClientAccessServ*' -Verbose:$VerbosePreference
 
-    RemoveParameters -PSBoundParametersIn $PSBoundParameters -ParamsToRemove "Credential"
+    Remove-FromPSBoundParametersUsingHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToRemove "Credential"
 
-    SetEmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
-    
-    $serverVersion = GetExchangeVersion -ThrowIfUnknownVersion $true
+    Set-EmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
 
-    if ($serverVersion -eq "2016")
+    $serverVersion = Get-ExchangeVersionYear -ThrowIfUnknownVersion $true
+
+    if ($serverVersion -in '2016', '2019')
     {
-        Set-ClientAccessService @PSBoundParameters
+        $setCasCmd = 'Set-ClientAccessService'
     }
-    elseif ($serverVersion -eq "2013")
+    elseif ($serverVersion -eq '2013')
     {
-        Set-ClientAccessServer @PSBoundParameters
+        $setCasCmd = 'Set-ClientAccessServer'
     }
+
+    # The AlternateServiceAccount can't be set with parameters other than Identity and DomainController, so execute as one off
+    if ($null -ne $AlternateServiceAccountCredential)
+    {
+        $asaParams = @{
+            Identity = $Identity
+            AlternateServiceAccountCredential = $AlternateServiceAccountCredential
+        }
+
+        if (![String]::IsNullOrEmpty($DomainController))
+        {
+            $asaParams.Add('DomainController', $DomainController)
+        }
+
+        & $setCasCmd @asaParams
+
+        $PSBoundParameters.Remove('AlternateServiceAccountCredential')
+    }
+
+    # Remove AlternateServiceAccount can't be performed with parameters other than Identity and DomainController, so execute as one off
+    if ($RemoveAlternateServiceAccountCredentials)
+    {
+        $asaParams = @{
+            Identity = $Identity
+            RemoveAlternateServiceAccountCredentials = $true
+        }
+
+        if (![String]::IsNullOrEmpty($DomainController))
+        {
+            $asaParams.Add('DomainController', $DomainController)
+        }
+
+        & $setCasCmd @asaParams
+
+        $PSBoundParameters.Remove('RemoveAlternateServiceAccountCredentials')
+    }
+
+    & $setCasCmd @PSBoundParameters
 }
 
+<#
+    .SYNOPSIS
+        Tests whether the desired configuration for this resource has been
+        applied.
 
+    .PARAMETER Identity
+        The hostname of the Client Access Server.
+
+    .PARAMETER Credential
+        The Credentials to use when creating a remote PowerShell session to
+        Exchange.
+
+    .PARAMETER AlternateServiceAccountCredential
+        The AlternateServiceAccountCredential parameter specifies an
+        alternative service account that'stypically used for Kerberos
+        authentication.
+
+    .PARAMETER AutoDiscoverServiceInternalUri
+        The AutoDiscoverServiceInternalUri parameter specifies the internal URL
+        of the Autodiscover service.
+
+    .PARAMETER AutoDiscoverSiteScope
+        The AutoDiscoverSiteScope parameter specifies the Active Directory site
+        that the Autodiscover service is authoritative for. Clients that
+        connect to the Autodiscover service by using the internal URL need to
+        exist in the specified site.
+
+    .PARAMETER CleanUpInvalidAlternateServiceAccountCredentials
+        The CleanUpInvalidAlternateServiceAccountCredentialsswitch specifies
+        whether to remove a previously configured alternate service account
+        that's no longer valid. You don't need to specify a value with this
+        switch.
+
+    .PARAMETER DomainController
+        The DomainController parameter specifies the domain controller that's
+        used by this cmdlet to read data from or write data to Active
+        Directory. You identify the domain controller by its fully qualified
+        domain name (FQDN). For example, dc01.contoso.com.
+
+    .PARAMETER RemoveAlternateServiceAccountCredentials
+        The RemoveAlternateServiceAccountCredentialsswitch specifies whether to
+        remove a previously distributed alternate service account. You don't
+        need to specify a value with this switch.
+#>
 function Test-TargetResource
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCUseVerboseMessageInDSCResource", "")]
@@ -158,137 +330,194 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         [ValidateNotNullOrEmpty()]
         $AlternateServiceAccountCredential,
 
+        [Parameter()]
         [System.String]
         $AutoDiscoverServiceInternalUri,
 
+        [Parameter()]
         [System.String[]]
         $AutoDiscoverSiteScope,
 
+        [Parameter()]
         [System.Boolean]
         $CleanUpInvalidAlternateServiceAccountCredentials,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
+        [Parameter()]
         [System.Boolean]
         $RemoveAlternateServiceAccountCredentials
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Identity' = $Identity} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Identity" = $Identity} -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-ClientAccessServ*' -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad "Get-ClientAccessServ*" -VerbosePreference $VerbosePreference
+    $cas = Get-ClientAccessServerInternal @PSBoundParameters
 
-    $cas = GetClientAccessServer @PSBoundParameters
-
-    $serverVersion = GetExchangeVersion -ThrowIfUnknownVersion $true
+    $testResults = $true
 
     if ($null -eq $cas)
     {
-        return $false
+        Write-Error -Message 'Unable to retrieve Client Access Server settings for server'
+
+        $testResults = $false
     }
     else
     {
-        if (!(VerifySetting -Name "AutoDiscoverServiceInternalUri" -Type "String" -ExpectedValue $AutoDiscoverServiceInternalUri -ActualValue $cas.AutoDiscoverServiceInternalUri.AbsoluteUri -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AutoDiscoverServiceInternalUri' -Type 'String' -ExpectedValue $AutoDiscoverServiceInternalUri -ActualValue $cas.AutoDiscoverServiceInternalUri.AbsoluteUri -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "AutoDiscoverSiteScope" -Type "Array" -ExpectedValue $AutoDiscoverSiteScope -ActualValue $cas.AutoDiscoverSiteScope -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AutoDiscoverSiteScope' -Type 'Array' -ExpectedValue $AutoDiscoverSiteScope -ActualValue $cas.AutoDiscoverSiteScope -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "AlternateServiceAccountCredential" -Type "PSCredential" -ExpectedValue $AlternateServiceAccountCredential -ActualValue ($cas.AlternateServiceAccountConfiguration.EffectiveCredentials | sort WhenAddedUTC | select -Last 1).Credential $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AlternateServiceAccountCredential' -Type 'PSCredential' -ExpectedValue $AlternateServiceAccountCredential -ActualValue ($cas.AlternateServiceAccountConfiguration.EffectiveCredentials | Sort-Object WhenAddedUTC | Select-Object -Last 1).Credential $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
+
         if ($CleanUpInvalidAlternateServiceAccountCredentials)
         {
-            return $false
+            Write-Verbose -Message 'CleanUpInvalidAlternateServiceAccountCredentials is set to $true. Forcing Test-TargetResource to return $false.'
+            $testResults = $false
         }
+
         if ($RemoveAlternateServiceAccountCredentials -and ($cas.AlternateServiceAccountConfiguration.EffectiveCredentials.Count -gt 0))
         {
-            return $false
+            Write-Verbose -Message 'RemoveAlternateServiceAccountCredentials is set to $true, and AlternateServiceAccountConfiguration currently has credentials configured. Returning $false.'
+            $testResults = $false
         }
     }
 
-    return $true
+    return $testResults
 }
 
-#Runs Get-ClientAcccessServer, only specifying Identity, and optionally DomainController
-function GetClientAccessServer
+<#
+    .SYNOPSIS
+        Used as a wrapper for Get-ClientAccessServer. Runs
+        Get-ClientAcccessServer, only specifying Identity, and optionally
+        DomainController, and returns the results.
+
+    .PARAMETER Identity
+        The hostname of the Client Access Server.
+
+    .PARAMETER Credential
+        The Credentials to use when creating a remote PowerShell session to
+        Exchange.
+
+    .PARAMETER AlternateServiceAccountCredential
+        The AlternateServiceAccountCredential parameter specifies an
+        alternative service account that'stypically used for Kerberos
+        authentication.
+
+    .PARAMETER AutoDiscoverServiceInternalUri
+        The AutoDiscoverServiceInternalUri parameter specifies the internal URL
+        of the Autodiscover service.
+
+    .PARAMETER AutoDiscoverSiteScope
+        The AutoDiscoverSiteScope parameter specifies the Active Directory site
+        that the Autodiscover service is authoritative for. Clients that
+        connect to the Autodiscover service by using the internal URL need to
+        exist in the specified site.
+
+    .PARAMETER CleanUpInvalidAlternateServiceAccountCredentials
+        The CleanUpInvalidAlternateServiceAccountCredentialsswitch specifies
+        whether to remove a previously configured alternate service account
+        that's no longer valid. You don't need to specify a value with this
+        switch.
+
+    .PARAMETER DomainController
+        The DomainController parameter specifies the domain controller that's
+        used by this cmdlet to read data from or write data to Active
+        Directory. You identify the domain controller by its fully qualified
+        domain name (FQDN). For example, dc01.contoso.com.
+
+    .PARAMETER RemoveAlternateServiceAccountCredentials
+        The RemoveAlternateServiceAccountCredentialsswitch specifies whether to
+        remove a previously distributed alternate service account. You don't
+        need to specify a value with this switch.
+#>
+function Get-ClientAccessServerInternal
 {
     [CmdletBinding()]
+    [OutputType([System.Object])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         [ValidateNotNullOrEmpty()]
         $AlternateServiceAccountCredential,
 
+        [Parameter()]
         [System.String]
         $AutoDiscoverServiceInternalUri,
 
+        [Parameter()]
         [System.String[]]
         $AutoDiscoverSiteScope,
 
+        [Parameter()]
         [System.Boolean]
         $CleanUpInvalidAlternateServiceAccountCredentials,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
+        [Parameter()]
         [System.Boolean]
         $RemoveAlternateServiceAccountCredentials
     )
 
-    #Remove params we don't want to pass into the next command
-    RemoveParameters -PSBoundParametersIn $PSBoundParameters -ParamsToKeep "Identity","DomainController"
+    # Remove params we don't want to pass into the next command
+    Remove-FromPSBoundParametersUsingHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToKeep 'Identity', 'DomainController'
 
-    $serverVersion = GetExchangeVersion -ThrowIfUnknownVersion $true
+    $serverVersion = Get-ExchangeVersionYear -ThrowIfUnknownVersion $true
     if (($null -ne $AlternateServiceAccountCredential) -or ($RemoveAlternateServiceAccountCredentials))
     {
         $PSBoundParameters.Add('IncludeAlternateServiceAccountCredentialPassword',$true)
     }
 
-    if ($serverVersion -eq "2016")
+    if ($serverVersion -in '2016', '2019')
     {
         return (Get-ClientAccessService @PSBoundParameters)
     }
-    elseif ($serverVersion -eq "2013")
+    elseif ($serverVersion -eq '2013')
     {
         return (Get-ClientAccessServer @PSBoundParameters)
-    } 
+    }
 }
 
-
 Export-ModuleMember -Function *-TargetResource
-
-

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdbpackage) do
   def dscmeta_resource_friendly_name; 'xDBPackage' end
   def dscmeta_resource_name; 'MSFT_xDBPackage' end
   def dscmeta_module_name; 'xDatabase' end
-  def dscmeta_module_version; '1.7.0.0' end
+  def dscmeta_module_version; '1.9.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -143,17 +143,17 @@ Puppet::Type.newtype(:dsc_xdbpackage) do
   # Name:         SqlServerVersion
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["2008-R2", "2012", "2014", "2016"]
+  # Values:       ["2008-R2", "2012", "2014", "2016", "2017"]
   newparam(:dsc_sqlserverversion) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SqlServerVersion - Sql Server Version For DacFx Valid values are 2008-R2, 2012, 2014, 2016."
+    desc "SqlServerVersion - Sql Server Version For DacFx Valid values are 2008-R2, 2012, 2014, 2016, 2017."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['2008-R2', '2008-r2', '2012', '2012', '2014', '2014', '2016', '2016'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are 2008-R2, 2012, 2014, 2016")
+      unless ['2008-R2', '2008-r2', '2012', '2012', '2014', '2014', '2016', '2016', '2017', '2017'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are 2008-R2, 2012, 2014, 2016, 2017")
       end
     end
   end

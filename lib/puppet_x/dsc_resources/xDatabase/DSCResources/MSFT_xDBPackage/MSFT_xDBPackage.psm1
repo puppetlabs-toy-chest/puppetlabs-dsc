@@ -1,3 +1,4 @@
+Import-Module -DisableNameChecking $PSScriptRoot\..\xDatabase_Common
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -22,7 +23,7 @@ function Get-TargetResource
         $Type,
 
         [parameter(Mandatory = $true)]
-        [ValidateSet("2008-R2","2012","2014","2016")]
+        [ValidateSet("2008-R2","2012","2014","2016","2017")]
         [System.String]
         $SqlServerVersion
     )
@@ -54,7 +55,7 @@ function Set-TargetResource
         $Type,
 
         [parameter(Mandatory = $true)]
-        [ValidateSet("2008-R2","2012","2014","2016")]
+        [ValidateSet("2008-R2","2012","2014","2016","2017")]
         [System.String]
         $SqlServerVersion
     )
@@ -102,7 +103,7 @@ function Test-TargetResource
         $Type,
 
         [parameter(Mandatory = $true)]
-        [ValidateSet("2008-R2","2012","2014","2016")]
+        [ValidateSet("2008-R2","2012","2014","2016","2017")]
         [System.String]
         $SqlServerVersion
     )
@@ -214,31 +215,6 @@ function Load-DacFx([string]$sqlserverVersion)
     {
         Throw "Loading DacFx Failed"
     }
-}
-
-function Get-SqlServerMajoreVersion([string]$sqlServerVersion)
-{
-    switch($sqlserverVersion)
-    {
-        "2008-R2"
-        {
-            $majorVersion = 100
-        }
-        "2012"
-        {
-            $majorVersion = 110
-        }
-        "2014"
-        {
-            $majorVersion = 120
-        }
-        "2016"
-        {
-            $majorVersion = 130
-        }
-    }
-
-    return $majorVersion
 }
 
 Export-ModuleMember -Function *-TargetResource

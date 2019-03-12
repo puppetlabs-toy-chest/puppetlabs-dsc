@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   def dscmeta_resource_friendly_name; 'xBLBitlocker' end
   def dscmeta_resource_name; 'MSFT_xBLBitlocker' end
   def dscmeta_module_name; 'xBitlocker' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.4.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_mountpoint) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MountPoint"
+    desc "MountPoint - The MountPoint name as reported in Get-BitLockerVolume"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_primaryprotector) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "PrimaryProtector - Valid values are PasswordProtector, RecoveryPasswordProtector, StartupKeyProtector, TpmProtector."
+    desc "PrimaryProtector - The type of key protector that will be used as the primary key protector Valid values are PasswordProtector, RecoveryPasswordProtector, StartupKeyProtector, TpmProtector."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -98,7 +98,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_autounlock) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AutoUnlock"
+    desc "AutoUnlock - Whether volumes should be enabled for auto unlock using Enable-BitlockerAutoUnlock"
     validate do |value|
     end
     newvalues(true, false)
@@ -114,7 +114,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_allowimmediatereboot) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllowImmediateReboot"
+    desc "AllowImmediateReboot - Whether the computer can be immediately rebooted after enabling Bitlocker on an OS drive. Defaults to false."
     validate do |value|
     end
     newvalues(true, false)
@@ -195,7 +195,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_password) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Password"
+    desc "Password - NOTE: Username doesn't matter for the credential. Just put the Password in the Password field"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -230,7 +230,7 @@ Puppet::Type.newtype(:dsc_xblbitlocker) do
   newparam(:dsc_pin) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Pin"
+    desc "Pin - NOTE: Username doesn't matter for the credential. Just put the Pin in the Password field"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

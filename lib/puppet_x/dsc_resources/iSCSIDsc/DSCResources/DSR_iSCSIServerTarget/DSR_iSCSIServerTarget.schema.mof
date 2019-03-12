@@ -1,0 +1,9 @@
+[ClassVersion("1.0.0.0"), FriendlyName("iSCSIServerTarget")]
+class DSR_iSCSIServerTarget : OMI_BaseResource
+{
+    [Key, Description("Specifies the name of the iSCSI target.")] String TargetName;
+    [Write, Description("Ensures that Server Target is either Absent or Present."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Required, Description("Specifies the iSCSI initiator identifiers (IDs) to which the iSCSI target is assigned.")] String InitiatorIds[];
+    [Required, Description("Specifies the path of the virtual hard disk (VHD) files that are associated with the Server Target.")] String Paths[];
+    [Write, Description("Specifies the name of an iSNS Server to register this Server Target with.")] String iSNSServer;
+};

@@ -95,6 +95,29 @@ function Convert-SPDscADGroupNameToID
     return ([Guid]::new($result.objectGUID.Value))
 }
 
+function Convert-SPDscHashtableToString
+{
+    param
+    (
+        [System.Collections.Hashtable]
+        $Hashtable
+    )
+    $first = $true
+    foreach($pair in $Hashtable.GetEnumerator())
+    {
+        if ($first)
+        {
+            $first = $false
+        }
+        else
+        {
+            $output += '; '
+        }
+        $output+="{0}={1}" -f $($pair.key),$($pair.Value)
+    }
+    return $output
+}
+
 function Get-SPDscOSVersion
 {
     [CmdletBinding()]
@@ -114,6 +137,17 @@ function Get-SPDSCAssemblyVersion
     return (Get-Command $PathToAssembly).FileVersionInfo.FileMajorPart
 }
 
+function Get-SPDSCBuildVersion
+{
+    [CmdletBinding()]
+    param
+    (
+        [Parameter(Mandatory = $true,Position=1)]
+        [string]
+        $PathToAssembly
+    )
+    return (Get-Command $PathToAssembly).FileVersionInfo.FileBuildPart
+}
 
 function Get-SPDscFarmAccount
 {
@@ -194,7 +228,8 @@ function Get-SPDscFarmVersionInfo
                 ($patchableUnit -notmatch "OMUI") -and
                 ($patchableUnit -notmatch "XMUI") -and
                 ($patchableUnit -notmatch "Project Server") -and
-                ($patchableUnit -notmatch "Microsoft SharePoint Server (2013|2016)"))
+                (($patchableUnit -notmatch "Microsoft SharePoint Server (2013|2016|2019)" -or `
+                  $patchableUnit -match "Core")))
             {
                 $patchableUnitsInfo = $singleProductInfo.GetPatchableUnitInfoByDisplayName($patchableUnit)
                 $currentVersion = ""
@@ -358,7 +393,7 @@ function Invoke-SPDSCCommand
 
         try
         {
-            $result = Invoke-Command @invokeArgs -Verbose
+            return Invoke-Command @invokeArgs -Verbose
         }
         catch
         {
@@ -373,7 +408,6 @@ function Invoke-SPDSCCommand
                 throw $_
             }
         }
-        return $result
     }
     else
     {
@@ -408,7 +442,7 @@ function Invoke-SPDSCCommand
 
         try
         {
-            $result = Invoke-Command @invokeArgs -Verbose
+            return Invoke-Command @invokeArgs -Verbose
         }
         catch
         {
@@ -428,7 +462,6 @@ function Invoke-SPDSCCommand
         {
             Remove-PSSession -Session $session
         }
-        return $result
     }
 }
 

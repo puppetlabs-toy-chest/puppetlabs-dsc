@@ -1,0 +1,11 @@
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMSettings")]
+class DSR_FSRMSettings : OMI_BaseResource
+{
+    [Key, Description("Specifies the resource is a single instance, the value must be 'Yes'."), ValueMap{"Yes"}, Values{"Yes"}] String IsSingleInstance;
+    [Write, Description("Specifies the fully qualified domain name (FQDN) or IP address of the SMTP server that FSRM uses to send email.")] String SmtpServer;
+    [Write, Description("Specifies a semicolon-separated list of email addresses for the recipients of any email that the server sends to the administrator.")] String AdminEmailAddress;
+    [Write, Description("Specifies the default email address from which FSRM sends email messages.")] String FromEmailAddress;
+    [Write, Description("Specifies the minimum number of seconds between individual running events of a command-type notification.")] UInt32 CommandNotificationLimit;
+    [Write, Description("Specifies the minimum number of seconds between individual running events of an email-type notification.")] UInt32 EmailNotificationLimit;
+    [Write, Description("Specifies the minimum number of seconds between individual running events of an event-type notification.")] UInt32 EventNotificationLimit;
+};

@@ -51,7 +51,7 @@ Puppet::Type.newtype(:dsc_spsearchcontentsource) do
   def dscmeta_resource_friendly_name; 'SPSearchContentSource' end
   def dscmeta_resource_name; 'MSFT_SPSearchContentSource' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -117,17 +117,17 @@ Puppet::Type.newtype(:dsc_spsearchcontentsource) do
   # Name:         ContentSourceType
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["SharePoint", "Website", "FileShare"]
+  # Values:       ["SharePoint", "Website", "FileShare", "Business"]
   newparam(:dsc_contentsourcetype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ContentSourceType - The type of content source - currently only SharePoint, Website and File Shares are supported Valid values are SharePoint, Website, FileShare."
+    desc "ContentSourceType - The type of content source - currently only SharePoint, Website, File Shares and Business are supported Valid values are SharePoint, Website, FileShare, Business."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['SharePoint', 'sharepoint', 'Website', 'website', 'FileShare', 'fileshare'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are SharePoint, Website, FileShare")
+      unless ['SharePoint', 'sharepoint', 'Website', 'website', 'FileShare', 'fileshare', 'Business', 'business'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are SharePoint, Website, FileShare, Business")
       end
     end
   end
@@ -279,6 +279,24 @@ Puppet::Type.newtype(:dsc_spsearchcontentsource) do
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         LOBSystemSet
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_lobsystemset, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "LOBSystemSet - Line of Business System and System Instance names"
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
     end
   end
 

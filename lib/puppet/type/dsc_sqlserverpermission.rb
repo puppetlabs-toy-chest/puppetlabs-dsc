@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_sqlserverpermission) do
   def dscmeta_resource_friendly_name; 'SqlServerPermission' end
   def dscmeta_resource_name; 'MSFT_SqlServerPermission' end
   def dscmeta_module_name; 'SqlServerDsc' end
-  def dscmeta_module_version; '11.1.0.0' end
+  def dscmeta_module_version; '12.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

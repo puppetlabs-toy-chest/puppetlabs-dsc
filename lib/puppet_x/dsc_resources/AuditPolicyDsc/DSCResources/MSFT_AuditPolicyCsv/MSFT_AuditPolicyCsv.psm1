@@ -1,7 +1,6 @@
-
 Import-Module -Name (Join-Path -Path ( Join-Path -Path ( Split-Path $PSScriptRoot -Parent ) `
                                                  -ChildPath 'AuditPolicyResourceHelper' ) `
-                               -ChildPath 'AuditPolicyResourceHelper.psm1')                         
+                               -ChildPath 'AuditPolicyResourceHelper.psm1')
 
 # Localized messages for Write-Verbose statements in this resource
 $script:localizedData = Get-LocalizedData -ResourceName 'MSFT_AuditPolicyCsv'
@@ -10,26 +9,26 @@ $script:localizedData = Get-LocalizedData -ResourceName 'MSFT_AuditPolicyCsv'
     .SYNOPSIS
         Gets the current audit policy for the node.
     .PARAMETER CsvPath
-        This parameter is ignored in the Get operation, but does return the path to the 
-        backup of the current audit policy settings. 
+        This parameter is ignored in the Get operation, but does return the path to the
+        backup of the current audit policy settings.
 #>
 function Get-TargetResource
 {
     [CmdletBinding()]
-    [OutputType([System.Collections.Hashtable])]
+    [OutputType([Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
         [String]
         $IsSingleInstance,
-        
-        [parameter(Mandatory = $true)]
-        [System.String]
+
+        [Parameter(Mandatory = $true)]
+        [String]
         $CsvPath
     )
-    
-    [string] $tempFile = ([system.IO.Path]::GetTempFileName()).Replace('.tmp','.csv')
+
+    [String] $tempFile = ([system.IO.Path]::GetTempFileName()).Replace('.tmp','.csv')
 
     try
     {
@@ -58,22 +57,22 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
         [String]
         $IsSingleInstance,
-        
-        [parameter(Mandatory = $true)]
-        [System.String]
+
+        [Parameter(Mandatory = $true)]
+        [String]
         $CsvPath
     )
 
-    if (Test-Path -Path $CsvPath)
+    if ( Test-Path -Path $CsvPath )
     {
         try
         {
             Invoke-SecurityCmdlet -Action "Import" -CsvPath $CsvPath | Out-Null
-            Write-Verbose -Message ($localizedData.ImportSucceeded -f $CsvPath)    
+            Write-Verbose -Message ($localizedData.ImportSucceeded -f $CsvPath)
         }
         catch
         {
@@ -95,63 +94,63 @@ function Set-TargetResource
 function Test-TargetResource
 {
     [CmdletBinding()]
-    [OutputType([System.Boolean])]
+    [OutputType([Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [ValidateSet('Yes')]
         [String]
         $IsSingleInstance,
-        
-        [parameter(Mandatory = $true)]
-        [System.String]
+
+        [Parameter(Mandatory = $true)]
+        [String]
         $CsvPath
     )
 
-    if (Test-Path -Path $CsvPath)
+    if ( Test-Path -Path $CsvPath )
     {
-        # The CsvPath in Get-TargetResource is ignored and a temp file is returned for comparison. 
+        # The CsvPath in Get-TargetResource is ignored and a temp file is returned for comparison.
         $currentAuditPolicyBackupPath = (Get-TargetResource -CsvPath $CsvPath `
                                                             -IsSingleInstance $IsSingleInstance).CsvPath
 
-        $currentAuditPolicy = Import-Csv -Path $currentAuditPolicyBackupPath | 
-            Select-Object -Property Subcategory, @{
-                'Name' = 'Value';
-                'Expression' = {$_.'Setting Value'}
-            } 
-        
-        $desiredAuditPolicy = Import-Csv -Path $CsvPath | 
+        $currentAuditPolicy = Import-Csv -Path $currentAuditPolicyBackupPath |
             Select-Object -Property Subcategory, @{
                 'Name' = 'Value';
                 'Expression' = {$_.'Setting Value'}
             }
-       
-       # Assume the node is in the desired state until proven false.
-        $inDesiredState = $true
 
-        foreach ($desiredAuditPolicySetting in $desiredAuditPolicy)
+        $desiredAuditPolicy = Import-Csv -Path $CsvPath |
+            Select-Object -Property Subcategory, @{
+                'Name' = 'Value';
+                'Expression' = {$_.'Setting Value'}
+            }
+
+    # Assume the node is in the desired state until proven false.
+    [Boolean] $inDesiredState = $true
+
+    foreach ( $desiredAuditPolicySetting in $desiredAuditPolicy )
+    {
+        # Get the current setting name that mathches the desired setting name
+        $currentAuditPolicySetting = $currentAuditPolicy.Where({
+            $_.Subcategory -eq $desiredAuditPolicySetting.Subcategory
+        })
+
+        # If the current and desired setting do not match, set the flag to $false
+        if ($desiredAuditPolicySetting.Value -ne $currentAuditPolicySetting.Value)
         {
-            # Get the current setting name that mathches the desired setting name   
-            $currentAuditPolicySetting = $currentAuditPolicy.Where({
-                $_.Subcategory -eq $desiredAuditPolicySetting.Subcategory
-            })
+            Write-Warning -Message ($localizedData.testCsvFailed -f
+                $desiredAuditPolicySetting.Subcategory)
 
-            # If the current and desired setting do not match, set the flag to $false 
-            if ($desiredAuditPolicySetting.Value -ne $currentAuditPolicySetting.Value)
-            {
-                Write-Verbose -Message ($localizedData.testCsvFailed -f 
-                    $desiredAuditPolicySetting.Subcategory)
-                    
-                $inDesiredState = $false
-            }
-            else 
-            {
-                Write-Verbose -Message ($localizedData.testCsvSucceed -f 
-                    $desiredAuditPolicySetting.Subcategory)
-            }
+            $inDesiredState = $false
         }
+        else
+        {
+            Write-Verbose -Message ($localizedData.testCsvSucceed -f
+                $desiredAuditPolicySetting.Subcategory)
+        }
+    }
 
-        # Cleanup the temp file, since it is no longer needed. 
+        # Cleanup the temp file, since it is no longer needed.
         Remove-BackupFile -CsvPath $currentAuditPolicyBackupPath -Verbose
 
         return $inDesiredState
@@ -164,12 +163,12 @@ function Test-TargetResource
 }
 
 <#
-    .SYNOPSIS 
+    .SYNOPSIS
         Helper function to use SecurityCmdlet modules if present. If not, go through AuditPol.exe.
-    .PARAMETER Action 
+    .PARAMETER Action
         The action to take, either Import or Export. Import will clear existing policy before writing.
-    .PARAMETER CsvPath 
-        The path to a CSV file to either create or import.  
+    .PARAMETER CsvPath
+        The path to a CSV file to either create or import.
     .EXAMPLE
         Invoke-SecurityCmdlet -Action Import -CsvPath .\test.csv
 #>
@@ -178,14 +177,14 @@ function Invoke-SecurityCmdlet
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
-        [ValidateSet('Import','Export')]
-        [System.String]
-        $Action,
-        
         [Parameter(Mandatory = $true)]
-        [System.String]
-        $CsvPath 
+        [ValidateSet('Import','Export')]
+        [String]
+        $Action,
+
+        [Parameter(Mandatory = $true)]
+        [String]
+        $CsvPath
     )
 
     # Use the security cmdlets if present. If not, use Invoke-AuditPol to call auditpol.exe.
@@ -239,17 +238,17 @@ function Remove-BackupFile
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
-        [System.String]
+        [Parameter(Mandatory = $true)]
+        [String]
         $CsvPath
     )
 
-    try 
+    try
     {
         Remove-Item -Path $CsvPath
         Write-Verbose -Message ($localizedData.RemoveFile -f $CsvPath)
     }
-    catch 
+    catch
     {
         Write-Error $error[0]
     }

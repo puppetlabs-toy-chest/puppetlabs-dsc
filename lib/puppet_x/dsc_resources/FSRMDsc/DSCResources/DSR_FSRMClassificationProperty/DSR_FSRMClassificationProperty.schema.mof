@@ -1,0 +1,11 @@
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMClassificationProperty")]
+class DSR_FSRMClassificationProperty : OMI_BaseResource
+{
+    [Key, Description("The name of the FSRM Classification Property.")] String Name;
+    [Required, Description("The type of the FSRM Classification Property."), ValueMap{"OrderedList","MultiChoice","SingleChoice","String","MultiString","Integer","YesNo","DateTime"}, Values{"OrderedList","MultiChoice","SingleChoice","String","MultiString","Integer","YesNo","DateTime"}] String Type;
+    [Write, Description("The display name for the FSRM Classification Property.")] String DisplayName;
+    [Write, Description("The description for the FSRM Classification Property.")] String Description;
+    [Write, Description("Specifies whether the FSRM Classification Property should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("An array of possible values that this FSRM Classification Property can take on.")] String PossibleValue[];
+    [Write, Description("An array of parameters in the format <name>=<value> that can be used by the File Classification Infrastructure.")] String Parameters[];
+};

@@ -10,7 +10,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '4.0.0.0'
+moduleVersion = '4.5.0.0'
 
 # ID used to uniquely identify this module
 GUID = '00d73ca1-58b5-46b7-ac1a-5bfcf5814faf'
@@ -102,16 +102,14 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '- BREAKING CHANGE:
-  - Renamed xStorage to StorageDsc
-  - Renamed MSFT_xDisk to MSFT_Disk
-  - Renamed MSFT_xDiskAccessPath to MSFT_DiskAccessPath
-  - Renamed MSFT_xMountImage to MSFT_MountImage
-  - Renamed MSFT_xOpticalDiskDriveLetter to MSFT_OpticalDiskDriveLetter
-  - Renamed MSFT_xWaitForDisk to MSFT_WaitForDisk
-  - Renamed MSFT_xWaitForVolume to MSFT_WaitforVolume
-  - Deleted xStorage folder under StorageDsc/Modules
-  - See [Issue 129](https://github.com/PowerShell/xStorage/issues/129)
+        ReleaseNotes = '- Opt-in to Example publishing to PowerShell Gallery - fixes [Issue 186](https://github.com/PowerShell/StorageDsc/issues/186).
+- DiskAccessPath:
+  - Updated the resource to not assign a drive letter by default when adding
+    a disk access path. Adding a Set-Partition -NoDefaultDriveLetter
+    $NoDefaultDriveLetter block defaulting to true.
+    When adding access paths the disks will no longer have
+    drive letters automatically assigned on next reboot which is the desired
+    behavior - Fixes [Issue 145](https://github.com/PowerShell/StorageDsc/issues/145).
 
 '
 
@@ -126,6 +124,11 @@ PrivateData = @{
 # DefaultCommandPrefix = ''
 
 }
+
+
+
+
+
 
 
 

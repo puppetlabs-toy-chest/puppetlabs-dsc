@@ -1,0 +1,19 @@
+[ClassVersion("1.0.0.0"), FriendlyName("WSManServiceConfig")]
+class DSR_WSManServiceConfig : OMI_BaseResource
+{
+    [Key, Description("Specifies the resource is a single instance, the value must be 'Yes'"), ValueMap{"Yes"}, Values{"Yes"}] String IsSingleInstance;
+    [Write, Description("Specifies the security descriptor that controls remote access to the listener.")] String RootSDDL;
+    [Write, Description("Specifies the maximum number of active requests that the service can process simultaneously.")] Uint32 MaxConnections;
+    [Write, Description("Specifies the maximum number of concurrent operations that any user can remotely open on the same system.")] Uint32 MaxConcurrentOperationsPerUser;
+    [Write, Description("Specifies the idle time-out in milliseconds between Pull messages.")] Uint32 EnumerationTimeoutMS;
+    [Write, Description("Specifies the maximum length of time, in seconds, the WinRM service takes to retrieve a packet.")] Uint32 MaxPacketRetrievalTimeSeconds;
+    [Write, Description("Allows the client computer to request unencrypted traffic.")] Boolean AllowUnencrypted;
+    [Write, Description("Allows the WinRM service to use Basic authentication.")] Boolean AuthBasic;
+    [Write, Description("Allows the WinRM service to use Kerberos authentication.")] Boolean AuthKerberos;
+    [Write, Description("Allows the WinRM service to use Negotiate authentication.")] Boolean AuthNegotiate;
+    [Write, Description("Allows the WinRM service to use client certificate-based authentication.")] Boolean AuthCertificate;
+    [Write, Description("Allows the WinRM service to use Credential Security Support Provider (CredSSP) authentication.")] Boolean AuthCredSSP;
+    [Write, Description("Allows the client computer to request unencrypted traffic."), ValueMap{"Strict", "Relaxed", "None"},Values{"Strict", "Relaxed", "None"}] String AuthCbtHardeningLevel;
+    [Write, Description("Specifies whether the compatibility HTTP listener is enabled.")] Boolean EnableCompatibilityHttpListener;
+    [Write, Description("Specifies whether the compatibility HTTPS listener is enabled.")] Boolean EnableCompatibilityHttpsListener;
+};

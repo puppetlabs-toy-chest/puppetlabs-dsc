@@ -30,7 +30,7 @@ function Get-TargetResource
     if ((Get-SPDSCInstalledProductVersion).FileMajorPart -ne 15)
     {
         throw [Exception] ("Only SharePoint 2013 is supported to deploy the user profile sync " + `
-                           "service via DSC, as 2016 does not use the FIM based sync service.")
+                           "service via DSC, as 2016/2019 do not use the FIM based sync service.")
     }
 
     $farmAccount = Invoke-SPDSCCommand -Credential $InstallAccount `
@@ -173,7 +173,7 @@ function Set-TargetResource
     if ((Get-SPDSCInstalledProductVersion).FileMajorPart -ne 15)
     {
         throw [Exception] ("Only SharePoint 2013 is supported to deploy the user profile sync " + `
-                           "service via DSC, as 2016 does not use the FIM based sync service.")
+                           "service via DSC, as 2016/2019 do not use the FIM based sync service.")
     }
 
     $farmAccount = Invoke-SPDSCCommand -Credential $InstallAccount `
@@ -324,6 +324,11 @@ function Set-TargetResource
                 }
                 $count++
             }
+
+            if ($syncService.Status -ne $desiredState)
+            {
+                throw "An error occured. We couldn't properly set the User Profile Sync Service on the server."
+            }
         }
     }
     finally
@@ -340,10 +345,6 @@ function Set-TargetResource
 
             Clear-SPDscKerberosToken -Account $farmAccount.UserName
         }
-    }
-    if($syncService.Status -ne $desiredState)
-    {
-        throw "An error occured. We couldn't properly set the User Profile Sync Service on the server."
     }
 }
 
@@ -381,7 +382,7 @@ function Test-TargetResource
     if ((Get-SPDSCInstalledProductVersion).FileMajorPart -ne 15)
     {
         throw [Exception] ("Only SharePoint 2013 is supported to deploy the user profile sync " + `
-                           "service via DSC, as 2016 does not use the FIM based sync service.")
+                           "service via DSC, as 2016/2019 do not use the FIM based sync service.")
     }
 
     $CurrentValues = Get-TargetResource @PSBoundParameters

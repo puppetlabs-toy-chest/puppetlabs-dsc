@@ -21,14 +21,14 @@ Puppet::Type.newtype(:dsc_xiisfeaturedelegation) do
   }
 
   validate do
-      fail('dsc_sectionname is a required attribute') if self[:dsc_sectionname].nil?
-      fail('dsc_overridemode is a required attribute') if self[:dsc_overridemode].nil?
+      fail('dsc_path is a required attribute') if self[:dsc_path].nil?
+      fail('dsc_filter is a required attribute') if self[:dsc_filter].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xIisFeatureDelegation' end
   def dscmeta_resource_name; 'MSFT_xIisFeatureDelegation' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '2.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,14 +58,30 @@ Puppet::Type.newtype(:dsc_xiisfeaturedelegation) do
     end
   end
 
-  # Name:         SectionName
+  # Name:         Path
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_sectionname) do
+  newparam(:dsc_path) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SectionName"
+    desc "Path - Specifies the configuration path. This can be either an IIS configuration path in the format computer machine/webroot/apphost, or the IIS module path in this format IIS:\\sites\\Default Web Site."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Filter
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_filter) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Filter - Specifies the IIS configuration section to lock or unlock."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -76,13 +92,12 @@ Puppet::Type.newtype(:dsc_xiisfeaturedelegation) do
 
   # Name:         OverrideMode
   # Type:         string
-  # IsMandatory:  True
+  # IsMandatory:  False
   # Values:       ["Allow", "Deny"]
   newparam(:dsc_overridemode) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "OverrideMode - Valid values are Allow, Deny."
-    isrequired
+    desc "OverrideMode - Determines whether to lock or unlock the specified section. Valid values are Allow, Deny."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

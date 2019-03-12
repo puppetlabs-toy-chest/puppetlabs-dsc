@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchoabvirtualdirectory) do
   def dscmeta_resource_friendly_name; 'xExchOabVirtualDirectory' end
   def dscmeta_resource_name; 'MSFT_xExchOabVirtualDirectory' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '1.27.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -238,6 +238,22 @@ Puppet::Type.newtype(:dsc_xexchoabvirtualdirectory) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         OAuthAuthentication
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_oauthauthentication) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "OAuthAuthentication"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

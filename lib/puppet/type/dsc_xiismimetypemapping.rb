@@ -21,6 +21,7 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
   }
 
   validate do
+      fail('dsc_configurationpath is a required attribute') if self[:dsc_configurationpath].nil?
       fail('dsc_extension is a required attribute') if self[:dsc_extension].nil?
       fail('dsc_mimetype is a required attribute') if self[:dsc_mimetype].nil?
     end
@@ -28,7 +29,7 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
   def dscmeta_resource_friendly_name; 'xIisMimeTypeMapping' end
   def dscmeta_resource_name; 'MSFT_xIisMimeTypeMapping' end
   def dscmeta_module_name; 'xWebAdministration' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '2.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -59,6 +60,22 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
     end
   end
 
+  # Name:         ConfigurationPath
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_configurationpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ConfigurationPath - This can be either an IIS configuration path in the format computername/webroot/apphost, or the IIS module path in this format IIS:\\sites\\Default Web Site."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
   # Name:         Extension
   # Type:         string
   # IsMandatory:  True
@@ -66,7 +83,7 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
   newparam(:dsc_extension) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Extension"
+    desc "Extension - The file extension to map such as .html or .xml."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -82,7 +99,7 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
   newparam(:dsc_mimetype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MimeType"
+    desc "MimeType - The MIME type to map that extension to such as text/html."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -98,7 +115,7 @@ Puppet::Type.newtype(:dsc_xiismimetypemapping) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Ensures that the MIME type mapping is Present or Absent. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

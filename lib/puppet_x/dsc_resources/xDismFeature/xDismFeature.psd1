@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '1.2.0.0'
+moduleVersion = '1.3.0.0'
 
 # ID used to uniquely identify this module
 GUID = '55f4b4c2-eec6-412c-823b-9d6d549a25dc'
@@ -47,8 +47,8 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* xDismFeature: Resource no longer includes the Source parameter when it is not specified
-* Converted appveyor.yml to install Pester from PSGallery instead of from Chocolatey.
+        ReleaseNotes = '* Added unit test
+* Fixed issue that Test-TargetResource always fails on non-English OS [11](https://github.com/PowerShell/xDismFeature/issues/11)
 
 '
 
@@ -56,5 +56,6 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
 
 

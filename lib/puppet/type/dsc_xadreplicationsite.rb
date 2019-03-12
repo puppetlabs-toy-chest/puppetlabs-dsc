@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xadreplicationsite) do
   def dscmeta_resource_friendly_name; 'xADReplicationSite' end
   def dscmeta_resource_name; 'MSFT_xADReplicationSite' end
   def dscmeta_module_name; 'xActiveDirectory' end
-  def dscmeta_module_version; '2.18.0.0' end
+  def dscmeta_module_version; '2.24.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

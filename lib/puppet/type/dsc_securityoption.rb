@@ -4,6 +4,29 @@ Puppet::Type.newtype(:dsc_securityoption) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
+    class PuppetX::Dsc::TypeHelpers
+      def self.validate_MSFT_RestrictedRemoteSamSecurityDescriptor(mof_type_map, name, value)
+        required = []
+        allowed = ['permission','identity']
+        lowkey_hash = Hash[value.map { |k, v| [k.to_s.downcase, v] }]
+
+        missing = required - lowkey_hash.keys
+        unless missing.empty?
+          fail "#{name} is missing the following required keys: #{missing.join(',')}"
+        end
+
+        extraneous = lowkey_hash.keys - required - allowed
+        unless extraneous.empty?
+          fail "#{name} includes invalid keys: #{extraneous.join(',')}"
+        end
+
+        lowkey_hash.keys.each do |key|
+          if lowkey_hash[key]
+            validate_mof_type(mof_type_map[key], 'MSFT_RestrictedRemoteSamSecurityDescriptor', key, lowkey_hash[key])
+          end
+        end
+      end
+    end
 
   @doc = %q{
     The DSC SecurityOption resource type.
@@ -27,7 +50,7 @@ Puppet::Type.newtype(:dsc_securityoption) do
   def dscmeta_resource_friendly_name; 'SecurityOption' end
   def dscmeta_resource_name; 'MSFT_SecurityOption' end
   def dscmeta_module_name; 'SecurityPolicyDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '2.7.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -799,17 +822,17 @@ Puppet::Type.newtype(:dsc_securityoption) do
   # Name:         Microsoft_network_server_Server_SPN_target_name_validation_level
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["Off", "Accept if provided by the client", "Required from client"]
+  # Values:       ["Off", "Accept if provided by client", "Required from client"]
   newparam(:dsc_microsoft_network_server_server_spn_target_name_validation_level) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Microsoft_network_server_Server_SPN_target_name_validation_level - Valid values are Off, Accept if provided by the client, Required from client."
+    desc "Microsoft_network_server_Server_SPN_target_name_validation_level - Valid values are Off, Accept if provided by client, Required from client."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['Off', 'off', 'Accept if provided by the client', 'accept if provided by the client', 'Required from client', 'required from client'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Off, Accept if provided by the client, Required from client")
+      unless ['Off', 'off', 'Accept if provided by client', 'accept if provided by client', 'Required from client', 'required from client'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Off, Accept if provided by client, Required from client")
       end
     end
   end
@@ -946,6 +969,34 @@ Puppet::Type.newtype(:dsc_securityoption) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         Network_access_Restrict_clients_allowed_to_make_remote_calls_to_SAM
+  # Type:         MSFT_RestrictedRemoteSamSecurityDescriptor[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_network_access_restrict_clients_allowed_to_make_remote_calls_to_sam, :array_matching => :all) do
+    def mof_type; 'MSFT_RestrictedRemoteSamSecurityDescriptor[]' end
+    def mof_is_embedded?; true end
+    def mof_type_map
+      {"permission"=>{:type=>"string", :values=>["Allow", "Deny"]}, "identity"=>{:type=>"string"}}
+    end
+    desc "Network_access_Restrict_clients_allowed_to_make_remote_calls_to_SAM - The Permission and Identity required for restricted remote Sam access"
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be an array of hashes or a hash")
+      end
+      (value.kind_of?(Hash) ? [value] : value).each_with_index do |v, i|
+        fail "Network_access_Restrict_clients_allowed_to_make_remote_calls_to_SAM value at index #{i} should be a Hash" unless v.is_a? Hash
+
+        PuppetX::Dsc::TypeHelpers.validate_MSFT_RestrictedRemoteSamSecurityDescriptor(mof_type_map, "Network_access_Restrict_clients_allowed_to_make_remote_calls_to_SAM", v)
+      end
+    end
+    munge do |value|
+      value.kind_of?(Hash) ?
+        [PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, value)] :
+        value.map { |v| PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, v) }
     end
   end
 
@@ -1481,17 +1532,17 @@ Puppet::Type.newtype(:dsc_securityoption) do
   # Name:         User_Account_Control_Behavior_of_the_elevation_prompt_for_standard_users
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["Automatically deny elevation request", "Prompt for credentials on the secure desktop", "Prompt for crendentials"]
+  # Values:       ["Automatically deny elevation request", "Prompt for credentials on the secure desktop", "Prompt for credentials"]
   newparam(:dsc_user_account_control_behavior_of_the_elevation_prompt_for_standard_users) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "User_Account_Control_Behavior_of_the_elevation_prompt_for_standard_users - Valid values are Automatically deny elevation request, Prompt for credentials on the secure desktop, Prompt for crendentials."
+    desc "User_Account_Control_Behavior_of_the_elevation_prompt_for_standard_users - Valid values are Automatically deny elevation request, Prompt for credentials on the secure desktop, Prompt for credentials."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['Automatically deny elevation request', 'automatically deny elevation request', 'Prompt for credentials on the secure desktop', 'prompt for credentials on the secure desktop', 'Prompt for crendentials', 'prompt for crendentials'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Automatically deny elevation request, Prompt for credentials on the secure desktop, Prompt for crendentials")
+      unless ['Automatically deny elevation request', 'automatically deny elevation request', 'Prompt for credentials on the secure desktop', 'prompt for credentials on the secure desktop', 'Prompt for credentials', 'prompt for credentials'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Automatically deny elevation request, Prompt for credentials on the secure desktop, Prompt for credentials")
       end
     end
   end

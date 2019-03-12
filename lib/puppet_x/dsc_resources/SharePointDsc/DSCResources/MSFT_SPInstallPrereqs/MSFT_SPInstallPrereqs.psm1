@@ -1,21 +1,36 @@
 $Script:SP2013Features = @("Application-Server", "AS-NET-Framework",
-                            "AS-TCP-Port-Sharing", "AS-Web-Support", "AS-WAS-Support",
-                            "AS-HTTP-Activation", "AS-Named-Pipes", "AS-TCP-Activation","Web-Server",
-                            "Web-WebServer", "Web-Common-Http", "Web-Default-Doc", "Web-Dir-Browsing",
-                            "Web-Http-Errors", "Web-Static-Content", "Web-Http-Redirect", "Web-Health",
-                            "Web-Http-Logging", "Web-Log-Libraries", "Web-Request-Monitor",
-                            "Web-Http-Tracing", "Web-Performance", "Web-Stat-Compression",
-                            "Web-Dyn-Compression", "Web-Security", "Web-Filtering", "Web-Basic-Auth",
-                            "Web-Client-Auth", "Web-Digest-Auth", "Web-Cert-Auth", "Web-IP-Security",
-                            "Web-Url-Auth", "Web-Windows-Auth", "Web-App-Dev", "Web-Net-Ext",
-                            "Web-Net-Ext45", "Web-Asp-Net", "Web-Asp-Net45", "Web-ISAPI-Ext",
-                            "Web-ISAPI-Filter", "Web-Mgmt-Tools", "Web-Mgmt-Console", "Web-Mgmt-Compat",
-                            "Web-Metabase", "Web-Lgcy-Scripting", "Web-WMI", "Web-Scripting-Tools",
-                            "NET-Framework-Features", "NET-Framework-Core", "NET-Framework-45-ASPNET",
-                            "NET-WCF-HTTP-Activation45", "NET-WCF-Pipe-Activation45",
-                            "NET-WCF-TCP-Activation45", "Server-Media-Foundation",
-                            "Windows-Identity-Foundation", "PowerShell-V2", "WAS", "WAS-Process-Model",
-                            "WAS-NET-Environment", "WAS-Config-APIs", "XPS-Viewer")
+                           "AS-TCP-Port-Sharing", "AS-Web-Support", "AS-WAS-Support",
+                           "AS-HTTP-Activation", "AS-Named-Pipes", "AS-TCP-Activation","Web-Server",
+                           "Web-WebServer", "Web-Common-Http", "Web-Default-Doc", "Web-Dir-Browsing",
+                           "Web-Http-Errors", "Web-Static-Content", "Web-Http-Redirect", "Web-Health",
+                           "Web-Http-Logging", "Web-Log-Libraries", "Web-Request-Monitor",
+                           "Web-Http-Tracing", "Web-Performance", "Web-Stat-Compression",
+                           "Web-Dyn-Compression", "Web-Security", "Web-Filtering", "Web-Basic-Auth",
+                           "Web-Client-Auth", "Web-Digest-Auth", "Web-Cert-Auth", "Web-IP-Security",
+                           "Web-Url-Auth", "Web-Windows-Auth", "Web-App-Dev", "Web-Net-Ext",
+                           "Web-Net-Ext45", "Web-Asp-Net", "Web-Asp-Net45", "Web-ISAPI-Ext",
+                           "Web-ISAPI-Filter", "Web-Mgmt-Tools", "Web-Mgmt-Console", "Web-Mgmt-Compat",
+                           "Web-Metabase", "Web-Lgcy-Scripting", "Web-WMI", "Web-Scripting-Tools",
+                           "NET-Framework-Features", "NET-Framework-Core", "NET-Framework-45-ASPNET",
+                           "NET-WCF-HTTP-Activation45", "NET-WCF-Pipe-Activation45",
+                           "NET-WCF-TCP-Activation45", "Server-Media-Foundation",
+                           "Windows-Identity-Foundation", "PowerShell-V2", "WAS", "WAS-Process-Model",
+                           "WAS-NET-Environment", "WAS-Config-APIs", "XPS-Viewer")
+
+$Script:SP2016Win19Features = @("Web-Server", "Web-WebServer",
+                                "Web-Common-Http", "Web-Default-Doc", "Web-Dir-Browsing",
+                                "Web-Http-Errors", "Web-Static-Content", "Web-Health",
+                                "Web-Http-Logging", "Web-Log-Libraries", "Web-Request-Monitor",
+                                "Web-Http-Tracing", "Web-Performance", "Web-Stat-Compression",
+                                "Web-Dyn-Compression", "Web-Security", "Web-Filtering", "Web-Basic-Auth",
+                                "Web-Digest-Auth", "Web-Windows-Auth", "Web-App-Dev", "Web-Net-Ext",
+                                "Web-Net-Ext45", "Web-Asp-Net", "Web-Asp-Net45", "Web-ISAPI-Ext",
+                                "Web-ISAPI-Filter", "Web-Mgmt-Tools", "Web-Mgmt-Console",
+                                "Web-Mgmt-Compat", "Web-Metabase", "Web-Lgcy-Scripting", "Web-WMI",
+                                "NET-Framework-Features", "NET-HTTP-Activation", "NET-Non-HTTP-Activ",
+                                "NET-Framework-45-ASPNET", "NET-WCF-Pipe-Activation45",
+                                "Windows-Identity-Foundation", "WAS", "WAS-Process-Model",
+                                "WAS-NET-Environment", "WAS-Config-APIs", "XPS-Viewer")
 
 $Script:SP2016Win16Features = @("Web-Server", "Web-WebServer",
                                 "Web-Common-Http", "Web-Default-Doc", "Web-Dir-Browsing",
@@ -33,23 +48,50 @@ $Script:SP2016Win16Features = @("Web-Server", "Web-WebServer",
                                 "WAS-NET-Environment", "WAS-Config-APIs", "XPS-Viewer")
 
 $Script:SP2016Win12r2Features = @("Application-Server", "AS-NET-Framework",
-                                "AS-Web-Support", "Web-Server", "Web-WebServer", "Web-Common-Http",
-                                "Web-Default-Doc", "Web-Dir-Browsing", "Web-Http-Errors",
-                                "Web-Static-Content", "Web-Http-Redirect", "Web-Health",
-                                "Web-Http-Logging", "Web-Log-Libraries", "Web-Request-Monitor",
-                                "Web-Performance", "Web-Stat-Compression", "Web-Dyn-Compression",
-                                "Web-Security", "Web-Filtering", "Web-Basic-Auth", "Web-Client-Auth",
-                                "Web-Digest-Auth", "Web-Cert-Auth", "Web-IP-Security", "Web-Url-Auth",
-                                "Web-Windows-Auth", "Web-App-Dev", "Web-Net-Ext", "Web-Net-Ext45",
-                                "Web-Asp-Net45", "Web-ISAPI-Ext", "Web-ISAPI-Filter", "Web-Mgmt-Tools",
-                                "Web-Mgmt-Console", "Web-Mgmt-Compat", "Web-Metabase",
-                                "Web-Lgcy-Mgmt-Console", "Web-Lgcy-Scripting", "Web-WMI",
-                                "Web-Scripting-Tools", "NET-Framework-Features", "NET-Framework-Core",
-                                "NET-HTTP-Activation", "NET-Non-HTTP-Activ", "NET-Framework-45-ASPNET",
-                                "NET-WCF-HTTP-Activation45", "Windows-Identity-Foundation",
-                                "PowerShell-V2", "WAS", "WAS-Process-Model", "WAS-NET-Environment",
-                                "WAS-Config-APIs")
+                                  "AS-Web-Support", "Web-Server", "Web-WebServer", "Web-Common-Http",
+                                  "Web-Default-Doc", "Web-Dir-Browsing", "Web-Http-Errors",
+                                  "Web-Static-Content", "Web-Http-Redirect", "Web-Health",
+                                  "Web-Http-Logging", "Web-Log-Libraries", "Web-Request-Monitor",
+                                  "Web-Performance", "Web-Stat-Compression", "Web-Dyn-Compression",
+                                  "Web-Security", "Web-Filtering", "Web-Basic-Auth", "Web-Client-Auth",
+                                  "Web-Digest-Auth", "Web-Cert-Auth", "Web-IP-Security", "Web-Url-Auth",
+                                  "Web-Windows-Auth", "Web-App-Dev", "Web-Net-Ext", "Web-Net-Ext45",
+                                  "Web-Asp-Net45", "Web-ISAPI-Ext", "Web-ISAPI-Filter", "Web-Mgmt-Tools",
+                                  "Web-Mgmt-Console", "Web-Mgmt-Compat", "Web-Metabase",
+                                  "Web-Lgcy-Mgmt-Console", "Web-Lgcy-Scripting", "Web-WMI",
+                                  "Web-Scripting-Tools", "NET-Framework-Features", "NET-Framework-Core",
+                                  "NET-HTTP-Activation", "NET-Non-HTTP-Activ", "NET-Framework-45-ASPNET",
+                                  "NET-WCF-HTTP-Activation45", "Windows-Identity-Foundation",
+                                  "PowerShell-V2", "WAS", "WAS-Process-Model", "WAS-NET-Environment",
+                                  "WAS-Config-APIs")
 
+$Script:SP2019Win16Features = @("Web-Server", "Web-WebServer",
+                                "Web-Common-Http", "Web-Default-Doc", "Web-Dir-Browsing",
+                                "Web-Http-Errors", "Web-Static-Content", "Web-Health",
+                                "Web-Http-Logging", "Web-Log-Libraries", "Web-Request-Monitor",
+                                "Web-Http-Tracing", "Web-Performance", "Web-Stat-Compression",
+                                "Web-Dyn-Compression", "Web-Security", "Web-Filtering", "Web-Basic-Auth",
+                                "Web-Windows-Auth", "Web-App-Dev", "Web-Net-Ext",
+                                "Web-Net-Ext45", "Web-Asp-Net", "Web-Asp-Net45", "Web-ISAPI-Ext",
+                                "Web-ISAPI-Filter", "Web-Mgmt-Tools", "Web-Mgmt-Console",
+                                "NET-Framework-Features", "NET-HTTP-Activation", "NET-Non-HTTP-Activ",
+                                "NET-Framework-45-ASPNET", "NET-WCF-Pipe-Activation45",
+                                "Windows-Identity-Foundation", "WAS", "WAS-Process-Model",
+                                "WAS-NET-Environment", "WAS-Config-APIs", "XPS-Viewer")
+
+$Script:SP2019Win19Features = @("Web-Server", "Web-WebServer",
+                                "Web-Common-Http", "Web-Default-Doc", "Web-Dir-Browsing",
+                                "Web-Http-Errors", "Web-Static-Content", "Web-Health",
+                                "Web-Http-Logging", "Web-Log-Libraries", "Web-Request-Monitor",
+                                "Web-Http-Tracing", "Web-Performance", "Web-Stat-Compression",
+                                "Web-Dyn-Compression", "Web-Security", "Web-Filtering", "Web-Basic-Auth",
+                                "Web-Digest-Auth", "Web-Windows-Auth", "Web-App-Dev", "Web-Net-Ext",
+                                "Web-Net-Ext45", "Web-Asp-Net", "Web-Asp-Net45", "Web-ISAPI-Ext",
+                                "Web-ISAPI-Filter", "Web-Mgmt-Tools", "Web-Mgmt-Console",
+                                "NET-Framework-Features", "NET-HTTP-Activation", "NET-Non-HTTP-Activ",
+                                "NET-Framework-45-ASPNET", "NET-WCF-Pipe-Activation45",
+                                "Windows-Identity-Foundation", "WAS", "WAS-Process-Model",
+                                "WAS-NET-Environment", "WAS-Config-APIs", "XPS-Viewer")
 
 function Get-TargetResource
 {
@@ -57,6 +99,11 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Yes')]
+        [String]
+        $IsSingleInstance,
+
         [Parameter(Mandatory = $true)]
         [System.String]
         $InstallerPath,
@@ -123,6 +170,10 @@ function Get-TargetResource
 
         [Parameter()]
         [System.String]
+        $MSVCRT141,
+
+        [Parameter()]
+        [System.String]
         $KB3092423,
 
         [Parameter()]
@@ -134,6 +185,10 @@ function Get-TargetResource
         $DotNetFx,
 
         [Parameter()]
+        [System.String]
+        $DotNet472,
+
+        [Parameter()]
         [ValidateSet("Present","Absent")]
         [System.String]
         $Ensure = "Present"
@@ -142,13 +197,21 @@ function Get-TargetResource
     Write-Verbose -Message "Getting installation status of SharePoint prerequisites"
 
     $majorVersion = (Get-SPDSCAssemblyVersion -PathToAssembly $InstallerPath)
+    $buildVersion = (Get-SPDSCBuildVersion -PathToAssembly $InstallerPath)
     if ($majorVersion -eq 15)
     {
         Write-Verbose -Message "Version: SharePoint 2013"
     }
     if ($majorVersion -eq 16)
     {
-        Write-Verbose -Message "Version: SharePoint 2016"
+        if ($buildVersion -lt 5000)
+        {
+            Write-Verbose -Message "Version: SharePoint 2016"
+        }
+        elseif ($buildVersion -ge 5000)
+        {
+            Write-Verbose -Message "Version: SharePoint 2019"
+        }
     }
 
     Write-Verbose -Message "Getting installed windows features"
@@ -156,23 +219,60 @@ function Get-TargetResource
     $osVersion = Get-SPDscOSVersion
     if ($majorVersion -eq 15)
     {
+        if ($osVersion.Major -ne 6)
+        {
+            throw "SharePoint 2013 only supports Windows Server 2012 R2 and below"
+        }
+
         $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2013Features
     }
-    if ($majorVersion -eq 16)
+    elseif ($majorVersion -eq 16)
     {
-        if ($osVersion.Major -eq 10)
+        if ($buildVersion -lt 5000)
         {
-            # Server 2016
-            $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2016Win16Features
+            if ($osVersion.Major -eq 10)
+            {
+                if ($osVersion.Build -lt 17763)
+                {
+                    Write-Verbose -Message "OS Version: Windows Server 2016"
+                    $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2016Win16Features
+                }
+                else
+                {
+                    Write-Verbose -Message "OS Version: Windows Server 2019"
+                    $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2016Win19Features
+                }
+            }
+            elseif ($osVersion.Major -eq 6 -and $osVersion.Minor -eq 3)
+            {
+                Write-Verbose -Message "OS Version: Windows Server 2012 R2"
+                $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2016Win12r2Features
+            }
+            else
+            {
+                throw "SharePoint 2016 only supports Windows Server 2019, 2016 or 2012 R2"
+            }
         }
-        elseif ($osVersion.Major -eq 6 -and $osVersion.Minor -eq 3)
+        # SharePoint 2019
+        elseif ($buildVersion -ge 5000)
         {
-            # Server 2012 R2
-            $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2016Win12r2Features
-        }
-        else
-        {
-            throw "SharePoint 2016 only supports Windows Server 2016 or 2012 R2"
+            if ($osVersion.Major -eq 10)
+            {
+                if ($osVersion.Build -lt 17763)
+                {
+                    Write-Verbose -Message "OS Version: Windows Server 2016"
+                    $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2019Win16Features
+                }
+                else
+                {
+                    Write-Verbose -Message "OS Version: Windows Server 2019"
+                    $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2019Win19Features
+                }
+            }
+            else
+            {
+                throw "SharePoint 2019 only supports Windows Server 2016 or Windows Server 2019"
+            }
         }
     }
 
@@ -189,38 +289,38 @@ function Get-TargetResource
     Write-Verbose -Message "Checking windows packages from the registry"
 
     $x86Path = "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
-    $installedItemsX86 = Get-ItemProperty -Path $x86Path | Select-Object -Property DisplayName
+    $installedItemsX86 = Get-ItemProperty -Path $x86Path | Select-Object -Property DisplayName, BundleUpgradeCode, DisplayVersion
 
     $x64Path = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*"
-    $installedItemsX64 = Get-ItemProperty -Path $x64Path | Select-Object -Property DisplayName
+    $installedItemsX64 = Get-ItemProperty -Path $x64Path | Select-Object -Property DisplayName, BundleUpgradeCode, DisplayVersion
 
-    $installedItems = $installedItemsX86 + $installedItemsX64 | Select-Object -Property DisplayName -Unique
+    $installedItems = $installedItemsX86 + $installedItemsX64 | Select-Object -Property DisplayName, BundleUpgradeCode, DisplayVersion -Unique
 
     # Common prereqs
     $prereqsToTest = @(
         [PSObject]@{
-            Name = "AppFabric 1.1 for Windows Server"
-            SearchType = "Equals"
+            Name        = "AppFabric 1.1 for Windows Server"
+            SearchType  = "Equals"
             SearchValue = "AppFabric 1.1 for Windows Server"
         },
         [PSObject]@{
-            Name = "Microsoft CCR and DSS Runtime 2008 R3"
-            SearchType = "Equals"
+            Name        = "Microsoft CCR and DSS Runtime 2008 R3"
+            SearchType  = "Equals"
             SearchValue = "Microsoft CCR and DSS Runtime 2008 R3"
         },
         [PSObject]@{
-            Name = "Microsoft Identity Extensions"
-            SearchType = "Equals"
+            Name        = "Microsoft Identity Extensions"
+            SearchType  = "Equals"
             SearchValue = "Microsoft Identity Extensions"
         },
         [PSObject]@{
-            Name = "Microsoft Sync Framework Runtime v1.0 SP1 (x64)"
-            SearchType = "Equals"
+            Name        = "Microsoft Sync Framework Runtime v1.0 SP1 (x64)"
+            SearchType  = "Equals"
             SearchValue = "Microsoft Sync Framework Runtime v1.0 SP1 (x64)"
         },
         [PSObject]@{
-            Name = "WCF Data Services 5.6.0 Runtime"
-            SearchType = "Equals"
+            Name        = "WCF Data Services 5.6.0 Runtime"
+            SearchType  = "Equals"
             SearchValue = "WCF Data Services 5.6.0 Runtime"
         }
     )
@@ -230,87 +330,112 @@ function Get-TargetResource
     {
         $prereqsToTest += @(
             [PSObject]@{
-                Name = "Active Directory Rights Management Services Client 2.*"
-                SearchType = "Like"
+                Name        = "Active Directory Rights Management Services Client 2.*"
+                SearchType  = "Like"
                 SearchValue = "Active Directory Rights Management Services Client 2.*"
             },
             [PSObject]@{
-                Name = "Microsoft SQL Server Native Client (2008 R2 or 2012)"
-                SearchType = "Match"
+                Name        = "Microsoft SQL Server Native Client (2008 R2 or 2012)"
+                SearchType  = "Match"
                 SearchValue = "SQL Server (2008 R2|2012) Native Client"
             },
             [PSObject]@{
-                Name = "WCF Data Services 5.0 (for OData v3) Primary Components"
-                SearchType = "Equals"
+                Name        = "WCF Data Services 5.0 (for OData v3) Primary Components"
+                SearchType  = "Equals"
                 SearchValue = "WCF Data Services 5.0 (for OData v3) Primary Components"
             }
         )
     }
 
-    #SP2016 prereqs
+    #SP2016/SP2019 prereqs
     if ($majorVersion -eq 16)
     {
-        $prereqsToTest += @(
-            [PSObject]@{
-                Name = "Active Directory Rights Management Services Client 2.1"
-                SearchType = "Equals"
-                SearchValue = "Active Directory Rights Management Services Client 2.1"
-            },
-            [PSObject]@{
-                Name = "Microsoft SQL Server 2012 Native Client"
-                SearchType = "Equals"
-                SearchValue = "Microsoft SQL Server 2012 Native Client"
-            },
-            [PSObject]@{
-                Name = "Microsoft ODBC Driver 11 for SQL Server"
-                SearchType = "Equals"
-                SearchValue = "Microsoft ODBC Driver 11 for SQL Server"
-            },
-            [PSObject]@{
-                Name = "Microsoft Visual C++ 2012 x64 Minimum Runtime - 11.0"
-                SearchType = "Like"
-                SearchValue = "Microsoft Visual C++ 2012 x64 Minimum Runtime - 11.0.*"
-            },
-            [PSObject]@{
-                Name = "Microsoft Visual C++ 2012 x64 Additional Runtime - 11.0"
-                SearchType = "Like"
-                SearchValue = "Microsoft Visual C++ 2012 x64 Additional Runtime - 11.0.*"
-            },
-            [PSObject]@{
-                Name = "Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0"
-                SearchType = "Like"
-                SearchValue = "Microsoft Visual C++ 2015 x64 Minimum Runtime - 14.0.*"
-            },
-            [PSObject]@{
-                Name = "Microsoft Visual C++ 2015 x64 Additional Runtime - 14.0"
-                SearchType = "Like"
-                SearchValue = "Microsoft Visual C++ 2015 x64 Additional Runtime - 14.0.*"
-            }
-        )
+        if($buildVersion -lt 5000)
+        {
+            #SP2016 prereqs
+            $prereqsToTest += @(
+                [PSObject]@{
+                    Name        = "Active Directory Rights Management Services Client 2.1"
+                    SearchType  = "Equals"
+                    SearchValue = "Active Directory Rights Management Services Client 2.1"
+                },
+                [PSObject]@{
+                    Name        = "Microsoft SQL Server 2012 Native Client"
+                    SearchType  = "Equals"
+                    SearchValue = "Microsoft SQL Server 2012 Native Client"
+                },
+                [PSObject]@{
+                    Name        = "Microsoft ODBC Driver 11 for SQL Server"
+                    SearchType  = "Equals"
+                    SearchValue = "Microsoft ODBC Driver 11 for SQL Server"
+                },
+                [PSObject]@{
+                    Name        = "Microsoft Visual C++ 2012 x64 Minimum Runtime - 11.0"
+                    SearchType  = "Like"
+                    SearchValue = "Microsoft Visual C++ 2012 x64 Minimum Runtime - 11.0.*"
+                },
+                [PSObject]@{
+                    Name        = "Microsoft Visual C++ 2012 x64 Additional Runtime - 11.0"
+                    SearchType  = "Like"
+                    SearchValue = "Microsoft Visual C++ 2012 x64 Additional Runtime - 11.0.*"
+                },
+                [PSObject]@{
+                    Name        = "Microsoft Visual C++ 2015 Redistributable (x64)"
+                    SearchType  = "BundleUpgradeCode"
+                    SearchValue = "{C146EF48-4D31-3C3D-A2C5-1E91AF8A0A9B}"
+                    MinimumRequiredVersion = "14.0.23026.0"
+                }
+            )
+        }
+        elseif ($buildVersion -ge 5000)
+        {
+            #SP2019 prereqs
+            $prereqsToTest += @(
+                [PSObject]@{
+                    Name        = "Active Directory Rights Management Services Client 2.1"
+                    SearchType  = "Equals"
+                    SearchValue = "Active Directory Rights Management Services Client 2.1"
+                },
+                [PSObject]@{
+                    Name        = "Microsoft SQL Server 2012 Native Client"
+                    SearchType  = "Equals"
+                    SearchValue = "Microsoft SQL Server 2012 Native Client"
+                },
+                [PSObject]@{
+                    Name        = "Microsoft Visual C++ 2017 Redistributable (x64)"
+                    SearchType  = "BundleUpgradeCode"
+                    SearchValue = "{C146EF48-4D31-3C3D-A2C5-1E91AF8A0A9B}"
+                    MinimumRequiredVersion = "14.13.26020.0"
+                }
+            )
+        }
     }
     $prereqsInstalled = Test-SPDscPrereqInstallStatus -InstalledItems $installedItems `
                                                       -PrereqsToCheck $prereqsToTest
 
     $results = @{
-        InstallerPath = $InstallerPath
-        OnlineMode = $OnlineMode
-        SXSpath = $SXSpath
-        SQLNCli = $SQLNCli
-        PowerShell = $PowerShell
-        NETFX = $NETFX
-        IDFX = $IDFX
-        Sync = $Sync
-        AppFabric = $AppFabric
-        IDFX11 = $IDFX11
-        MSIPCClient = $MSIPCClient
-        WCFDataServices = $WCFDataServices
-        KB2671763 = $KB2671763
+        IsSingleInstance  = "Yes"
+        InstallerPath     = $InstallerPath
+        OnlineMode        = $OnlineMode
+        SXSpath           = $SXSpath
+        SQLNCli           = $SQLNCli
+        PowerShell        = $PowerShell
+        NETFX             = $NETFX
+        IDFX              = $IDFX
+        Sync              = $Sync
+        AppFabric         = $AppFabric
+        IDFX11            = $IDFX11
+        MSIPCClient       = $MSIPCClient
+        WCFDataServices   = $WCFDataServices
+        KB2671763         = $KB2671763
         WCFDataServices56 = $WCFDataServices56
-        MSVCRT11 = $MSVCRT11
-        MSVCRT14 = $MSVCRT14
-        KB3092423 = $KB3092423
-        ODBC = $ODBC
-        DotNetFx = $DotNetFx
+        MSVCRT11          = $MSVCRT11
+        MSVCRT14          = $MSVCRT14
+        MSVCRT141         = $MSVCRT141
+        KB3092423         = $KB3092423
+        ODBC              = $ODBC
+        DotNetFx          = $DotNetFx
+        DotNet472         = $DotNet472
     }
 
     if ($prereqsInstalled -eq $true -and $windowsFeaturesInstalled -eq $true)
@@ -333,6 +458,11 @@ function Set-TargetResource
     param
     (
         [Parameter(Mandatory = $true)]
+        [ValidateSet('Yes')]
+        [String]
+        $IsSingleInstance,
+
+        [Parameter(Mandatory = $true)]
         [System.String]
         $InstallerPath,
 
@@ -398,6 +528,10 @@ function Set-TargetResource
 
         [Parameter()]
         [System.String]
+        $MSVCRT141,
+
+        [Parameter()]
+        [System.String]
         $KB3092423,
 
         [Parameter()]
@@ -407,6 +541,10 @@ function Set-TargetResource
         [Parameter()]
         [System.String]
         $DotNetFx,
+
+        [Parameter()]
+        [System.String]
+        $DotNet472,
 
         [Parameter()]
         [ValidateSet("Present","Absent")]
@@ -420,16 +558,51 @@ function Set-TargetResource
     {
         throw [Exception] ("SharePointDsc does not support uninstalling SharePoint or its " + `
                            "prerequisites. Please remove this manually.")
-        return
     }
 
     Write-Verbose -Message "Detecting SharePoint version from binaries"
     $majorVersion = Get-SPDSCAssemblyVersion -PathToAssembly $InstallerPath
+    $buildVersion = Get-SPDSCBuildVersion -PathToAssembly $InstallerPath
     $osVersion = Get-SPDscOSVersion
+    switch ($osVersion.Major)
+    {
+        6 {
+            switch ($osVersion.Minor)
+            {
+                0 {
+                    Write-Verbose -Message "Operating System: Windows Server 2008"
+                }
+                1 {
+                    Write-Verbose -Message "Operating System: Windows Server 2008 R2"
+                }
+                2 {
+                    Write-Verbose -Message "Operating System: Windows Server 2012"
+                }
+                3 {
+                    Write-Verbose -Message "Operating System: Windows Server 2012 R2"
+                }
+            }
+        }
+        10 {
+            if ($osVersion.Build -lt 17763)
+            {
+                Write-Verbose -Message "Operating System: Windows Server 2016"
+            }
+            else
+            {
+                Write-Verbose -Message "Operating System: Windows Server 2019"
+            }
+        }
+    }
 
     if ($majorVersion -eq 15)
     {
-        $BinaryDir = Split-Path -Path $InstallerPath
+        if ($osVersion.Major -ne 6)
+        {
+            throw "SharePoint 2013 only supports Windows Server 2012 R2 and below"
+        }
+
+        $BinaryDir   = Split-Path -Path $InstallerPath
         $svrsetupDll = Join-Path -Path $BinaryDir -ChildPath "updates\svrsetup.dll"
         $checkDotNet = $true
         if (Test-Path -Path $svrsetupDll)
@@ -464,7 +637,6 @@ function Set-TargetResource
                 throw [Exception] ("A known issue prevents installation of SharePoint 2013 on " + `
                                    "servers that have .NET 4.6 already installed. See details " + `
                                    "at https://support.microsoft.com/en-us/kb/3087184")
-                return
             }
         }
 
@@ -473,25 +645,60 @@ function Set-TargetResource
                             "MSIPCClient","WCFDataServices","KB2671763","WCFDataServices56")
         $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2013Features
     }
-
-    if ($majorVersion -eq 16)
+    elseif ($majorVersion -eq 16)
     {
-        Write-Verbose -Message "Version: SharePoint 2016"
-        $requiredParams = @("SQLNCli","Sync","AppFabric","IDFX11","MSIPCClient","KB3092423",
-                            "WCFDataServices56","DotNetFx","MSVCRT11","MSVCRT14","ODBC")
-        if ($osVersion.Major -eq 10)
+        if ($buildVersion -lt 5000)
         {
-            # Server 2016
-            $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2016Win16Features
+            Write-Verbose -Message "Version: SharePoint 2016"
+            $requiredParams = @("SQLNCli","Sync","AppFabric","IDFX11","MSIPCClient","KB3092423",
+                                "WCFDataServices56","DotNetFx","MSVCRT11","MSVCRT14","ODBC")
+            if ($osVersion.Major -eq 10)
+            {
+                if ($osVersion.Build -lt 17763)
+                {
+                    # Server 2016
+                    $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2016Win16Features
+                }
+                else
+                {
+                    # Server 2019
+                    $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2016Win19Features
+                }
+            }
+            elseif ($osVersion.Major -eq 6 -and $osVersion.Minor -eq 3)
+            {
+                # Server 2012 R2
+                $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2016Win12r2Features
+            }
+            else
+            {
+                throw "SharePoint 2016 only supports Windows Server 2016 or 2012 R2"
+            }
         }
-        elseif ($osVersion.Major -eq 6 -and $osVersion.Minor -eq 3)
+        # SharePoint 2019
+        elseif ($buildVersion -ge 5000)
         {
-            # Server 2012 R2
-            $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2016Win12r2Features
-        }
-        else
-        {
-            throw "SharePoint 2016 only supports Windows Server 2016 or 2012 R2"
+            Write-Verbose -Message "Version: SharePoint 2019"
+            $requiredParams = @("SQLNCli","Sync","AppFabric","IDFX11","MSIPCClient","KB3092423",
+            "WCFDataServices56","DotNet472","MSVCRT11","MSVCRT141")
+
+            if ($osVersion.Major -eq 10)
+            {
+                if ($osVersion.Build -lt 17763)
+                {
+                    # Server 2016
+                    $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2019Win16Features
+                }
+                else
+                {
+                    # Server 2019
+                    $WindowsFeatures = Get-WindowsFeature -Name $Script:SP2019Win19Features
+                }
+            }
+            else
+            {
+                throw "SharePoint 2019 only supports Windows Server 2016 or Windows Server 2019"
+            }
         }
     }
 
@@ -534,7 +741,7 @@ function Set-TargetResource
             {
                 throw "In offline mode for version $majorVersion parameter $_ is required"
             }
-            if ((Test-Path $PSBoundParameters.$_) -eq $false)
+            if ((Test-Path -Path $PSBoundParameters.$_) -eq $false)
             {
                 throw ("The $_ parameter has been passed but the file cannot be found at the " + `
                        "path supplied: `"$($PSBoundParameters.$_)`"")
@@ -590,8 +797,8 @@ function Set-TargetResource
                   "Auto Update\RebootRequired"
     $rebootTest2 = Get-Item -Path $rebootKey2 -ErrorAction SilentlyContinue
 
-    $sessionManagerKey = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager"
-    $sessionManager = Get-Item -Path $sessionManagerKey | Get-ItemProperty
+    $sessionManagerKey  = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager"
+    $sessionManager     = Get-Item -Path $sessionManagerKey | Get-ItemProperty
     $pendingFileRenames = $sessionManager.PendingFileRenameOperations.Count
 
     if (($null -ne $rebootTest1) -or ($null -ne $rebootTest2) -or ($pendingFileRenames -gt 0))
@@ -610,6 +817,11 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Yes')]
+        [String]
+        $IsSingleInstance,
+
         [Parameter(Mandatory = $true)]
         [System.String]
         $InstallerPath,
@@ -676,6 +888,10 @@ function Test-TargetResource
 
         [Parameter()]
         [System.String]
+        $MSVCRT141,
+
+        [Parameter()]
+        [System.String]
         $KB3092423,
 
         [Parameter()]
@@ -685,6 +901,10 @@ function Test-TargetResource
         [Parameter()]
         [System.String]
         $DotNetFx,
+
+        [Parameter()]
+        [System.String]
+        $DotNet472,
 
         [Parameter()]
         [ValidateSet("Present","Absent")]
@@ -700,13 +920,13 @@ function Test-TargetResource
     {
         throw [Exception] ("SharePointDsc does not support uninstalling SharePoint or its " + `
                            "prerequisites. Please remove this manually.")
-        return
     }
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
 
     return Test-SPDscParameterState -CurrentValues $CurrentValues `
-                                        -DesiredValues $PSBoundParameters -ValuesToCheck @("Ensure")
+                                    -DesiredValues $PSBoundParameters `
+                                    -ValuesToCheck @("Ensure")
 }
 
 function Test-SPDscPrereqInstallStatus
@@ -765,10 +985,43 @@ function Test-SPDscPrereqInstallStatus
                                             "on this system")
                 }
             }
+            "BundleUpgradeCode"
+            {
+                $installedItem = $InstalledItems | Where-Object -FilterScript {
+                    $null -ne $_.BundleUpgradeCode -and (($_.BundleUpgradeCode.Trim() | Compare-Object $itemToCheck.SearchValue) -eq $null)
+                }
+                if ($null -eq $installedItem)
+                {
+                    $itemsInstalled = $false
+                    Write-Verbose -Message ("Prerequisite $($itemToCheck.Name) was not found " + `
+                                            "on this system")
+                }
+                else
+                {
+                    $isRequiredVersionInstalled = $true;
+
+                    [int[]]$minimumRequiredVersion = $itemToCheck.MinimumRequiredVersion.Split('.')
+                    [int[]]$installedVersion = $installedItem.DisplayVersion.Split('.')
+                    for ([int]$index = 0; $index -lt $minimumRequiredVersion.Length -and $index -lt $installedVersion.Length; $index++)
+                    {
+                        if ($minimumRequiredVersion[$index] -gt $installedVersion[$index])
+                        {
+                            $isRequiredVersionInstalled = $false;
+                        }
+                    }
+                    if ($installedVersion.Length -eq 0 -or -not $isRequiredVersionInstalled)
+                    {
+                        $itemsInstalled = $false
+                        Write-Verbose -Message ("Prerequisite $($itemToCheck.Name) was found but had " + `
+                                                "unexpected version. Expected minimum version $($itemToCheck.MinimumVersion) " + `
+                                                "but found version $($installedItem.DisplayVersion).")
+                    }
+                }
+            }
             Default
             {
                 throw ("Unable to search for a prereq with mode '$($itemToCheck.SearchType)'. " + `
-                       "please use either 'Equals', 'Like' or 'Match'")
+                       "please use either 'Equals', 'Like' or 'Match', or 'BundleUpgradeCode'")
             }
         }
     }

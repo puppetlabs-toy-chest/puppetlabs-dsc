@@ -21,13 +21,11 @@ class MSFT_xRDSessionCollectionConfiguration : OMI_BaseResource
     [write, Description("Specifies which security protocol to use. The acceptable values for this parameter are:  RDP, Negotiate, SSL.  The default value is Negotiate.")] string SecurityLayer;
     [write, Description("Specifies whether to delete temporary folders from the RD Session Host server for a disconnected session. ")] boolean TemporaryFoldersDeletedOnExit;
     [write, Description("Specifies a domain group authorized to connect to the RD Session Host servers in a session collection. ")] string UserGroup;
+    [write, Description("Specifies the target to store the User Profile Disks ")] string DiskPath;
+    [write, Description("Specifies if this collection uses UserProfileDisks ")] boolean EnableUserProfileDisk;
+    [write, Description("Specifies a list of strings for files to exclude from the user profile disk ")] string ExcludeFilePath[];
+    [write, Description("Specifies a list of strings for folders to exclude from the user profile disk ")] string ExcludeFolderPath[];
+    [write, Description("Specifies a list of strings for files to include in the user profile disk ")] string IncludeFilePath[];
+    [write, Description("Specifies a list of strings for folders to include in the user profile disk ")] string IncludeFolderPath[];
+    [write, Description("Specifies the maximum size in GB for a User Profile Disk ")] uint32 MaxUserProfileDiskSizeGB;
 };
-
-
-
-
-
-
-
-
-

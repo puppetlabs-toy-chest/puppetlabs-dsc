@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_xdnsrecord) do
   def dscmeta_resource_friendly_name; 'xDnsRecord' end
   def dscmeta_resource_name; 'MSFT_xDnsRecord' end
   def dscmeta_module_name; 'xDnsServer' end
-  def dscmeta_module_version; '1.9.0.0' end
+  def dscmeta_module_version; '1.11.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -67,7 +67,7 @@ Puppet::Type.newtype(:dsc_xdnsrecord) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - Specifies the name of the DNS server resource record object."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -83,7 +83,7 @@ Puppet::Type.newtype(:dsc_xdnsrecord) do
   newparam(:dsc_zone) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Zone"
+    desc "Zone - Specifies the name of a DNS zone."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -95,17 +95,17 @@ Puppet::Type.newtype(:dsc_xdnsrecord) do
   # Name:         Type
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["ARecord", "CName"]
+  # Values:       ["ARecord", "CName", "Ptr"]
   newparam(:dsc_type) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Type - Valid values are ARecord, CName."
+    desc "Type - Specifies the type of DNS record. Valid values are ARecord, CName, Ptr."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
-      unless ['ARecord', 'arecord', 'CName', 'cname'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are ARecord, CName")
+      unless ['ARecord', 'arecord', 'CName', 'cname', 'Ptr', 'ptr'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are ARecord, CName, Ptr")
       end
     end
   end
@@ -117,7 +117,7 @@ Puppet::Type.newtype(:dsc_xdnsrecord) do
   newparam(:dsc_target) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Target"
+    desc "Target - Specifies the Target Hostname or IP Address."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -133,7 +133,7 @@ Puppet::Type.newtype(:dsc_xdnsrecord) do
   newparam(:dsc_dnsserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DnsServer"
+    desc "DnsServer - Name of the DnsServer to create the record on."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

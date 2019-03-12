@@ -50,7 +50,7 @@ Puppet::Type.newtype(:dsc_sploglevel) do
   def dscmeta_resource_friendly_name; 'SPLogLevel' end
   def dscmeta_resource_name; 'MSFT_SPLogLevel' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -104,7 +104,7 @@ Puppet::Type.newtype(:dsc_sploglevel) do
     def mof_type; 'MSFT_SPLogLevelItem[]' end
     def mof_is_embedded?; true end
     def mof_type_map
-      {"area"=>{:type=>"string"}, "name"=>{:type=>"string"}, "tracelevel"=>{:type=>"string", :values=>["None", "Unexpected", "Monitorable", "Medium", "Verbose", "VerboseEx", "Default"]}, "eventlevel"=>{:type=>"string", :values=>["None", "ErrorCritical", "Error", "Warning", "Information", "Verbose", "Default"]}}
+      {"area"=>{:type=>"string"}, "name"=>{:type=>"string"}, "tracelevel"=>{:type=>"string", :values=>["None", "Unexpected", "Monitorable", "High", "Medium", "Verbose", "VerboseEx", "Default"]}, "eventlevel"=>{:type=>"string", :values=>["None", "ErrorCritical", "Error", "Warning", "Information", "Verbose", "Default"]}}
     end
     desc "SPLogLevelSetting - Collection of SPLogLevelItems to set"
     validate do |value|

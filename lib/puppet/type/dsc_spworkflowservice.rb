@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_spworkflowservice) do
   def dscmeta_resource_friendly_name; 'SPWorkflowService' end
   def dscmeta_resource_name; 'MSFT_SPWorkflowService' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -83,6 +83,21 @@ Puppet::Type.newtype(:dsc_spworkflowservice) do
     def mof_is_embedded?; false end
     desc "SPSiteUrl - The URL of the Site Collection to associate with the Workflow Service Proxy"
     isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ScopeName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_scopename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ScopeName - Specify scope name. If not specified SharePoint will use the default scope name 'SharePoint'"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

@@ -1,7 +1,8 @@
-
-Import-Module -Name (Join-Path -Path ( Split-Path $PSScriptRoot -Parent ) `
--ChildPath 'SecurityPolicyResourceHelper\SecurityPolicyResourceHelper.psm1') `
--Force
+$resourceModuleRootPath = Split-Path -Path (Split-Path $PSScriptRoot -Parent) -Parent
+$modulesRootPath = Join-Path -Path $resourceModuleRootPath -ChildPath 'Modules'
+Import-Module -Name (Join-Path -Path $modulesRootPath  `
+              -ChildPath 'SecurityPolicyResourceHelper\SecurityPolicyResourceHelper.psm1') `
+              -Force
 
 $script:localizedData = Get-LocalizedData -ResourceName 'MSFT_AccountPolicy'
 
@@ -190,7 +191,7 @@ function Set-TargetResource
         }
     }
 
-    $infTemplate = Add-PolicyOption -SystemAccessPolicies $systemAccessPolicies -KerberosPolicies $registryPolicies
+    $infTemplate = Add-PolicyOption -SystemAccessPolicies $systemAccessPolicies -KerberosPolicies $kerberosPolicies
 
     Out-File -InputObject $infTemplate -FilePath $accountPolicyToAddInf -Encoding unicode -Force
 

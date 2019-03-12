@@ -1,8 +1,3 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCDscTestsPresent", "")]
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCDscExamplesPresent", "")]
-[CmdletBinding()]
-param()
-
 function Get-TargetResource
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCUseVerboseMessageInDSCResource", "")]
@@ -10,205 +5,228 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Boolean]
         $AllowServiceRestart = $false,
 
+        [Parameter()]
         [System.Boolean]
         $BasicAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $CertificateAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $DigestAuthentication,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
-        [ValidateSet("None","Proxy","NoServiceNameCheck","AllowDotlessSpn","ProxyCohosting")]
+        [Parameter()]
+        [ValidateSet('None', 'Proxy', 'NoServiceNameCheck', 'AllowDotlessSpn', 'ProxyCohosting')]
         [System.String[]]
         $ExtendedProtectionFlags,
 
+        [Parameter()]
         [System.String[]]
         $ExtendedProtectionSPNList,
 
-        [ValidateSet("None","Allow","Require")]
+        [Parameter()]
+        [ValidateSet('None', 'Allow', 'Require')]
         [System.String]
         $ExtendedProtectionTokenChecking,
 
+        [Parameter()]
         [System.String]
-        $ExternalUrl,    
+        $ExternalUrl,
 
-        [ValidateSet("Off", "Low", "High", "Error")]
+        [Parameter()]
+        [ValidateSet('Off', 'Low', 'High', 'Error')]
         [System.String]
         $GzipLevel,
 
+        [Parameter()]
         [System.String]
         $InternalNLBBypassUrl,
 
+        [Parameter()]
         [System.String]
         $InternalUrl,
 
+        [Parameter()]
         [System.Boolean]
         $MRSProxyEnabled,
 
+        [Parameter()]
         [System.Boolean]
         $OAuthAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $WindowsAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $WSSecurityAuthentication
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Identity' = $Identity} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Identity" = $Identity} -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-WebServicesVirtualDirectory' -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-WebServicesVirtualDirectory' -VerbosePreference $VerbosePreference
-
-    RemoveParameters -PSBoundParametersIn $PSBoundParameters -ParamsToKeep "Identity","DomainController"
+    Remove-FromPSBoundParametersUsingHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToKeep 'Identity', 'DomainController'
 
     $EwsVdir = Get-WebServicesVirtualDirectory @PSBoundParameters
 
     if ($null -ne $EwsVdir)
     {
         $returnValue = @{
-            Identity = $Identity
-            BasicAuthentication = $EwsVdir.BasicAuthentication
-            CertificateAuthentication = $EwsVdir.CertificateAuthentication
-            DigestAuthentication = $EwsVdir.DigestAuthentication
-            ExtendedProtectionFlags = [System.Array]$(ConvertTo-Array -InputObject $EwsVdir.ExtendedProtectionFlags)
-            ExtendedProtectionSPNList = [System.Array]$(ConvertTo-Array -InputObject $EwsVdir.ExtendedProtectionSPNList)
-            ExtendedProtectionTokenChecking = $EwsVdir.ExtendedProtectionTokenChecking
-            ExternalUrl = $EwsVdir.InternalUrl.AbsoluteUri
-            GzipLevel = $EwsVdir.GzipLevel
-            InternalNLBBypassUrl = $EwsVdir.InternalNLBBypassUrl
-            InternalUrl = $EwsVdir.InternalUrl.AbsoluteUri
-            MRSProxyEnabled = $EwsVdir.MRSProxyEnabled
-            OAuthAuthentication = $EwsVdir.OAuthAuthentication
-            WSSecurityAuthentication = $EwsVdir.WSSecurityAuthentication
-            WindowsAuthentication = $EwsVdir.WindowsAuthentication
+            Identity                        = [System.String] $Identity
+            BasicAuthentication             = [System.Boolean] $EwsVdir.BasicAuthentication
+            CertificateAuthentication       = [System.Boolean] $EwsVdir.CertificateAuthentication
+            DigestAuthentication            = [System.Boolean] $EwsVdir.DigestAuthentication
+            ExtendedProtectionFlags         = [System.String[]] $EwsVdir.ExtendedProtectionFlags
+            ExtendedProtectionSPNList       = [System.String[]] $EwsVdir.ExtendedProtectionSPNList
+            ExtendedProtectionTokenChecking = [System.String] $EwsVdir.ExtendedProtectionTokenChecking
+            ExternalUrl                     = [System.String] $EwsVdir.InternalUrl.AbsoluteUri
+            GzipLevel                       = [System.String] $EwsVdir.GzipLevel
+            InternalNLBBypassUrl            = [System.String] $EwsVdir.InternalNLBBypassUrl
+            InternalUrl                     = [System.String] $EwsVdir.InternalUrl.AbsoluteUri
+            MRSProxyEnabled                 = [System.Boolean] $EwsVdir.MRSProxyEnabled
+            OAuthAuthentication             = [System.Boolean] $EwsVdir.OAuthAuthentication
+            WSSecurityAuthentication        = [System.Boolean] $EwsVdir.WSSecurityAuthentication
+            WindowsAuthentication           = [System.Boolean] $EwsVdir.WindowsAuthentication
         }
     }
 
     $returnValue
 }
 
-
 function Set-TargetResource
 {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseShouldProcessForStateChangingFunctions", "")]
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Boolean]
         $AllowServiceRestart = $false,
 
+        [Parameter()]
         [System.Boolean]
         $BasicAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $CertificateAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $DigestAuthentication,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
-        [ValidateSet("None","Proxy","NoServiceNameCheck","AllowDotlessSpn","ProxyCohosting")]
+        [Parameter()]
+        [ValidateSet('None', 'Proxy', 'NoServiceNameCheck', 'AllowDotlessSpn', 'ProxyCohosting')]
         [System.String[]]
         $ExtendedProtectionFlags,
 
+        [Parameter()]
         [System.String[]]
         $ExtendedProtectionSPNList,
 
-        [ValidateSet("None","Allow","Require")]
+        [Parameter()]
+        [ValidateSet('None', 'Allow', 'Require')]
         [System.String]
         $ExtendedProtectionTokenChecking,
 
+        [Parameter()]
         [System.String]
-        $ExternalUrl,    
+        $ExternalUrl,
 
-        [ValidateSet("Off", "Low", "High", "Error")]
+        [Parameter()]
+        [ValidateSet('Off', 'Low', 'High', 'Error')]
         [System.String]
         $GzipLevel,
 
+        [Parameter()]
         [System.String]
         $InternalNLBBypassUrl,
 
+        [Parameter()]
         [System.String]
         $InternalUrl,
 
+        [Parameter()]
         [System.Boolean]
         $MRSProxyEnabled,
 
+        [Parameter()]
         [System.Boolean]
         $OAuthAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $WindowsAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $WSSecurityAuthentication
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Identity' = $Identity} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Identity" = $Identity} -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Set-WebServicesVirtualDirectory' -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad 'Set-WebServicesVirtualDirectory' -VerbosePreference $VerbosePreference
+    # Ensure an empty string is $null and not a string
+    Set-EmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
 
-    #Ensure an empty string is $null and not a string
-    SetEmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
+    # Remove Credential and AllowServiceRestart because those parameters do not exist on Set-WebServicesVirtualDirectory
+    Remove-FromPSBoundParametersUsingHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToRemove 'Credential', 'AllowServiceRestart'
 
-    #Remove Credential and AllowServiceRestart because those parameters do not exist on Set-WebServicesVirtualDirectory
-    RemoveParameters -PSBoundParametersIn $PSBoundParameters -ParamsToRemove 'Credential','AllowServiceRestart'
-
-    #verify SPNs depending on AllowDotlesSPN
+    # Verify SPNs depending on AllowDotlesSPN
     if ( -not (Test-ExtendedProtectionSPNList -SPNList $ExtendedProtectionSPNList -Flags $ExtendedProtectionFlags))
     {
-        throw "SPN list contains DotlesSPN, but AllowDotlessSPN is not added to ExtendedProtectionFlags or invalid combination was used!"
+        throw 'SPN list contains DotlesSPN, but AllowDotlessSPN is not added to ExtendedProtectionFlags or invalid combination was used!'
     }
 
-    #Need to do -Force and -Confirm:$false here or else an unresolvable URL will prompt for confirmation
+    # Need to do -Force and -Confirm:$false here or else an unresolvable URL will prompt for confirmation
     Set-WebServicesVirtualDirectory @PSBoundParameters -Force -Confirm:$false
-    
+
     if($AllowServiceRestart -eq $true)
     {
-        Write-Verbose "Recycling MSExchangeServicesAppPool"
-        RestartAppPoolIfExists -Name MSExchangeServicesAppPool
+        Write-Verbose -Message 'Recycling MSExchangeServicesAppPool'
+        Restart-ExistingAppPool -Name MSExchangeServicesAppPool
     }
     else
     {
-        Write-Warning "The configuration will not take effect until MSExchangeServicesAppPool is manually recycled."
+        Write-Warning -Message 'The configuration will not take effect until MSExchangeServicesAppPool is manually recycled.'
     }
 }
-
 
 function Test-TargetResource
 {
@@ -217,235 +235,262 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Boolean]
         $AllowServiceRestart = $false,
 
+        [Parameter()]
         [System.Boolean]
         $BasicAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $CertificateAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $DigestAuthentication,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
-        [ValidateSet("None","Proxy","NoServiceNameCheck","AllowDotlessSpn","ProxyCohosting")]
+        [Parameter()]
+        [ValidateSet('None', 'Proxy', 'NoServiceNameCheck', 'AllowDotlessSpn', 'ProxyCohosting')]
         [System.String[]]
         $ExtendedProtectionFlags,
 
+        [Parameter()]
         [System.String[]]
         $ExtendedProtectionSPNList,
 
-        [ValidateSet("None","Allow","Require")]
+        [Parameter()]
+        [ValidateSet('None', 'Allow', 'Require')]
         [System.String]
         $ExtendedProtectionTokenChecking,
 
+        [Parameter()]
         [System.String]
-        $ExternalUrl,    
+        $ExternalUrl,
 
-        [ValidateSet("Off", "Low", "High", "Error")]
+        [Parameter()]
+        [ValidateSet('Off', 'Low', 'High', 'Error')]
         [System.String]
         $GzipLevel,
 
+        [Parameter()]
         [System.String]
         $InternalNLBBypassUrl,
 
+        [Parameter()]
         [System.String]
         $InternalUrl,
 
+        [Parameter()]
         [System.Boolean]
         $MRSProxyEnabled,
 
+        [Parameter()]
         [System.Boolean]
         $OAuthAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $WindowsAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $WSSecurityAuthentication
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Identity' = $Identity} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Identity" = $Identity} -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-WebServicesVirtualDirectory' -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-WebServicesVirtualDirectory' -VerbosePreference $VerbosePreference
+    # Ensure an empty string is $null and not a string
+    Set-EmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
 
-    #Ensure an empty string is $null and not a string
-    SetEmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
+    $EwsVdir = Get-WebServicesVirtualDirectoryInternal @PSBoundParameters
 
-    $EwsVdir = GetWebServicesVirtualDirectory @PSBoundParameters
+    $testResults = $true
 
     if ($null -eq $EwsVdir)
     {
-        return $false
+        Write-Error -Message 'Unable to retrieve ActiveSync Virtual Directory for server'
+
+        $testResults = $false
     }
     else
     {
-        if (!(VerifySetting -Name "BasicAuthentication" -Type "Boolean" -ExpectedValue $BasicAuthentication -ActualValue $EwsVdir.BasicAuthentication -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'BasicAuthentication' -Type 'Boolean' -ExpectedValue $BasicAuthentication -ActualValue $EwsVdir.BasicAuthentication -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "CertificateAuthentication" -Type "Boolean" -ExpectedValue $CertificateAuthentication -ActualValue $EwsVdir.CertificateAuthentication -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'CertificateAuthentication' -Type 'Boolean' -ExpectedValue $CertificateAuthentication -ActualValue $EwsVdir.CertificateAuthentication -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "DigestAuthentication" -Type "Boolean" -ExpectedValue $DigestAuthentication -ActualValue $EwsVdir.DigestAuthentication -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'DigestAuthentication' -Type 'Boolean' -ExpectedValue $DigestAuthentication -ActualValue $EwsVdir.DigestAuthentication -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (-not (VerifySetting -Name "ExtendedProtectionFlags" -Type "ExtendedProtection" -ExpectedValue $ExtendedProtectionFlags -ActualValue $EwsVdir.ExtendedProtectionFlags -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (-not (Test-ExchangeSetting -Name 'ExtendedProtectionFlags' -Type 'ExtendedProtection' -ExpectedValue $ExtendedProtectionFlags -ActualValue $EwsVdir.ExtendedProtectionFlags -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (-not (VerifySetting -Name "ExtendedProtectionSPNList" -Type "Array" -ExpectedValue $ExtendedProtectionSPNList -ActualValue $EwsVdir.ExtendedProtectionSPNList -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (-not (Test-ExchangeSetting -Name 'ExtendedProtectionSPNList' -Type 'Array' -ExpectedValue $ExtendedProtectionSPNList -ActualValue $EwsVdir.ExtendedProtectionSPNList -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (-not (VerifySetting -Name "ExtendedProtectionTokenChecking" -Type "String" -ExpectedValue $ExtendedProtectionTokenChecking -ActualValue $EwsVdir.ExtendedProtectionTokenChecking -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (-not (Test-ExchangeSetting -Name 'ExtendedProtectionTokenChecking' -Type 'String' -ExpectedValue $ExtendedProtectionTokenChecking -ActualValue $EwsVdir.ExtendedProtectionTokenChecking -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "ExternalUrl" -Type "String" -ExpectedValue $ExternalUrl -ActualValue $EwsVdir.ExternalUrl.AbsoluteUri -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'ExternalUrl' -Type 'String' -ExpectedValue $ExternalUrl -ActualValue $EwsVdir.ExternalUrl.AbsoluteUri -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "GzipLevel" -Type "Boolean" -ExpectedValue $GzipLevel -ActualValue $EwsVdir.GzipLevel -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'GzipLevel' -Type 'String' -ExpectedValue $GzipLevel -ActualValue $EwsVdir.GzipLevel -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "InternalNLBBypassUrl" -Type "String" -ExpectedValue $InternalNLBBypassUrl -ActualValue $EwsVdir.InternalNLBBypassUrl.AbsoluteUri -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'InternalNLBBypassUrl' -Type 'String' -ExpectedValue $InternalNLBBypassUrl -ActualValue $EwsVdir.InternalNLBBypassUrl.AbsoluteUri -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "InternalUrl" -Type "String" -ExpectedValue $InternalUrl -ActualValue $EwsVdir.InternalUrl.AbsoluteUri -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'InternalUrl' -Type 'String' -ExpectedValue $InternalUrl -ActualValue $EwsVdir.InternalUrl.AbsoluteUri -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "MRSProxyEnabled" -Type "Boolean" -ExpectedValue $MRSProxyEnabled -ActualValue $EwsVdir.MRSProxyEnabled -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'MRSProxyEnabled' -Type 'Boolean' -ExpectedValue $MRSProxyEnabled -ActualValue $EwsVdir.MRSProxyEnabled -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "OAuthAuthentication" -Type "Boolean" -ExpectedValue $OAuthAuthentication -ActualValue $EwsVdir.OAuthAuthentication -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'OAuthAuthentication' -Type 'Boolean' -ExpectedValue $OAuthAuthentication -ActualValue $EwsVdir.OAuthAuthentication -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "WindowsAuthentication" -Type "Boolean" -ExpectedValue $WindowsAuthentication -ActualValue $EwsVdir.WindowsAuthentication -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'WindowsAuthentication' -Type 'Boolean' -ExpectedValue $WindowsAuthentication -ActualValue $EwsVdir.WindowsAuthentication -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "WSSecurityAuthentication" -Type "Boolean" -ExpectedValue $WSSecurityAuthentication -ActualValue $EwsVdir.WSSecurityAuthentication -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'WSSecurityAuthentication' -Type 'Boolean' -ExpectedValue $WSSecurityAuthentication -ActualValue $EwsVdir.WSSecurityAuthentication -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
     }
-    
-    #If the code made it this for all properties are in a desired state    
-    return $true
+
+    return $testResults
 }
 
-function GetWebServicesVirtualDirectory
+function Get-WebServicesVirtualDirectoryInternal
 {
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Boolean]
         $AllowServiceRestart = $false,
 
+        [Parameter()]
         [System.Boolean]
         $BasicAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $CertificateAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $DigestAuthentication,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
-        [ValidateSet("None","Proxy","NoServiceNameCheck","AllowDotlessSpn","ProxyCohosting")]
+        [Parameter()]
+        [ValidateSet('None', 'Proxy', 'NoServiceNameCheck', 'AllowDotlessSpn', 'ProxyCohosting')]
         [System.String[]]
         $ExtendedProtectionFlags,
 
+        [Parameter()]
         [System.String[]]
         $ExtendedProtectionSPNList,
 
-        [ValidateSet("None","Allow","Require")]
+        [Parameter()]
+        [ValidateSet('None', 'Allow', 'Require')]
         [System.String]
         $ExtendedProtectionTokenChecking,
 
+        [Parameter()]
         [System.String]
-        $ExternalUrl,    
+        $ExternalUrl,
 
-        [ValidateSet("Off", "Low", "High", "Error")]
+        [Parameter()]
+        [ValidateSet('Off', 'Low', 'High', 'Error')]
         [System.String]
         $GzipLevel,
 
+        [Parameter()]
         [System.String]
         $InternalNLBBypassUrl,
 
+        [Parameter()]
         [System.String]
         $InternalUrl,
 
+        [Parameter()]
         [System.Boolean]
         $MRSProxyEnabled,
 
+        [Parameter()]
         [System.Boolean]
         $OAuthAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $WindowsAuthentication,
 
+        [Parameter()]
         [System.Boolean]
         $WSSecurityAuthentication
     )
 
-    RemoveParameters -PSBoundParametersIn $PSBoundParameters -ParamsToKeep "Identity","DomainController"
+    Remove-FromPSBoundParametersUsingHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToKeep 'Identity', 'DomainController'
 
     return (Get-WebServicesVirtualDirectory @PSBoundParameters)
 }
 
-
 Export-ModuleMember -Function *-TargetResource
-
-
-
-

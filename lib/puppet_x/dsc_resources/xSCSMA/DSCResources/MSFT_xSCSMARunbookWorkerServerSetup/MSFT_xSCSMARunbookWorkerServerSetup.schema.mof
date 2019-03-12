@@ -12,7 +12,10 @@ class MSFT_xSCSMARunbookWorkerServerSetup : OMI_BaseResource
     [Write, Description("Name of the SMA database.")] String SqlDatabase;
     [Write, Description("Installation folder for SMA.")] String InstallFolder;
     [Write, Description("Log to ETW.")] String ETWManifest;
-    [Write, Description("Participate in the Customer Experience Improvement Program.")] String SendCEIPReports;
+    [Write, Description("Usage and Diagnostics Data sent to Microsoft.")] String SendTelemetryReports;
     [Write, Description("Use Microsoft Update.")] String MSUpdate;
     [Write, Description("Product key for licensed installations.")] String ProductKey;
+    [Write, Description("Set to activate logging during install of MSI.")] String LogMsiInstall;
+    [Write, Description("Path to log file for MSI install.")] String MsiLogPath;
+    [Write, Description("Logfile name for MSI install.")] String MsiLogName;
 };

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_waitfordisk) do
   def dscmeta_resource_friendly_name; 'WaitForDisk' end
   def dscmeta_resource_name; 'MSFT_WaitForDisk' end
   def dscmeta_module_name; 'StorageDsc' end
-  def dscmeta_module_version; '4.0.0.0' end
+  def dscmeta_module_version; '4.5.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -124,6 +124,22 @@ Puppet::Type.newtype(:dsc_waitfordisk) do
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         IsAvailable
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_isavailable) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "IsAvailable - Will indicate whether Disk is available."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
   def dscmeta_resource_friendly_name; 'SqlSetup' end
   def dscmeta_resource_name; 'MSFT_SqlSetup' end
   def dscmeta_module_name; 'SqlServerDsc' end
-  def dscmeta_module_version; '11.1.0.0' end
+  def dscmeta_module_version; '12.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -797,6 +797,96 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
     end
   end
 
+  # Name:         SqlSvcStartupType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Automatic", "Disabled", "Manual"]
+  newparam(:dsc_sqlsvcstartuptype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SqlSvcStartupType - Specifies the startup mode for SQL Server Sql Engine service. Valid values are Automatic, Disabled, Manual."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Automatic', 'automatic', 'Disabled', 'disabled', 'Manual', 'manual'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Automatic, Disabled, Manual")
+      end
+    end
+  end
+
+  # Name:         AgtSvcStartupType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Automatic", "Disabled", "Manual"]
+  newparam(:dsc_agtsvcstartuptype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "AgtSvcStartupType - Specifies the startup mode for SQL Server Sql Agent service. Valid values are Automatic, Disabled, Manual."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Automatic', 'automatic', 'Disabled', 'disabled', 'Manual', 'manual'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Automatic, Disabled, Manual")
+      end
+    end
+  end
+
+  # Name:         IsSvcStartupType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Automatic", "Disabled", "Manual"]
+  newparam(:dsc_issvcstartuptype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "IsSvcStartupType - Specifies the startup mode for SQL Server Integration service. Valid values are Automatic, Disabled, Manual."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Automatic', 'automatic', 'Disabled', 'disabled', 'Manual', 'manual'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Automatic, Disabled, Manual")
+      end
+    end
+  end
+
+  # Name:         AsSvcStartupType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Automatic", "Disabled", "Manual"]
+  newparam(:dsc_assvcstartuptype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "AsSvcStartupType - Specifies the startup mode for SQL Server Analysis service. Valid values are Automatic, Disabled, Manual."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Automatic', 'automatic', 'Disabled', 'disabled', 'Manual', 'manual'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Automatic, Disabled, Manual")
+      end
+    end
+  end
+
+  # Name:         RSSVCStartupType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Automatic", "Disabled", "Manual"]
+  newparam(:dsc_rssvcstartuptype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "RSSVCStartupType - Specifies the startup mode for SQL Server Report service. Valid values are Automatic, Disabled, Manual."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Automatic', 'automatic', 'Disabled', 'disabled', 'Manual', 'manual'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Automatic, Disabled, Manual")
+      end
+    end
+  end
+
   # Name:         BrowserSvcStartupType
   # Type:         string
   # IsMandatory:  False
@@ -860,6 +950,96 @@ Puppet::Type.newtype(:dsc_sqlsetup) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         SqlTempdbFileCount
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqltempdbfilecount) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "SqlTempdbFileCount - Specifies the number of tempdb data files to be added by setup."
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         SqlTempdbFileSize
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqltempdbfilesize) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "SqlTempdbFileSize - Specifies the initial size of each tempdb data file in MB."
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         SqlTempdbFileGrowth
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqltempdbfilegrowth) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "SqlTempdbFileGrowth - Specifies the file growth increment of each tempdb data file in MB."
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         SqlTempdbLogFileSize
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqltempdblogfilesize) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "SqlTempdbLogFileSize - Specifies the initial size of each tempdb log file in MB."
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         SqlTempdbLogFileGrowth
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_sqltempdblogfilegrowth) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "SqlTempdbLogFileGrowth - Specifies the file growth increment of each tempdb data file in MB."
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 

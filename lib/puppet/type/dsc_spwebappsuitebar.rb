@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spwebappsuitebar) do
   def dscmeta_resource_friendly_name; 'SPWebAppSuiteBar' end
   def dscmeta_resource_name; 'MSFT_SPWebAppSuiteBar' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -140,7 +140,7 @@ Puppet::Type.newtype(:dsc_spwebappsuitebar) do
   newparam(:dsc_suitebarbrandingelementhtml) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SuiteBarBrandingElementHtml - SP2013: HTML to inject in the left hand-side of the Suite Bar"
+    desc "SuiteBarBrandingElementHtml - SP2013+: HTML to inject in the left hand-side of the Suite Bar"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

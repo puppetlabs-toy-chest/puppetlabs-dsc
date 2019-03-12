@@ -1,0 +1,13 @@
+[ClassVersion("1.1.0.0"), FriendlyName("xRDGatewayConfiguration")]
+class MSFT_xRDGatewayConfiguration : OMI_BaseResource
+{
+    [key]   string ConnectionBroker;
+    [write] string GatewayServer;
+
+    [write, ValueMap{"DoNotUse","Custom","Automatic"}, Values{"DoNotUse","Custom","Automatic"}] string GatewayMode;
+
+    [write] string ExternalFqdn;
+    [write, ValueMap{"Password","Smartcard","AllowUserToSelectDuringConnection"}, Values{"Password","Smartcard","AllowUserToSelectDuringConnection"}] string LogonMethod;
+    [write] boolean UseCachedCredentials;
+    [write] boolean BypassLocal;
+};

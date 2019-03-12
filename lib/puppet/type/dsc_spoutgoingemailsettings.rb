@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spoutgoingemailsettings) do
   def dscmeta_resource_friendly_name; 'SPOutgoingEmailSettings' end
   def dscmeta_resource_name; 'MSFT_SPOutgoingEmailSettings' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -140,7 +140,7 @@ Puppet::Type.newtype(:dsc_spoutgoingemailsettings) do
   newparam(:dsc_usetls) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "UseTLS - Use TLS when connecting to the SMTP server (SharePoint 2016 only)"
+    desc "UseTLS - Use TLS when connecting to the SMTP server (SharePoint 2016 and 2019 only)"
     validate do |value|
     end
     newvalues(true, false)
@@ -156,7 +156,7 @@ Puppet::Type.newtype(:dsc_spoutgoingemailsettings) do
   newparam(:dsc_smtpport) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "SMTPPort - The port which is used to connect to the SMTP server (SharePoint 2016 only)"
+    desc "SMTPPort - The port which is used to connect to the SMTP server (SharePoint 2016 and 2019 only)"
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexcheventloglevel) do
   def dscmeta_resource_friendly_name; 'xExchEventLogLevel' end
   def dscmeta_resource_name; 'MSFT_xExchEventLogLevel' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '1.27.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xexcheventloglevel) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential - Credentials used to establish a remote Powershell session to Exchange"
+    desc "Credential - Credentials used to establish a remote PowerShell session to Exchange"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

@@ -1,0 +1,9 @@
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMFileScreenTemplate")]
+class DSR_FSRMFileScreenTemplate : OMI_BaseResource
+{
+    [Key, Description("The unique name for this FSRM File Screen Template.")] String Name;
+    [Write, Description("An optional description for this FSRM File Screen Template.")] String Description;
+    [Write, Description("Specifies whether the FSRM File Screen Template should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("Boolean setting that controls if server should fail any I/O operations if the File Screen is violated.")] Boolean Active;
+    [Write, Description("An array of File Groups to include in this File Screen.")] String IncludeGroup[];
+};
