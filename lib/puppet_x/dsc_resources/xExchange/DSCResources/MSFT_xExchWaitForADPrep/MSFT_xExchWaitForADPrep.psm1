@@ -1,3 +1,41 @@
+<#
+    .SYNOPSIS
+        Retrieves the current DSC configuration for this resource.
+
+    .PARAMETER Identity
+        Not actually used. Enter anything, as long as it's not null.
+
+    .PARAMETER Credential
+        Credentials used to perform Active Directory lookups against the
+        Schema, Configuration, and Domain naming contexts.
+
+    .PARAMETER SchemaVersion
+        Specifies that the Active Directory schema should have been prepared
+        using Exchange 'setup /PrepareSchema', and should be at the
+        specified version.
+
+    .PARAMETER OrganizationVersion
+        Specifies that the Exchange Organization should have been prepared
+        using Exchange 'setup /PrepareAD', and should be at the specified
+        version.
+
+    .PARAMETER DomainVersion
+        Specifies that the domains containing the target Exchange servers were
+        prepared using setup /PrepareAD, /PrepareDomain, or /PrepareAllDomains,
+        and should be at the specified version.
+
+    .PARAMETER ExchangeDomains
+        The FQDN's of domains that should be checked for DomainVersion in
+        addition to the domain that this Exchange server belongs to.
+
+    .PARAMETER RetryIntervalSec
+        How many seconds to wait between retries when checking whether AD has
+        been prepped. Defaults to 60.
+
+    .PARAMETER RetryCount
+        How many retry attempts should be made to see if AD has been prepped
+        before an exception is thrown. Defaults to 30.
+#>
 function Get-TargetResource
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCUseVerboseMessageInDSCResource", "")]
@@ -5,202 +43,191 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Int32]
         $SchemaVersion,
 
+        [Parameter()]
         [System.Int32]
         $OrganizationVersion,
 
+        [Parameter()]
         [System.Int32]
         $DomainVersion,
 
+        [Parameter()]
         [System.String[]]
         $ExchangeDomains,
 
+        [Parameter()]
         [System.UInt32]
         $RetryIntervalSec = 60,
 
+        [Parameter()]
         [System.UInt32]
         $RetryCount = 30
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Verbose:$VerbosePreference
 
-    LogFunctionEntry -VerbosePreference $VerbosePreference
+    $adRootDSE = Get-ADRootDSEInternal -Credential $Credential
 
-    $dse = GetADRootDSE -Credential $Credential
-
-    if ($PSBoundParameters.ContainsKey("SchemaVersion"))
+    if ($null -eq $adRootDSE)
     {
-        #Check for existence of schema object
-        $schemaObj = GetADObject -Credential $credential -DistinguishedName "CN=ms-Exch-Schema-Version-Pt,$($dse.schemaNamingContext)" -Properties "rangeUpper"
-
-        if ($null -ne $schemaObj)
-        {
-            $currentSchemaVersion = $schemaObj.rangeUpper
-        }
-        else
-        {
-            Write-Warning "Unable to find schema object 'CN=ms-Exch-Schema-Version-Pt,$($dse.schemaNamingContext)'. This is either because Exchange /PrepareSchema has not been run, or because the configured account does not have permissions to access this object."
-        }
+        throw 'Unable to retrieve ADRootDSE'
     }
 
-    if ($PSBoundParameters.ContainsKey("OrganizationVersion"))
-    {
-        $exchangeContainer = GetADObject -Credential $credential -DistinguishedName "CN=Microsoft Exchange,CN=Services,$($dse.configurationNamingContext)" -Properties "rangeUpper"
-
-        if ($null -ne $exchangeContainer)
-        {
-            $orgContainer = GetADObject -Credential $Credential -Searching $true -DistinguishedName "CN=Microsoft Exchange,CN=Services,$($dse.configurationNamingContext)" -Properties "objectVersion" -Filter "objectClass -like 'msExchOrganizationContainer'" -SearchScope "OneLevel"
-
-            if ($null -ne $orgContainer)
-            {
-                $currentOrganizationVersion = $orgContainer.objectVersion
-            }
-            else
-            {
-                Write-Warning "Unable to find any objects of class msExchOrganizationContainer under 'CN=Microsoft Exchange,CN=Services,$($dse.configurationNamingContext)'. This is either because Exchange /PrepareAD has not been run, or because the configured account does not have permissions to access this object."
-            }
-        }
-        else
-        {
-            Write-Warning "Unable to find Exchange Configuration Container at 'CN=Microsoft Exchange,CN=Services,$($dse.configurationNamingContext)'. This is either because Exchange /PrepareAD has not been run, or because the configured account does not have permissions to access this object."
-        }  
-    }
-
-    if ($PSBoundParameters.ContainsKey("DomainVersion"))
-    {
-        #Get this server's domain
-        [string]$machineDomain = (Get-CimInstance -ClassName Win32_ComputerSystem).Domain.ToLower()
-
-        #Figure out all domains we need to inspect
-        [string[]]$targetDomains = @()
-        $targetDomains += $machineDomain
-
-        if ($null -ne $ExchangeDomains)
-        {
-            foreach ($domain in $ExchangeDomains)
-            {
-                $domainLower = $domain.ToLower()
-
-                if ($targetDomains.Contains($domainLower) -eq $false)
-                {
-                    $targetDomains += $domainLower
-                }
-            }
-        }
-
-        #Populate the return value in a hashtable of domains and versions
-        [Hashtable]$currentDomainVersions = @{}
-
-        foreach ($domain in $targetDomains)
-        {
-            $domainDn = DomainDNFromFQDN -Fqdn $domain
-
-            $mesoContainer = GetADObject -Credential $Credential -DistinguishedName "CN=Microsoft Exchange System Objects,$($domainDn)" -Properties "objectVersion"
-
-            $mesoVersion = $null
-
-            if ($null -ne $mesoContainer)
-            {
-                $mesoVersion = $mesoContainer.objectVersion
-            }
-            else
-            {
-                Write-Warning "Unable to find object with DN 'CN=Microsoft Exchange System Objects,$($domainDn)'. This is either because Exchange /PrepareDomain has not been run for this domain, or because the configured account does not have permissions to access this object."
-            }
-
-            if ($null -eq $currentDomainVersions)
-            {
-                $currentDomainVersions = @{$domain = $mesoVersion}
-            }
-            else
-            {
-                $currentDomainVersions.Add($domain, $mesoVersion)
-            }
-        }
-    }
+    $currentSchemaVersion = Get-SchemaVersion -ADRootDSE $adRootDSE -Credential $Credential
+    $currentOrganizationVersion = Get-OrganizationVersion -ADRootDSE $adRootDSE -Credential $Credential
+    $currentDomainVersions = Get-DomainsVersion -Credential $Credential -ExchangeDomains $ExchangeDomains
 
     $returnValue = @{
-        SchemaVersion = $currentSchemaVersion
-        OrganizationVersion = $currentOrganizationVersion
-        DomainVersion = $currentDomainVersions
-    }    
+        SchemaVersion          = [System.Int32] $currentSchemaVersion
+        OrganizationVersion    = [System.Int32] $currentOrganizationVersion
+        DomainVersionHashtable = [System.Collections.Hashtable] $currentDomainVersions
+        DomainVersion          = [System.Int32] ($currentDomainVersions.Values | Sort-Object | Select-Object -First 1)
+        ExchangeDomains        = [System.String[]] (Get-StringFromHashtable -Hashtable $currentDomainVersions).Split(';')
+    }
 
     $returnValue
 }
 
+<#
+    .SYNOPSIS
+        Sets the DSC configuration for this resource.
 
+    .PARAMETER Identity
+        Not actually used. Enter anything, as long as it's not null.
+
+    .PARAMETER Credential
+        Credentials used to perform Active Directory lookups against the
+        Schema, Configuration, and Domain naming contexts.
+
+    .PARAMETER SchemaVersion
+        Specifies that the Active Directory schema should have been prepared
+        using Exchange 'setup /PrepareSchema', and should be at the
+        specified version.
+
+    .PARAMETER OrganizationVersion
+        Specifies that the Exchange Organization should have been prepared
+        using Exchange 'setup /PrepareAD', and should be at the specified
+        version.
+
+    .PARAMETER DomainVersion
+        Specifies that the domains containing the target Exchange servers were
+        prepared using setup /PrepareAD, /PrepareDomain, or /PrepareAllDomains,
+        and should be at the specified version.
+
+    .PARAMETER ExchangeDomains
+        The FQDN's of domains that should be checked for DomainVersion in
+        addition to the domain that this Exchange server belongs to.
+
+    .PARAMETER RetryIntervalSec
+        How many seconds to wait between retries when checking whether AD has
+        been prepped. Defaults to 60.
+
+    .PARAMETER RetryCount
+        How many retry attempts should be made to see if AD has been prepped
+        before an exception is thrown. Defaults to 30.
+#>
 function Set-TargetResource
 {
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCUseVerboseMessageInDSCResource", "")]
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Int32]
         $SchemaVersion,
 
+        [Parameter()]
         [System.Int32]
         $OrganizationVersion,
 
+        [Parameter()]
         [System.Int32]
         $DomainVersion,
 
+        [Parameter()]
         [System.String[]]
         $ExchangeDomains,
 
+        [Parameter()]
         [System.UInt32]
         $RetryIntervalSec = 60,
 
+        [Parameter()]
         [System.UInt32]
         $RetryCount = 30
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Verbose:$VerbosePreference
 
-    LogFunctionEntry -VerbosePreference $VerbosePreference
+    $testResults = Wait-ForTrueTestTargetResource @PSBoundParameters
 
-    $testResults = Test-TargetResource @PSBoundParameters
-
-    for ($i = 0; $i -lt $RetryCount; $i++)
+    if (!$testResults)
     {
-        if ($testResults -eq $false)
-        {
-            Write-Verbose "AD has still not been fully prepped as of $([DateTime]::Now). Sleeping for $($RetryIntervalSec) seconds."
-            Start-Sleep -Seconds $RetryIntervalSec
-
-            $testResults = Test-TargetResource @PSBoundParameters
-        }
-        else
-        {
-            break
-        }
-    }
-    
-    if ($testResults -eq $false)
-    {
-        throw "AD has still not been prepped after the maximum amount of retries."
+        throw 'AD has still not been prepped after the maximum amount of retries.'
     }
 }
 
+<#
+    .SYNOPSIS
+        Tests whether the desired configuration for this resource has been
+        applied.
 
+    .PARAMETER Identity
+        Not actually used. Enter anything, as long as it's not null.
+
+    .PARAMETER Credential
+        Credentials used to perform Active Directory lookups against the
+        Schema, Configuration, and Domain naming contexts.
+
+    .PARAMETER SchemaVersion
+        Specifies that the Active Directory schema should have been prepared
+        using Exchange 'setup /PrepareSchema', and should be at the
+        specified version.
+
+    .PARAMETER OrganizationVersion
+        Specifies that the Exchange Organization should have been prepared
+        using Exchange 'setup /PrepareAD', and should be at the specified
+        version.
+
+    .PARAMETER DomainVersion
+        Specifies that the domains containing the target Exchange servers were
+        prepared using setup /PrepareAD, /PrepareDomain, or /PrepareAllDomains,
+        and should be at the specified version.
+
+    .PARAMETER ExchangeDomains
+        The FQDN's of domains that should be checked for DomainVersion in
+        addition to the domain that this Exchange server belongs to.
+
+    .PARAMETER RetryIntervalSec
+        How many seconds to wait between retries when checking whether AD has
+        been prepped. Defaults to 60.
+
+    .PARAMETER RetryCount
+        How many retry attempts should be made to see if AD has been prepped
+        before an exception is thrown. Defaults to 30.
+#>
 function Test-TargetResource
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCUseVerboseMessageInDSCResource", "")]
@@ -208,169 +235,205 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Int32]
         $SchemaVersion,
 
+        [Parameter()]
         [System.Int32]
         $OrganizationVersion,
 
+        [Parameter()]
         [System.Int32]
         $DomainVersion,
 
+        [Parameter()]
         [System.String[]]
         $ExchangeDomains,
 
+        [Parameter()]
         [System.UInt32]
         $RetryIntervalSec = 60,
 
+        [Parameter()]
         [System.UInt32]
         $RetryCount = 30
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
-
-    LogFunctionEntry -VerbosePreference $VerbosePreference
+    Write-FunctionEntry -Verbose:$VerbosePreference
 
     $adStatus = Get-TargetResource @PSBoundParameters
 
-    $returnValue = $true
+    $testResults = $true
 
-    if ($null -eq $adStatus)
+    if ($PSBoundParameters.ContainsKey('SchemaVersion'))
     {
-        $returnValue = $false
+        if ($SchemaVersion -gt $adStatus.SchemaVersion)
+        {
+            Write-InvalidSettingVerbose -SettingName 'SchemaVersion' `
+                                        -ExpectedValue $SchemaVersion `
+                                        -ActualValue $adStatus.SchemaVersion `
+                                        -Verbose:$VerbosePreference
+
+            $testResults = $false
+        }
     }
-    else
+
+    if ($PSBoundParameters.ContainsKey('OrganizationVersion'))
     {
-        if (!(VerifySetting -Name "SchemaVersion" -Type "Int" -ExpectedValue $SchemaVersion -ActualValue $adStatus.SchemaVersion -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if ($OrganizationVersion -gt $adStatus.OrganizationVersion)
         {
-            $returnValue = $false
+            Write-InvalidSettingVerbose -SettingName 'OrganizationVersion' `
+                                        -ExpectedValue $OrganizationVersion `
+                                        -ActualValue $adStatus.OrganizationVersion `
+                                        -Verbose:$VerbosePreference
+
+            $testResults = $false
         }
+    }
 
-        if (!(VerifySetting -Name "OrganizationVersion" -Type "Int" -ExpectedValue $OrganizationVersion -ActualValue $adStatus.OrganizationVersion -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+    if ($PSBoundParameters.ContainsKey('DomainVersion'))
+    {
+        [System.String[]] $targetDomains = Get-EachExchangeDomainFQDN -ExchangeDomains $ExchangeDomains
+
+        # Compare the desired DomainVersion with the actual version of each domain
+        foreach ($domain in $targetDomains)
         {
-            $returnValue = $false
-        }
-
-        if ($PSBoundParameters.ContainsKey("DomainVersion"))
-        {
-            #Get this server's domain
-            [string]$machineDomain = (Get-CimInstance -ClassName Win32_ComputerSystem).Domain.ToLower()
-
-            #Figure out all domains we need to inspect
-            [string[]]$targetDomains = @()
-            $targetDomains += $machineDomain
-
-            if ($null -ne $ExchangeDomains)
+            if ($DomainVersion -gt $adStatus.DomainVersionHashtable[$domain])
             {
-                foreach ($domain in $ExchangeDomains)
-                {
-                    $domainLower = $domain.ToLower()
+                Write-InvalidSettingVerbose -SettingName "DomainVersion: $domain" `
+                                            -ExpectedValue $DomainVersion `
+                                            -ActualValue $adStatus.DomainVersionHashtable[$domain] `
+                                            -Verbose:$VerbosePreference
 
-                    if ($targetDomains.Contains($domainLower) -eq $false)
-                    {
-                        $targetDomains += $domainLower
-                    }
-                }
+                $testResults = $false
             }
-            
-            #Compare the desired DomainVersion with the actual version of each domain
-            foreach ($domain in $targetDomains)
-            {
-                if (!(VerifySetting -Name "DomainVersion" -Type "Int" -ExpectedValue $DomainVersion -ActualValue $adStatus.DomainVersion[$domain] -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
-                {
-                    $returnValue = $false
-                }
-            }       
         }
     }
 
-    return $returnValue
+    return $testResults
 }
 
-function GetADRootDSE
+<#
+    .SYNOPSIS
+        Executes Get-ADRootDSE and returns the results.
+
+    .PARAMETER Credential
+        The credentials to use when running Get-ADRootDSE.
+#>
+function Get-ADRootDSEInternal
 {
     param
     (
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential
     )
 
-    if ($null -eq $Credential)
+    $cmdletParams = @{ ErrorAction = 'SilentlyContinue' }
+
+    if ($null -ne $Credential)
     {
-        $dse = Get-ADRootDSE -ErrorAction SilentlyContinue -ErrorVariable errVar
-    }
-    else
-    {
-        $dse = Get-ADRootDSE -Credential $Credential -ErrorAction SilentlyContinue -ErrorVariable errVar
+        $cmdletParams.Add('Credential', $Credential)
     }
 
-    return $dse
+    return (Get-ADRootDSE @cmdletParams)
 }
 
-function GetADObject
+<#
+    .SYNOPSIS
+        Executes Get-ADObject with the specified parameters and returns the
+        results.
+
+    .PARAMETER Credential
+        The credentials to use when running Get-ADObject.
+
+    .PARAMETER Searching
+        Whether Get-ADObject should search within the specified DN, or access
+        it directly.
+
+    .PARAMETER DistinguishedName
+        The distinguishedName of the ADObject to access.
+
+    .PARAMETER Properties
+        The properties that Get-ADObject should retrieve.
+
+    .PARAMETER Filter
+        The filter to pass to Get-ADObject.
+
+    .PARAMETER SearchScope
+        The search scope to pass to Get-ADObject.
+#>
+function Get-ADObjectInternal
 {
     param
     (
+        [Parameter()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
-        [boolean]
+        [Parameter()]
+        [System.Boolean]
         $Searching = $false,
 
-        [string]
+        [Parameter()]
+        [System.String]
         $DistinguishedName,
 
-        [string[]]
+        [Parameter()]
+        [System.String[]]
         $Properties,
 
-        [string]
+        [Parameter()]
+        [System.String]
         $Filter,
 
-        [string]
+        [Parameter()]
+        [System.String]
         $SearchScope
     )
 
     if ($Searching -eq $false)
     {
-        $getAdObjParams = @{"Identity" = $DistinguishedName}
+        $getAdObjParams = @{'Identity' = $DistinguishedName}
     }
     else
     {
-        $getAdObjParams = @{"SearchBase" = $DistinguishedName}
+        $getAdObjParams = @{'SearchBase' = $DistinguishedName}
 
-        if ([string]::IsNullOrEmpty($Filter) -eq $false)
+        if ([System.String]::IsNullOrEmpty($Filter) -eq $false)
         {
-            $getAdObjParams.Add("Filter", $Filter)
+            $getAdObjParams.Add('Filter', $Filter)
         }
 
-        if ([string]::IsNullOrEmpty($SearchScope) -eq $false)
+        if ([System.String]::IsNullOrEmpty($SearchScope) -eq $false)
         {
-            $getAdObjParams.Add("SearchScope", $SearchScope)
+            $getAdObjParams.Add('SearchScope', $SearchScope)
         }
     }
 
     if ($null -ne $Credential)
     {
-        $getAdObjParams.Add("Credential", $Credential)
+        $getAdObjParams.Add('Credential', $Credential)
     }
 
-    if ([string]::IsNullOrEmpty($Properties) -eq $false)
+    if ($Properties.Count -gt 0)
     {
-        $getAdObjParams.Add("Properties", $Properties)
+        $getAdObjParams.Add('Properties', $Properties)
     }
 
-    #ErrorAction SilentlyContinue doesn't seem to work with Get-ADObject. Doing in Try/Catch instead
+    # ErrorAction SilentlyContinue doesn't seem to work with Get-ADObject. Doing in Try/Catch instead
     try
     {
         $object = Get-ADObject @getAdObjParams
@@ -383,34 +446,307 @@ function GetADObject
     return $object
 }
 
-function DomainDNFromFQDN
+<#
+    .SYNOPSIS
+        Gets the Exchange Schema version in Int32 form. Returns null if the
+        Schema Version cannot be retrieved.
+
+    .PARAMETER ADRootDSE
+        The ADRootDSE object to use when determining the Exchange Schema
+        version.
+
+    .PARAMETER Credential
+        The Credentials to use when trying to determine the Exchange Schema
+        version.
+#>
+function Get-SchemaVersion
 {
-    param([string]$Fqdn)
+    [CmdletBinding()]
+    [OutputType([Nullable[System.Int32]])]
+    param
+    (
+        [Parameter(Mandatory=$true)]
+        [System.Object]
+        $ADRootDSE,
 
-    if ($Fqdn.Contains('.'))
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential
+    )
+
+    $currentSchemaVersion = $null
+
+    # Check for existence of schema object
+    $schemaObj = Get-ADObjectInternal -Credential $Credential -DistinguishedName "CN=ms-Exch-Schema-Version-Pt,$($ADRootDSE.schemaNamingContext)" -Properties 'rangeUpper'
+
+    if ($null -ne $schemaObj)
     {
-        $domainParts = $Fqdn.Split('.')
-
-        $domainDn = "DC=$($domainParts[0])"
-
-        for ($i = 1; $i -lt $domainParts.Count; $i++)
-        {
-            $domainDn = "$($domainDn),DC=$($domainParts[$i])"
-        }
-    }
-    elseif ($Fqdn.Length -gt 0)
-    {
-        $domainDn = "DC=$($Fqdn)"
+        $currentSchemaVersion = $schemaObj.rangeUpper
     }
     else
     {
-        throw "Empty value specified for domain name"
+        Write-Warning "Unable to find schema object 'CN=ms-Exch-Schema-Version-Pt,$($ADRootDSE.schemaNamingContext)'. This is either because Exchange /PrepareSchema has not been run, or because the configured account does not have permissions to access this object."
     }
 
-    return $domainDn
+    return $currentSchemaVersion
+}
+
+<#
+    .SYNOPSIS
+        Gets the Exchange Organization version in Int32 form. Returns null if
+        the Organization Version cannot be retrieved.
+
+    .PARAMETER ADRootDSE
+        The ADRootDSE object to use when determining the Exchange Organization
+        version.
+
+    .PARAMETER Credential
+        The Credentials to use when trying to determine the Exchange
+        Organization version.
+#>
+function Get-OrganizationVersion
+{
+    [CmdletBinding()]
+    [OutputType([Nullable[System.Int32]])]
+    param
+    (
+        [Parameter(Mandatory=$true)]
+        [System.Object]
+        $ADRootDSE,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential
+    )
+
+    $currentOrganizationVersion = $null
+
+    $exchangeContainer = Get-ADObjectInternal -Credential $Credential -DistinguishedName "CN=Microsoft Exchange,CN=Services,$($ADRootDSE.configurationNamingContext)" -Properties 'rangeUpper'
+
+    if ($null -ne $exchangeContainer)
+    {
+        $orgContainer = Get-ADObjectInternal -Credential $Credential -Searching $true -DistinguishedName "CN=Microsoft Exchange,CN=Services,$($ADRootDSE.configurationNamingContext)" -Properties 'objectVersion' -Filter "objectClass -like 'msExchOrganizationContainer'" -SearchScope 'OneLevel'
+
+        if ($null -ne $orgContainer)
+        {
+            $currentOrganizationVersion = $orgContainer.objectVersion
+        }
+        else
+        {
+            Write-Warning "Unable to find any objects of class msExchOrganizationContainer under 'CN=Microsoft Exchange,CN=Services,$($ADRootDSE.configurationNamingContext)'. This is either because Exchange /PrepareAD has not been run, or because the configured account does not have permissions to access this object."
+        }
+    }
+    else
+    {
+        Write-Warning "Unable to find Exchange Configuration Container at 'CN=Microsoft Exchange,CN=Services,$($ADRootDSE.configurationNamingContext)'. This is either because Exchange /PrepareAD has not been run, or because the configured account does not have permissions to access this object."
+    }
+
+    return $currentOrganizationVersion
+}
+
+<#
+    .SYNOPSIS
+        Gets a Hashtable containing the Exchange Domain version of each
+        configured domain. Always returns at least the current Exchange
+        Server's domain. Will also add an explicitly configured Exchange
+        Domains if they are not already in the list.
+
+    .PARAMETER Credential
+        The Credentials to use when trying to determine the Exchange
+        Domain versions.
+
+    .PARAMETER ExchangeDomains
+        A list of Exchange Domains to check for version in addition to the
+        current server's domain.
+#>
+function Get-DomainsVersion
+{
+    [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
+    param
+    (
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential,
+
+        [Parameter()]
+        [System.String[]]
+        $ExchangeDomains
+    )
+
+    [System.Collections.Hashtable] $currentDomainVersions = @{}
+
+    [System.String[]] $targetDomains = Get-EachExchangeDomainFQDN -ExchangeDomains $ExchangeDomains
+
+    foreach ($domain in $targetDomains)
+    {
+        $domainDn = Get-DomainDNFromFQDN -Fqdn $domain
+
+        $mesoContainer = Get-ADObjectInternal -Credential $Credential -DistinguishedName "CN=Microsoft Exchange System Objects,$($domainDn)" -Properties 'objectVersion'
+
+        $mesoVersion = $null
+
+        if ($null -ne $mesoContainer)
+        {
+            $mesoVersion = $mesoContainer.objectVersion
+        }
+        else
+        {
+            Write-Warning "Unable to find object with DN 'CN=Microsoft Exchange System Objects,$($domainDn)'. This is either because Exchange /PrepareDomain has not been run for this domain, or because the configured account does not have permissions to access this object."
+        }
+
+        $currentDomainVersions.Add($domain, $mesoVersion)
+    }
+
+    return $currentDomainVersions
+}
+
+<#
+    .SYNOPSIS
+        Gets a list of Exchange domains to check the domain version for.
+        Always returns at least the current Exchange Server's domain. Will
+        also add an explicitly configured Exchange Domains if they are not
+        already in the list.
+
+    .PARAMETER ExchangeDomains
+        A list of Exchange Domains to check for version in addition to the
+        current server's domain.
+#>
+function Get-EachExchangeDomainFQDN
+{
+    [CmdletBinding()]
+    [OutputType([System.String[]])]
+    param
+    (
+        [Parameter()]
+        [System.String[]]
+        $ExchangeDomains
+    )
+
+    [System.String[]] $targetDomains = @()
+
+    # Get this server's domain and add it to the list
+    [System.String] $machineDomain = (Get-CimInstance -ClassName Win32_ComputerSystem).Domain.ToLower()
+
+    $targetDomains += $machineDomain
+
+    # Add any additional explicitly configured, non-duplicate domain to the list
+    if ($null -ne $ExchangeDomains)
+    {
+        foreach ($domain in $ExchangeDomains)
+        {
+            $domainLower = $domain.ToLower()
+
+            if ($targetDomains.Contains($domainLower) -eq $false)
+            {
+                $targetDomains += $domainLower
+            }
+        }
+    }
+
+    return $targetDomains
+}
+
+<#
+    .SYNOPSIS
+        Waits for a specified amount of time until Test-TargetResource returns
+        $true.
+
+    .PARAMETER Identity
+        Not actually used. Enter anything, as long as it's not null.
+
+    .PARAMETER Credential
+        Credentials used to perform Active Directory lookups against the
+        Schema, Configuration, and Domain naming contexts.
+
+    .PARAMETER SchemaVersion
+        Specifies that the Active Directory schema should have been prepared
+        using Exchange 'setup /PrepareSchema', and should be at the
+        specified version.
+
+    .PARAMETER OrganizationVersion
+        Specifies that the Exchange Organization should have been prepared
+        using Exchange 'setup /PrepareAD', and should be at the specified
+        version.
+
+    .PARAMETER DomainVersion
+        Specifies that the domains containing the target Exchange servers were
+        prepared using setup /PrepareAD, /PrepareDomain, or /PrepareAllDomains,
+        and should be at the specified version.
+
+    .PARAMETER ExchangeDomains
+        The FQDN's of domains that should be checked for DomainVersion in
+        addition to the domain that this Exchange server belongs to.
+
+    .PARAMETER RetryIntervalSec
+        How many seconds to wait between retries when checking whether AD has
+        been prepped. Defaults to 60.
+
+    .PARAMETER RetryCount
+        How many retry attempts should be made to see if AD has been prepped
+        before an exception is thrown. Defaults to 30.
+#>
+function Wait-ForTrueTestTargetResource
+{
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param
+    (
+        [Parameter(Mandatory = $true)]
+        [System.String]
+        $Identity,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        [System.Management.Automation.Credential()]
+        $Credential,
+
+        [Parameter()]
+        [System.Int32]
+        $SchemaVersion,
+
+        [Parameter()]
+        [System.Int32]
+        $OrganizationVersion,
+
+        [Parameter()]
+        [System.Int32]
+        $DomainVersion,
+
+        [Parameter()]
+        [System.String[]]
+        $ExchangeDomains,
+
+        [Parameter()]
+        [System.UInt32]
+        $RetryIntervalSec = 60,
+
+        [Parameter()]
+        [System.UInt32]
+        $RetryCount = 30
+    )
+
+    $testResults = $false
+
+    for ($i = 0; $i -lt $RetryCount; $i++)
+    {
+        $testResults = Test-TargetResource @PSBoundParameters
+
+        if ($testResults -eq $false)
+        {
+            Write-Verbose -Message "AD has still not been fully prepped as of $([DateTime]::Now). Sleeping for $($RetryIntervalSec) seconds."
+            Start-Sleep -Seconds $RetryIntervalSec
+        }
+        else
+        {
+            break
+        }
+    }
+
+    return $testResults
 }
 
 Export-ModuleMember -Function *-TargetResource
-
-
-

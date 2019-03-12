@@ -1,8 +1,3 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCDscTestsPresent", "")]
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCDscExamplesPresent", "")]
-[CmdletBinding()]
-param()
-
 function Get-TargetResource
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCUseVerboseMessageInDSCResource", "")]
@@ -10,175 +5,193 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Boolean]
         $AllowServiceRestart = $false,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
+        [Parameter()]
         [System.String[]]
         $ExtendedProtectionFlags,
 
+        [Parameter()]
         [System.String[]]
         $ExtendedProtectionSPNList,
 
-        [ValidateSet("Allow","None","Require")]
+        [Parameter()]
+        [ValidateSet('Allow', 'None', 'Require')]
         [System.String]
         $ExtendedProtectionTokenChecking,
 
-        [ValidateSet("Ntlm","Basic","Negotiate")]
+        [Parameter()]
+        [ValidateSet('Ntlm', 'Basic', 'Negotiate')]
         [System.String]
         $ExternalClientAuthenticationMethod,
 
+        [Parameter()]
         [System.Boolean]
         $ExternalClientsRequireSsl,
 
+        [Parameter()]
         [System.String]
         $ExternalHostname,
 
+        [Parameter()]
         [System.String[]]
         $IISAuthenticationMethods,
 
-        [ValidateSet("Ntlm","Basic","Negotiate")]
+        [Parameter()]
+        [ValidateSet('Ntlm', 'Basic', 'Negotiate')]
         [System.String]
         $InternalClientAuthenticationMethod,
 
+        [Parameter()]
         [System.String]
         $InternalHostname,
 
+        [Parameter()]
         [System.Boolean]
         $InternalClientsRequireSsl,
 
+        [Parameter()]
         [System.Boolean]
         $SSLOffloading
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Identity' = $Identity} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Identity" = $Identity} -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-OutlookAnywhere' -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-OutlookAnywhere' -VerbosePreference $VerbosePreference
-
-    $RpcVdir = GetOutlookAnywhere @PSBoundParameters
+    $RpcVdir = Get-OutlookAnywhereInternal @PSBoundParameters
 
     if ($null -ne $RpcVdir)
     {
         $returnValue = @{
-            Identity = $Identity
-            InternalHostname = $RpcVdir.InternalHostname.HostnameString
-            ExternalHostname = $RpcVdir.ExternalHostname.HostnameString
-            InternalClientAuthenticationMethod = $RpcVdir.InternalClientAuthenticationMethod
-            ExternalClientAuthenticationMethod = $RpcVdir.ExternalClientAuthenticationMethod
-            IISAuthenticationMethods = $RpcVdir.IISAuthenticationMethods
-            ExtendedProtectionFlags = $RpcVdir.ExtendedProtectionFlags
-            ExtendedProtectionSPNList = $RpcVdir.ExtendedProtectionSPNList
-            ExtendedProtectionTokenChecking = $RpcVdir.ExtendedProtectionTokenChecking
-            ExternalClientsRequireSsl = $RpcVdir.ExternalClientsRequireSsl
-            InternalClientsRequireSsl = $RpcVdir.InternalClientsRequireSsl
-            SSLOffloading = $RpcVdir.SSLOffloading
+            Identity                           = [System.String] $Identity
+            ExtendedProtectionFlags            = [System.String[]] $RpcVdir.ExtendedProtectionFlags
+            ExtendedProtectionSPNList          = [System.String[]] $RpcVdir.ExtendedProtectionSPNList
+            ExtendedProtectionTokenChecking    = [System.String] $RpcVdir.ExtendedProtectionTokenChecking
+            ExternalClientAuthenticationMethod = [System.String] $RpcVdir.ExternalClientAuthenticationMethod
+            ExternalClientsRequireSsl          = [System.Boolean] $RpcVdir.ExternalClientsRequireSsl
+            ExternalHostname                   = [System.String] $RpcVdir.ExternalHostname.HostnameString
+            IISAuthenticationMethods           = [System.String[]] $RpcVdir.IISAuthenticationMethods
+            InternalClientAuthenticationMethod = [System.String] $RpcVdir.InternalClientAuthenticationMethod
+            InternalClientsRequireSsl          = [System.Boolean] $RpcVdir.InternalClientsRequireSsl
+            InternalHostname                   = [System.String] $RpcVdir.InternalHostname.HostnameString
+            SSLOffloading                      = [System.Boolean] $RpcVdir.SSLOffloading
         }
     }
 
     $returnValue
 }
 
-
 function Set-TargetResource
 {
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Boolean]
         $AllowServiceRestart = $false,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
+        [Parameter()]
         [System.String[]]
         $ExtendedProtectionFlags,
 
+        [Parameter()]
         [System.String[]]
         $ExtendedProtectionSPNList,
 
-        [ValidateSet("Allow","None","Require")]
+        [Parameter()]
+        [ValidateSet('Allow', 'None', 'Require')]
         [System.String]
         $ExtendedProtectionTokenChecking,
 
-        [ValidateSet("Ntlm","Basic","Negotiate")]
+        [Parameter()]
+        [ValidateSet('Ntlm', 'Basic', 'Negotiate')]
         [System.String]
         $ExternalClientAuthenticationMethod,
 
+        [Parameter()]
         [System.Boolean]
         $ExternalClientsRequireSsl,
 
+        [Parameter()]
         [System.String]
         $ExternalHostname,
 
+        [Parameter()]
         [System.String[]]
         $IISAuthenticationMethods,
 
-        [ValidateSet("Ntlm","Basic","Negotiate")]
+        [Parameter()]
+        [ValidateSet('Ntlm', 'Basic', 'Negotiate')]
         [System.String]
         $InternalClientAuthenticationMethod,
 
+        [Parameter()]
         [System.String]
         $InternalHostname,
 
+        [Parameter()]
         [System.Boolean]
         $InternalClientsRequireSsl,
 
+        [Parameter()]
         [System.Boolean]
         $SSLOffloading
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Identity' = $Identity} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Identity" = $Identity} -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Set-OutlookAnywhere' -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad 'Set-OutlookAnywhere' -VerbosePreference $VerbosePreference
+    # Ensure an empty string is $null and not a string
+    Set-EmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
 
-    #Ensure an empty string is $null and not a string
-    SetEmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
-
-    RemoveParameters -PSBoundParametersIn $PSBoundParameters -ParamsToRemove 'Credential','AllowServiceRestart'
+    Remove-FromPSBoundParametersUsingHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToRemove 'Credential', 'AllowServiceRestart'
 
     Set-OutlookAnywhere @PSBoundParameters
 
     if($AllowServiceRestart -eq $true)
     {
-        Write-Verbose "Recycling MSExchangeRpcProxyAppPool and MSExchangeRpcProxyFrontEndAppPool"
+        Write-Verbose -Message 'Recycling MSExchangeRpcProxyAppPool and MSExchangeRpcProxyFrontEndAppPool'
 
-        RestartAppPoolIfExists -Name MSExchangeRpcProxyAppPool
-        RestartAppPoolIfExists -Name MSExchangeRpcProxyFrontEndAppPool
+        Restart-ExistingAppPool -Name MSExchangeRpcProxyAppPool
+        Restart-ExistingAppPool -Name MSExchangeRpcProxyFrontEndAppPool
     }
     else
     {
-        Write-Warning "The configuration will not take effect until MSExchangeRpcProxyAppPool and MSExchangeRpcProxyFrontEndAppPool are manually recycled."
+        Write-Warning -Message 'The configuration will not take effect until MSExchangeRpcProxyAppPool and MSExchangeRpcProxyFrontEndAppPool are manually recycled.'
     }
 }
-
 
 function Test-TargetResource
 {
@@ -187,201 +200,225 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Boolean]
         $AllowServiceRestart = $false,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
+        [Parameter()]
         [System.String[]]
         $ExtendedProtectionFlags,
 
+        [Parameter()]
         [System.String[]]
         $ExtendedProtectionSPNList,
 
-        [ValidateSet("Allow","None","Require")]
+        [Parameter()]
+        [ValidateSet('Allow', 'None', 'Require')]
         [System.String]
         $ExtendedProtectionTokenChecking,
 
-        [ValidateSet("Ntlm","Basic","Negotiate")]
+        [Parameter()]
+        [ValidateSet('Ntlm', 'Basic', 'Negotiate')]
         [System.String]
         $ExternalClientAuthenticationMethod,
 
+        [Parameter()]
         [System.Boolean]
         $ExternalClientsRequireSsl,
 
+        [Parameter()]
         [System.String]
         $ExternalHostname,
 
+        [Parameter()]
         [System.String[]]
         $IISAuthenticationMethods,
 
-        [ValidateSet("Ntlm","Basic","Negotiate")]
+        [Parameter()]
+        [ValidateSet('Ntlm', 'Basic', 'Negotiate')]
         [System.String]
         $InternalClientAuthenticationMethod,
 
+        [Parameter()]
         [System.String]
         $InternalHostname,
 
+        [Parameter()]
         [System.Boolean]
         $InternalClientsRequireSsl,
 
+        [Parameter()]
         [System.Boolean]
         $SSLOffloading
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Identity' = $Identity} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Identity" = $Identity} -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-OutlookAnywhere' -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-OutlookAnywhere' -VerbosePreference $VerbosePreference
+    # Ensure an empty string is $null and not a string
+    Set-EmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
 
-    #Ensure an empty string is $null and not a string
-    SetEmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
+    $RpcVdir = Get-OutlookAnywhereInternal @PSBoundParameters
 
-    $RpcVdir = GetOutlookAnywhere @PSBoundParameters
+    $testResults = $true
 
     if ($null -eq $RpcVdir)
     {
-        return $false
+        Write-Error -Message 'Unable to retrieve Outlook Anywhere Virtual Directory for server'
+
+        $testResults = $false
     }
     else
     {
-        if (!(VerifySetting -Name "InternalHostname" -Type "String" -ExpectedValue $InternalHostname -ActualValue $RpcVdir.InternalHostname.HostnameString -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'InternalHostname' -Type 'String' -ExpectedValue $InternalHostname -ActualValue $RpcVdir.InternalHostname.HostnameString -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "ExternalHostname" -Type "String" -ExpectedValue $ExternalHostname -ActualValue $RpcVdir.ExternalHostname.HostnameString -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'ExternalHostname' -Type 'String' -ExpectedValue $ExternalHostname -ActualValue $RpcVdir.ExternalHostname.HostnameString -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "InternalClientAuthenticationMethod" -Type "String" -ExpectedValue $InternalClientAuthenticationMethod -ActualValue $RpcVdir.InternalClientAuthenticationMethod -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'InternalClientAuthenticationMethod' -Type 'String' -ExpectedValue $InternalClientAuthenticationMethod -ActualValue $RpcVdir.InternalClientAuthenticationMethod -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "ExternalClientAuthenticationMethod" -Type "String" -ExpectedValue $ExternalClientAuthenticationMethod -ActualValue $RpcVdir.ExternalClientAuthenticationMethod -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'ExternalClientAuthenticationMethod' -Type 'String' -ExpectedValue $ExternalClientAuthenticationMethod -ActualValue $RpcVdir.ExternalClientAuthenticationMethod -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "ExtendedProtectionTokenChecking" -Type "String" -ExpectedValue $ExtendedProtectionTokenChecking -ActualValue $RpcVdir.ExtendedProtectionTokenChecking -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'ExtendedProtectionTokenChecking' -Type 'String' -ExpectedValue $ExtendedProtectionTokenChecking -ActualValue $RpcVdir.ExtendedProtectionTokenChecking -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        #ExternalClientsRequireSsl will only actually return as $true if ExternalHostname was also set
-        if (![string]::IsNullOrEmpty($ExternalHostname) -and !(VerifySetting -Name "ExternalClientsRequireSsl" -Type "Boolean" -ExpectedValue $ExternalClientsRequireSsl -ActualValue $RpcVdir.ExternalClientsRequireSsl -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        # ExternalClientsRequireSsl will only actually return as $true if ExternalHostname was also set
+        if (![System.String]::IsNullOrEmpty($ExternalHostname) -and !(Test-ExchangeSetting -Name 'ExternalClientsRequireSsl' -Type 'Boolean' -ExpectedValue $ExternalClientsRequireSsl -ActualValue $RpcVdir.ExternalClientsRequireSsl -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "InternalClientsRequireSsl" -Type "Boolean" -ExpectedValue $InternalClientsRequireSsl -ActualValue $RpcVdir.InternalClientsRequireSsl -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'InternalClientsRequireSsl' -Type 'Boolean' -ExpectedValue $InternalClientsRequireSsl -ActualValue $RpcVdir.InternalClientsRequireSsl -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "SSLOffloading" -Type "Boolean" -ExpectedValue $SSLOffloading -ActualValue $RpcVdir.SSLOffloading -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'SSLOffloading' -Type 'Boolean' -ExpectedValue $SSLOffloading -ActualValue $RpcVdir.SSLOffloading -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "IISAuthenticationMethods" -Type "Array" -ExpectedValue $IISAuthenticationMethods -ActualValue $RpcVdir.IISAuthenticationMethods -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'IISAuthenticationMethods' -Type 'Array' -ExpectedValue $IISAuthenticationMethods -ActualValue $RpcVdir.IISAuthenticationMethods -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "ExtendedProtectionFlags" -Type "Array" -ExpectedValue $ExtendedProtectionFlags -ActualValue $RpcVdir.ExtendedProtectionFlags -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'ExtendedProtectionFlags' -Type 'Array' -ExpectedValue $ExtendedProtectionFlags -ActualValue $RpcVdir.ExtendedProtectionFlags -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "ExtendedProtectionSPNList" -Type "Array" -ExpectedValue $ExtendedProtectionSPNList -ActualValue $RpcVdir.ExtendedProtectionSPNList -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'ExtendedProtectionSPNList' -Type 'Array' -ExpectedValue $ExtendedProtectionSPNList -ActualValue $RpcVdir.ExtendedProtectionSPNList -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
     }
 
-    #If the code made it this far all properties are in a desired state
-    return $true
+    # If the code made it this far all properties are in a desired state
+    return $testResults
 }
 
-function GetOutlookAnywhere
+function Get-OutlookAnywhereInternal
 {
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Identity,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Boolean]
         $AllowServiceRestart = $false,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
+        [Parameter()]
         [System.String[]]
         $ExtendedProtectionFlags,
 
+        [Parameter()]
         [System.String[]]
         $ExtendedProtectionSPNList,
 
-        [ValidateSet("Allow","None","Require")]
+        [Parameter()]
+        [ValidateSet('Allow', 'None', 'Require')]
         [System.String]
         $ExtendedProtectionTokenChecking,
 
-        [ValidateSet("Ntlm","Basic","Negotiate")]
+        [Parameter()]
+        [ValidateSet('Ntlm', 'Basic', 'Negotiate')]
         [System.String]
         $ExternalClientAuthenticationMethod,
 
+        [Parameter()]
         [System.Boolean]
         $ExternalClientsRequireSsl,
 
+        [Parameter()]
         [System.String]
         $ExternalHostname,
 
+        [Parameter()]
         [System.String[]]
         $IISAuthenticationMethods,
 
-        [ValidateSet("Ntlm","Basic","Negotiate")]
+        [Parameter()]
+        [ValidateSet('Ntlm', 'Basic', 'Negotiate')]
         [System.String]
         $InternalClientAuthenticationMethod,
 
+        [Parameter()]
         [System.String]
         $InternalHostname,
 
+        [Parameter()]
         [System.Boolean]
         $InternalClientsRequireSsl,
 
+        [Parameter()]
         [System.Boolean]
         $SSLOffloading
     )
 
-    RemoveParameters -PSBoundParametersIn $PSBoundParameters -ParamsToKeep "Identity","DomainController"
+    Remove-FromPSBoundParametersUsingHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToKeep 'Identity', 'DomainController'
 
     return (Get-OutlookAnywhere @PSBoundParameters)
 }
 
 Export-ModuleMember -Function *-TargetResource
-
-
-

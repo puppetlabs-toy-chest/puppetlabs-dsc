@@ -1,4 +1,4 @@
-﻿$errorActionPreference = 'Stop'
+$errorActionPreference = 'Stop'
 Set-StrictMode -Version 'Latest'
 
 # Import ResourceSetHelper for New-ResourceSetConfigurationScriptBlock
@@ -40,26 +40,30 @@ Configuration xWindowsOptionalFeatureSet
     (
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-        [String[]]
+        [System.String[]]
         $Name,
 
         [Parameter(Mandatory = $true)]
         [ValidateSet('Present', 'Absent')]
-        [String]
+        [System.String]
         $Ensure,
 
-        [Boolean]
+        [Parameter()]
+        [System.Boolean]
         $RemoveFilesOnDisable,
 
-        [Boolean]
+        [Parameter()]
+        [System.Boolean]
         $NoWindowsUpdateCheck,
 
+        [Parameter()]
         [ValidateNotNullOrEmpty()]
-        [String]
+        [System.String]
         $LogPath,
 
+        [Parameter()]
         [ValidateSet('ErrorsOnly', 'ErrorsAndWarning', 'ErrorsAndWarningAndInformation')]
-        [String]
+        [System.String]
         $LogLevel
     )
 
@@ -69,7 +73,7 @@ Configuration xWindowsOptionalFeatureSet
         KeyParameterName = 'Name'
         Parameters = $PSBoundParameters
     }
-    
+
     $configurationScriptBlock = New-ResourceSetConfigurationScriptBlock @newResourceSetConfigurationParams
 
     # This script block must be run directly in this configuration in order to resolve variables

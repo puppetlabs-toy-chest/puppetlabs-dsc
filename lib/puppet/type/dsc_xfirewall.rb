@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_xfirewall) do
   @doc = %q{
     The DSC xFirewall resource type.
     Automatically generated from
-    'xNetworking/DSCResources/MSFT_xFirewall/MSFT_xFirewall.schema.mof'
+    'xNetworking/DSCResources/MSFT_xFirewall/MSFT_xFirewall.Schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.

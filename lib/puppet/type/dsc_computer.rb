@@ -1,0 +1,216 @@
+require 'pathname'
+
+Puppet::Type.newtype(:dsc_computer) do
+  require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
+  require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
+
+
+  @doc = %q{
+    The DSC Computer resource type.
+    Automatically generated from
+    'ComputerManagementDsc/DSCResources/MSFT_Computer/MSFT_Computer.schema.mof'
+
+    To learn more about PowerShell Desired State Configuration, please
+    visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
+
+    For more information about built-in DSC Resources, please visit
+    https://technet.microsoft.com/en-us/library/dn249921.aspx.
+
+    For more information about xDsc Resources, please visit
+    https://github.com/PowerShell/DscResources.
+  }
+
+  validate do
+      fail('dsc_name is a required attribute') if self[:dsc_name].nil?
+    end
+
+  def dscmeta_resource_friendly_name; 'Computer' end
+  def dscmeta_resource_name; 'MSFT_Computer' end
+  def dscmeta_module_name; 'ComputerManagementDsc' end
+  def dscmeta_module_version; '6.2.0.0' end
+
+  newparam(:name, :namevar => true ) do
+  end
+
+  ensurable do
+    newvalue(:exists?) { provider.exists? }
+    newvalue(:present) { provider.create }
+    defaultto { :present }
+  end
+
+  # Name:         PsDscRunAsCredential
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_psdscrunascredential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "PsDscRunAsCredential"
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
+  end
+
+  # Name:         Name
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_name) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Name - The desired computer name."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         DomainName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_domainname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DomainName - The name of the domain to join."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         JoinOU
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_joinou) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "JoinOU - The distinguished name of the organizational unit that the computer account will be created in."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Credential
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_credential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "Credential - Credential to be used to join a domain."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("Credential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
+  end
+
+  # Name:         UnjoinCredential
+  # Type:         MSFT_Credential
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_unjoincredential) do
+    def mof_type; 'MSFT_Credential' end
+    def mof_is_embedded?; true end
+    desc "UnjoinCredential - Credential to be used to leave a domain."
+    validate do |value|
+      unless value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be a hash")
+      end
+      PuppetX::Dsc::TypeHelpers.validate_MSFT_Credential("UnjoinCredential", value)
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_sensitive_hash!(value)
+    end
+  end
+
+  # Name:         WorkGroupName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_workgroupname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "WorkGroupName - The name of the workgroup."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Description
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_description) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Description - The value assigned here will be set as the local computer description."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Server
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_server) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Server - The Active Directory Domain Controller to use to join the domain"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CurrentOU
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_currentou) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "CurrentOU - A read-only property that specifies the organizational unit that the computer account is currently in."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+
+  def builddepends
+    pending_relations = super()
+    PuppetX::Dsc::TypeHelpers.ensure_reboot_relationship(self, pending_relations)
+  end
+end
+
+Puppet::Type.type(:dsc_computer).provide :powershell, :parent => Puppet::Type.type(:base_dsc).provider(:powershell) do
+  confine :true => (Gem::Version.new(Facter.value(:powershell_version)) >= Gem::Version.new('5.0.10586.117'))
+  defaultfor :operatingsystem => :windows
+
+  mk_resource_methods
+end

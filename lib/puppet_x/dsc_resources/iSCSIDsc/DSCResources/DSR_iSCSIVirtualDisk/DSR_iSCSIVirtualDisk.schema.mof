@@ -1,0 +1,13 @@
+[ClassVersion("1.0.0.0"), FriendlyName("iSCSIVirtualDisk")]
+class DSR_iSCSIVirtualDisk : OMI_BaseResource
+{
+    [Key, Description("Specifies the path of the VHDX file that is associated with the iSCSI virtual disk.")] String Path;
+    [Write, Description("Ensures that Virtual Disk is either Absent or Present."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("Specifies the type of the VHDX."), ValueMap{"Dynamic","Fixed","Differencing"}, Values{"Dynamic","Fixed","Differencing"}] String DiskType;
+    [Write, Description("Specifies the size, in bytes, of the iSCSI virtual disk.")] Uint64 SizeBytes;
+    [Write, Description("Specifies the block size, in bytes, for the VHDX.")] Uint32 BlockSizeBytes;
+    [Write, Description("Specifies the logical sector size, in bytes, for the VHDX."), ValueMap{"512","4096"}, Values{"512","4096"}] UInt32 LogicalSectorSizeBytes;
+    [Write, Description("Specifies the physical sector size, in bytes, for the VHDX."), ValueMap{"512","4096"}, Values{"512","4096"}] UInt32 PhysicalSectorSizeBytes;
+    [Write, Description("Specifies the description for the iSCSI virtual disk.")] String Description;
+    [Write, Description("Specifies the parent virtual disk path if the VHDX is a differencing disk.")] String ParentPath;
+};

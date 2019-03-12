@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchmaintenancemode) do
   def dscmeta_resource_friendly_name; 'xExchMaintenanceMode' end
   def dscmeta_resource_name; 'MSFT_xExchMaintenanceMode' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '1.27.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -81,7 +81,7 @@ Puppet::Type.newtype(:dsc_xexchmaintenancemode) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential - Credentials used to establish a remote Powershell session to Exchange"
+    desc "Credential - Credentials used to establish a remote PowerShell session to Exchange"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -126,6 +126,24 @@ Puppet::Type.newtype(:dsc_xexchmaintenancemode) do
     end
   end
 
+  # Name:         MountDialOverride
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["None", "Lossless", "GoodAvailability", "BestAvailability", "BestEffort"]
+  newparam(:dsc_mountdialoverride) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "MountDialOverride - Used when moving databases back to the server after taking the server out of maintenance mode. The MountDialOverride parameter is used to override the auto database mount dial (AutoDatabaseMountDial) setting for the target server and specify an alternate setting. Defaults to None. Valid values are None, Lossless, GoodAvailability, BestAvailability, BestEffort."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['None', 'none', 'Lossless', 'lossless', 'GoodAvailability', 'goodavailability', 'BestAvailability', 'bestavailability', 'BestEffort', 'besteffort'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are None, Lossless, GoodAvailability, BestAvailability, BestEffort")
+      end
+    end
+  end
+
   # Name:         MovePreferredDatabasesBack
   # Type:         boolean
   # IsMandatory:  False
@@ -150,6 +168,134 @@ Puppet::Type.newtype(:dsc_xexchmaintenancemode) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
     desc "SetInactiveComponentsFromAnyRequesterToActive - Whether components that were set to Inactive by outside Requesters should also be set to Active when exiting Maintenance Mode. Defaults to False."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SkipActiveCopyChecks
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_skipactivecopychecks) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SkipActiveCopyChecks - Used when moving databases back to the server after taking the server out of maintenance mode. The SkipActiveCopyChecks switch specifies whether to skip checking the current active copy to see if it's currently a seeding source for any passive databases. Defaults to False."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SkipAllChecks
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_skipallchecks) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SkipAllChecks - Exchange 2016 Only. Used when moving databases back to the server after taking the server out of maintenance mode. The SkipAllChecks switch specifies whether to skip all checks. This switch is equivalent to specifying all of the individual skip parameters that are available on this cmdlet. Defaults to False."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SkipClientExperienceChecks
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_skipclientexperiencechecks) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SkipClientExperienceChecks - Used when moving databases back to the server after taking the server out of maintenance mode. The SkipClientExperienceChecks switch specifies whether to skip the search catalog (content index) state check to see if the search catalog is healthy and up to date. Defaults to False."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SkipCpuChecks
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_skipcpuchecks) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SkipCpuChecks - Exchange 2016 Only. Used when moving databases back to the server after taking the server out of maintenance mode. The SkipCpuChecks switch specifies whether to skip the high CPU utilization checks. Defaults to False."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SkipHealthChecks
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_skiphealthchecks) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SkipHealthChecks - Used when moving databases back to the server after taking the server out of maintenance mode. The SkipHealthChecks switch specifies whether to bypass passive copy health checks. Defaults to False."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SkipLagChecks
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_skiplagchecks) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SkipLagChecks - Used when moving databases back to the server after taking the server out of maintenance mode. The SkipLagChecks switch specifies whether to allow a copy to be activated that has replay and copy queues outside of the configured criteria. Defaults to False."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SkipMaximumActiveDatabasesChecks
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_skipmaximumactivedatabaseschecks) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SkipMaximumActiveDatabasesChecks - Used when moving databases back to the server after taking the server out of maintenance mode. The SkipMaximumActiveDatabasesChecks switch specifies whether to skip checking the value of MaximumPreferredActiveDatabases during the best copy and server selection (BCSS) process. Defaults to False."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SkipMoveSuppressionChecks
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_skipmovesuppressionchecks) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "SkipMoveSuppressionChecks - Exchange 2016 Only. Used when moving databases back to the server after taking the server out of maintenance mode. The SkipMoveSuppressionChecks switch specifies whether to skip the move suppression checks. Defaults to False."
     validate do |value|
     end
     newvalues(true, false)

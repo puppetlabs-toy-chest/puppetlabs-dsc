@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   def dscmeta_resource_friendly_name; 'xExchAutoMountPoint' end
   def dscmeta_resource_name; 'MSFT_xExchAutoMountPoint' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '1.27.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   newparam(:dsc_identity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Identity"
+    desc "Identity - The name of the server. Not actually used for anything."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   newparam(:dsc_autodagdatabasesrootfolderpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AutoDagDatabasesRootFolderPath"
+    desc "AutoDagDatabasesRootFolderPath - The parent folder for Exchange database mount point folders."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -95,7 +95,7 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   newparam(:dsc_autodagvolumesrootfolderpath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AutoDagVolumesRootFolderPath"
+    desc "AutoDagVolumesRootFolderPath - The parent folder for Exchange volume mount point folders."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -110,7 +110,7 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   newparam(:dsc_disktodbmap, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "DiskToDBMap"
+    desc "DiskToDBMap - An array of strings containing the databases for each disk. Databases on the same disk should be in the same string, and comma separated. Example: 'DB1,DB2','DB3,DB4'. This puts DB1 and DB2 on one disk, and DB3 and DB4 on another."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -128,7 +128,7 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   newparam(:dsc_sparevolumecount) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "SpareVolumeCount"
+    desc "SpareVolumeCount - How many spare volumes will be available."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -146,7 +146,7 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   newparam(:dsc_ensureexchangevolumemountpointislast) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "EnsureExchangeVolumeMountPointIsLast"
+    desc "EnsureExchangeVolumeMountPointIsLast - Whether the EXVOL mount point should be moved to be the last mount point listed on each disk. Defaults to $false."
     validate do |value|
     end
     newvalues(true, false)
@@ -162,7 +162,7 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   newparam(:dsc_createsubfolders) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "CreateSubfolders"
+    desc "CreateSubfolders - If $true, specifies that DBNAME.db and DBNAME.log subfolders should be automatically created underneath the ExchangeDatabase mount points. Defaults to $false."
     validate do |value|
     end
     newvalues(true, false)
@@ -178,7 +178,7 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   newparam(:dsc_filesystem) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "FileSystem - Valid values are NTFS, REFS."
+    desc "FileSystem - The file system to use when formatting the volume. Defaults to NTFS. Valid values are NTFS, REFS."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -196,7 +196,7 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   newparam(:dsc_mindisksize) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MinDiskSize"
+    desc "MinDiskSize - The minimum size of a disk to consider using. Defaults to none. Should be in a format like '1024MB' or '1TB'."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -211,7 +211,7 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   newparam(:dsc_partitioningscheme) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "PartitioningScheme - Valid values are MBR, GPT."
+    desc "PartitioningScheme - The partitioning scheme for the volume. Defaults to GPT. Valid values are MBR, GPT."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -229,7 +229,7 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   newparam(:dsc_unitsize) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "UnitSize"
+    desc "UnitSize - The unit size to use when formatting the disk. Defaults to 64k."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -244,7 +244,7 @@ Puppet::Type.newtype(:dsc_xexchautomountpoint) do
   newparam(:dsc_volumeprefix) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "VolumePrefix"
+    desc "VolumePrefix - The prefix to give to Exchange Volume folders. Defaults to EXVOL."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

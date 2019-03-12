@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spfarmsolution) do
   def dscmeta_resource_friendly_name; 'SPFarmSolution' end
   def dscmeta_resource_name; 'MSFT_SPFarmSolution' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -89,14 +89,14 @@ Puppet::Type.newtype(:dsc_spfarmsolution) do
     end
   end
 
-  # Name:         WebApplications
+  # Name:         WebAppUrls
   # Type:         string[]
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_webapplications, :array_matching => :all) do
+  newparam(:dsc_webappurls, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "WebApplications - A list of the web applications to deploy this to"
+    desc "WebAppUrls - A list of the web applications to deploy this to"
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

@@ -21,13 +21,13 @@ Puppet::Type.newtype(:dsc_spfarm) do
   }
 
   validate do
-      fail('dsc_ensure is a required attribute') if self[:dsc_ensure].nil?
+      fail('dsc_issingleinstance is a required attribute') if self[:dsc_issingleinstance].nil?
     end
 
   def dscmeta_resource_friendly_name; 'SPFarm' end
   def dscmeta_resource_name; 'MSFT_SPFarm' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -58,15 +58,33 @@ Puppet::Type.newtype(:dsc_spfarm) do
     end
   end
 
-  # Name:         Ensure
+  # Name:         IsSingleInstance
   # Type:         string
   # IsMandatory:  True
+  # Values:       ["Yes"]
+  newparam(:dsc_issingleinstance) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "IsSingleInstance - Specifies the resource is a single instance, the value must be 'Yes' Valid values are Yes."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Yes', 'yes'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Yes")
+      end
+    end
+  end
+
+  # Name:         Ensure
+  # Type:         string
+  # IsMandatory:  False
   # Values:       ["Present", "Absent"]
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "Ensure - Present to create/join the farm. Absent is currently not supported Valid values are Present, Absent."
-    isrequired
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -220,13 +238,31 @@ Puppet::Type.newtype(:dsc_spfarm) do
   newparam(:dsc_serverrole) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ServerRole - SharePoint 2016 only - the MinRole role to enroll this server as Valid values are Application, ApplicationWithSearch, Custom, DistributedCache, Search, SingleServer, SingleServerFarm, WebFrontEnd, WebFrontEndWithDistributedCache."
+    desc "ServerRole - SharePoint 2016 & 2019 only - the MinRole role to enroll this server as Valid values are Application, ApplicationWithSearch, Custom, DistributedCache, Search, SingleServer, SingleServerFarm, WebFrontEnd, WebFrontEndWithDistributedCache."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
       unless ['Application', 'application', 'ApplicationWithSearch', 'applicationwithsearch', 'Custom', 'custom', 'DistributedCache', 'distributedcache', 'Search', 'search', 'SingleServer', 'singleserver', 'SingleServerFarm', 'singleserverfarm', 'WebFrontEnd', 'webfrontend', 'WebFrontEndWithDistributedCache', 'webfrontendwithdistributedcache'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Application, ApplicationWithSearch, Custom, DistributedCache, Search, SingleServer, SingleServerFarm, WebFrontEnd, WebFrontEndWithDistributedCache")
+      end
+    end
+  end
+
+  # Name:         DeveloperDashboard
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Off", "On", "OnDemand"]
+  newparam(:dsc_developerdashboard) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DeveloperDashboard - Specifies the state of the Developer Dashboard ('OnDemand' is SP2013 only) Valid values are Off, On, OnDemand."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Off', 'off', 'On', 'on', 'OnDemand', 'ondemand'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Off, On, OnDemand")
       end
     end
   end

@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_sqlagdatabase) do
   def dscmeta_resource_friendly_name; 'SqlAGDatabase' end
   def dscmeta_resource_name; 'MSFT_SqlAGDatabase' end
   def dscmeta_module_name; 'SqlServerDsc' end
-  def dscmeta_module_version; '11.1.0.0' end
+  def dscmeta_module_version; '12.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -183,7 +183,7 @@ Puppet::Type.newtype(:dsc_sqlagdatabase) do
   newparam(:dsc_matchdatabaseowner) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "MatchDatabaseOwner - If set to $true, this ensures the database owner of the database on the primary replica is the owner of the database on all secondary replicas. This requires the database owner is available as a login on all replicas and that the PSDscRunAsAccount has impersonate permissions. If set to $false, the owner of the database will be the PSDscRunAsAccount. The default is '$true'"
+    desc "MatchDatabaseOwner - If set to $true, this ensures the database owner of the database on the primary replica is the owner of the database on all secondary replicas. This requires the database owner is available as a login on all replicas and that the PsDscRunAsCredential has impersonate permissions. If set to $false, the owner of the database will be the PsDscRunAsCredential. The default is '$true'"
     validate do |value|
     end
     newvalues(true, false)

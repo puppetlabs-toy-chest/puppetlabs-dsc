@@ -1,7 +1,7 @@
 @{
 
 # Version number of this module.
-ModuleVersion = '1.7.0.0'
+moduleVersion = '1.8.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'd75e53f2-47fc-4ee7-97af-8d257d3e0151'
@@ -51,22 +51,8 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Added resource helper module.
-* Changed resource file names to include MSFT_*.
-* Added MSFT_ to MOF file classname.
-* Change examples to meet HQRM standards and optin to Example validation
-  tests.
-* Replaced examples in README.MD to links to Example files.
-* Added the VS Code PowerShell extension formatting settings that cause PowerShell
-  files to be formatted as per the DSC Resource kit style guidelines.
-* Opted into Common Tests "Validate Module Files" and "Validate Script Files".
-* Converted files with UTF8 with BOM over to UTF8.
-* Updated Year to 2017 in License and Manifest.
-* Added .github support files:
-  * CONTRIBUTING.md
-  * ISSUE_TEMPLATE.md
-  * PULL_REQUEST_TEMPLATE.md
-* Resolved all PSScriptAnalyzer warnings and style guide warnings.
+        ReleaseNotes = '* THIS MODULE HAS BEEN DEPRECATED. It will no longer be released. Please use the "TimeZone" resource in ComputerManagementDsc instead.
+* Fixed xTimeZone Examples link in README.md.
 
 '
 
@@ -74,6 +60,7 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
 
 
 

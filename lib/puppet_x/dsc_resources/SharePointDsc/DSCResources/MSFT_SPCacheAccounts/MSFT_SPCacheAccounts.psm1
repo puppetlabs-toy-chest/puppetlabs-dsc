@@ -19,7 +19,7 @@ function Get-TargetResource
         [Parameter()]
         [System.Boolean]
         $SetWebAppPolicy = $true,
-        
+
         [Parameter()]
         [System.Management.Automation.PSCredential]
         $InstallAccount
@@ -27,27 +27,29 @@ function Get-TargetResource
 
     Write-Verbose -Message "Getting cache accounts for $WebAppUrl"
 
-    $result = Invoke-SPDSCCommand -Credential $InstallAccount -Arguments $PSBoundParameters -ScriptBlock {
+    $result = Invoke-SPDSCCommand -Credential $InstallAccount `
+                                  -Arguments $PSBoundParameters `
+                                  -ScriptBlock {
         $params = $args[0]
-        
+
         $wa = Get-SPWebApplication -Identity $params.WebAppUrl -ErrorAction SilentlyContinue
 
         if ($null -eq $wa)
         {
             return @{
-                WebAppUrl = $params.WebAppUrl
-                SuperUserAlias = $null
+                WebAppUrl        = $params.WebAppUrl
+                SuperUserAlias   = $null
                 SuperReaderAlias = $null
-                SetWebAppPolicy = $false
-                InstallAccount = $params.InstallAccount
+                SetWebAppPolicy  = $false
+                InstallAccount   = $params.InstallAccount
             }
         }
-        
+
         $returnVal = @{
             InstallAccount = $params.InstallAccount
-            WebAppUrl = $params.WebAppUrl
+            WebAppUrl      = $params.WebAppUrl
         }
-        
+
         $policiesSet = $true
         if ($wa.UseClaimsAuthentication -eq $true)
         {
@@ -92,12 +94,12 @@ function Get-TargetResource
             {
                 $policiesSet = $false
             }
-            
+
             if ($wa.Policies.UserName -notcontains ((New-SPClaimsPrincipal -Identity $params.SuperUserAlias `
                                                                            -IdentityType WindowsSamAccountName).ToEncodedString()))
             {
                 $policiesSet = $false
-            }    
+            }
         }
         else
         {
@@ -109,7 +111,7 @@ function Get-TargetResource
             {
                 $returnVal.Add("SuperUserAlias", "")
             }
-            
+
             if ($wa.Properties.ContainsKey("portalsuperreaderaccount"))
             {
                 $returnVal.Add("SuperReaderAlias", $wa.Properties["portalsuperreaderaccount"])
@@ -118,19 +120,19 @@ function Get-TargetResource
             {
                 $returnVal.Add("SuperReaderAlias", "")
             }
-            
+
             if ($wa.Policies.UserName -notcontains $params.SuperReaderAlias)
             {
                 $policiesSet = $false
             }
-            
+
             if ($wa.Policies.UserName -notcontains $params.SuperUserAlias)
             {
                 $policiesSet = $false
             }
         }
         $returnVal.Add("SetWebAppPolicy", $policiesSet)
-        
+
         return $returnVal
     }
     return $result
@@ -157,15 +159,15 @@ function Set-TargetResource
         [Parameter()]
         [System.Boolean]
         $SetWebAppPolicy = $true,
-        
+
         [Parameter()]
         [System.Management.Automation.PSCredential]
         $InstallAccount    )
 
     Write-Verbose -Message "Setting cache accounts for $WebAppUrl"
-    
+
     $PSBoundParameters.SetWebAppPolicy = $SetWebAppPolicy
-    
+
     Invoke-SPDSCCommand -Credential $InstallAccount -Arguments $PSBoundParameters -ScriptBlock {
         $params = $args[0]
 
@@ -174,7 +176,7 @@ function Set-TargetResource
         {
             throw [Exception] "The web applications $($params.WebAppUrl) can not be found to set cache accounts"
         }
-        
+
         if ($wa.UseClaimsAuthentication -eq $true)
         {
             $wa.Properties["portalsuperuseraccount"] = (New-SPClaimsPrincipal -Identity $params.SuperUserAlias `
@@ -187,7 +189,7 @@ function Set-TargetResource
             $wa.Properties["portalsuperuseraccount"] = $params.SuperUserAlias
             $wa.Properties["portalsuperreaderaccount"] = $params.SuperReaderAlias
         }
-        
+
         if ($params.SetWebAppPolicy -eq $true)
         {
             if ($wa.UseClaimsAuthentication -eq $true)
@@ -198,17 +200,17 @@ function Set-TargetResource
                 {
                     $wa.Policies.Remove($claimsReader)
                 }
-                $policy = $wa.Policies.Add($claimsReader, "Super Reader (Claims)")
+                $policy     = $wa.Policies.Add($claimsReader, "Super Reader (Claims)")
                 $policyRole = $wa.PolicyRoles.GetSpecialRole([Microsoft.SharePoint.Administration.SPPolicyRoleType]::FullRead)
                 $policy.PolicyRoleBindings.Add($policyRole)
-                
+
                 $claimsSuper = (New-SPClaimsPrincipal -Identity $params.SuperUserAlias `
                                                       -IdentityType WindowsSamAccountName).ToEncodedString()
                 if ($wa.Policies.UserName -contains $claimsSuper)
                 {
                     $wa.Policies.Remove($claimsSuper)
                 }
-                $policy = $wa.Policies.Add($claimsSuper, "Super User (Claims)")
+                $policy     = $wa.Policies.Add($claimsSuper, "Super User (Claims)")
                 $policyRole = $wa.PolicyRoles.GetSpecialRole([Microsoft.SharePoint.Administration.SPPolicyRoleType]::FullControl)
                 $policy.PolicyRoleBindings.Add($policyRole)
             }
@@ -219,20 +221,20 @@ function Set-TargetResource
                     $wa.Policies.Remove($params.SuperReaderAlias)
                 }
 
-                $readPolicy = $wa.Policies.Add($params.SuperReaderAlias, "Super Reader")
+                $readPolicy     = $wa.Policies.Add($params.SuperReaderAlias, "Super Reader")
                 $readPolicyRole = $wa.PolicyRoles.GetSpecialRole([Microsoft.SharePoint.Administration.SPPolicyRoleType]::FullRead)
                 $readPolicy.PolicyRoleBindings.Add($readPolicyRole)
-                
+
                 if ($wa.Policies.UserName -contains $params.SuperUserAlias)
                 {
                     $wa.Policies.Remove($params.SuperUserAlias)
                 }
-                $policy = $wa.Policies.Add($params.SuperUserAlias, "Super User")
+                $policy     = $wa.Policies.Add($params.SuperUserAlias, "Super User")
                 $policyRole = $wa.PolicyRoles.GetSpecialRole([Microsoft.SharePoint.Administration.SPPolicyRoleType]::FullControl)
                 $policy.PolicyRoleBindings.Add($policyRole)
             }
         }
-        
+
         $wa.Update()
     }
 }
@@ -259,7 +261,7 @@ function Test-TargetResource
         [Parameter()]
         [System.Boolean]
         $SetWebAppPolicy = $true,
-        
+
         [Parameter()]
         [System.Management.Automation.PSCredential]
         $InstallAccount    )
@@ -270,11 +272,21 @@ function Test-TargetResource
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
 
-    return Test-SPDscParameterState -CurrentValues $CurrentValues `
-                                    -DesiredValues $PSBoundParameters `
-                                    -ValuesToCheck @("SuperUserAlias", `
-                                                     "SuperReaderAlias", `
-                                                     "SetWebAppPolicy")
+    if ($SetWebAppPolicy -eq $true)
+    {
+        return Test-SPDscParameterState -CurrentValues $CurrentValues `
+                                        -DesiredValues $PSBoundParameters `
+                                        -ValuesToCheck @("SuperUserAlias", `
+                                                         "SuperReaderAlias", `
+                                                         "SetWebAppPolicy")
+    }
+    else
+    {
+        return Test-SPDscParameterState -CurrentValues $CurrentValues `
+                                        -DesiredValues $PSBoundParameters `
+                                        -ValuesToCheck @("SuperUserAlias", `
+                                                         "SuperReaderAlias")
+    }
 }
 
 Export-ModuleMember -Function *-TargetResource

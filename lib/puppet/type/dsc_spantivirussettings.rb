@@ -21,13 +21,13 @@ Puppet::Type.newtype(:dsc_spantivirussettings) do
   }
 
   validate do
-      fail('dsc_scanondownload is a required attribute') if self[:dsc_scanondownload].nil?
+      fail('dsc_issingleinstance is a required attribute') if self[:dsc_issingleinstance].nil?
     end
 
   def dscmeta_resource_friendly_name; 'SPAntivirusSettings' end
   def dscmeta_resource_name; 'MSFT_SPAntivirusSettings' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,15 +57,33 @@ Puppet::Type.newtype(:dsc_spantivirussettings) do
     end
   end
 
+  # Name:         IsSingleInstance
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       ["Yes"]
+  newparam(:dsc_issingleinstance) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "IsSingleInstance - Specifies the resource is a single instance, the value must be 'Yes' Valid values are Yes."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Yes', 'yes'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Yes")
+      end
+    end
+  end
+
   # Name:         ScanOnDownload
   # Type:         boolean
-  # IsMandatory:  True
+  # IsMandatory:  False
   # Values:       None
   newparam(:dsc_scanondownload) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
     desc "ScanOnDownload - Should documents be scanned before being downloaded"
-    isrequired
     validate do |value|
     end
     newvalues(true, false)

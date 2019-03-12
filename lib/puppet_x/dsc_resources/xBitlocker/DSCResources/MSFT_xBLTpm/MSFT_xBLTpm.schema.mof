@@ -2,10 +2,10 @@
 [ClassVersion("1.0.0.0"), FriendlyName("xBLTpm")]
 class MSFT_xBLTpm : OMI_BaseResource
 {
-    [Key] String Identity; //Not actually used, so could be anything
-    [Write] Boolean AllowClear; //Indicates that the provisioning process clears the TPM, if necessary, to move the TPM closer to complying with Windows Server® 2012 standards
-    [Write] Boolean AllowPhysicalPresence; //Indicates that the provisioning process may send physical presence commands that require a user to be present in order to continue. 
-    [Write] Boolean AllowImmediateReboot; //Whether the computer can rebooted immediately after initializing the TPM
+    [Key, Description("A required string value which is used as a Key for the resource. The value does not matter, as long as its not empty.")] String Identity;
+    [Write, Description("Indicates that the provisioning process clears the TPM, if necessary, to move the TPM closer to complying with Windows Server 2012 standards.")] Boolean AllowClear;
+    [Write, Description("Indicates that the provisioning process may send physical presence commands that require a user to be present in order to continue.")] Boolean AllowPhysicalPresence;
+    [Write, Description("Whether the computer can rebooted immediately after initializing the TPM.")] Boolean AllowImmediateReboot;
 };
 
 

@@ -21,13 +21,13 @@ Puppet::Type.newtype(:dsc_spdesignersettings) do
   }
 
   validate do
-      fail('dsc_url is a required attribute') if self[:dsc_url].nil?
+      fail('dsc_webappurl is a required attribute') if self[:dsc_webappurl].nil?
     end
 
   def dscmeta_resource_friendly_name; 'SPDesignerSettings' end
   def dscmeta_resource_name; 'MSFT_SPDesignerSettings' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -57,14 +57,14 @@ Puppet::Type.newtype(:dsc_spdesignersettings) do
     end
   end
 
-  # Name:         Url
+  # Name:         WebAppUrl
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_url) do
+  newparam(:dsc_webappurl) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Url - The URL of the web application or site collection to configure"
+    desc "WebAppUrl - The URL of the web application or site collection to configure"
     isrequired
     validate do |value|
       unless value.kind_of?(String)

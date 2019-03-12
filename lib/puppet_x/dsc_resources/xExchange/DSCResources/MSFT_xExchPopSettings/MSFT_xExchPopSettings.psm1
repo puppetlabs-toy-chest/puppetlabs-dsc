@@ -1,8 +1,3 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCDscTestsPresent", "")]
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCDscExamplesPresent", "")]
-[CmdletBinding()]
-param()
-
 function Get-TargetResource
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCUseVerboseMessageInDSCResource", "")]
@@ -10,111 +5,113 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Server,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Boolean]
         $AllowServiceRestart = $false,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
-        [ValidateSet("PlainTextLogin","PlainTextAuthentication","SecureLogin")]
+        [Parameter()]
+        [ValidateSet('PlainTextLogin', 'PlainTextAuthentication', 'SecureLogin')]
         [System.String]
         $LoginType,
 
+        [Parameter()]
         [System.String[]]
         $ExternalConnectionSettings,
 
+        [Parameter()]
         [System.String]
         $X509CertificateName
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Server' = $Server} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Server" = $Server} -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-PopSettings' -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad "Get-PopSettings" -VerbosePreference $VerbosePreference
-
-    $pop = GetPopSettings @PSBoundParameters
+    $pop = Get-PopSettingsInternal @PSBoundParameters
 
     if ($null -ne $pop)
     {
         $returnValue = @{
-            Server = $Identity
-            LoginType = $pop.LoginType
-            ExternalConnectionSettings = $pop.ExternalConnectionSettings
-            X509CertificateName = $pop.X509CertificateName
+            Server                     = [System.String] $Identity
+            ExternalConnectionSettings = [System.String[]] $pop.ExternalConnectionSettings
+            LoginType                  = [System.String] $pop.LoginType
+            X509CertificateName        = [System.String] $pop.X509CertificateName
         }
     }
 
     $returnValue
 }
 
-
 function Set-TargetResource
 {
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Server,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Boolean]
         $AllowServiceRestart = $false,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
-        [ValidateSet("PlainTextLogin","PlainTextAuthentication","SecureLogin")]
+        [Parameter()]
+        [ValidateSet('PlainTextLogin', 'PlainTextAuthentication', 'SecureLogin')]
         [System.String]
         $LoginType,
 
+        [Parameter()]
         [System.String[]]
         $ExternalConnectionSettings,
 
+        [Parameter()]
         [System.String]
         $X509CertificateName
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Server' = $Server} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Server" = $Server} -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Set-PopSettings' -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad "Set-PopSettings" -VerbosePreference $VerbosePreference
-
-    RemoveParameters -PSBoundParametersIn $PSBoundParameters -ParamsToRemove "Credential","AllowServiceRestart"
+    Remove-FromPSBoundParametersUsingHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToRemove 'Credential', 'AllowServiceRestart'
 
     Set-PopSettings @PSBoundParameters
 
     if ($AllowServiceRestart -eq $true)
     {
-        Write-Verbose "Restarting POP Services"
+        Write-Verbose -Message 'Restarting POP Services'
 
         Get-Service MSExchangePOP4* | Restart-Service
     }
     else
     {
-        Write-Warning "The configuration will not take effect until MSExchangePOP services are manually restarted."
+        Write-Warning -Message 'The configuration will not take effect until MSExchangePOP services are manually restarted.'
     }
 }
-
 
 function Test-TargetResource
 {
@@ -123,106 +120,115 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Server,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Boolean]
         $AllowServiceRestart = $false,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
-        [ValidateSet("PlainTextLogin","PlainTextAuthentication","SecureLogin")]
+        [Parameter()]
+        [ValidateSet('PlainTextLogin', 'PlainTextAuthentication', 'SecureLogin')]
         [System.String]
         $LoginType,
 
+        [Parameter()]
         [System.String[]]
         $ExternalConnectionSettings,
 
+        [Parameter()]
         [System.String]
         $X509CertificateName
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Server' = $Server} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Server" = $Server} -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-PopSettings' -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad "Get-PopSettings" -VerbosePreference $VerbosePreference
+    Set-EmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
 
-    SetEmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
+    $pop = Get-PopSettingsInternal @PSBoundParameters
 
-    $pop = GetPopSettings @PSBoundParameters
+    $testResults = $true
 
     if ($null -eq $pop)
     {
-        return $false
+        Write-Error -Message 'Unable to retrieve POP settings for server'
+
+        $testResults = $false
     }
     else
     {
-        if (!(VerifySetting -Name "LoginType" -Type "String" -ExpectedValue $LoginType -ActualValue $pop.LoginType -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+
+        if (!(Test-ExchangeSetting -Name 'LoginType' -Type 'String' -ExpectedValue $LoginType -ActualValue $pop.LoginType -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "ExternalConnectionSettings" -Type "Array" -ExpectedValue $ExternalConnectionSettings -ActualValue $pop.ExternalConnectionSettings -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'ExternalConnectionSettings' -Type 'Array' -ExpectedValue $ExternalConnectionSettings -ActualValue $pop.ExternalConnectionSettings -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "X509CertificateName" -Type "String" -ExpectedValue $X509CertificateName -ActualValue $pop.X509CertificateName -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'X509CertificateName' -Type 'String' -ExpectedValue $X509CertificateName -ActualValue $pop.X509CertificateName -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
     }
 
-    return $true
+    return $testResults
 }
 
-function GetPopSettings
+function Get-PopSettingsInternal
 {
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Server,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
+        [Parameter()]
         [System.Boolean]
         $AllowServiceRestart = $false,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
-        [ValidateSet("PlainTextLogin","PlainTextAuthentication","SecureLogin")]
+        [Parameter()]
+        [ValidateSet('PlainTextLogin', 'PlainTextAuthentication', 'SecureLogin')]
         [System.String]
         $LoginType,
 
+        [Parameter()]
         [System.String[]]
         $ExternalConnectionSettings,
 
+        [Parameter()]
         [System.String]
         $X509CertificateName
     )
 
-    RemoveParameters -PSBoundParametersIn $PSBoundParameters -ParamsToKeep "Server","DomainController"
+    Remove-FromPSBoundParametersUsingHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToKeep 'Server', 'DomainController'
 
     return (Get-PopSettings @PSBoundParameters)
 }
 
 Export-ModuleMember -Function *-TargetResource
-
-
-

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spuserprofileserviceapp) do
   def dscmeta_resource_friendly_name; 'SPUserProfileServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPUserProfileServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -112,6 +112,21 @@ Puppet::Type.newtype(:dsc_spuserprofileserviceapp) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "MySiteHostLocation - The URL of the my site host collection"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         MySiteManagedPath
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_mysitemanagedpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "MySiteManagedPath - The Managed Path of the my site sites"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -238,6 +253,24 @@ Puppet::Type.newtype(:dsc_spuserprofileserviceapp) do
     newvalues(true, false)
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         SiteNamingConflictResolution
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Username_CollisionError", "Username_CollisionDomain", "Domain_Username"]
+  newparam(:dsc_sitenamingconflictresolution) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "SiteNamingConflictResolution - Specifies which SiteNamingConflictResolution should be used Valid values are Username_CollisionError, Username_CollisionDomain, Domain_Username."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Username_CollisionError', 'username_collisionerror', 'Username_CollisionDomain', 'username_collisiondomain', 'Domain_Username', 'domain_username'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Username_CollisionError, Username_CollisionDomain, Domain_Username")
+      end
     end
   end
 

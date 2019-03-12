@@ -28,7 +28,7 @@ function Get-TargetResource
         $SqlServer,
 
         [parameter(Mandatory = $true)]
-        [ValidateSet("2008-R2","2012","2014","2016")]
+        [ValidateSet("2008-R2","2012","2014","2016","2017")]
         [System.String]
         $SqlServerVersion,
 
@@ -75,7 +75,7 @@ function Set-TargetResource
         $SqlServer,
 
         [parameter(Mandatory = $true)]
-        [ValidateSet("2008-R2","2012","2014","2016")]
+        [ValidateSet("2008-R2","2012","2014","2016","2017")]
         [System.String]
         $SqlServerVersion,
 
@@ -148,7 +148,7 @@ function Test-TargetResource
         $SqlServer,
 
         [parameter(Mandatory = $true)]
-        [ValidateSet("2008-R2","2012","2014","2016")]
+        [ValidateSet("2008-R2","2012","2014","2016","2017")]
         [System.String]
         $SqlServerVersion,
 
@@ -206,6 +206,14 @@ function Test-TargetResource
         }
         else
         {
+            if($DacPacApplicationVersion)
+            {
+                $deployedVersion = Get-DacPacDeployedVersion -ConnectionString $ConnectionString -DbName $DatabaseName
+                if($deployedVersion -eq $DacPacApplicationVersion)
+                {
+                    return $true
+                }
+            }
             return $false
         }
     }
@@ -221,4 +229,3 @@ function Test-TargetResource
 }
 
 Export-ModuleMember -Function *-TargetResource
-

@@ -22,12 +22,14 @@ Puppet::Type.newtype(:dsc_spsearchresultsource) do
 
   validate do
       fail('dsc_name is a required attribute') if self[:dsc_name].nil?
+      fail('dsc_scopename is a required attribute') if self[:dsc_scopename].nil?
+      fail('dsc_scopeurl is a required attribute') if self[:dsc_scopeurl].nil?
     end
 
   def dscmeta_resource_friendly_name; 'SPSearchResultSource' end
   def dscmeta_resource_name; 'MSFT_SPSearchResultSource' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -74,6 +76,41 @@ Puppet::Type.newtype(:dsc_spsearchresultsource) do
     end
   end
 
+  # Name:         ScopeName
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       ["SSA", "SPSite", "SPWeb"]
+  newparam(:dsc_scopename) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ScopeName - The scope at which the Result Source will be created. Options are SSA, SPSite or SPWeb Valid values are SSA, SPSite, SPWeb."
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['SSA', 'ssa', 'SPSite', 'spsite', 'SPWeb', 'spweb'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are SSA, SPSite, SPWeb")
+      end
+    end
+  end
+
+  # Name:         ScopeUrl
+  # Type:         string
+  # IsMandatory:  True
+  # Values:       None
+  newparam(:dsc_scopeurl) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ScopeUrl - The URI of the site where to create the result source. Leave empty to have it created globally"
+    isrequired
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
   # Name:         SearchServiceAppName
   # Type:         string
   # IsMandatory:  False
@@ -107,17 +144,14 @@ Puppet::Type.newtype(:dsc_spsearchresultsource) do
   # Name:         ProviderType
   # Type:         string
   # IsMandatory:  False
-  # Values:       ["Exchange Search Provider", "Local People Provider", "Local SharePoint Provider", "OpenSearch Provider", "Remote People Provider", "Remote SharePoint Provider"]
+  # Values:       None
   newparam(:dsc_providertype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ProviderType - The provider type to use for the result source Valid values are Exchange Search Provider, Local People Provider, Local SharePoint Provider, OpenSearch Provider, Remote People Provider, Remote SharePoint Provider."
+    desc "ProviderType - The provider type to use for the result source"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
-      end
-      unless ['Exchange Search Provider', 'exchange search provider', 'Local People Provider', 'local people provider', 'Local SharePoint Provider', 'local sharepoint provider', 'OpenSearch Provider', 'opensearch provider', 'Remote People Provider', 'remote people provider', 'Remote SharePoint Provider', 'remote sharepoint provider'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are Exchange Search Provider, Local People Provider, Local SharePoint Provider, OpenSearch Provider, Remote People Provider, Remote SharePoint Provider")
       end
     end
   end

@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xaduser) do
   def dscmeta_resource_friendly_name; 'xADUser' end
   def dscmeta_resource_name; 'MSFT_xADUser' end
   def dscmeta_module_name; 'xActiveDirectory' end
-  def dscmeta_module_version; '2.18.0.0' end
+  def dscmeta_module_version; '2.24.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -751,6 +751,38 @@ Puppet::Type.newtype(:dsc_xaduser) do
       unless ['Default', 'default', 'Negotiate', 'negotiate'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Default, Negotiate")
       end
+    end
+  end
+
+  # Name:         PasswordNeverResets
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_passwordneverresets) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "PasswordNeverResets - Specifies whether existing user's password should be reset (default $false)"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         RestoreFromRecycleBin
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_restorefromrecyclebin) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "RestoreFromRecycleBin - Indicates whether or not the user object should first tried to be restored from the recycle bin before creating a new user object."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

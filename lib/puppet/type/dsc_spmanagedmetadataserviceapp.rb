@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spmanagedmetadataserviceapp) do
   def dscmeta_resource_friendly_name; 'SPManagedMetaDataServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPManagedMetaDataServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -220,6 +220,38 @@ Puppet::Type.newtype(:dsc_spmanagedmetadataserviceapp) do
     munge do |value|
       v = PuppetX::Dsc::TypeHelpers.munge_integer(value)
       v.is_a?(Array) ? v : Array(v)
+    end
+  end
+
+  # Name:         ContentTypePushdownEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_contenttypepushdownenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "ContentTypePushdownEnabled - Specifies that existing instances of changed content types in subsites and libraries will be updated."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         ContentTypeSyndicationEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_contenttypesyndicationenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "ContentTypeSyndicationEnabled - Specifies that this connection will provide access to the content types that are associated with the managed metadata service application."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

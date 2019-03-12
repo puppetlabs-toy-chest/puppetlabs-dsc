@@ -1,4 +1,3 @@
-
 Import-Module -Name (Join-Path -Path ( Split-Path $PSScriptRoot -Parent ) `
                                -ChildPath 'AuditPolicyResourceHelper\AuditPolicyResourceHelper.psm1') `
                                -Force
@@ -17,29 +16,29 @@ $script:localizedData = Get-LocalizedData -ResourceName 'MSFT_AuditPolicyOption'
 function Get-TargetResource
 {
     [CmdletBinding()]
-    [OutputType([System.Collections.Hashtable])]
+    [OutputType([Hashtable])]
     param
     (
         [Parameter(Mandatory = $true)]
         [ValidateSet('CrashOnAuditFail', 'FullPrivilegeAuditing', 'AuditBaseObjects',
         'AuditBaseDirectories')]
-        [System.String]
+        [String]
         $Name,
 
         [Parameter(Mandatory = $true)]
         [ValidateSet('Enabled', 'Disabled')]
-        [System.String]
+        [String]
         $Value
     )
-    
-    # Get the option's current value 
+
+    # Get the option's current value
     $optionValue = Get-AuditOption -Name $Name
 
     Write-Verbose -Message ( $localizedData.GetAuditpolOptionSucceed -f $Name )
 
     return @{
-        Name   = $Name
-        Value  = $optionValue
+        Name  = $Name
+        Value = $optionValue
     }
 }
 
@@ -59,16 +58,16 @@ function Set-TargetResource
         [Parameter(Mandatory = $true)]
         [ValidateSet('CrashOnAuditFail', 'FullPrivilegeAuditing', 'AuditBaseObjects',
         'AuditBaseDirectories')]
-        [System.String]
+        [String]
         $Name,
 
         [Parameter(Mandatory = $true)]
         [ValidateSet('Enabled', 'Disabled')]
-        [System.String]
+        [String]
         $Value
     )
 
-    try 
+    try
     {
         Set-AuditOption -Name $Name -Value $Value
         Write-Verbose -Message ( $localizedData.SetAuditpolOptionSucceed -f $Name, $Value )
@@ -81,7 +80,7 @@ function Set-TargetResource
 
 <#
     .SYNOPSIS
-        Tests that the audit policy option is in the desired state 
+        Tests that the audit policy option is in the desired state
     .PARAMETER Name
         Specifies the option to test.
     .PARAMETER Value
@@ -96,12 +95,12 @@ function Test-TargetResource
         [Parameter(Mandatory = $true)]
         [ValidateSet('CrashOnAuditFail', 'FullPrivilegeAuditing', 'AuditBaseObjects',
         'AuditBaseDirectories')]
-        [System.String]
+        [String]
         $Name,
 
         [Parameter(Mandatory = $true)]
         [ValidateSet('Enabled', 'Disabled')]
-        [System.String]
+        [String]
         $Value
     )
 
@@ -125,77 +124,74 @@ function Test-TargetResource
         Gets the audit policy option state.
     .DESCRIPTION
         Ths is one of the public functions that calls into Get-AuditOptionCommand.
-        This function enforces parameters that will be passed through to the 
-        Get-AuditOptionCommand function and aligns to a specifc parameterset. 
-    .PARAMETER Option 
+        This function enforces parameters that will be passed through to the
+        Get-AuditOptionCommand function and aligns to a specifc parameterset.
+    .PARAMETER Option
         The name of an audit option.
     .OUTPUTS
-        A string that is the state of the option (Enabled|Disables). 
+        A string that is the state of the option (Enabled|Disables).
 #>
 function Get-AuditOption
 {
     [CmdletBinding()]
-    [OutputType([System.String])]
+    [OutputType([String])]
     param
     (
-        [Parameter(Mandatory=$true)]
-        [System.String]
+        [Parameter(Mandatory = $true)]
+        [String]
         $Name
     )
     <#
-        When PowerShell cmdlets are released for individual audit policy settings a condition 
-        will be placed here to use native PowerShell cmdlets to set the option details. 
+        When PowerShell cmdlets are released for individual audit policy settings a condition
+        will be placed here to use native PowerShell cmdlets to set the option details.
     #>
-    # get the auditpol raw csv output
-    $returnCsv =  Invoke-AuditPol -Command "Get" -SubCommand "Option:$Name"
-    
-    # split the details into an array
-    $optionDetails = ( $returnCsv[2] ) -Split ','
+    # Get the converted auditpol csv object
+    $auditOption = Invoke-AuditPol -Command "Get" -SubCommand "Option:$Name"
 
-    # return the option value
-    return $optionDetails[4]
+    # The option value is stored in the 'Inclusion Setting' property of the output CSV.
+    return $auditOption.'Inclusion Setting'
 }
 
 <#
     .SYNOPSIS
         Sets an audit policy option to enabled or disabled.
     .DESCRIPTION
-        This public function calls Set-AuditOptionCommand and enforces parameters 
-        that will be passed to Set-AuditOptionCommand and aligns to a specifc parameterset. 
+        This public function calls Set-AuditOptionCommand and enforces parameters
+        that will be passed to Set-AuditOptionCommand and aligns to a specifc parameterset.
     .PARAMETER Name
         The specific option to set.
-    .PARAMETER Value 
+    .PARAMETER Value
         The value to set the provided option to.
 #>
 function Set-AuditOption
 {
-    [CmdletBinding(SupportsShouldProcess=$true)]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param
     (
-        [Parameter(Mandatory=$true)]
-        [System.String]
+        [Parameter(Mandatory = $true)]
+        [String]
         $Name,
-        
-        [Parameter(Mandatory=$true)]
-        [System.String]
+
+        [Parameter(Mandatory = $true)]
+        [String]
         $Value
     )
 
     <#
-        When PowerShell cmdlets are released for individual audit policy settings a condition 
-        will be placed here to use native PowerShell cmdlets to set the option details. 
+        When PowerShell cmdlets are released for individual audit policy settings a condition
+        will be placed here to use native PowerShell cmdlets to set the option details.
     #>
-    if ( $pscmdlet.ShouldProcess( "$Name","Set $Value" ) ) 
+    if ( $pscmdlet.ShouldProcess( "$Name","Set $Value" ) )
     {
-        <# 
-            The output text of auditpol is in simple past tense, but the input is in simple 
+        <#
+            The output text of auditpol is in simple past tense, but the input is in simple
             present tense, so the hashtable converts the input accordingly.
         #>
         $pastToPresentValues = @{
             'Enabled'  = 'enable'
             'Disabled' = 'disable'
         }
-        
+
         [String[]] $subCommand = @( "Option:$Name", "/value:$($pastToPresentValues[$value])" )
 
         Invoke-AuditPol -Command 'Set' -SubCommand $subCommand | Out-Null

@@ -1,0 +1,18 @@
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMClassificationRule")]
+class DSR_FSRMClassificationRule : OMI_BaseResource
+{
+    [Key, Description("The name of the FSRM Classification Rule.")] String Name;
+    [Write, Description("The description for the FSRM Classification Rule.")] String Description;
+    [Write, Description("Specifies whether the FSRM Classification Rule should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("Specifies the name of a classification property definition to set.")] String Property;
+    [Write, Description("Specifies the property value that the rule will assign.")] String PropertyValue;
+    [Write, Description("Specifies the name of a valid classification mechanism available on the server for assigning the property value.")] String ClassificationMechanism;
+    [Write, Description("An array of regular expressions for pattern matching.")] String ContentRegularExpression[];
+    [Write, Description("An array of strings for the content classifier to search for.")] String ContentString[];
+    [Write, Description("An array of case sensitive strings for the content classifier to search for.")] String ContentStringCaseSensitive[];
+    [Write, Description("Indicates that the classification rule is disabled.")] Boolean Disabled;
+    [Write, Description("An array of flags that defines the possible states of the rule.")] String Flags[];
+    [Write, Description("An array of parameters in the format <name>=<value> that can be used by the File Classification Infrastructure.")] String Parameters[];
+    [Write, Description("An array of namespaces where the rule is applied.")] String Namespace[];
+    [Write, Description("Specifies the evaluation policy of the rule."), ValueMap{"Never","Overwrite","Aggregate"}, Values{"Never","Overwrite","Aggregate"}] String ReevaluateProperty;
+};

@@ -2,7 +2,8 @@
 # Script module or binary module file associated with this manifest.
 
 # Version number of this module.
-ModuleVersion = '1.1.0.0'
+
+moduleVersion = '3.1.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'ee440155-d4cc-4ec8-9822-2a9bd7d8c82f'
@@ -17,7 +18,8 @@ CompanyName = 'Microsoft Corporation'
 Copyright = '(c) 2014 Microsoft Corporation. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'This DSC Resources can change the user preference for the Windows PowerShell execution policy.'
+Description = 'This DSC resource can change the user preference for the Windows PowerShell execution policy. THIS MODULE HAS BEEN DEPRECATED
+It will no longer be released. Please use the "PowerShellExecutionPolicy" resource in ComputerManagementDsc instead.'
 
 # Minimum version of the Windows PowerShell engine required by this module
 PowerShellVersion = '4.0'
@@ -52,10 +54,15 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '* Deprecated this module. This resource module will no longer be released. Please use the PowerShellExecutionPolicy resource in ComputerManagementDsc instead.
+
+'
 
     } # End of PSData hashtable
 
 } # End of PrivateData hashtable
 }
+
+
+
 

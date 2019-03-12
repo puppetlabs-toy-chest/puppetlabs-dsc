@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xdnsserversetting) do
   def dscmeta_resource_friendly_name; 'xDnsServerSetting' end
   def dscmeta_resource_name; 'MSFT_xDnsServerSetting' end
   def dscmeta_module_name; 'xDnsServer' end
-  def dscmeta_module_version; '1.9.0.0' end
+  def dscmeta_module_version; '1.11.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -829,6 +829,22 @@ Puppet::Type.newtype(:dsc_xdnsserversetting) do
     end
     munge do |value|
       PuppetX::Dsc::TypeHelpers.munge_integer(value)
+    end
+  end
+
+  # Name:         DsAvailable
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_dsavailable) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "DsAvailable - Indicates whether there is an available DS on the DNS Server."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

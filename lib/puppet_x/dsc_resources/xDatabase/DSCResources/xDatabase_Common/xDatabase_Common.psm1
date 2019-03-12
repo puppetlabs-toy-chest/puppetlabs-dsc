@@ -36,11 +36,13 @@ function CheckIfDbExists([string]$connectionString, [string]$databaseName)
 function DeployDac([string] $databaseName, [string]$connectionString, [string]$sqlserverVersion,
                    [string]$dacpacPath, [string]$dacpacApplicationName, [string]$dacpacApplicationVersion)
 {
-    $defaultDacPacApplicationVersion = "1.0.0.0"
-
     if($PSBoundParameters.ContainsKey('dacpacApplicationVersion'))
     {
-        $defaultDacPacApplicationVersion = $defaultDacPacApplicationVersion
+        $defaultDacPacApplicationVersion = $dacpacApplicationVersion
+    }
+    else
+    {
+        $defaultDacPacApplicationVersion = "1.0.0.0"
     }
 
     try
@@ -136,6 +138,27 @@ function ReturnSqlQuery([system.data.SqlClient.SQLConnection]$sqlConnection, [st
     return $dataSet.Tables
 }
 
+function Get-DacPacDeployedVersion
+{
+    param
+    (
+        [Parameter(Mandatory = $true)]
+        [string]
+        $ConnectionString,
+        
+        [Parameter(Mandatory = $true)]
+        [string]
+        $DbName
+    )
+
+    $sqlConnection = New-Object System.Data.SqlClient.SQLConnection($ConnectionString)
+    $dacpacQueryString = 'SELECT instance_name as DBName, type_version as DacPacVersion FROM msdb.dbo.sysdac_instances'
+
+    $result = ReturnSqlQuery -SqlConnection $sqlConnection -SqlQuery $dacpacQueryString
+
+    return $result.Where({$_.DBName -eq $DBName}).DacPacVersion
+}
+
 function Construct-ConnectionString([string]$sqlServer, [System.Management.Automation.PSCredential]$credentials)
 {
     
@@ -227,6 +250,10 @@ function Get-SqlServerMajoreVersion([string]$sqlServerVersion)
         {
             $majorVersion = 130
         }
+        "2017"
+        {
+            $majorVersion = 140
+        }
     }
 
     return $majorVersion
@@ -282,5 +309,3 @@ function Import-BacPacForDb([string]$connectionString, [string]$sqlServerVersion
         Write-Verbose -Message "Importing BacPac failed"
     }
 }
-
-

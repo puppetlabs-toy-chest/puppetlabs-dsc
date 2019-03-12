@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchimapsettings) do
   def dscmeta_resource_friendly_name; 'xExchImapSettings' end
   def dscmeta_resource_name; 'MSFT_xExchImapSettings' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '1.27.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xexchimapsettings) do
   newparam(:dsc_server) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Server"
+    desc "Server - The IMAP server to configure."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xexchimapsettings) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
+    desc "Credential - Credentials used to establish a remote PowerShell session to Exchange."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -99,7 +99,7 @@ Puppet::Type.newtype(:dsc_xexchimapsettings) do
   newparam(:dsc_allowservicerestart) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllowServiceRestart"
+    desc "AllowServiceRestart - Whether it is OK to restart the IMAP services after making changes. Defaults to $false."
     validate do |value|
     end
     newvalues(true, false)
@@ -115,28 +115,10 @@ Puppet::Type.newtype(:dsc_xexchimapsettings) do
   newparam(:dsc_domaincontroller) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainController"
+    desc "DomainController - The DomainController parameter specifies the domain controller that's used by this cmdlet to read data from or write data to Active Directory. You identify the domain controller by its fully qualified domain name (FQDN). For example, dc01.contoso.com."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         LoginType
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       ["PlainTextLogin", "PlainTextAuthentication", "SecureLogin"]
-  newparam(:dsc_logintype) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "LoginType - Valid values are PlainTextLogin, PlainTextAuthentication, SecureLogin."
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-      unless ['PlainTextLogin', 'plaintextlogin', 'PlainTextAuthentication', 'plaintextauthentication', 'SecureLogin', 'securelogin'].include?(value)
-        fail("Invalid value '#{value}'. Valid values are PlainTextLogin, PlainTextAuthentication, SecureLogin")
       end
     end
   end
@@ -148,7 +130,7 @@ Puppet::Type.newtype(:dsc_xexchimapsettings) do
   newparam(:dsc_externalconnectionsettings, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "ExternalConnectionSettings"
+    desc "ExternalConnectionSettings - The ExternalConnectionSettings parameter specifies the host name, port, and encryption method that's used by external IMAP4 clients (IMAP4 connections from outside your corporate network)."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -159,6 +141,24 @@ Puppet::Type.newtype(:dsc_xexchimapsettings) do
     end
   end
 
+  # Name:         LoginType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["PlainTextLogin", "PlainTextAuthentication", "SecureLogin"]
+  newparam(:dsc_logintype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "LoginType - The LoginType parameter specifies the authentication method for IMAP4 connections. Valid values are PlainTextLogin, PlainTextAuthentication, SecureLogin."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['PlainTextLogin', 'plaintextlogin', 'PlainTextAuthentication', 'plaintextauthentication', 'SecureLogin', 'securelogin'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are PlainTextLogin, PlainTextAuthentication, SecureLogin")
+      end
+    end
+  end
+
   # Name:         X509CertificateName
   # Type:         string
   # IsMandatory:  False
@@ -166,7 +166,7 @@ Puppet::Type.newtype(:dsc_xexchimapsettings) do
   newparam(:dsc_x509certificatename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "X509CertificateName"
+    desc "X509CertificateName - The X509CertificateName parameter specifies the certificate that's used for encrypting IMAP4 client connections."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

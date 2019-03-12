@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabasecopy) do
   def dscmeta_resource_friendly_name; 'xExchMailboxDatabaseCopy' end
   def dscmeta_resource_name; 'MSFT_xExchMailboxDatabaseCopy' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '1.27.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabasecopy) do
   newparam(:dsc_identity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Identity"
+    desc "Identity - The Identity parameter specifies the name of the database whose copy is being modified."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabasecopy) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
+    desc "Credential - Credentials used to establish a remote PowerShell session to Exchange"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -99,7 +99,7 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabasecopy) do
   newparam(:dsc_mailboxserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "MailboxServer"
+    desc "MailboxServer - The MailboxServer parameter specifies the name of the server that will host the database copy."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -114,7 +114,7 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabasecopy) do
   newparam(:dsc_adserversettingspreferredserver) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AdServerSettingsPreferredServer"
+    desc "AdServerSettingsPreferredServer - An optional domain controller to pass to Set-AdServerSettings -PreferredServer."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -129,7 +129,7 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabasecopy) do
   newparam(:dsc_allowservicerestart) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllowServiceRestart"
+    desc "AllowServiceRestart - Whether it is OK to restart Information Store after adding copy."
     validate do |value|
     end
     newvalues(true, false)
@@ -145,7 +145,7 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabasecopy) do
   newparam(:dsc_activationpreference) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "ActivationPreference"
+    desc "ActivationPreference - The ActivationPreference parameter value is used as part of Active Managers best copy selection process and to redistribute active mailbox databases throughout the database availability group (DAG) when using the RedistributeActiveDatabases.ps1 script."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -163,7 +163,22 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabasecopy) do
   newparam(:dsc_domaincontroller) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainController"
+    desc "DomainController - The DomainController parameter specifies the domain controller that's used by this cmdlet to read data from or write data to Active Directory. You identify the domain controller by its fully qualified domain name (FQDN). For example, dc01.contoso.com."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ReplayLagMaxDelay
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_replaylagmaxdelay) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ReplayLagMaxDelay - The ReplayLagMaxDelay parameter specifies the maximum delay for lagged database copy play down."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -178,7 +193,7 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabasecopy) do
   newparam(:dsc_replaylagtime) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ReplayLagTime"
+    desc "ReplayLagTime - The ReplayLagTime parameter specifies the amount of time that the Microsoft Exchange Replication service should wait before replaying log files that have been copied to the passive database copy."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -193,7 +208,7 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabasecopy) do
   newparam(:dsc_seedingpostponed) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "SeedingPostponed"
+    desc "SeedingPostponed - The SeedingPostponed switch specifies that the task doesn't seed the database copy, so you need to explicitly seed the database copy."
     validate do |value|
     end
     newvalues(true, false)
@@ -209,7 +224,7 @@ Puppet::Type.newtype(:dsc_xexchmailboxdatabasecopy) do
   newparam(:dsc_truncationlagtime) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "TruncationLagTime"
+    desc "TruncationLagTime - The TruncationLagTime parameter specifies the amount of time that the Microsoft Exchange Replication service should wait before truncating log files that have replayed into the passive copy of the database."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

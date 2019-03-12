@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '1.5.0.0'
+moduleVersion = '1.8.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'b42ff085-bd2b-4232-90ba-02b4c780e2d9'
@@ -49,7 +49,14 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Fix issue where DSC configuration gets into a reboot loop because sessionhost does not match (casing) and RDMS service is not started in time
+        ReleaseNotes = '* Changes to xRDSessionDeployment
+  * Fixed issue where an initial deployment failed due to a convert to lowercase (issue 39).
+  * Added unit tests to test Get, Test and Set results in this resource.
+* Change to xRDRemoteApp
+  * Fixed issue where this resource ignored the CollectionName provided in the parameters (issue 41).
+  * Changed key values in schema.mof to only Alias and CollectionName, DisplayName and FilePath are not key values.
+  * Added Ensure property (Absent or Present) to enable removal of RemoteApps.
+  * Added unit tests to test Get, Test and Set results in this resource.
 
 '
 
@@ -57,6 +64,9 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
+
+
 
 
 

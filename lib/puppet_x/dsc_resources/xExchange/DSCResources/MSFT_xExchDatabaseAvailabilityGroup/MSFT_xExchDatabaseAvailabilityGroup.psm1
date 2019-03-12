@@ -1,8 +1,3 @@
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCDscTestsPresent", "")]
-[Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCDscExamplesPresent", "")]
-[CmdletBinding()]
-param()
-
 function Get-TargetResource
 {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSDSCUseVerboseMessageInDSCResource", "")]
@@ -10,135 +5,155 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Int32]
         $AutoDagTotalNumberOfServers,
 
+        [Parameter()]
         [System.String]
         $AlternateWitnessDirectory,
 
+        [Parameter()]
         [System.String]
         $AlternateWitnessServer,
 
+        [Parameter()]
         [System.Boolean]
         $AutoDagAutoRedistributeEnabled,
 
+        [Parameter()]
         [System.Boolean]
         $AutoDagAutoReseedEnabled,
 
+        [Parameter()]
         [System.Int32]
         $AutoDagDatabaseCopiesPerDatabase,
 
+        [Parameter()]
         [System.Int32]
         $AutoDagDatabaseCopiesPerVolume,
 
+        [Parameter()]
         [System.String]
         $AutoDagDatabasesRootFolderPath,
 
+        [Parameter()]
         [System.Boolean]
         $AutoDagDiskReclaimerEnabled,
 
+        [Parameter()]
         [System.Int32]
         $AutoDagTotalNumberOfDatabases,
 
+        [Parameter()]
         [System.String]
         $AutoDagVolumesRootFolderPath,
 
+        [Parameter()]
         [System.String[]]
         $DatabaseAvailabilityGroupIpAddresses,
 
-        [ValidateSet("Off","DagOnly")]
+        [Parameter()]
+        [ValidateSet('Off', 'DagOnly')]
         [System.String]
         $DatacenterActivationMode,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
-        [ValidateSet("NTFS","ReFS")]
+        [Parameter()]
+        [ValidateSet('NTFS', 'ReFS')]
         [System.String]
         $FileSystem,
 
+        [Parameter()]
         [System.Boolean]
         $ManualDagNetworkConfiguration,
 
-        [ValidateSet("Disabled","Enabled","InterSubnetOnly","SeedOnly")]
+        [Parameter()]
+        [ValidateSet('Disabled', 'Enabled', 'InterSubnetOnly', 'SeedOnly')]
         [System.String]
         $NetworkCompression,
 
-        [ValidateSet("Disabled","Enabled","InterSubnetOnly","SeedOnly")]
+        [Parameter()]
+        [ValidateSet('Disabled', 'Enabled', 'InterSubnetOnly', 'SeedOnly')]
         [System.String]
         $NetworkEncryption,
 
+        [Parameter()]
         [System.String]
         $PreferenceMoveFrequency,
 
+        [Parameter()]
         [System.Boolean]
         $ReplayLagManagerEnabled,
 
+        [Parameter()]
         [System.UInt16]
         $ReplicationPort,
 
+        [Parameter()]
         [System.Boolean]
         $SkipDagValidation,
 
+        [Parameter()]
         [System.String]
         $WitnessDirectory,
 
+        [Parameter()]
         [System.String]
         $WitnessServer
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Name' = $Name} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Name" = $Name} -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-DatabaseAvailabilityGroup' -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad "Get-DatabaseAvailabilityGroup" -VerbosePreference $VerbosePreference
-
-    $dag = GetDatabaseAvailabilityGroup @PSBoundParameters
+    $dag = Get-DatabaseAvailabilityGroupInternal @PSBoundParameters
 
     if ($null -ne $dag)
     {
         $returnValue = @{
-            Name = $Name
-            AlternateWitnessDirectory = $dag.AlternateWitnessDirectory
-            AlternateWitnessServer = $dag.AlternateWitnessServer
-            AutoDagAutoReseedEnabled = $dag.AutoDagAutoReseedEnabled
-            AutoDagDatabaseCopiesPerDatabase = $dag.AutoDagDatabaseCopiesPerDatabase
-            AutoDagDatabaseCopiesPerVolume = $dag.AutoDagDatabaseCopiesPerVolume
-            AutoDagDatabasesRootFolderPath = $dag.AutoDagDatabasesRootFolderPath
-            AutoDagDiskReclaimerEnabled = $dag.AutoDagDiskReclaimerEnabled
-            AutoDagTotalNumberOfDatabases = $dag.AutoDagTotalNumberOfDatabases
-            AutoDagTotalNumberOfServers = $dag.AutoDagTotalNumberOfServers
-            AutoDagVolumesRootFolderPath = $dag.AutoDagVolumesRootFolderPath
-            DatabaseAvailabilityGroupIpAddresses = $dag.DatabaseAvailabilityGroupIpAddresses
-            DatacenterActivationMode = $dag.DatacenterActivationMode
-            ManualDagNetworkConfiguration = $dag.ManualDagNetworkConfiguration
-            NetworkCompression = $dag.NetworkCompression
-            NetworkEncryption = $dag.NetworkEncryption
-            ReplayLagManagerEnabled = $dag.ReplayLagManagerEnabled
-            ReplicationPort = $dag.ReplicationPort
-            WitnessDirectory = $dag.WitnessDirectory
-            WitnessServer = $dag.WitnessServer
+            Name                                 = [System.String] $Name
+            AlternateWitnessDirectory            = [System.String] $dag.AlternateWitnessDirectory
+            AlternateWitnessServer               = [System.String] $dag.AlternateWitnessServer
+            AutoDagAutoReseedEnabled             = [System.Boolean] $dag.AutoDagAutoReseedEnabled
+            AutoDagDatabaseCopiesPerDatabase     = [System.Int32] $dag.AutoDagDatabaseCopiesPerDatabase
+            AutoDagDatabaseCopiesPerVolume       = [System.Int32] $dag.AutoDagDatabaseCopiesPerVolume
+            AutoDagDatabasesRootFolderPath       = [System.String] $dag.AutoDagDatabasesRootFolderPath
+            AutoDagDiskReclaimerEnabled          = [System.Boolean] $dag.AutoDagDiskReclaimerEnabled
+            AutoDagTotalNumberOfDatabases        = [System.Int32] $dag.AutoDagTotalNumberOfDatabases
+            AutoDagTotalNumberOfServers          = [System.Int32] $dag.AutoDagTotalNumberOfServers
+            AutoDagVolumesRootFolderPath         = [System.String] $dag.AutoDagVolumesRootFolderPath
+            DatabaseAvailabilityGroupIpAddresses = [System.String[]] $dag.DatabaseAvailabilityGroupIpAddresses
+            DatacenterActivationMode             = [System.String] $dag.DatacenterActivationMode
+            ManualDagNetworkConfiguration        = [System.Boolean] $dag.ManualDagNetworkConfiguration
+            NetworkCompression                   = [System.String] $dag.NetworkCompression
+            NetworkEncryption                    = [System.String] $dag.NetworkEncryption
+            ReplayLagManagerEnabled              = [System.Boolean] $dag.ReplayLagManagerEnabled
+            ReplicationPort                      = [System.UInt16] $dag.ReplicationPort
+            WitnessDirectory                     = [System.String] $dag.WitnessDirectory
+            WitnessServer                        = [System.String] $dag.WitnessServer
         }
 
-        $serverVersion = GetExchangeVersion
+        $serverVersion = Get-ExchangeVersionYear
 
-        if ($serverVersion -eq "2016")
+        if ($serverVersion -in '2016', '2019')
         {
-            $returnValue.Add("AutoDagAutoRedistributeEnabled", $dag.AutoDagAutoRedistributeEnabled)
-            $returnValue.Add("FileSystem", $dag.FileSystem)
-            $returnValue.Add("PreferenceMoveFrequency", $dag.PreferenceMoveFrequency)
+            $returnValue.Add("AutoDagAutoRedistributeEnabled", [System.Boolean] $dag.AutoDagAutoRedistributeEnabled)
+            $returnValue.Add("FileSystem", [System.String] $dag.FileSystem)
+            $returnValue.Add("PreferenceMoveFrequency", [System.String] $dag.PreferenceMoveFrequency)
         }
     }
 
@@ -151,115 +166,135 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Int32]
         $AutoDagTotalNumberOfServers,
 
+        [Parameter()]
         [System.String]
         $AlternateWitnessDirectory,
 
+        [Parameter()]
         [System.String]
         $AlternateWitnessServer,
 
+        [Parameter()]
         [System.Boolean]
         $AutoDagAutoRedistributeEnabled,
 
+        [Parameter()]
         [System.Boolean]
         $AutoDagAutoReseedEnabled,
 
+        [Parameter()]
         [System.Int32]
         $AutoDagDatabaseCopiesPerDatabase,
 
+        [Parameter()]
         [System.Int32]
         $AutoDagDatabaseCopiesPerVolume,
 
+        [Parameter()]
         [System.String]
         $AutoDagDatabasesRootFolderPath,
 
+        [Parameter()]
         [System.Boolean]
         $AutoDagDiskReclaimerEnabled,
 
+        [Parameter()]
         [System.Int32]
         $AutoDagTotalNumberOfDatabases,
 
+        [Parameter()]
         [System.String]
         $AutoDagVolumesRootFolderPath,
 
+        [Parameter()]
         [System.String[]]
         $DatabaseAvailabilityGroupIpAddresses,
 
-        [ValidateSet("Off","DagOnly")]
+        [Parameter()]
+        [ValidateSet('Off', 'DagOnly')]
         [System.String]
         $DatacenterActivationMode,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
-        [ValidateSet("NTFS","ReFS")]
+        [Parameter()]
+        [ValidateSet('NTFS', 'ReFS')]
         [System.String]
         $FileSystem,
 
+        [Parameter()]
         [System.Boolean]
         $ManualDagNetworkConfiguration,
 
-        [ValidateSet("Disabled","Enabled","InterSubnetOnly","SeedOnly")]
+        [Parameter()]
+        [ValidateSet('Disabled', 'Enabled', 'InterSubnetOnly', 'SeedOnly')]
         [System.String]
         $NetworkCompression,
 
-        [ValidateSet("Disabled","Enabled","InterSubnetOnly","SeedOnly")]
+        [Parameter()]
+        [ValidateSet('Disabled', 'Enabled', 'InterSubnetOnly', 'SeedOnly')]
         [System.String]
         $NetworkEncryption,
 
+        [Parameter()]
         [System.String]
         $PreferenceMoveFrequency,
 
+        [Parameter()]
         [System.Boolean]
         $ReplayLagManagerEnabled,
 
+        [Parameter()]
         [System.UInt16]
         $ReplicationPort,
 
+        [Parameter()]
         [System.Boolean]
         $SkipDagValidation,
 
+        [Parameter()]
         [System.String]
         $WitnessDirectory,
 
+        [Parameter()]
         [System.String]
         $WitnessServer
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Name' = $Name} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Name" = $Name} -VerbosePreference $VerbosePreference
-
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad "Get-DatabaseAvailabilityGroup","Set-DatabaseAvailabilityGroup","New-DatabaseAvailabilityGroup" -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-DatabaseAvailabilityGroup', 'Set-DatabaseAvailabilityGroup', 'New-DatabaseAvailabilityGroup' -Verbose:$VerbosePreference
 
     #create array of Exchange 2016 only parameters
-    [array]$Exchange2016Only = 'AutoDagAutoRedistributeEnabled','FileSystem','PreferenceMoveFrequency'
+    [System.Array] $Exchange2016Only = 'AutoDagAutoRedistributeEnabled', 'FileSystem', 'PreferenceMoveFrequency'
 
-    $serverVersion = GetExchangeVersion
+    $serverVersion = Get-ExchangeVersionYear
 
     if ($serverVersion -eq '2013')
     {
         foreach ($Exchange2016Parameter in $Exchange2016Only)
         {
-            #Check for non-existent parameters in Exchange 2013
-            RemoveVersionSpecificParameters -PSBoundParametersIn $PSBoundParameters -ParamName "$($Exchange2016Parameter)"  -ResourceName "xExchDatabaseAvailabilityGroup" -ParamExistsInVersion "2016"
+            # Check for non-existent parameters in Exchange 2013
+            Remove-NotApplicableParamsForVersion -PSBoundParametersIn $PSBoundParameters -ParamName "$Exchange2016Parameter"  -ResourceName 'xExchDatabaseAvailabilityGroup' -ParamExistsInVersion '2016'
         }
     }
-    elseif ($serverVersion -eq '2016')
+    elseif ($serverVersion -in '2016', '2019')
     {
         Write-Verbose -Message "No need to remove parameters"
     }
@@ -268,26 +303,26 @@ function Set-TargetResource
         Write-Verbose -Message "Could not detect Exchange version"
     }
 
-    SetEmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
+    Set-EmptyStringParamsToNull -PSBoundParametersIn $PSBoundParameters
 
-    $dag = GetDatabaseAvailabilityGroup @PSBoundParameters
+    $dag = Get-DatabaseAvailabilityGroupInternal @PSBoundParameters
 
-    #We need to create the DAG
+    # We need to create the DAG
     if ($null -eq $dag)
     {
-        #Create a copy of the original parameters
+        # Create a copy of the original parameters
         $originalPSBoundParameters = @{} + $PSBoundParameters
 
-        #Remove parameters that don't exist in New-DatabaseAvailabilityGroup
-        RemoveParameters -PSBoundParametersIn $PSBoundParameters -ParamsToKeep "Name","DatabaseAvailabilityGroupIpAddresses","WitnessDirectory","WitnessServer","DomainController"
+        # Remove parameters that don't exist in New-DatabaseAvailabilityGroup
+        Remove-FromPSBoundParametersUsingHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToKeep "Name", "DatabaseAvailabilityGroupIpAddresses", "WitnessDirectory", "WitnessServer", "DomainController"
 
-        #Create the DAG
+        # Create the DAG
         $dag = New-DatabaseAvailabilityGroup @PSBoundParameters
 
         if ($null -ne $dag)
         {
-            #Add original props back
-            AddParameters -PSBoundParametersIn $PSBoundParameters -ParamsToAdd $originalPSBoundParameters
+            # Add original props back
+            Add-ToPSBoundParametersFromHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToAdd $originalPSBoundParameters
         }
         else
         {
@@ -295,19 +330,19 @@ function Set-TargetResource
         }
     }
 
-    #Modify existing DAG
+    # Modify existing DAG
     if ($null -ne $dag)
     {
-        #convert Name to Identity, and Remove Credential
-        AddParameters -PSBoundParametersIn $PSBoundParameters -ParamsToAdd @{"Identity" = $PSBoundParameters["Name"]}
-        RemoveParameters -PSBoundParametersIn $PSBoundParameters -ParamsToRemove "Name","Credential"
+        # convert Name to Identity, and Remove Credential
+        Add-ToPSBoundParametersFromHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToAdd @{"Identity" = $PSBoundParameters["Name"]}
+        Remove-FromPSBoundParametersUsingHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToRemove "Name", "Credential"
 
-        #If not all members are in DAG yet, remove params that require them to be
+        # If not all members are in DAG yet, remove params that require them to be
         if ($dag.Servers.Count -lt $AutoDagTotalNumberOfServers)
         {
             if ($PSBoundParameters.ContainsKey("DatacenterActivationMode") -and $DatacenterActivationMode -like "DagOnly")
             {
-                RemoveParameters -PSBoundParametersIn $PSBoundParameters -ParamsToRemove "DatacenterActivationMode"                
+                Remove-FromPSBoundParametersUsingHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToRemove "DatacenterActivationMode"
             }
         }
 
@@ -323,115 +358,135 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Int32]
         $AutoDagTotalNumberOfServers,
 
+        [Parameter()]
         [System.String]
         $AlternateWitnessDirectory,
 
+        [Parameter()]
         [System.String]
         $AlternateWitnessServer,
 
+        [Parameter()]
         [System.Boolean]
         $AutoDagAutoRedistributeEnabled,
 
+        [Parameter()]
         [System.Boolean]
         $AutoDagAutoReseedEnabled,
 
+        [Parameter()]
         [System.Int32]
         $AutoDagDatabaseCopiesPerDatabase,
 
+        [Parameter()]
         [System.Int32]
         $AutoDagDatabaseCopiesPerVolume,
 
+        [Parameter()]
         [System.String]
         $AutoDagDatabasesRootFolderPath,
 
+        [Parameter()]
         [System.Boolean]
         $AutoDagDiskReclaimerEnabled,
 
+        [Parameter()]
         [System.Int32]
         $AutoDagTotalNumberOfDatabases,
 
+        [Parameter()]
         [System.String]
         $AutoDagVolumesRootFolderPath,
 
+        [Parameter()]
         [System.String[]]
         $DatabaseAvailabilityGroupIpAddresses,
 
-        [ValidateSet("Off","DagOnly")]
+        [Parameter()]
+        [ValidateSet('Off', 'DagOnly')]
         [System.String]
         $DatacenterActivationMode,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
-        [ValidateSet("NTFS","ReFS")]
+        [Parameter()]
+        [ValidateSet('NTFS', 'ReFS')]
         [System.String]
         $FileSystem,
 
+        [Parameter()]
         [System.Boolean]
         $ManualDagNetworkConfiguration,
 
-        [ValidateSet("Disabled","Enabled","InterSubnetOnly","SeedOnly")]
+        [Parameter()]
+        [ValidateSet('Disabled', 'Enabled', 'InterSubnetOnly', 'SeedOnly')]
         [System.String]
         $NetworkCompression,
 
-        [ValidateSet("Disabled","Enabled","InterSubnetOnly","SeedOnly")]
+        [Parameter()]
+        [ValidateSet('Disabled', 'Enabled', 'InterSubnetOnly', 'SeedOnly')]
         [System.String]
         $NetworkEncryption,
 
+        [Parameter()]
         [System.String]
         $PreferenceMoveFrequency,
 
+        [Parameter()]
         [System.Boolean]
         $ReplayLagManagerEnabled,
 
+        [Parameter()]
         [System.UInt16]
         $ReplicationPort,
 
+        [Parameter()]
         [System.Boolean]
         $SkipDagValidation,
 
+        [Parameter()]
         [System.String]
         $WitnessDirectory,
 
+        [Parameter()]
         [System.String]
         $WitnessServer
     )
 
-    #Load helper module
-    Import-Module "$((Get-Item -LiteralPath "$($PSScriptRoot)").Parent.Parent.FullName)\Misc\xExchangeCommon.psm1" -Verbose:0
+    Write-FunctionEntry -Parameters @{'Name' = $Name} -Verbose:$VerbosePreference
 
-    LogFunctionEntry -Parameters @{"Name" = $Name} -VerbosePreference $VerbosePreference
+    # Establish remote PowerShell session
+    Get-RemoteExchangeSession -Credential $Credential -CommandsToLoad 'Get-DatabaseAvailabilityGroup' -Verbose:$VerbosePreference
 
-    #Establish remote Powershell session
-    GetRemoteExchangeSession -Credential $Credential -CommandsToLoad "Get-DatabaseAvailabilityGroup" -VerbosePreference $VerbosePreference
+    # Create array of Exchange 2016 only parameters
+    [System.Array] $Exchange2016Only = 'AutoDagAutoRedistributeEnabled', 'FileSystem', 'PreferenceMoveFrequency'
 
-    #create array of Exchange 2016 only parameters
-    [array]$Exchange2016Only = 'AutoDagAutoRedistributeEnabled','FileSystem','PreferenceMoveFrequency'
-
-    $serverVersion = GetExchangeVersion
+    $serverVersion = Get-ExchangeVersionYear
 
     if ($serverVersion -eq '2013')
     {
         foreach ($Exchange2016Parameter in $Exchange2016Only)
         {
-            #Check for non-existent parameters in Exchange 2013
-            RemoveVersionSpecificParameters -PSBoundParametersIn $PSBoundParameters -ParamName "$($Exchange2016Parameter)"  -ResourceName "xExchDatabaseAvailabilityGroup" -ParamExistsInVersion "2016"
+            # Check for non-existent parameters in Exchange 2013
+            Remove-NotApplicableParamsForVersion -PSBoundParametersIn $PSBoundParameters -ParamName "$Exchange2016Parameter"  -ResourceName 'xExchDatabaseAvailabilityGroup' -ParamExistsInVersion '2016'
         }
     }
-    elseif ($serverVersion -eq '2016')
+    elseif ($serverVersion -in '2016', '2019')
     {
         Write-Verbose -Message "No need to remove parameters"
     }
@@ -440,236 +495,263 @@ function Test-TargetResource
         Write-Verbose -Message "Could not detect Exchange version"
     }
 
-    $dag = GetDatabaseAvailabilityGroup @PSBoundParameters
+    $dag = Get-DatabaseAvailabilityGroupInternal @PSBoundParameters
+
+    $testResults = $true
 
     if ($null -eq $dag)
     {
-        return $false
+        Write-Verbose -Message 'Unable to retrieve Database Availability Group settings'
+
+        $testResults = $false
     }
     else
     {
-        if (!(VerifySetting -Name "AlternateWitnessDirectory" -Type "String" -ExpectedValue $AlternateWitnessDirectory -ActualValue $dag.AlternateWitnessDirectory -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AlternateWitnessDirectory' -Type 'String' -ExpectedValue $AlternateWitnessDirectory -ActualValue $dag.AlternateWitnessDirectory -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "AlternateWitnessServer" -Type "String" -ExpectedValue $AlternateWitnessServer -ActualValue $dag.AlternateWitnessServer -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AlternateWitnessServer' -Type 'String' -ExpectedValue $AlternateWitnessServer -ActualValue $dag.AlternateWitnessServer -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "AutoDagAutoRedistributeEnabled" -Type "Boolean" -ExpectedValue $AutoDagAutoRedistributeEnabled -ActualValue $dag.AutoDagAutoRedistributeEnabled -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AutoDagAutoRedistributeEnabled' -Type 'Boolean' -ExpectedValue $AutoDagAutoRedistributeEnabled -ActualValue $dag.AutoDagAutoRedistributeEnabled -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "AutoDagAutoReseedEnabled" -Type "Boolean" -ExpectedValue $AutoDagAutoReseedEnabled -ActualValue $dag.AutoDagAutoReseedEnabled -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AutoDagAutoReseedEnabled' -Type 'Boolean' -ExpectedValue $AutoDagAutoReseedEnabled -ActualValue $dag.AutoDagAutoReseedEnabled -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "AutoDagDatabaseCopiesPerDatabase" -Type "Int" -ExpectedValue $AutoDagDatabaseCopiesPerDatabase -ActualValue $dag.AutoDagDatabaseCopiesPerDatabase -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AutoDagDatabaseCopiesPerDatabase' -Type 'Int' -ExpectedValue $AutoDagDatabaseCopiesPerDatabase -ActualValue $dag.AutoDagDatabaseCopiesPerDatabase -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "AutoDagDatabaseCopiesPerVolume" -Type "Int" -ExpectedValue $AutoDagDatabaseCopiesPerVolume -ActualValue $dag.AutoDagDatabaseCopiesPerVolume -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AutoDagDatabaseCopiesPerVolume' -Type 'Int' -ExpectedValue $AutoDagDatabaseCopiesPerVolume -ActualValue $dag.AutoDagDatabaseCopiesPerVolume -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "AutoDagDatabasesRootFolderPath" -Type "String" -ExpectedValue $AutoDagDatabasesRootFolderPath -ActualValue $dag.AutoDagDatabasesRootFolderPath -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AutoDagDatabasesRootFolderPath' -Type 'String' -ExpectedValue $AutoDagDatabasesRootFolderPath -ActualValue $dag.AutoDagDatabasesRootFolderPath -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "AutoDagDiskReclaimerEnabled" -Type "Boolean" -ExpectedValue $AutoDagDiskReclaimerEnabled -ActualValue $dag.AutoDagDiskReclaimerEnabled -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AutoDagDiskReclaimerEnabled' -Type 'Boolean' -ExpectedValue $AutoDagDiskReclaimerEnabled -ActualValue $dag.AutoDagDiskReclaimerEnabled -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "AutoDagTotalNumberOfDatabases" -Type "Int" -ExpectedValue $AutoDagTotalNumberOfDatabases -ActualValue $dag.AutoDagTotalNumberOfDatabases -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AutoDagTotalNumberOfDatabases' -Type 'Int' -ExpectedValue $AutoDagTotalNumberOfDatabases -ActualValue $dag.AutoDagTotalNumberOfDatabases -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "AutoDagTotalNumberOfServers" -Type "Int" -ExpectedValue $AutoDagTotalNumberOfServers -ActualValue $dag.AutoDagTotalNumberOfServers -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AutoDagTotalNumberOfServers' -Type 'Int' -ExpectedValue $AutoDagTotalNumberOfServers -ActualValue $dag.AutoDagTotalNumberOfServers -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "AutoDagVolumesRootFolderPath" -Type "String" -ExpectedValue $AutoDagVolumesRootFolderPath -ActualValue $dag.AutoDagVolumesRootFolderPath -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'AutoDagVolumesRootFolderPath' -Type 'String' -ExpectedValue $AutoDagVolumesRootFolderPath -ActualValue $dag.AutoDagVolumesRootFolderPath -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "DatabaseAvailabilityGroupIpAddresses" -Type "Array" -ExpectedValue $DatabaseAvailabilityGroupIpAddresses -ActualValue $dag.DatabaseAvailabilityGroupIpAddresses -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'DatabaseAvailabilityGroupIpAddresses' -Type 'Array' -ExpectedValue $DatabaseAvailabilityGroupIpAddresses -ActualValue $dag.DatabaseAvailabilityGroupIpAddresses -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "FileSystem" -Type "String" -ExpectedValue $FileSystem -ActualValue $dag.FileSystem -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'FileSystem' -Type 'String' -ExpectedValue $FileSystem -ActualValue $dag.FileSystem -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "ManualDagNetworkConfiguration" -Type "Boolean" -ExpectedValue $ManualDagNetworkConfiguration -ActualValue $dag.ManualDagNetworkConfiguration -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'ManualDagNetworkConfiguration' -Type 'Boolean' -ExpectedValue $ManualDagNetworkConfiguration -ActualValue $dag.ManualDagNetworkConfiguration -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "NetworkCompression" -Type "String" -ExpectedValue $NetworkCompression -ActualValue $dag.NetworkCompression -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'NetworkCompression' -Type 'String' -ExpectedValue $NetworkCompression -ActualValue $dag.NetworkCompression -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "NetworkEncryption" -Type "String" -ExpectedValue $NetworkEncryption -ActualValue $dag.NetworkEncryption -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'NetworkEncryption' -Type 'String' -ExpectedValue $NetworkEncryption -ActualValue $dag.NetworkEncryption -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "NetworkEncryption" -Type "String" -ExpectedValue $NetworkEncryption -ActualValue $dag.NetworkEncryption -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'NetworkEncryption' -Type 'String' -ExpectedValue $NetworkEncryption -ActualValue $dag.NetworkEncryption -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "PreferenceMoveFrequency" -Type "Timespan" -ExpectedValue $PreferenceMoveFrequency -ActualValue $dag.PreferenceMoveFrequency -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'PreferenceMoveFrequency' -Type 'Timespan' -ExpectedValue $PreferenceMoveFrequency -ActualValue $dag.PreferenceMoveFrequency -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        #Replication port only comes back correctly from Get-DatabaseAvailabilityGroup if it has been set when there is 1 or more servers in the DAG
+        # Replication port only comes back correctly from Get-DatabaseAvailabilityGroup if it has been set when there is 1 or more servers in the DAG
         if ($dag.Servers.Count -gt 0)
         {
-            if (!(VerifySetting -Name "ReplicationPort" -Type "Int" -ExpectedValue $ReplicationPort -ActualValue $dag.ReplicationPort -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+            if (!(Test-ExchangeSetting -Name 'ReplicationPort' -Type 'Int' -ExpectedValue $ReplicationPort -ActualValue $dag.ReplicationPort -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
             {
-                return $false
+                $testResults = $false
             }
         }
-        
-        if (!(VerifySetting -Name "WitnessDirectory" -Type "String" -ExpectedValue $WitnessDirectory -ActualValue $dag.WitnessDirectory -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+
+        if (!(Test-ExchangeSetting -Name 'WitnessDirectory' -Type 'String' -ExpectedValue $WitnessDirectory -ActualValue $dag.WitnessDirectory -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        if (!(VerifySetting -Name "WitnessServer" -Type "String" -ExpectedValue $WitnessServer -ActualValue $dag.WitnessServer -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+        if (!(Test-ExchangeSetting -Name 'WitnessServer' -Type 'String' -ExpectedValue $WitnessServer -ActualValue $dag.WitnessServer -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
         {
-            return $false
+            $testResults = $false
         }
 
-        #Verify these props only if all members are in the DAG
+        # Verify these props only if all members are in the DAG
         if ($dag.Servers.Count -ge $AutoDagTotalNumberOfServers)
         {
-            if (!(VerifySetting -Name "DatacenterActivationMode" -Type "String" -ExpectedValue $DatacenterActivationMode -ActualValue $dag.DatacenterActivationMode -PSBoundParametersIn $PSBoundParameters -VerbosePreference $VerbosePreference))
+            if (!(Test-ExchangeSetting -Name 'DatacenterActivationMode' -Type 'String' -ExpectedValue $DatacenterActivationMode -ActualValue $dag.DatacenterActivationMode -PSBoundParametersIn $PSBoundParameters -Verbose:$VerbosePreference))
             {
-                return $false
+                $testResults = $false
             }
         }
     }
 
-    return $true
+    return $testResults
 }
 
-#Runs Get-DatabaseAvailabilityGroup, only specifying Identity, ErrorAction, and optionally DomainController
-function GetDatabaseAvailabilityGroup
+# Runs Get-DatabaseAvailabilityGroup, only specifying Identity, ErrorAction, and optionally DomainController
+function Get-DatabaseAvailabilityGroupInternal
 {
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $Name,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential,
 
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.Int32]
         $AutoDagTotalNumberOfServers,
 
+        [Parameter()]
         [System.String]
         $AlternateWitnessDirectory,
 
+        [Parameter()]
         [System.String]
         $AlternateWitnessServer,
 
+        [Parameter()]
         [System.Boolean]
         $AutoDagAutoRedistributeEnabled,
 
+        [Parameter()]
         [System.Boolean]
         $AutoDagAutoReseedEnabled,
 
+        [Parameter()]
         [System.Int32]
         $AutoDagDatabaseCopiesPerDatabase,
 
+        [Parameter()]
         [System.Int32]
         $AutoDagDatabaseCopiesPerVolume,
 
+        [Parameter()]
         [System.String]
         $AutoDagDatabasesRootFolderPath,
 
+        [Parameter()]
         [System.Boolean]
         $AutoDagDiskReclaimerEnabled,
 
+        [Parameter()]
         [System.Int32]
         $AutoDagTotalNumberOfDatabases,
 
+        [Parameter()]
         [System.String]
         $AutoDagVolumesRootFolderPath,
 
+        [Parameter()]
         [System.String[]]
         $DatabaseAvailabilityGroupIpAddresses,
 
-        [ValidateSet("Off","DagOnly")]
+        [Parameter()]
+        [ValidateSet('Off', 'DagOnly')]
         [System.String]
         $DatacenterActivationMode,
 
+        [Parameter()]
         [System.String]
         $DomainController,
 
-        [ValidateSet("NTFS","ReFS")]
+        [Parameter()]
+        [ValidateSet('NTFS', 'ReFS')]
         [System.String]
         $FileSystem,
 
+        [Parameter()]
         [System.Boolean]
         $ManualDagNetworkConfiguration,
 
-        [ValidateSet("Disabled","Enabled","InterSubnetOnly","SeedOnly")]
+        [Parameter()]
+        [ValidateSet('Disabled', 'Enabled', 'InterSubnetOnly', 'SeedOnly')]
         [System.String]
         $NetworkCompression,
 
-        [ValidateSet("Disabled","Enabled","InterSubnetOnly","SeedOnly")]
+        [Parameter()]
+        [ValidateSet('Disabled', 'Enabled', 'InterSubnetOnly', 'SeedOnly')]
         [System.String]
         $NetworkEncryption,
 
+        [Parameter()]
         [System.String]
         $PreferenceMoveFrequency,
 
+        [Parameter()]
         [System.Boolean]
         $ReplayLagManagerEnabled,
 
+        [Parameter()]
         [System.UInt16]
         $ReplicationPort,
 
+        [Parameter()]
         [System.Boolean]
         $SkipDagValidation,
 
+        [Parameter()]
         [System.String]
         $WitnessDirectory,
 
+        [Parameter()]
         [System.String]
         $WitnessServer
     )
 
-    AddParameters -PSBoundParametersIn $PSBoundParameters -ParamsToAdd @{"Identity" = $PSBoundParameters["Name"]; "ErrorAction" = "SilentlyContinue"}
-    RemoveParameters -PSBoundParametersIn $PSBoundParameters -ParamsToKeep "Identity","ErrorAction","DomainController"
+    Add-ToPSBoundParametersFromHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToAdd @{
+        'Identity' = $PSBoundParameters['Name']
+        'ErrorAction' = 'SilentlyContinue'
+    }
+    Remove-FromPSBoundParametersUsingHashtable -PSBoundParametersIn $PSBoundParameters -ParamsToKeep 'Identity', 'ErrorAction', 'DomainController'
 
     return (Get-DatabaseAvailabilityGroup @PSBoundParameters -Status)
 }
 
 Export-ModuleMember -Function *-TargetResource
-
-
-

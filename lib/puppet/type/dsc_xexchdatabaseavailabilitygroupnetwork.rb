@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupnetwork) do
   def dscmeta_resource_friendly_name; 'xExchDatabaseAvailabilityGroupNetwork' end
   def dscmeta_resource_name; 'MSFT_xExchDatabaseAvailabilityGroupNetwork' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '1.27.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -65,7 +65,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupnetwork) do
   newparam(:dsc_name) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Name"
+    desc "Name - The name of the DAG network."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -81,7 +81,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupnetwork) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
+    desc "Credential - Credentials used to establish a remote PowerShell session to Exchange."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -100,7 +100,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupnetwork) do
   newparam(:dsc_databaseavailabilitygroup) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DatabaseAvailabilityGroup"
+    desc "DatabaseAvailabilityGroup - The DAG where the network will live."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -115,7 +115,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupnetwork) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Whether the DAG network should exist or not. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -134,7 +134,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupnetwork) do
   newparam(:dsc_domaincontroller) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainController"
+    desc "DomainController - The DomainController parameter specifies the domain controller that's used by this cmdlet to read data from or write data to Active Directory. You identify the domain controller by its fully qualified domain name (FQDN). For example, dc01.contoso.com."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -149,7 +149,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupnetwork) do
   newparam(:dsc_ignorenetwork) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "IgnoreNetwork"
+    desc "IgnoreNetwork - The IgnoreNetwork parameter indicates that the specified network should be ignored and not used by the DAG."
     validate do |value|
     end
     newvalues(true, false)
@@ -165,7 +165,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupnetwork) do
   newparam(:dsc_replicationenabled) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "ReplicationEnabled"
+    desc "ReplicationEnabled - The ReplicationEnabled parameter specifies whether the network can be used for replication activity. If this parameter isn't specified, the default behavior is to enable the network for replication."
     validate do |value|
     end
     newvalues(true, false)
@@ -181,7 +181,7 @@ Puppet::Type.newtype(:dsc_xexchdatabaseavailabilitygroupnetwork) do
   newparam(:dsc_subnets, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Subnets"
+    desc "Subnets - The Subnets parameter specifies one or more subnets that are associated with the DAG network."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

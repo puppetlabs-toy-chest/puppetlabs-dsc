@@ -1,4 +1,4 @@
-﻿$errorActionPreference = 'Stop'
+$errorActionPreference = 'Stop'
 Set-StrictMode -Version 'Latest'
 
 # Import ResourceSetHelper for New-ResourceSetConfigurationScriptBlock
@@ -15,7 +15,7 @@ Import-Module -Name $script:resourceSetHelperFilePath
 
     .PARAMETER Ensure
         Specifies whether or not the set of services should exist.
-        
+
         Set this property to Present to modify a set of services.
         Set this property to Absent to remove a set of services.
 
@@ -50,25 +50,30 @@ Configuration xServiceSet
     (
         [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
-        [String[]]
+        [System.String[]]
         $Name,
 
+        [Parameter()]
         [ValidateSet('Present', 'Absent')]
-        [String]
+        [System.String]
         $Ensure,
 
+        [Parameter()]
         [ValidateSet('Automatic', 'Manual', 'Disabled')]
-        [String]
+        [System.String]
         $StartupType,
 
+        [Parameter()]
         [ValidateSet('LocalSystem', 'LocalService', 'NetworkService')]
-        [String]
+        [System.String]
         $BuiltInAccount,
 
+        [Parameter()]
         [ValidateSet('Running', 'Stopped', 'Ignore')]
-        [String]
+        [System.String]
         $State,
 
+        [Parameter()]
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
@@ -81,7 +86,7 @@ Configuration xServiceSet
         KeyParameterName = 'Name'
         Parameters = $PSBoundParameters
     }
-    
+
     $configurationScriptBlock = New-ResourceSetConfigurationScriptBlock @newResourceSetConfigurationParams
 
     # This script block must be run directly in this configuration in order to resolve variables

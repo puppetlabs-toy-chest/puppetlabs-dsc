@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spsearchserviceapp) do
   def dscmeta_resource_friendly_name; 'SPSearchServiceApp' end
   def dscmeta_resource_name; 'MSFT_SPSearchServiceApp' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -210,7 +210,7 @@ Puppet::Type.newtype(:dsc_spsearchserviceapp) do
   newparam(:dsc_windowsserviceaccount) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "WindowsServiceAccount - Sets the windows services for search to run as this account"
+    desc "WindowsServiceAccount - This setting is moved to SPSearchServiceSettings and deprecated here."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")

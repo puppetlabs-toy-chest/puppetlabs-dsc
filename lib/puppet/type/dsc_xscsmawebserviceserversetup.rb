@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
   def dscmeta_resource_friendly_name; 'xSCSMAWebServiceServerSetup' end
   def dscmeta_resource_name; 'MSFT_xSCSMAWebServiceServerSetup' end
   def dscmeta_module_name; 'xSCSMA' end
-  def dscmeta_module_version; '1.5.0.0' end
+  def dscmeta_module_version; '2.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -345,14 +345,14 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
     end
   end
 
-  # Name:         SendCEIPReports
+  # Name:         SendTelemetryReports
   # Type:         string
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_sendceipreports) do
+  newparam(:dsc_sendtelemetryreports) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "SendCEIPReports - Send Customer Experience Improvement Program."
+    desc "SendTelemetryReports - Usage and Diagnostics Data sent to Microsoft."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -405,6 +405,51 @@ Puppet::Type.newtype(:dsc_xscsmawebserviceserversetup) do
     end
     munge do |value|
       Array(value)
+    end
+  end
+
+  # Name:         LogMsiInstall
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_logmsiinstall) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "LogMsiInstall - Set to activate logging during install of MSI."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         MsiLogPath
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_msilogpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "MsiLogPath - Path to log file for MSI install"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         MsiLogName
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_msilogname) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "MsiLogName - Logfile name for MSI install."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
     end
   end
 

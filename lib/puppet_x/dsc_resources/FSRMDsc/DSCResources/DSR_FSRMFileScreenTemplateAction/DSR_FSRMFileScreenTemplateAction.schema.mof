@@ -1,0 +1,21 @@
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMFileScreenTemplateAction")]
+class DSR_FSRMFileScreenTemplateAction : OMI_BaseResource
+{
+  [Key,  Description("The name of the FSRM File Screen Template that this Action is attached to.")] string Name;
+  [Key,  Description("The type of FSRM Action."), ValueMap{"Email","Event","Command","Report"}, Values{"Email","Event","Command","Report"}] string Type;
+  [Write, Description("Specifies whether the FSRM Action should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+  [Write, Description("The subject of the e-mail sent. Required when Type is Email.")] string Subject;
+  [Write, Description("The body text of the e-mail or event. Required when Type is Email or Event.")] string Body;
+  [Write, Description("The mail to of the e-mail sent. Required when Type is Email.")] string MailTo;
+  [Write, Description("The mail CC of the e-mail sent. Required when Type is Email.")] string MailCC;
+  [Write, Description("The mail BCC of the e-mail sent. Required when Type is Email.")] string MailBCC;
+  [Write, Description("The type of event created. Required when Type is Event."), ValueMap{"None","Information","Warning","Error"}, Values{"None","Information","Warning","Error"}] string EventType;
+  [Write, Description("The Command to execute. Required when Type is Command.")] string Command;
+  [Write, Description("The Command Parameters. Required when Type is Command.")] string CommandParameters;
+  [Write, Description("Int containing kill timeout of the command. Required when Type is Command.")] sint32 KillTimeOut;
+  [Write, Description("Int containing the run limit interval of the command. Required when Type is Command.")] sint32 RunLimitInterval;
+  [Write, Description("The security level the command runs under. Required when Type is Command."), ValueMap{"None","LocalService","NetworkService","LocalSystem"}, Values{"None","LocalService","NetworkService","LocalSystem"}] string SecurityLevel;
+  [Write, Description("Boolean specifying if command errors should be logged. Required when Type is Command.")] boolean ShouldLogError;
+  [Write, Description("The working directory of the command. Required when Type is Command.")] string WorkingDirectory;
+  [Write, Description("Array of Reports to create. Required when Type is Report.")] string ReportTypes[];
+};

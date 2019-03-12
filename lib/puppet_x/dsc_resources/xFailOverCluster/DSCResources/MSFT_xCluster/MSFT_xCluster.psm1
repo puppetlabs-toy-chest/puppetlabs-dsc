@@ -177,8 +177,12 @@ function Set-TargetResource
               Name          = $Name
               Node          = $env:COMPUTERNAME
               NoStorage     = $true
-              Force         = $true
               ErrorAction   = 'Stop'
+            }
+
+            if ((Get-Command New-Cluster).Parameters['Force'])
+            {
+                $newClusterParameters.Force = $true
             }
 
             if ($StaticIPAddress)

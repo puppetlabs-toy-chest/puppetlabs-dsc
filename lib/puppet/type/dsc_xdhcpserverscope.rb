@@ -21,14 +21,13 @@ Puppet::Type.newtype(:dsc_xdhcpserverscope) do
   }
 
   validate do
-      fail('dsc_ipstartrange is a required attribute') if self[:dsc_ipstartrange].nil?
-      fail('dsc_ipendrange is a required attribute') if self[:dsc_ipendrange].nil?
+      fail('dsc_scopeid is a required attribute') if self[:dsc_scopeid].nil?
     end
 
   def dscmeta_resource_friendly_name; 'xDhcpServerScope' end
   def dscmeta_resource_name; 'MSFT_xDhcpServerScope' end
   def dscmeta_module_name; 'xDhcpServer' end
-  def dscmeta_module_version; '1.6.0.0' end
+  def dscmeta_module_version; '2.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -59,30 +58,14 @@ Puppet::Type.newtype(:dsc_xdhcpserverscope) do
     end
   end
 
-  # Name:         IPStartRange
+  # Name:         ScopeId
   # Type:         string
   # IsMandatory:  True
   # Values:       None
-  newparam(:dsc_ipstartrange) do
+  newparam(:dsc_scopeid) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "IPStartRange - Starting address to set for this scope"
-    isrequired
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         IPEndRange
-  # Type:         string
-  # IsMandatory:  True
-  # Values:       None
-  newparam(:dsc_ipendrange) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "IPEndRange - Ending address to set for this scope"
+    desc "ScopeId - ScopeId for the given scope"
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -114,6 +97,51 @@ Puppet::Type.newtype(:dsc_xdhcpserverscope) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "SubnetMask - Subnet mask for the scope specified in IP address format"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         IPStartRange
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_ipstartrange) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "IPStartRange - Starting address to set for this scope"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         IPEndRange
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_ipendrange) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "IPEndRange - Ending address to set for this scope"
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Description
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_description) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Description - Description of DHCP Scope"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -187,21 +215,6 @@ Puppet::Type.newtype(:dsc_xdhcpserverscope) do
       end
       unless ['Present', 'present', 'Absent', 'absent'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Present, Absent")
-      end
-    end
-  end
-
-  # Name:         ScopeID
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_scopeid) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "ScopeID - ScopeId for the given scope"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
       end
     end
   end

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
   def dscmeta_resource_friendly_name; 'xRDSessionCollectionConfiguration' end
   def dscmeta_resource_name; 'MSFT_xRDSessionCollectionConfiguration' end
   def dscmeta_module_name; 'xRemoteDesktopSessionHost' end
-  def dscmeta_module_version; '1.5.0.0' end
+  def dscmeta_module_version; '1.8.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -358,6 +358,127 @@ Puppet::Type.newtype(:dsc_xrdsessioncollectionconfiguration) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         DiskPath
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_diskpath) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DiskPath - Specifies the target to store the User Profile Disks "
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         EnableUserProfileDisk
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_enableuserprofiledisk) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "EnableUserProfileDisk - Specifies if this collection uses UserProfileDisks "
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         ExcludeFilePath
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_excludefilepath, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "ExcludeFilePath - Specifies a list of strings for files to exclude from the user profile disk "
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         ExcludeFolderPath
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_excludefolderpath, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "ExcludeFolderPath - Specifies a list of strings for folders to exclude from the user profile disk "
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         IncludeFilePath
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_includefilepath, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "IncludeFilePath - Specifies a list of strings for files to include in the user profile disk "
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         IncludeFolderPath
+  # Type:         string[]
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_includefolderpath, :array_matching => :all) do
+    def mof_type; 'string[]' end
+    def mof_is_embedded?; false end
+    desc "IncludeFolderPath - Specifies a list of strings for folders to include in the user profile disk "
+    validate do |value|
+      unless value.kind_of?(Array) || value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string or an array of strings")
+      end
+    end
+    munge do |value|
+      Array(value)
+    end
+  end
+
+  # Name:         MaxUserProfileDiskSizeGB
+  # Type:         uint32
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_maxuserprofiledisksizegb) do
+    def mof_type; 'uint32' end
+    def mof_is_embedded?; false end
+    desc "MaxUserProfileDiskSizeGB - Specifies the maximum size in GB for a User Profile Disk "
+    validate do |value|
+      unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
+          fail("Invalid value #{value}. Should be a unsigned Integer")
+      end
+    end
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_integer(value)
     end
   end
 

@@ -5,6 +5,11 @@ function Get-TargetResource
     param
     (
         [Parameter(Mandatory = $true)]
+        [ValidateSet('Yes')]
+        [String]
+        $IsSingleInstance,
+
+        [Parameter(Mandatory = $true)]
         [System.String]
         $BinaryDir,
 
@@ -37,27 +42,29 @@ function Get-TargetResource
     $installedItems = $installedItemsX86 + $installedItemsX64
     $installedItems = $installedItems | Select-Object -Property DisplayName -Unique
     $spInstall = $installedItems | Where-Object -FilterScript {
-        $_ -match "Microsoft SharePoint Server (2013|2016)"
+        $_ -match "Microsoft SharePoint Server (2013|2016|2019)"
     }
 
     if ($spInstall)
     {
         return @{
-            BinaryDir = $BinaryDir
-            ProductKey = $ProductKey
-            InstallPath = $InstallPath
-            DataPath = $DataPath
-            Ensure = "Present"
+            IsSingleInstance = "Yes"
+            BinaryDir        = $BinaryDir
+            ProductKey       = $ProductKey
+            InstallPath      = $InstallPath
+            DataPath         = $DataPath
+            Ensure           = "Present"
         }
     }
     else
     {
         return @{
-            BinaryDir = $BinaryDir
-            ProductKey = $ProductKey
-            InstallPath = $InstallPath
-            DataPath = $DataPath
-            Ensure = "Absent"
+            IsSingleInstance = "Yes"
+            BinaryDir        = $BinaryDir
+            ProductKey       = $ProductKey
+            InstallPath      = $InstallPath
+            DataPath         = $DataPath
+            Ensure           = "Absent"
         }
     }
 }
@@ -70,6 +77,11 @@ function Set-TargetResource
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSAvoidGlobalVars", "")]
     param
     (
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Yes')]
+        [String]
+        $IsSingleInstance,
+
         [Parameter(Mandatory = $true)]
         [System.String]
         $BinaryDir,
@@ -98,7 +110,6 @@ function Set-TargetResource
     {
         throw [Exception] ("SharePointDsc does not support uninstalling SharePoint or " + `
                            "its prerequisites. Please remove this manually.")
-        return
     }
 
     $InstallerPath = Join-Path $BinaryDir "setup.exe"
@@ -146,7 +157,7 @@ function Set-TargetResource
 
     Write-Verbose -Message "Writing install config file"
 
-    $configPath = "$env:temp\SPInstallConfig.xml"
+    $configPath = Join-Path -Path $env:temp -ChildPath "SPInstallConfig.xml"
 
     $configData = "<Configuration>
     <Package Id=`"sts`">
@@ -232,6 +243,11 @@ function Test-TargetResource
     param
     (
         [Parameter(Mandatory = $true)]
+        [ValidateSet('Yes')]
+        [String]
+        $IsSingleInstance,
+
+        [Parameter(Mandatory = $true)]
         [System.String]
         $BinaryDir,
 
@@ -261,7 +277,6 @@ function Test-TargetResource
     {
         throw [Exception] ("SharePointDsc does not support uninstalling SharePoint or " + `
                            "its prerequisites. Please remove this manually.")
-        return
     }
 
     $CurrentValues = Get-TargetResource @PSBoundParameters

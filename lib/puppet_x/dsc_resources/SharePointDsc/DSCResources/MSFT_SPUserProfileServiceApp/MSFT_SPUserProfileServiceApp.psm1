@@ -22,6 +22,10 @@ function Get-TargetResource
 
         [Parameter()]
         [System.String]
+        $MySiteManagedPath,
+
+        [Parameter()]
+        [System.String]
         $ProfileDBName,
 
         [Parameter()]
@@ -53,6 +57,11 @@ function Get-TargetResource
         $NoILMUsed = $false,
 
         [Parameter()]
+        [ValidateSet("Username_CollisionError","Username_CollisionDomain","Domain_Username")]
+        [System.String]
+        $SiteNamingConflictResolution,
+
+        [Parameter()]
         [ValidateSet("Present","Absent")]
         [System.String]
         $Ensure = "Present",
@@ -63,6 +72,12 @@ function Get-TargetResource
     )
 
     Write-Verbose -Message "Getting user profile service application $Name"
+
+    if ($PSBoundParameters.ContainsKey("MySiteHostLocation") -eq $false)
+    {
+        Write-Verbose -Message ("You should also specify the MySiteHostLocation parameter. " + `
+                                "This will be required as of SharePointDsc v4.0")
+    }
 
     $farmAccount = Invoke-SPDSCCommand -Credential $InstallAccount `
                                        -Arguments $PSBoundParameters `
@@ -91,9 +106,8 @@ function Get-TargetResource
                 $localaccount = "$($Env:USERDOMAIN)\$($Env:USERNAME)"
                 if ($localaccount -eq $farmAccount.UserName)
                 {
-                    throw ("Specified PSDSCRunAsCredential ($localaccount) is the Farm " + `
-                           "Account. Make sure the specified PSDSCRunAsCredential isn't the " + `
-                           "Farm Account and try again")
+                    Write-Verbose -Message ("The current user ($localaccount) is the Farm " + `
+                           "Account. Please note that this will cause issues when applying the configuration.")
                 }
             }
         }
@@ -160,21 +174,41 @@ function Get-TargetResource
                     $proxyName = $serviceAppProxy.Name
                 }
             }
+            $upMySiteLocation = $null
+            $upMySiteManagedPath = $null
+            $upSiteConflictNaming = $null
+            try
+            {
+                $ca = Get-SPWebApplication -IncludeCentralAdministration | Where-Object -FilterScript {$_.IsAdministrationWebApplication}
+                $caSite = $ca.Sites[0]
+                $serviceContext = Get-SPServiceContext($caSite)
+                $userProfileManager = New-Object Microsoft.Office.Server.UserProfiles.UserProfileManager($serviceContext)
+                $upMySiteLocation = $userProfileManager.MySiteHostUrl
+                $upMySiteManagedPath = $userProfileManager.PersonalSiteInclusion
+                $upSiteConflictNaming = $userProfileManager.PersonalSiteFormat
+            }
+            catch
+            {
+                throw "The provided My Site Location is not a valid My Site Host."
+            }
+
             return @{
-                Name               = $serviceApp.DisplayName
-                ProxyName          = $proxyName
-                ApplicationPool    = $serviceApp.ApplicationPool.Name
-                MySiteHostLocation = $params.MySiteHostLocation
-                ProfileDBName      = $databases.ProfileDatabase.Name
-                ProfileDBServer    = $databases.ProfileDatabase.NormalizedDataSource
-                SocialDBName       = $databases.SocialDatabase.Name
-                SocialDBServer     = $databases.SocialDatabase.NormalizedDataSource
-                SyncDBName         = $databases.SynchronizationDatabase.Name
-                SyncDBServer       = $databases.SynchronizationDatabase.NormalizedDataSource
-                InstallAccount     = $params.InstallAccount
-                EnableNetBIOS      = $serviceApp.NetBIOSDomainNamesEnabled
-                NoILMUsed          = $serviceApp.NoILMUsed
-                Ensure             = "Present"
+                Name                         = $serviceApp.DisplayName
+                ProxyName                    = $proxyName
+                ApplicationPool              = $serviceApp.ApplicationPool.Name
+                MySiteHostLocation           = $upMySiteLocation
+                MySiteManagedPath            = $upMySiteManagedPath
+                ProfileDBName                = $databases.ProfileDatabase.Name
+                ProfileDBServer              = $databases.ProfileDatabase.NormalizedDataSource
+                SocialDBName                 = $databases.SocialDatabase.Name
+                SocialDBServer               = $databases.SocialDatabase.NormalizedDataSource
+                SyncDBName                   = $databases.SynchronizationDatabase.Name
+                SyncDBServer                 = $databases.SynchronizationDatabase.NormalizedDataSource
+                InstallAccount               = $params.InstallAccount
+                EnableNetBIOS                = $serviceApp.NetBIOSDomainNamesEnabled
+                NoILMUsed                    = $serviceApp.NoILMUsed
+                SiteNamingConflictResolution = $upSiteConflictNaming
+                Ensure                       = "Present"
             }
         }
     }
@@ -201,6 +235,10 @@ function Set-TargetResource
         [Parameter()]
         [System.String]
         $MySiteHostLocation,
+
+        [Parameter()]
+        [System.String]
+        $MySiteManagedPath,
 
         [Parameter()]
         [System.String]
@@ -235,6 +273,11 @@ function Set-TargetResource
         $NoILMUsed = $false,
 
         [Parameter()]
+        [ValidateSet("Username_CollisionError","Username_CollisionDomain","Domain_Username")]
+        [System.String]
+        $SiteNamingConflictResolution,
+
+        [Parameter()]
         [ValidateSet("Present","Absent")]
         [System.String]
         $Ensure = "Present",
@@ -246,11 +289,17 @@ function Set-TargetResource
 
     Write-Verbose -Message "Setting user profile service application $Name"
 
+    if ($PSBoundParameters.ContainsKey("MySiteHostLocation") -eq $false)
+    {
+        Write-Verbose -Message ("You should also specify the MySiteHostLocation parameter. " + `
+                                "This will be required as of SharePointDsc v4.0")
+    }
+
     if ($Ensure -eq "Present")
     {
         $farmAccount = Invoke-SPDSCCommand -Credential $InstallAccount `
-                                               -Arguments $PSBoundParameters `
-                                               -ScriptBlock {
+                                           -Arguments $PSBoundParameters `
+                                           -ScriptBlock {
             return Get-SPDscFarmAccount
         }
 
@@ -265,6 +314,7 @@ function Set-TargetResource
                            "Account. Make sure the specified InstallAccount isn't the Farm Account " + `
                            "and try again")
                 }
+                $setupAccount = $InstallAccount.UserName
             }
             else
             {
@@ -279,6 +329,7 @@ function Set-TargetResource
                                "Account. Make sure the specified PSDSCRunAsCredential isn't the " + `
                                "Farm Account and try again")
                     }
+                    $setupAccount = $localaccount
                 }
             }
         }
@@ -305,9 +356,10 @@ function Set-TargetResource
         }
 
         $null = Invoke-SPDSCCommand -Credential $FarmAccount `
-                                    -Arguments $PSBoundParameters `
+                                    -Arguments @($PSBoundParameters, $setupAccount) `
                                     -ScriptBlock {
             $params = $args[0]
+            $setupAccount = $args[1]
 
             $updateEnableNetBIOS = $false
             if ($params.ContainsKey("EnableNetBIOS"))
@@ -323,6 +375,14 @@ function Set-TargetResource
                 $updateNoILMUsed = $true
                 $NoILMUsed = $params.NoILMUsed
                 $params.Remove("NoILMUsed") | Out-Null
+            }
+
+            $updateSiteNamingConflict = $false
+            if ($params.ContainsKey("SiteNamingConflictResolution"))
+            {
+                $updateSiteNamingConflict = $true
+                $SiteNamingConflictResolution = $params.SiteNamingConflictResolution
+                $params.Remove("SiteNamingConflictResolution") | Out-Null
             }
 
             if ($params.ContainsKey("InstallAccount"))
@@ -342,14 +402,12 @@ function Set-TargetResource
                                              -oldName "SyncDBServer" `
                                              -newName "ProfileSyncDBServer"
 
-            if ($params.ContainsKey("ProxyName"))
+            $pName = "$($params.Name) Proxy"
+
+            if ($params.ContainsKey("ProxyName") -and $null -ne $params.ProxyName)
             {
                 $pName = $params.ProxyName
                 $params.Remove("ProxyName") | Out-Null
-            }
-            if ($null -eq $pName)
-            {
-                $pName = "$($params.Name) Proxy"
             }
 
             $serviceApps = Get-SPServiceApplication -Name $params.Name `
@@ -358,12 +416,28 @@ function Set-TargetResource
             if ($null -eq $serviceApps)
             {
                 $app = New-SPProfileServiceApplication @params
-                if ($null -ne $app)
+                if ($null -eq $app)
                 {
-                    New-SPProfileServiceApplicationProxy -Name $pName `
-                                                         -ServiceApplication $app `
-                                                         -DefaultProxyGroup
+                    throw ("An error occurred during creation of the service application: " + `
+                           $_.Exception.Message)
                 }
+                New-SPProfileServiceApplicationProxy -Name $pName `
+                                                     -ServiceApplication $app `
+                                                     -DefaultProxyGroup
+
+                $claimsPrincipal = New-SPClaimsPrincipal -Identity $setupAccount `
+                                                         -IdentityType WindowsSamAccountName
+
+                $serviceAppSecurity = Get-SPServiceApplicationSecurity $app
+                $acl = [Microsoft.SharePoint.Administration.AccessControl.SPNamedIisWebServiceApplicationRights]::FullControl.Name
+                Grant-SPObjectSecurity -Identity $serviceAppSecurity `
+                                       -Principal $claimsPrincipal `
+                                       -Rights $acl
+                Set-SPServiceApplicationSecurity -Identity $app `
+                                                 -ObjectSecurity $serviceAppSecurity
+
+                $app = Get-SPServiceApplication -Name $params.Name `
+                                                -ErrorAction SilentlyContinue
             }
 
             if (($updateEnableNetBIOS -eq $true) -or ($updateNoILMUsed -eq $true))
@@ -380,6 +454,15 @@ function Set-TargetResource
                     $app.NoILMUsed = $NoILMUsed
                 }
                 $app.Update()
+            }
+
+            if ($updateSiteNamingConflict -eq $true)
+            {
+                $ca = Get-SPWebApplication -IncludeCentralAdministration | Where-Object -FilterScript {$_.IsAdministrationWebApplication}
+                $caSite = $ca.Sites[0]
+                $serviceContext = Get-SPServiceContext($caSite)
+                $userProfileManager = New-Object Microsoft.Office.Server.UserProfiles.UserProfileManager($serviceContext)
+                $userProfileManager.PersonalSiteFormat = $SiteNamingConflictResolution
             }
         }
 
@@ -449,6 +532,10 @@ function Test-TargetResource
 
         [Parameter()]
         [System.String]
+        $MySiteManagedPath,
+
+        [Parameter()]
+        [System.String]
         $ProfileDBName,
 
         [Parameter()]
@@ -480,6 +567,11 @@ function Test-TargetResource
         $NoILMUsed = $false,
 
         [Parameter()]
+        [ValidateSet("Username_CollisionError","Username_CollisionDomain","Domain_Username")]
+        [System.String]
+        $SiteNamingConflictResolution,
+
+        [Parameter()]
         [ValidateSet("Present","Absent")]
         [System.String]
         $Ensure = "Present",
@@ -490,6 +582,12 @@ function Test-TargetResource
     )
 
     Write-Verbose -Message "Testing for user profile service application $Name"
+
+    if ($PSBoundParameters.ContainsKey("MySiteHostLocation") -eq $false)
+    {
+        Write-Verbose -Message ("You should also specify the MySiteHostLocation parameter. " + `
+                                "This will be required as of SharePointDsc v4.0")
+    }
 
     $PSBoundParameters.Ensure = $Ensure
 
@@ -502,6 +600,7 @@ function Test-TargetResource
                                             -ValuesToCheck @("Name",
                                                              "EnableNetBIOS",
                                                              "NoILMUsed",
+                                                             "SiteNamingConflictResolution",
                                                              "Ensure")
     }
     else

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xvmhost) do
   def dscmeta_resource_friendly_name; 'xVMHost' end
   def dscmeta_resource_name; 'MSFT_xVMHost' end
   def dscmeta_module_name; 'xHyper-V' end
-  def dscmeta_module_version; '3.11.0.0' end
+  def dscmeta_module_version; '3.16.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -316,6 +316,22 @@ Puppet::Type.newtype(:dsc_xvmhost) do
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         VirtualMachineMigrationEnabled
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_virtualmachinemigrationenabled) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "VirtualMachineMigrationEnabled - Indicates whether Live Migration should be enabled or disabled on the Hyper-V host."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

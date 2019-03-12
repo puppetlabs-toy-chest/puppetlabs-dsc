@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xaddomain) do
   def dscmeta_resource_friendly_name; 'xADDomain' end
   def dscmeta_resource_name; 'MSFT_xADDomain' end
   def dscmeta_module_name; 'xActiveDirectory' end
-  def dscmeta_module_version; '2.18.0.0' end
+  def dscmeta_module_version; '2.24.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -201,6 +201,42 @@ Puppet::Type.newtype(:dsc_xaddomain) do
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         ForestMode
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Win2008", "Win2008R2", "Win2012", "Win2012R2", "WinThreshold"]
+  newparam(:dsc_forestmode) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "ForestMode - The Forest Functional Level for the entire forest Valid values are Win2008, Win2008R2, Win2012, Win2012R2, WinThreshold."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Win2008', 'win2008', 'Win2008R2', 'win2008r2', 'Win2012', 'win2012', 'Win2012R2', 'win2012r2', 'WinThreshold', 'winthreshold'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Win2008, Win2008R2, Win2012, Win2012R2, WinThreshold")
+      end
+    end
+  end
+
+  # Name:         DomainMode
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["Win2008", "Win2008R2", "Win2012", "Win2012R2", "WinThreshold"]
+  newparam(:dsc_domainmode) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "DomainMode - The Domain Functional Level for the entire domain Valid values are Win2008, Win2008R2, Win2012, Win2012R2, WinThreshold."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['Win2008', 'win2008', 'Win2008R2', 'win2008r2', 'Win2012', 'win2012', 'Win2012R2', 'win2012r2', 'WinThreshold', 'winthreshold'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are Win2008, Win2008R2, Win2012, Win2012R2, WinThreshold")
       end
     end
   end

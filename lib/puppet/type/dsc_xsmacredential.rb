@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsmacredential) do
   def dscmeta_resource_friendly_name; 'xSmaCredential' end
   def dscmeta_resource_name; 'MSFT_xSmaCredential' end
   def dscmeta_module_name; 'xSCSMA' end
-  def dscmeta_module_version; '1.5.0.0' end
+  def dscmeta_module_version; '2.0.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

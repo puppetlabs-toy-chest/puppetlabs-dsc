@@ -22,12 +22,13 @@ Puppet::Type.newtype(:dsc_sqldatabaseowner) do
 
   validate do
       fail('dsc_database is a required attribute') if self[:dsc_database].nil?
+      fail('dsc_instancename is a required attribute') if self[:dsc_instancename].nil?
     end
 
   def dscmeta_resource_friendly_name; 'SqlDatabaseOwner' end
   def dscmeta_resource_name; 'MSFT_SqlDatabaseOwner' end
   def dscmeta_module_name; 'SqlServerDsc' end
-  def dscmeta_module_version; '11.1.0.0' end
+  def dscmeta_module_version; '12.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -105,12 +106,13 @@ Puppet::Type.newtype(:dsc_sqldatabaseowner) do
 
   # Name:         InstanceName
   # Type:         string
-  # IsMandatory:  False
+  # IsMandatory:  True
   # Values:       None
   newparam(:dsc_instancename) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "InstanceName - The name of the SQL instance to be configured."
+    isrequired
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

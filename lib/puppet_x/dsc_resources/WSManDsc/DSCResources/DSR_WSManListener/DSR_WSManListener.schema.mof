@@ -1,0 +1,18 @@
+[ClassVersion("1.0.0.0"), FriendlyName("WSManListener")]
+class DSR_WSManListener : OMI_BaseResource
+{
+    [Key, Description("The transport type of WS-Man Listener."), ValueMap{"HTTP","HTTPS"}, Values{"HTTP","HTTPS"}] String Transport;
+    [Required, Description("Specifies whether the WS-Man Listener should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("The port the WS-Man Listener should use. Defaults to 5985 for HTTP and 5986 for HTTPS listeners.")] uint16 Port;
+    [Write, Description("The Address that the WS-Man Listener will be bound to. The default is * (any address).")] String Address;
+    [Write, Description("The Issuer of the certificate to use for the HTTPS WS-Man Listener if a thumbprint is not specified.")] String Issuer;
+    [Write, Description("The format used to match the certificate subject to use for an HTTPS WS-Man Listener if a thumbprint is not specified."), ValueMap{"Both","FQDNOnly","NameOnly"}, Values{"Both","FQDNOnly","NameOnly"}] String SubjectFormat;
+    [Write, Description("Should the FQDN/Name be used to also match the certificate alternate subject for an HTTPS WS-Man Listener if a thumbprint is not specified.")] Boolean MatchAlternate;
+    [Write, Description("This is a Distinguished Name component that will be used to identify the certificate to use for the HTTPS WS-Man Listener if a thumbprint is not specified.")] String DN;
+    [Write, Description("The host name that a HTTPS WS-Man Listener will be bound to. If not specified it will default to the computer name of the node.")] String Hostname;
+    [Read, Description("Returns true if the existing WS-Man Listener is enabled.")] Boolean Enabled;
+    [Read, Description("The URL Prefix of the existing WS-Man Listener.")] String URLPrefix;
+    [Write, Description("The Thumbprint of the certificate to use for the HTTPS WS-Man Listener.")] String CertificateThumbprint;
+};
+
+

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_sptrustedrootauthority) do
   def dscmeta_resource_friendly_name; 'SPTrustedRootAuthority' end
   def dscmeta_resource_name; 'MSFT_SPTrustedRootAuthority' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -96,7 +96,7 @@ Puppet::Type.newtype(:dsc_sptrustedrootauthority) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Present ensures service app exists, absent ensures it is removed Valid values are Present, Absent."
+    desc "Ensure - Present ensures the trusted root authority exists, absent ensures it is removed Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)

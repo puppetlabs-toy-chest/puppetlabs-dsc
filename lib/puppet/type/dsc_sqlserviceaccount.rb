@@ -29,7 +29,7 @@ Puppet::Type.newtype(:dsc_sqlserviceaccount) do
   def dscmeta_resource_friendly_name; 'SqlServiceAccount' end
   def dscmeta_resource_name; 'MSFT_SqlServiceAccount' end
   def dscmeta_module_name; 'SqlServerDsc' end
-  def dscmeta_module_version; '11.1.0.0' end
+  def dscmeta_module_version; '12.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -169,6 +169,21 @@ Puppet::Type.newtype(:dsc_sqlserviceaccount) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "ServiceAccountName - Returns the service account username for the service."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         VersionNumber
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_versionnumber) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "VersionNumber - The version number for the service, mandatory with IntegrationServices ServiceType"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

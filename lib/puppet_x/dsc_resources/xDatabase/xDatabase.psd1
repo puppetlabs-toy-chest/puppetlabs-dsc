@@ -4,7 +4,7 @@
 # RootModule = ''
 
 # Version number of this module.
-ModuleVersion = '1.7.0.0'
+moduleVersion = '1.9.0.0'
 
 # ID used to uniquely identify this module
 GUID = '8ad956dd-4a36-4767-9725-ed0466893edb'
@@ -54,7 +54,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Added support SQL Server 2016
+        ReleaseNotes = '* xDatabase Test-TargetResource will now check DacPacVersion if DacPacPath parameter and DB exist. If the DacPacApplicationVersion is supplied and matches the deployed version we will return $true. ([issue 41](https://github.com/PowerShell/xDatabase/issues/41))
 
 '
 
@@ -62,6 +62,8 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
+
 
 
 

@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchexchangecertificate) do
   def dscmeta_resource_friendly_name; 'xExchExchangeCertificate' end
   def dscmeta_resource_name; 'MSFT_xExchExchangeCertificate' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '1.27.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -65,7 +65,7 @@ Puppet::Type.newtype(:dsc_xexchexchangecertificate) do
   newparam(:dsc_thumbprint) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Thumbprint"
+    desc "Thumbprint - Thumbprint of the certificate to work on."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -81,7 +81,7 @@ Puppet::Type.newtype(:dsc_xexchexchangecertificate) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
+    desc "Credential - Credentials used to establish a remote PowerShell session to Exchange."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -100,7 +100,7 @@ Puppet::Type.newtype(:dsc_xexchexchangecertificate) do
   newparam(:dsc_ensure) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Ensure - Valid values are Present, Absent."
+    desc "Ensure - Whether the certificate should be present or not. Valid values are Present, Absent."
     validate do |value|
       resource[:ensure] = value.downcase
       unless value.kind_of?(String)
@@ -119,7 +119,7 @@ Puppet::Type.newtype(:dsc_xexchexchangecertificate) do
   newparam(:dsc_allowextraservices) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "AllowExtraServices"
+    desc "AllowExtraServices - Get-ExchangeCertificate sometimes displays more services than are actually enabled. Setting this to true allows tests to pass in that situation as long as the requested services are present."
     validate do |value|
     end
     newvalues(true, false)
@@ -135,7 +135,7 @@ Puppet::Type.newtype(:dsc_xexchexchangecertificate) do
   newparam(:dsc_certcreds) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "CertCreds"
+    desc "CertCreds - Credentials containing the password to the .pfx file in CertFilePath."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -154,7 +154,7 @@ Puppet::Type.newtype(:dsc_xexchexchangecertificate) do
   newparam(:dsc_certfilepath) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "CertFilePath"
+    desc "CertFilePath - The file path to the certificate .pfx file that should be imported."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -169,11 +169,43 @@ Puppet::Type.newtype(:dsc_xexchexchangecertificate) do
   newparam(:dsc_domaincontroller) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainController"
+    desc "DomainController - The DomainController parameter specifies the domain controller that's used by this cmdlet to read data from or write data to Active Directory. You identify the domain controller by its fully qualified domain name (FQDN). For example, dc01.contoso.com."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         DoNotRequireSsl
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_donotrequiressl) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "DoNotRequireSsl - Setting DoNotRequireSsl to True prevents DSC from enabling the Require SSL setting on the Default Web Site when you enable the certificate for IIS. Defaults to False."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         NetworkServiceAllowed
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_networkserviceallowed) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "NetworkServiceAllowed - Setting NetworkServiceAllowed to True gives the built-in Network Service account permission to read the certificate's private key without enabling the certificate for SMTP. Defaults to False."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
@@ -184,7 +216,7 @@ Puppet::Type.newtype(:dsc_xexchexchangecertificate) do
   newparam(:dsc_services, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "Services"
+    desc "Services - The Services parameter specifies the Exchange services that the certificate is enabled for."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")

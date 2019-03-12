@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchwaitfordag) do
   def dscmeta_resource_friendly_name; 'xExchWaitForDAG' end
   def dscmeta_resource_name; 'MSFT_xExchWaitForDAG' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '1.27.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xexchwaitfordag) do
   newparam(:dsc_identity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Identity"
+    desc "Identity - The name of the DAG to wait for."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xexchwaitfordag) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
+    desc "Credential - Credentials used to establish a remote Powershell session to Exchange"
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -99,11 +99,27 @@ Puppet::Type.newtype(:dsc_xexchwaitfordag) do
   newparam(:dsc_domaincontroller) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainController"
+    desc "DomainController - Optional Domain controller to use when running Get-DatabaseAvailabilityGroup"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
       end
+    end
+  end
+
+  # Name:         WaitForComputerObject
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_waitforcomputerobject) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "WaitForComputerObject - Whether DSC should also wait for the DAG Computer account object to be discovered. Defaults to False."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 
@@ -114,7 +130,7 @@ Puppet::Type.newtype(:dsc_xexchwaitfordag) do
   newparam(:dsc_retryintervalsec) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "RetryIntervalSec"
+    desc "RetryIntervalSec - How many seconds to wait between retries when checking whether the DAG exists. Defaults to 60."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")
@@ -132,7 +148,7 @@ Puppet::Type.newtype(:dsc_xexchwaitfordag) do
   newparam(:dsc_retrycount) do
     def mof_type; 'uint32' end
     def mof_is_embedded?; false end
-    desc "RetryCount"
+    desc "RetryCount - How many retry attempts should be made to find the DAG before an exception is thrown. Defaults to 5."
     validate do |value|
       unless (value.kind_of?(Numeric) && value >= 0) || (value.to_i.to_s == value && value.to_i >= 0)
           fail("Invalid value #{value}. Should be a unsigned Integer")

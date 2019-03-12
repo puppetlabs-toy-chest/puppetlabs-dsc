@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_auditpolicyoption) do
   def dscmeta_resource_friendly_name; 'AuditPolicyOption' end
   def dscmeta_resource_name; 'MSFT_AuditPolicyOption' end
   def dscmeta_module_name; 'AuditPolicyDsc' end
-  def dscmeta_module_version; '1.1.0.0' end
+  def dscmeta_module_version; '1.4.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

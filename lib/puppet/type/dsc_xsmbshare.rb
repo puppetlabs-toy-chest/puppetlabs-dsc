@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   def dscmeta_resource_friendly_name; 'xSmbShare' end
   def dscmeta_resource_name; 'MSFT_xSmbShare' end
   def dscmeta_module_name; 'xSmbShare' end
-  def dscmeta_module_version; '2.0.0.0' end
+  def dscmeta_module_version; '2.1.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -254,7 +254,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_sharestate) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ShareState - Specfies the state of the share"
+    desc "ShareState - Specifies the state of the share"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -269,7 +269,7 @@ Puppet::Type.newtype(:dsc_xsmbshare) do
   newparam(:dsc_sharetype) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "ShareType - Specfies the type of the share"
+    desc "ShareType - Specifies the type of the share"
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

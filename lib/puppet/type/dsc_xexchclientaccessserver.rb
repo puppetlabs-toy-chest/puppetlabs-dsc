@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xexchclientaccessserver) do
   def dscmeta_resource_friendly_name; 'xExchClientAccessServer' end
   def dscmeta_resource_name; 'MSFT_xExchClientAccessServer' end
   def dscmeta_module_name; 'xExchange' end
-  def dscmeta_module_version; '1.19.0.0' end
+  def dscmeta_module_version; '1.27.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -64,7 +64,7 @@ Puppet::Type.newtype(:dsc_xexchclientaccessserver) do
   newparam(:dsc_identity) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "Identity"
+    desc "Identity - The hostname of the Client Access Server."
     isrequired
     validate do |value|
       unless value.kind_of?(String)
@@ -80,7 +80,7 @@ Puppet::Type.newtype(:dsc_xexchclientaccessserver) do
   newparam(:dsc_credential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "Credential"
+    desc "Credential - Credentials used to establish a remote PowerShell session to Exchange."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -99,7 +99,7 @@ Puppet::Type.newtype(:dsc_xexchclientaccessserver) do
   newparam(:dsc_autodiscoverserviceinternaluri) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "AutoDiscoverServiceInternalUri"
+    desc "AutoDiscoverServiceInternalUri - The AutoDiscoverServiceInternalUri parameter specifies the internal URL of the Autodiscover service."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -114,7 +114,7 @@ Puppet::Type.newtype(:dsc_xexchclientaccessserver) do
   newparam(:dsc_autodiscoversitescope, :array_matching => :all) do
     def mof_type; 'string[]' end
     def mof_is_embedded?; false end
-    desc "AutoDiscoverSiteScope"
+    desc "AutoDiscoverSiteScope - The AutoDiscoverSiteScope parameter specifies the Active Directory site that the Autodiscover service is authoritative for. Clients that connect to the Autodiscover service by using the internal URL need to exist in the specified site."
     validate do |value|
       unless value.kind_of?(Array) || value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string or an array of strings")
@@ -132,7 +132,7 @@ Puppet::Type.newtype(:dsc_xexchclientaccessserver) do
   newparam(:dsc_domaincontroller) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
-    desc "DomainController"
+    desc "DomainController - The DomainController parameter specifies the domain controller that's used by this cmdlet to read data from or write data to Active Directory. You identify the domain controller by its fully qualified domain name (FQDN). For example, dc01.contoso.com."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
@@ -147,7 +147,7 @@ Puppet::Type.newtype(:dsc_xexchclientaccessserver) do
   newparam(:dsc_alternateserviceaccountcredential) do
     def mof_type; 'MSFT_Credential' end
     def mof_is_embedded?; true end
-    desc "AlternateServiceAccountCredential"
+    desc "AlternateServiceAccountCredential - The AlternateServiceAccountCredential parameter specifies an alternative service account that'stypically used for Kerberos authentication."
     validate do |value|
       unless value.kind_of?(Hash)
         fail("Invalid value '#{value}'. Should be a hash")
@@ -166,7 +166,7 @@ Puppet::Type.newtype(:dsc_xexchclientaccessserver) do
   newparam(:dsc_cleanupinvalidalternateserviceaccountcredentials) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "CleanUpInvalidAlternateServiceAccountCredentials"
+    desc "CleanUpInvalidAlternateServiceAccountCredentials - The CleanUpInvalidAlternateServiceAccountCredentialsswitch specifies whether to remove a previously configured alternate service account that's no longer valid."
     validate do |value|
     end
     newvalues(true, false)
@@ -182,7 +182,7 @@ Puppet::Type.newtype(:dsc_xexchclientaccessserver) do
   newparam(:dsc_removealternateserviceaccountcredentials) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "RemoveAlternateServiceAccountCredentials"
+    desc "RemoveAlternateServiceAccountCredentials - The RemoveAlternateServiceAccountCredentialsswitch specifies whether to remove a previously distributed alternate service account."
     validate do |value|
     end
     newvalues(true, false)

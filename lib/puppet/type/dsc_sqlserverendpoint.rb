@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_sqlserverendpoint) do
   def dscmeta_resource_friendly_name; 'SqlServerEndpoint' end
   def dscmeta_resource_name; 'MSFT_SqlServerEndpoint' end
   def dscmeta_module_name; 'SqlServerDsc' end
-  def dscmeta_module_version; '11.1.0.0' end
+  def dscmeta_module_version; '12.3.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -151,6 +151,21 @@ Puppet::Type.newtype(:dsc_sqlserverendpoint) do
     def mof_type; 'string' end
     def mof_is_embedded?; false end
     desc "IpAddress - The network IP address the endpoint is listening on. Default the endpoint will listen on any valid IP address."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         Owner
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_owner) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "Owner - The owner of the endpoint. Default is the login used for the creation."
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")

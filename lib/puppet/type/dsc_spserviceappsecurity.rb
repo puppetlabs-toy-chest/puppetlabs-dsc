@@ -6,8 +6,8 @@ Puppet::Type.newtype(:dsc_spserviceappsecurity) do
 
     class PuppetX::Dsc::TypeHelpers
       def self.validate_MSFT_SPServiceAppSecurityEntry(mof_type_map, name, value)
-        required = ['accesslevel']
-        allowed = ['username']
+        required = ['username','accesslevels']
+        allowed = []
         lowkey_hash = Hash[value.map { |k, v| [k.to_s.downcase, v] }]
 
         missing = required - lowkey_hash.keys
@@ -51,7 +51,7 @@ Puppet::Type.newtype(:dsc_spserviceappsecurity) do
   def dscmeta_resource_friendly_name; 'SPServiceAppSecurity' end
   def dscmeta_resource_name; 'MSFT_SPServiceAppSecurity' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -124,7 +124,7 @@ Puppet::Type.newtype(:dsc_spserviceappsecurity) do
     def mof_type; 'MSFT_SPServiceAppSecurityEntry[]' end
     def mof_is_embedded?; true end
     def mof_type_map
-      {"username"=>{:type=>"string"}, "accesslevel"=>{:type=>"string", :values=>["Change Permissions", "Full Control", "Write", "Read"]}}
+      {"username"=>{:type=>"string"}, "accesslevels"=>{:type=>"string[]"}}
     end
     desc "Members - A list of members to set the group to. Those not in this list will be removed"
     validate do |value|
@@ -152,7 +152,7 @@ Puppet::Type.newtype(:dsc_spserviceappsecurity) do
     def mof_type; 'MSFT_SPServiceAppSecurityEntry[]' end
     def mof_is_embedded?; true end
     def mof_type_map
-      {"username"=>{:type=>"string"}, "accesslevel"=>{:type=>"string", :values=>["Change Permissions", "Full Control", "Write", "Read"]}}
+      {"username"=>{:type=>"string"}, "accesslevels"=>{:type=>"string[]"}}
     end
     desc "MembersToInclude - A list of members to add. Members not in this list will be left in the group"
     validate do |value|

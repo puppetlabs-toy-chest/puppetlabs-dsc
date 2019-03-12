@@ -1,0 +1,15 @@
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMClassification")]
+class DSR_FSRMClassification : OMI_BaseResource
+{
+    [Key, Description("This is a unique identifier for this resource.")] String Id;
+    [Write, Description("Enable FSRM Classification continuous mode for new files.")] Boolean Continuous;
+    [Write, Description("Enable FSRM Classification continuous mode logging.")] Boolean ContinuousLog;
+    [Write, Description("The maximum number of KB that can be used for the continuous mode log file.")] Uint32 ContinuousLogSize;
+    [Write, Description("An array of Namespaces that will be excluded from FSRM Classification.")] String ExcludeNamespace[];
+    [Write, Description("An array of days of the month the FSRM Classification should run on.")] Uint32 ScheduleMonthly[];
+    [Write, Description("An array of named days of the week the FSRM Classification should run on.")] String ScheduleWeekly[];
+    [Write, Description("The maximum number of hours the FSRM Classification can run for. Setting this to -1 will disable this.")] Sint32 ScheduleRunDuration;
+    [Write, Description("A string containing the time of day the FSRM Classification should run at.")] String ScheduleTime;
+    [Read] String LastError;
+    [Read] String Status;
+};

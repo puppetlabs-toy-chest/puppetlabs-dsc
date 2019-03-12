@@ -2,17 +2,17 @@
 {
     param
     (
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [String]$errorId,
-        
-        [Parameter(Mandatory)]
+
+        [Parameter(Mandatory = $true)]
         [String]$errorMessage,
 
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true)]
         [System.Management.Automation.ErrorCategory]$errorCategory
     )
-    
-    $exception   = New-Object System.InvalidOperationException $errorMessage 
+
+    $exception   = New-Object System.InvalidOperationException $errorMessage
     $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $errorCategory, $null
     throw $errorRecord
 }
@@ -23,7 +23,7 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $LogName
     )
@@ -41,9 +41,10 @@ function Get-TargetResource
         }
 
         return $returnValue
-    }catch
+    }
+    catch
     {
-        write-Debug "ERROR: $($_|fl * -force|out-string)"
+        write-Debug "ERROR: $($_ | Format-List * -force | Out-String)"
         New-TerminatingError -errorId 'GetWinEventLogFailed' -errorMessage $_.Exception -errorCategory InvalidOperation
     }
 }
@@ -54,23 +55,28 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $LogName,
 
+        [Parameter()]
         [System.Int64]
         $MaximumSizeInBytes,
 
+        [Parameter()]
         [System.Boolean]
         $IsEnabled,
 
+        [Parameter()]
         [ValidateSet("AutoBackup","Circular","Retain")]
         [System.String]
         $LogMode,
 
+        [Parameter()]
         [System.String]
         $SecurityDescriptor,
 
+        [Parameter()]
         [System.String]
         $LogFilePath
     )
@@ -80,30 +86,36 @@ function Set-TargetResource
         $log = Get-WinEvent -ListLog $logName
         $update = $false
 
-        if ($PSBoundParameters.ContainsKey('MaximumSizeInBytes') -and $MaximumSizeInBytes -ne $log.MaximumSizeInBytes) { 
+        if ($PSBoundParameters.ContainsKey('MaximumSizeInBytes') -and $MaximumSizeInBytes -ne $log.MaximumSizeInBytes)
+        {
             Set-MaximumSizeInBytes -LogName $LogName -MaximumSizeInBytes $MaximumSizeInBytes
         }
-        
-        if ($PSBoundParameters.ContainsKey('LogMode') -and $LogMode -ne $log.LogMode){ 
+
+        if ($PSBoundParameters.ContainsKey('LogMode') -and $LogMode -ne $log.LogMode)
+        {
             Set-LogMode -LogName $LogName -LogMode $LogMode
         }
-        
-        if ($PSBoundParameters.ContainsKey('SecurityDescriptor') -and $SecurityDescriptor -ne $log.SecurityDescriptor) { 
+
+        if ($PSBoundParameters.ContainsKey('SecurityDescriptor') -and $SecurityDescriptor -ne $log.SecurityDescriptor)
+        {
             Set-SecurityDescriptor -LogName $LogName -SecurityDescriptor $SecurityDescriptor
         }
-        
-        if ($PSBoundParameters.ContainsKey("IsEnabled") -and $IsEnabled -ne $log.IsEnabled) { 
+
+        if ($PSBoundParameters.ContainsKey("IsEnabled") -and $IsEnabled -ne $log.IsEnabled)
+        {
             Set-IsEnabled -LogName $LogName -IsEnabled $IsEnabled
         }
 
-        if ($PSBoundParameters.ContainsKey("LogFilePath") -and $LogFilePath -ne $log.LogFilePath) { 
+        if ($PSBoundParameters.ContainsKey("LogFilePath") -and $LogFilePath -ne $log.LogFilePath)
+        {
             Set-LogFilePath -LogName $LogName -LogFilePath $LogFilePath
         }
-       
 
-    }catch
+
+    }
+    catch
     {
-        Write-Debug "ERROR: $($_|fl * -force|out-string)"
+        write-Debug "ERROR: $($_ | Format-List * -force | Out-String)"
         New-TerminatingError -errorId 'SetWinEventLogFailed' -errorMessage $_.Exception -errorCategory InvalidOperation
     }
 
@@ -117,23 +129,28 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [System.String]
         $LogName,
 
+        [Parameter()]
         [System.Int64]
         $MaximumSizeInBytes,
 
+        [Parameter()]
         [System.Boolean]
         $IsEnabled,
 
+        [Parameter()]
         [ValidateSet("AutoBackup","Circular","Retain")]
         [System.String]
         $LogMode,
 
+        [Parameter()]
         [System.String]
         $SecurityDescriptor,
 
+        [Parameter()]
         [System.String]
         $LogFilePath
     )
@@ -141,26 +158,45 @@ function Test-TargetResource
     try
     {
         $log = Get-WinEvent -ListLog $logName
-        if ($PSBoundParameters.ContainsKey("MaximumSizeInBytes") -and $log.MaximumSizeInBytes -ne $MaximumSizeInBytes ) { return $false}
-        if ($PSBoundParameters.ContainsKey("IsEnabled")          -and $log.IsEnabled -ne $IsEnabled                   ) { return $false}
-        if ($PSBoundParameters.ContainsKey("LogMode")            -and $log.LogMode -ne $LogMode                       ) { return $false}
-        if ($PSBoundParameters.ContainsKey("SecurityDescriptor") -and $log.SecurityDescriptor -ne $SecurityDescriptor ) { return $false}
-        if ($PSBoundParameters.ContainsKey("LogFilePath")        -and $log.LogFilePath -ne $LogFilePath )               { return $false}
+        if ($PSBoundParameters.ContainsKey("MaximumSizeInBytes") -and $log.MaximumSizeInBytes -ne $MaximumSizeInBytes)
+        {
+            return $false
+        }
+        if ($PSBoundParameters.ContainsKey("IsEnabled") -and $log.IsEnabled -ne $IsEnabled)
+        {
+            return $false
+        }
+        if ($PSBoundParameters.ContainsKey("LogMode") -and $log.LogMode -ne $LogMode)
+        {
+            return $false
+        }
+        if ($PSBoundParameters.ContainsKey("SecurityDescriptor") -and $log.SecurityDescriptor -ne $SecurityDescriptor)
+        {
+            return $false
+        }
+        if ($PSBoundParameters.ContainsKey("LogFilePath") -and $log.LogFilePath -ne $LogFilePath)
+        {
+            return $false
+        }
         return $true
-    }catch
+    }
+    catch
     {
-        write-Debug "ERROR: $($_|fl * -force|out-string)"
+        write-Debug "ERROR: $($_ | Format-List * -force | Out-String)"
         New-TerminatingError -errorId 'TestWinEventLogFailed' -errorMessage $_.Exception -errorCategory InvalidOperation
     }
-    
+
 }
 
-Function Set-MaximumSizeInBytes{
+Function Set-MaximumSizeInBytes
+{
     [CmdletBinding()]
     param(
+        [Parameter()]
         [System.String]
         $LogName,
 
+        [Parameter()]
         [System.Int64]
         $MaximumSizeInBytes
 
@@ -172,12 +208,15 @@ Function Set-MaximumSizeInBytes{
 
 }
 
-Function Set-LogMode{
+Function Set-LogMode
+{
     [CmdletBinding()]
     param(
+        [Parameter()]
         [System.String]
         $LogName,
 
+        [Parameter()]
         [System.String]
         $LogMode
     )
@@ -187,12 +226,15 @@ Function Set-LogMode{
     $log.SaveChanges()
 }
 
-Function Set-SecurityDescriptor{
+Function Set-SecurityDescriptor
+{
     [CmdletBinding()]
     param(
+        [Parameter()]
         [System.String]
         $LogName,
 
+        [Parameter()]
         [System.String]
         $SecurityDescriptor
     )
@@ -203,12 +245,15 @@ Function Set-SecurityDescriptor{
 }
 
 
-Function Set-IsEnabled{
+Function Set-IsEnabled
+{
     [CmdletBinding()]
     param(
+        [Parameter()]
         [System.String]
         $LogName,
 
+        [Parameter()]
         [System.Boolean]
         $IsEnabled
     )
@@ -219,12 +264,15 @@ Function Set-IsEnabled{
 
 }
 
-Function Set-LogFilePath{
+Function Set-LogFilePath
+{
     [CmdletBinding()]
     param(
+        [Parameter()]
         [System.String]
         $LogName,
 
+        [Parameter()]
         [System.String]
         $LogFilePath
     )

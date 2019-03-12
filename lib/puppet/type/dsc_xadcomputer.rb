@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_xadcomputer) do
   def dscmeta_resource_friendly_name; 'xADComputer' end
   def dscmeta_resource_name; 'MSFT_xADComputer' end
   def dscmeta_module_name; 'xActiveDirectory' end
-  def dscmeta_module_version; '2.18.0.0' end
+  def dscmeta_module_version; '2.24.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -278,6 +278,22 @@ Puppet::Type.newtype(:dsc_xadcomputer) do
       unless ['Present', 'present', 'Absent', 'absent'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Present, Absent")
       end
+    end
+  end
+
+  # Name:         RestoreFromRecycleBin
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_restorefromrecyclebin) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "RestoreFromRecycleBin - Indicates whether or not the computer object should first tried to be restored from the recycle bin before creating a new computer object."
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
     end
   end
 

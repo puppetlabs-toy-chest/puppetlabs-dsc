@@ -1,0 +1,8 @@
+[ClassVersion("1.0.0.0"), FriendlyName("FSRMFileScreenException")]
+class DSR_FSRMFileScreenException : OMI_BaseResource
+{
+    [Key, Description("The path this FSRM File Screen applies to.")] String Path;
+    [Write, Description("An optional description for this FSRM File Screen.")] String Description;
+    [Write, Description("Specifies whether the FSRM File Screen should exist."), ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+    [Write, Description("An array of File Groups to include in this File Screen.")] String IncludeGroup[];
+};

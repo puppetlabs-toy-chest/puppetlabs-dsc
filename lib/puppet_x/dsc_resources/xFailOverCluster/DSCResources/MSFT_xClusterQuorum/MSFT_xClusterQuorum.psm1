@@ -157,17 +157,17 @@ function Set-TargetResource
     {
         'NodeMajority'
         {
-            Set-ClusterQuorum -NoWitness
+            Set-ClusterQuorum -NodeMajority
         }
 
         'NodeAndDiskMajority'
         {
-            Set-ClusterQuorum -DiskWitness $Resource
+            Set-ClusterQuorum -NodeAndDiskMajority $Resource
         }
 
         'NodeAndFileShareMajority'
         {
-            Set-ClusterQuorum -FileShareWitness $Resource
+            Set-ClusterQuorum -NodeAndFileShareMajority $Resource
         }
 
         'DiskOnly'

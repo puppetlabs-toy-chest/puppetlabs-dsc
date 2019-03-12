@@ -127,7 +127,11 @@ function Set-TargetResource
             $_.Address -eq $Address -and $_.AddressMask -eq $AddressMask
         }
         $clusterNetworkResource.Name = $Name
-        $clusterNetworkResource.Update()
+        $hasUpdateMethod = $clusterNetworkResource | Get-Member -Name 'Update' -MemberType 'Methods'
+        if ($hasUpdateMethod)
+        {
+            $clusterNetworkResource.Update()
+        }
     }
 
     if ($PSBoundParameters.ContainsKey('Role') -and $getTargetResourceResult.Role -ne $Role)
@@ -138,7 +142,11 @@ function Set-TargetResource
             $_.Address -eq $Address -and $_.AddressMask -eq $AddressMask
         }
         $clusterNetworkResource.Role = $Role
-        $clusterNetworkResource.Update()
+        $hasUpdateMethod = $clusterNetworkResource | Get-Member -Name 'Update' -MemberType 'Methods'
+        if ($hasUpdateMethod)
+        {
+            $clusterNetworkResource.Update()
+        }
     }
 
     if ($PSBoundParameters.ContainsKey('Metric') -and $getTargetResourceResult.Metric -ne $Metric)
@@ -149,7 +157,10 @@ function Set-TargetResource
             $_.Address -eq $Address -and $_.AddressMask -eq $AddressMask
         }
         $clusterNetworkResource.Metric = $Metric
-        $clusterNetworkResource.Update()
+        $hasUpdateMethod = $clusterNetworkResource | Get-Member -Name 'Update' -MemberType 'Methods'
+        if ($hasUpdateMethod) {
+            $clusterNetworkResource.Update()
+        }
     }
 }
 

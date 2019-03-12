@@ -1,0 +1,7 @@
+[ClassVersion("1.1.0.0"), FriendlyName("xRDLicenseConfiguration")]
+class MSFT_xRDLicenseConfiguration : OMI_BaseResource
+{
+    [key]   string ConnectionBroker;
+    [write] string LicenseServer[];
+    [required, ValueMap{"PerUser","PerDevice","NotConfigured"}, Values{"PerUser","PerDevice","NotConfigured"}] string LicenseMode;
+};

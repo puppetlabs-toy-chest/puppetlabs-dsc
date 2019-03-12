@@ -28,7 +28,7 @@ Puppet::Type.newtype(:dsc_xvmscsicontroller) do
   def dscmeta_resource_friendly_name; 'xVMScsiController' end
   def dscmeta_resource_name; 'MSFT_xVMScsiController' end
   def dscmeta_module_name; 'xHyper-V' end
-  def dscmeta_module_version; '3.11.0.0' end
+  def dscmeta_module_version; '3.16.0.0' end
 
   newparam(:name, :namevar => true ) do
   end

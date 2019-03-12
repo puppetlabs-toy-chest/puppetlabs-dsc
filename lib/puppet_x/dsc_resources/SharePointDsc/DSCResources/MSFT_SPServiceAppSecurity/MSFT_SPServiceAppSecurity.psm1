@@ -4,41 +4,41 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        [Parameter(Mandatory = $true)]  
-        [System.String] 
+        [Parameter(Mandatory = $true)]
+        [System.String]
         $ServiceAppName,
 
-        [Parameter(Mandatory = $true)]  
-        [ValidateSet("Administrators","SharingPermissions")] 
-        [System.String] 
+        [Parameter(Mandatory = $true)]
+        [ValidateSet("Administrators","SharingPermissions")]
+        [System.String]
         $SecurityType,
 
-        [Parameter()] 
-        [Microsoft.Management.Infrastructure.CimInstance[]] 
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
         $Members,
 
-        [Parameter()] 
-        [Microsoft.Management.Infrastructure.CimInstance[]] 
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
         $MembersToInclude,
 
-        [Parameter()] 
-        [System.String[]] 
+        [Parameter()]
+        [System.String[]]
         $MembersToExclude,
 
-        [Parameter()] 
-        [System.Management.Automation.PSCredential] 
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
         $InstallAccount
     )
 
     Write-Verbose -Message "Getting all security options for $SecurityType in $ServiceAppName"
 
-    if ($Members -and (($MembersToInclude) -or ($MembersToExclude))) 
+    if ($Members -and (($MembersToInclude) -or ($MembersToExclude)))
     {
         throw ("Cannot use the Members parameter together with the MembersToInclude or " + `
                "MembersToExclude parameters")
     }
 
-    if (!$Members -and !$MembersToInclude -and !$MembersToExclude) 
+    if ($null -eq $Members -and $null -eq $MembersToInclude -and $null -eq $MembersToExclude)
     {
         throw ("At least one of the following parameters must be specified: Members, " + `
                "MembersToInclude, MembersToExclude")
@@ -49,18 +49,96 @@ function Get-TargetResource
                                   -ScriptBlock {
         $params = $args[0]
 
+        Write-Verbose -Message "Getting Service Application $($params.ServiceAppName)"
         $serviceApp = Get-SPServiceApplication -Name $params.ServiceAppName
-        
-        if ($null -eq $serviceApp) 
+
+        $nullReturn =  @{
+            ServiceAppName = ""
+            SecurityType = $params.SecurityType
+            InstallAccount = $params.InstallAccount
+        }
+
+        if ($null -eq $serviceApp)
         {
-            return @{
-                ServiceAppName = ""
-                SecurityType = $params.SecurityType
-                InstallAccount = $params.InstallAccount
+            return $nullReturn
+        }
+
+        Write-Verbose -Message "Checking if valid AccessLevels are used"
+        Write-Verbose -Message "Retrieving all available localized AccessLevels"
+        $availablePerms = New-Object System.Collections.ArrayList
+        $appSecurity = Get-SPServiceApplicationSecurity -Identity $serviceApp
+        foreach ($right in $appSecurity.NamedAccessRights)
+        {
+            if (-not $availablePerms.Contains($right.Name))
+            {
+                $availablePerms.Add($right.Name) | Out-Null
             }
         }
-        
-        switch ($params.SecurityType) 
+
+        $appSecurity = Get-SPServiceApplicationSecurity -Identity $serviceApp -Admin
+        foreach ($right in $appSecurity.NamedAccessRights)
+        {
+            if (-not $availablePerms.Contains($right.Name))
+            {
+                $availablePerms.Add($right.Name) | Out-Null
+            }
+        }
+
+        if ($params.ContainsKey("Members") -eq $true)
+        {
+            Write-Verbose -Message "Checking AccessLevels in Members parameter"
+            foreach($member in $params.Members)
+            {
+                foreach ($accessLevel in $member.AccessLevels)
+                {
+                    if ($availablePerms -notcontains $accessLevel)
+                    {
+                        Write-Verbose -Message ("Unknown AccessLevel is used ($accessLevel). " + `
+                                                "Allowed values are '" + `
+                                                ($availablePerms -join "', '") + "'")
+                        return $nullReturn
+                    }
+                }
+            }
+        }
+
+        if ($params.ContainsKey("MembersToInclude") -eq $true)
+        {
+            Write-Verbose -Message "Checking AccessLevels in MembersToInclude parameter"
+            foreach($member in $params.MembersToInclude)
+            {
+                foreach ($accessLevel in $member.AccessLevels)
+                {
+                    if ($availablePerms -notcontains $accessLevel)
+                    {
+                        Write-Verbose -Message ("Unknown AccessLevel is used ($accessLevel). " + `
+                                                "Allowed values are '" + `
+                                                ($availablePerms -join "', '") + "'")
+                        return $nullReturn
+                    }
+                }
+            }
+        }
+
+        if ($params.ContainsKey("MembersToExclude") -eq $true)
+        {
+            Write-Verbose -Message "Checking AccessLevels in MembersToExclude parameter"
+            foreach($member in $params.MembersToExclude)
+            {
+                foreach ($accessLevel in $member.AccessLevels)
+                {
+                    if ($availablePerms -notcontains $accessLevel)
+                    {
+                        Write-Verbose -Message ("Unknown AccessLevel is used ($accessLevel). " + `
+                                                "Allowed values are '" + `
+                                                ($availablePerms -join "', '") + "'")
+                        return $nullReturn
+                    }
+                }
+            }
+        }
+
+        switch ($params.SecurityType)
         {
             "Administrators" {
                 $security = $serviceApp | Get-SPServiceApplicationSecurity -Admin
@@ -69,29 +147,43 @@ function Get-TargetResource
                 $security = $serviceApp | Get-SPServiceApplicationSecurity
             }
         }
-        
+
         $members = @()
-        foreach ($securityEntry in $security.AccessRules) 
+        foreach ($securityEntry in $security.AccessRules)
         {
             $user = $securityEntry.Name
-            if ($user -like "i:*|*" -or $user -like "c:*|*") 
+            if ($user -like "i:*|*" -or $user -like "c:*|*")
             {
-                $user = (New-SPClaimsPrincipal -Identity $user -IdentityType EncodedClaim).Value
-                if ($user -match "^s-1-[0-59]-\d+-\d+-\d+-\d+-\d+")
+                if ($user.Chars(3) -eq "%" -and $user -ilike "*$((Get-SPFarm).Id.ToString())")
                 {
-                    $user = Resolve-SPDscSecurityIdentifier -SID $user
+                    $user = "{LocalFarm}"
+                }
+                else
+                {
+                    $user = (New-SPClaimsPrincipal -Identity $user -IdentityType EncodedClaim).Value
+                    if ($user -match "^s-1-[0-59]-\d+-\d+-\d+-\d+-\d+")
+                    {
+                        $user = Resolve-SPDscSecurityIdentifier -SID $user
+                    }
                 }
             }
 
-            $accessLevel = $securityEntry.AllowedRights.ToString()
-            $accessLevel = $accessLevel.Replace("FullControl", "Full Control")
-            $accessLevel = $accessLevel.Replace("ChangePermissions", "Change Permissions")
+            $accessLevels = @()
+
+            foreach ($namedAccessRight in $security.NamedAccessRights)
+            {
+                if ($namedAccessRight.Rights.IsSubsetOf($securityEntry.AllowedObjectRights))
+                {
+                    $accessLevels += $namedAccessRight.Name
+                }
+            }
+
             $members += @{
                 Username    = $user
-                AccessLevel = $accessLevel
+                AccessLevels = $accessLevels
             }
         }
-        
+
         return @{
             ServiceAppName   = $params.ServiceAppName
             SecurityType     = $params.SecurityType
@@ -109,61 +201,114 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        [Parameter(Mandatory = $true)]  
-        [System.String] 
+        [Parameter(Mandatory = $true)]
+        [System.String]
         $ServiceAppName,
 
-        [Parameter(Mandatory = $true)]  
-        [ValidateSet("Administrators","SharingPermissions")] 
-        [System.String] 
+        [Parameter(Mandatory = $true)]
+        [ValidateSet("Administrators","SharingPermissions")]
+        [System.String]
         $SecurityType,
 
-        [Parameter()] 
-        [Microsoft.Management.Infrastructure.CimInstance[]] 
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
         $Members,
 
-        [Parameter()] 
-        [Microsoft.Management.Infrastructure.CimInstance[]] 
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
         $MembersToInclude,
 
-        [Parameter()] 
-        [System.String[]] 
+        [Parameter()]
+        [System.String[]]
         $MembersToExclude,
 
-        [Parameter()] 
-        [System.Management.Automation.PSCredential] 
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
         $InstallAccount
     )
 
     Write-Verbose -Message "Setting all security options for $SecurityType in $ServiceAppName"
-    
-    if ($Members -and (($MembersToInclude) -or ($MembersToExclude))) 
+
+    if ($Members -and (($MembersToInclude) -or ($MembersToExclude)))
     {
         throw ("Cannot use the Members parameter together with the MembersToInclude or " + `
                "MembersToExclude parameters")
     }
 
-    if (!$Members -and !$MembersToInclude -and !$MembersToExclude) 
+    if ($null -eq $Members -and $null -eq $MembersToInclude -and $null -eq $MembersToExclude)
     {
         throw ("At least one of the following parameters must be specified: Members, " + `
                "MembersToInclude, MembersToExclude")
     }
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
-    
-    if ([System.String]::IsNullOrEmpty($CurrentValues.ServiceAppName) -eq $true) 
-    {
-        throw "Unable to locate service application $ServiceAppName"
-    }
-    
+
     Invoke-SPDSCCommand -Credential $InstallAccount `
                         -Arguments @($PSBoundParameters, $CurrentValues) `
                         -ScriptBlock {
         $params = $args[0]
         $CurrentValues = $args[1]
-        
+
         $serviceApp = Get-SPServiceApplication -Name $params.ServiceAppName
-        switch ($params.SecurityType) 
+        if ($null -eq $serviceApp)
+        {
+            throw "Unable to locate service application $($params.ServiceAppName)"
+        }
+
+        Write-Verbose -Message "Checking if valid AccessLevels are used"
+        Write-Verbose -Message "Retrieving all available localized AccessLevels"
+        $availablePerms = New-Object System.Collections.ArrayList
+        $appSecurity = Get-SPServiceApplicationSecurity -Identity $serviceApp
+        foreach ($right in $appSecurity.NamedAccessRights)
+        {
+            if (-not $availablePerms.Contains($right.Name))
+            {
+                $availablePerms.Add($right.Name) | Out-Null
+            }
+        }
+
+        $appSecurity = Get-SPServiceApplicationSecurity -Identity $serviceApp -Admin
+        foreach ($right in $appSecurity.NamedAccessRights)
+        {
+            if (-not $availablePerms.Contains($right.Name))
+            {
+                $availablePerms.Add($right.Name) | Out-Null
+            }
+        }
+
+        if ($params.ContainsKey("Members") -eq $true)
+        {
+            Write-Verbose -Message "Checking AccessLevels in Members parameter"
+            foreach($member in $params.Members)
+            {
+                foreach ($accessLevel in $member.AccessLevels)
+                {
+                    if ($availablePerms -notcontains $accessLevel)
+                    {
+                        throw ("Unknown AccessLevel is used ($accessLevel). Allowed values are " + `
+                               "'" + ($availablePerms -join "', '") + "'")
+                    }
+                }
+            }
+        }
+
+        if ($params.ContainsKey("MembersToInclude") -eq $true)
+        {
+            Write-Verbose -Message "Checking AccessLevels in MembersToInclude parameter"
+            foreach($member in $params.MembersToInclude)
+            {
+                foreach ($accessLevel in $member.AccessLevels)
+                {
+                    if ($availablePerms -notcontains $accessLevel)
+                    {
+                        throw ("Unknown AccessLevel is used ($accessLevel). Allowed values are " + `
+                               "'" + ($availablePerms -join "', '") + "'")
+                    }
+                }
+            }
+        }
+
+        switch ($params.SecurityType)
         {
             "Administrators" {
                 $security = $serviceApp | Get-SPServiceApplicationSecurity -Admin
@@ -172,124 +317,155 @@ function Set-TargetResource
                 $security = $serviceApp | Get-SPServiceApplicationSecurity
             }
         }
-         
-        if ($params.ContainsKey("Members") -eq $true) 
-        {
-            foreach($desiredMember in $params.Members) 
-            {
-                $isUser = Test-SPDSCIsADUser -IdentityName $desiredMember.Username
-                if ($isUser -eq $true) 
-                {
-                    $claim = New-SPClaimsPrincipal -Identity $desiredMember.Username `
-                                                   -IdentityType WindowsSamAccountName    
-                } 
-                else 
-                {
-                    $claim = New-SPClaimsPrincipal -Identity $desiredMember.Username `
-                                                   -IdentityType WindowsSecurityGroupName
-                }
-                                
-                if ($CurrentValues.Members.Username -contains $desiredMember.Username) 
-                {
-                    if (($CurrentValues.Members | Where-Object -FilterScript {
-                            $_.Username -eq $desiredMember.Username 
-                        } | Select-Object -First 1).AccessLevel -ne $desiredMember.AccessLevel) 
-                    {
-                        Revoke-SPObjectSecurity -Identity $security `
-                                                -Principal $claim
 
-                        Grant-SPObjectSecurity -Identity $security `
-                                               -Principal $claim `
-                                               -Rights $desiredMember.AccessLevel
-                    }
-                } 
-                else 
-                {
-                    Grant-SPObjectSecurity -Identity $security -Principal $claim -Rights $desiredMember.AccessLevel
-                }
-            }
-            
-            foreach($currentMember in $CurrentValues.Members) 
+        $localFarmEncodedClaim = "c:0%.c|system|$((Get-SPFarm).Id.ToString())"
+
+        if ($params.ContainsKey("Members") -eq $true)
+        {
+            foreach($desiredMember in $params.Members)
             {
-                if ($params.Members.Username -notcontains $currentMember.Username) 
+                if ($desiredMember.Username -eq "{LocalFarm}")
+                {
+                    $claim = New-SPClaimsPrincipal -Identity $localFarmEncodedClaim `
+                                                   -IdentityType EncodedClaim
+                }
+                else
                 {
                     $isUser = Test-SPDSCIsADUser -IdentityName $desiredMember.Username
-                    if ($isUser -eq $true) 
+                    if ($isUser -eq $true)
                     {
                         $claim = New-SPClaimsPrincipal -Identity $desiredMember.Username `
-                                                       -IdentityType WindowsSamAccountName    
-                    } 
-                    else 
+                                                       -IdentityType WindowsSamAccountName
+                    }
+                    else
                     {
                         $claim = New-SPClaimsPrincipal -Identity $desiredMember.Username `
                                                        -IdentityType WindowsSecurityGroupName
+                    }
+                }
+
+                if ($CurrentValues.Members.Username -contains $desiredMember.Username)
+                {
+                    if ($null -ne (Compare-Object -ReferenceObject ($CurrentValues.Members | Where-Object -FilterScript {
+                            $_.Username -eq $desiredMember.Username
+                        } | Select-Object -First 1).AccessLevels -DifferenceObject $desiredMember.AccessLevels))
+                    {
+                        Grant-SPObjectSecurity -Identity $security `
+                                               -Principal $claim `
+                                               -Rights $desiredMember.AccessLevels `
+                                               -Replace
+                    }
+                }
+                else
+                {
+                    Grant-SPObjectSecurity -Identity $security -Principal $claim -Rights $desiredMember.AccessLevels
+                }
+            }
+
+            foreach($currentMember in $CurrentValues.Members)
+            {
+                if ($params.Members.Username -notcontains $currentMember.Username)
+                {
+                    if ($currentMember.UserName -eq "{LocalFarm}")
+                    {
+                        $claim = New-SPClaimsPrincipal -Identity $localFarmEncodedClaim `
+                                                    -IdentityType EncodedClaim
+                    }
+                    else
+                    {
+                        $isUser = Test-SPDSCIsADUser -IdentityName $currentMember.Username
+                        if ($isUser -eq $true)
+                        {
+                            $claim = New-SPClaimsPrincipal -Identity $currentMember.Username `
+                                                        -IdentityType WindowsSamAccountName
+                        }
+                        else
+                        {
+                            $claim = New-SPClaimsPrincipal -Identity $currentMember.Username `
+                                                        -IdentityType WindowsSecurityGroupName
+                        }
                     }
                     Revoke-SPObjectSecurity -Identity $security -Principal $claim
                 }
             }
         }
 
-        if ($params.ContainsKey("MembersToInclude") -eq $true) 
+        if ($params.ContainsKey("MembersToInclude") -eq $true)
         {
-            foreach($desiredMember in $params.MembersToInclude) 
+            foreach ($desiredMember in $params.MembersToInclude)
             {
-                $isUser = Test-SPDSCIsADUser -IdentityName $desiredMember.Username
-                if ($isUser -eq $true) 
+                if ($desiredMember.Username -eq "{LocalFarm}")
                 {
-                    $claim = New-SPClaimsPrincipal -Identity $desiredMember.Username `
-                                                   -IdentityType WindowsSamAccountName    
-                } 
-                else 
-                {
-                    $claim = New-SPClaimsPrincipal -Identity $desiredMember.Username `
-                                                   -IdentityType WindowsSecurityGroupName
+                    $claim = New-SPClaimsPrincipal -Identity $localFarmEncodedClaim `
+                                                   -IdentityType EncodedClaim
                 }
-                if ($CurrentValues.Members.Username -contains $desiredMember.Username) 
+                else
                 {
-                    if (($CurrentValues.Members | Where-Object -FilterScript {
-                            $_.Username -eq $desiredMember.Username 
-                        } | Select-Object -First 1).AccessLevel -ne $desiredMember.AccessLevel) 
+                    $isUser = Test-SPDSCIsADUser -IdentityName $desiredMember.Username
+                    if ($isUser -eq $true)
                     {
-                        Revoke-SPObjectSecurity -Identity $security `
-                                                -Principal $claim
+                        $claim = New-SPClaimsPrincipal -Identity $desiredMember.Username `
+                                                    -IdentityType WindowsSamAccountName
+                    }
+                    else
+                    {
+                        $claim = New-SPClaimsPrincipal -Identity $desiredMember.Username `
+                                                    -IdentityType WindowsSecurityGroupName
+                    }
+                }
 
+                if ($CurrentValues.Members.Username -contains $desiredMember.Username)
+                {
+                    if ($null -ne (Compare-Object -ReferenceObject ($CurrentValues.Members | Where-Object -FilterScript {
+                            $_.Username -eq $desiredMember.Username
+                        } | Select-Object -First 1).AccessLevels -DifferenceObject $desiredMember.AccessLevels))
+                    {
                         Grant-SPObjectSecurity -Identity $security `
                                                -Principal $claim `
-                                               -Rights $desiredMember.AccessLevel
+                                               -Rights $desiredMember.AccessLevels `
+                                               -Replace
                     }
-                } 
-                else 
+                }
+                else
                 {
                     Grant-SPObjectSecurity -Identity $security `
                                            -Principal $claim `
-                                           -Rights $desiredMember.AccessLevel
+                                           -Rights $desiredMember.AccessLevels
                 }
             }
         }
 
-        if ($params.ContainsKey("MembersToExclude") -eq $true) 
+        if ($params.ContainsKey("MembersToExclude") -eq $true)
         {
-            foreach($excludeMember in $params.MembersToExclude) 
+            foreach ($excludeMember in $params.MembersToExclude)
             {
-                if ($CurrentValues.Members.Username -contains $excludeMember) 
+                if ($CurrentValues.Members.Username -contains $excludeMember)
                 {
-                    $isUser = Test-SPDSCIsADUser -IdentityName $desiredMember.Username
-                    if ($isUser -eq $true) 
+                    if ($excludeMember -eq "{LocalFarm}")
                     {
-                        $claim = New-SPClaimsPrincipal -Identity $desiredMember.Username `
-                                                       -IdentityType WindowsSamAccountName    
-                    } 
-                    else 
+                        $claim = New-SPClaimsPrincipal -Identity $localFarmEncodedClaim `
+                                                       -IdentityType EncodedClaim
+                    }
+                    else
                     {
-                        $claim = New-SPClaimsPrincipal -Identity $desiredMember.Username `
-                                                       -IdentityType WindowsSecurityGroupName
+                        $isUser = Test-SPDSCIsADUser -IdentityName $excludeMember
+                        if ($isUser -eq $true)
+                        {
+                            $claim = New-SPClaimsPrincipal -Identity $excludeMember `
+                                                        -IdentityType WindowsSamAccountName
+                        }
+                        else
+                        {
+                            $claim = New-SPClaimsPrincipal -Identity $excludeMember `
+                                                        -IdentityType WindowsSecurityGroupName
+                        }
                     }
                     Revoke-SPObjectSecurity -Identity $security -Principal $claim
                 }
             }
         }
-        
-        switch ($params.SecurityType) 
+
+        switch ($params.SecurityType)
         {
             "Administrators" {
                 $security = $serviceApp | Set-SPServiceApplicationSecurity -ObjectSecurity $security `
@@ -308,29 +484,29 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        [Parameter(Mandatory = $true)]  
-        [System.String] 
+        [Parameter(Mandatory = $true)]
+        [System.String]
         $ServiceAppName,
 
-        [Parameter(Mandatory = $true)]  
-        [ValidateSet("Administrators","SharingPermissions")] 
-        [System.String] 
+        [Parameter(Mandatory = $true)]
+        [ValidateSet("Administrators","SharingPermissions")]
+        [System.String]
         $SecurityType,
 
-        [Parameter()] 
-        [Microsoft.Management.Infrastructure.CimInstance[]] 
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
         $Members,
 
-        [Parameter()] 
-        [Microsoft.Management.Infrastructure.CimInstance[]] 
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance[]]
         $MembersToInclude,
 
-        [Parameter()] 
-        [System.String[]] 
+        [Parameter()]
+        [System.String[]]
         $MembersToExclude,
 
-        [Parameter()] 
-        [System.Management.Automation.PSCredential] 
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
         $InstallAccount
     )
 
@@ -338,86 +514,126 @@ function Test-TargetResource
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
 
-    if ([System.String]::IsNullOrEmpty($CurrentValues.ServiceAppName) -eq $true) 
+    if ([System.String]::IsNullOrEmpty($CurrentValues.ServiceAppName) -eq $true)
     {
-        return $false 
+        return $false
     }
-    
-    if ($Members) 
-    {
-        Write-Verbose -Message "Processing Members parameter"
-        
-        if ($null -eq $CurrentValues.Members)
+
+    $result = Invoke-SPDSCCommand -Credential $InstallAccount `
+                        -Arguments @($PSBoundParameters, $CurrentValues, $PSScriptRoot) `
+                        -ScriptBlock {
+        $params        = $args[0]
+        $CurrentValues = $args[1]
+        $ScriptRoot    = $args[2]
+
+        $relPath = "..\..\Modules\SharePointDsc.ServiceAppSecurity\SPServiceAppSecurity.psm1"
+        Import-Module (Join-Path -Path $ScriptRoot -ChildPath $relPath -Resolve)
+
+        $serviceApp = Get-SPServiceApplication -Name $params.ServiceAppName
+        switch ($params.SecurityType)
         {
-            Write-Verbose -Message "Security list does not match"
-            return $false
+            "Administrators" {
+                $security = $serviceApp | Get-SPServiceApplicationSecurity -Admin
+            }
+            "SharingPermissions" {
+                $security = $serviceApp | Get-SPServiceApplicationSecurity
+            }
         }
 
-        $differences = Compare-Object -ReferenceObject $CurrentValues.Members.Username `
-                                      -DifferenceObject $Members.Username
-
-        if ($null -eq $differences) 
+        if ($null -ne $params.Members)
         {
-            Write-Verbose -Message "Security list matches - checking that permissions match on each object"
-            foreach($currentMember in $CurrentValues.Members) 
+            Write-Verbose -Message "Processing Members parameter"
+
+            if ($CurrentValues.Members.Count -eq 0)
             {
-                if ($currentMember.AccessLevel -ne ($Members | Where-Object -FilterScript {
-                        $_.Username -eq $currentMember.Username 
-                    } | Select-Object -First 1).AccessLevel) 
+                if ($params.Members.Count -gt 0)
                 {
-                    Write-Verbose -Message "$($currentMember.Username) has incorrect permission level. Test failed."
+                    Write-Verbose -Message "Security list does not match"
                     return $false
                 }
-            }
-            return $true
-        } 
-        else 
-        {
-            Write-Verbose -Message "Security list does not match"
-            return $false
-        }
-    }
-
-    $result = $true
-    if ($MembersToInclude) 
-    {
-        Write-Verbose -Message "Processing MembersToInclude parameter"
-        foreach ($member in $MembersToInclude) 
-        {
-            if (-not($CurrentValues.Members.Username -contains $member.Username)) 
-            {
-                Write-Verbose -Message "$($member.Username) does not have access. Set result to false"
-                $result = $false
-            } 
-            else 
-            {
-                Write-Verbose -Message "$($member.Username) already has access. Checking permission..."
-                if ($member.AccessLevel -ne ($CurrentValues.Members | Where-Object -FilterScript {
-                        $_.Username -eq $member.Username 
-                    } | Select-Object -First 1).AccessLevel) 
+                else
                 {
-                    Write-Verbose -Message "$($member.Username) has incorrect permission level. Test failed."
-                    return $false
+                    Write-Verbose -Message "Configured and specified security lists are both empty"
+                    return $true
+                }
+            }
+            elseif ($params.Members.Count -eq 0)
+            {
+                Write-Verbose -Message "Security list does not match"
+                return $false
+            }
+
+            $differences = Compare-Object -ReferenceObject $CurrentValues.Members.Username `
+                                            -DifferenceObject $params.Members.Username
+
+            if ($null -eq $differences)
+            {
+                Write-Verbose -Message "Security list matches - checking that permissions match on each object"
+                foreach($currentMember in $CurrentValues.Members)
+                {
+                    $expandedAccessLevels = Expand-AccessLevel -Security $security -AccessLevels ($params.Members | Where-Object -FilterScript {
+                        $_.Username -eq $currentMember.Username
+                    } | Select-Object -First 1).AccessLevels
+                    if ($null -ne (Compare-Object -DifferenceObject $currentMember.AccessLevels -ReferenceObject $expandedAccessLevels))
+                    {
+                        Write-Verbose -Message "$($currentMember.Username) has incorrect permission level. Test failed."
+                        return $false
+                    }
+                }
+                return $true
+            }
+            else
+            {
+                Write-Verbose -Message "Security list does not match"
+                return $false
+            }
+        }
+
+        $result = $true
+        if ($params.MembersToInclude)
+        {
+            Write-Verbose -Message "Processing MembersToInclude parameter"
+            foreach ($member in $params.MembersToInclude)
+            {
+                if (-not($CurrentValues.Members.Username -contains $member.Username))
+                {
+                    Write-Verbose -Message "$($member.Username) does not have access. Set result to false"
+                    $result = $false
+                }
+                else
+                {
+                    Write-Verbose -Message "$($member.Username) already has access. Checking permission..."
+                    $expandedAccessLevels = Expand-AccessLevel -Security $security -AccessLevels $member.AccessLevels
+
+                    if ($null -ne (Compare-Object -DifferenceObject $expandedAccessLevels -ReferenceObject ($CurrentValues.Members | Where-Object -FilterScript {
+                            $_.Username -eq $member.Username
+                        } | Select-Object -First 1).AccessLevels))
+                    {
+                        Write-Verbose -Message "$($member.Username) has incorrect permission level. Test failed."
+                        return $false
+                    }
                 }
             }
         }
-    }
 
-    if ($MembersToExclude) 
-    {
-        Write-Verbose -Message "Processing MembersToExclude parameter"
-        foreach ($member in $MembersToExclude) 
+        if ($params.MembersToExclude)
         {
-            if ($CurrentValues.Members.Username -contains $member.Username) 
+            Write-Verbose -Message "Processing MembersToExclude parameter"
+            foreach ($member in $params.MembersToExclude)
             {
-                Write-Verbose -Message "$member already has access. Set result to false"
-                $result = $false
-            } 
-            else 
-            {
-                Write-Verbose -Message "$member does not have access. Skipping"
+                if ($CurrentValues.Members.Username -contains $member)
+                {
+                    Write-Verbose -Message "$member already has access. Set result to false"
+                    $result = $false
+                }
+                else
+                {
+                    Write-Verbose -Message "$member does not have access. Skipping"
+                }
             }
         }
+
+        return $result
     }
 
     return $result

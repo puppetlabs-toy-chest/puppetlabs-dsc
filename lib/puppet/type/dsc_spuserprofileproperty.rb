@@ -4,6 +4,29 @@ Puppet::Type.newtype(:dsc_spuserprofileproperty) do
   require Pathname.new(__FILE__).dirname + '../../' + 'puppet/type/base_dsc'
   require Pathname.new(__FILE__).dirname + '../../puppet_x/puppetlabs/dsc_type_helpers'
 
+    class PuppetX::Dsc::TypeHelpers
+      def self.validate_MSFT_SPUserProfilePropertyMapping(mof_type_map, name, value)
+        required = ['connectionname','propertyname','direction']
+        allowed = []
+        lowkey_hash = Hash[value.map { |k, v| [k.to_s.downcase, v] }]
+
+        missing = required - lowkey_hash.keys
+        unless missing.empty?
+          fail "#{name} is missing the following required keys: #{missing.join(',')}"
+        end
+
+        extraneous = lowkey_hash.keys - required - allowed
+        unless extraneous.empty?
+          fail "#{name} includes invalid keys: #{extraneous.join(',')}"
+        end
+
+        lowkey_hash.keys.each do |key|
+          if lowkey_hash[key]
+            validate_mof_type(mof_type_map[key], 'MSFT_SPUserProfilePropertyMapping', key, lowkey_hash[key])
+          end
+        end
+      end
+    end
 
   @doc = %q{
     The DSC SPUserProfileProperty resource type.
@@ -27,7 +50,7 @@ Puppet::Type.newtype(:dsc_spuserprofileproperty) do
   def dscmeta_resource_friendly_name; 'SPUserProfileProperty' end
   def dscmeta_resource_name; 'MSFT_SPUserProfileProperty' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -192,48 +215,31 @@ Puppet::Type.newtype(:dsc_spuserprofileproperty) do
     end
   end
 
-  # Name:         MappingConnectionName
-  # Type:         string
+  # Name:         PropertyMappings
+  # Type:         MSFT_SPUserProfilePropertyMapping[]
   # IsMandatory:  False
   # Values:       None
-  newparam(:dsc_mappingconnectionname) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "MappingConnectionName - The name of the UPS connect to map this property to"
+  newparam(:dsc_propertymappings, :array_matching => :all) do
+    def mof_type; 'MSFT_SPUserProfilePropertyMapping[]' end
+    def mof_is_embedded?; true end
+    def mof_type_map
+      {"connectionname"=>{:type=>"string"}, "propertyname"=>{:type=>"string"}, "direction"=>{:type=>"string", :values=>["Import", "Export"]}}
+    end
+    desc "PropertyMappings - The details about the property mapping"
     validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
+      unless value.kind_of?(Array) || value.kind_of?(Hash)
+        fail("Invalid value '#{value}'. Should be an array of hashes or a hash")
+      end
+      (value.kind_of?(Hash) ? [value] : value).each_with_index do |v, i|
+        fail "PropertyMappings value at index #{i} should be a Hash" unless v.is_a? Hash
+
+        PuppetX::Dsc::TypeHelpers.validate_MSFT_SPUserProfilePropertyMapping(mof_type_map, "PropertyMappings", v)
       end
     end
-  end
-
-  # Name:         MappingPropertyName
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_mappingpropertyname) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "MappingPropertyName - The name of the property from the UPS connection to map to"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
-    end
-  end
-
-  # Name:         MappingDirection
-  # Type:         string
-  # IsMandatory:  False
-  # Values:       None
-  newparam(:dsc_mappingdirection) do
-    def mof_type; 'string' end
-    def mof_is_embedded?; false end
-    desc "MappingDirection - The direction of the mapping, either Import or Export"
-    validate do |value|
-      unless value.kind_of?(String)
-        fail("Invalid value '#{value}'. Should be a string")
-      end
+    munge do |value|
+      value.kind_of?(Hash) ?
+        [PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, value)] :
+        value.map { |v| PuppetX::Dsc::TypeHelpers.munge_embeddedinstance(mof_type_map, v) }
     end
   end
 

@@ -1,6 +1,6 @@
 @{
 # Version number of this module.
-ModuleVersion = '1.5.0.0'
+moduleVersion = '2.0.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'dada748e-cf1e-43ed-a4ff-3530c01afd53'
@@ -47,7 +47,15 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '* Added $IdentifyingNumber for TP5/RTM and small WMI improvements
+        ReleaseNotes = '* Added MSI install logging for MSFT_xSCSMARunbookWorkerServerSetup and MSFT_xSCSMARunbookWorkerServerSetup
+* Added missing -Port parameter argument for New-SmaRunbookWorkerDeployment in MSFT_xSCSMARunbookWorkerServerSetup
+* Fixed MSFT\_xSCSMARunbookWorkerServerSetup and MSFT\_xSCSMAWebServiceServerSetup using incorrect executable for version checking
+* Remove System Center Technical Preview 5 support. Close issue 18
+* Close issue 19 (always install self-signed certificate)
+* BREAKING CHANGE: change SendCEIPReports parameter to SendTelemetryReports. Close issue 20
+* Added description for new parameters at README.md
+* Fix return state of the current SendTelemetryReports
+* Fix syntax at source code
 
 '
 
@@ -55,6 +63,7 @@ PrivateData = @{
 
 } # End of PrivateData hashtable
 }
+
 
 
 

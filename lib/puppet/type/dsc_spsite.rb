@@ -27,7 +27,7 @@ Puppet::Type.newtype(:dsc_spsite) do
   def dscmeta_resource_friendly_name; 'SPSite' end
   def dscmeta_resource_name; 'MSFT_SPSite' end
   def dscmeta_module_name; 'SharePointDsc' end
-  def dscmeta_module_version; '2.2.0.0' end
+  def dscmeta_module_version; '3.2.0.0' end
 
   newparam(:name, :namevar => true ) do
   end
@@ -255,6 +255,40 @@ Puppet::Type.newtype(:dsc_spsite) do
     validate do |value|
       unless value.kind_of?(String)
         fail("Invalid value '#{value}'. Should be a string")
+      end
+    end
+  end
+
+  # Name:         CreateDefaultGroups
+  # Type:         boolean
+  # IsMandatory:  False
+  # Values:       None
+  newparam(:dsc_createdefaultgroups) do
+    def mof_type; 'boolean' end
+    def mof_is_embedded?; false end
+    desc "CreateDefaultGroups - Create the default site groups in the site collection"
+    validate do |value|
+    end
+    newvalues(true, false)
+    munge do |value|
+      PuppetX::Dsc::TypeHelpers.munge_boolean(value.to_s)
+    end
+  end
+
+  # Name:         AdministrationSiteType
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["TenantAdministration", "None"]
+  newparam(:dsc_administrationsitetype) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "AdministrationSiteType - Specifies the type of the site collection: Regular site or tenant administration site Valid values are TenantAdministration, None."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['TenantAdministration', 'tenantadministration', 'None', 'none'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are TenantAdministration, None")
       end
     end
   end
