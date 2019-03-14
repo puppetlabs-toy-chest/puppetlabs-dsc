@@ -114,7 +114,6 @@ dsc_spblobcachesettings | [SPBlobCacheSettings](https://github.com/puppetlabs/pu
 dsc_spcacheaccounts | [SPCacheAccounts](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPCacheAccounts) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPCacheAccounts/MSFT_SPCacheAccounts.schema.mof
 dsc_spconfigwizard | [SPConfigWizard](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPConfigWizard) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPConfigWizard/MSFT_SPConfigWizard.schema.mof
 dsc_spcontentdatabase | [SPContentDatabase](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPContentDatabase) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPContentDatabase/MSFT_SPContentDatabase.schema.mof
-dsc_spcreatefarm | [SPCreateFarm](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPCreateFarm) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPCreateFarm/MSFT_SPCreateFarm.schema.mof
 dsc_spdatabaseaag | [SPDatabaseAAG](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPDatabaseAAG) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPDatabaseAAG/MSFT_SPDatabaseAAG.schema.mof
 dsc_spdesignersettings | [SPDesignerSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPDesignerSettings) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPDesignerSettings/MSFT_SPDesignerSettings.schema.mof
 dsc_spdiagnosticloggingsettings | [SPDiagnosticLoggingSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPDiagnosticLoggingSettings) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPDiagnosticLoggingSettings/MSFT_SPDiagnosticLoggingSettings.schema.mof
@@ -134,7 +133,6 @@ dsc_spinstall | [SPInstall](https://github.com/puppetlabs/puppetlabs-dsc/tree/ma
 dsc_spinstalllanguagepack | [SPInstallLanguagePack](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPInstallLanguagePack) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPInstallLanguagePack/MSFT_SPInstallLanguagePack.schema.mof
 dsc_spinstallprereqs | [SPInstallPrereqs](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPInstallPrereqs) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPInstallPrereqs/MSFT_SPInstallPrereqs.schema.mof
 dsc_spirmsettings | [SPIrmSettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPIrmSettings) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPIrmSettings/MSFT_SPIrmSettings.schema.mof
-dsc_spjoinfarm | [SPJoinFarm](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPJoinFarm) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPJoinFarm/MSFT_SPJoinFarm.schema.mof
 dsc_sploglevel | [SPLogLevel](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPLogLevel) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPLogLevel/MSFT_SPLogLevel.schema.mof
 dsc_spmachinetranslationserviceapp | [SPMachineTranslationServiceApp](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPMachineTranslationServiceApp) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPMachineTranslationServiceApp/MSFT_SPMachineTranslationServiceApp.schema.mof
 dsc_spmanagedaccount | [SPManagedAccount](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SharePointDsc/DSCResources/MSFT_SPManagedAccount) | import/dsc_resources/SharePointDsc/DSCResources/MSFT_SPManagedAccount/MSFT_SPManagedAccount.schema.mof
@@ -254,7 +252,6 @@ dsc_sqlsetup | [SqlSetup](https://github.com/puppetlabs/puppetlabs-dsc/tree/mast
 dsc_sqlwaitforag | [SqlWaitForAG](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SqlServerDsc/DSCResources/MSFT_SqlWaitForAG) | import/dsc_resources/SqlServerDsc/DSCResources/MSFT_SqlWaitForAG/MSFT_SqlWaitForAG.schema.mof
 dsc_sqlwindowsfirewall | [SqlWindowsFirewall](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/SqlServerDsc/DSCResources/MSFT_SqlWindowsFirewall) | import/dsc_resources/SqlServerDsc/DSCResources/MSFT_SqlWindowsFirewall/MSFT_SqlWindowsFirewall.schema.mof
 dsc_disk | [Disk](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/StorageDsc/DSCResources/MSFTDSC_Disk) | import/dsc_resources/StorageDsc/DSCResources/MSFTDSC_Disk/MSFTDSC_Disk.schema.mof
-dsc_disk | [Disk](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/StorageDsc/DSCResources/MSFT_Disk) | import/dsc_resources/StorageDsc/DSCResources/MSFT_Disk/MSFT_Disk.schema.mof
 dsc_diskaccesspath | [DiskAccessPath](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/StorageDsc/DSCResources/MSFT_DiskAccessPath) | import/dsc_resources/StorageDsc/DSCResources/MSFT_DiskAccessPath/MSFT_DiskAccessPath.schema.mof
 dsc_mountimage | [MountImage](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/StorageDsc/DSCResources/MSFT_MountImage) | import/dsc_resources/StorageDsc/DSCResources/MSFT_MountImage/MSFT_MountImage.schema.mof
 dsc_opticaldiskdriveletter | [OpticalDiskDriveLetter](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/build/vendor/wmf_dsc_resources/StorageDsc/DSCResources/MSFT_OpticalDiskDriveLetter) | import/dsc_resources/StorageDsc/DSCResources/MSFT_OpticalDiskDriveLetter/MSFT_OpticalDiskDriveLetter.schema.mof
@@ -296,14 +293,6 @@ dsc_xadserviceprincipalname | [xADServicePrincipalName](https://github.com/puppe
 dsc_xaduser | [xADUser](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xADUser) | [repo](https://github.com/PowerShell/xActiveDirectory)
 dsc_xwaitforaddomain | [xWaitForADDomain](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xActiveDirectory/DSCResources/MSFT_xWaitForADDomain) | [repo](https://github.com/PowerShell/xActiveDirectory)
 
-##### xAdcsDeployment
-
-Puppet Type | DSC Resource | Github Repo
------------ | ----------------- | -----
-dsc_xadcscertificationauthority | [xAdcsCertificationAuthority](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/DSCResources/MSFT_xAdcsCertificationAuthority) | [repo](https://github.com/PowerShell/xAdcsDeployment)
-dsc_xadcsonlineresponder | [xAdcsOnlineResponder](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/DSCResources/MSFT_xAdcsOnlineResponder) | [repo](https://github.com/PowerShell/xAdcsDeployment)
-dsc_xadcswebenrollment | [xAdcsWebEnrollment](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xAdcsDeployment/DSCResources/MSFT_xAdcsWebEnrollment) | [repo](https://github.com/PowerShell/xAdcsDeployment)
-
 ##### xAzure
 
 Puppet Type | DSC Resource | Github Repo
@@ -340,43 +329,11 @@ dsc_xblautobitlocker | [xBLAutoBitlocker](https://github.com/puppetlabs/puppetla
 dsc_xblbitlocker | [xBLBitlocker](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xBitlocker/DSCResources/MSFT_xBLBitlocker) | [repo](https://github.com/PowerShell/xBitlocker)
 dsc_xbltpm | [xBLTpm](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xBitlocker/DSCResources/MSFT_xBLTpm) | [repo](https://github.com/PowerShell/xBitlocker)
 
-##### xCertificate
-
-Puppet Type | DSC Resource | Github Repo
------------ | ----------------- | -----
-dsc_xcertreq | [xCertReq](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xCertificate/DSCResources/MSFT_xCertReq) | [repo](https://github.com/PowerShell/xCertificate)
-dsc_xcertificateexport | [xCertificateExport](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xCertificate/DSCResources/MSFT_xCertificateExport) | [repo](https://github.com/PowerShell/xCertificate)
-dsc_xcertificateimport | [xCertificateImport](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xCertificate/DSCResources/MSFT_xCertificateImport) | [repo](https://github.com/PowerShell/xCertificate)
-dsc_xpfximport | [xPfxImport](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xCertificate/DSCResources/MSFT_xPfxImport) | [repo](https://github.com/PowerShell/xCertificate)
-dsc_xwaitforcertificateservices | [xWaitForCertificateServices](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xCertificate/DSCResources/MSFT_xWaitForCertificateServices) | [repo](https://github.com/PowerShell/xCertificate)
-
-##### xComputerManagement
-
-Puppet Type | DSC Resource | Github Repo
------------ | ----------------- | -----
-dsc_xcomputer | [xComputer](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xComputerManagement/DSCResources/MSFT_xComputer) | [repo](https://github.com/PowerShell/xComputerManagement)
-dsc_xofflinedomainjoin | [xOfflineDomainJoin](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xComputerManagement/DSCResources/MSFT_xOfflineDomainJoin) | [repo](https://github.com/PowerShell/xComputerManagement)
-dsc_xpowerplan | [xPowerPlan](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xComputerManagement/DSCResources/MSFT_xPowerPlan) | [repo](https://github.com/PowerShell/xComputerManagement)
-dsc_xscheduledtask | [xScheduledTask](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xComputerManagement/DSCResources/MSFT_xScheduledTask) | [repo](https://github.com/PowerShell/xComputerManagement)
-dsc_xvirtualmemory | [xVirtualMemory](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xComputerManagement/DSCResources/MSFT_xVirtualMemory) | [repo](https://github.com/PowerShell/xComputerManagement)
-
 ##### xCredSSP
 
 Puppet Type | DSC Resource | Github Repo
 ----------- | ----------------- | -----
 dsc_xcredssp | [xCredSSP](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xCredSSP/DSCResources/MSFT_xCredSSP) | [repo](https://github.com/PowerShell/xCredSSP)
-
-##### xDFS
-
-Puppet Type | DSC Resource | Github Repo
------------ | ----------------- | -----
-dsc_xdfsnamespacefolder | [xDFSNamespaceFolder](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDFS/DSCResources/MSFT_xDFSNamespaceFolder) | [repo](https://github.com/PowerShell/xDFS)
-dsc_xdfsnamespaceroot | [xDFSNamespaceRoot](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDFS/DSCResources/MSFT_xDFSNamespaceRoot) | [repo](https://github.com/PowerShell/xDFS)
-dsc_xdfsnamespaceserverconfiguration | [xDFSNamespaceServerConfiguration](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDFS/DSCResources/MSFT_xDFSNamespaceServerConfiguration) | [repo](https://github.com/PowerShell/xDFS)
-dsc_xdfsreplicationgroup | [xDFSReplicationGroup](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDFS/DSCResources/MSFT_xDFSReplicationGroup) | [repo](https://github.com/PowerShell/xDFS)
-dsc_xdfsreplicationgroupconnection | [xDFSReplicationGroupConnection](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDFS/DSCResources/MSFT_xDFSReplicationGroupConnection) | [repo](https://github.com/PowerShell/xDFS)
-dsc_xdfsreplicationgroupfolder | [xDFSReplicationGroupFolder](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDFS/DSCResources/MSFT_xDFSReplicationGroupFolder) | [repo](https://github.com/PowerShell/xDFS)
-dsc_xdfsreplicationgroupmembership | [xDFSReplicationGroupMembership](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xDFS/DSCResources/MSFT_xDFSReplicationGroupMembership) | [repo](https://github.com/PowerShell/xDFS)
 
 ##### xDatabase
 
@@ -519,37 +476,6 @@ dsc_xmysqldatabase | [xMySqlDatabase](https://github.com/puppetlabs/puppetlabs-d
 dsc_xmysqlgrant | [xMySqlGrant](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xMySql/DscResources/MSFT_xMySqlGrant) | [repo](https://github.com/PowerShell/xMySql)
 dsc_xmysqlserver | [xMySqlServer](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xMySql/DscResources/MSFT_xMySqlServer) | [repo](https://github.com/PowerShell/xMySql)
 dsc_xmysqluser | [xMySqlUser](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xMySql/DscResources/MSFT_xMySqlUser) | [repo](https://github.com/PowerShell/xMySql)
-
-##### xNetworking
-
-Puppet Type | DSC Resource | Github Repo
------------ | ----------------- | -----
-dsc_xdnsserveraddress | [xDNSServerAddress](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xDNSServerAddress) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xdefaultgatewayaddress | [xDefaultGatewayAddress](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xDefaultGatewayAddress) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xdhcpclient | [xDHCPClient](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xDhcpClient) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xdnsclientglobalsetting | [xDnsClientGlobalSetting](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xDnsClientGlobalSetting) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xdnsconnectionsuffix | [xDnsConnectionSuffix](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xDnsConnectionSuffix) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xfirewall | [xFirewall](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xFirewall) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xfirewallprofile | [xFirewallProfile](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xFirewallProfile) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xhostsfile | [xHostsFile](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xHostsFile) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xipaddress | [xIPAddress](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xIPAddress) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xipaddressoption | [xIPAddressOption](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xIPAddressOption) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xnetadapteradvancedproperty | [xNetAdapterAdvancedProperty](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterAdvancedProperty) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xnetadapterbinding | [xNetAdapterBinding](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterBinding) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xnetadapterlso | [xNetAdapterLso](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterLso) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xnetadaptername | [xNetAdapterName](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterName) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xnetadapterrdma | [xNetAdapterRDMA](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterRDMA) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xnetadapterrsc | [xNetAdapterRsc](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterRsc) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xnetadapterrss | [xNetAdapterRss](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetAdapterRss) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xnetbios | [xNetBIOS](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetBIOS) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xnetconnectionprofile | [xNetConnectionProfile](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetConnectionProfile) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xnetworkteam | [xNetworkTeam](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetworkTeam) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xnetworkteaminterface | [xNetworkTeamInterface](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xNetworkTeamInterface) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xproxysettings | [xProxySettings](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xProxySettings) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xroute | [xRoute](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xRoute) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xweakhostreceive | [xWeakHostReceive](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xWeakHostReceive) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xweakhostsend | [xWeakHostSend](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xWeakHostSend) | [repo](https://github.com/PowerShell/xNetworking)
-dsc_xwinssetting | [xWINSSetting](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/lib/puppet_x/dsc_resources/xNetworking/DSCResources/MSFT_xWinsSetting) | [repo](https://github.com/PowerShell/xNetworking)
 
 ##### xPSDesiredStateConfiguration
 
