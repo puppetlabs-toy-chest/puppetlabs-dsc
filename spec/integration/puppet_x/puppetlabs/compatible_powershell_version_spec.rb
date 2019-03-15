@@ -3,7 +3,7 @@ require 'spec_helper'
 require 'puppet/type'
 require 'puppet_x/puppetlabs/compatible_powershell_version'
 
-describe PuppetX::PuppetLabs::Dsc::CompatiblePowerShellVersion, :if => Puppet::Util::Platform.windows? do
+describe PuppetX::PuppetLabs::Dsc::CompatiblePowerShellVersion do
   before(:each) do
     @ps = PuppetX::PuppetLabs::Dsc::CompatiblePowerShellVersion
   end
@@ -13,6 +13,7 @@ describe PuppetX::PuppetLabs::Dsc::CompatiblePowerShellVersion, :if => Puppet::U
     describe "when evaluating powershell version" do
 
       it "should reject powershell version less than 5" do
+        skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
         Win32::Registry.any_instance.expects(:[]).with('PowerShellVersion').returns('4.0.0.0')
 
         version = @ps.compatible_version?
@@ -22,6 +23,7 @@ describe PuppetX::PuppetLabs::Dsc::CompatiblePowerShellVersion, :if => Puppet::U
 
 
       it "should allow a powershell version 5 or greater" do
+        skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
         Win32::Registry.any_instance.expects(:[]).with('PowerShellVersion').returns('5.1.0.0')
 
         version = @ps.compatible_version?
