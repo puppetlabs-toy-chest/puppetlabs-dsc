@@ -17,7 +17,6 @@ SystemLocaleDsc: 1.2.0.0-PSGallery
 WmiNamespaceSecurityDsc: d49daa4c18f12aabf32fd60631d927c6d276a453
 WSManDsc: 1aa6400e7ffa1932505bf9904a7ce9e147af9c45
 xActiveDirectory: 2.24.0.0-PSGallery
-xAdcsDeployment: 1.4.0.0-PSGallery
 xAzure: 0.2.0.0-PSGallery
 xAzurePack: 1.4.0.0-PSGallery
 xBitlocker: 1.4.0.0-PSGallery
