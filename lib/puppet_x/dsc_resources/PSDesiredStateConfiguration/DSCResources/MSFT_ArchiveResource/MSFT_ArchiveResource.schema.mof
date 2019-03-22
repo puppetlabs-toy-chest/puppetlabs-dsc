@@ -1,0 +1,12 @@
+
+[ClassVersion("1.1.0"),FriendlyName("Archive")]
+class MSFT_ArchiveResource : OMI_BaseResource
+{
+  [write,ValueMap{"Present", "Absent"},Values{"Present", "Absent"}] string Ensure;
+  [Key] string Path;
+  [Key] string Destination;
+  [write] boolean Validate;
+  [write,ValueMap{"SHA-1", "SHA-256", "SHA-512", "CreatedDate", "ModifiedDate"},Values{"SHA-1", "SHA-256", "SHA-512", "CreatedDate", "ModifiedDate"}] string Checksum;
+  [write] boolean Force;
+  [write,EmbeddedInstance("MSFT_Credential")] string Credential;
+};

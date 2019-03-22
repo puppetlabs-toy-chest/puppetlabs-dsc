@@ -1,0 +1,17 @@
+[ClassVersion("1.0.0.0"), FriendlyName("File")]
+class MSFT_FileDirectoryConfiguration : OMI_BaseResource
+{
+  [Key] String DestinationPath;
+  [Write, ValueMap{"Present","Absent"}, Values{"Present","Absent"}] String Ensure;
+  [Write, ValueMap{"File","Directory"}, Values{"File","Directory"}] String Type;
+  [Write] String SourcePath;
+  [Write] String Contents;
+  [Write, ValueMap{"SHA-1","SHA-256","SHA-512","CreatedDate","ModifiedDate"}, Values{"SHA-1","SHA-256","SHA-512","CreatedDate","ModifiedDate"}] String Checksum;
+  [Write] boolean Recurse;
+  [Write] boolean Force;
+  [Write, EmbeddedInstance("MSFT_Credential")] String Credential;
+  [Write, ValueMap{"ReadOnly","Hidden","System","Archive"}, Values{"ReadOnly","Hidden","System","Archive"}] String Attributes[];
+  [Write] String DependsOn[];
+  [Write] boolean MatchSource;
+};
+

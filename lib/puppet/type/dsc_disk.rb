@@ -8,7 +8,7 @@ Puppet::Type.newtype(:dsc_disk) do
   @doc = %q{
     The DSC Disk resource type.
     Automatically generated from
-    'StorageDsc/DSCResources/MSFT_Disk/MSFT_Disk.schema.mof'
+    'StorageDsc/DSCResources/MSFTDSC_Disk/MSFTDSC_Disk.schema.mof'
 
     To learn more about PowerShell Desired State Configuration, please
     visit https://technet.microsoft.com/en-us/library/dn249912.aspx.
@@ -25,7 +25,7 @@ Puppet::Type.newtype(:dsc_disk) do
     end
 
   def dscmeta_resource_friendly_name; 'Disk' end
-  def dscmeta_resource_name; 'MSFT_Disk' end
+  def dscmeta_resource_name; 'MSFTDSC_Disk' end
   def dscmeta_module_name; 'StorageDsc' end
   def dscmeta_module_version; '4.5.0.0' end
 
@@ -102,6 +102,24 @@ Puppet::Type.newtype(:dsc_disk) do
       end
       unless ['Number', 'number', 'UniqueId', 'uniqueid', 'Guid', 'guid'].include?(value)
         fail("Invalid value '#{value}'. Valid values are Number, UniqueId, Guid")
+      end
+    end
+  end
+
+  # Name:         PartitionStyle
+  # Type:         string
+  # IsMandatory:  False
+  # Values:       ["MBR", "GPT"]
+  newparam(:dsc_partitionstyle) do
+    def mof_type; 'string' end
+    def mof_is_embedded?; false end
+    desc "PartitionStyle - Specifies the partition style of the disk. Defaults to GPT. Valid values are MBR, GPT."
+    validate do |value|
+      unless value.kind_of?(String)
+        fail("Invalid value '#{value}'. Should be a string")
+      end
+      unless ['MBR', 'mbr', 'GPT', 'gpt'].include?(value)
+        fail("Invalid value '#{value}'. Valid values are MBR, GPT")
       end
     end
   end
@@ -198,7 +216,7 @@ Puppet::Type.newtype(:dsc_disk) do
   newparam(:dsc_cleardisk) do
     def mof_type; 'boolean' end
     def mof_is_embedded?; false end
-    desc "ClearDisk - Specifies if the disks partition schema should be removed entirely, even if data and oem partitions are present. Only possible with AllowDestructive enabled."
+    desc "ClearDisk - Specifies if the disks partition schema should be removed entirely, even if data and OEM partitions are present. Only possible with AllowDestructive enabled."
     validate do |value|
     end
     newvalues(true, false)

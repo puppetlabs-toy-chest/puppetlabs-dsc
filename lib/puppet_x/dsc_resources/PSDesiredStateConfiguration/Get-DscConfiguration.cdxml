@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+This CDXML exposes the Get-DscConfiguration CIM class as a cmdlet. To use this cmdlet please run the following command
+at the PowerShell prompt:
+
+  PS> Import-Module .\Get-DscConfiguration.cdxml
+  PS> Get-DSCConfiguration ...
+
+-->
+<PowerShellMetadata xmlns="http://schemas.microsoft.com/cmdlets-over-objects/2009/11">
+  <Class ClassName="root/Microsoft/Windows/DesiredStateConfiguration/MSFT_DSCLocalConfigurationManager" ClassVersion="1.0.0">
+    <Version>2.0.0.0</Version>
+    <DefaultNoun>DscConfiguration</DefaultNoun>
+    <StaticCmdlets>
+	<Cmdlet>
+        <CmdletMetadata Verb="Get" HelpUri="http://go.microsoft.com/fwlink/?LinkId=403983" />
+        <Method MethodName="GetConfiguration">
+          <ReturnValue>
+            <Type PSType="int" />
+            <CmdletOutputMetadata>
+              <ErrorCode />
+            </CmdletOutputMetadata>
+          </ReturnValue>
+          <Parameters>
+            <Parameter ParameterName="configurations">
+              <Type PSType="Microsoft.Management.Infrastructure.CimInstance[]" ETSType="GetDscConfigurationType"/>
+              <CmdletOutputMetadata />
+            </Parameter>
+          </Parameters>
+        </Method>
+      </Cmdlet>
+    </StaticCmdlets>
+  </Class>
+</PowerShellMetadata>

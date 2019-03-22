@@ -1,0 +1,16 @@
+
+[ClassVersion("1.0.0.0"), FriendlyName("WindowsOptionalFeature")]
+class MSFT_WindowsOptionalFeature : OMI_BaseResource
+{
+	[Key] String Name;
+	[Write, ValueMap{"Enable","Disable"}, Values{"Enable","Disable"}] String Ensure;
+	[Write] String Source[];
+	[Write] Boolean NoWindowsUpdateCheck;
+	[Write] Boolean RemoveFilesOnDisable;
+	[Write, ValueMap{"ErrorsOnly","ErrorsAndWarning","ErrorsAndWarningAndInformation"}, Values{"ErrorsOnly","ErrorsAndWarning","ErrorsAndWarningAndInformation"}] String LogLevel;
+	[Write] String LogPath;
+	[Read] String CustomProperties[];
+	[Read] String Description;
+	[Read] String DisplayName;
+};
+

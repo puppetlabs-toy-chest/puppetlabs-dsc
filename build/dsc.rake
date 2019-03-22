@@ -61,13 +61,60 @@ namespace :dsc do
         Rake::Task['dsc:resources:checkout'].invoke(
           official_dsc_resources_root, update_versions, composite_resources)
 
-        # filter out unwanted files
-        valid_files = m.find_valid_files("#{dsc_resources_path_tmp}/**/*")
-
         puts "Copying vendored resources from #{dsc_resources_path_tmp} to #{default_vendored_dsc_resources_path}"
 
-        # remove destination path, copy everything in from the filtered list
-        m.move_valid_files(valid_files, community_dsc_resources_root, official_dsc_resources_root, dsc_resources_path, default_vendored_dsc_resources_path, default_dsc_module_path)
+        # Create our final import directory and our working copy
+        # We need the former to have as the final set of DSC Resources to both vendor and parse
+        # We need the later as a staging area for files to copy and modify
+        # In other words: dsc_resources_tmp is where we git clone, dsc_resources_copy is where we filter
+        FileUtils.mkdir_p("#{default_dsc_module_path}/import/dsc_resources")
+        FileUtils.mkdir_p("#{default_dsc_module_path}/import/dsc_resources_copy")
+
+        # Copy all HQRM and Community DSC Resources to our working copy
+        # This avoids alot of hardship in dealing with file paths later on
+        FileUtils.cp_r "#{dsc_resources_path_tmp}/xDscResources/.", "#{default_dsc_module_path}/import/dsc_resources_copy"
+        FileUtils.cp_r "#{dsc_resources_path_tmp}/DscResources/.", "#{default_dsc_module_path}/import/dsc_resources_copy"
+
+        # We remove Composite DSC Resources entirely because we cannot parse them
+        composite_resources.each do |cr|
+          FileUtils.rm_rf "#{default_dsc_module_path}/import/dsc_resources_copy/#{cr}"
+        end
+
+        # These HQRM have a special folder structure that breaks our parsing and is different from the
+        # shipped PSGallery folder structure. For example: https://github.com/PowerShell/ComputerManagementDsc/tree/dev/Modules/ComputerManagementDsc/DSCResources
+        # We deal with this by moving anything in `<DSCResourceName>\Modules\<DSCResourceName>` to `<DSCResourceName>`,
+        # essentially removing the `Modules` subfolder.
+        [ 'ComputerManagementDsc', 'OfficeOnlineServerDsc', 'SharePointDsc' ].each do | hq |
+          FileUtils.cp_r "#{dsc_resources_path_tmp}/DscResources/#{hq}", "#{default_dsc_module_path}/import/dsc_resources_copy"
+          FileUtils.cp_r "#{default_dsc_module_path}/import/dsc_resources_copy/#{hq}/Modules/#{hq}/.",
+            "#{default_dsc_module_path}/import/dsc_resources_copy/#{hq}"
+          FileUtils.rm_rf "#{default_dsc_module_path}/import/dsc_resources_copy/#{hq}/Modules/#{hq}"
+        end
+
+        # Because we're using the git repos, we have to get rid of all the files that don't get shipped
+        valid_files = m.find_valid_files("#{default_dsc_module_path}/import/dsc_resources_copy/**/*")
+
+        # At this point all folders and files are in the correct structure, we need to copy all of them
+        # out to our final import directory: `import/dsc_resources`. This special folder is what the MOF
+        # parser looks at in the `dsc:types:build` rake task.
+        valid_files.each do |f|
+          dest = Pathname.new(f.sub("#{default_dsc_module_path}/import/dsc_resources_copy", "#{default_dsc_module_path}/import/dsc_resources"))
+          FileUtils.mkdir_p(dest.dirname)
+          FileUtils.cp(f, dest)
+        end
+
+        # Cleanup our working copy, we don't need it anymore
+        FileUtils.rm_rf "#{default_dsc_module_path}/import/dsc_resources_copy"
+
+        # We need to remove the existing `lib/puppet_x/dsc_resources` folder in order to account for file move/deletions
+        FileUtils.rm_rf "#{default_dsc_module_path}/lib/puppet_x/dsc_resources"
+
+        # First copied is the vendored DSC Resources (PSDesiredStateConfiguration) that are builtin to WMF
+        puts "Copying vendored resources from #{default_dsc_module_path}/build/vendor/wmf_dsc_resources to #{default_dsc_module_path}/import/dsc_resources"
+        FileUtils.cp_r "#{default_dsc_module_path}/build/vendor/wmf_dsc_resources/.", "#{default_dsc_module_path}/import/dsc_resources/."
+
+        # At this point everything is in `import/dsc_resources` that we need to vendor, so copy it inside our module
+        FileUtils.cp_r "#{default_dsc_module_path}/import/dsc_resources/.", "#{default_dsc_module_path}/lib/puppet_x/dsc_resources"
       else
         # filter out unwanted files
         valid_files = m.find_valid_files("#{dsc_resources_path}/**/*")
