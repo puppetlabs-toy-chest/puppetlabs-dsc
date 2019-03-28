@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.9.0] - 2019-04-02
+
+### Added
+
+- Document support for Windows 2019 ([MODULES-7689](https://tickets.puppetlabs.com/browse/MODULES-7689))
+- 2019 DSC Resource Update ([MODULES-8450](https://tickets.puppetlabs.com/browse/MODULES-8450))
+
+### Fixed
+
+- Fix HQRM DSC Resource Structure ([MODULES-7689](https://tickets.puppetlabs.com/browse/MODULES-7689))
+- Fix build process for untagged DSC Resources ([MODULES-8389](https://tickets.puppetlabs.com/browse/MODULES-8389))
+
 ## [1.8.0] - 2019-01-15
 
 ### Added
