@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+### Fixed
+- Ensure sensitive values are redacted in debug output ([MODULES-8856](https://tickets.puppetlabs.com/browse/MODULES-8856))
+
 ## [1.9.0] - 2019-04-02
 
 ### Added
