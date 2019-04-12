@@ -83,7 +83,7 @@ EOT
     version = Facter.value(:powershell_version)
     Puppet.debug "PowerShell Version: #{version}"
     script_content = ps_script_content('test')
-    Puppet.debug "\n" + script_content
+    Puppet.debug "\n" + self.class.redact_content(script_content)
 
     fail DSC_MODULE_POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
 
@@ -105,7 +105,7 @@ EOT
 
   def create
     script_content = ps_script_content('set')
-    Puppet.debug "\n" + script_content
+    Puppet.debug "\n" + self.class.redact_content(script_content)
 
     fail DSC_MODULE_POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
 
@@ -127,7 +127,7 @@ EOT
 
   def destroy
     script_content = ps_script_content('set')
-    Puppet.debug "\n" + script_content
+    Puppet.debug "\n" + self.class.redact_content(script_content)
 
     fail DSC_MODULE_POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
 
@@ -180,7 +180,7 @@ EOT
     when dsc_value.class.name == 'Hash'
       "@{" + dsc_value.collect{|k, v| format_dsc_value(k) + ' = ' + format_dsc_value(v)}.join('; ') + "}"
     when dsc_value.class.name == 'Puppet::Pops::Types::PSensitiveType::Sensitive'
-      "'#{escape_quotes(dsc_value.unwrap)}'"
+      "'#{escape_quotes(dsc_value.unwrap)}' # PuppetSensitive"
     else
       fail "unsupported type #{dsc_value.class} of value '#{dsc_value}'"
     end
@@ -188,6 +188,16 @@ EOT
 
   def self.escape_quotes(text)
     text.gsub("'", "''")
+  end
+
+  def self.redact_content(content)
+    # Note that here we match after an equals to ensure we redact the value being passed, but not the key.
+    # This means a redaction of a string not including '= ' before the string value will not redact.
+    # Every secret unwrapped in this module will unwrap as "'secret' # PuppetSensitive" and, currently,
+    # always inside a hash table to be passed along. This means we can (currently) expect the value to
+    # always come after an equals sign.
+    # Note that the line may include a semi-colon and/or a newline character after the sensitive unwrap.
+    content.gsub(/= '.+' # PuppetSensitive;?(\\n)?$/,"= '[REDACTED]'")
   end
 
   def ps_script_content(mode)
