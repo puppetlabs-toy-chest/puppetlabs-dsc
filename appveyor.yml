@@ -34,14 +34,6 @@ environment:
       RUBY_VERSION: 25-x64
       CHECK: parallel_spec
     -
-      PUPPET_GEM_VERSION: ~> 4.0
-      RUBY_VERSION: 21
-      CHECK: spec
-    -
-      PUPPET_GEM_VERSION: ~> 4.0
-      RUBY_VERSION: 21-x64
-      CHECK: spec
-    -
       PUPPET_GEM_VERSION: ~> 5.0
       RUBY_VERSION: 24
       CHECK: spec
