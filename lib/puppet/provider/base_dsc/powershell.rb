@@ -207,7 +207,8 @@ EOT
   def self.ps_script_content(mode, resource, provider)
     dsc_invoke_method = mode
     @param_hash = resource
-    template = ERB.new(File.new(template_path + "/invoke_dsc_resource.ps1.erb").read, nil, '-')
+    file = File.new(template_path + "/invoke_dsc_resource.ps1.erb", :encoding => Encoding::UTF_8)
+    template = ERB.new(file.read, nil, '-')
     template.result(binding)
   end
 end
