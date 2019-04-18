@@ -118,12 +118,7 @@ describe 'Apply DSC "File" resource' do
           md5_result = on(agent, "md5sum /cygdrive/c/#{@work_dir}/#{@test_file_name}", :acceptable_exit_codes => 0)
           test_file_md5_sum_regex = /60d964865c387e3dde467eff47d6bbf1/
 
-          if puppet_version(agent) >= '6'
-            expect(md5_result.output).to match(test_file_md5_sum_regex)
-          else
-            # Due to UTF-8 bug found in MODULES-2310, DSC File resource doesn't handle Unicode content in puppet versions less than 6
-            expect(md5_result.output).to_not match(test_file_md5_sum_regex)
-          end
+          expect(md5_result.output).to match(test_file_md5_sum_regex)
         end
       end
     end
@@ -151,12 +146,8 @@ describe 'Apply DSC "File" resource' do
       windows_agents.each do |agent|
         it "should create a file with Unicode characters in the name on #{agent.name}" do
           on(agent, puppet("apply C:\\\\#{@work_dir}\\\\#{@test_manifest_name}"), :acceptable_exit_codes => [0, 2])
-          if puppet_version(agent) >= '6'
             on(agent, "test -f /cygdrive/c/#{@work_dir}/#{@test_file_name}", :acceptable_exit_codes => 0)
-          else
-            # Due to UTF-8 bug found in MODULES-2310, DSC File resource doesn't handle Unicode content in puppet versions less than 6
-            expect {on(agent, "test -f /cygdrive/c/#{@work_dir}/#{@test_file_name}", :acceptable_exit_codes => 0)}.to raise_error(Beaker::Host::CommandFailure)
-          end
+            expect {on(agent, "test -f /cygdrive/c/#{@work_dir}/#{@test_file_name}", :acceptable_exit_codes => 0)}.to_not raise_error(Beaker::Host::CommandFailure)
         end
       end
     end
@@ -188,12 +179,7 @@ describe 'Apply DSC "File" resource' do
       windows_agents.each do |agent|
         it "should create a file with Unicode characters in the SourcePath on #{agent.name}" do
           on(agent, puppet("apply C:\\\\#{@work_dir}\\\\#{@test_manifest_name}"), :acceptable_exit_codes => [0, 2]) do |result|
-            if puppet_version(agent) >= '6'
-              expect(result.stderr).to_not match(/Error:/)
-            else
-              # Due to UTF-8 bug found in MODULES-2310, DSC File resource doesn't handle Unicode content in puppet versions less than 6
-              expect(result.stderr).to match(/Error:/)
-            end
+            expect(result.stderr).to_not match(/Error:/)
           end
         end
       end
