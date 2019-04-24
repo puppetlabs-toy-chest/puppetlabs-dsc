@@ -180,7 +180,7 @@ EOT
     when dsc_value.class.name == 'Hash'
       "@{" + dsc_value.collect{|k, v| format_dsc_value(k) + ' = ' + format_dsc_value(v)}.join('; ') + "}"
     when dsc_value.class.name == 'Puppet::Pops::Types::PSensitiveType::Sensitive'
-      "'#{escape_quotes(dsc_value.unwrap)}' # PuppetSensitive"
+      "'#{escape_quotes(dsc_value.unwrap)}' <# PuppetSensitive #>"
     else
       fail "unsupported type #{dsc_value.class} of value '#{dsc_value}'"
     end
@@ -192,12 +192,13 @@ EOT
 
   def self.redact_content(content)
     # Note that here we match after an equals to ensure we redact the value being passed, but not the key.
-    # This means a redaction of a string not including '= ' before the string value will not redact.
-    # Every secret unwrapped in this module will unwrap as "'secret' # PuppetSensitive" and, currently,
+    # This means a redaction of a string not including '= ' before the string value will not redact. We
+    # also match everything before the match and backreference it in the replacement string so we don't
+    # lose other key/value pairs on the same line.
+    # Every secret unwrapped in this module will unwrap as "'secret' <# PuppetSensitive #>" and, currently,
     # always inside a hash table to be passed along. This means we can (currently) expect the value to
     # always come after an equals sign.
-    # Note that the line may include a semi-colon and/or a newline character after the sensitive unwrap.
-    content.gsub(/= '.+' # PuppetSensitive;?(\\n)?$/,"= '[REDACTED]'")
+    content.gsub(/= ((?!' ; ').)+? <# PuppetSensitive #>/,"= '[REDACTED]'")
   end
 
   def ps_script_content(mode)
