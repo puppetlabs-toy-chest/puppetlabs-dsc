@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.9.2] - 2019-04-24
+
 ### Fixed
 
 - Ensure sensitive values are redacted in debug output and `psdscrunascredential` does not break ([MODULES-8856](https://tickets.puppetlabs.com/browse/MODULES-8856)) - thank you, [@Gerben Welter](https://github.com/GerbenWelter)!
