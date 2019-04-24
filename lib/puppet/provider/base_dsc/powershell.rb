@@ -178,7 +178,7 @@ EOT
     when dsc_value.class.name == 'Array'
       "@(" + dsc_value.collect{|m| format_dsc_value(m)}.join(', ') + ")"
     when dsc_value.class.name == 'Hash'
-      "@{" + dsc_value.collect{|k, v| format_dsc_value(k) + ' = ' + format_dsc_value(v)}.join('; ') + "}"
+      "@{\n" + dsc_value.collect{|k, v| format_dsc_value(k) + ' = ' + format_dsc_value(v)}.join("\n") + "\n}"
     when dsc_value.class.name == 'Puppet::Pops::Types::PSensitiveType::Sensitive'
       "'#{escape_quotes(dsc_value.unwrap)}' # PuppetSensitive"
     else
