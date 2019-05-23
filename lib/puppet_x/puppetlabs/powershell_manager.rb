@@ -9,7 +9,7 @@ module PuppetX
     class PowerShellManager
       @@instances = {}
 
-      def self.instance(cmd, debug = false, pipe_timeout = 30)
+      def self.instance(cmd, debug = false, pipe_timeout = 180)
         key = cmd + debug.to_s
         manager = @@instances[key]
 
@@ -54,7 +54,7 @@ module PuppetX
         pipe_path = "\\\\.\\pipe\\#{named_pipe_name}"
         # wait for the pipe server to signal ready, and fail if no response in 10 seconds
 
-        # wait up to 30 seconds in 0.2 second intervals to be able to open the pipe
+        # wait up to 180 seconds in 0.2 second intervals to be able to open the pipe
         # If the pipe_timeout is ever specified as less than the sleep interval it will
         # never try to connect to a pipe and error out as if a timeout occurred.
         sleep_interval = 0.2
