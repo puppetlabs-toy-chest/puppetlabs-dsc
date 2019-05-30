@@ -24,6 +24,7 @@ Gemfile:
       - gem: master_manipulator
       - gem: puppet-blacksmith
         version: '~> 3.4'
+        condition: "ENV['PUPPET_GEM_VERSION'].nil? or ENV['PUPPET_GEM_VERSION'] !~ %r{ 5}"
   optional:
     ':build':
       - gem: cim
@@ -57,12 +58,6 @@ appveyor.yml:
   matrix:
     - RUBY_VERSION: 24-x64
       CHECK: "syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop"
-    - PUPPET_GEM_VERSION: ~> 4.0
-      RUBY_VERSION: 21
-      CHECK: spec
-    - PUPPET_GEM_VERSION: ~> 4.0
-      RUBY_VERSION: 21-x64
-      CHECK: spec
     - PUPPET_GEM_VERSION: ~> 5.0
       RUBY_VERSION: 24
       CHECK: spec

@@ -3,6 +3,8 @@ require 'bundler'
 # devel
 require 'puppet_blacksmith/rake_tasks' if Bundler.rubygems.find_name('puppet-blacksmith').any?
 
+require 'puppet_litmus/rake_tasks' if Bundler.rubygems.find_name('puppet_litmus').any?
+
 # debug
 require 'pry' if Bundler.rubygems.find_name('pry').any?
 

@@ -8,7 +8,7 @@ skip_commits:
 clone_depth: 10
 init:
   - SET
-  - 'mkdir C:\ProgramData\PuppetLabs\code && exit 0'
+  - 'mkdir C:\ProgramData\PuppetLabs\code\environments\production && exit 0'
   - 'mkdir C:\ProgramData\PuppetLabs\facter && exit 0'
   - 'mkdir C:\ProgramData\PuppetLabs\hiera && exit 0'
   - 'mkdir C:\ProgramData\PuppetLabs\puppet\var && exit 0'
@@ -16,7 +16,7 @@ environment:
   matrix:
     -
       RUBY_VERSION: 24-x64
-      CHECK: syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop
+      CHECK: syntax lint metadata_lint check:symlinks check:dot_underscore check:test_file #check:git_ignore rubocop
     -
       PUPPET_GEM_VERSION: ~> 5.0
       RUBY_VERSION: 24
@@ -24,14 +24,6 @@ environment:
     -
       PUPPET_GEM_VERSION: ~> 5.0
       RUBY_VERSION: 24-x64
-      CHECK: parallel_spec
-    -
-      PUPPET_GEM_VERSION: ~> 6.0
-      RUBY_VERSION: 25
-      CHECK: parallel_spec
-    -
-      PUPPET_GEM_VERSION: ~> 6.0
-      RUBY_VERSION: 25-x64
       CHECK: parallel_spec
     -
       PUPPET_GEM_VERSION: ~> 5.0
@@ -44,11 +36,41 @@ environment:
     -
       PUPPET_GEM_VERSION: ~> 6.0
       RUBY_VERSION: 25
+      CHECK: parallel_spec
+    -
+      PUPPET_GEM_VERSION: ~> 6.0
+      RUBY_VERSION: 25-x64
+      CHECK: parallel_spec
+    -
+      PUPPET_GEM_VERSION: ~> 6.0
+      RUBY_VERSION: 25
       CHECK: spec
     -
       PUPPET_GEM_VERSION: ~> 6.0
       RUBY_VERSION: 25-x64
       CHECK: spec
+    -
+      RUBY_VERSION: 25-x64
+      ACCEPTANCE: yes
+      TARGET_HOST: localhost
+    -
+      RUBY_VERSION: 25-x64
+      ACCEPTANCE: yes
+      TARGET_HOST: localhost
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+for:
+-
+  matrix:
+    only:
+      - ACCEPTANCE: yes
+  install:
+    - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
+    - bundle install --jobs 4 --retry 2 --without build
+    - type Gemfile.lock
+  test_script:
+     - bundle exec rake spec_prep
+     - ps: Set-Content -Value 'modulepath = C:/projects/puppetlabs-dsc/spec/fixtures/modules' -Path 'C:\ProgramData\PuppetLabs\code\environments\production\environment.conf'
+     - bundle exec rspec spec/litmus
 matrix:
   fast_finish: true
 install:
@@ -62,6 +84,7 @@ test_script:
   - gem -v
   - bundle -v
   - bundle exec rake %CHECK%
+  - bundle exec rake ./spec/litmus
 notifications:
   - provider: Email
     to:

@@ -1,0 +1,25 @@
+team-modules/puppetlabs-dsc:
+  PreBuild:
+    - source /opt/rh/rh-ruby25/enable
+    - echo "--- LETS update BUNDLER ---"
+    - bundle install --path vendor/bundle --jobs 3 --without build
+  Build:
+    - echo "--- PROVISIONING ---"
+    - source /opt/rh/rh-ruby25/enable
+    - bundle exec rake 'litmus:provision[vmpooler, win-2012r2-wmf5-x86_64]'
+    - cat inventory.yaml
+    - echo "--- AGENT INSTALLATION ---"
+    - bundle exec rake litmus:install_agent
+    - echo "--- MODULE INSTALLATION ---"
+    - bundle exec rake litmus:install_module
+    - echo "--- TESTS RUNNING ---"
+    - TARGET_HOST=$(grep -o "[a-zA-Z0-9]*\..*\..*\.*" inventory.yaml) bundle exec rspec ./spec/litmus # here we'e executing against the first (and only) provisioned machine in the inventory.yaml
+  AfterBuildSuccess:
+    - source /opt/rh/rh-ruby25/enable
+    - bundle exec rake litmus:tear_down
+  AfterBuildFailure:
+    - source /opt/rh/rh-ruby25/enable
+    - bundle exec rake litmus:tear_down
+  CommitData:
+    - RepoType: Git
+    - RepoPath: .
