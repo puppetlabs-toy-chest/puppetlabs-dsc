@@ -38,10 +38,24 @@ module PuppetX
         !win32console_enabled?
       end
 
+      def invalid_lib_paths?
+        if ENV["lib"].nil? || ENV["lib"].empty?
+          return false
+        else
+          ENV["lib"].split(";").each do |path|
+            if !File.directory?(path)
+              return true
+            end
+          end
+        end
+      end
+
       def initialize(cmd, debug, pipe_timeout)
         @usable = true
 
         named_pipe_name = "#{SecureRandom.uuid}PuppetPsHost"
+
+        raise "Bad configuration for ENV['lib']=#{ENV['lib']} - invalid path" if invalid_lib_paths?
 
         ps_args = ['-File', self.class.init_path, "\"#{named_pipe_name}\""]
         ps_args << '"-EmitDebugOutput"' if debug
