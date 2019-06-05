@@ -11,7 +11,7 @@ module Dsc
         file.write("Puppet Type | DSC Resource\n")
         file.write("----------- | -----------------\n")
         resources.select { |t| t.instance_name.downcase.match(/dsc_[^x]/)}.each do |dsc_type|
-          pth = File.dirname(dsc_type.relative_mof_path.gsub(/import\/dsc_resources/,"build/vendor/wmf_dsc_resources"))
+          pth = File.dirname(dsc_type.relative_mof_path.gsub(/import\/dsc_resources/,"lib/puppet_x/dsc_resources"))
           file.write("dsc_#{dsc_type.friendlyname.downcase} | [#{dsc_type.friendlyname}](https://github.com/puppetlabs/puppetlabs-dsc/tree/master/#{pth}) | #{dsc_type.relative_mof_path}\n")
         end
 

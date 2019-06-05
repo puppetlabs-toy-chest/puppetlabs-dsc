@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Increase the named pipe timeout to 180 seconds to prevent runs from failing waiting for a pipe to open ([MODULES-9087](https://tickets.puppetlabs.com/browse/MODULES-9087)).
 
+### Fixed
+
+- Links to DSC resources in the [Types](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/types.md) documentation ([MODULES-8772](https://tickets.puppetlabs.com/browse/MODULES-8772)).
+
 ## [1.9.2] - 2019-04-24
 
 ### Fixed
