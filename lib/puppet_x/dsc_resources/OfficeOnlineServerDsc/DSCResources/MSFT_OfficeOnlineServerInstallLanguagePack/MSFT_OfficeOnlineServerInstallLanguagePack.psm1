@@ -1,4 +1,4 @@
-﻿$Script:UninstallPath = "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
+$Script:UninstallPath = "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
 $script:InstallKeyPattern = "Office1(5)|(6).WacServerLpk."
 
 function Get-TargetResource

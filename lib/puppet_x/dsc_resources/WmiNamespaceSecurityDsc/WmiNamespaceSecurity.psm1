@@ -1,4 +1,4 @@
-﻿<#
+<#
     configuration Sample {
 		Import-DSCResource -ModuleName WmiNamespaceSecurity
 

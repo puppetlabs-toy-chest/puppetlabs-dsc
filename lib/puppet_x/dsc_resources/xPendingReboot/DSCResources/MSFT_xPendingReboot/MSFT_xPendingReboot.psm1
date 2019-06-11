@@ -1,4 +1,4 @@
-﻿Function Get-TargetResource
+Function Get-TargetResource
 {
     [CmdletBinding()]
     [OutputType([Hashtable])]
