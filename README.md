@@ -40,6 +40,7 @@ In this version, the following DSC Resources are already built and ready for use
 ## Windows System Prerequisites
 
  - PowerShell 5, which is included in [Windows Management Framework 5.0][wmf-5.0].
+   - Note: PowerShell version as obtained from `$PSVersionTable` must be 5.0.10586.117 or greater.
  - [Windows 2003 is not supported](#known-issues).
 
 ## Setup
