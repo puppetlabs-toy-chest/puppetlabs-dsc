@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+### Added
+
+- Added a note to the readme specifying the exact PowerShell version required for the module to function ([MODULES-7762](https://tickets.puppetlabs.com/browse/MODULES-7762))
+
 ### Changed
 
 - Increase the named pipe timeout to 180 seconds to prevent runs from failing waiting for a pipe to open ([MODULES-9087](https://tickets.puppetlabs.com/browse/MODULES-9087)).
