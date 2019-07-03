@@ -16,7 +16,7 @@ environment:
   matrix:
     -
       RUBY_VERSION: 24-x64
-      CHECK: syntax lint metadata_lint check:symlinks check:dot_underscore check:test_file #check:git_ignore rubocop
+      CHECK: syntax lint metadata_lint check:symlinks check:dot_underscore check:test_file #check:git_ignore rubocop # TODO: enable these checks after completion of 
     -
       PUPPET_GEM_VERSION: ~> 5.0
       RUBY_VERSION: 24
@@ -70,7 +70,7 @@ for:
   test_script:
      - bundle exec rake spec_prep
      - ps: Set-Content -Value 'modulepath = C:/projects/puppetlabs-dsc/spec/fixtures/modules' -Path 'C:\ProgramData\PuppetLabs\code\environments\production\environment.conf'
-     - bundle exec rspec spec/litmus
+     - bundle exec rspec spec/acceptance
 matrix:
   fast_finish: true
 install:
@@ -84,7 +84,7 @@ test_script:
   - gem -v
   - bundle -v
   - bundle exec rake %CHECK%
-  - bundle exec rake ./spec/litmus
+  - bundle exec rake ./spec/acceptance
 notifications:
   - provider: Email
     to:

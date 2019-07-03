@@ -6,14 +6,14 @@ team-modules/puppetlabs-dsc:
   Build:
     - echo "--- PROVISIONING ---"
     - source /opt/rh/rh-ruby25/enable
-    - bundle exec rake 'litmus:provision[vmpooler, win-2012r2-wmf5-x86_64]'
+    - bundle exec rake litmus:provision_list[release_checks]
     - cat inventory.yaml
     - echo "--- AGENT INSTALLATION ---"
     - bundle exec rake litmus:install_agent
     - echo "--- MODULE INSTALLATION ---"
     - bundle exec rake litmus:install_module
     - echo "--- TESTS RUNNING ---"
-    - TARGET_HOST=$(grep -o "[a-zA-Z0-9]*\..*\..*\.*" inventory.yaml) bundle exec rspec ./spec/litmus # here we'e executing against the first (and only) provisioned machine in the inventory.yaml
+    - bundle exec rake litmus:acceptance:parallel
   AfterBuildSuccess:
     - source /opt/rh/rh-ruby25/enable
     - bundle exec rake litmus:tear_down

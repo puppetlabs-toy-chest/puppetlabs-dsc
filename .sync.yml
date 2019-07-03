@@ -24,7 +24,6 @@ Gemfile:
       - gem: master_manipulator
       - gem: puppet-blacksmith
         version: '~> 3.4'
-        condition: "ENV['PUPPET_GEM_VERSION'].nil? or ENV['PUPPET_GEM_VERSION'] !~ %r{ 5}"
   optional:
     ':build':
       - gem: cim
@@ -50,6 +49,10 @@ Rakefile:
   unmanaged: true
 
 spec/default_facts.yml:
+  unmanaged: true
+
+# We've modified the appveyor.yml significantly in order to run acceptance tests
+appveyor.yml:
   unmanaged: true
 
 # The DSC module doesn't support parallel_spec

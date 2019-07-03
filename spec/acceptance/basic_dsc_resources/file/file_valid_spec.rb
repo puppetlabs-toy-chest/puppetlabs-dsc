@@ -1,10 +1,11 @@
 require 'spec_helper_acceptance'
 
-def verify_dsc_file_resource (agent, dsc_type, dsc_module, dsc_props)
+def verify_dsc_file_resource (dsc_resource, dsc_module, expect_ps_failure, expect_dsc_failure, dsc_props)
   assert_dsc_resource(
-      agent,
-      dsc_type,
+      dsc_resource,
       dsc_module,
+      expect_ps_failure,
+      expect_dsc_failure,
       :Ensure => dsc_props[:dsc_ensure],
       :DestinationPath => dsc_props[:dsc_destinationpath],
       :Contents => dsc_props[:dsc_contents]
@@ -13,32 +14,33 @@ end
 
 describe 'Apply DSC "File" resource' do
 
-  dsc_type = 'file'
+  dsc_resource = 'file'
   dsc_module = 'PSDesiredStateConfiguration'
 
   context 'A File Resource with Valid "DestinationPath" and "Contents" Specified' do
     before(:all) do
       @work_dir = SecureRandom.uuid
-      @dsc_destinationpath = "C:\\#{@work_dir}\\test1.file"
-      on(windows_agents, "mkdir -p /cygdrive/c/#{@work_dir}", :accept_all_exit_codes => true)
+      @dsc_destinationpath = "C:/#{@work_dir}/test1.file"
+      run_shell("powershell.exe -NoProfile -Nologo -Command \"New-Item -Path 'C:/#{@work_dir}' -ItemType 'directory'\"")
     end
 
     after(:all) do
-      on(windows_agents, "rm -rf /cygdrive/c/#{@work_dir}", :accept_all_exit_codes => true)
+      run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{@work_dir} -Force -Recurse\"", :expect_failures => true)
     end
 
-    windows_agents.each do |agent|
-      it "should create and remove a file resource on #{agent.name}" do
+      it "should create and remove a file resource on #{ENV['TARGET_HOST']}" do
         # Create the file
         dsc_props = {
             :dsc_ensure => 'Present',
             :dsc_destinationpath => @dsc_destinationpath,
             :dsc_contents => 'Cats go meow!',
         }
-        dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
+        dsc_manifest = single_dsc_resource_manifest(dsc_resource, dsc_props)
 
-        execute_manifest_on(agent, dsc_manifest, :expect_changes => true)
-        verify_dsc_file_resource(agent, dsc_type, dsc_module, dsc_props)
+        apply_manifest(dsc_manifest)
+        result = verify_dsc_file_resource(dsc_resource, dsc_module, true, false, dsc_props)
+        result_string = strip_crln(result.stdout)
+        expect(result_string).to match(/The destination object was found and no action is required/)
 
         # Remove the file
         dsc_props = {
@@ -46,12 +48,13 @@ describe 'Apply DSC "File" resource' do
             :dsc_destinationpath => @dsc_destinationpath,
             :dsc_contents => 'Cats go meow!',
         }
-        dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
+        dsc_manifest = single_dsc_resource_manifest(dsc_resource, dsc_props)
 
-        execute_manifest_on(agent, dsc_manifest, :expect_changes => true)
-        verify_dsc_file_resource(agent, dsc_type, dsc_module, dsc_props)
+        apply_manifest(dsc_manifest)
+        result = verify_dsc_file_resource(dsc_resource, dsc_module, true, false, dsc_props)
+        result_string = strip_crln(result.stdout)
+        expect(result_string).to match(/The destination object was not found and no action is required/)
       end
-    end
   end
 
   context 'A DSC File Resource with Valid "DestinationPath" and "SourcePath" Specified' do
@@ -60,30 +63,26 @@ describe 'Apply DSC "File" resource' do
       @sourcepath = 'source.file'
       @destinationpath = 'test2.file'
       @source_file_contents = 'Dogs go bark!'
-
-      create_remote_windows_directory(windows_agents, "C:\\#{@work_dir}")
-      create_remote_windows_file(windows_agents, "C:\\#{@work_dir}\\#{@sourcepath}", @source_file_contents)
+      create_windows_file("C:/#{@work_dir}/", @sourcepath, @source_file_contents)
     end
 
     after(:all) do
-      on(windows_agents, "rm -rf /cygdrive/c/#{@work_dir}", :accept_all_exit_codes => true)
+      run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{@work_dir} -Force -Recurse\"", :expect_failures => true)
     end
 
-    windows_agents.each do |agent|
-      it "creates a destination file from the source file on #{agent.name}" do
+      it "creates a destination file from the source file on #{ENV['TARGET_HOST']}" do
         dsc_props = {
             :dsc_ensure => 'Present',
-            :dsc_destinationpath => "C:\\#{@work_dir}\\#{@destinationpath}",
-            :dsc_sourcepath => "C:\\#{@work_dir}\\#{@sourcepath}"
+            :dsc_destinationpath => "C:/#{@work_dir}/#{@destinationpath}",
+            :dsc_sourcepath => "C:/#{@work_dir}/#{@sourcepath}"
         }
-        dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
+        dsc_manifest = single_dsc_resource_manifest(dsc_resource, dsc_props)
 
-        execute_manifest_on(agent, dsc_manifest, :expect_changes => true)
+        apply_manifest(dsc_manifest)
 
-        result = on(agent, "cat /cygdrive/c/#{@work_dir}/#{@destinationpath}")
-        expect(result.output.strip).to eq(@source_file_contents)
+        result = run_shell("powershell.exe -NoProfile -Nologo -Command \"cat C:/#{@work_dir}/#{@destinationpath}\"")
+        expect(result.stdout).to match(@source_file_contents)
       end
-    end
   end
 
   context 'File resource with Unicode fields' do
@@ -95,32 +94,32 @@ describe 'Apply DSC "File" resource' do
         test_file_contents = "\u3172\u3142\u3144\u3149\u3151\u3167\u3169\u3159\u3158\u3140\u3145\u3176\u3145"
         dsc_props = {
             :dsc_ensure => 'Present',
-            :dsc_destinationpath => "C:\\#{@work_dir}\\#{@test_file_name}",
+            :dsc_destinationpath => "C:/#{@work_dir}/#{@test_file_name}",
             :dsc_contents => "#{test_file_contents}"
         }
-        dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
+        dsc_manifest = single_dsc_resource_manifest(dsc_resource, dsc_props)
         @test_manifest_name = 'test_manifest.pp'
 
-        on(windows_agents, "mkdir -p /cygdrive/c/#{@work_dir}", :accept_all_exit_codes => true)
-        create_remote_file(windows_agents, "/cygdrive/c/#{@work_dir}/#{@test_manifest_name}", dsc_manifest)
+        run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{@work_dir} -Force -Recurse\"", :expect_failures => true)
+        
+        create_windows_file("C:/#{@work_dir}/", @test_manifest_name, dsc_manifest)
       end
 
       after(:all) do
-        on(windows_agents, "rm -rf /cygdrive/c/#{@work_dir}", :accept_all_exit_codes => true)
+        run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{@work_dir} -Force -Recurse\"", :expect_failures => true)
       end
 
-      windows_agents.each do |agent|
         it 'should not scramble UTF8 content in the destination file' do
-          on(agent, puppet("apply C:\\\\#{@work_dir}\\\\#{@test_manifest_name}"), :acceptable_exit_codes => [0, 2]) do |result|
+          run_shell("puppet apply C:/#{@work_dir}/#{@test_manifest_name}") do |result|
             expect(result.stderr).to_not match(/Error:/)
           end
 
-          md5_result = on(agent, "md5sum /cygdrive/c/#{@work_dir}/#{@test_file_name}", :acceptable_exit_codes => 0)
-          test_file_md5_sum_regex = /60d964865c387e3dde467eff47d6bbf1/
+          #Powershell SHA256 hash
+          md5_result = run_shell("powershell.exe -NoProfile -Nologo -Command \"Get-FileHash C:/#{@work_dir}/#{@test_file_name}\"")
+          test_file_md5_sum_regex = /A57D8BFFBA5EEF3BC09FC7B692046479F928B5254D94F313ED33ECC53B41/
 
-          expect(md5_result.output).to match(test_file_md5_sum_regex)
+          expect(md5_result.stdout).to match(test_file_md5_sum_regex)
         end
-      end
     end
 
     context 'File Resource with Valid Unicode "Destinationpath" Specified' do
@@ -130,24 +129,22 @@ describe 'Apply DSC "File" resource' do
         @test_file_name = "\u3172\u3142\u3144\u3149\u3151\u3167\u3169\u3159\u3158\u3140\u3145\u3176\u3145"
         dsc_props = {
             :dsc_ensure => 'Present',
-            :dsc_destinationpath => "C:\\#{@work_dir}\\#{@test_file_name}",
+            :dsc_destinationpath => "C:/#{@work_dir}/#{@test_file_name}",
             :dsc_contents => ''
         }
-        dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
+        dsc_manifest = single_dsc_resource_manifest(dsc_resource, dsc_props)
 
-        on(windows_agents, "mkdir -p /cygdrive/c/#{@work_dir}", :accept_all_exit_codes => true)
-        create_remote_file(windows_agents, "/cygdrive/c/#{@work_dir}/#{@test_manifest_name}", dsc_manifest)
+        create_windows_file("C:/#{@work_dir}", @test_manifest_name, dsc_manifest)
       end
 
       after(:all) do
-        on(windows_agents, "rm -rf /cygdrive/c/#{@work_dir}", :accept_all_exit_codes => true)
+        run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{@work_dir} -Force -Recurse\"" , :expect_failures => true)
       end
 
-      windows_agents.each do |agent|
-        it "should create a file with Unicode characters in the name on #{agent.name}" do
-          on(agent, puppet("apply C:\\\\#{@work_dir}\\\\#{@test_manifest_name}"), :acceptable_exit_codes => [0, 2])
-            on(agent, "test -f /cygdrive/c/#{@work_dir}/#{@test_file_name}", :acceptable_exit_codes => 0)
-            expect {on(agent, "test -f /cygdrive/c/#{@work_dir}/#{@test_file_name}", :acceptable_exit_codes => 0)}.to_not raise_error(Beaker::Host::CommandFailure)
+      it "should create a file with Unicode characters in the name on #{ENV['TARGET_HOST']}" do
+        run_shell("puppet apply C:/#{@work_dir}/#{@test_manifest_name}")
+        run_shell("powershell.exe -NoProfile -Nologo -Command \"Test-Path C:/#{@work_dir}/#{@test_file_name}\"") do |result|
+          expect(result.stdout).to match(/True/)
         end
       end
     end
@@ -161,29 +158,25 @@ describe 'Apply DSC "File" resource' do
 
         dsc_props = {
             :dsc_ensure => 'Present',
-            :dsc_destinationpath => "C:\\#{@work_dir}\\#{@test_file_name}",
-            :dsc_sourcepath => "C:\\#{@work_dir}\\#{@source_file_name}"
+            :dsc_destinationpath => "C:/#{@work_dir}/#{@test_file_name}",
+            :dsc_sourcepath => "C:/#{@work_dir}/#{@source_file_name}"
         }
-        dsc_manifest = single_dsc_resource_manifest(dsc_type, dsc_props)
+        dsc_manifest = single_dsc_resource_manifest(dsc_resource, dsc_props)
         @test_manifest_name = 'test_manifest.pp'
 
-        on(windows_agents, "mkdir -p /cygdrive/c/#{@work_dir}", :accept_all_exit_codes => true)
-        create_remote_file(windows_agents, "/cygdrive/c/#{@work_dir}/#{@test_manifest_name}", dsc_manifest)
-        create_remote_file(windows_agents, "/cygdrive/c/#{@work_dir}/#{@source_file_name}", @source_file_contents)
+        create_windows_file("C:/#{@work_dir}/", @test_manifest_name, dsc_manifest)
+        create_windows_file("C:/#{@work_dir}/", @source_file_name, @source_file_contents)
       end
 
       after(:all) do
-        on(windows_agents, "rm -rf /cygdrive/c/#{@work_dir}", :accept_all_exit_codes => true)
+        run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{@work_dir} -Force -Recurse\"", :expect_failures => true)
       end
 
-      windows_agents.each do |agent|
-        it "should create a file with Unicode characters in the SourcePath on #{agent.name}" do
-          on(agent, puppet("apply C:\\\\#{@work_dir}\\\\#{@test_manifest_name}"), :acceptable_exit_codes => [0, 2]) do |result|
-            expect(result.stderr).to_not match(/Error:/)
-          end
+      it "should create a file with Unicode characters in the SourcePath on #{ENV['TARGET_HOST']}" do
+        run_shell("puppet apply C:/#{@work_dir}/#{@test_manifest_name}") do |result|
+          expect(result.stderr).to_not match(/Error:/)
         end
       end
     end
   end
 end
-

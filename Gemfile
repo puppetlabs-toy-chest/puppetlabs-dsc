@@ -35,7 +35,6 @@ group :system_tests do
   gem "beaker-testmode_switcher", '~> 0.4',           require: false
   gem "master_manipulator",                           require: false
   gem "puppet-blacksmith", '~> 3.4',                  require: false
-  gem "puppet_litmus",                                require: false, platforms: [:ruby, :mswin, :mingw, :x64_mingw] if ENV['PUPPET_GEM_VERSION'].nil? or ENV['PUPPET_GEM_VERSION'] !~ %r{ 5}
 end
 group :build do
   gem "cim",               require: false
