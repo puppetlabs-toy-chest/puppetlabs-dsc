@@ -39,10 +39,13 @@ Gemfile:
         platforms: ["mswin", "mingw", "x64_mingw"]
         version: '< 2.6.0'
 
-# For the moment don't do any rubocop checks.
 .rubocop.yml:
-  include_todos: true
-  selected_profile: off
+  default_configs:
+    selected_profile: off
+    inherit_from: .rubocop_todo.yml
+    require:
+      - rubocop-i18n
+      - rubocop-rspec
 
 # The rakefile is heavily modified for the build process
 Rakefile:
@@ -55,24 +58,9 @@ spec/default_facts.yml:
 appveyor.yml:
   unmanaged: true
 
-# The DSC module doesn't support parallel_spec
-appveyor.yml:
-  appveyor_bundle_install: "bundle install --jobs 4 --retry 2 --without system_tests build"
-  matrix:
-    - RUBY_VERSION: 24-x64
-      CHECK: "syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop"
-    - PUPPET_GEM_VERSION: ~> 5.0
-      RUBY_VERSION: 24
-      CHECK: spec
-    - PUPPET_GEM_VERSION: ~> 5.0
-      RUBY_VERSION: 24-x64
-      CHECK: spec
-    - PUPPET_GEM_VERSION: ~> 6.0
-      RUBY_VERSION: 25
-      CHECK: spec
-    - PUPPET_GEM_VERSION: ~> 6.0
-      RUBY_VERSION: 25-x64
-      CHECK: spec
+.gitignore:
+  required:
+    - ---.project
 
 .gitlab-ci.yml:
   delete: true
