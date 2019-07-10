@@ -1,26 +1,10 @@
-require 'beaker-pe'
-require 'beaker-puppet'
-require 'beaker-rspec'
-require 'beaker/puppet_install_helper'
-require 'beaker/module_install_helper'
-require 'erb'
+# frozen_string_literal: true
 require 'lib/dsc_utils'
-require 'beaker/testmode_switcher/dsl'
-
-run_puppet_install_helper
-configure_type_defaults_on(hosts)
-
-install_ca_certs
-
-proj_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
-hosts.each do |host|
-  install_module_dependencies_on(host)
-  install_dev_puppet_module_on(host, :source => proj_root, :module_name => 'dsc')
-end
-
-def windows_agents
-  agents.select { |agent| agent['platform'].include?('windows') }
-end
+require 'erb'
+require 'serverspec'
+require 'puppet_litmus'
+require 'open3'
+include PuppetLitmus
 
 def single_dsc_resource_manifest(dsc_type, dsc_props)
   output = "dsc_#{dsc_type} {'#{dsc_type}_test':\n"
@@ -39,37 +23,79 @@ def single_dsc_resource_manifest(dsc_type, dsc_props)
   return output
 end
 
-def test_file_path_manifest (test_dir_path, test_file_path, test_file_contents)
-  <<-Manifest
-  dsc_file {'tmp_folder':
-      dsc_ensure          => 'present',
-      dsc_type            => 'Directory',
-      dsc_destinationpath => "#{test_dir_path}",
-  }
+def create_windows_file(folder_path, file_name, content)
+  content = content.gsub(/\"/, "'")
+  manifest = <<-FileManifest
+    file{"#{folder_path}":
+      ensure => directory,
+    }
 
-  dsc_file {'tmp_file':
-      dsc_ensure          => 'present',
-      dsc_type            => 'File',
-      dsc_destinationpath => "#{test_file_path}",
-      dsc_contents        => "#{test_file_contents}"
-  }
-  Manifest
+    file { "#{folder_path}/#{file_name}":
+      content => "#{content}",
+    }
+  FileManifest
+  apply_manifest(manifest)
 end
 
-# Due to IMAGES-825, sometimes we can't create folders from within Cygwin, but instead
-# need to break out to native Windows binaries to create them.  This creates files and
-# folders with a correct and sane DACL
-def create_remote_windows_directory(hosts, windows_path)
-  windows_path = windows_path.gsub('\\','\\\\\\')
-  on(hosts, "cmd.exe /c mkdir #{windows_path}", :accept_all_exit_codes => true)
+def strip_crln(input_string)
+  input_string.to_s.gsub("\n", '').gsub("\r", '')
 end
 
-def create_remote_windows_file(hosts, windows_path, content)
-  # Note content CANNOT contain backslashes or file endings.  Single string only
-  windows_path = windows_path.gsub('\\','\\\\\\')
-  on(hosts, "cmd.exe /c echo #{content} > #{windows_path}", :accept_all_exit_codes => true)
+def escape_value(value)
+  if is_number?(value)
+    value
+  else
+    "'#{value.to_s.gsub("'","''")}\'"
+  end
 end
 
-def puppet_version(agent)
-  on(agent, puppet('--version', :acceptable_exit_codes => 0)).stdout
+def is_number?(value)
+  value.respond_to?(:to_i) ? value.to_s == value.to_i.to_s : false
+end
+
+if ENV['TARGET_HOST'].nil? || ENV['TARGET_HOST'] == 'localhost'
+  puts 'Running tests against this machine !'
+  if Gem.win_platform?
+    set :backend, :cmd
+  else
+    set :backend, :exec
+  end
+else
+  puts "TARGET_HOST #{ENV['TARGET_HOST']}"
+  # load inventory
+  inventory_hash = inventory_hash_from_inventory_file
+  node_config = config_from_node(inventory_hash, ENV['TARGET_HOST'])
+
+  if target_in_group(inventory_hash, ENV['TARGET_HOST'], 'ssh_nodes')
+    set :backend, :ssh
+    options = Net::SSH::Config.for(host)
+    options[:user] = node_config.dig('ssh', 'user') unless node_config.dig('ssh', 'user').nil?
+    options[:port] = node_config.dig('ssh', 'port') unless node_config.dig('ssh', 'port').nil?
+    options[:password] = node_config.dig('ssh', 'password') unless node_config.dig('ssh', 'password').nil?
+    host = if ENV['TARGET_HOST'].include?(':')
+             ENV['TARGET_HOST'].split(':').first
+           else
+             ENV['TARGET_HOST']
+           end
+    set :host,        options[:host_name] || host
+    set :ssh_options, options
+  elsif target_in_group(inventory_hash, ENV['TARGET_HOST'], 'winrm_nodes')
+    require 'winrm'
+
+    set :backend, :winrm
+    set :os, family: 'windows'
+    user = node_config.dig('winrm', 'user') unless node_config.dig('winrm', 'user').nil?
+    pass = node_config.dig('winrm', 'password') unless node_config.dig('winrm', 'password').nil?
+    endpoint = "http://#{ENV['TARGET_HOST']}:5985/wsman"
+
+    opts = {
+      user: user,
+      password: pass,
+      endpoint: endpoint,
+      operation_timeout: 300,
+    }
+
+    winrm = WinRM::Connection.new opts
+    Specinfra.configuration.winrm = winrm
+  end
 end
