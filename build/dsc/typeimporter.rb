@@ -1,22 +1,23 @@
+# rubocop:disable Style/ClassAndModuleChildren
 module Dsc
+  # Handle importing the dsc files from git repos
   class TypeImporter
-    
     def find_valid_files(directory)
       valid_files = Dir.glob("#{directory}/**/*").reject do |f|
         # reject the .git folder or special git files
-        f =~ /\/\.(git|gitattributes|gitignore|gitmodules)/ ||
-        # reject binary and other file extensions
-        f =~ /\.(pptx|docx|sln|cmd|xml|pssproj|pfx|html|txt|xlsm|csv|png|git|yml|md|js|json)$/i ||
-        # reject test / sample / example code
-        f =~ /\/.*([Ss]ample|[Ee]xample|[Tt]est).*/ ||
-        # reject stuff that is a Composite DSC Resource
-        f =~ /(xChrome|xDSCResourceDesigner|xDscDiagnostics|xFirefox|xSafeHarbor|xSystemSecurity).*/ ||
-        # reject duplicated resources
-        f =~ /(xSharePoint|PSDscResources).*/ ||
-        # and don't keep track of dirs
-        Dir.exists?(f)
+        f =~ %r{\/\.(git|gitattributes|gitignore|gitmodules)} ||
+          # reject binary and other file extensions
+          f =~ %r{\.(pptx|docx|sln|cmd|xml|pssproj|pfx|html|txt|xlsm|csv|png|git|yml|md|js|json)$}i ||
+          # reject test / sample / example code
+          f =~ %r{\/.*([Ss]ample|[Ee]xample|[Tt]est).*} ||
+          # reject stuff that is a Composite DSC Resource
+          f =~ %r{(xChrome|xDSCResourceDesigner|xDscDiagnostics|xFirefox|xSafeHarbor|xSystemSecurity).*} ||
+          # reject duplicated resources
+          f =~ %r{(xSharePoint|PSDscResources).*} ||
+          # and don't keep track of dirs
+          Dir.exist?(f)
       end
-      
+
       valid_files
     end
 
@@ -46,7 +47,7 @@ module Dsc
         FileUtils.mkdir_p(dest.dirname)
         FileUtils.cp(f, dest)
       end
-      
+
       puts "Adding custom types to '#{default_dsc_resources_path}'"
       FileUtils.mkdir_p(default_dsc_resources_path) unless Dir.exist? default_dsc_resources_path
       valid_files.each do |f|
@@ -55,11 +56,11 @@ module Dsc
         FileUtils.cp(f, dest)
       end
     end
-    
+
     def move_file(f, dsc_resources_root, vendor_dsc_resources_path)
-      dscresource_name = f.split(dsc_resources_root)[1].split("/")[1]
+      dscresource_name = f.split(dsc_resources_root)[1].split('/')[1]
       if f.include?("/#{dscresource_name}/Modules/#{dscresource_name}")
-        d = f.sub("#{dscresource_name}/Modules/#{dscresource_name}", "#{dscresource_name}")
+        d = f.sub("#{dscresource_name}/Modules/#{dscresource_name}", dscresource_name.to_s)
         dest = Pathname.new(d.sub(dsc_resources_root, vendor_dsc_resources_path))
       else
         dest = Pathname.new(f.sub(dsc_resources_root, vendor_dsc_resources_path))
@@ -68,6 +69,5 @@ module Dsc
       FileUtils.mkdir_p(dest.dirname)
       FileUtils.cp(f, dest)
     end
-
   end
 end

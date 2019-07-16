@@ -1,6 +1,7 @@
+# rubocop:disable Style/ClassAndModuleChildren
 module Dsc
+  # Handle PowerShell module manifests
   class Psmodule
-
     attr_accessor :name
     attr_reader :module_manifest_path
 
@@ -18,25 +19,23 @@ module Dsc
     private
 
     def attributes
-      begin
-        unless @attributes
-          attrs = {}
-          regex = /^(.*) *= *['"](.*)['"] *(;)? *$/
-          File.open(@module_manifest_path, 'r') do |psd1|
-            content = File.read(psd1)
-            utf8_encoded_content = utf8_encode_content(content)
-            utf8_encoded_content.lines.each do |line|
-              dos2unix(line)
-              matches = regex.match(line)
-              attrs[matches[1].strip.downcase] = matches[2] if matches
-            end
-            @attributes = attrs
+      unless @attributes
+        attrs = {}
+        regex = %r{^(.*) *= *['"](.*)['"] *(;)? *$}
+        File.open(@module_manifest_path, 'r') do |psd1|
+          content = File.read(psd1)
+          utf8_encoded_content = utf8_encode_content(content)
+          utf8_encoded_content.lines.each do |line|
+            dos2unix(line)
+            matches = regex.match(line)
+            attrs[matches[1].strip.downcase] = matches[2] if matches
           end
+          @attributes = attrs
         end
-        @attributes
-      rescue => e
-        raise "could not read psd1 manifest file for #{@name} / #{@module_manifest_path}: #{e}"
       end
+      @attributes
+    rescue => e
+      raise "could not read psd1 manifest file for #{@name} / #{@module_manifest_path}: #{e}"
     end
 
     def utf8_encode_content(content)
@@ -45,8 +44,7 @@ module Dsc
     end
 
     def dos2unix(line)
-      line.gsub!(/\r\n$/, "\n")
+      line.gsub!(%r{\r\n$}, "\n")
     end
-
   end
 end

@@ -1,16 +1,16 @@
+# rubocop:disable Style/ClassAndModuleChildren
 module Dsc
+  # Manage MOF files
   class Mof
-
     attr_accessor :dsc_invalid_resources
 
     def initialize(options)
-
       @import_folder                = options[:import_folder]
       @base_qualifiers_folder       = options[:base_qualifiers_folder]
       @dmtf_mof_folder              = options[:dmtf_mof_folder]
       @dsc_modules_folder           = options[:dsc_modules_folder]
 
-      @dmtf_cim_mof                 = Dir[ @dmtf_mof_folder + '/cim_schema_*.mof'].first
+      @dmtf_cim_mof                 = Dir[@dmtf_mof_folder + '/cim_schema_*.mof'].first
       @dmtf_qualifiers_mof          = "#{@dmtf_mof_folder}/qualifiers.mof"
       @dmtf_qualifiers_optional_mof = "#{@dmtf_mof_folder}/qualifiers_optional.mof"
 
@@ -23,25 +23,24 @@ module Dsc
     end
 
     def base_mof_file_pathes
-      @base_mof_file_pathes ||= find_mofs(/.*\.mof$/, @base_qualifiers_folder)
+      @base_mof_file_pathes ||= find_mofs(%r{.*\.mof$}, @base_qualifiers_folder)
     end
 
     def dsc_mof_file_pathes
-      @dsc_mof_file_pathes ||= find_mofs(/.*\.[sS]chema.mof$/, @dsc_modules_folder)
+      @dsc_mof_file_pathes ||= find_mofs(%r{.*\.[sS]chema.mof$}, @dsc_modules_folder)
     end
 
     def dsc_results
-      all_result.select{|k,v| dsc_mof_file_pathes.include?(k)}
+      all_result.select { |k, _v| dsc_mof_file_pathes.include?(k) }
     end
 
     def all_result
-
       create_index_mof(@dsc_modules_mof, dsc_mof_file_pathes)
 
       # generate base mof import file
       create_index_mof(@dsc_base_mof, base_mof_file_pathes)
 
-      moffiles, options = MOF::Parser.argv_handler "moflint", []
+      moffiles, options = MOF::Parser.argv_handler 'moflint', []
       options[:style] ||= :wmi
       options[:includes] ||= []
       options[:quiet] ||= false
@@ -69,7 +68,7 @@ module Dsc
 
     def create_index_mof(index_mof_file_name, mofs)
       File.open(index_mof_file_name, 'w') do |file|
-        mofs.each{|mof_path| file.write("#pragma include (\"#{mof_path}\")\n") }
+        mofs.each { |mof_path| file.write("#pragma include (\"#{mof_path}\")\n") }
       end
     end
 
@@ -82,6 +81,5 @@ module Dsc
       end
       mof_file_pathes
     end
-
   end
 end

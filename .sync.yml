@@ -41,11 +41,20 @@ Gemfile:
 
 .rubocop.yml:
   default_configs:
-    selected_profile: off
     inherit_from: .rubocop_todo.yml
     require:
       - rubocop-i18n
       - rubocop-rspec
+    AllCops:
+      Exclude:
+        - lib/puppet/type/*
+        - lib/puppet_x/puppetlabs/*powershell*
+        - spec/unit/puppet/type/*
+        - spec/integration/**/*
+        - spec/unit/puppet_x/puppetlabs/powershell_version_spec.rb
+      Include:
+        - lib/puppet/type/base_dsc.rb
+        - spec/unit/puppet/type/base_dsc_spec.rb
 
 # The rakefile is heavily modified for the build process
 Rakefile:

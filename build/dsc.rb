@@ -30,7 +30,6 @@ require "#{LIB_PATH}/dsc/typecleaner"
 require "#{LIB_PATH}/dsc/typeimporter"
 require "#{LIB_PATH}/dsc/documentbuilder"
 
+# Empty declaration for builder
 module Dsc
-
-
 end

@@ -7,6 +7,8 @@ AllCops:
   TargetRubyVersion: '2.1'
   Include:
   - "./**/*.rb"
+  - lib/puppet/type/base_dsc.rb
+  - spec/unit/puppet/type/base_dsc_spec.rb
   Exclude:
   - bin/*
   - ".vendor/**/*"
@@ -18,6 +20,11 @@ AllCops:
   - "**/Puppetfile"
   - "**/Vagrantfile"
   - "**/Guardfile"
+  - lib/puppet/type/*
+  - lib/puppet_x/puppetlabs/*powershell*
+  - spec/unit/puppet/type/*
+  - spec/integration/**/*
+  - spec/unit/puppet_x/puppetlabs/powershell_version_spec.rb
 Metrics/LineLength:
   Description: People have wide screens, use them.
   Max: 200
@@ -74,7 +81,6 @@ Style/TrailingCommaInLiteral:
 Style/SymbolArray:
   Description: Using percent style obscures symbolic intent of array's contents.
   EnforcedStyle: brackets
-selected_profile: false
 inherit_from: ".rubocop_todo.yml"
 RSpec/MessageSpies:
   EnforcedStyle: receive

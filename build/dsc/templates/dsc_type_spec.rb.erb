@@ -324,7 +324,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
     end
 <%  end # if resource.absentable? -%>
-<%  if resource.has_credential? -%>
+<%  if resource.credential? -%>
 
     describe "when dsc_resource has credentials" do
 
@@ -334,7 +334,7 @@ describe Puppet::Type.type(:dsc_<%= resource.friendlyname.downcase %>) do
 
     end
 
-<%  end # if resource.has_credential? -%>
+<%  end # if resource.credential? -%>
 
   end
 end
