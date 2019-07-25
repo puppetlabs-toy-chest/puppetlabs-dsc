@@ -1,4 +1,6 @@
+# rubocop:disable Style/ClassAndModuleChildren
 module Dsc
+  # Handle cleanup and removing old builds
   class TypeCleaner
     attr_accessor :target_module_path
     attr_accessor :puppet_type_subpath
@@ -24,14 +26,13 @@ module Dsc
     def clean_folder(folders)
       type_pathes = []
       folders.each do |folder|
-        Dir.glob("#{folder}").each do |filepath|
+        Dir.glob(folder.to_s).each do |filepath|
           pn = Pathname.new(filepath).expand_path.relative_path_from(@target_module_path)
-          type_pathes << "Remove - #{pn.to_s}"
+          type_pathes << "Remove - #{pn}"
           FileUtils.rm_rf filepath
         end
       end
       type_pathes
     end
-
   end
 end

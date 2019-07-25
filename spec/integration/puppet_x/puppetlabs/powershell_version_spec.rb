@@ -23,7 +23,7 @@ describe PuppetX::PuppetLabs::Dsc::PowerShellVersion do
 
       it "should call the powershell three registry path" do
         skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
-        reg_key = mock('bob')
+        reg_key = instance_double('bob')
         reg_key.expects(:[]).with('PowerShellVersion').returns('5.0.10514.6')
         Win32::Registry.any_instance.expects(:open).with('SOFTWARE\Microsoft\PowerShell\3\PowerShellEngine', Win32::Registry::KEY_READ | 0x100).yields(reg_key).once
 
@@ -32,7 +32,7 @@ describe PuppetX::PuppetLabs::Dsc::PowerShellVersion do
 
       it "should not call powershell one registry path" do
         skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
-        reg_key = mock('bob')
+        reg_key = instance_double('bob')
         reg_key.expects(:[]).with('PowerShellVersion').returns('5.0.10514.6')
         Win32::Registry.any_instance.expects(:open).with('SOFTWARE\Microsoft\PowerShell\3\PowerShellEngine', Win32::Registry::KEY_READ | 0x100).yields(reg_key)
         Win32::Registry.any_instance.expects(:open).with('SOFTWARE\Microsoft\PowerShell\1\PowerShellEngine', Win32::Registry::KEY_READ | 0x100).times(0)
@@ -45,7 +45,9 @@ describe PuppetX::PuppetLabs::Dsc::PowerShellVersion do
 
       it "should detect a powershell version" do
         skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
-        Win32::Registry.any_instance.expects(:[]).with('PowerShellVersion').returns('2.0')
+        reg_key = instance_double('bob')
+        reg_key.expects(:[]).with('PowerShellVersion').returns('2.0')
+        Win32::Registry.any_instance.expects(:open).yields(reg_key)
 
         version = @ps.version
 
@@ -54,7 +56,7 @@ describe PuppetX::PuppetLabs::Dsc::PowerShellVersion do
 
       it "should call powershell one registry path" do
         skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
-        reg_key = mock('bob')
+        reg_key = instance_double('bob')
         reg_key.expects(:[]).with('PowerShellVersion').returns('2.0')
         Win32::Registry.any_instance.expects(:open).with('SOFTWARE\Microsoft\PowerShell\3\PowerShellEngine', Win32::Registry::KEY_READ | 0x100).raises(Win32::Registry::Error.new(2), 'nope').once
         Win32::Registry.any_instance.expects(:open).with('SOFTWARE\Microsoft\PowerShell\1\PowerShellEngine', Win32::Registry::KEY_READ | 0x100).yields(reg_key).once
@@ -70,8 +72,6 @@ describe PuppetX::PuppetLabs::Dsc::PowerShellVersion do
 
     it "should return nil and not throw" do
       skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
-      #reg_key = mock('bob')
-      #reg_key.expects(:[]).with('PowerShellVersion').returns('2.0')
       Win32::Registry.any_instance.expects(:open).with('SOFTWARE\Microsoft\PowerShell\3\PowerShellEngine', Win32::Registry::KEY_READ | 0x100).raises(Win32::Registry::Error.new(2), 'nope').once
       Win32::Registry.any_instance.expects(:open).with('SOFTWARE\Microsoft\PowerShell\1\PowerShellEngine', Win32::Registry::KEY_READ | 0x100).raises(Win32::Registry::Error.new(2), 'nope').once
 

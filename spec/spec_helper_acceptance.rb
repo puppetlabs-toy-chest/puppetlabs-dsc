@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'lib/dsc_utils'
 require 'erb'
 require 'serverspec'
@@ -9,22 +10,22 @@ include PuppetLitmus
 def single_dsc_resource_manifest(dsc_type, dsc_props)
   output = "dsc_#{dsc_type} {'#{dsc_type}_test':\n"
   dsc_props.each do |k, v|
-    if v =~ /^\[.*\]$/
-      output += "  #{k} => #{v},\n"
-    elsif v =~ /^(true|false)$/
-      output += "  #{k} => #{v},\n"
-    elsif v =~ /^{.*}$/
-      output += "  #{k} => #{v},\n"
-    else
-      output += "  #{k} => '#{v}',\n"
-    end
+    output += if v =~ %r{^\[.*\]$}
+                "  #{k} => #{v},\n"
+              elsif v =~ %r{^(true|false)$}
+                "  #{k} => #{v},\n"
+              elsif v =~ %r{^{.*}$}
+                "  #{k} => #{v},\n"
+              else
+                "  #{k} => '#{v}',\n"
+              end
   end
   output += "}\n"
-  return output
+  output
 end
 
 def create_windows_file(folder_path, file_name, content)
-  content = content.gsub(/\"/, "'")
+  content = content.tr('"', "'")
   manifest = <<-FileManifest
     file{"#{folder_path}":
       ensure => directory,
@@ -38,14 +39,14 @@ def create_windows_file(folder_path, file_name, content)
 end
 
 def strip_crln(input_string)
-  input_string.to_s.gsub("\n", '').gsub("\r", '')
+  input_string.to_s.delete("\n").delete("\r")
 end
 
 def escape_value(value)
   if is_number?(value)
     value
   else
-    "'#{value.to_s.gsub("'","''")}\'"
+    "'#{value.to_s.gsub("'", "''")}\'"
   end
 end
 

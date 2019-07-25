@@ -6,13 +6,13 @@ if Puppet::Util::Platform.windows?
 end
 
 Puppet::Type.type(:base_dsc).provide(:powershell) do
-  confine :operatingsystem => :windows
-  defaultfor :operatingsystem => :windows
+  confine operatingsystem: :windows
+  defaultfor operatingsystem: :windows
 
-  commands :powershell =>
-    if File.exists?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
+  commands powershell:
+    if File.exist?("#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe")
       "#{ENV['SYSTEMROOT']}\\sysnative\\WindowsPowershell\\v1.0\\powershell.exe"
-    elsif File.exists?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
+    elsif File.exist?("#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe")
       "#{ENV['SYSTEMROOT']}\\system32\\WindowsPowershell\\v1.0\\powershell.exe"
     else
       'powershell.exe'
@@ -22,7 +22,7 @@ Puppet::Type.type(:base_dsc).provide(:powershell) do
 Applies DSC Resources by generating a configuration file and applying it.
 EOT
 
-  PUPPET_UPGRADE_MSG = <<-UPGRADE
+  PUPPET_UPGRADE_MSG = <<-UPGRADE.freeze
   Currently, the dsc module has reduced functionality on this agent
   due to one or more of the following conditions:
   - Puppet 3.x (non-x64 version)
@@ -34,7 +34,7 @@ EOT
   Puppet (including 3.x), or to a Puppet version newer than 3.x.
   UPGRADE
 
-  DSC_MODULE_POWERSHELL_UPGRADE_MSG = <<-UPGRADE
+  DSC_MODULE_POWERSHELL_UPGRADE_MSG = <<-UPGRADE.freeze
   Currently, the dsc module has reduced functionality on this agent
   due to one or more of the following conditions:
   - A PowerShell less than 5.0
@@ -47,7 +47,7 @@ EOT
   UPGRADE
 
   def self.upgrade_message
-    Puppet.warning PUPPET_UPGRADE_MSG if !@upgrade_warning_issued
+    Puppet.warning PUPPET_UPGRADE_MSG unless @upgrade_warning_issued
     @upgrade_warning_issued = true
   end
 
@@ -57,7 +57,7 @@ EOT
 
   def dsc_parameters
     resource.parameters_with_value.select do |p|
-      p.name.to_s =~ /dsc_/
+      p.name.to_s =~ %r{dsc_}
     end
   end
 
@@ -67,17 +67,17 @@ EOT
 
   def self.powershell_args
     ps_args = ['-NoProfile', '-NonInteractive', '-NoLogo', '-ExecutionPolicy', 'Bypass']
-    ps_args << '-Command' if !PuppetX::Dsc::PowerShellManager.supported?
+    ps_args << '-Command' unless PuppetX::Dsc::PowerShellManager.supported?
     ps_args
   end
 
   def ps_manager
     debug_output = Puppet::Util::Log.level == :debug
-    manager_args = "#{command(:powershell)} #{self.class.powershell_args().join(' ')}"
+    manager_args = "#{command(:powershell)} #{self.class.powershell_args.join(' ')}"
     PuppetX::Dsc::PowerShellManager.instance(manager_args, debug_output)
   end
 
-  COMMAND_TIMEOUT = 1200000 # 20 minutes
+  COMMAND_TIMEOUT = 1_200_000 # 20 minutes
 
   def exists?
     version = Facter.value(:powershell_version)
@@ -85,7 +85,7 @@ EOT
     script_content = ps_script_content('test')
     Puppet.debug "\n" + self.class.redact_content(script_content)
 
-    fail DSC_MODULE_POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
+    raise DSC_MODULE_POWERSHELL_UPGRADE_MSG unless PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
 
     if !PuppetX::Dsc::PowerShellManager.supported?
       self.class.upgrade_message
@@ -95,10 +95,10 @@ EOT
     end
     Puppet.debug "Dsc Resource returned: #{output}"
     data = JSON.parse(output)
-    fail(data['errormessage']) if !data['errormessage'].empty?
+    raise data['errormessage'] unless data['errormessage'].empty?
     exists = data['indesiredstate']
     Puppet.debug "Dsc Resource Exists?: #{exists}"
-    Puppet.debug "dsc_ensure: #{resource[:dsc_ensure]}" if resource.parameters.has_key?(:dsc_ensure)
+    Puppet.debug "dsc_ensure: #{resource[:dsc_ensure]}" if resource.parameters.key?(:dsc_ensure)
     Puppet.debug "ensure: #{resource[:ensure]}"
     exists
   end
@@ -107,7 +107,7 @@ EOT
     script_content = ps_script_content('set')
     Puppet.debug "\n" + self.class.redact_content(script_content)
 
-    fail DSC_MODULE_POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
+    raise DSC_MODULE_POWERSHELL_UPGRADE_MSG unless PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
 
     if !PuppetX::Dsc::PowerShellManager.supported?
       self.class.upgrade_message
@@ -118,7 +118,7 @@ EOT
     Puppet.debug "Create Dsc Resource returned: #{output}"
     data = JSON.parse(output)
 
-    fail(data['errormessage']) if !data['errormessage'].empty?
+    raise data['errormessage'] unless data['errormessage'].empty?
 
     notify_reboot_pending if data['rebootrequired'] == true
 
@@ -129,7 +129,7 @@ EOT
     script_content = ps_script_content('set')
     Puppet.debug "\n" + self.class.redact_content(script_content)
 
-    fail DSC_MODULE_POWERSHELL_UPGRADE_MSG if !PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
+    raise DSC_MODULE_POWERSHELL_UPGRADE_MSG unless PuppetX::Dsc::PowerShellManager.compatible_version_of_powershell?
 
     if !PuppetX::Dsc::PowerShellManager.supported?
       self.class.upgrade_message
@@ -140,7 +140,7 @@ EOT
     Puppet.debug "Destroy Dsc Resource returned: #{output}"
     data = JSON.parse(output)
 
-    fail(data['errormessage']) if !data['errormessage'].empty?
+    raise data['errormessage'] unless data['errormessage'].empty?
 
     notify_reboot_pending if data['rebootrequired'] == true
 
@@ -148,7 +148,7 @@ EOT
   end
 
   def notify_reboot_pending
-    Puppet.info "A reboot is required to progress further. Notifying Puppet."
+    Puppet.info 'A reboot is required to progress further. Notifying Puppet.'
 
     reboot_resource = resource.catalog.resource(:reboot, 'dsc_reboot')
     unless reboot_resource
@@ -160,29 +160,28 @@ EOT
       # internal API used to let reboot resource knows a reboot is pending
       reboot_resource.provider.reboot_required = true
     else
-      Puppet.warning "Reboot module must be updated, since resource does not have :reboot_required method implemented. Cannot signal reboot to Puppet."
+      Puppet.warning 'Reboot module must be updated, since resource does not have :reboot_required method implemented. Cannot signal reboot to Puppet.'
       return
     end
   end
 
   def self.format_dsc_value(dsc_value)
-    case
-    when dsc_value.class.name == 'String'
+    if dsc_value.class.name == 'String'
       "'#{escape_quotes(dsc_value)}'"
-    when dsc_value.class.ancestors.include?(Numeric)
-      "#{dsc_value}"
-    when [:true, :false].include?(dsc_value)
-      "$#{dsc_value.to_s}"
-    when ['trueclass','falseclass'].include?(dsc_value.class.name.downcase)
-      "$#{dsc_value.to_s}"
-    when dsc_value.class.name == 'Array'
-      "@(" + dsc_value.collect{|m| format_dsc_value(m)}.join(', ') + ")"
-    when dsc_value.class.name == 'Hash'
-      "@{" + dsc_value.collect{|k, v| format_dsc_value(k) + ' = ' + format_dsc_value(v)}.join('; ') + "}"
-    when dsc_value.class.name == 'Puppet::Pops::Types::PSensitiveType::Sensitive'
+    elsif dsc_value.class.ancestors.include?(Numeric)
+      dsc_value.to_s
+    elsif [:true, :false].include?(dsc_value)
+      "$#{dsc_value}"
+    elsif ['trueclass', 'falseclass'].include?(dsc_value.class.name.downcase)
+      "$#{dsc_value}"
+    elsif dsc_value.class.name == 'Array'
+      '@(' + dsc_value.map { |m| format_dsc_value(m) }.join(', ') + ')'
+    elsif dsc_value.class.name == 'Hash'
+      '@{' + dsc_value.map { |k, v| format_dsc_value(k) + ' = ' + format_dsc_value(v) }.join('; ') + '}'
+    elsif dsc_value.class.name == 'Puppet::Pops::Types::PSensitiveType::Sensitive'
       "'#{escape_quotes(dsc_value.unwrap)}' <# PuppetSensitive #>"
     else
-      fail "unsupported type #{dsc_value.class} of value '#{dsc_value}'"
+      raise "unsupported type #{dsc_value.class} of value '#{dsc_value}'"
     end
   end
 
@@ -198,7 +197,7 @@ EOT
     # Every secret unwrapped in this module will unwrap as "'secret' <# PuppetSensitive #>" and, currently,
     # always inside a hash table to be passed along. This means we can (currently) expect the value to
     # always come after an equals sign.
-    content.gsub(/= ((?!' ; ').)+? <# PuppetSensitive #>/,"= '[REDACTED]'")
+    content.gsub(%r{= ((?!' ; ').)+? <# PuppetSensitive #>}, "= '[REDACTED]'")
   end
 
   def ps_script_content(mode)
@@ -208,7 +207,7 @@ EOT
   def self.ps_script_content(mode, resource, provider)
     dsc_invoke_method = mode
     @param_hash = resource
-    file = File.new(template_path + "/invoke_dsc_resource.ps1.erb", :encoding => Encoding::UTF_8)
+    file = File.new(template_path + '/invoke_dsc_resource.ps1.erb', encoding: Encoding::UTF_8)
     template = ERB.new(file.read, nil, '-')
     template.result(binding)
   end

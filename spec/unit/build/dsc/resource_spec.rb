@@ -12,51 +12,51 @@ def create_mock_cim_class(name, friendlyname)
 end
 
 describe 'Dsc::Resource' do
-  let(:subject) { Dsc::Resource.new(mof_class, mof_path) }
+  let(:dsc_resource) { Dsc::Resource.new(mof_class, mof_path) }
 
   describe '#ps_module' do
     context 'with a default style DSC Resource module' do
       let(:mof_class) { create_mock_cim_class('default', 'defaultfriendly') }
-      let(:mof_path) { File.join(fixture_path, 'dsc_modules', 'default', 'DSCResources')}
+      let(:mof_path) { File.join(fixture_path, 'dsc_modules', 'default', 'DSCResources') }
 
-      it 'should create a PS Module object' do
-        result = subject.ps_module
+      it 'creates a PS Module object' do
+        result = dsc_resource.ps_module
 
         expect(result.name).to eq('default')
-        expect(result.module_manifest_path).to match(/\/default.psd1$/)
+        expect(result.module_manifest_path).to match(%r{\/default.psd1$})
       end
     end
 
     context 'with a PSD1 file which has different casing than the DSC Resource module ' do
       let(:mof_class) { create_mock_cim_class('mixedCase', 'mixedCasefriendly') }
-      let(:mof_path) { File.join(fixture_path, 'dsc_modules', 'mixedCase', 'DSCResources')}
+      let(:mof_path) { File.join(fixture_path, 'dsc_modules', 'mixedCase', 'DSCResources') }
 
-      it 'should create a PS Module object' do
-        result = subject.ps_module
+      it 'creates a PS Module object' do
+        result = dsc_resource.ps_module
 
         expect(result.name).to eq('mixedCase')
-        expect(result.module_manifest_path).to match(/\/MIXEDCase.psd1$/)
+        expect(result.module_manifest_path).to match(%r{\/MIXEDCase.psd1$})
       end
     end
 
     context 'with a multiple PSD1 files which have different casing than the DSC Resource module ' do
       let(:mof_class) { create_mock_cim_class('multiCase', 'multiCasefriendly') }
-      let(:mof_path) { File.join(fixture_path, 'dsc_modules', 'multiCase', 'DSCResources')}
+      let(:mof_path) { File.join(fixture_path, 'dsc_modules', 'multiCase', 'DSCResources') }
 
-      it 'should create a PS Module object' do
-        result = subject.ps_module
+      it 'creates a PS Module object' do
+        result = dsc_resource.ps_module
 
         expect(result.name).to eq('multiCase')
-        expect(result.module_manifest_path).to match(/\/MuLTICase.psd1$/)
+        expect(result.module_manifest_path).to match(%r{\/MuLTICase.psd1$})
       end
     end
 
     context 'with no PSD1 file in the DSC Resource module ' do
       let(:mof_class) { create_mock_cim_class('missing', 'missingfriendly') }
-      let(:mof_path) { File.join(fixture_path, 'dsc_modules', 'missing', 'DSCResources')}
+      let(:mof_path) { File.join(fixture_path, 'dsc_modules', 'missing', 'DSCResources') }
 
-      it 'should raise error' do
-        expect { subject.ps_module }.to raise_error(/module manifest .+ not found/)
+      it 'raises an error' do
+        expect { dsc_resource.ps_module }.to raise_error(%r{module manifest .+ not found})
       end
     end
   end
