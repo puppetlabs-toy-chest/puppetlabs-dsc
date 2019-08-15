@@ -1,0 +1,86 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+name: Build
+
+trigger:
+- master
+
+jobs:
+
+- job:
+  pool:
+    vmImage: 'vs2017-win2016'
+  strategy:
+    matrix:
+
+      Static_Checks:
+        RUBY_VERSION: 2.4.5
+        CHECK: syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop
+
+      Puppet5-Ruby24-Unit:
+        PUPPET_GEM_VERSION: ~> 5.0
+        RUBY_VERSION: 2.4.5
+        CHECK: parallel_spec
+
+      Puppet6-Ruby25-Unit:
+        PUPPET_GEM_VERSION: ~> 6.0
+        RUBY_VERSION: 2.5.3
+        CHECK: parallel_spec
+
+  steps:
+    - task: UseRubyVersion@0
+      inputs:
+        versionSpec: $(RUBY_VERSION)
+        addToPath: true
+      displayName: Add Ruby $(RUBY_VERSION) to path
+
+    - pwsh: |
+        gem install bundler
+        ruby -v
+        gem -v
+        bundle -v
+        bundle install --jobs 4 --retry 2 --without system_tests build --path .bundle/gems
+        Get-Content Gemfile.lock
+      displayName: Install Bundle
+
+    - pwsh: |
+        bundle exec puppet -V
+        ruby -v
+        gem -v
+        bundle -v
+        $env:CHECK -split ' ' |
+          Foreach-Object -Process { bundle exec rake $_ }
+      displayName: Run Tests
+
+- job: Acceptance
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  steps:
+  - task: UseRubyVersion@0
+    inputs:
+      versionSpec: '2.5.3'
+      addToPath: true
+    displayName: Add Ruby 2.5 to path
+
+  - pwsh: |
+      gem install bundler
+      ruby -v
+      gem -v
+      bundle -v
+      bundle install --jobs 4 --retry 2 --without system_tests build --path .bundle/gems
+      Get-Content Gemfile.lock
+    displayName: Install Bundle
+    env:
+      TARGET_HOST: localhost
+
+  - pwsh: |
+      bundle exec rake spec_prep
+      write-host $(Build.Repository.LocalPath)
+      bundle exec rspec spec/acceptance
+    displayName: Run Litmus acceptance
+    env:
+      TARGET_HOST: localhost
