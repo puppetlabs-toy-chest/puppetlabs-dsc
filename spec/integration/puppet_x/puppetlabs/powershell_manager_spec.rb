@@ -760,4 +760,40 @@ $bytes_in_k = (1024 * 64) + 1
     end
   end
 
+  describe 'when the manager checks calls the invalid_lib_paths? function' do
+    it 'returns false if there is no lib environment variable defined' do
+      skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
+      expect(manager.invalid_lib_paths?(nil)).to be false
+    end
+
+    it 'returns false if one valid path is provided' do
+      skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
+      expect(manager.invalid_lib_paths?('c:\\windows')).to be false
+    end
+
+    it 'returns false if a collection of valid paths is provided' do
+      skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
+      expect(manager.invalid_lib_paths?('c:\\;c:\\windows')).to be false
+    end
+
+    it 'returns true if there is only one path and it is invalid' do
+      skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
+      expect(manager.invalid_lib_paths?('c:\\notavalidpath')).to be true
+    end
+
+    it 'returns true if the collection has on valid and one invalid member' do
+      skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
+      expect(manager.invalid_lib_paths?('c:\\windows;c:\\notavalidpath')).to be true
+    end
+
+    it 'returns false if empty string' do
+      skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
+      expect(manager.invalid_lib_paths?('')).to be false
+    end
+
+    it 'returns false if collection has empty members' do
+      skip ('Not on Windows platform') unless Puppet::Util::Platform.windows?
+      expect(manager.invalid_lib_paths?('c:\\windows;;;')).to be false
+    end
+  end
 end
