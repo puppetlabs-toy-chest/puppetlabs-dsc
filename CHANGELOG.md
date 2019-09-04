@@ -6,17 +6,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ## [Unreleased]
 
+## [1.9.3] - 2019-09-09
+
 ### Added
 
 - Added a note to the readme specifying the exact PowerShell version required for the module to function ([MODULES-7762](https://tickets.puppetlabs.com/browse/MODULES-7762))
+- Check for valid paths in $env:lib variable ([MODULES-8171](https://tickets.puppetlabs.com/browse/MODULES-8171))
 
 ### Changed
 
-- Increase the named pipe timeout to 180 seconds to prevent runs from failing waiting for a pipe to open ([MODULES-9087](https://tickets.puppetlabs.com/browse/MODULES-9087)).
+- Increase the named pipe timeout to 180 seconds to prevent runs from failing waiting for a pipe to open ([MODULES-9085](https://tickets.puppetlabs.com/browse/MODULES-9085)).
 
 ### Fixed
 
 - Links to DSC resources in the [Types](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/types.md) documentation ([MODULES-8772](https://tickets.puppetlabs.com/browse/MODULES-8772)).
+- Fix the function that checks the $env:lib variable for invalid paths. ([MODULES-9800](https://tickets.puppetlabs.com/browse/MODULES-9800))
 
 ## [1.9.2] - 2019-04-24
 
