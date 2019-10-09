@@ -1,7 +1,7 @@
 {
   "name": "puppetlabs-dsc",
   "version": "1.9.3",
-  "author": "Puppet Inc",
+  "author": "puppetlabs",
   "summary": "PowerShell Desired State Configuration (DSC)",
   "license": "Apache-2.0",
   "source": "https://github.com/puppetlabs/puppetlabs-dsc",
@@ -39,7 +39,7 @@
     "desired-state-configuration",
     "dsc"
   ],
-  "pdk-version": "1.11.1",
+  "pdk-version": "1.13.0",
   "template-url": "https://github.com/puppetlabs/pdk-templates#master",
-  "template-ref": "heads/master-0-gb096033"
+  "template-ref": "tags/1.14.0-0-g1bf3a4e"
 }

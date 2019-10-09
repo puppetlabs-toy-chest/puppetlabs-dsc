@@ -38,6 +38,10 @@ Gemfile:
       - gem: 'rspec-puppet'
         platforms: ["mswin", "mingw", "x64_mingw"]
         version: '< 2.6.0'
+      - gem: 'github_changelog_generator'
+        git: 'https://github.com/skywinder/github-changelog-generator'
+        ref: '20ee04ba1234e9e83eb2ffb5056e23d641c7a018'
+        condition: "Gem::Version.new(RUBY_VERSION.dup) >= Gem::Version.new('2.2.2')"        
 
 .rubocop.yml:
   default_configs:
@@ -55,10 +59,6 @@ Gemfile:
       Include:
         - lib/puppet/type/base_dsc.rb
         - spec/unit/puppet/type/base_dsc_spec.rb
-
-# The rakefile is heavily modified for the build process
-Rakefile:
-  unmanaged: true
 
 spec/default_facts.yml:
   unmanaged: true
