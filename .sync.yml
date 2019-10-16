@@ -64,8 +64,7 @@ spec/default_facts.yml:
   unmanaged: true
 
 spec/spec_helper.rb:
-  mock_with: ':rspec'
-  coverage_report: true
+  mock_with: rspec
 
 # We've modified the appveyor.yml significantly in order to run acceptance tests
 appveyor.yml:
