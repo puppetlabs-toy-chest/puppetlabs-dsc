@@ -24,3 +24,5 @@
 .DS_Store
 .envrc
 /inventory.yaml
+import
+!build/vendor/
