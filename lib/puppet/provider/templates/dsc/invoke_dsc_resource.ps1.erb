@@ -35,6 +35,8 @@ $invokeParams = @{
     <%- name = p.name.to_s.gsub(/^dsc_/,'')
     if name == 'ensure' && dsc_invoke_method == 'test'
       value = "\'#{resource.parameters[:ensure].default.to_s}\'"
+    elsif p.mof_type == 'datetime'
+      value = "[System.DateTime]#{format_dsc_value(p.value)}"
     elsif p.mof_type == 'MSFT_Credential'
       value = "[PSCustomObject]#{format_dsc_value(p.value)} | new-pscredential"
     elsif p.mof_is_embedded? && p.mof_type != 'MSFT_KeyValuePair'
