@@ -19,11 +19,11 @@ describe 'Apply DSC "File" resource' do
     let(:dsc_destinationpath) { "C:/#{work_dir}/test1.file" }
 
     before(:each) do
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"New-Item -Path 'C:/#{work_dir}' -ItemType 'directory'\"")
+      run_shell("New-Item -Path 'C:/#{work_dir}' -ItemType 'directory'")
     end
 
     after(:each) do
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{work_dir} -Force -Recurse\"", expect_failures: true)
+      run_shell("Remove-Item -path C:/#{work_dir} -Force -Recurse", expect_failures: true)
     end
 
     it "creates and remove a file resource on #{ENV['TARGET_HOST']}" do
@@ -66,7 +66,7 @@ describe 'Apply DSC "File" resource' do
     end
 
     after(:each) do
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{work_dir} -Force -Recurse\"", expect_failures: true)
+      run_shell("Remove-Item -path C:/#{work_dir} -Force -Recurse", expect_failures: true)
     end
 
     it "creates a destination file from the source file on #{ENV['TARGET_HOST']}" do
@@ -79,7 +79,7 @@ describe 'Apply DSC "File" resource' do
 
       apply_manifest(dsc_manifest)
 
-      result = run_shell("powershell.exe -NoProfile -Nologo -Command \"cat C:/#{work_dir}/#{destinationpath}\"")
+      result = run_shell("cat C:/#{work_dir}/#{destinationpath}")
       expect(result.stdout).to match(source_file_contents)
     end
   end
@@ -100,13 +100,13 @@ describe 'Apply DSC "File" resource' do
         }
         dsc_manifest = single_dsc_resource_manifest(dsc_resource, dsc_props)
 
-        run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{work_dir} -Force -Recurse\"", expect_failures: true)
+        run_shell("Remove-Item -path C:/#{work_dir} -Force -Recurse", expect_failures: true)
 
         create_windows_file("C:/#{work_dir}/", test_manifest_name, dsc_manifest)
       end
 
       after(:each) do
-        run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{work_dir} -Force -Recurse\"", expect_failures: true)
+        run_shell("Remove-Item -path C:/#{work_dir} -Force -Recurse", expect_failures: true)
       end
 
       it 'does not scramble UTF8 content in the destination file' do
@@ -115,7 +115,7 @@ describe 'Apply DSC "File" resource' do
         end
 
         # Powershell SHA256 hash
-        md5_result = run_shell("powershell.exe -NoProfile -Nologo -Command \"Get-FileHash C:/#{work_dir}/#{test_file_name}\"")
+        md5_result = run_shell("Get-FileHash C:/#{work_dir}/#{test_file_name}")
         test_file_md5_sum_regex = %r{A57D8BFFBA5EEF3BC09FC7B692046479F928B5254D94F313ED33ECC53B41}
 
         expect(md5_result.stdout).to match(test_file_md5_sum_regex)
@@ -139,12 +139,12 @@ describe 'Apply DSC "File" resource' do
       end
 
       after(:each) do
-        run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{work_dir} -Force -Recurse\"", expect_failures: true)
+        run_shell("Remove-Item -path C:/#{work_dir} -Force -Recurse", expect_failures: true)
       end
 
       it "creates a file with Unicode characters in the name on #{ENV['TARGET_HOST']}" do
         run_shell("puppet apply C:/#{work_dir}/#{test_manifest_name}")
-        run_shell("powershell.exe -NoProfile -Nologo -Command \"Test-Path C:/#{work_dir}/#{test_file_name}\"") do |result|
+        run_shell("Test-Path C:/#{work_dir}/#{test_file_name}") do |result|
           expect(result.stdout).to match(%r{True})
         end
       end
@@ -171,7 +171,7 @@ describe 'Apply DSC "File" resource' do
       end
 
       after(:each) do
-        run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{work_dir} -Force -Recurse\"", expect_failures: true)
+        run_shell("Remove-Item -path C:/#{work_dir} -Force -Recurse", expect_failures: true)
       end
 
       it "creates a file with Unicode characters in the SourcePath on #{ENV['TARGET_HOST']}" do

@@ -18,11 +18,11 @@ describe 'Apply DSC "File" (directory) resource' do
     let(:dsc_destinationpath) { 'C:/test_dir' }
 
     before(:each) do
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -Path #{dsc_destinationpath} -Force -Recurse\"", expect_failures: true)
+      run_shell("Remove-Item -Path #{dsc_destinationpath} -Force -Recurse", expect_failures: true)
     end
 
     after(:each) do
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -Path #{dsc_destinationpath} -Force -Recurse\"", expect_failures: true)
+      run_shell("Remove-Item -Path #{dsc_destinationpath} -Force -Recurse", expect_failures: true)
     end
 
     it "should create and remove a directory resource on #{ENV['TARGET_HOST']}" do
@@ -60,17 +60,17 @@ describe 'Apply DSC "File" (directory) resource' do
     let(:test_dirs) { Array.new(3) { |n| "sub_dir_test_#{n}" } }
 
     before(:each) do
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"New-Item -Path 'C:/#{sourcepath}' -ItemType 'directory'\"")
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"New-Item -Path 'C:/#{sourcepath}/#{test_dirs[0]}' -ItemType 'directory'\"")
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"New-Item -Path 'C:/#{sourcepath}/#{test_dirs[1]}' -ItemType 'directory'\"")
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"New-Item -Path 'C:/#{sourcepath}/#{test_dirs[2]}' -ItemType 'directory'\"")
+      run_shell("New-Item -Path 'C:/#{sourcepath}' -ItemType 'directory'")
+      run_shell("New-Item -Path 'C:/#{sourcepath}/#{test_dirs[0]}' -ItemType 'directory'")
+      run_shell("New-Item -Path 'C:/#{sourcepath}/#{test_dirs[1]}' -ItemType 'directory'")
+      run_shell("New-Item -Path 'C:/#{sourcepath}/#{test_dirs[2]}' -ItemType 'directory'")
 
       run_shell("Remove-Item -path C:/temp/#{destinationpath} -Force -Recurse", expect_failures: true)
     end
 
     after(:each) do
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{sourcepath} -Force -Recurse\"", expect_failures: true)
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{destinationpath} -Force -Recurse\"", expect_failures: true)
+      run_shell("Remove-Item -path C:/#{sourcepath} -Force -Recurse", expect_failures: true)
+      run_shell("Remove-Item -path C:/#{destinationpath} -Force -Recurse", expect_failures: true)
     end
 
     it "creates directories from source to destination recursively on #{ENV['TARGET_HOST']}" do
@@ -86,7 +86,7 @@ describe 'Apply DSC "File" (directory) resource' do
       apply_manifest(dsc_manifest, expect_changes: true)
 
       test_dirs.each do |testdir|
-        run_shell("powershell.exe -NoProfile -Nologo -Command \"Test-Path C:/#{destinationpath}/#{testdir}\"") do |result|
+        run_shell("Test-Path C:/#{destinationpath}/#{testdir}") do |result|
           expect(result.stdout).to match(%r{True})
         end
       end
@@ -109,8 +109,8 @@ describe 'Apply DSC "File" (directory) resource' do
     end
 
     after(:each) do
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/#{test_dir_name} -Force -Recurse\"", expect_failures: true)
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"Remove-Item -path C:/temp/#{test_manifest_name} -Force -Recurse\"", expect_failures: true)
+      run_shell("Remove-Item -path C:/#{test_dir_name} -Force -Recurse", expect_failures: true)
+      run_shell("Remove-Item -path C:/temp/#{test_manifest_name} -Force -Recurse", expect_failures: true)
     end
 
     it "should create a directory with Unicode characters in the name on #{ENV['TARGET_HOST']}" do
@@ -118,7 +118,7 @@ describe 'Apply DSC "File" (directory) resource' do
         expect(result.stderr).not_to match(%r{Error:})
       end
 
-      run_shell("powershell.exe -NoProfile -Nologo -Command \"Test-Path C:/#{test_dir_name}\"") do |result|
+      run_shell("Test-Path C:/#{test_dir_name}") do |result|
         expect(result.stdout).to match(%r{True})
       end
     end
