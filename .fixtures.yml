@@ -4,6 +4,6 @@ fixtures:
   symlinks:
     "dsc": "#{source_dir}"
   repositories:
-    facts: 'git://github.com/puppetlabs/puppetlabs-facts.git'
-    puppet_agent: 'git://github.com/puppetlabs/puppetlabs-puppet_agent.git'
-    provision: 'git://github.com/puppetlabs/provision.git'
+    facts: 'https://github.com/puppetlabs/puppetlabs-facts.git'
+    puppet_agent: 'https://github.com/puppetlabs/puppetlabs-puppet_agent.git'
+    provision: 'https://github.com/puppetlabs/provision.git'
