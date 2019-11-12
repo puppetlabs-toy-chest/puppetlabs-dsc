@@ -38,10 +38,6 @@ RSpec.configure do |c|
     Puppet.settings[:strict] = :warning
   end
   c.filter_run_excluding(bolt: true) unless ENV['GEM_BOLT']
-  # PLEASE NOTE: Running 'pdk update' will remove this line and require
-  # an addition to .sync.yml to retain it. This uncovered a number of
-  # subsequent issues outlined here in MODULES-9594.
-  c.mock_with :rspec
   c.after(:suite) do
   end
 end
