@@ -170,7 +170,7 @@ function Set-TargetResource
     write-verbose "Adding server '$($Server.ToLower())' as $Role to the deployment on '$($ConnectionBroker.ToLower())'..."
 
     # validate parameters
-    ValidateCustomModeParameters -Role $Role -GateewayExternalFqdn $GatewayExternalFqdn
+    ValidateCustomModeParameters -Role $Role -GatewayExternalFqdn $GatewayExternalFqdn
 
     if ($Role -eq 'RDS-Gateway') 
     {
