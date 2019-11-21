@@ -1,7 +1,5 @@
 ---
 ".gitignore":
-  required:
-  - "---.project"
   paths:
   - import
   - "!build/vendor/"
