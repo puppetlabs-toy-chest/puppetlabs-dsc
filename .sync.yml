@@ -61,3 +61,6 @@ Rakefile:
   unmanaged: true
 spec/default_facts.yml:
   unmanaged: true
+spec/spec_helper.rb:
+  unmanaged: true
+  coverage_report: true
