@@ -21,6 +21,8 @@
       Include:
       - lib/puppet/type/base_dsc.rb
       - spec/unit/puppet/type/base_dsc_spec.rb
+".travis.yml":
+  simplecov: true
 appveyor.yml:
   unmanaged: true
 Gemfile:
