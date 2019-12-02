@@ -97,5 +97,5 @@ Gemfile:
 Rakefile:
   unmanaged: true
 spec/spec_helper.rb:
-  unmanaged: true
+  mock_with: ':rspec'
   coverage_report: true

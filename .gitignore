@@ -25,5 +25,10 @@
 .project
 .envrc
 /inventory.yaml
+bin
 import
+.tmp
+.rbenv-gemsets
+.ruby-version
+*.lock
 !build/vendor/
