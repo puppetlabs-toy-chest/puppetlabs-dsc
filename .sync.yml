@@ -22,6 +22,8 @@
       - lib/puppet/type/base_dsc.rb
       - spec/unit/puppet/type/base_dsc_spec.rb
 ".travis.yml":
+  deploy_to_forge:
+    enabled: false
   simplecov: true
 appveyor.yml:
   unmanaged: true
