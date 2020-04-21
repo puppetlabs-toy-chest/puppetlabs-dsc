@@ -109,7 +109,7 @@ Puppet::Type.newtype(:dsc_xremotefile) do
   # IsMandatory:  False
   # Values:       None
   newparam(:dsc_headers) do
-    def mof_type; 'MSFT_KeyValuePair[]' end
+    def mof_type; 'MSFT_KeyValuePair' end
     def mof_is_embedded?; true end
     desc "Headers - Headers of the web request."
     validate do |value|
