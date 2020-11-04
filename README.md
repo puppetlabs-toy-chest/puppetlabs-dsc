@@ -343,7 +343,7 @@ All [Puppet metaparameters](https://docs.puppet.com/references/latest/metaparame
 
 ### Types
 
-A comprehensive list of all types included in the dsc module is available in the [types document](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/types.md). This list maps each Puppet resource (for example, `dsc_xcertreq`) to the corresponding DSC resource.
+A comprehensive list of all types included in the dsc module is available in the [types document](https://github.com/puppetlabs/puppetlabs-dsc/blob/main/types.md). This list maps each Puppet resource (for example, `dsc_xcertreq`) to the corresponding DSC resource.
 
 Because types are built from the source code of each DSC Resources MOF schema files, the name of the DSC resource in the types document links to a local copy of that resource code (in this case, `xCertReq`), so that you can see how the code is applied to your system.
 
@@ -419,7 +419,7 @@ Where available, a link to the external GitHub repo of each resource is also inc
 
 - Use `ensure` instead of `dsc_ensure` - `ensure => absent` will report success while doing nothing - see [MODULES-2966](https://tickets.puppet.com/browse/MODULES-2966) for details. Also see [Using DSC Resources with Puppet](#using-dsc-resources-with-puppet).
 
-- When installing the module on Windows you might run into an issue regarding long file names (LFN) due to the long paths of the generated schema files. If you install your module on a Linux master, and then use plugin sync you will likely not see this issue. If you are attempting to install the module on a Windows machine using `puppet module install puppetlabs-dsc` you may run into an error that looks similar to the following:
+- When installing the module on Windows you might run into an issue regarding long file names (LFN) due to the long paths of the generated schema files. If you install your module on a Linux Puppet Server, and then use plugin sync you will likely not see this issue. If you are attempting to install the module on a Windows machine using `puppet module install puppetlabs-dsc` you may run into an error that looks similar to the following:
 
   ~~~puppet
   Error: No such file or directory @ rb_sysopen - C:/ProgramData/PuppetLabs/puppet/cache/puppet-module/cache/tmp-unpacker20150713-...mof
@@ -433,9 +433,9 @@ Where available, a link to the external GitHub repo of each resource is also inc
     `puppet module install puppetlabs-dsc --module_working_dir C:\Windows\Temp`
   - Download the `.tar.gz` from the [Forge](https://forge.puppet.com/puppetlabs/dsc) and use `puppet module install` using the downloaded file, rather than directly installing from the Forge.
 
-- Windows Server 2003 is not supported. **If this module is present on the master, it breaks Windows 2003 agents.**
+- Windows Server 2003 is not supported. **If this module is present on the Puppet Server, it breaks Windows 2003 agents.**
 
-  When installed on a Puppet master to the default `production` environment, this module causes pluginsync to **fail** on Windows 2003 agents because of an issue with [LFN (long file names)](https://tickets.puppet.com/browse/PUP-4866). To work around this issue, host your Windows 2003 nodes on a [Puppet environment](https://docs.puppet.com/puppet/latest/reference/environments.html) that is separate from `production` and that does **not** have the DSC module installed.
+  When installed on a Puppet Server to the default `production` environment, this module causes pluginsync to **fail** on Windows 2003 agents because of an issue with [LFN (long file names)](https://tickets.puppet.com/browse/PUP-4866). To work around this issue, host your Windows 2003 nodes on a [Puppet environment](https://docs.puppet.com/puppet/latest/reference/environments.html) that is separate from `production` and that does **not** have the DSC module installed.
 
 - `--noop` mode, `puppet resource` and property change notifications are currently not implemented - see [MODULES-2270](https://tickets.puppet.com/browse/MODULES-2270) for details.
 
@@ -540,8 +540,8 @@ If you submit a change to this module, be sure to regenerate the reference docum
 puppet strings generate --format markdown --out REFERENCE.md
 ```
 
-* The Puppet types are built from the source code of each DSC Resources MOF schema files. If you want to build the types, read the [Building DSC Resources readme](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/README_BUILD.md).
-* If you want the build Puppet types for your own custom DSC Resources, read [Building Puppet Types from Custom DSC Resources](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/README_BUILD.md#building-puppet-types-from-custom-dsc-resources) readme.
+* The Puppet types are built from the source code of each DSC Resources MOF schema files. If you want to build the types, read the [Building DSC Resources readme](https://github.com/puppetlabs/puppetlabs-dsc/blob/main/README_BUILD.md).
+* If you want the build Puppet types for your own custom DSC Resources, read [Building Puppet Types from Custom DSC Resources](https://github.com/puppetlabs/puppetlabs-dsc/blob/main/README_BUILD.md#building-puppet-types-from-custom-dsc-resources) readme.
 
 ### Version Strategy
 
@@ -549,7 +549,7 @@ This module generally follows [Semantic Versioning](http://semver.org/) for choo
 
 * Minor, for example from version 2.0.0 to 2.1.0
 
-A minor change may also include [rebuilding the DSC resource types](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/README_BUILD.md). Puppet wants to keep pace with the released DSC Resources from the PowerShell team repository, but this engenders risk as Puppet adopts third party code. Normally this would mean making major version bumps, but since this is anticipated to be frequent that would be too much churn.
+A minor change may also include [rebuilding the DSC resource types](https://github.com/puppetlabs/puppetlabs-dsc/blob/main/README_BUILD.md). Puppet wants to keep pace with the released DSC Resources from the PowerShell team repository, but this engenders risk as Puppet adopts third party code. Normally this would mean making major version bumps, but since this is anticipated to be frequent that would be too much churn.
 
 ### Contributors
 
@@ -578,4 +578,4 @@ There are several books available as well. Here are some selected books for refe
 
 * Copyright (c) 2014 Marc Sutter, original author
 * Copyright (c) 2015 - Present Puppet Inc
-* License: [Apache License, Version 2.0](https://github.com/puppetlabs/puppetlabs-dsc/blob/master/LICENSE)
+* License: [Apache License, Version 2.0](https://github.com/puppetlabs/puppetlabs-dsc/blob/main/LICENSE)
