@@ -1,9 +1,20 @@
+---
 default:
   provisioner: vmpooler
-  images: ['win-2012r2-wmf5-x86_64']
+  images:
+  - win-2012r2-wmf5-x86_64
 release_checks:
   provisioner: vmpooler
-  images: ['win-2012r2-wmf5-x86_64', 'win-2016-core-x86_64', 'win-2019-core-x86_64']
+  images:
+  - win-2012r2-wmf5-x86_64
+  - win-2016-core-x86_64
+  - win-2019-core-x86_64
 vagrant:
   provisioner: vagrant
-  images: ['gusztavvargadr/windows-server']
+  images:
+  - gusztavvargadr/windows-server
+release_checks_7:
+  provisioner: abs
+  images:
+  - win-2012r2-x86_64
+  - win-10-x86_64
