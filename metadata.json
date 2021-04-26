@@ -39,7 +39,7 @@
     "desired-state-configuration",
     "dsc"
   ],
-  "pdk-version": "1.17.0",
+  "pdk-version": "2.0.0",
   "template-url": "https://github.com/puppetlabs/pdk-templates#master",
-  "template-ref": "1.17.0-0-gd3a4319"
+  "template-ref": "remotes/origin/master-0-ga58fd92"
 }
